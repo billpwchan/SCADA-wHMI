@@ -1,0 +1,52 @@
+/* style for the pager */
+.project-UIWidgetDpcTagPager-root {
+	width: 100%;
+}
+
+.project-UIWidgetDpcTagPager-panel-Pager{
+	position: relative;
+	top: -35px;
+	text-align:center;
+	color: white;
+}
+
+.gwt-Button.project-UIWidgetDpcTagPager-button-FirstPage,
+.gwt-Button.project-UIWidgetDpcTagPager-button-FastBackwardPage,
+.gwt-Button.project-UIWidgetDpcTagPager-button-PreviousPage,
+.gwt-Button.project-UIWidgetDpcTagPager-button-NextPage,
+.gwt-Button.project-UIWidgetDpcTagPager-button-FastForwardPage,
+.gwt-Button.project-UIWidgetDpcTagPager-button-LastPage{
+	background-image: none;
+	box-shadow: none;
+	border: none;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	color: white;
+}
+
+.gwt-Button.project-UIWidgetDpcTagPager-button-FirstPage:hover,
+.gwt-Button.project-UIWidgetDpcTagPager-button-FastBackwardPage:hover,
+.gwt-Button.project-UIWidgetDpcTagPager-button-PreviousPage:hover,
+.gwt-Button.project-UIWidgetDpcTagPager-button-NextPage:hover,
+.gwt-Button.project-UIWidgetDpcTagPager-button-FastForwardPage:hover,
+.gwt-Button.project-UIWidgetDpcTagPager-button-LastPage:hover{
+	color: black;
+}
+
+.gwt-Button.project-UIWidgetDpcTagPager-button-FirstPage[disabled],
+.gwt-Button.project-UIWidgetDpcTagPager-button-FirstPage[disabled]:hover,
+.gwt-Button.project-UIWidgetDpcTagPager-button-FastBackwardPage[disabled],
+.gwt-Button.project-UIWidgetDpcTagPager-button-FastBackwardPage[disabled]:hover,
+.gwt-Button.project-UIWidgetDpcTagPager-button-PreviousPage[disabled],
+.gwt-Button.project-UIWidgetDpcTagPager-button-PreviousPage[disabled]:hover,
+.gwt-Button.project-UIWidgetDpcTagPager-button-NextPage[disabled],
+.gwt-Button.project-UIWidgetDpcTagPager-button-NextPage[disabled]:hover,
+.gwt-Button.project-UIWidgetDpcTagPager-button-FastForwardPage[disabled],
+.gwt-Button.project-UIWidgetDpcTagPager-button-FastForwardPage[disabled]:hover,
+.gwt-Button.project-UIWidgetDpcTagPager-button-LastPage[disabled],
+.gwt-Button.project-UIWidgetDpcTagPager-button-LastPage[disabled]:hover{
+	background-image: none;
+	box-shadow: none;
+	border: none;
+	color: grey;
+}

@@ -1,134 +1,97 @@
-"use strict";
-
-window.uieventaction = {
-	callJSByGWT : function(jsdata) {
-		var json = JSON.parse(jsdata);
-		if ( json.OperationString1 == "CallJSByGWT" ) {
-			var json2 = JSON.parse(json.OperationString2);
-			js2gwt(json2);
-		}
-	}
-}
-
-function js2gwt(json) {
-
-	var dumpmsg = "OperationAction: " + json.OperationAction
-	+ " OperationType: " + json.OperationType
-	+ " OperationString1: " + json.OperationString1
-	+ " OperationString2: " + json.OperationString2;
-	alert(dumpmsg);
-	
-	var jsonstring = JSON.stringify(json);
-
-	window.callGWTByJS(jsonstring);
-}
-
-function getFunctionName() {
-	const caller = (new Error().stack).split('\n')[2].split(' ')[5];
-	return caller;
-}
-
-function getCurrentTimeString() {
-	const curTime = new Date();
-	return '' + 
-		curTime.getFullYear() + '-' + (curTime.getMonth() + 1) + '-' + curTime.getDate() + ' ' +
-		curTime.getHours() + ':' + curTime.getMinutes() + ':' + curTime.getSeconds() + '.' +
-		curTime.getMilliseconds();
-}
-
-function periodicStyleProperties(properties, verbose = false) {
-	const funcName = '[' + getFunctionName() + ']';
-	const count = properties.length;
-	const propertyNames = [];
-	const propertyTimeoutMs = [];
-	const propertyValues = [];
-
-	if (verbose) {
-		console.debug(
-			getCurrentTimeString(),
-			funcName,
-			'Property count:',
-			count
-		);
-	}
-
-	try {
-		for (var i = 0; i < count; ++i) {
-			const property = properties[i];
-			propertyNames[i] = property[0];
-			propertyTimeoutMs[i] = property[1];
-			propertyValues[i] = ((property.length >= 3) ? property[2]:'none');
-			if (verbose) {
-				console.debug(
-					getCurrentTimeString(),
-					funcName,
-					'[' + i +']',
-					propertyNames[i] + ':',
-					propertyTimeoutMs[i],
-					'[' + propertyValues[i] + ']'
-				);
+window.EAL_PROJECT = window.EAL_PROJECT || (function(){
+	'use strict';
+	// auto logout settings
+	const autologout = {
+		'param': {
+			'settingReloadIntervalMs': 5 * 1000,
+			'verbosity': 1,
+			'idleWarningElementId': 'idle-warning'
+		},
+		'action': {
+			'showIdleWarning': () => {
+				console.log('[EAL_PROJECT]', '[showIdleWarning]');
+				const divWarn = document.createElement('div');
+				divWarn.id = autologout.param.idleWarningElementId;
+				divWarn.innerHTML =
+					'<div class="gwt-PopupPanel infoDialog-glass"></div>' +
+					'<div class="infoDialog-panel" style="left: 815px; top: 451px; visibility: visible; position: absolute; overflow: visible;">' +
+						'<div class="popupContent">' +
+							'<table cellspacing="0" cellpadding="0">' +
+								'<tbody>' +
+									'<tr><td align="left" style="vertical-align: top;"><div class="gwt-Label header-label">HMI Idle</div></td></tr>' +
+									'<tr><td align="left" style="vertical-align: top;"><div class="gwt-HTML message">HMI is idling and will soon be automatically logged out. Move the mouse to resume.</div></td></tr>' +
+								'</tbody>' +
+							'</table>' +
+						'</div>' +
+					'</div>';
+				document.body.appendChild(divWarn);
+			},
+			'removeIdleWarning': () => {
+				console.log('[EAL_PROJECT]', '[removeIdleWarning]');
+				const element = document.getElementById(autologout.param.idleWarningElementId);
+				element.parentNode.removeChild(element);
+			},
+			'logout': () => {
+				const j2gData = {
+					  'OperationType': 'action'
+					, 'OperationAction': 'opm'
+					, 'OperationString1': 'OpmLogout'
+					, 'OperationString2': 'UIOpmSCADAgen'
+				};
+				const j2gString = JSON.stringify(j2gData);
+				console.log('[EAL_PROJECT]', '[logout]', j2gString);
+				window.SCADAGEN.UIEVENTACTION.callGWTByJS(j2gString);
 			}
 		}
-	} catch (err) {
-		console.error(
-			getCurrentTimeString(),
-			funcName,
-			'Error in parsing parameter:',
-			err
-		);
-		return null;
-	}
+	};
 
-	const set = function(name, value = '') {
-		if (verbose) {
-			console.debug(
-				getCurrentTimeString(),
-				funcName,
-				'Setting style property:',
-				'"' + name + '"',
-				'->',
-				'"' + value + '"'
+	// sync. blinking settings
+	const gdgBlinkProperties = [];
+	gdgBlinkProperties[gdgBlinkProperties.length] = ['--gdg-blinking-off', 1000];
+	gdgBlinkProperties[gdgBlinkProperties.length] = ['--gdg-blinking-off', 1000, ''];
+
+	const symbolBlinkProperties = [];
+	symbolBlinkProperties[symbolBlinkProperties.length] = ['--symbol-blinking-off', 500];
+	symbolBlinkProperties[symbolBlinkProperties.length] = ['--symbol-blinking-off', 500, ''];
+	const syncblinking_verbosity = 1;
+
+	return {
+		start: function(){
+			// initialize sync. blinking
+			$.getScript(
+				'resources/js/project/sync-blinking.js',
+				() => {
+					$(document).ready(() => {
+						window.SCADAGEN.SYNCBLINKING.start(
+							gdgBlinkProperties,
+							syncblinking_verbosity
+						);
+						window.SCADAGEN.SYNCBLINKING.start(
+							symbolBlinkProperties,
+							syncblinking_verbosity
+						);
+					});
+				}
+			);
+
+			// initialize auto logout monitoring
+			$.getScript(
+				'resources/js/project/auto-logout.js',
+				() => {
+					$(document).ready(
+						window.SCADAGEN.AUTOLOGOUT.start(
+							autologout.param.settingReloadIntervalMs,
+							autologout.action.logout,
+							autologout.action.showIdleWarning,
+							autologout.action.removeIdleWarning,
+							autologout.param.verbosity
+						)
+					);
+				}
 			);
 		}
-		try {
-			document.body.style.setProperty(name, value);
-		} catch (err) {
-			console.warn(
-				getCurrentTimeString(),
-				funcName,
-				'Error in setting style property:',
-				err
-			);
-		}
 	}
+}());
 
-	var index = 0;
-	const iterator = function() {
-		const name = propertyNames[index];
-		const timeoutMs = propertyTimeoutMs[index];
-		const value = propertyValues[index];
-		index = (index + 1) % count;
+window.EAL_PROJECT.start();
 
-		set(name, value);
-		setTimeout(
-			function() {
-				set(name, '');
-				iterator();
-			},
-			timeoutMs
-		);
-	}
-	return iterator;
-}
-
-const gdgBlinkProperties = [];
-gdgBlinkProperties[gdgBlinkProperties.length] = ['--gdg-blinking-off', 1000];
-gdgBlinkProperties[gdgBlinkProperties.length] = ['--gdg-blinking-off', 1000, ''];
-var gdgBlink = periodicStyleProperties(gdgBlinkProperties);
-document.addEventListener('DOMContentLoaded', gdgBlink, false);
-
-const symbolBlinkProperties = [];
-symbolBlinkProperties[symbolBlinkProperties.length] = ['--symbol-blinking-off', 500];
-symbolBlinkProperties[symbolBlinkProperties.length] = ['--symbol-blinking-off', 500, ''];
-var symbolBlink = periodicStyleProperties(symbolBlinkProperties);
-document.addEventListener('DOMContentLoaded', symbolBlink, false);

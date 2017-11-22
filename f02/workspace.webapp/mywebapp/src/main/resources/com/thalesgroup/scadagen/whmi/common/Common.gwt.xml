@@ -46,6 +46,8 @@
   <inherits name='com.thalesgroup.scadagen.whmi.uidialog.uidialog.UIDialog' />
   <inherits name='com.thalesgroup.scadagen.whmi.uidialog.uidialogmgr.UIDialogMgr' />
   
+  <inherits name='com.thalesgroup.scadagen.wrapper.widgetcontroller.WidgetController' />
+  
   <inherits name='com.thalesgroup.scadagen.whmi.common.Container' />
 
   <!-- Specify the paths for translatable code                    -->
@@ -58,8 +60,8 @@
   <set-property name="gwt.logging.enabled" value="TRUE"/>
   <!-- To disable a default Handler -->
   <set-property name="gwt.logging.consoleHandler" value="ENABLED"/>
-  <!-- To disable a popup Handler -->
-  <set-property name="gwt.logging.popupHandler" value="DISABLED" />
+  <!-- To disable a popup Handler (Property removed in GWT 2.7) -->
+  <!--<set-property name="gwt.logging.popupHandler" value="DISABLED" />-->
   <!-- Remote Logging Enable -->
   <set-property name="gwt.logging.simpleRemoteHandler" value="DISABLED" />
 

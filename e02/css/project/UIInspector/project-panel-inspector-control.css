@@ -1,0 +1,236 @@
+.project-inspector-control-panel-root 
+{
+	background-color: #BEBEBE;
+	font-size: 16px;
+}
+
+.project-inspector-control-panel-base
+{
+	background-color: #BEBEBE;
+	width: 100%;
+	height: 100%;
+}
+
+.project-inspector-control-panel-vpCtrls
+{
+	width: 100%;
+}
+
+.project-inspector-control-panel-widgetbox-0
+, .project-inspector-control-panel-widgetbox-1
+, .project-inspector-control-panel-widgetbox-2
+, .project-inspector-control-panel-widgetbox-3
+, .project-inspector-control-panel-widgetbox-4
+, .project-inspector-control-panel-widgetbox-5
+, .project-inspector-control-panel-widgetbox-6
+, .project-inspector-control-panel-widgetbox-7
+, .project-inspector-control-panel-widgetbox-8
+{
+	background-color: #BEBEBE;
+	width: 100%;
+	height: 30%;
+}
+
+.gwt-InlineLabel.project-inspector-control-label-0
+, .gwt-InlineLabel.project-inspector-control-label-1
+, .gwt-InlineLabel.project-inspector-control-label-2
+, .gwt-InlineLabel.project-inspector-control-label-3
+, .gwt-InlineLabel.project-inspector-control-label-4
+, .gwt-InlineLabel.project-inspector-control-label-5
+, .gwt-InlineLabel.project-inspector-control-label-6
+, .gwt-InlineLabel.project-inspector-control-label-7
+, .gwt-InlineLabel.project-inspector-control-label-8
+{
+	font-size: 16px;
+}
+
+.gwt-TextBox.project-inspector-control-textbox-0
+, .gwt-TextBox.project-inspector-control-textbox-1
+, .gwt-TextBox.project-inspector-control-textbox-2
+, .gwt-TextBox.project-inspector-control-textbox-3
+, .gwt-TextBox.project-inspector-control-textbox-4
+, .gwt-TextBox.project-inspector-control-textbox-5
+, .gwt-TextBox.project-inspector-control-textbox-6
+, .gwt-TextBox.project-inspector-control-textbox-7
+, .gwt-TextBox.project-inspector-control-textbox-8
+{
+	font-size: 16px;
+}
+
+.gwt-Button.project-inspector-control-button-0
+, .gwt-Button.project-inspector-control-button-1
+, .gwt-Button.project-inspector-control-button-2
+, .gwt-Button.project-inspector-control-button-3
+, .gwt-Button.project-inspector-control-button-4
+, .gwt-Button.project-inspector-control-button-5
+, .gwt-Button.project-inspector-control-button-6
+, .gwt-Button.project-inspector-control-button-7
+, .gwt-Button.project-inspector-control-button-8
+{
+	width: 140px;
+	height: 25px;
+	font-size: 16px;
+	margin-right: 5px;
+	font-weight: bold;
+}
+
+.gwt-Button.project-inspector-control-button-0-0
+, .gwt-Button.project-inspector-control-button-0-1
+, .gwt-Button.project-inspector-control-button-0-2
+, .gwt-Button.project-inspector-control-button-0-3
+, .gwt-Button.project-inspector-control-button-0-4
+, .gwt-Button.project-inspector-control-button-0-5
+, .gwt-Button.project-inspector-control-button-0-6
+, .gwt-Button.project-inspector-control-button-0-7
+, .gwt-Button.project-inspector-control-button-0-8
+
+, .gwt-Button.project-inspector-control-button-1-0
+, .gwt-Button.project-inspector-control-button-1-1
+, .gwt-Button.project-inspector-control-button-1-2
+, .gwt-Button.project-inspector-control-button-1-3
+, .gwt-Button.project-inspector-control-button-1-4
+, .gwt-Button.project-inspector-control-button-1-5
+, .gwt-Button.project-inspector-control-button-1-6
+, .gwt-Button.project-inspector-control-button-1-7
+, .gwt-Button.project-inspector-control-button-1-8
+
+, .gwt-Button.project-inspector-control-button-2-0
+, .gwt-Button.project-inspector-control-button-2-1
+, .gwt-Button.project-inspector-control-button-2-2
+, .gwt-Button.project-inspector-control-button-2-3
+, .gwt-Button.project-inspector-control-button-2-4
+, .gwt-Button.project-inspector-control-button-2-5
+, .gwt-Button.project-inspector-control-button-2-6
+, .gwt-Button.project-inspector-control-button-2-7
+, .gwt-Button.project-inspector-control-button-2-8
+
+, .gwt-Button.project-inspector-control-button-3-0
+, .gwt-Button.project-inspector-control-button-3-1
+, .gwt-Button.project-inspector-control-button-3-2
+, .gwt-Button.project-inspector-control-button-3-3
+, .gwt-Button.project-inspector-control-button-3-4
+, .gwt-Button.project-inspector-control-button-3-5
+, .gwt-Button.project-inspector-control-button-3-6
+, .gwt-Button.project-inspector-control-button-3-7
+, .gwt-Button.project-inspector-control-button-3-8
+
+, .gwt-Button.project-inspector-control-button-4-0
+, .gwt-Button.project-inspector-control-button-4-1
+, .gwt-Button.project-inspector-control-button-4-2
+, .gwt-Button.project-inspector-control-button-4-3
+, .gwt-Button.project-inspector-control-button-4-4
+, .gwt-Button.project-inspector-control-button-4-5
+, .gwt-Button.project-inspector-control-button-4-6
+, .gwt-Button.project-inspector-control-button-4-7
+, .gwt-Button.project-inspector-control-button-4-8
+{
+	width: 140px;
+	height: 25px;
+	font-size: 16px;
+	margin-right: 5px;
+	font-weight: bold;
+}
+
+.project-inspector-control-button-selected-0-0
+, .project-inspector-control-button-selected-0-1
+, .project-inspector-control-button-selected-0-2
+, .project-inspector-control-button-selected-0-3
+, .project-inspector-control-button-selected-0-4
+, .project-inspector-control-button-selected-0-5
+, .project-inspector-control-button-selected-0-6
+, .project-inspector-control-button-selected-0-7
+, .project-inspector-control-button-selected-0-8
+
+, .project-inspector-control-button-selected-1-0
+, .project-inspector-control-button-selected-1-1
+, .project-inspector-control-button-selected-1-2
+, .project-inspector-control-button-selected-1-3
+, .project-inspector-control-button-selected-1-4
+, .project-inspector-control-button-selected-1-5
+, .project-inspector-control-button-selected-1-6
+, .project-inspector-control-button-selected-1-7
+, .project-inspector-control-button-selected-1-8
+
+, .project-inspector-control-button-selected-2-0
+, .project-inspector-control-button-selected-2-1
+, .project-inspector-control-button-selected-2-2
+, .project-inspector-control-button-selected-2-3
+, .project-inspector-control-button-selected-2-4
+, .project-inspector-control-button-selected-2-5
+, .project-inspector-control-button-selected-2-6
+, .project-inspector-control-button-selected-2-7
+, .project-inspector-control-button-selected-2-8
+
+, .project-inspector-control-button-selected-3-0
+, .project-inspector-control-button-selected-3-1
+, .project-inspector-control-button-selected-3-2
+, .project-inspector-control-button-selected-3-3
+, .project-inspector-control-button-selected-3-4
+, .project-inspector-control-button-selected-3-5
+, .project-inspector-control-button-selected-3-6
+, .project-inspector-control-button-selected-3-7
+, .project-inspector-control-button-selected-3-8
+
+, .project-inspector-control-button-selected-4-0
+, .project-inspector-control-button-selected-4-1
+, .project-inspector-control-button-selected-4-2
+, .project-inspector-control-button-selected-4-3
+, .project-inspector-control-button-selected-4-4
+, .project-inspector-control-button-selected-4-5
+, .project-inspector-control-button-selected-4-6
+, .project-inspector-control-button-selected-4-7
+, .project-inspector-control-button-selected-4-8
+{
+	background-image: none;
+	background-color: rgb(246, 230, 139);
+}
+
+.gwt-Button.project-inspector-control-button-0.project-inspector-control-button-selected-0
+, .gwt-Button.project-inspector-control-button-1.project-inspector-control-button-selected-1
+, .gwt-Button.project-inspector-control-button-2.project-inspector-control-button-selected-2
+, .gwt-Button.project-inspector-control-button-3.project-inspector-control-button-selected-3
+, .gwt-Button.project-inspector-control-button-4.project-inspector-control-button-selected-4
+, .gwt-Button.project-inspector-control-button-5.project-inspector-control-button-selected-5
+, .gwt-Button.project-inspector-control-button-6.project-inspector-control-button-selected-6
+, .gwt-Button.project-inspector-control-button-7.project-inspector-control-button-selected-7
+, .gwt-Button.project-inspector-control-button-8.project-inspector-control-button-selected-8
+{
+	background-image: none;
+	background-color: rgb(246, 230, 139);
+}
+
+.project-inspector-control-panel-pageBar 
+{
+}
+
+.project-inspector-control-panel-bottomBar 
+{
+	width: 100%
+}
+
+/* pager styles */
+.gwt-Button.project-inspector-control-button-up
+, .gwt-Button.project-inspector-control-button-down 
+{
+	width: 50px;
+	font-size: 20px;
+	height: 40px;
+	margin: 5px;
+}
+
+.gwt-InlineLabel.project-inspector-control-label-pagenum 
+{
+	width: 50px;
+	padding: 10px;
+	font-size: 22px;
+}
+
+/* control execute button */
+.gwt-Button.project-inspector-control-button-execute 
+{
+	margin: 5px;
+	height: 40px;
+	width: 105px;
+	font-size: 19px;
+	font-weight: bold;
+}

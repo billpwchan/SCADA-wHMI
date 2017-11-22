@@ -3,7 +3,8 @@ package com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client;
 public interface UIWidgetGeneric_i {
 	
 	public enum RootAttribute {
-		  rows("rows")
+		  type("type")
+		, rows("rows")
 		, cols("cols")
 		, rootPanel("rootPanel")
 		, rootCss("rootCss")
@@ -91,6 +92,10 @@ public interface UIWidgetGeneric_i {
 		, debugId("debugId")
 		
 		, widgetStatus("widgetStatus")
+		
+		, uiCtrl("uiCtrl")
+		, uiView("uiView")
+		, uiOpts("uiOpts")
 		;
 		
 		private final String text;

@@ -30,6 +30,11 @@ SET _F02_WEBAPP="%SOURCE_BASE_HOME%\f02\workspace.webapp\mywebapp"
 SET _E02="%scstraning_loc%\scspaths\%_WEBAPP%\apache-tomcat%TOMCAT_VER%\conf\e02-resources-current"
 SET _P01="%scstraning_loc%\scspaths\%_WEBAPP%\apache-tomcat%TOMCAT_VER%\conf\p01-func-current"
 
+SET _PACKAGE_SCADAGEN="com\thalesgroup\scadagen"
+SET _REPO_SCADAGEN="%M2_REPO%\%_PACKAGE_SCADAGEN%"
+
+ECHO _REPO_SCADAGEN=%_REPO_SCADAGEN%
+
 ECHO _F01_WEBAPPFUNC=%_F01_WEBAPPFUNC%
 ECHO _F01_WHMI=%_F01_WHMI%
 ECHO _F01_WHMI_UIWIDGET=%_F01_WHMI_UIWIDGET%
@@ -40,20 +45,27 @@ ECHO _F02_WEBAPP=%_F02_WEBAPP%
 ECHO _E02=%_E02%
 ECHO _P01=%_P01%
 
+SET _REPO_DEPO="%_folder%\repo"
+SET _REPO_DEPO_SCADAGEN="%_REPO_DEPO%\%_PACKAGE_SCADAGEN%"
+
+ECHO _REPO_DEPO_SCADAGEN=%_REPO_DEPO_SCADAGEN%
+
 
 cd %_F01_WEBAPPFUNC%\webapp-func\target
 for /r %%a in (myproject-webapp-func*.zip) do (
 	COPY /B /Y /V %%~fa %_folder%\f01-webapp-func.zip
 )
 
+
 cd %_F02_WEBAPP%\target
 for /r %%a in (mywebapp-*.war) do (
 	COPY /B /Y /V %%~fa %_folder%\scadagen-f02-webapp-generic.war
 )
 
-REM COPY "%_F01_WEBAPPFUNC%\webapp-func\target\myproject-webapp-func*.zip" %_folder%\f01-webapp-func.zip
 
-REM COPY "%_F02_WEBAPP%\target\*.war" %_folder%\scadagen-f02-webapp-generic.war
+MKDIR %_REPO_DEPO_SCADAGEN%
+
+XCOPY %_REPO_SCADAGEN% %_REPO_DEPO_SCADAGEN% /s/h/e/k/f/c
 
 COPY "%TOOLS_BASE%\Build*.log" %_folder%\logs
 
@@ -64,9 +76,9 @@ SET _EXCLUDE2="-xr!mywebapp\src\main\gwt-unitCache"
 SET _EXCLUDE3="-xr!workspace.webapp-func\webapp-func\myproject-webapp-func*.zip"
 ECHO _EXCLUDE=%_EXCLUDE%
 
-%SEVEN_ZIP_HOME% a %_folder%\f01 %_F01_WEBAPPFUNC% %_F01_WHMI% %_F01_WHMI_UIWIDGET% %_F01_WRAPPER% %_F01_FAS% %_EXCLUDE% %_EXCLUDE3%
-%SEVEN_ZIP_HOME% a %_folder%\p01 %_P01% %_EXCLUDE%
-%SEVEN_ZIP_HOME% a %_folder%\f02 %_F02_WEBAPP% %_EXCLUDE% %_EXCLUDE2%
-%SEVEN_ZIP_HOME% a %_folder%\e02 %_E02% %_EXCLUDE%
+%PATH_7Z_BIN% a %_folder%\f01 %_F01_WEBAPPFUNC% %_F01_WHMI% %_F01_WHMI_UIWIDGET% %_F01_WRAPPER% %_F01_FAS% %_EXCLUDE% %_EXCLUDE3%
+%PATH_7Z_BIN% a %_folder%\p01 %_P01% %_EXCLUDE%
+%PATH_7Z_BIN% a %_folder%\f02 %_F02_WEBAPP% %_EXCLUDE% %_EXCLUDE2%
+%PATH_7Z_BIN% a %_folder%\e02 %_E02% %_EXCLUDE%
 
 ECHO END OF BACKUP

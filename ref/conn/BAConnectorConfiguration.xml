@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:connectorConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:p="http://www.thalesgroup.com/hv/sdk/configuration-v1"
+                          xsi:schemaLocation="http://www.thalesgroup.com/hv/sdk/configuration-v1 ConnectorConfiguration.xsd">
+
+  <!-- The point-to-point URL of the historian service -->
+  <!--<p:historianServiceAddress>http://127.0.0.1:8805/operation/responder</p:historianServiceAddress>-->
+  <p:enableWSValidation>false</p:enableWSValidation>
+
+  <!-- enable the following lines to enable the use of Terracotta -->
+<!--
+  <p:sharedCacheConfigurationFile>TerracottaConfiguration/ehcache_OCCENVCONN.xml</p:sharedCacheConfigurationFile>
+  <p:quartzConfigurationFile>TerracottaConfiguration/quartz_OCCENVCONN.properties</p:quartzConfigurationFile>
+-->
+
+  <p:operationConfiguration>
+    <!-- Value can be one of: REQUESTER, RESPONDER, REQUESTER_AND_RESPONDER -->
+    <p:operationRuntimeMode>REQUESTER_AND_RESPONDER</p:operationRuntimeMode>
+    <!-- The URL where the operation request/response messages are received -->
+    <p:operationReplyToAddress>$$M100CONN1_OPERATION_ADDRESS$$/responder</p:operationReplyToAddress>
+    <p:operationServerAddress>$$M100CONN1_OPERATION_ADDRESS$$/responder</p:operationServerAddress>
+  </p:operationConfiguration>
+
+  <p:notificationConfiguration>
+    <!-- Value can be one of: CONSUMER, PRODUCER, CONSUMER_AND_PRODUCER -->
+    <p:notificationRuntimeMode>CONSUMER_AND_PRODUCER</p:notificationRuntimeMode>
+    <!-- Value can be one of: SUBSCRIPTION_FAILURE, SCHEDULED_TIMER, SUBSCRIPTION_REMOVAL -->
+    <p:notificationCleanUpMode>SUBSCRIPTION_FAILURE</p:notificationCleanUpMode>
+
+    <!-- The URL where the subscription/notification messages are received -->
+    <p:subscriptionReplyToAddress>$$M100CONN1_NOTIFICATION_ADDRESS$$/reception</p:subscriptionReplyToAddress>
+    <p:notificationServerAddress>$$M100CONN1_NOTIFICATION_ADDRESS$$/producer</p:notificationServerAddress>
+  </p:notificationConfiguration>
+</p:connectorConfiguration>

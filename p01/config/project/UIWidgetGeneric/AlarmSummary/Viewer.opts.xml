@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<header key="header">
+		<ScsOlsListElement>UILayoutAlarmSummaryViewerScsOlsListPanel</ScsOlsListElement>
+		
+		<!--  DebugID to the Target Generic Data Grid, Printer will using it to walkthough the GDD in the DOM -->
+		<PrintDataDebugId>gwt-debug-UILayoutAlarmSummaryViewerScsOlsListPanel</PrintDataDebugId>
+		<!-- Columns Header Display in the CSS, it support the translation; More a column should be split by ','-->
+		<PrintDataColumns>&amp;scsalarmList_state_name,&amp;scsalarmList_datetime_name,&amp;scsalarmList_area_name,&amp;scsalarmList_funccat_name,&amp;scsalarmList_sourceID_name,&amp;scsalarmList_alarmText_name,&amp;scsalarmList_priority_name</PrintDataColumns>
+		<!-- Columns index will be export to the CSV; More a column should be split by ','-->
+		<PrintDataIndexs>1,2,3,4,5,6,7</PrintDataIndexs>
+		<!-- CSV File name will be export to -->
+		<PrintDataAttachement>AlarmList.csv</PrintDataAttachement>
+		
+		<PrintDataStart>0</PrintDataStart>
+		<PrintDataLength>8000</PrintDataLength>
+		
+		<PrintDataReceviedWait>6000</PrintDataReceviedWait>
+		<PrintDataWalkthoughWait>4000</PrintDataWalkthoughWait>
+		
+		<!-- UIEventAction Configuration for MenuHandler -->
+		<MenuHandlerUIOpts>AlarmBanner/CallImage.opts.xml</MenuHandlerUIOpts>
+	</header>
+	
+	<!-- Begin of life -->
+	<actionset key="init">
+	</actionset>
+	
+	<actionset key="from_uilayoutsummary_init">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	
+	<actionset key="from_uilayoutsummary_envup">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+		
+	<actionset key="from_uilayoutsummary_envdown">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	
+	<actionset key="from_uilayoutsummary_terminate">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	<!-- End of life -->
+
+	<actionset key="FilterAdded">
+		<OperationString1>FilterAdded</OperationString1>
+	</actionset>
+	
+	<actionset key="FilterRemoved">
+		<OperationString1>FilterRemoved</OperationString1>
+	</actionset>
+	
+	<actionset key="RowSelected">
+		<OperationString1>RowSelected</OperationString1>
+	</actionset>
+	
+	<action key="FilterAdded">
+		<SenderOperation>event</SenderOperation>
+		<OperationString1>FilterAdded</OperationString1>
+	</action>
+	
+	<action key="FilterRemoved">
+		<SenderOperation>event</SenderOperation>
+		<OperationString1>FilterRemoved</OperationString1>
+	</action>
+	
+	<action key="RowSelected">
+		<SenderOperation>event</SenderOperation>
+		<OperationString1>RowSelected</OperationString1>
+	</action>
+	
+	<actionset key="CounterValueChanged">
+		<OperationString1>SetWidgetValue</OperationString1>
+	</actionset>
+	
+	<action key="SetWidgetValue">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetAlarmSummaryCounter</OperationElement>
+		<OperationString1>SetWidgetValue</OperationString1>
+	</action>
+	
+	<!-- Update Pager Value -->
+	<actionset key="PagerValueChanged_PageStart">
+		<OperationString1>PagerValueChanged_PageStart</OperationString1>
+	</actionset>
+	
+	<action key="PagerValueChanged_PageStart">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetAlarmSummaryPager</OperationElement>
+	</action>
+	
+	<actionset key="PagerValueChanged_EndIndex">
+		<OperationString1>PagerValueChanged_EndIndex</OperationString1>
+	</actionset>
+	
+	<action key="PagerValueChanged_EndIndex">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetAlarmSummaryPager</OperationElement>
+	</action>
+	
+	<actionset key="PagerValueChanged_Exact">
+		<OperationString1>PagerValueChanged_Exact</OperationString1>
+	</actionset>
+	
+	<action key="PagerValueChanged_Exact">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetAlarmSummaryPager</OperationElement>
+	</action>
+	
+	<!-- Update Pager Button -->
+	<actionset key="PagerButtonChanged_HasPreviousPage">
+		<OperationString1>PagerButtonChanged_HasPreviousPage</OperationString1>
+	</actionset>
+	
+	<action key="PagerButtonChanged_HasPreviousPage">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetAlarmSummaryPager</OperationElement>
+		<OperationString1>PagerButtonChanged_HasPreviousPage</OperationString1>
+		<OperationString2>false</OperationString2>
+	</action>
+	
+	<actionset key="PagerButtonChanged_HasNextPage">
+		<OperationString1>PagerButtonChanged_HasNextPage</OperationString1>
+	</actionset>
+	
+	<action key="PagerButtonChanged_HasNextPage">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetAlarmSummaryPager</OperationElement>
+		<OperationString1>PagerButtonChanged_HasNextPage</OperationString1>
+		<OperationString2>false</OperationString2>
+	</action>
+	
+	<actionset key="PagerButtonChanged_HasFastForwardPage">
+		<OperationString1>PagerButtonChanged_HasFastForwardPage</OperationString1>
+	</actionset>
+	
+	<action key="PagerButtonChanged_HasFastForwardPage">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetAlarmSummaryPager</OperationElement>
+		<OperationString1>PagerButtonChanged_HasFastForwardPage</OperationString1>
+		<OperationString2>false</OperationString2>
+	</action>
+	
+	<actionset key="PagerButtonChanged_HasFastBackwardPage">
+		<OperationString1>PagerButtonChanged_HasFastBackwardPage</OperationString1>
+	</actionset>
+	
+	<action key="PagerButtonChanged_HasFastBackwardPage">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetAlarmSummaryPager</OperationElement>
+		<OperationString1>PagerButtonChanged_HasFastBackwardPage</OperationString1>
+		<OperationString2>false</OperationString2>
+	</action>
+	
+</data-set>

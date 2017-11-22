@@ -1,0 +1,7 @@
+<div [class.loader-hidden]="!isLoading">
+    <div class="loader-overlay">
+            <div>
+                <md-progress-spinner mode="indeterminate" *ngIf="isLoading"></md-progress-spinner>
+            </div>
+    </div>
+</div>

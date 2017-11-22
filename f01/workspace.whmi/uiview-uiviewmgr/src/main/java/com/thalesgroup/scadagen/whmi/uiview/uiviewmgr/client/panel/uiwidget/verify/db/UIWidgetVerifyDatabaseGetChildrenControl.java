@@ -20,8 +20,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseReadEvent_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleRead_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseReadSingle2MultiEvent_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingle2MultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseGetChildrenFactory;
 
 public class UIWidgetVerifyDatabaseGetChildrenControl extends UIWidget_i {
@@ -35,7 +35,7 @@ public class UIWidgetVerifyDatabaseGetChildrenControl extends UIWidget_i {
 	
 	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
 	
-	private DatabaseSingleRead_i databaseSingleRead_i = null;
+	private DatabaseSingle2MultiRead_i databaseSingleRead_i = null;
 	
 	@Override
 	public void terminate() {
@@ -90,7 +90,7 @@ public class UIWidgetVerifyDatabaseGetChildrenControl extends UIWidget_i {
 							String scsenvidvalue 	= uiWidgetGeneric.getWidgetValue(strscsenvidvalue);
 							String addressvalue 	= uiWidgetGeneric.getWidgetValue(straddressvalue);
 							
-							databaseSingleRead_i.addGetChildrenRequest(keyvalue, scsenvidvalue, addressvalue, new DatabaseReadEvent_i() {
+							databaseSingleRead_i.addSingle2MultiRequest(keyvalue, scsenvidvalue, addressvalue, new DatabaseReadSingle2MultiEvent_i() {
 								
 								@Override
 								public void update(String key, String[] values) {

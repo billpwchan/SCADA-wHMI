@@ -1,0 +1,73 @@
+{
+	"Time Schedule": "Time Schedule",
+	"Schedule Table": "Schedule Table",
+    "Oneshot Schedule": "Oneshot Schedule",
+	"Periodic Schedules": "Periodic Schedules",
+	"Schedule Planning": "Schedule Planning",
+
+    "Schedule cutoff time:": "Schedule cutoff time:",
+
+    "Refresh": "Refresh",
+
+    "Running Schedules": "Running Schedules",
+    "No schedule is running": "No schedule is running",
+	
+    "Add": "Add",
+    "Delete": "Delete",
+    "Rename": "Rename",
+    "Apply": "Apply",
+    "Cancel": "Cancel",
+	"Add Schedule": "Add Schedule",
+	"Rename Schedule": "Rename Schedule",
+	"Schedule title duplicates existing titles or is empty": "Schedule title duplicates existing titles or is empty",
+
+	"Location": "Location",
+	"System": "System",
+	"Equipment Label": "Equipment Label",
+	"Equipment Description": "Equipment Description",
+	"On Time": "On Time",
+	"Off Time": "Off Time",
+    "selected": "selected",
+	"total": "total",
+	"No item to display":"No item to display",
+
+	"Equipment": "Equipment",
+    "No Selections": "No Selections",
+	"Enable": "Enable",
+	"Disable": "Disable",
+	"Save": "Save",
+    "Reset": "Reset",
+	"Format HH:MM is required": "Format HH:MM is required",
+
+    "Start": "Start",
+    "Stop": "Stop",
+
+    "Monday": "Monday",
+    "Tuesday": "Tuesday",
+    "Wednesday": "Wednesday",
+    "Thursday": "Thursday",
+    "Friday": "Friday",
+    "Saturday": "Saturday",
+    "Sunday": "Sunday",
+    
+    "Revert": "Revert",
+    "Defaults": "Defaults",
+
+    "Location_11": "Location_11",
+    "Location_12": "Location_12",
+    "Location_13": "Location_13",
+    "Location_14": "Location_14",
+    "Location_15": "Location_15",
+    "System_1": "System_1",
+    "System_2": "System_2",
+    "System_3": "System_3",
+    "System_4": "System_4",
+    "System_5": "System_5",
+
+    "Oneshot": "Oneshot",
+    "Weekday": "Weekday",
+    "Holiday": "Holiday",
+    "User Defined 1": "User-Defined 1",
+    "User Defined 2": "User-Defined 2",
+    "User Defined 3": "User-Defined 3"
+}

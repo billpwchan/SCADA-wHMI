@@ -2,7 +2,6 @@ package com.thalesgroup.scadagen.wrapper.wrapper.server.translation;
 
 import com.thalesgroup.hypervisor.mwt.core.util.common.session.ISessionListContainer;
 import com.thalesgroup.hypervisor.mwt.core.util.common.session.SessionContainer;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.server.rpc.session.SessionManager;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implementation.ServicesImplFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.i18n.Dictionary;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.i18n.DictionaryManager;
@@ -15,87 +14,181 @@ import java.util.regex.PatternSyntaxException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Class to handle the i18n translation in server side
+ * Support the RegExp Pattern and RegExp Flag to replace the keyword
+ * 
+ * @author syau
+ * 
+ */
 public class Translation {
 	
 	private final static Logger logger			= LoggerFactory.getLogger(Translation.class.getName());
 	
-	private static String translatePatten = "&[0-9a-zA-Z/$_-]+";
-	public void setTranslatePatten(String translatePatten) { Translation.translatePatten = translatePatten; }
-	public String getTranslatePatten() { return Translation.translatePatten;}
+	private final static String strTranslatePattern	= "Translation_TranslatePatten_Server";
+	private final static String strTranslateFlag	= "Translation_TranslateFlag_Server";
+	
+	private static String translatePattern = "&[0-9a-zA-Z/$_-]+";
+	/**
+	 * Set the Translate RegExp Pattern
+	 * 
+	 * @param translatePattern RegExp Pattern for the Translate Mapping
+	 */
+	public static void setTranslatePattern(String translatePattern) { Translation.translatePattern = translatePattern; }
+	/**
+	 * Get the Translate RegExp Pattern
+	 * 
+	 * @return translatePattern RegExp Pattern for the Translate Mapping
+	 */
+	public static String getTranslatePattern() { return Translation.translatePattern;}
+	
+	private static int translateFlag = 0;
+	/**
+	 * Set the Translate RegExp Flag
+	 * 
+	 * @param translateFlag Translation Flag for the RegExp Flag
+	 */
+	public static void setTranslateFlag(int translateFlag) { Translation.translateFlag = translateFlag; }
+	/**
+	 * Get the Translate RegExp Flag
+	 * 
+	 * @return Translation Flag for the RegExp Flag
+	 */
+	public static int getTranslateFlag() { return Translation.translateFlag;}
+	
+	private static boolean reloaded = false;
+	/**
+	 * Load the Configuration from the locate setting
+	 * 
+	 * @param sessionId Current Session ID
+	 */
+	private static void loadConfig(String sessionId) {
+		final String function = "loadConfig";
+		String tmpTranslatePattern = getWording(sessionId, strTranslatePattern);
+		if ( null != tmpTranslatePattern && ! tmpTranslatePattern.equals(strTranslatePattern)) {
+			setTranslatePattern(tmpTranslatePattern); 
+		} else {
+			logger.warn("{} sessionId[{}] strTranslatePattern[{}] tmpTranslatePattern[{}] IS NULL", new Object[]{function, sessionId, strTranslatePattern, tmpTranslatePattern});
+		}
+		logger.trace("{} getTranslatePattern[{}]", new Object[]{function, getTranslatePattern()});
+		
+		String tmpTranslateFlag = getWording(sessionId, strTranslateFlag);
+		if ( null != tmpTranslateFlag && ! tmpTranslateFlag.equals(strTranslateFlag)) {
+			try {
+				setTranslateFlag(Integer.parseInt(tmpTranslateFlag)); 
+			} catch ( NumberFormatException ex ) {
+				logger.warn("sessionId[{}] strTranslateFlag[{}]", sessionId, strTranslateFlag);
+			}
+		} else {
+			logger.warn("{} strTranslateFlag[{}] tmpTranslateFlag[{}] IS NULL", new Object[]{function, strTranslateFlag, tmpTranslateFlag});
+		}
+		reloaded = true;
+		logger.trace("{} getTranslateFlag[{}]", new Object[]{function, getTranslateFlag()});
+	}
 
-	public static String getWording(String key) {
-		logger.debug("getWording[{}]", key);
-		String value = key;
+	public static final String UNDEFINED_WORDING = "#Undefined#";
+	/**
+	 * Using i18n to mapping the input string without Translation Pattern
+	 * 
+	 * @param sessionId Current session ID
+	 * @param inputStr String to map
+	 * @return Mapped result from the i18n mapping, otherwise return original string
+	 */
+	public static String getWording(String sessionId, String inputStr) {
+		final String function = "getWording";
+		logger.trace("{} inputStr[{}]", function, inputStr);
+		String value = inputStr;
         try {
-
-        	Dictionary dico = null;
-        	String currentLang = "en";
         	
-        	logger.debug("currentLang[{}] BF", currentLang);
-        	try {
-	        	String sessionId = SessionManager.getRequestCxtSessionId();
-	        	if ( null != sessionId ) {
-	            	if (ServicesImplFactory.getInstance() != null) {
-	            		ISessionListContainer sessionListContainer = (ISessionListContainer)ServicesImplFactory.getInstance().getService(ISessionListContainer.class);
-	            		SessionContainer sessionContainer = sessionListContainer.getSessionContainer(sessionId);
-	    	        	if (sessionContainer != null) {
-	    	        		String string = sessionContainer.getAttributeTyped(String.class, "currentLang");
-	    	        		if ( null != string ) {
-	    	        			currentLang = string;
-	    	        		} else {
-	    	        			logger.warn("getWording string IS NULL!");
-	    	        		}
-	    	        	} else {
-	    	        		logger.warn("getWording sessionContainer IS NULL!");
-	    	        	}
-	            	} else {
-	            		logger.warn("getWording ServicesImplFactory.getInstance() IS NULL!");
-	            	}
-	        	} else {
-	        		logger.warn("getWording sessionId IS NULL!");
-	        	}
-        	} catch ( Exception e) {
-        		logger.warn("getWording currentLang e[{}]", e.toString());
-	    	}
-        	logger.debug("currentLang[{}] AF", currentLang);
+    		ISessionListContainer sessionListContainer = ServicesImplFactory.getInstance().getService(ISessionListContainer.class);
+//    		String sessionId = operatorOpmInfo.getSessionId();
+    		SessionContainer sessionContainer = sessionListContainer.getSessionContainer(sessionId);
         	
-        	dico = DictionaryManager.getInstance().getDictionary(currentLang);     
-        	if ( null != dico ) {
-        		value = dico.getWording(key);
-        	} else {
-        		logger.error("dico IS NULL");
-        	}
+    		// Retrieve HV dictionary depending current language
+    		Dictionary dico = null;
+    		if (sessionContainer != null) {
+    			String currentLang = sessionContainer.getAttributeTyped(String.class, "currentLang");
+    			if (currentLang != null) {
+    	        	dico = DictionaryManager.getInstance().getDictionary(currentLang);     
+    	        	if ( null != dico ) {
+    	        		value = dico.getWording(inputStr);
+    	        	} else {
+    	        		logger.error("{} dico IS NULL", function);
+    	        	}
+    			}
+    			else {
+    				logger.error("{} Current lang is null for session id {}", function, sessionId);
+    			}
+    		}
+    		else {
+    			logger.error("{} Cannot find container for session id {}", function, sessionId);
+    		}
+ 
         }
         catch (final MissingResourceException e) {
-        	logger.warn("Can't find key [{}] in dictionary MissingResourceException[{}]", key, e.toString());
+        	logger.warn("{} Can't find key [{}] in dictionary MissingResourceException[{}]", new Object[]{inputStr, e.toString()});
         }
+        
+        // Try to remove the UNDEFINED_WORDING prefix when string not found
+        if ( value.length() == UNDEFINED_WORDING.length()+inputStr.length() ) {
+        	if ( value.equals(UNDEFINED_WORDING+inputStr)) {
+        		value = inputStr;
+        	}
+        }
+        
         return value;
 	}
 	
-	public static String getDBMessage(String input) {
-		return Translation.getDBMessage(translatePatten, input);
+	/**
+	 * Using i18n to mapping the input string with Translation Pattern
+	 * 
+	 * @param sessionId Current session ID
+	 * @param inputStr String to map
+	 * @return Mapped pattern will be replace, otherwise keep the original word and return
+	 */
+	public static String getDBMessage(String sessionId, String inputStr) {
+		final String function = "getDBMessage";
+		logger.trace("{} inputStr[{}]", new Object[]{function, inputStr});
+		String ret = inputStr;
+		// Skip the empty String to enhance the efficiency
+		if ( null != inputStr && ! inputStr.isEmpty() ) {
+			if ( ! reloaded ) loadConfig(sessionId);
+			ret = Translation.getDBMessage(sessionId, getTranslatePattern(), getTranslateFlag(), inputStr);
+		}
+		logger.trace("{} inputStr[{}] ret[{}]", new Object[]{function, inputStr, ret});
+		return ret;
 	}
 	
-	public static String getDBMessage(String regex, String input) {
-		logger.trace("{} regex[{}] input[{}]", new Object[]{"getDBMessage", regex, input});
-		String ret = input;
+	/**
+	 * Using i18n to mapping the input string with Translation Pattern
+	 * 
+	 * @param sessionId Current session ID
+	 * @param regex Translate RegExp Pattern
+	 * @param flag Translate RegExp Flag
+	 * @param inputStr String to map
+	 * @return  Mapped pattern will be replace, otherwise keep the original word and return
+	 */
+	public static String getDBMessage(String sessionId, String regex, int flag, String inputStr) {
+		final String function = "getDBMessage";
+		logger.trace("{} regex[{}] flag[{}] inputStr[{}]", new Object[]{function, regex, flag, inputStr});
+		String ret = inputStr;
 		try {
-			Pattern p = Pattern.compile(regex);
-			Matcher m = p.matcher(input);
+			Pattern p = Pattern.compile(regex, flag);
+			Matcher m = p.matcher(inputStr);
 			while(m.find()) {
 				String key = m.group();
-				logger.trace("{} m.group()[{}]", "getDBMessage", key);
-				String translation = Translation.getWording(key);
+				logger.trace("{} key[{}]", function, key);
+				String translation = Translation.getWording(sessionId, key);
 				
-				logger.trace("{} key[{}] translation[{}]", new Object[]{"getDBMessage", key, translation});
+				logger.trace("{} key[{}] translation[{}]", new Object[]{function, key, translation});
 				if ( null != translation ) {
 					ret = ret.replaceAll(key, translation);
 				}
 			}
 		} catch ( PatternSyntaxException e ) {
-			logger.warn("{} PatternSyntaxException[{}]", "getDBMessage", e.toString());
+			logger.warn("{} PatternSyntaxException[{}]", function, e.toString());
 		}
-
+		logger.trace("{} regex[{}] flag[{}] inputStr[{}] ret[{}]", new Object[]{function, regex, flag, inputStr, ret});
 		return ret;
 	}
 }

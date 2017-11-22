@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<EventBusName>hdvmatrixsummary</EventBusName>
+		<EventBusScope>local</EventBusScope>
+		
+		<EnvUpDelayMS>1000</EnvUpDelayMS>
+		<EnvUpDelay>envup</EnvUpDelay>
+	</header>
+
+	<actionset key="init">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_init_hdvmatrixcontrol</OperationString1>
+	</actionset>
+	
+	<action key="set_init_hdvmatrixcontrol">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>actionsetkey</OperationType>
+		<OperationElement>UIWidgetHDVMatrixControl</OperationElement>
+		<OperationString1>from_uilayoutsummary_init</OperationString1>
+	</action>
+	
+	<actionset key="envup">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString2>set_envup_hdvmatrixcontrol</OperationString2>
+	</actionset>
+	
+	<action key="set_envup_hdvmatrixcontrol">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>actionsetkey</OperationType>
+		<OperationElement>UIWidgetHDVMatrixControl</OperationElement>
+		<OperationString1>from_uilayoutsummary_envup</OperationString1>
+	</action>
+
+	<actionset key="terminate">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_terminate_hdvmatrixcontrol</OperationString1>
+		<OperationString2>set_terminate_hdvmatrixviewer</OperationString2>
+	</actionset>
+	
+	<action key="set_terminate_hdvmatrixcontrol">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>actionsetkey</OperationType>
+		<OperationElement>UIWidgetHDVMatrixControl</OperationElement>
+		<OperationString1>from_uilayoutsummary_terminate</OperationString1>
+	</action>
+	
+	<action key="set_terminate_hdvmatrixviewer">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>actionsetkey</OperationType>
+		<OperationElement>UILayoutHDVMatrixViewer</OperationElement>
+		<OperationString1>from_uilayoutsummary_terminate</OperationString1>
+	</action>
+	
+</data-set>

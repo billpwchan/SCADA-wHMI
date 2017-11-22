@@ -1,0 +1,69 @@
+/* Operator Management - Modify Panel */
+.operator-modify-page{
+    cursor: default;
+    user-select: none;
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 1rem;
+    height: calc(100% - /*text*/1rem*2 - /*padding*/1rem*2);
+}
+
+.operator-modify-list-panel{
+    display: flex;
+    flex-flow: column nowrap;
+    border: thin solid black;
+    flex: 0 0 auto;
+    padding: 1rem;
+    height: calc(100% -/*container padding*/1rem*2);
+}
+
+.operator-modify-list-table{
+    text-align: left;
+    height: calc(100% - /*container padding*/1rem*2);
+}
+
+.operator-modify-list-caption{
+    border: thin solid black;
+    background: darkgrey;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.operator-modify-list-headers{
+    display: none;
+}
+
+.operator-modify-list-items{
+    border: thin solid black;
+    height: calc(100% - /*caption padding*/0.5rem);
+    overflow-y: auto;
+}
+
+.operator-modify-list-item-row{
+    border-top: thin solid black;
+    cursor: pointer;
+}
+
+.operator-modify-list-item-row.selected{
+    background-color: black;
+    color: white;
+}
+
+.operator-modify-list-item-cell:not(.operator-modify-list-item-name){
+    display: none;
+}
+
+.operator-modify-list-item-cell{
+    vertical-align: middle;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.operator-modify-detail-panel{
+    border: thin solid black;
+    margin-left: 1rem;
+    flex: 1 1 auto;
+    width: 10%;
+}

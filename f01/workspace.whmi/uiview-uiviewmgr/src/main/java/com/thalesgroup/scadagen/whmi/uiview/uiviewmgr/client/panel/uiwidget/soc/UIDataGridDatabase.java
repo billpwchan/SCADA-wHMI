@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ListDataProvider;
@@ -180,8 +181,8 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 	}
 	
 	
-	public void reloadColumnData(String columnLabel, String columnType, boolean enableTranslation) {
-		dataSource.reloadColumnData(columnLabel, columnType, enableTranslation);
+	public void reloadColumnData(String[] columnLabels, String[] columnTypes, boolean[] enableTranslations) {
+		dataSource.reloadColumnData(columnLabels, columnTypes, enableTranslations);
 	}
 	
 	public void resetColumnData(String columnLabel, String columnType) {
@@ -210,6 +211,11 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 	
 	public void disconnect() {
 		dataSource.disconnect();
+	}
+
+	@Override
+	public void changeColumnFilter(Map<String, String> filterMap) {
+		dataSource.changeColumnFilter(filterMap);	
 	}
 
 }

@@ -8,12 +8,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
   <parent>
     <artifactId>whmi</artifactId>
     <groupId>com.thalesgroup.scadagen.whmi</groupId>
-  <version>1.4.3</version>
+  <version>1.5.4</version>
   </parent>
   <groupId>com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmgr</groupId>
   <artifactId>uiscreen-uiscreenmgr</artifactId>
   <packaging>jar</packaging>
-  <version>${commons.whmi.version}</version>
+  <version>${scadagen.whmi.version}</version>
   <name>GWT Maven Archetype</name>
 
   <properties>
@@ -65,25 +65,25 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uinamecard.uinamecard</groupId>
 	  <artifactId>uinamecard</artifactId>
-	  <version>${commons.whmi.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uitask.uitaskmgr</groupId>
 	  <artifactId>uitask-uitaskmgr</artifactId>
-	  <version>${commons.whmi.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
 
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uiscreen.uiscreenempty</groupId>
 	  <artifactId>uiscreen-uiscreenempty</artifactId>
-	  <version>${commons.whmi.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
 
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi</groupId>
 	  <artifactId>uiscreen-uiscreenmmi</artifactId>
-	  <version>${commons.whmi.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
     
   </dependencies>

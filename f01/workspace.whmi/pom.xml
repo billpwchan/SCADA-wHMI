@@ -5,14 +5,12 @@
   <groupId>com.thalesgroup.scadagen.whmi</groupId>
   <artifactId>whmi</artifactId>
   <packaging>pom</packaging>
-  <version>1.4.3</version>
+  <version>1.5.4</version>
   <name>GWT Maven Archetype</name>
 
   <properties>
-        <commons.uiwidget.version>1.4.3</commons.uiwidget.version>
-        <commons.whmi.version>1.4.3</commons.whmi.version>
-        <commons.uiwrapper.version>1.4.3</commons.uiwrapper.version>
-        <commons.whmi.fun.version>1.4.3</commons.whmi.fun.version>
+    <!-- Version of the SCADAgen WHMI -->
+    <scadagen.whmi.version>1.5.4</scadagen.whmi.version>
   
     <!-- Convenience property to set the GWT version -->
     <gwtVersion>2.7.0</gwtVersion>
@@ -108,6 +106,7 @@
     <module>uipanel-uipanelroot</module>
     <module>uiroot-uiroot</module>
     <module>uiwidget-uiwidgetcontainer</module>
+    <module>wrapper-widgetcontroller</module>
   </modules>
   
 </project>

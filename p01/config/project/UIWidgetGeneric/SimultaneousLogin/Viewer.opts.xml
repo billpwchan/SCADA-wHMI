@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<header key="header">
+		<ScsOlsListElement>UILayoutSimultaneousLoginViewerScsOlsListPanel</ScsOlsListElement>
+		<EnableRowUpdated>true</EnableRowUpdated>
+	</header>
+	
+	<!-- Begin of life -->
+	<actionset key="init">
+	</actionset>
+	
+	<actionset key="from_uilayoutsummary_init">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	
+	<actionset key="from_uilayoutsummary_envup">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+		
+	<actionset key="from_uilayoutsummary_envdown">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	
+	<actionset key="from_uilayoutsummary_terminate">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	<!-- End of life -->
+
+	<actionset key="FilterAdded">
+		<OperationString1>FilterAdded</OperationString1>
+	</actionset>
+	
+	<actionset key="FilterRemoved">
+		<OperationString1>FilterRemoved</OperationString1>
+	</actionset>
+	
+	<actionset key="RowSelected">
+		<OperationString1>RowSelected</OperationString1>
+	</actionset>
+	
+	<actionset key="RowUpdated">
+		<OperationString1>RowUpdated</OperationString1>
+	</actionset>
+	
+	<action key="FilterAdded">
+		<SenderOperation>event</SenderOperation>
+		<OperationString1>FilterAdded</OperationString1>
+	</action>
+	
+	<action key="FilterRemoved">
+		<SenderOperation>event</SenderOperation>
+		<OperationString1>FilterRemoved</OperationString1>
+	</action>
+	
+	<action key="RowSelected">
+		<SenderOperation>event</SenderOperation>
+		<OperationString1>RowSelected</OperationString1>
+	</action>
+	
+	<action key="RowUpdated">
+		<SenderOperation>event</SenderOperation>
+		<OperationString1>RowUpdated</OperationString1>
+	</action>
+	
+	<!-- Update Pager Value -->
+	<actionset key="PagerValueChanged_PageStart">
+		<OperationString1>PagerValueChanged_PageStart</OperationString1>
+	</actionset>
+	
+	<action key="PagerValueChanged_PageStart">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetAlarmSummaryPager</OperationElement>
+	</action>
+	
+	<actionset key="PagerValueChanged_EndIndex">
+		<OperationString1>PagerValueChanged_EndIndex</OperationString1>
+	</actionset>
+	
+	<action key="PagerValueChanged_EndIndex">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetAlarmSummaryPager</OperationElement>
+	</action>
+	
+	<actionset key="PagerValueChanged_Exact">
+		<OperationString1>PagerValueChanged_Exact</OperationString1>
+	</actionset>
+	
+	<action key="PagerValueChanged_Exact">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetAlarmSummaryPager</OperationElement>
+	</action>
+	
+</data-set>

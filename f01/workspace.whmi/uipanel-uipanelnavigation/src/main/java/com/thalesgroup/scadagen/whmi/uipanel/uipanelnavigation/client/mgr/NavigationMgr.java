@@ -26,8 +26,9 @@ public class NavigationMgr implements TaskMgrEvent {
 	private int taskLaunchsParentLevel = 0;
 	private String taskLaunchsParentHeader = "";
 	
-	private final String targetKey = "{}";
-	private final String spliter = "\\|";
+	private final static String STR_TARGET_KEY		= "{}";
+	private final static String STR_SPLITER			= "|";
+	private final static String STR_REGEX_SPLITER	= "\\"+STR_SPLITER;
 	
 	private TaskMgr taskMgr = null;
 	
@@ -81,7 +82,7 @@ public class NavigationMgr implements TaskMgrEvent {
 			menu = new ArrayList<UITaskLaunch>();
 			
 			for ( UITaskLaunch taskLaunch: this.taskLaunchs){
-				if ( taskLaunch.getHeader().startsWith(header) ) {
+				if ( taskLaunch.getHeader().startsWith((header.length()>0?header+STR_SPLITER:header)) ) {
 					if ( taskLaunch.getTaskLevel() == level ) {
 						menu.add(taskLaunch);
 					}
@@ -184,7 +185,7 @@ public class NavigationMgr implements TaskMgrEvent {
 						
 						UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
 						
-						String newTarget = HeaderKeyMapping.replace(getCurrentHeader(), taskLaunch.getHeader(), spliter, targetKey);
+						String newTarget = HeaderKeyMapping.replace(getCurrentHeader(), taskLaunch.getHeader(), STR_REGEX_SPLITER, STR_TARGET_KEY);
 						if ( null != newTarget ) {
 							taskLaunch.setHeader(newTarget);
 						}

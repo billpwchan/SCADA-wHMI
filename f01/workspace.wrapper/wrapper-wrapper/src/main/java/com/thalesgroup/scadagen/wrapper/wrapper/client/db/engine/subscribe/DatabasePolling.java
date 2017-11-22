@@ -8,10 +8,16 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.MultiPairResponsible_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.Multi2MultiResponsible_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.DatabaseMultiReading;
 
-public class DatabasePolling implements DatabaseSubscribe_i, MultiPairResponsible_i {
+/**
+ * Implementation the Database Polling Operation in singleton
+ * 
+ * @author syau
+ *
+ */
+public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsible_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(DatabasePolling.class.getName());
 	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
@@ -19,7 +25,7 @@ public class DatabasePolling implements DatabaseSubscribe_i, MultiPairResponsibl
 	private HashMap<String, PollingRequest> requests		= new HashMap<String, PollingRequest>();
 
 	private DatabaseMultiRead_i databaseReading = new DatabaseMultiReading();
-	
+
 	public class PollingRequest {
 		String key = null;
 		String scsEnvId = null;
@@ -39,9 +45,15 @@ public class DatabasePolling implements DatabaseSubscribe_i, MultiPairResponsibl
 	private Timer timer = null;
 	
 	private int periodMillis = 250;
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i#setPeriodMillis(int)
+	 */
 	@Override
 	public void setPeriodMillis(int periodMillis) { this.periodMillis = periodMillis; }
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#connect()
+	 */
 	@Override
 	public void connect() {
 		final String function = "connect";
@@ -51,6 +63,9 @@ public class DatabasePolling implements DatabaseSubscribe_i, MultiPairResponsibl
 		logger.end(className, function);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#disconnect()
+	 */
 	@Override
 	public void disconnect() {
 		final String function = "connect";
@@ -61,6 +76,9 @@ public class DatabasePolling implements DatabaseSubscribe_i, MultiPairResponsibl
 		logger.end(className, function);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i#addSubscribeRequest(java.lang.String, java.lang.String, java.lang.String[], com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i)
+	 */
 	@Override
 	public void addSubscribeRequest(String clientKey, String scsEnvId, String[] dbaddresses, DatabasePairEvent_i databaseEvent) {
 		final String function = "addSubscribeRequest";
@@ -85,6 +103,9 @@ public class DatabasePolling implements DatabaseSubscribe_i, MultiPairResponsibl
 		logger.end(className, function);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i#addUnSubscribeRequest(java.lang.String)
+	 */
 	@Override
 	public void addUnSubscribeRequest(String clientKey) {
 		final String function = "addUnSubscribeRequest";
@@ -94,6 +115,9 @@ public class DatabasePolling implements DatabaseSubscribe_i, MultiPairResponsibl
 		logger.end(className, function);
 	}
 
+	/**
+	 * 
+	 */
 	private void scheduleTimer() {
 		final String function = "scheduleTimer";
 		logger.begin(className, function);
@@ -131,6 +155,9 @@ public class DatabasePolling implements DatabaseSubscribe_i, MultiPairResponsibl
 		logger.end(className, function);
 	}
 
+	/**
+	 * 
+	 */
 	private void cancelTimer() {
 		final String function = "cancelTimer";
 		logger.begin(className, function);
@@ -141,6 +168,9 @@ public class DatabasePolling implements DatabaseSubscribe_i, MultiPairResponsibl
 		logger.end(className, function);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.MultiPairResponsible_i#buildRespond(java.lang.String, java.lang.String[], java.lang.String[])
+	 */
 	@Override
 	public void buildRespond(String key, String[] dbaddresses, String[] values) {
 		final String function = "buildReponse";

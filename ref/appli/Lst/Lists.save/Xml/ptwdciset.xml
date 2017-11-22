@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE StateList SYSTEM "Dtd/lststatelist.dtd">
+<!-- StateList HDVRequestDataList XML save file -->
+<StateList multi="YES" mode="MANDATORY" name="ptwdciset" creatorId="0" description="ptwdciset" comment="" activate="YES">
+	<Column>
+		<Name value="alias"></Name>
+		<Name value="time"></Name>
+		<Name value="geo"></Name>
+		<Name value="func"></Name>
+		<Name value="eqplabel"></Name>
+		<Name value="value"></Name>
+	</Column>
+	<List>
+		<Attribute name="DCI_TYPE!$ALIAS"></Attribute>
+		<Attribute name="DCI_TYPE!valueDate"></Attribute>
+		<Attribute name="BasicEquipment!^.geographicalCat"></Attribute>
+		<Attribute name="BasicEquipment!^.functionalCat"></Attribute>
+		<Attribute name="BasicEquipment!^.label"></Attribute>
+		<Attribute name="DCI_TYPE!value"></Attribute>
+		<Condition value='(DCI_TYPE!value==1) STATIC (DCI_TYPE!nom_instance=="dciECT-PTW")'></Condition>
+	</List>
+</StateList>

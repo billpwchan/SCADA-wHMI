@@ -9,21 +9,27 @@
 		<TargetDataGrid_B>UIDataGridFormatterSOCDetails</TargetDataGrid_B>
 		<TargetDataGridColumn_B>Disable</TargetDataGridColumn_B>
 		<TargetDataGridColumn_B2>Step</TargetDataGridColumn_B2>
-		<TargetDataGridColumn_B3>Status</TargetDataGridColumn_B3>
+		<TargetDataGridColumn_B3>Status,Status_flag</TargetDataGridColumn_B3>
 		
 		<StartElement>start</StartElement>
 		<StopElement>stop</StopElement>
 		<RetryElement>retry</RetryElement>
 		<SkipElement>skip</SkipElement>
+
+		<ReserveIdentifier>OperatorName</ReserveIdentifier>
+		<!--ReserveIdentifier supports "OperatorName" (case sensitive) and "Profile"-->
+		<ReserveAttributeReserveReqID>resrvReserveReqID</ReserveAttributeReserveReqID>
+		<ReserveAttributeUnreserveReqID>resrvUnreserveReqID</ReserveAttributeUnreserveReqID>
+		<ReserveAttributeReservedID>resrvReservedID</ReserveAttributeReservedID>
 		
-		<!--<ReserveAttributeName>Reservation_Id</ReserveAttributeName>
-		<ReserveAttributeType>String</ReserveAttributeType>
-		<ReservedValueStr>Operator</ReservedValueStr>
-		<UnreservedValueStr></UnreservedValueStr>-->
 		<ReserveAttributeName>reserved</ReserveAttributeName>
 		<ReserveAttributeType>Integer</ReserveAttributeType>
 		<ReservedValueStr>1</ReservedValueStr>
 		<UnreservedValueStr></UnreservedValueStr>
+
+		<MaxReserveRetry>2</MaxReserveRetry>
+
+		<MessageDatetimeFormat></MessageDatetimeFormat>
 	</header>
 	
 	<actionset key="init">

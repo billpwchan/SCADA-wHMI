@@ -1,13 +1,31 @@
 @import url("project-standand.css");
 @import url("project-list.css");
 @import url("project-panel.css");
+@import url("thalesex_scrap_ui.css");
+
+@import url("Navigation/import-folder.css");
+
+@import url("UILayoutEntryPointUIGws/import-folder.css");
+@import url("UILayoutEntryPointSpringLogin/import-folder.css");
+@import url("UILayoutEntryPointUIGwsLogin/import-folder.css");
+@import url("UILayoutEntryPointUIGwsCache/import-folder.css");
+@import url("UILayoutEntryPointUIPanelScreen/import-folder.css");
+
 @import url("UIDialogMsg/import-folder.css");
+@import url("UIInspector/import-folder.css");
+
 @import url("UILayoutEntryPointDpcTagSummary/import-folder.css");
 @import url("UILayoutEntryPointLoginSummary/import-folder.css");
 @import url("UILayoutEntryPointHDVSummary/import-folder.css");
 @import url("UILayoutEntryPointHDVSummaryStn/import-folder.css");
 @import url("UILayoutEntryPointHDVMatrixSummary/import-folder.css");
+@import url("UILayoutEntryPointHDVMatrixSummaryStn/import-folder.css");
 @import url("UILayoutEntryPointOpmChangePasswordSummary/import-folder.css");
 @import url("UILayoutEntryPointOpmChangeTargetUserPasswordSummary/import-folder.css");
 @import url("UILayoutEntryPointSocSummary/import-folder.css");
 @import url("UILayoutEntryPointAlarmSummary/import-folder.css");
+@import url("UILayoutEntryPointEventSummary/import-folder.css");
+@import url("UILayoutEntryPointVerifyHILCSummary/import-folder.css");
+@import url("UILayoutEntryPointPTWSummary/import-folder.css");
+@import url("UILayoutEntryPointSimultaneousLoginSummary/import-folder.css");
+@import url("UILayoutEntryPointChatterSummary/import-folder.css");

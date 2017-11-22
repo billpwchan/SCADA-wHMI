@@ -24,11 +24,20 @@ public class TranslationMgr {
 	public String getTranslation(String message) {
 		final String function = "getTranslation";
 		logger.begin(className, function);
-		logger.debug(className, function, "message[{}]", message);		
+		logger.trace(className, function, "message[{}]", message);		
 		String translation = (null != engines?engines.getMessage(message):message);
-		logger.debug(className, function, "translation[{}]", translation);
+		logger.trace(className, function, "translation[{}]", translation);
 		logger.end(className, function);
 		return translation;
 	}
-
+	
+	public String getTranslation(String msgWithPlaceHolder, Object[] msgParam) {
+		final String function = "getTranslation";
+		logger.begin(className, function);
+		logger.trace(className, function, "message[{}]", msgWithPlaceHolder);
+		String translation = (null != engines?engines.getMessage(msgWithPlaceHolder,msgParam):msgWithPlaceHolder);
+		logger.trace(className, function, "translation[{}]", translation);
+		logger.end(className, function);
+		return translation;
+	}
 }

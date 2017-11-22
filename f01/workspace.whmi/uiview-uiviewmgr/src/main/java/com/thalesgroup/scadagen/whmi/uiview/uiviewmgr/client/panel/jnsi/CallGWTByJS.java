@@ -9,12 +9,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventAttribute;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionExecuteMgr;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 
 public class CallGWTByJS {
 	
@@ -28,8 +25,8 @@ public class CallGWTByJS {
 		logger.debug(className, function, "jsdata[{}]", jsdata);
 		
 		JSONObject json = ReadJson.readJson(jsdata);
-		String oa = ReadJson.readString(json, UIActionEventAttribute.OperationAction.toString());
-		String ot = ReadJson.readString(json, UIActionEventAttribute.OperationType.toString());
+		String oa = ReadJson.readString(json, UIActionEventAttribute.OperationAction.toString(), null);
+		String ot = ReadJson.readString(json, UIActionEventAttribute.OperationType.toString(), null);
 		
 		logger.debug(className, function, "oa[{}]", oa);
 		logger.debug(className, function, "ot[{}]", ot);
@@ -41,14 +38,14 @@ public class CallGWTByJS {
 		uiEventAction.setParameter(UIActionEventAttribute.OperationAction.toString(), oa);
 		
 		for ( String osname : UIActionEventAttribute.toStrings() ) {
-			String osstring = ReadJson.readString(json, osname);
+			String osstring = ReadJson.readString(json, osname, null);
 			
 			logger.debug(className, function, "osname[{}] osstring[{}]", osname, osstring);
 			uiEventAction.setParameter(osname, osstring);
 		}
 		
 		for ( String osname : ActionAttribute.toStrings() ) {
-			String osstring = ReadJson.readString(json, osname);
+			String osstring = ReadJson.readString(json, osname, null);
 			
 			logger.debug(className, function, "osname[{}] osstring[{}]", osname, osstring);
 			uiEventAction.setParameter(osname, osstring);
@@ -97,6 +94,6 @@ public class CallGWTByJS {
 	}
 	
 	public static native void exportCallGWTByJS() /*-{
-		$wnd.callGWTByJS = $entry(@com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.jnsi.CallGWTByJS::callGWTByJS(Ljava/lang/String;));
+		$wnd.SCADAGEN.UIEVENTACTION.callGWTByJS = $entry(@com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.jnsi.CallGWTByJS::callGWTByJS(Ljava/lang/String;));
 	}-*/;
 }

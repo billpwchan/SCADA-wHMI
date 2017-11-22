@@ -15,7 +15,7 @@
         </p:dataSource>
 
         <p:criteria xsi:type="cmn:equals" status="listname">
-            <cmn:value>almmgnvalidated</cmn:value>
+            <cmn:value>SCADAgenDataPointMgn</cmn:value>
         </p:criteria>
     </p:subject>
 

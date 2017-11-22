@@ -3,22 +3,57 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.ver
 import java.util.HashMap;
 
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.uieventaction.UIWidgetVerifyUIEventActionControl_i.SubjectAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UIWidgetRealize;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.common.Mgr_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.mgrfactory.MgrFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Observer;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 
 public class UIWidgetVerifyUIEventActionControl extends UIWidgetRealize {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyUIEventActionControl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	
+	private Subject getSubject() {
+		final String function = "getSubject";
+		
+		logger.begin(className, function);
+		
+		Subject subject = new Subject();
+		Observer observer = new Observer() {
+
+			@Override
+			public void setSubject(Subject subject) {
+				this.subject = subject;	
+				this.subject.attach(this);
+			}
+
+			@Override
+			public void update() {
+				logger.debug(className, function, "update");
+				JSONObject obj = this.subject.getState();
+				uiGeneric.setWidgetValue("resultvalue", obj.toString());
+			}
+			
+		};
+		observer.setSubject(subject);
+
+		logger.end(className, function);
+		
+		return subject;
+	}
 	
 	private void executeAction(String element) {
 		final String function = "executeAction";
@@ -42,7 +77,6 @@ public class UIWidgetVerifyUIEventActionControl extends UIWidgetRealize {
 					if ( null != actionEventAttribute ) {
 						uiEventAction.setParameter(strActionEventAttribute, actionEventAttribute);
 					}
-					
 				}
 				
 				for ( String strActionAttribute : ActionAttribute.toStrings() ) {
@@ -51,6 +85,24 @@ public class UIWidgetVerifyUIEventActionControl extends UIWidgetRealize {
 					
 					if ( null != actionAttribute ) {
 						uiEventAction.setParameter(strActionAttribute, actionAttribute);
+					}
+				}
+				
+				String strSubjectAttribute1 = uiGeneric.getWidgetValue(SubjectAttribute.SubjectAttribute1.toString());
+				String strSubjectAttribute2 = uiGeneric.getWidgetValue(SubjectAttribute.SubjectAttribute2.toString());
+				String strSubjectAttribute3 = uiGeneric.getWidgetValue(SubjectAttribute.SubjectAttribute3.toString());
+				
+				logger.debug(className, function, "strSubjectAttribute1[{}]", strSubjectAttribute1);
+				logger.debug(className, function, "strSubjectAttribute2[{}]", strSubjectAttribute2);
+				logger.debug(className, function, "strSubjectAttribute3[{}]", strSubjectAttribute3);
+				
+				if ( null != strSubjectAttribute1 && null != strSubjectAttribute2 && null != strSubjectAttribute3 ) {
+					MgrFactory mgrFactory = MgrFactory.getInstance();
+					Mgr_i mgr = mgrFactory.getMgr(strSubjectAttribute1, strSubjectAttribute2);
+					if ( null != mgr ) {
+						mgr.setSubject(strSubjectAttribute3, getSubject());
+					} else {
+						logger.warn(className, function, "mgr IS NULL");
 					}
 				}
 				

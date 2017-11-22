@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:HV="http://www.thalesgroup.com/prototypeLibraryModel/Class/CoreModel/HV" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/CoreModel/HV ../../../Generated/config.ecore#_ZB56QCayEeOr-rLLLmg18A" xmi:id="BasicEquipment_Valve_FzgY4CJxEeadBLsIIQVFSA_1464177979758" hvqname="myproject.data.config.equipment.Valve" nom_instance="Valve" scstype="Valve">
+  <status xsi:type="HV:HvStatusInteger" xmi:id="HvStatusInteger_locked_F1cSkSJxEeadBLsIIQVFSA_1464177979961" nom_instance="locked" hvdatatype="Integer" hvqname="myproject.data.config.equipment.Valve.locked"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="HvStatusInteger_openstatus_F1cSkiJxEeadBLsIIQVFSA_1464177979961" nom_instance="openstatus" hvdatatype="Integer" hvqname="myproject.data.config.equipment.Valve.openstatus"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+</Class:BasicEquipment>

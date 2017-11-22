@@ -102,23 +102,19 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 	public String replaceOpmKeyword(String strOpmApi, String strMessage) {
 		String function = "replaceOpmKeyword";
 		logger.begin(className, function);
-		logger.debug(className, function, "strOpmApi[{}]", strOpmApi);
-		logger.debug(className, function, "strMessage[{}]", strMessage);
+		logger.debug(className, function, "strOpmApi[{}] strMessage[{}]", strOpmApi, strMessage);
 		
-		final String strGetOperator = "(GETOPERATOR)";
-		final String strGetProfile = "(GETPROFILE)";
-		final String strGetWorkstation = "(GETWORKSTATION)";
-		
-		String strOperator = null;
-		String strProfile = null;
-		String strWorkstation = null;
+		final String strGetOperator = "%GETOPERATOR%";
+		final String strGetProfile = "%GETPROFILE%";
+		final String strGetIPAddress = "%GETIPADDRESS%";
+		final String strGetHostName = "%GETHOSTNAME%";
 		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(strOpmApi);
 		if ( null != uiOpm_i ) {
 			logger.debug(className, function, "call opm_i login");
 			
-			strOperator = uiOpm_i.getCurrentOperator();
+			String strOperator = uiOpm_i.getCurrentOperator();
 			if ( null != strOperator ) {
 				logger.debug(className, function, logPrefix+"strGetProfile[{}] strProfile[{}]", strGetOperator, strOperator);
 				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetOperator, strOperator);
@@ -127,22 +123,31 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 				logger.debug(className, function, logPrefix+"strOperator IS NULL");
 			}
 
-			strProfile = uiOpm_i.getCurrentOperator();
+			String strProfile = uiOpm_i.getCurrentProfile();
 			if ( null != strProfile ) {
-				logger.debug(className, function, logPrefix+"strGetOperator[{}] strOperator[{}]", strGetProfile, strProfile);
+				logger.debug(className, function, logPrefix+"strGetProfile[{}] strProfile[{}]", strGetProfile, strProfile);
 				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetProfile, strProfile);
 				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
 				logger.debug(className, function, logPrefix+"strProfile IS NULL");
 			}
-
-			strWorkstation = uiOpm_i.getCurrentHostName();
-			if ( null != strWorkstation ) {
-				logger.debug(className, function, logPrefix+"strGetWorkstation[{}] strWorkstation[{}]", strGetWorkstation, strWorkstation);
-				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetWorkstation, strWorkstation);
+			
+			String strIPAddress = uiOpm_i.getCurrentIPAddress();
+			if ( null != strIPAddress ) {
+				logger.debug(className, function, logPrefix+"strGetIPAddress[{}] strWorkstation[{}]", strGetIPAddress, strIPAddress);
+				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetIPAddress, strIPAddress);
 				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
-				logger.debug(className, function, logPrefix+"strWorkstation IS NULL");
+				logger.debug(className, function, logPrefix+"strIPAddress IS NULL");
+			}
+
+			String strHostName = uiOpm_i.getCurrentHostName();
+			if ( null != strHostName ) {
+				logger.debug(className, function, logPrefix+"strGetHostName[{}] strHostName[{}]", strGetHostName, strHostName);
+				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetHostName, strHostName);
+				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
+			} else {
+				logger.debug(className, function, logPrefix+"strHostName IS NULL");
 			}
 			
 		} else {

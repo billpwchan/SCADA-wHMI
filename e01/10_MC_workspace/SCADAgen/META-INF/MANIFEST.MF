@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: StressTest
-Bundle-SymbolicName: StressTest;singleton:=true
-Bundle-Version: 1.0
-Require-Bundle: com.thalesgroup.metaconfigurator.ext
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.config.client.ConfigProvider;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
+import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -26,7 +26,7 @@ public class UIWidgetVerifyHILCControl extends UIWidgetRealize {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyHILCControl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private String strUIWidgetGeneric = "UIWidgetGeneric";
+//	private String strUIWidgetGeneric = "UIWidgetGeneric";
 
 	private HILCMgr hilcMgr				= null;
 	
@@ -43,7 +43,7 @@ public class UIWidgetVerifyHILCControl extends UIWidgetRealize {
 		final String function = "init";
 		logger.begin(className, function);
 		
-		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
+//		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		
 		hilcMgr = HILCMgr.getInstance(className);
 		
@@ -53,9 +53,13 @@ public class UIWidgetVerifyHILCControl extends UIWidgetRealize {
 			public void HILCPreparationResult(String clientKey, int errorCode, String errorMessage) {
 				if (clientKey.equals("HILCPreparationRequest")) {
 					if (errorCode == 0) {
-						uiGeneric.setWidgetValue("message", "HILCPreparationRequest sent successfully");
+						uiGeneric.setWidgetValue("message", getTranslation("&UIWidgetVerifyHILCControl_HILCPreparationResult_Success"));
 					} else {
-						uiGeneric.setWidgetValue("message", "HILCPreparationRequest failed.  " + errorMessage);
+						if (logger.isDebugEnabled()) {
+							uiGeneric.setWidgetValue("message", getTranslation("&UIWidgetVerifyHILCControl_HILCPreparationResult_Failed") + "  errorCode=(" + errorCode + ") " + getTranslation("&UIWidgetVerifyHILCControl_Error_" + errorCode));
+					} else {
+							uiGeneric.setWidgetValue("message", getTranslation("&UIWidgetVerifyHILCControl_HILCPreparationResult_Failed") + "  " + getTranslation("&UIWidgetVerifyHILCControl_Error_" + errorCode));
+						}
 					}
 				}
 			}
@@ -64,9 +68,13 @@ public class UIWidgetVerifyHILCControl extends UIWidgetRealize {
 			public void HILCConfirmResult(String clientKey, int errorCode, String errorMessage) {
 				if (clientKey.equals("HILCConfirmRequest")) {
 					if (errorCode == 0) {
-						uiGeneric.setWidgetValue("message", "HILCConfirmRequest sent successfully");
+						uiGeneric.setWidgetValue("message", getTranslation("&UIWidgetVerifyHILCControl_HILCConfirmResult_Success"));
 					} else {
-						uiGeneric.setWidgetValue("message", "HILCConfirmRequest failed.  " + errorMessage);
+						if (logger.isDebugEnabled()) {
+							uiGeneric.setWidgetValue("message", getTranslation("&UIWidgetVerifyHILCControl_HILCConfirmResult_Failed") + "  errorCode=(" + errorCode + ") " + getTranslation("&UIWidgetVerifyHILCControl_Error_" + errorCode));
+					} else {
+							uiGeneric.setWidgetValue("message", getTranslation("&UIWidgetVerifyHILCControl_HILCConfirmResult_Failed") + "  " + getTranslation("&UIWidgetVerifyHILCControl_Error_" + errorCode));
+						}
 					}
 				}
 			}
@@ -387,5 +395,18 @@ public class UIWidgetVerifyHILCControl extends UIWidgetRealize {
 		};
 		
 		logger.end(className, function);
+	}
+	
+	protected String getTranslation(String str) {
+		final String function = "translate";
+		String translatedStr = "";
+		TranslationMgr translationMgr = TranslationMgr.getInstance();
+		if ( null != translationMgr ) {
+			translatedStr = translationMgr.getTranslation(str);
+		} else {
+			logger.warn(className, function, "getTranslation IS NULL");
+		}
+		
+		return translatedStr;
 	}
 }

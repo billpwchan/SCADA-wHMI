@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>1</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetAlarmSummaryPrint-root</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>Button</widget>
+		<label>&amp;UIWidgetAlarmSummaryPrint_Export</label>
+		<css>project-UIWidgetAlarmSummaryPrint-button-print</css>
+		
+		<cssContainer>project-UIWidgetAlarmSummaryPrint-container</cssContainer>
+		
+		<cssUp>project-UIWidgetAlarmSummaryPrint-button-print-up</cssUp>
+		<cssDown>project-UIWidgetAlarmSummaryPrint-button-print-down</cssDown>
+		<cssDisable>project-UIWidgetAlarmSummaryPrint-button-print-disable</cssDisable>
+		<tooltipUp>&amp;UIWidgetAlarmSummaryPrint_Export</tooltipUp>
+		<element>print</element>
+	</option>
+	
+</data-set>

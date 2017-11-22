@@ -1,0 +1,6 @@
+.project-UILayoutHDVMatrixViewer-panel-inner, .project-gwt-panel-scsmatrixpanel {
+	width: 100%;
+	height: 660px;
+	position: absolute;
+	overflow: auto;
+}

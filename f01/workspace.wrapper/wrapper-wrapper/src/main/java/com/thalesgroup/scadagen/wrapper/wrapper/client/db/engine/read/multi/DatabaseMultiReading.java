@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -10,12 +11,21 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Databas
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
 
+/**
+ * Implementation the Database Multi Reading Operation
+ * 
+ * @author syau
+ *
+ */
 public class DatabaseMultiReading implements DatabaseMultiRead_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseMultiReading.class.getName());
 	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private HashMap<String, ReadingRequest> readingRequests = new HashMap<String, ReadingRequest>();
+	/**
+	 * Operation Request Storage
+	 */
+	private Map<String, ReadingRequest> readingRequests = new HashMap<String, ReadingRequest>();
 	
 	public class ReadingRequest {
 		public String key = null;
@@ -31,8 +41,14 @@ public class DatabaseMultiReading implements DatabaseMultiRead_i {
 		}
 	}
 	
+	/**
+	 * Instance for the Database Wrapper class
+	 */
 	private Database database = new Database();
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#connect()
+	 */
 	@Override
 	public void connect() {
 		final String function = "connect";
@@ -44,11 +60,14 @@ public class DatabaseMultiReading implements DatabaseMultiRead_i {
 			public void setReadResult(String key, String[] value, int errorCode, String errorMessage) {
 				final String function = "setReadResult";
 				logger.begin(className, function);
+				logger.debug(className, function, "get({})", key);
 				ReadingRequest databaseReadEvent = readingRequests.get(key);
+				logger.debug(className, function, "remove({})", key);
+				readingRequests.remove(key);
 				if ( null != databaseReadEvent ) {
-					String [] addresses = databaseReadEvent.dbaddresses;
-					databaseReadEvent.databaseEvent.update(key, addresses, value);
-					readingRequests.remove(key);
+					databaseReadEvent.databaseEvent.update(key, databaseReadEvent.dbaddresses, value);
+				} else {
+					logger.warn(className, function, "databaseReadEvent IS NULL");
 				}
 				logger.end(className, function);
 			}
@@ -58,6 +77,9 @@ public class DatabaseMultiReading implements DatabaseMultiRead_i {
 		logger.end(className, function);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#disconnect()
+	 */
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
@@ -66,12 +88,8 @@ public class DatabaseMultiReading implements DatabaseMultiRead_i {
 		logger.end(className, function);
 	}
 	
-	/**
-	 * @param api : Database API to call
-	 * @param clientKey : Key for the Reading and Result
-	 * @param scsEnvId : scsEnvId to connect
-	 * @param dbaddresses : database address to read
-	 * @param databaseEvent : Callback for result
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i#addMultiReadValueRequest(java.lang.String, java.lang.String, java.lang.String[], com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i)
 	 */
 	@Override
 	public void addMultiReadValueRequest(String clientKey, String scsEnvId, String [] dbaddress, DatabasePairEvent_i databaseEvent) {

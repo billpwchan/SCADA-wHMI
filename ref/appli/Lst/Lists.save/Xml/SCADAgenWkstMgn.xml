@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE StateList SYSTEM "Dtd/lststatelist.dtd">
+<!-- StateList SCADAgenWkstMgn XML save file -->
+<StateList multi="YES" mode="MANDATORY" name="SCADAgenWkstMgn" creatorId="0" description="SCADAgenWkstMgn" comment="" activate="YES">
+	<Column>
+		<Name value="gwsIdentity"></Name>
+		<Name value="alias"></Name>
+		<Name value="gwsArea"></Name>
+		<Name value="resrvreservedid"></Name>
+	</Column>
+	<List>
+		<Attribute name="GEN_POST!operatorIP"></Attribute>
+		<Attribute name="BasicEquipment!^.name"></Attribute>
+		<Attribute name="GEN_POST!operatorMessage"></Attribute>
+		<Attribute name="BasicEquipment!^.resrvReservedID"></Attribute>
+		
+		<Condition value='STATIC (GEN_POST!nom_instance == "WKST")'></Condition>
+	</List>
+</StateList>

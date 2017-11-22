@@ -1,80 +1,40 @@
-.project-UIWidgetSocControl-root {
-	height: 55px;
-	float: left;
+.project-UIWidgetSocControl-root{
+	height: 4em;
 }
 
-.project-UIWidgetSocControl-container-start {
+.project-UIWidgetSocControl-container-start{
+	padding-left: 5em;
+}
+
+.project-UIWidgetSocControl-container-start,
+.project-UIWidgetSocControl-container-stop,
+.project-UIWidgetSocControl-container-skip,
+.project-UIWidgetSocControl-container-retry{
 	vertical-align: middle !important;
 }
-.project-UIWidgetSocControl-button-start {
-    width: 115px;
-    height: 45px;
-    font-weight: bold !important;
-    font-size: 16px !important;
-	margin-left: 5px !important;
-	margin-right: 5px !important;
+
+.gwt-Button.project-UIWidgetSocControl-button-start,
+.gwt-Button.project-UIWidgetSocControl-button-stop,
+.gwt-Button.project-UIWidgetSocControl-button-skip,
+.gwt-Button.project-UIWidgetSocControl-button-retry{
+    width: 15ch;
+    height: 90%;
+    font-weight: bold;
+    font-size: larger;
+    white-space: nowrap;
+    margin-left: 0.5em;
 }
-.project-UIWidgetSocControl-button-start-down {
+
+.gwt-Button.project-UIWidgetSocControl-button-start-down,
+.gwt-Button.project-UIWidgetSocControl-button-stop-down,
+.gwt-Button.project-UIWidgetSocControl-button-skip-down,
+.gwt-Button.project-UIWidgetSocControl-button-retry-down{
 	background-image: none !important;
 	background-color: rgb(246, 230, 139) !important;
 }
-.project-UIWidgetSocControl-button-start-disable {
 
-}
-
-
-.project-UIWidgetSocControl-container-stop {
-	vertical-align: middle !important;
-}
-.project-UIWidgetSocControl-button-stop {
-	width:115px;
-	height:45px;
-	font-weight: bold !important;
-    font-size: 16px !important;
-}
-.project-UIWidgetSocControl-button-stop-down {
-	background-image: none !important;
-	background-color: rgb(246, 230, 139) !important;
-}
-.project-UIWidgetSocControl-button-stop-disable {
-
-}
-
-
-.project-UIWidgetSocControl-container-skip {
-	vertical-align: middle !important;
-}
-.project-UIWidgetSocControl-button-skip {
-	width:115px;
-	height:45px;
-	font-weight: bold !important;
-    font-size: 16px !important;
-	margin-left: 5px !important;
-	margin-right: 5px !important;
-}
-.project-UIWidgetSocControl-button-skip-down {
-	background-image: none !important;
-	background-color: rgb(246, 230, 139) !important;
-}
-.project-UIWidgetSocControl-button-skip-disable {
-
-}
-
-.project-UIWidgetSocControl-container-retry {
-	vertical-align: middle !important;
-}
-.project-UIWidgetSocControl-button-retry {
-	width:115px;
-	height:45px;
-	font-weight: bold !important;
-    font-size: 16px !important;
-	margin-left: 5px !important;
-	margin-right: 5px !important;
-}
-.project-UIWidgetSocControl-button-retry-down {
-	background-image: none !important;
-	background-color: rgb(246, 230, 139) !important;
-}
-.project-UIWidgetSocControl-button-retry-disable {
-
+.project-UIWidgetSocControl-button-start-disable,
+.project-UIWidgetSocControl-button-stop-disable,
+.project-UIWidgetSocControl-button-skip-disable,
+.project-UIWidgetSocControl-button-retry-disable{
 }

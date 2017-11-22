@@ -1,0 +1,66 @@
+<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0"><g id="_SCADAGEN_SYMBOLS_ECT_ECT_STATIC_TTVF_DOWN_SVG"><rect x="0.0" fill="red" width="200.0" height="200.0" y="0.0" opacity="0"/><g id="ECT/ECT_Static_TTVF_Down" transform="matrix(1.000000, 0, 0, 1.000000, 100.000000, 100.000000)">
+
+  
+  <polygon fill="#D2D2D2" class="AnPolygon" fill-rule="evenodd" points="-100,-100 -86,-100 -86,-51 -100,-51 "/>
+
+  
+  <polygon fill="#D2D2D2" class="AnPolygon" fill-rule="evenodd" points="-100,-100 -51,-100 -51,-86 -100,-86 "/>
+
+  
+  <polygon fill="#D2D2D2" class="AnPolygon" fill-rule="evenodd" points="99,-51 99,-100 85,-100 85,-51 "/>
+
+  
+  <polygon fill="#D2D2D2" class="AnPolygon" fill-rule="evenodd" points="-51,99 -100,99 -100,85 -51,85 "/>
+
+  
+  <polygon fill="#D2D2D2" class="AnPolygon" fill-rule="evenodd" points="99,99 50,99 50,85 99,85 "/>
+
+  
+  <polygon fill="#D2D2D2" class="AnPolygon" fill-rule="evenodd" points="-100,50 -86,50 -86,99 -100,99 "/>
+
+  
+  <polygon fill="#D2D2D2" class="AnPolygon" fill-rule="evenodd" points="50,-100 99,-100 99,-86 50,-86 "/>
+
+  
+  <polygon fill="#D2D2D2" class="AnPolygon" fill-rule="evenodd" points="85,50 99,50 99,99 85,99 "/>
+
+  
+  <text x="0px" font-size="8" y="8px" transform="matrix(3.375000,0.000000,0.000000,3.375000,-70.000000,-47.775002)" text-decoration="none" fill="#000000" font-family="Arial" class="AnText" font-style="normal" font-weight="normal">Ex </text>
+
+  
+  <text x="0px" font-size="8" y="8px" transform="matrix(3.375000,0.000000,0.000000,3.375000,-67.000000,12.225000)" text-decoration="none" fill="#000000" font-family="Arial" class="AnText" font-style="normal" font-weight="normal">In </text>
+
+  
+  <line fill="none" x1="-39px" x2="40px" y1="30px" y2="30px" class="AnLine" stroke="#218A21" stroke-width="2px"/>
+
+  
+  <line fill="none" x1="-39px" x2="40px" y1="-31px" y2="-31px" class="AnLine" stroke="#218A21" stroke-width="2px"/>
+
+  
+  <line fill="none" x1="-29px" x2="-29px" y1="30px" y2="-31px" class="AnLine" stroke="#218A21" stroke-width="2px"/>
+
+  
+  <line fill="none" x1="32px" x2="32px" y1="30px" y2="-31px" class="AnLine" stroke="#218A21" stroke-width="2px"/>
+
+  
+  <polygon fill="#218A21" class="AnPolygon" fill-rule="evenodd" points="-27,20 -27,-21 28,20 28,-21 -27,20 "/>
+
+  
+  <polygon fill="#FF0000" class="AnPolygon" fill-rule="evenodd" points="-29,-34 32,-34 1,-55 -29,-34 "/>
+
+  
+  <polygon fill="#218A21" class="AnPolygon" fill-rule="evenodd" points="32,33 -29,33 1,54 32,33 "/>
+
+  
+  <rect x="44px" y="44px" fill="#989898" width="40px" fill-rule="evenodd" class="AnRectangle" height="40px"/>
+
+  
+  <text x="0px" font-size="12" y="13px" transform="matrix(4.000000,0.000000,0.000000,4.000000,51.599998,26.400002)" text-decoration="none" fill="#FFFF00" class="AnText" font-style="normal" font-weight="normal">P</text>
+
+  
+  <rect x="-85px" y="44px" fill="#989898" width="40px" fill-rule="evenodd" class="AnRectangle" height="40px"/>
+
+  
+  <text x="0px" font-size="8" y="8px" transform="matrix(4.000000,0.000000,0.000000,4.000000,-73.400002,44.400002)" text-decoration="none" fill="#0000FF" font-family="Arial" class="AnText" font-style="normal" font-weight="normal">L</text>
+
+</g></g></svg>

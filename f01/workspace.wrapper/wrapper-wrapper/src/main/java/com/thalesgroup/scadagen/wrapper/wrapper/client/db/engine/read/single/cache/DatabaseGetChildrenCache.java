@@ -2,6 +2,12 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.ca
 
 import java.util.HashMap;
 
+/**
+ * Caches for the Get Children 
+ * 
+ * @author syau
+ *
+ */
 public class DatabaseGetChildrenCache {
 	
 	private HashMap<String, HashMap<String, String[]>> caches = null;
@@ -10,6 +16,11 @@ public class DatabaseGetChildrenCache {
 	private DatabaseGetChildrenCache() {
 		caches = new HashMap<String, HashMap<String, String[]>>();
 	}
+	/**
+	 * Get the Singleton instance
+	 * 
+	 * @return Singleton instance
+	 */
 	public static DatabaseGetChildrenCache getInstance() {
 		if ( null == instance ) instance = new DatabaseGetChildrenCache();
 		return instance;

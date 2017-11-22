@@ -1,0 +1,40 @@
+Define Environment {
+#
+# WEB server
+# 
+    Define Server "GIS" {
+        Phase = 0
+        Termination = RETRY
+        Snapshot = NONE
+        Shutdown order = LAST
+        Supervision = UNIX
+        Priority = NORMAL
+        Run string = "gis_start.bat"
+        Init timeout = 999999
+        Shutdown timeout = 20
+    }
+    
+    Define Server "tomcat" {
+        Phase = 2
+        Termination = RETRY
+        Snapshot = NONE
+        Shutdown order = LAST - 1
+        Supervision = UNIX
+        Priority = NORMAL
+        Run string = "tomcat_start.bat"
+        Init timeout = 999999
+        Shutdown timeout = 20
+    }
+    
+    Define Server "nginx" {
+        Phase = 0
+        Termination = RETRY
+        Snapshot = NONE
+        Shutdown order = LAST - 2
+        Supervision = UNIX
+        Priority = NORMAL
+        Run string = "nginx_start.bat"
+        Init timeout = 999999
+        Shutdown timeout = 20
+    }
+}

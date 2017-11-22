@@ -1,0 +1,73 @@
+{
+	"Time Schedule": "fr-FR:Time Schedule",
+	"Schedule Table": "fr-FR:Schedule Table",
+    "Oneshot Schedule": "fr-FR:Oneshot Schedule",
+	"Periodic Schedules": "fr-FR:Periodic Schedules",
+	"Schedule Planning": "fr-FR:Schedule Planning",
+
+    "Schedule cutoff time:": "fr-FR:Schedule cutoff time:",
+
+    "Refresh": "fr-FR:Refresh",
+
+    "Running Schedules": "fr-FR:Running Schedules",
+    "No schedule is running": "fr-FR:No schedule is running",
+	
+    "Add": "fr-FR:Add",
+    "Delete": "fr-FR:Delete",
+    "Rename": "fr-FR:Rename",
+    "Apply": "fr-FR:Apply",
+    "Cancel": "fr-FR:Cancel",
+    "Add Schedule": "fr-FR:Add Schedule",
+	"Rename Schedule": "fr-FR:Rename Schedule",
+	"Schedule title duplicates existing titles or is empty": "fr-FR:Schedule title duplicates existing titles or is empty",
+
+    "Location": "fr-FR:Location",
+	"System": "fr-FR:System",
+	"Equipment Label": "fr-FR:Equipment Label",
+	"Equipment Description": "fr-FR:Equipment Description",
+	"On Time": "fr-FR:On Time",
+	"Off Time": "fr-FR:Off Time",
+	"selected": "fr-FR:selected",
+	"total": "fr-FR:total",
+	"No item to display":"fr-FR:No item to display",
+
+	"Equipment":"fr-FR:Equipment",
+    "No Selections": "fr-FR:No Selections",
+	"Enable": "fr-FR:Enable",
+	"Disable": "fr-FR:Disable",
+	"Save": "fr-FR:Save",
+    "Reset": "fr-FR:Reset",
+    "Format HH:MM is required": "fr-FR:Format HH:MM is required",
+
+    "Start": "fr-FR:Start",
+    "Stop": "fr-FR:Stop",
+
+    "Monday": "fr-FR:Monday",
+    "Tuesday": "fr-FR:Tuesday",
+    "Wednesday": "fr-FR:Wednesday",
+    "Thursday": "fr-FR:Thursday",
+    "Friday": "fr-FR:Friday",
+    "Saturday": "fr-FR:Saturday",
+    "Sunday": "fr-FR:Sunday",
+
+    "Revert": "fr-FR:Revert",
+    "Defaults": "fr-FR:Defaults",
+
+    "Location_11": "fr-FR:Location_11",
+    "Location_12": "fr-FR:Location_12",
+    "Location_13": "fr-FR:Location_13",
+    "Location_14": "fr-FR:Location_14",
+    "Location_15": "fr-FR:Location_15",
+    "System_1": "fr-FR:System_1",
+    "System_2": "fr-FR:System_2",
+    "System_3": "fr-FR:System_3",
+    "System_4": "fr-FR:System_4",
+    "System_5": "fr-FR:System_5",
+
+    "Oneshot": "fr-FR:Oneshot",
+    "Weekday": "fr-FR:Weekday",
+    "Holiday": "fr-FR:Holiday",
+    "User Defined 1": "fr-FR:User-Defined 1",
+    "User Defined 2": "fr-FR:User-Defined 2",
+    "User Defined 3": "fr-FR:User-Defined 3"
+}

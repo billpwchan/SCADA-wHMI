@@ -1,0 +1,73 @@
+{
+	"Time Schedule": "zh-TW:Time Schedule",
+	"Schedule Table": "zh-TW:Schedule Table",
+    "Oneshot Schedule": "zh-TW:Oneshot Schedule",
+	"Periodic Schedules": "zh-TW:Periodic Schedules",
+	"Schedule Planning": "zh-TW:Schedule Planning",
+
+    "Schedule cutoff time:": "zh-TW:Schedule cutoff time:",
+
+    "Refresh": "zh-TW:Refresh",
+
+    "Running Schedules": "zh-TW:Running Schedules",
+    "No schedule is running": "zh-TW:No schedule is running",
+	
+    "Add": "zh-TW:Add",
+    "Delete": "zh-TW:Delete",
+    "Rename": "zh-TW:Rename",
+    "Apply": "zh-TW:Apply",
+    "Cancel": "zh-TW:Cancel",
+    "Add Schedule": "zh-TW:Add Schedule",
+	"Rename Schedule": "zh-TW:Rename Schedule",
+	"Schedule title duplicates existing titles or is empty": "zh-TW:Schedule title duplicates existing titles or is empty",
+
+    "Location": "zh-TW:Location",
+	"System": "zh-TW:System",
+	"Equipment Label": "zh-TW:Equipment Label",
+	"Equipment Description": "zh-TW:Equipment Description",
+	"On Time": "zh-TW:On Time",
+	"Off Time": "zh-TW:Off Time",
+	"selected": "zh-TW:selected",
+	"total": "zh-TW:total",
+	"No item to display":"zh-TW:No item to display",
+
+	"Equipment":"zh-TW:Equipment",
+    "No Selections": "zh-TW:No Selections",
+	"Enable": "zh-TW:Enable",
+	"Disable": "zh-TW:Disable",
+	"Save": "zh-TW:Save",
+    "Reset": "zh-TW:Reset",
+    "Format HH:MM is required": "zh-TW:Format HH:MM is required",
+
+    "Start": "zh-TW:Start",
+    "Stop": "zh-TW:Stop",
+
+    "Monday": "zh-TW:Monday",
+    "Tuesday": "zh-TW:Tuesday",
+    "Wednesday": "zh-TW:Wednesday",
+    "Thursday": "zh-TW:Thursday",
+    "Friday": "zh-TW:Friday",
+    "Saturday": "zh-TW:Saturday",
+    "Sunday": "zh-TW:Sunday",
+
+    "Revert": "zh-TW:Revert",
+    "Defaults": "zh-TW:Defaults",
+
+    "Location_11": "zh-TW:Location_11",
+    "Location_12": "zh-TW:Location_12",
+    "Location_13": "zh-TW:Location_13",
+    "Location_14": "zh-TW:Location_14",
+    "Location_15": "zh-TW:Location_15",
+    "System_1": "zh-TW:System_1",
+    "System_2": "zh-TW:System_2",
+    "System_3": "zh-TW:System_3",
+    "System_4": "zh-TW:System_4",
+    "System_5": "zh-TW:System_5",
+
+    "Oneshot": "zh-TW:Oneshot",
+    "Weekday": "zh-TW:Weekday",
+    "Holiday": "zh-TW:Holiday",
+    "User Defined 1": "zh-TW:User-Defined 1",
+    "User Defined 2": "zh-TW:User-Defined 2",
+    "User Defined 3": "zh-TW:User-Defined 3"
+}

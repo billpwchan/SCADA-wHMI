@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE StateList SYSTEM "Dtd/lststatelist.dtd">
+<!-- StateList HDVRequestDataList XML save file -->
+<StateList multi="YES" mode="MANDATORY" name="SCADAgenDataPointMgn" creatorId="0" description="SCADAgenDataPointMgn" comment="" activate="YES">
+	<Column>
+
+		<Name value="forceddate"></Name>
+		<Name value="forcedsource"></Name>
+		<Name value="forcedstatus"></Name>
+		<Name value="forcedvalue"></Name>
+
+		<Name value="computedmessage"></Name>
+		
+		<Name value="univname"></Name>
+		<Name value="pointlabel"></Name>
+
+		<Name value="eqplabel"></Name>
+		<Name value="geo"></Name>
+		<Name value="func"></Name>
+
+	</Column>
+	<List>
+
+		<Attribute name="dfo_type!forcedDate"></Attribute>
+		<Attribute name="dfo_type!forcedSource"></Attribute>
+		<Attribute name="dfo_type!forcedStatus"></Attribute>
+		<Attribute name="dfo_type!forcedValue"></Attribute>
+		
+		<Attribute name="dci_cb_type!^.computedMessage"></Attribute>
+
+		<Attribute name="dci_cb_type!^.UNIVNAME"></Attribute>
+		<Attribute name="dci_cb_type!^.label"></Attribute>
+		
+
+		<Attribute name="BasicEquipment!^:^.label"></Attribute>
+		<Attribute name="BasicEquipment!^:^.geographicalCat"></Attribute>
+		<Attribute name="BasicEquipment!^:^.functionalCat"></Attribute>
+
+		<Condition value='(dfo_type!forcedStatus==1)'></Condition>
+	</List>
+	<List>
+
+		<Attribute name="afo_type!forcedDate"></Attribute>
+		<Attribute name="afo_type!forcedSource"></Attribute>
+		<Attribute name="afo_type!forcedStatus"></Attribute>
+		<Attribute name="afo_type!forcedValue"></Attribute>
+
+		<Attribute name="aci_cb_type!^.computedMessage"></Attribute>
+		
+		<Attribute name="aci_cb_type!^.UNIVNAME"></Attribute>
+		<Attribute name="aci_cb_type!^.label"></Attribute>
+		
+
+		<Attribute name="BasicEquipment!^:^.label"></Attribute>
+		<Attribute name="BasicEquipment!^:^.geographicalCat"></Attribute>
+		<Attribute name="BasicEquipment!^:^.functionalCat"></Attribute>
+
+		<Condition value='(afo_type!forcedStatus==1)'></Condition>
+	</List>
+</StateList>

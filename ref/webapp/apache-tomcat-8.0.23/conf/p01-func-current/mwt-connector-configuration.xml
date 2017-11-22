@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdk:connectorConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                            xmlns:sdk="http://www.thalesgroup.com/hv/sdk/configuration-v1"
+                            xmlns:sub="http://www.thalesgroup.com/hv/ws/dialect/entity-content-v1"
+                            xsi:schemaLocation="http://www.thalesgroup.com/hv/sdk/configuration-v1 ConnectorConfiguration.xsd
+                                                http://www.thalesgroup.com/hv/ws/dialect/entity-content-v1 hypervisor_dialect_entity_content.xsd">
+
+  <!--<sdk:sharedCacheConfigurationFile>ehcache.xml</sdk:sharedCacheConfigurationFile>
+  <sdk:quartzConfigurationFile>quartz.properties</sdk:quartzConfigurationFile>-->
+
+  <sdk:operationConfiguration>
+    <!-- Value can be one of: REQUESTER, RESPONDER, REQUESTER_AND_RESPONDER -->
+    <sdk:operationRuntimeMode>REQUESTER</sdk:operationRuntimeMode>
+    <!-- The sub-system starts subscriptions: an URL to receive notifications shall be set
+         This URL may be different than the server URL (deployment with a load balancer for example)
+    -->
+    <sdk:operationReplyToAddress>$$M100WEB1_OPERATION_ADDRESS$$/requester</sdk:operationReplyToAddress>
+    <!-- The URL where the operation request/response messages are received -->
+    <sdk:operationServerAddress>$$M100WEB1_OPERATION_ADDRESS$$/requester</sdk:operationServerAddress>
+  </sdk:operationConfiguration>
+
+   <sdk:notificationConfiguration>
+    <sdk:notificationRuntimeMode>CONSUMER</sdk:notificationRuntimeMode>
+    <!-- Must be the same address because we are HMI. -->
+    <sdk:subscriptionReplyToAddress>$$M100WEB1_NOTIFICATION_ADDRESS$$/reception</sdk:subscriptionReplyToAddress>
+    <sdk:notificationServerAddress>$$M100WEB1_NOTIFICATION_ADDRESS$$/reception</sdk:notificationServerAddress>
+  </sdk:notificationConfiguration>
+</sdk:connectorConfiguration>

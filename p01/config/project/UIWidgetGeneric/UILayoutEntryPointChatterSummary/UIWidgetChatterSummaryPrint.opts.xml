@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<actionset key="init">
+	</actionset>
+	
+	<actionset key="set_default_action">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	
+	<actionset key="print">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>print</OperationString1>
+	</actionset>
+	
+	<action key="print">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UILayoutChatterSummaryViewer</OperationElement>
+		<OperationString1>Print</OperationString1>
+	</action>
+
+</data-set>

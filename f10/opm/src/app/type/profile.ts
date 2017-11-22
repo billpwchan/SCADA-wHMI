@@ -1,4 +1,4 @@
-import {Mask} from './mask';
+import { Mask } from './mask';
 
 export class Profile {
     public id: number;
@@ -6,19 +6,16 @@ export class Profile {
     public description: string;
     public masks: Mask[];
 
-    constructor(profile: Profile = undefined) {
-        if (profile) {
-            this.id = profile.id;
-            this.name = profile.name;
-            this.description = profile.description;
+    constructor(p: Profile = undefined) {
+        this.masks = [];
+        if (p) {
+            this.id = p.id;
+            this.name = p.name;
+            this.description = p.description;
             this.masks = [];
-            if (profile.masks) {
-                for (let i = 0; i < profile.masks.length; ++i) {
-                    this.masks.push(new Mask(profile.masks[i]));
-                }
+            if (p.masks) {
+                p.masks.forEach(m => this.masks.push(new Mask(m)));
             }
-        } else {
-            this.masks = [];
         }
     }
 }

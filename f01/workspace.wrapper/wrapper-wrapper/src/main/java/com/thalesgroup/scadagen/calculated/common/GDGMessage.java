@@ -257,7 +257,7 @@ public abstract class GDGMessage extends SCSStatusComputer {
 	        	
 	        	if ( null != inValue1 ) {
 	        		
-	        		inValue1 = Translation.getDBMessage(inValue1);
+	        		inValue1 = Translation.getDBMessage(operatorOpmInfo.getSessionId(), inValue1);
 	        		
 	            	String rawTokens []	= split(sperater, inValue1);
 	            	

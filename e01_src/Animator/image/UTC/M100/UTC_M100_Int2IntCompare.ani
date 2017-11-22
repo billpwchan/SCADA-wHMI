@@ -1,0 +1,40 @@
+// Animator Version: ANIMATOR 2015 5.3.1
+// File generated: 7/09/2017 10:46:34 AM
+// Image: UTC/M100/UTC_M100_Int2IntCompare
+
+Version = "50301"
+Image
+{
+Header
+{
+}
+
+
+Layer "AnDefaultLayer"
+{
+  Label {
+    Point = (0, 16)
+    Label = "Verify Status Computer"
+    Transformer = ( 8, 0, 0, 8, 24, -228 )
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Label {
+    Point = (0, 16)
+    Label = "Int2IntCompare"
+    Transformer = ( 8, 0, 0, 8, 206, 714 )
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+}
+
+Layer "InvisibleLayout"
+{
+  Polygon {
+    Points = { (-476, -376), (1462, -376), (1462, 1174), (-476, 1174), (-476, -376)    }
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+}
+
+}

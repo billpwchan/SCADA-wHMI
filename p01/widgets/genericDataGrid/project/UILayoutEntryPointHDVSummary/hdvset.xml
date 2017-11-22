@@ -112,23 +112,17 @@
 	
 	<p:column filterable="true" i18n="true" name="gdg_column_status" sortable="true" width="120" widthUnit="PX" xsi:type="p:textEnumColumnType">
          <p:source name="GDGColumn03" statusComputerName="GDGColumn03" xsi:type="cmn:computedStatusDataSourceType"/>
+		<p:textItem sourceValue="-1" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_-1"/>
         <p:textItem sourceValue="0" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_0"/>
-        <p:textItem sourceValue="1" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_1"/>
-        <p:textItem sourceValue="2" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_2"/>
-        <p:textItem sourceValue="3" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_3"/>
-        <p:textItem sourceValue="4" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_4"/>
-        <p:textItem sourceValue="5" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_5"/>
-        <p:textItem sourceValue="6" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_6"/>
-        <p:textItem sourceValue="7" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_7"/>
-        <p:textItem sourceValue="8" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_8"/>
-        <p:textItem sourceValue="9" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_9"/>
-        <p:textItem sourceValue="10" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_10"/>
-        <p:textItem sourceValue="11" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_11"/>
-        <p:textItem sourceValue="12" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_12"/>
-        <p:textItem sourceValue="13" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_13"/>
-        <p:textItem sourceValue="14" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_14"/>
-        <p:textItem sourceValue="15" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_15"/>
-        <p:textItem sourceValue="16" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_16"/>
+        <p:textItem sourceValue="257" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_257"/>
+        <p:textItem sourceValue="258" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_258"/>
+        <p:textItem sourceValue="260" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_260"/>
+        <p:textItem sourceValue="513" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_513"/>
+        <p:textItem sourceValue="514" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_514"/>
+        <p:textItem sourceValue="516" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_516"/>
+        <p:textItem sourceValue="1025" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_1025"/>
+        <p:textItem sourceValue="1026" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_1026"/>
+        <p:textItem sourceValue="1028" value="&amp;UILayoutEntryPointHDVSummary_control_level_value_1028"/>
     </p:column>
 	
     <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_alias" width="0" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">

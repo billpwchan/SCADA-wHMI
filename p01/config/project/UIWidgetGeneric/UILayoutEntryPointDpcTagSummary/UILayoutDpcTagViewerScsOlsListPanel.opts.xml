@@ -5,6 +5,8 @@
 		<ListConfigId>dpctagset</ListConfigId>
 		<MenuEnableCallImage>false</MenuEnableCallImage>
 		<SelectionMode>Multiple</SelectionMode>
+		<DebugId>UILayoutDpcTagViewerScsOlsListPanel</DebugId>
+		<PagerName>SCADAgenPager</PagerName>
 		<MwtEventBusName>dpctagset</MwtEventBusName>
 		<MwtEventBusScope>Global</MwtEventBusScope>
 	</header>

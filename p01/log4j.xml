@@ -94,7 +94,7 @@
   </logger>
     <logger name="com.thalesgroup.scadasoft" additivity="false">
     <!-- change level here to define the minimum level to log on console and rolling file -->
-    <level value="DEBUG" />
+    <level value="INFO" />
     
     <appender-ref ref="rollingXMLFile" />
   </logger>

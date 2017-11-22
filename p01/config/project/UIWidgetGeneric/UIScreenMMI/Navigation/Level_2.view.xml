@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCss>project-gwt-flextable-navigationmenu-2</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>WidgetFactory</widget>
+		<css>project-gwt-panel-navigationmenu-2-0-0</css>
+		<element>navigationmenu2</element>
+		
+		<uiCtrl>UIPanelNavigation</uiCtrl>
+		<uiView>UIScreenMMI/Navigation/Level_2.view.xml</uiView>
+		<uiOpts>UIScreenMMI/Navigation/Level_2.opts.xml</uiOpts>
+	</option>
+	
+</data-set>

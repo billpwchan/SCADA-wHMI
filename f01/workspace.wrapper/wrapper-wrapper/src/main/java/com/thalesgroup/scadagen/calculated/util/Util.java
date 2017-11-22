@@ -1,16 +1,23 @@
 package com.thalesgroup.scadagen.calculated.util;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 
 import com.thalesgroup.hypervisor.mwt.core.util.config.loader.IConfigLoader;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implementation.ServicesImplFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.BooleanAttribute;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.Coordinates;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.CoordinatesAttribute;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.DateTimeAttribute;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.DoubleAttribute;
@@ -23,6 +30,8 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.
 public class Util {
 	
 	private final Logger logger = LoggerFactory.getLogger(Util.class.getName());
+	
+	private final String STR_DOT = ".";
 	
 	private String prefix = "";
 	public void setPrefix(String prefix) { this.prefix = prefix; }
@@ -102,12 +111,39 @@ public class Util {
 	    logger.debug("{} {} ret.getValue()[{}]", new Object[]{function, prefix, ret.getValue()});
 	    return ret;
 	}
+	
+	public DoubleAttribute getDoubleAttribute(Double value, boolean isValid, Date date) {
+		final String function = "getStringAttribute";
+		logger.debug("{} {} value[{}] isValid[{}] date[{}]", new Object[]{function, prefix, value, date});
+		DoubleAttribute ret = new DoubleAttribute();
+	    ret.setValue(value);
+	    ret.setValid(isValid);
+	    ret.setTimestamp(date);
+	    logger.debug("{} {} ret.getValue()[{}]", new Object[]{function, prefix, ret.getValue()});
+	    return ret;
+	}
+	
+	public CoordinatesAttribute getCoordinatesAttribute(Coordinates coordinates, boolean isValid, Date date) {
+		final String function = "getStringAttribute";
+		logger.debug("{} {} coordinate.getX[{}] coordinate.getY[{}] isValid[{}] date[{}]", new Object[]{function, prefix, coordinates.getX(), coordinates.getY(), date});
 
-	public String getConfitPrefix(Map<String, String> mappings, String m_name, String perConfigName) {
-		final String function = "getConfitPrefix";
+		CoordinatesAttribute ret = new CoordinatesAttribute();
+		ret.setValue(coordinates);
+    	ret.setTimestamp(new Date());
+    	ret.setValid(true);
+	    logger.debug("{} {} ret.getValue()[{}]", new Object[]{function, prefix, ret.getValue()});
+	    return ret;
+	}
+	
+	public String getConfigAttribute(String attributeName) {
+		return STR_DOT+attributeName;
+	}
+
+	public String getConfigPrefix(Map<String, String> mappings, String attributeName) {
+		final String function = "getConfigPrefix";
     	String configPrefix = "";
-    	if ( null != perConfigName ) {
-    		String keyToFind = configPrefix+"."+perConfigName;
+    	if ( null != attributeName ) {
+    		String keyToFind = configPrefix+getConfigAttribute(attributeName);
     		for ( String key : mappings.keySet() ) {
     			if ( key.startsWith(keyToFind)) {
     				configPrefix = keyToFind;
@@ -185,4 +221,34 @@ public class Util {
 		logger.warn("{} {} inputStatusByName[{}]", new Object[]{function, prefix, inputStatusByName});
 		logger.debug("{} {} End", function, prefix);
 	}
+	
+	public Map<Integer, String> readLineFromFile(String csvFile) {
+		final String function = "readLineFromFile";
+		logger.debug("{} {} Begin", new Object[]{function, prefix});
+		Map<Integer, String> ret = new HashMap<Integer, String>();
+		try {
+			logger.debug("Loading csvFile[{}]", csvFile);
+			ResourcePatternResolver pathResolver = new PathMatchingResourcePatternResolver();
+			Resource res = pathResolver.getResource(csvFile);
+			Scanner scanner = new Scanner(res.getFile());
+			if (scanner != null) {
+				int i = 0;
+				while (scanner.hasNextLine()) {
+					String line = scanner.nextLine();
+					logger.debug("i[{}] line[{}]", i, line);
+					ret.put(i++, line);
+				}
+			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			logger.warn("{} {} csvFile[{}] FileNotFoundException", new Object[]{function, prefix, csvFile});
+			ret = null;
+		} catch (IOException e) {
+			logger.warn("{} {} csvFile[{}] IOException", new Object[]{function, prefix, csvFile});
+			ret = null;
+		}
+		logger.debug("{} {} End", function, prefix);
+		return ret;
+	}
+
 }

@@ -5,6 +5,7 @@ import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJsonFile;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -26,7 +27,7 @@ public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
 		String dictionariesCacheNameValue	= uiGeneric.getWidgetValue("dictionariescachenamevalue");
 		String fileNameValue				= uiGeneric.getWidgetValue("filenamevalue");
 		
-		JSONObject result = ReadJson.readJson(dictionariesCacheNameValue, fileNameValue);
+		JSONObject result = ReadJsonFile.readJson(dictionariesCacheNameValue, fileNameValue);
 		
 		uiGeneric.setWidgetValue("resultvalue", result.toString());
 		
@@ -42,7 +43,7 @@ public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
 		String keyValue						= uiGeneric.getWidgetValue("keyvalue");
 		String defaultvalueValue			= uiGeneric.getWidgetValue("defaultvaluevalue");
 		
-		String result = ReadJson.readString(dictionariesCacheNameValue, fileNameValue, keyValue, defaultvalueValue);
+		String result = ReadJsonFile.readString(dictionariesCacheNameValue, fileNameValue, keyValue, defaultvalueValue);
 		
 		uiGeneric.setWidgetValue("resultvalue", result);
 		
@@ -59,7 +60,7 @@ public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
 		String defaultvalueValue			= uiGeneric.getWidgetValue("defaultvaluevalue");
 		int defaultvalue = Integer.parseInt(defaultvalueValue);
 		
-		int result = ReadJson.readInt(dictionariesCacheNameValue, fileNameValue, keyValue, defaultvalue);
+		int result = ReadJsonFile.readInt(dictionariesCacheNameValue, fileNameValue, keyValue, defaultvalue);
 		
 		uiGeneric.setWidgetValue("resultvalue", Integer.toString(result));
 		
@@ -76,7 +77,7 @@ public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
 		String defaultvalueValue			= uiGeneric.getWidgetValue("defaultvaluevalue");
 		boolean defaultvalue 				= Boolean.parseBoolean(defaultvalueValue);
 		
-		boolean result = ReadJson.readBoolean(dictionariesCacheNameValue, fileNameValue, keyValue, defaultvalue);
+		boolean result = ReadJsonFile.readBoolean(dictionariesCacheNameValue, fileNameValue, keyValue, defaultvalue);
 		
 		uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
 		
@@ -91,7 +92,7 @@ public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
 		String fileNameValue				= uiGeneric.getWidgetValue("filenamevalue");
 		String keyValue						= uiGeneric.getWidgetValue("keyvalue");
 		
-		JSONArray result = ReadJson.readArray(dictionariesCacheNameValue, fileNameValue, keyValue);
+		JSONArray result = ReadJsonFile.readArray(dictionariesCacheNameValue, fileNameValue, keyValue);
 		
 		uiGeneric.setWidgetValue("resultvalue", result.toString());
 		
@@ -109,7 +110,7 @@ public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
 		String objKeyValue					= uiGeneric.getWidgetValue("objectkeyvalue");
 		String objKeyValueValue				= uiGeneric.getWidgetValue("objectkeyvaluevalue");
 		
-		JSONArray array = ReadJson.readArray(dictionariesCacheNameValue, fileNameValue, arrayKeyValue);
+		JSONArray array = ReadJsonFile.readArray(dictionariesCacheNameValue, fileNameValue, arrayKeyValue);
 		JSONObject object = ReadJson.readObject(array, objKeyValue, objKeyValueValue);
 		
 		uiGeneric.setWidgetValue("resultvalue", object.toString());

@@ -1,0 +1,26 @@
+// Animator Version: ANIMATOR2007 4.10.0
+// File generated: 26/09/2016 16:08:37
+// Model: ECT/SCADAgen_ECT_TEMP_ActiveNumber
+
+Version = "41000"
+
+ActiveNumber
+{
+  Font = "Arial/48"
+  Colors =
+  {
+    "SCADAgen_foreground",
+    "highlight"
+  }
+  Default Color = 0
+  Format = "XX.X"
+  Value = 0
+  Prefix = ""
+  Postfix = ""
+  Alignment = Center
+  Property "AccessorList" { AnListProperty  2
+ScsAccessor ActiveNumber  ColorNumber  "Animator/TECS/SIL_TMCC_B.fml-ColorNumber"  5
+ScsAccessor ActiveNumber  NumberValue  "Animator/TECS/SIL_TMCC_B.fml-currentValue"  5 }
+  Property "ScriptCode" { AnStringProperty "34" }
+  Property "ScriptMethodName" { AnStringProperty "HSCSInspector::Equipment" }
+}

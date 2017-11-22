@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animationConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/animation">
+  <animationRules id="SCADAGEN_UTC_M100_SC_Str2StrCompare_animation">
+    <animationRule>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="Str2StrCompare" name="Str2StrCompare"></source>
+      <sourceType>INT</sourceType>
+      <svgRefAnimation nodeId="Str2StrCompare_node">
+        <enumerationBinding>
+          <item inputValue="0" value="Str2StrCompare_0"></item>
+          <item inputValue="1" value="Str2StrCompare_1"></item>
+        </enumerationBinding>
+      </svgRefAnimation>
+    </animationRule>
+    <animationRule>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="needack" />
+      <sourceType>INT</sourceType>
+      <blinkAnimation defaultValue="false">
+        <rangeBinding>
+          <range from="1" to="2147483647" value="true" />
+        </rangeBinding>
+      </blinkAnimation>
+    </animationRule>
+  </animationRules>
+</animationConfiguration>

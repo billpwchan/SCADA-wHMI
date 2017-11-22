@@ -19,7 +19,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGen
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UILayoutRealize;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.matrix.ScsMatrixPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsMatrixPresenterClient;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.SelectionEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.SelectionEvent;
 
 public class UIWidgetMatrixViewer extends UILayoutRealize {
 

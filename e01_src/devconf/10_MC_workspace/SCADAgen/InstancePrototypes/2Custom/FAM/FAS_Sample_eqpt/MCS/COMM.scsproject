@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="6">
+  <ownedPrototype id="BasicEquipment_COMM_xPxcwP7zEeaDWYc-j7jl3Q_1488423361676">
+    <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_COMM_xPxcwP7zEeaDWYc-j7jl3Q_1488423361676"/>
+    <ownedAttributes frozen="true" name="user_class" partialUri="BasicEquipment_COMM_xPxcwP7zEeaDWYc-j7jl3Q_1488423361676"/>
+    <ownedAttributes frozen="true" name="hvqname" partialUri="BasicEquipment_COMM_xPxcwP7zEeaDWYc-j7jl3Q_1488423361676"/>
+    <parentPrototypes>BasicEquipment_FasBasicEquipment_amMc8Y3vEeeCWf0xiOvNtA_1504144507967</parentPrototypes>
+  </ownedPrototype>
+</scsproject:Project>

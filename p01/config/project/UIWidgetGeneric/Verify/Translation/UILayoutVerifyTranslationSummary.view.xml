@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>9</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-gwt-panel-summaryview-inner</rootCSS>
+	</header>
+	
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyTranslationControl</uiCtrl>
+		<uiView>Verify/Translation/UIWidgetVerifyTranslation_GetTranslationEngine.view.xml</uiView>
+		<element>UIWidgetVerifyTranslation_GetTranslationEngine</element>
+	</option>
+	
+	<option key="0|1">
+		<uiCtrl>UIWidgetVerifyTranslationControl</uiCtrl>
+		<uiView>Verify/Translation/UIWidgetVerifyTranslation_SetTranslationEngine.view.xml</uiView>
+		<element>UIWidgetVerifyTranslation_SetTranslationEngine</element>
+	</option>
+	
+	<option key="0|2">
+		<uiCtrl>UIWidgetVerifyTranslationControl</uiCtrl>
+		<uiView>Verify/Translation/UIWidgetVerifyTranslation_GetTranslationPattern.view.xml</uiView>
+		<element>UIWidgetVerifyTranslation_GetTranslationPattern</element>
+	</option>
+	
+	<option key="0|3">
+		<uiCtrl>UIWidgetVerifyTranslationControl</uiCtrl>
+		<uiView>Verify/Translation/UIWidgetVerifyTranslation_SetTranslationPattern.view.xml</uiView>
+		<element>UIWidgetVerifyTranslation_SetTranslationPattern</element>
+	</option>
+	
+	<option key="0|4">
+		<uiCtrl>UIWidgetVerifyTranslationControl</uiCtrl>
+		<uiView>Verify/Translation/UIWidgetVerifyTranslation_GetTranslationFlag.view.xml</uiView>
+		<element>UIWidgetVerifyTranslation_GetTranslationFlag</element>
+	</option>
+	
+	<option key="0|5">
+		<uiCtrl>UIWidgetVerifyTranslationControl</uiCtrl>
+		<uiView>Verify/Translation/UIWidgetVerifyTranslation_SetTranslationFlag.view.xml</uiView>
+		<element>UIWidgetVerifyTranslation_SetTranslationFlag</element>
+	</option>
+	
+	<option key="0|6">
+		<uiCtrl>UIWidgetVerifyTranslationControl</uiCtrl>
+		<uiView>Verify/Translation/UIWidgetVerifyTranslation_Third.view.xml</uiView>
+		<element>UIWidgetVerifyTranslation_Third</element>
+	</option>
+	
+	<option key="0|7">
+		<uiCtrl>UIWidgetVerifyTranslationControl</uiCtrl>
+		<uiView>Verify/Translation/UIWidgetVerifyTranslation_Concat.view.xml</uiView>
+		<element>UIWidgetVerifyTranslation_Concat</element>
+	</option>
+	
+	<option key="0|8">
+		<uiCtrl>UIWidgetVerifyTranslationControl</uiCtrl>
+		<uiView>Verify/Translation/UIWidgetVerifyTranslation_MissingTranslation.view.xml</uiView>
+		<element>UIWidgetVerifyTranslation_MissingTranslation</element>
+	</option>
+
+</data-set>

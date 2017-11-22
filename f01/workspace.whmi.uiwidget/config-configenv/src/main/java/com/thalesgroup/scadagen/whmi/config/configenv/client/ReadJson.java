@@ -35,168 +35,78 @@ public class ReadJson {
 		logger.end(className, function);
 		return jsonObject;
 	}
-	
-	public static JSONObject readJson(String dictionariesCacheName, String fileName) {
-		final String function = "readJson";
-		logger.begin(className, function);
-		JSONObject jsonObject = null;
 
-		DictionariesCache dictionariesCache = DictionariesCache.getInstance(dictionariesCacheName);
-		if (null != dictionariesCache) {
-
-			String data = dictionariesCache.getData(fileName);
-			
-			if ( null != data ) {
-				jsonObject = readJson(data);
-			} else {
-				logger.warn(className, function, "data IS NULL");
-			}
-
-		} else {
-			logger.warn(className, function, "dictionariesCacheName[{}] fileName[{}] dictionariesCache IS NULL",
-					dictionariesCacheName, fileName);
-		}
-
-		logger.end(className, function);
-		return jsonObject;
-	}
-
-	public static String readString(JSONValue jsonValue) {
+	public static String readString(JSONObject jsonObject, String key, String defaultValue) {
 		final String function = "readString";
 		logger.begin(className, function);
-		String string = null;
-		if (jsonValue != null && jsonValue.isString() != null) {
-			string = jsonValue.isString().stringValue();
-		} else {
-			logger.warn(className, function, "jsonValue[{}] IS INVALID", jsonValue);
-		}
-		logger.end(className, function);
-		return string;
-	}
-	
-	public static String readString(JSONObject jsonObject, String key) {
-		final String function = "readString";
-		logger.begin(className, function);
-		String string = null;
+		logger.trace(className, function, "jsonObject[{}] key[{}] defaultValue[{}]", new Object[]{jsonObject, key, defaultValue});
+		String result = defaultValue;
 		if (null != jsonObject) {
 			JSONValue jsonValue = jsonObject.get(key);
-			string = readString(jsonValue);
+			if (jsonValue != null && jsonValue.isString() != null) {
+				result = jsonValue.isString().stringValue();
+			} else {
+				logger.warn(className, function, "jsonValue[{}] IS INVALID", jsonValue);
+			}
 		} else {
-			logger.warn(className, function, "jsonObject[{}] IS NULL", jsonObject);
+			logger.debug(className, function, "jsonObject[{}] IS NULL", jsonObject);
 		}
-		logger.end(className, function);
-		return string;
-	}
-
-	public static String readString(String dictionariesCacheName, String fileName, String key, String defaulValue) {
-		final String function = "readString";
-		logger.begin(className, function);
-
-		String string = defaulValue;
-
-		JSONObject jsonObject = readJson(dictionariesCacheName, fileName);
-
-		string = readString(jsonObject, key);
-
-		logger.end(className, function);
-		return string;
-	}
-
-	public static int readInt(JSONValue jsonValue, int defaultValue) {
-		final String function = "readInt";
-		logger.begin(className, function);
-		int result = defaultValue;
-		if (jsonValue != null && jsonValue.isNumber() != null) {
-			result = (int) jsonValue.isNumber().doubleValue();
-		} else {
-			logger.warn(className, function, "jsonValue[{}] IS INVALID", jsonValue);
-		}
+		logger.debug(className, function, "result[{}]", result);
 		logger.end(className, function);
 		return result;
 	}
-	
+
 	public static int readInt(JSONObject jsonObject, String key, int defaultValue) {
 		final String function = "readInt";
 		logger.begin(className, function);
+		logger.trace(className, function, "jsonObject[{}] key[{}] defaultValue[{}]", new Object[]{jsonObject, key, defaultValue});
 		int result = defaultValue;
 		
 		if (null != jsonObject) {
 			JSONValue jsonValue = jsonObject.get(key);
-			result = readInt(jsonValue, defaultValue);
+			if (jsonValue != null && jsonValue.isNumber() != null) {
+				result = (int) jsonValue.isNumber().doubleValue();
+			} else {
+				logger.warn(className, function, "jsonValue[{}] IS INVALID", jsonValue);
+			}
+		} else {
+			logger.warn(className, function, "jsonObject IS NULL");
+		}
+		logger.debug(className, function, "result[{}]", result);
+		logger.end(className, function);
+		return result;
+	}
+	
+	public static boolean readBoolean(JSONObject jsonObject, String key, boolean defaultValue) {
+		final String function = "readBoolean";
+		logger.begin(className, function);
+		logger.trace(className, function, "jsonObject[{}] key[{}] defaultValue[{}]", new Object[]{jsonObject, key, defaultValue});
+		boolean result = defaultValue;
+		
+		if (null != jsonObject) {
+			JSONValue jsonValue = jsonObject.get(key);
+			if (jsonValue != null && jsonValue.isBoolean() != null) {
+				result = jsonValue.isBoolean().booleanValue();
+			} else {
+				logger.warn(className, function, "jsonValue[{}] IS INVALID", jsonValue);
+			}
 		} else {
 			logger.warn(className, function, "jsonObject IS NULL");
 		}
 		
-		logger.end(className, function);
-		return result;
-	}
-	
-	public static int readInt(String dictionariesCacheName, String fileName, String key, int defaulValue) {
-		final String function = "readInt";
-		logger.begin(className, function);
-
-		int result = defaulValue;
-
-		JSONObject jsonObject = readJson(dictionariesCacheName, fileName);
-
-		if (null != jsonObject) {
-			JSONValue m = jsonObject.get(key);
-			if (m != null && m.isNumber() != null) {
-				result = (int) m.isNumber().doubleValue();
-			}
-		} else {
-			logger.warn(className, function, "dictionariesCacheName[{}], dictionariesCache IS NULL",
-					dictionariesCacheName);
-		}
-
+		logger.debug(className, function, "result[{}]", result);
 		logger.end(className, function);
 		return result;
 	}
 
-	public static boolean readBoolean(String dictionariesCacheName, String fileName, String key, boolean defaulValue) {
-		final String function = "readBoolean";
-		logger.begin(className, function);
-
-		boolean result = defaulValue;
-
-		JSONObject jsonObject = readJson(dictionariesCacheName, fileName);
-
-		if (null != jsonObject) {
-			JSONValue m = jsonObject.get(key);
-			if (m != null && m.isBoolean() != null) {
-				result = m.isBoolean().booleanValue();
-			}
-		} else {
-			logger.warn(className, function, "dictionariesCacheName[{}], dictionariesCache IS NULL",
-					dictionariesCacheName);
-		}
-
-		logger.end(className, function);
-		return result;
-	}
-
-	public static JSONArray readArray(String dictionariesCacheName, String fileName, String index) {
+	public static JSONArray readArray(JSONObject jsonObject, String key) {
 		final String function = "readArray";
 		logger.begin(className, function);
-
-		JSONArray result = null;
-
-		JSONObject jsonObject = readJson(dictionariesCacheName, fileName);
-
-		result = readArray(jsonObject, index);
-
-		logger.end(className, function);
-		return result;
-	}
-
-	public static JSONArray readArray(JSONObject jsonObject, String index) {
-		final String function = "readArray";
-		logger.begin(className, function);
-
+		logger.trace(className, function, "jsonObject[{}] key[{}]", jsonObject, key);
 		JSONArray result = null;
 
 		if (null != jsonObject) {
-			JSONValue m = jsonObject.get(index);
+			JSONValue m = jsonObject.get(key);
 			if (m != null && m.isArray() != null) {
 				result = m.isArray();
 			}
@@ -207,23 +117,150 @@ public class ReadJson {
 		logger.end(className, function);
 		return result;
 	}
-
-	public static JSONObject readObject(JSONArray jsonArray, String key, String value) {
+	
+	public static String [] readStringArray(JSONArray jsonArray) {
 		final String function = "readObject";
 		logger.begin(className, function);
-		logger.debug(className, function, "key[{}] value[{}]", key, value);
+		logger.trace(className, function, "jsonArray[{}]", jsonArray);
+
+		String array [] = null;
+		if ( null != jsonArray ) {
+			array = new String[jsonArray.size()];
+			for (int i = 0; i < jsonArray.size(); ++i) {
+				JSONValue jsonValue = jsonArray.get(i);
+				if (jsonValue != null && jsonValue.isString() != null) {
+					array[i] = jsonValue.isString().stringValue();
+				} else {
+					logger.warn(className, function, "jsonValue[{}] IS INVALID", jsonValue);
+				}
+			}
+		} else {
+			logger.warn(className, function, "jsonArray IS NULL");
+		}
+
+		logger.end(className, function);
+		return array;
+	}
+	
+	public static String [] readStringArray(JSONObject jsonObject, String key) {
+		final String function = "readArray";
+		logger.begin(className, function);
+		logger.trace(className, function, "jsonObject[{}] key[{}]", jsonObject, key);
+		String array [] = null;
+
+		if (null != jsonObject) {
+			JSONValue m = jsonObject.get(key);
+			if (m != null && m.isArray() != null) {
+				array = readStringArray(m.isArray());
+			}
+		} else {
+			logger.warn(className, function, "jsonObject IS NULL");
+		}
+
+		logger.end(className, function);
+		return array;
+	}
+	
+	public static int [] readIntsFromArray(JSONArray jsonArray, String key) {	
+		final String function = "readIntsFromArray";
+		logger.begin(className, function);
+		logger.trace(className, function, "jsonArray[{}] key[{}]", new Object[]{jsonArray, key});
+
+		int ints [] = null;
+		
+		if ( null != jsonArray ) {
+			ints = new int[jsonArray.size()];
+			for (int i = 0; i < jsonArray.size(); ++i) {
+				if ( null != jsonArray.get(i) ) {
+					JSONObject object = jsonArray.get(i).isObject();
+					if (null != object.get(key)) {
+						if ( null != object.get(key).isNumber() ) {
+							ints[i] = (int) object.get(key).isNumber().doubleValue();
+						}
+					} else {
+						logger.warn(className, function, "object.get({}) IS NULL", key);
+					}
+				} else {
+					logger.warn(className, function, "jsonArray.get({}) IS NULL", i);
+				}
+			}
+		} else {
+			logger.warn(className, function, "jsonArray IS NULL");
+		}
+		
+		return ints;
+	}
+	
+	public static int [] readIntArray(JSONArray jsonArray) {
+		final String function = "readIntArray";
+		logger.begin(className, function);
+		logger.trace(className, function, "jsonArray[{}]", jsonArray);
+
+		int array [] = null;
+		if ( null != jsonArray ) {
+			array = new int[jsonArray.size()];
+			for (int i = 0; i < jsonArray.size(); ++i) {
+				JSONValue jsonValue = jsonArray.get(i);
+				if (jsonValue != null && jsonValue.isNumber() != null) {
+					array[i] = (int) jsonValue.isNumber().doubleValue();
+				} else {
+					logger.warn(className, function, "jsonValue[{}] IS INVALID", jsonValue);
+				}
+			}
+		} else {
+			logger.warn(className, function, "jsonArray IS NULL");
+		}
+
+		logger.end(className, function);
+		return array;
+	}
+	
+	public static int [] readIntArray(JSONObject jsonObject, String key) {
+		final String function = "readIntArray";
+		logger.begin(className, function);
+		logger.trace(className, function, "jsonObject[{}] key[{}]", jsonObject, key);
+		int array [] = null;
+
+		if (null != jsonObject) {
+			JSONValue m = jsonObject.get(key);
+			if (m != null && m.isArray() != null) {
+				array = readIntArray(m.isArray());
+			}
+		} else {
+			logger.warn(className, function, "jsonObject IS NULL");
+		}
+
+		logger.end(className, function);
+		return array;
+	}
+	
+	public static JSONObject readObject(JSONObject json, String key) {
+		final String function = "readObject";
+		logger.begin(className, function);
+		logger.trace(className, function, "json[{}] key[{}]", new Object[]{json, key});
+		
+		JSONValue jsonValue = json.get(key);
+		JSONObject jsonObject = jsonValue.isObject();
+
+		logger.end(className, function);
+		return jsonObject;
+	}
+
+	public static JSONObject readObject(JSONArray jsonArray, String indexKey, String keyValue) {
+		final String function = "readObject";
+		logger.begin(className, function);
+		logger.trace(className, function, "jsonArray[{}] indexKey[{}] keyValue[{}]", new Object[]{jsonArray, indexKey, keyValue});
 
 		JSONObject object = null;
 		for (int i = 0; i < jsonArray.size(); ++i) {
 			JSONValue jsonValue = jsonArray.get(i);
 			JSONObject tJsonObect = jsonValue.isObject();
 			if (null != tJsonObect) {
-				JSONValue keyValue = tJsonObect.get(key);
-				if (null != keyValue) {
-					JSONString tValue = keyValue.isString();
+				if (null != tJsonObect.get(indexKey)) {
+					JSONString tValue = tJsonObect.get(indexKey).isString();
 					if (null != tValue) {
 						String sValue = tValue.stringValue();
-						if (sValue.equals(value)) {
+						if (sValue.equals(keyValue)) {
 							object = tJsonObect;
 							break;
 						}

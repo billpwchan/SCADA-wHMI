@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>6</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyTranslation_Third-panel-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>translaction multi line:</label>
+		<css>project-UIWidgetVerifyTranslation_Third-inlinelabel-firstlabel</css>
+		<element>firstlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|1">
+		<widget>InlineLabel</widget>
+		<label>inputStr:</label>
+		<css>project-UIWidgetVerifyTranslation_Third-inlinelabel-inputstrlabel</css>
+		<element>inputstrlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|2">
+		<widget>TextArea</widget>
+		<label>&amp;abc &amp;def &amp;ghi &amp;z</label>
+		<css>project-UIWidgetVerifyTranslation_Third-textbox-inputstrvalue</css>
+		<element>inputstrvalue</element>
+		
+		<cssContainer>project-UIWidgetVerifyTranslation_Third-container-inputstrvalue</cssContainer>
+		
+		<disableTranslation>true</disableTranslation>
+		
+	</option>
+	
+	<option key="0|3">
+		<widget>Button</widget>
+		<label>translation</label>
+		<css>project-UIWidgetVerifyTranslation_Third-button-translation</css>
+		<element>translation</element>
+		
+		<cssContainer>project-UIWidgetVerifyTranslation_Third-container-translation</cssContainer>
+		
+		<tooltip>translation</tooltip>
+		
+	</option>
+	
+	
+	<option key="0|4">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+		<css>project-UIWidgetVerifyTranslation_Third-inlinelabel-resultlabel</css>
+		<element>resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|5">
+		<widget>TextArea</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyTranslation_Third-textbox-resultvalue</css>
+		<element>resultvalue</element>
+		<disableTranslation>true</disableTranslation>
+		
+		<cssContainer>project-UIWidgetVerifyTranslation_Third-container-resultvalue</cssContainer>
+		
+	</option>
+	
+</data-set>

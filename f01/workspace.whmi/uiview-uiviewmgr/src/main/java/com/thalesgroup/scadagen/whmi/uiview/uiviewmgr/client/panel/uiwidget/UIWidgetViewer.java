@@ -9,7 +9,6 @@ import java.util.Set;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.cellview.client.AbstractPager;
-import com.google.gwt.user.client.Window;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.FilterDescription;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.IntFilterDescription;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.StringEnumFilterDescription;
@@ -27,8 +26,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProce
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter_i.FilterViewEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint_i.PrintViewEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.control.PrintGDGPage;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UILayoutRealize;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
@@ -36,10 +35,11 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.event.ScsOlsListP
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanelMenu;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.CounterEvent;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.FilterEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.CounterEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.FilterEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsAlarmDataGridPresenterClient;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.SelectionEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.SelectionEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.UpdateEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ButtonOperation_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.CreateText_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.SCADAgenPager;
@@ -49,8 +49,6 @@ public class UIWidgetViewer extends UILayoutRealize {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetViewer.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
-	private String contextMenuOptsXMLFile = "UIEventActionProcessor_CallImage/" + "UIEventActionProcessor_CallImage.opts.xml";
 
 	private UIEventActionProcessor_i uiEventActionProcessorContextMenu_i = null;
 	
@@ -60,6 +58,24 @@ public class UIWidgetViewer extends UILayoutRealize {
 	private ScsAlarmDataGridPresenterClient gridPresenter	= null;
 	private ScsGenericDataGridView gridView					= null;
 	private ScsOlsListPanelMenu contextMenu					= null;
+	
+	private boolean enableRowUpdated = false;
+	
+	private String printDataDebugId	= null;
+	private String printDataColumns	= null;
+	private String printDataIndexs	= null;
+	private String printDataAttachement = null;
+	private String printDataDivIndexes = null;
+	
+	private int printDataStart = 0;
+	private int printDataLength = 8000;
+	
+	private int printDataReceviedWait = 5000;
+	private int printDataWalkthoughWait = 5000;
+	
+	private String menuHandlerUIOpts = "";
+	
+	PrintGDGPage printGDGPage = null;
 	
 	public void removeFilter() {
 		final String function = "removeFilter";
@@ -119,8 +135,64 @@ public class UIWidgetViewer extends UILayoutRealize {
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
 			scsOlsListElement			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.ScsOlsListElement.toString(), strHeader);
+		
+			String strEnableRowUpdated	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.EnableRowUpdated.toString(), strHeader);
+			if ( null != strEnableRowUpdated && ! strEnableRowUpdated.isEmpty() ) {
+				enableRowUpdated = Boolean.parseBoolean(strEnableRowUpdated);
+			}
+			
+			printDataDebugId			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataDebugId.toString(), strHeader);
+			printDataColumns			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataColumns.toString(), strHeader);
+			printDataIndexs				= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataIndexs.toString(), strHeader);
+			printDataAttachement		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataAttachement.toString(), strHeader);
+			printDataDivIndexes			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataDivIndexes.toString(), strHeader);
+			
+			String strPrintDataStart	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataStart.toString(), strHeader);
+			try {
+				printDataStart = Integer.parseInt(strPrintDataStart);
+			} catch ( NumberFormatException ex ) {
+				logger.warn(className, function, "sPrintDataStart[{}] IS INVALID", strPrintDataStart);
+			}
+			
+			String strPrintDataLength	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataLength.toString(), strHeader);
+			try {
+				printDataLength = Integer.parseInt(strPrintDataLength);
+			} catch ( NumberFormatException ex ) {
+				logger.warn(className, function, "strPrintDataLength[{}] IS INVALID", strPrintDataLength);
+			}
+			
+			String strPrintDataReceviedWait	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataReceviedWait.toString(), strHeader);
+			try {
+				printDataReceviedWait = Integer.parseInt(strPrintDataReceviedWait);
+			} catch ( NumberFormatException ex ) {
+				logger.warn(className, function, "strPrintDataReceviedWait[{}] IS INVALID", strPrintDataReceviedWait);
+			}			
+			
+			String strPrintDataWalkthoughWait	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataWalkthoughWait.toString(), strHeader);
+			try {
+				printDataWalkthoughWait = Integer.parseInt(strPrintDataWalkthoughWait);
+			} catch ( NumberFormatException ex ) {
+				logger.warn(className, function, "strPrintDataWalkthoughWait[{}] IS INVALID", strPrintDataWalkthoughWait);
+			}
+			
+			menuHandlerUIOpts		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.MenuHandlerUIOpts.toString(), strHeader);
 		}
 		logger.debug(className, function, "scsOlsListElement[{}]", scsOlsListElement);
+		logger.debug(className, function, "enableRowUpdated[{}]", enableRowUpdated);
+		
+		logger.debug(className, function, "printDataDebugId[{}]", printDataDebugId);
+		logger.debug(className, function, "printDataColumns[{}]", printDataColumns);
+		logger.debug(className, function, "printDataIndexs[{}]", printDataIndexs);
+		logger.debug(className, function, "printDataAttachement[{}]", printDataAttachement);
+		logger.debug(className, function, "printDataDivIndexes[{}]", printDataDivIndexes);
+		
+		logger.debug(className, function, "printDataStart[{}]", printDataStart);
+		logger.debug(className, function, "printDataLength[{}]", printDataLength);
+		
+		logger.debug(className, function, "printDataReceviedWait[{}]", printDataReceviedWait);
+		logger.debug(className, function, "printDataWalkthoughWait[{}]", printDataWalkthoughWait);
+		
+		logger.debug(className, function, "menuHandlerUIOpts[{}]", menuHandlerUIOpts);
 		
 		if ( null == scsOlsListElement ) {
 			
@@ -150,12 +222,34 @@ public class UIWidgetViewer extends UILayoutRealize {
 			
 			if ( null != gridPresenter ) {
 				
+				gridPresenter.setUpdateEvent(new UpdateEvent() {
+
+					@Override
+					public void onUpdate(Set<Map<String, String>> entities) {
+						final String function = "onUpdate fireUpdateEvent";
+						logger.begin(className, function);
+						
+						if ( enableRowUpdated ) {
+							
+							String actionsetkey = "RowUpdated";
+							HashMap<String, Object> parameter = new HashMap<String, Object>();
+							parameter.put(ViewAttribute.OperationObject1.toString(), entities);
+							
+							HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+							override.put("RowUpdated", parameter);
+							
+							uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+						}
+						
+						logger.end(className, function);
+					}
+				});
+				
 				gridPresenter.setSelectionEvent(new SelectionEvent() {
 
 					@Override
 					public void onSelection(Set<HashMap<String, String>> entities) {
 						final String function = "onSelection fireFilterEvent";
-						
 						logger.begin(className, function);
 						
 						String actionsetkey = "RowSelected";
@@ -176,7 +270,6 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void onFilterChange(ArrayList<String> columns) {
 						final String function = "onFilterChange fireFilterEvent";
-
 						logger.begin(className, function);
 						
 						// Dump
@@ -202,7 +295,6 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void onCounterChange(Map<String, Integer> countersValue) {
 						final String function = "onCounterChange fire onCounterChange";
-						
 						logger.begin(className, function);
 						
 						if ( null != countersValue ) {
@@ -237,7 +329,6 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void buttonOperation(String operation, boolean status) {
 						final String function = "setButtonOperation buttonOperation";
-						
 						logger.begin(className, function);
 						
 						logger.debug(className, function, "operation[{}] status[{}]", operation, status);
@@ -268,7 +359,6 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void pageStart(int pageStart) {
 						final String function = "setCreateText pageStart";
-						
 						logger.begin(className, function);
 						
 						String strType = "PageStart";
@@ -293,7 +383,6 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void endIndex(int endIndex) {
 						final String function = "setCreateText endIndex";
-						
 						logger.begin(className, function);
 						
 						String strType = "EndIndex";
@@ -318,7 +407,6 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void exact(boolean exact, int dataSize) {
 						final String function = "setCreateText exact";
-						
 						logger.begin(className, function);
 						
 						String strType = "Exact";
@@ -358,7 +446,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 				uiEventActionProcessorContextMenu_i.setElement(element);
 				uiEventActionProcessorContextMenu_i.setDictionariesCacheName("UIWidgetGeneric");
 //				uiEventActionProcessorContextMenu.setEventBus(eventBus);
-				uiEventActionProcessorContextMenu_i.setOptsXMLFile(contextMenuOptsXMLFile);
+				uiEventActionProcessorContextMenu_i.setOptsXMLFile(menuHandlerUIOpts);
 //				uiEventActionProcessorContextMenu.setUIGeneric(uiWidgetGeneric);
 				uiEventActionProcessorContextMenu_i.setActionSetTagName(UIActionEventType.actionset.toString());
 				uiEventActionProcessorContextMenu_i.setActionTagName(UIActionEventType.action.toString());
@@ -367,13 +455,13 @@ public class UIWidgetViewer extends UILayoutRealize {
 	            contextMenu.setScsOlsListPanelMenuHandler(new ScsOlsListPanelMenuHandler() {
 	    			
 	    			@Override
-	    			public void onSelection(Set<HashMap<String, String>> entity) {
+	    			public void onSelection(Set<Map<String, String>> entity) {
 	    				logger.warn(className, function, "entity[{}]", entity);
 	    				
 	    				if ( null != entity ) {
-	    					HashMap<String, String> hashMap = entity.iterator().next();
-	    					if ( null != hashMap ) {
-	    						String actionsetkey = hashMap.get("sourceID");
+	    					Map<String, String> map = entity.iterator().next();
+	    					if ( null != map ) {
+	    						String actionsetkey = map.get("sourceID");
 	    						logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
 	    						if ( null != actionsetkey ) {
 	    							if ( null != uiEventActionProcessorContextMenu_i ) {
@@ -395,6 +483,14 @@ public class UIWidgetViewer extends UILayoutRealize {
 			} else {
 				logger.warn(className, function, "contextMenu IS NULL");
 			}
+			
+			printGDGPage = new PrintGDGPage(gridView, uiEventActionProcessor_i);
+			printGDGPage.setGDGParameter(printDataDebugId);
+			printGDGPage.setPageContentParameter(printDataColumns, printDataIndexs);
+			printGDGPage.setPageRangeParameter(printDataStart, printDataLength);
+			printGDGPage.setTimerParameter(printDataReceviedWait, printDataWalkthoughWait);
+			printGDGPage.setDownloadParameter(printDataAttachement);
+			printGDGPage.setDivIndexsParameter(printDataDivIndexes);
 			
 		} else {
 			logger.warn(className, function, "scsOlsListPanel IS NULL");
@@ -561,9 +657,11 @@ public class UIWidgetViewer extends UILayoutRealize {
 							} else if ( null == os3 ) {
 								logger.warn(className, function, "od2 IS NULL");
 							}
-						} else if ( os1.equals(FilterViewEvent.RemoveFilter.toString()) ) {
+						} 
+						else if ( os1.equals(FilterViewEvent.RemoveFilter.toString()) ) {
 							removeFilter();
-						} else if ( os1.equals(ViewerViewEvent.AckVisible.toString()) ) {
+						} 
+						else if ( os1.equals(ViewerViewEvent.AckVisible.toString()) ) {
 							if ( null != gridView ) {
 								boolean validRequested = false, isValid = false;
 								String attributeName = null;
@@ -590,7 +688,8 @@ public class UIWidgetViewer extends UILayoutRealize {
 							} else {
 								logger.warn(className, function, "gridView IS NULL");
 							}
-						} else if ( os1.equals(ViewerViewEvent.AckVisibleSelected.toString()) ) {
+						} 
+						else if ( os1.equals(ViewerViewEvent.AckVisibleSelected.toString()) ) {
 							if ( null != gridView ) {
 								boolean validRequested = false, isValid = false;
 								String attributeName = null;
@@ -615,8 +714,23 @@ public class UIWidgetViewer extends UILayoutRealize {
 							} else {
 								logger.warn(className, function, "gridView IS NULL");
 							}
-						} else if ( os1.equals(PrintViewEvent.Print.toString()) ) {
-							Window.alert("Print Event");
+						} 
+						else if ( os1.equals(ViewerViewEvent.SetPageSize.toString())) {
+							
+							int startIndex = Integer.parseInt(os2);
+							int pageSize = Integer.parseInt(os3);
+							
+							printGDGPage.setPageSize(startIndex, pageSize, false);
+						}
+						else if ( os1.equals(ViewerViewEvent.Print.toString()) ) {
+							
+							printGDGPage.setPageSizePrint();
+
+						}
+						else if ( os1.equals(ViewerViewEvent.PrintCurPage.toString()) ) {
+							 
+							printGDGPage.printCurPage();
+							 
 						}
 					} else {
 						logger.warn(className, function, "os1 IS NULL");

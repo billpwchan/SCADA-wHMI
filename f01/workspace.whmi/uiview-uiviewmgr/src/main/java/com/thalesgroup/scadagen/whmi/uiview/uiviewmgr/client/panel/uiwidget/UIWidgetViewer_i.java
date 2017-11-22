@@ -24,6 +24,10 @@ public interface UIWidgetViewer_i {
 		, FastForwardPageSelected("FastForwardPageSelected")
 		, FastBackwardPageSelected("FastBackwardPageSelected")
 		
+		, SetPageSize("SetPageSize")
+		, Print("Print")
+		, PrintCurPage("PrintCurPage")
+		
 		;
 		private final String text;
 		private ViewerViewEvent(final String text) { this.text = text; }
@@ -33,6 +37,22 @@ public interface UIWidgetViewer_i {
 	
 	public enum ParameterName {
 		  ScsOlsListElement("ScsOlsListElement")
+		, EnableRowUpdated("EnableRowUpdated")
+		
+		, PrintDataDebugId("PrintDataDebugId")
+		, PrintDataColumns("PrintDataColumns")
+		, PrintDataIndexs("PrintDataIndexs")
+		, PrintDataAttachement("PrintDataAttachement")
+		, PrintDataDivIndexes("PrintDataDivIndexes")
+		
+		, PrintDataStart("PrintDataStart")
+		, PrintDataLength("PrintDataLength")
+		
+		, PrintDataReceviedWait("PrintDataReceviedWait")
+		, PrintDataWalkthoughWait("PrintDataWalkthoughWait")
+		
+		, MenuHandlerUIOpts("MenuHandlerUIOpts")
+		
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

@@ -12,6 +12,8 @@ public interface UIPanelInspector_i {
 	public final static String strConfigNameSize = strDot+"size";
 	public final static String strConfigNumberOfPointPerPage = "numOfPointPerPage";
 	
+	public final static String strIgnoreEmptyRemoveTabs = "IgnoreEmptyRemoveTabs";
+	
 	public final static String strNumOfTab = "NumOfTab";
 	public final static String strTab = "Tab";
 	public final static String strTabConfigName = "TabConfigName";
@@ -36,13 +38,13 @@ public interface UIPanelInspector_i {
 	public final static String strName = "Name";
 	
 	public final static String strDatabaseMultiReadingKey = "DatabaseMultiReadingKey";
+	public final static String strDatabaseGetFullPathKey = "DatabaseGetFullPathKey";
+	public final static String strDatabasePathPatternKey = "DatabasePathPatternKey";
 	
 	// hmiOrder
 	public final static String strHmiOrderEnable = "HmiOrderEnable";
 	public final static String strHmiOrderAttribute = "HmiOrderAttribute";
 	public final static String strHmiOrderFilterThreshold = "HmiOrderFilterThreshold";
-	
-	public final static String strHOMUseHostName = "HOMUseHostName";
 	
 	public final static String strStaticAttibutes = "StaticAttibutes";
 	public final static String strDynamicAttibutes = "DynamicAttibutes";

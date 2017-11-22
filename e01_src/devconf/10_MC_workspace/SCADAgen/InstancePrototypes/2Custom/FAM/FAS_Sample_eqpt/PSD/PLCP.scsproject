@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="7">
+  <ownedPrototype id="BasicEquipment_PLCP_-Q3bYFWhEee4QdkqvzimmQ_1497953981462">
+    <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_PLCP_-Q3bYFWhEee4QdkqvzimmQ_1497953981462"/>
+    <ownedAttributes name="label" partialUri="BasicEquipment_PLCP_-Q3bYFWhEee4QdkqvzimmQ_1497953981462"/>
+    <ownedAttributes frozen="true" name="label" partialUri="ACI_TYPE_aciAS-AirZone_-Q3bYVWhEee4QdkqvzimmQ_1497953981462"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="ACI_TYPE_aciAS-AirZone_-Q3bYVWhEee4QdkqvzimmQ_1497953981462"/>
+    <ownedAttributes frozen="true" name="Unit" partialUri="ACI_TYPE_aciAS-AirZone_-Q3bYVWhEee4QdkqvzimmQ_1497953981462"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_-Q3bblWhEee4QdkqvzimmQ_1497953981462"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciAS-FaulAirZone_-Q3baFWhEee4QdkqvzimmQ_1497953981462"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciAS-FaulAirZone_-Q3baFWhEee4QdkqvzimmQ_1497953981462"/>
+    <ownedAttributes frozen="true" name="hvqname" partialUri="BasicEquipment_PLCP_-Q3bYFWhEee4QdkqvzimmQ_1497953981462"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_abQ4plcjEee9rZFG5ogX9w_1498119526698"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciPLCP-Mode_abQ4oFcjEee9rZFG5ogX9w_1498119526698"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciPLCP-Mode_abQ4oFcjEee9rZFG5ogX9w_1498119526698"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_bKy4JlcjEee9rZFG5ogX9w_1498119531682"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciPLCP-Mode_bKy4IFcjEee9rZFG5ogX9w_1498119531682"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciPLCP-Mode_bKy4IFcjEee9rZFG5ogX9w_1498119531682"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_bXURNlcjEee9rZFG5ogX9w_1498119532995"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciPLCP-Mode_bXURMFcjEee9rZFG5ogX9w_1498119532995"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciPLCP-Mode_bXURMFcjEee9rZFG5ogX9w_1498119532995"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_bhAYtlcjEee9rZFG5ogX9w_1498119534011"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciPLCP-Mode_bhAYsFcjEee9rZFG5ogX9w_1498119534011"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciPLCP-Mode_bhAYsFcjEee9rZFG5ogX9w_1498119534011"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_brTkNlcjEee9rZFG5ogX9w_1498119535091"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciPLCP-Mode_brTkMFcjEee9rZFG5ogX9w_1498119535091"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciPLCP-Mode_brTkMFcjEee9rZFG5ogX9w_1498119535091"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_bynGFlcjEee9rZFG5ogX9w_1498119535857"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciPLCP-Mode_bynGEFcjEee9rZFG5ogX9w_1498119535857"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciPLCP-Mode_bynGEFcjEee9rZFG5ogX9w_1498119535857"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_b8JcllcjEee9rZFG5ogX9w_1498119536857"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciPLCP-Mode_b8JckFcjEee9rZFG5ogX9w_1498119536857"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciPLCP-Mode_b8JckFcjEee9rZFG5ogX9w_1498119536857"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_09mH0FcjEee9rZFG5ogX9w_1498119704781"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_1Qq00FcjEee9rZFG5ogX9w_1498119706781"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_1iZeAFcjEee9rZFG5ogX9w_1498119708640"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_11eLAFcjEee9rZFG5ogX9w_1498119710640"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_2Nd0QFcjEee9rZFG5ogX9w_1498119713156"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_-Q3baVWhEee4QdkqvzimmQ_1497953981462"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_abQ4oVcjEee9rZFG5ogX9w_1498119526698"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_bKy4IVcjEee9rZFG5ogX9w_1498119531682"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_bXURMVcjEee9rZFG5ogX9w_1498119532995"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_bhAYsVcjEee9rZFG5ogX9w_1498119534011"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_brTkMVcjEee9rZFG5ogX9w_1498119535091"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_bynGEVcjEee9rZFG5ogX9w_1498119535857"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_b8JckVcjEee9rZFG5ogX9w_1498119536857"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,-1,[^.hdvValue])" name="hdvValue" partialUri="BasicEquipment_PLCP_-Q3bYFWhEee4QdkqvzimmQ_1497953981462"/>
+    <parentPrototypes>BasicEquipment_FasBasicEquipment_amMc8Y3vEeeCWf0xiOvNtA_1504144507967</parentPrototypes>
+  </ownedPrototype>
+</scsproject:Project>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE StateList SYSTEM "Dtd/lststatelist.dtd">
+<!-- StateList HDVRequestDataList XML save file -->
+<StateList multi="YES" mode="MANDATORY" name="dpctagset" creatorId="0" description="dpctagset" comment="" activate="YES">
+	<Column>
+		<Name value="alias"></Name>
+		<Name value="opdate"></Name>
+		<Name value="opsource"></Name>
+		<Name value="eqplabel"></Name>
+		<Name value="geographicalcategory"></Name>
+		<Name value="functionalcategory"></Name>
+		<Name value="tag1label"></Name>
+		<Name value="tag2label"></Name>
+		<Name value="tagstatus"></Name>
+	</Column>
+	<List>
+		<Attribute name="BasicEquipment!$ALIAS"></Attribute>
+		<Attribute name="BasicEquipment!opDate"></Attribute>
+		<Attribute name="BasicEquipment!opSource"></Attribute>
+		<Attribute name="BasicEquipment!label"></Attribute>
+		<Attribute name="BasicEquipment!geographicalCat"></Attribute>
+		<Attribute name="BasicEquipment!functionalCat"></Attribute>
+		<Attribute name="BasicEquipment!tag1Label"></Attribute>
+		<Attribute name="BasicEquipment!tag2Label"></Attribute>
+		<Attribute name="BasicEquipment!tagStatus"></Attribute>
+		<Condition value='((BasicEquipment!tagStatus==256) OR (BasicEquipment!tagStatus==512) OR (BasicEquipment!tagStatus==768))'></Condition>
+	</List>
+</StateList>

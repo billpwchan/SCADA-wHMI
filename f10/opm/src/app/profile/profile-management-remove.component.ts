@@ -6,8 +6,6 @@ import { ProfileService } from '../service/profile.service';
 
 import { MaskService } from '../service/mask.service';
 
-import { UtilService } from '../service/util.service';
-
 @Component({
     selector: 'app-profile-management-remove',
     templateUrl: './profile-management-remove.component.html'
@@ -23,20 +21,31 @@ export class ProfileManagementRemoveComponent implements AfterContentInit {
     constructor(
         private translate: TranslateService,
         private profileService: ProfileService,
-        private maskService: MaskService,
-        private utilService: UtilService
+        private maskService: MaskService
     ) { }
 
     public getProfiles(): void {
-        this.profileService.getProfiles().then(
+        this.profileService.getAll().then(
             profiles => {
-                this.profiles = profiles.sort(this.utilService.compareProfile);
+                this.profiles = profiles ? profiles.sort(this.profileService.compareProfile) : [];
+                console.log(
+                    '{ProfileManagementRemoveComponent}',
+                    '[getProfiles]',
+                    'Profiles#:',
+                    this.profiles ? this.profiles.length : 0
+                );
+            },
+            failure => {
+                console.error(
+                    '{ProfileManagementRemoveComponent}',
+                    '[getProfiles]',
+                    'Failed:', failure
+                );
             }
         );
     }
 
     public onSelect(profile: Profile, event: MouseEvent): void {
-        console.log('', event);
         const selectedLen = this.selectedProfiles.length;
 
         if (
@@ -66,6 +75,7 @@ export class ProfileManagementRemoveComponent implements AfterContentInit {
                 }
             } else {
                 console.error(
+                    '{ProfileManagementRemoveComponent}',
                     '[onSelect]',
                     'Internal Logic Error',
                     'selectedProfiles:', this.selectedProfiles,
@@ -76,6 +86,7 @@ export class ProfileManagementRemoveComponent implements AfterContentInit {
             }
         } else {
             console.error(
+                '{ProfileManagementRemoveComponent}',
                 '[onSelect]',
                 'Internal Logic Error',
                 'selectedProfiles:', this.selectedProfiles,
@@ -84,8 +95,9 @@ export class ProfileManagementRemoveComponent implements AfterContentInit {
             );
             return;
         }
-        this.selectedProfiles.sort(this.utilService.compareProfile);
+        this.selectedProfiles.sort(this.profileService.compareProfile);
         console.log(
+            '{ProfileManagementRemoveComponent}',
             '[onSelect]',
             'Count:', this.selectedProfiles.length
         );
@@ -101,6 +113,7 @@ export class ProfileManagementRemoveComponent implements AfterContentInit {
             if (this.profilesToRemoveIndex < this.profilesToRemoveTotal) {
                 const profile = this.profilesToRemove[this.profilesToRemoveIndex];
                 console.log(
+                    '{ProfileManagementRemoveComponent}',
                     '[onConfirm]',
                     'Removing profile [' + profile.id + '/' + profile.name + ']',
                     '[' + (this.profilesToRemoveIndex + 1) + '/' + this.profilesToRemoveTotal + ']'
@@ -109,12 +122,14 @@ export class ProfileManagementRemoveComponent implements AfterContentInit {
                 if (masks && 0 < masks.length) {
                     const mask = masks.pop();
                     console.log(
+                        '{ProfileManagementRemoveComponent}',
                         '[onConfirm]',
                         'Removing mask [' + mask.id + '] of profile [' + profile.id + '/' + profile.name + ']'
                     );
-                    this.maskService.deleteMask(mask).then(
+                    this.maskService.delete(mask).then(
                         success => {
                             console.log(
+                                '{ProfileManagementRemoveComponent}',
                                 '[onConfirm]',
                                 'Removed mask [' + mask.id + '] of profile [' + profile.id + '/' + profile.name + ']'
                             );
@@ -122,6 +137,7 @@ export class ProfileManagementRemoveComponent implements AfterContentInit {
                         },
                         failure => {
                             console.error(
+                                '{ProfileManagementRemoveComponent}',
                                 '[onConfirm]',
                                 'Failed to remove mask [' + mask.id + '] of profile [' + profile.id + '/' + profile.name + ']'
                             );
@@ -129,9 +145,10 @@ export class ProfileManagementRemoveComponent implements AfterContentInit {
                         }
                     );
                 } else {
-                    this.profileService.deleteProfile(profile).then(
+                    this.profileService.delete(profile).then(
                         success => {
                             console.log(
+                                '{ProfileManagementRemoveComponent}',
                                 '[onConfirm]',
                                 'Removed profile:',
                                 profile
@@ -141,6 +158,7 @@ export class ProfileManagementRemoveComponent implements AfterContentInit {
                         },
                         failure => {
                             console.error(
+                                '{ProfileManagementRemoveComponent}',
                                 '[onConfirm]',
                                 'Failed to remove profile:',
                                 profile
@@ -151,6 +169,7 @@ export class ProfileManagementRemoveComponent implements AfterContentInit {
                 }
             } else {
                 console.log(
+                    '{ProfileManagementRemoveComponent}',
                     '[onConfirm]',
                     'Successfully removed all profiles'
                 );
@@ -163,6 +182,7 @@ export class ProfileManagementRemoveComponent implements AfterContentInit {
     public onCancel(): void {
         this.selectedProfiles = [];
         console.log(
+            '{ProfileManagementRemoveComponent}',
             '[onCacnel]'
         );
     }
@@ -174,11 +194,6 @@ export class ProfileManagementRemoveComponent implements AfterContentInit {
         this.profilesToRemoveIndex = 0;
         this.profilesToRemoveTotal = 0;
         this.getProfiles();
-        console.log(
-            '[onInit]',
-            'Profiles#:',
-            this.profiles ? this.profiles.length : 0
-        );
     }
 
     public ngAfterContentInit(): void {

@@ -1,0 +1,47 @@
+// Animator Version: ANIMATOR2007 4.10.0
+// File generated: 28/12/2016 15:39:20
+// Model: ECT/SCADAgen_ECT_TTVF_1_Undefined_Vertical
+
+Version = "41000"
+
+Symbol
+{
+  PrimitiveSet
+  {
+    Line {
+      Point = (40, -30)
+      Point = (-39, -30)
+      Palette = { "SCADAgen_foreground","SCADAgen_undefined","Russe1/11","solid","solid",2 }
+    }
+    Line {
+      Point = (40, 31)
+      Point = (-39, 31)
+      Palette = { "SCADAgen_foreground","SCADAgen_undefined","Russe1/11","solid","solid",2 }
+    }
+    Line {
+      Point = (32, -30)
+      Point = (32, 31)
+      Palette = { "SCADAgen_foreground","SCADAgen_undefined","Russe1/11","solid","solid",2 }
+    }
+    Line {
+      Point = (-30, -30)
+      Point = (-30, 31)
+      Palette = { "SCADAgen_foreground","SCADAgen_undefined","Russe1/11","solid","solid",2 }
+    }
+    Polygon {
+      Points = { (28, -20), (28, 21), (-27, -20), (-27, 21), (28, -20)      }
+      Filled = True
+      Palette = { "SCADAgen_foreground","SCADAgen_undefined","Russe1/11","solid","solid",0 }
+    }
+    Polygon {
+      Points = { (31, 34), (-30, 34), (1, 55), (31, 34)      }
+      Filled = True
+      Palette = { "SCADAgen_foreground","SCADAgen_undefined","Russe1/11","solid","solid",0 }
+    }
+    Polygon {
+      Points = { (-30, -34), (31, -34), (1, -55), (-30, -34)      }
+      Filled = True
+      Palette = { "SCADAgen_foreground","SCADAgen_undefined","Russe1/11","solid","solid",0 }
+    }
+  }
+}

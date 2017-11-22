@@ -136,6 +136,8 @@ public class ScsMatrixRenderer implements IMatrixRenderer {
 	        } else {
 	            styleClient.setSquareTooltip(MxTooltipTools.computeSquareTooltipStd(mxIntersectionState));
 	        }
+        } else {
+        	styleClient.setSquareTooltip("");
         }
         
         logger.end(className, function);

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<ListConfigId>chatterfiltermgn</ListConfigId>
+		<MenuEnableCallImage>true</MenuEnableCallImage>
+		<SelectionMode>Multiple</SelectionMode>
+		<DebugId>UILayoutChatterSummaryViewerScsOlsListPanel</DebugId>
+		<PagerName>SCADAgenPager</PagerName>
+		<MwtEventBusName>chatterfiltermgn</MwtEventBusName>
+		<MwtEventBusScope>Global</MwtEventBusScope>
+	</header>
+</data-set>

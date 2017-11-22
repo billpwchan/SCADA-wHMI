@@ -30,20 +30,21 @@ public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
 		
 		boolean bContinue = true;
 		
-		String strOperationString1			= (String) action.getParameter(ActionAttribute.OperationString1.toString());
-		String strOperationString2			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
-		String strOperationString3			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
-		String strOperationString4			= (String) action.getParameter(ActionAttribute.OperationString4.toString());
-		String strOperationString5			= (String) action.getParameter(ActionAttribute.OperationString5.toString());
-		if ( logger.isInfoEnabled() ) {
+		if ( logger.isDebugEnabled() ) {
 			for ( Entry<String, Object> entry : action.getParameters() ) {
-				String key = entry.getKey();
-				Object obj = entry.getValue();
-				logger.info(className, function, "key[{}] obj[{}]", key, obj);
+				logger.debug(className, function, "entry.getKey[{}] entry.getValue[{}]", entry.getKey(), entry.getValue());
 			}
 		}
+		
+		String strOperationString1			= (String) action.getParameter(ActionAttribute.OperationString1.toString());
 
 		if ( strOperationString1.equals(UIEventActionTaskLaunchAction.UITaskLaunch.toString()) ) {
+			
+			String strOperationString2			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
+			String strOperationString3			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
+			String strOperationString4			= (String) action.getParameter(ActionAttribute.OperationString4.toString());
+			String strOperationString5			= (String) action.getParameter(ActionAttribute.OperationString5.toString());
+
 			boolean isValid = false;
 			
 			int screen = 0;
@@ -61,11 +62,53 @@ public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
 				taskLaunch.setHeader(strOperationString4);
 				taskLaunch.setExecute(strOperationString5);
 				
-				logger.info(className, function, "fire event task launch");
+				logger.debug(className, function, "fire event task strOperationString1[{}]", strOperationString1);
 				
 				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 			} else {
 				logger.warn(className, function, "strOperationString3[{}] IS INVALID", strOperationString3);
+			}
+
+		} else if ( strOperationString1.equals(UIEventActionTaskLaunchAction.UITaskLaunch_UIWidgetMgrFactory.toString()) ) {
+			
+			String strUiPath			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
+			String strUiScreen			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
+			String strUiCtrl			= (String) action.getParameter(ActionAttribute.OperationString4.toString());
+			String strUiView			= (String) action.getParameter(ActionAttribute.OperationString5.toString());
+			String strUiOpts			= (String) action.getParameter(ActionAttribute.OperationString6.toString());
+			String strUiElem			= (String) action.getParameter(ActionAttribute.OperationString7.toString());
+			
+			logger.debug(className, function, "strUiPath[{}]", strUiPath);
+			logger.debug(className, function, "strUiScreen[{}]", strUiScreen);
+			logger.debug(className, function, "strUiCtrl[{}]", strUiCtrl);
+			logger.debug(className, function, "strUiView[{}]", strUiView);
+			logger.debug(className, function, "strUiOpts[{}]", strUiOpts);
+			logger.debug(className, function, "strUiElem[{}]", strUiElem);
+			
+			boolean isValid = false;
+			
+			int screen = 0;
+			try {
+				screen = Integer.parseInt(strUiScreen);
+				if ( screen < 0 ) screen = uiNameCard.getUiScreen();
+				isValid = true;
+			} catch ( NumberFormatException ex ) {
+				logger.warn(className, function, "strUiScreen[{}] NumberFormatException", strUiScreen);
+			}
+			if ( isValid ) {
+				UITaskLaunch uiTaskLaunch = new UITaskLaunch();
+				uiTaskLaunch.setUiPath(strUiPath);
+				uiTaskLaunch.setTaskUiScreen(screen);
+				uiTaskLaunch.setUiCtrl(strUiCtrl);
+				uiTaskLaunch.setUiView(strUiView);
+				uiTaskLaunch.setUiOpts(strUiOpts);
+				uiTaskLaunch.setUiElem(strUiElem);
+				
+				logger.debug(className, function, "fire event task strOperationString1[{}]", strOperationString1);
+				
+				uiNameCard.getUiEventBus().fireEvent(new UIEvent(uiTaskLaunch));	
+			} else {
+				logger.warn(className, function, "strUiScreen[{}] IS INVALID", strUiScreen);
 			}
 
 		}

@@ -6,12 +6,12 @@
   <parent>
     <artifactId>whmi</artifactId>
     <groupId>com.thalesgroup.scadagen.whmi</groupId>
-  <version>1.4.3</version>
+  <version>1.5.4</version>
   </parent>
   <groupId>com.thalesgroup.scadagen.whmi.uievent.uievent</groupId>
   <artifactId>uievent</artifactId>
   <packaging>jar</packaging>
-  <version>${commons.uiwidget.version}</version>
+  <version>${scadagen.whmi.version}</version>
   <name>GWT Maven Archetype</name>
 
   <properties>
@@ -63,7 +63,7 @@
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uitask.uitask</groupId>
 	  <artifactId>uitask-uitask</artifactId>
-          <version>${commons.uiwidget.version}</version>
+          <version>${scadagen.whmi.version}</version>
 	</dependency>
     
   </dependencies>

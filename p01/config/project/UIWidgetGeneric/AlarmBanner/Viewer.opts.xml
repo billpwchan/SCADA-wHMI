@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<header key="header">
+		<ScsOlsListElement>UILayoutAlarmBannerViewerScsOlsListPanel</ScsOlsListElement>
+		
+		<!-- UIEventAction Configuration for MenuHandler -->
+		<MenuHandlerUIOpts>AlarmBanner/CallImage.opts.xml</MenuHandlerUIOpts>
+	</header>
+
+	<actionset key="FilterAdded">
+		<OperationString1>FilterAdded</OperationString1>
+	</actionset>
+	
+	<actionset key="FilterRemoved">
+		<OperationString1>FilterRemoved</OperationString1>
+	</actionset>
+	
+	<actionset key="RowSelected">
+		<OperationString1>RowSelected</OperationString1>
+	</actionset>
+	
+	<actionset key="FilterAdded">
+		<OperationString1>FilterAdded</OperationString1>
+	</actionset>
+	
+	<action key="FilterAdded">
+		<SenderOperation>event</SenderOperation>
+		<OperationString1>FilterAdded</OperationString1>
+	</action>
+	
+	<action key="FilterRemoved">
+		<SenderOperation>event</SenderOperation>
+		<OperationString1>FilterRemoved</OperationString1>
+	</action>
+	
+	<action key="RowSelected">
+		<SenderOperation>event</SenderOperation>
+		<OperationString1>RowSelected</OperationString1>
+	</action>
+	
+	<actionset key="CounterValueChanged">
+		<OperationString1>SetWidgetValue</OperationString1>
+	</actionset>
+	
+	<action key="SetWidgetValue">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetOlsCounter</OperationElement>
+		<OperationString1>SetWidgetValue</OperationString1>
+	</action>
+	
+</data-set>

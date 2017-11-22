@@ -16,6 +16,13 @@ import com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.UIGenericServic
 import com.thalesgroup.scadagen.wrapper.wrapper.shared.UIGenericDto;
 import com.thalesgroup.scadagen.wrapper.wrapper.shared.UIGenericDto_i;
 
+/**
+ * 
+ * Generic RPC Channel with JSON Message format
+ * 
+ * @author syau
+ *
+ */
 public class UIGenericMgr implements AsyncCallback<UIGenericDto_i> {
 
 	private final String className = UIWidgetUtil.getClassSimpleName(UIGenericMgr.class.getName());

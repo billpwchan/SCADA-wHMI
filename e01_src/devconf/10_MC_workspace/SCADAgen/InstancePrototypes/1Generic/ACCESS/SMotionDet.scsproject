@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="3050">
+  <ownedPrototype id="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612512">
+    <ownedAttributes frozen="true" name="hvdatatype" partialUri="_b5JhcKhJEeOW79l_VMvVow_1394451910919CI"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="_b5JhcKhJEeOW79l_VMvVow_1394451910919CI"/>
+    <ownedAttributes frozen="true" name="subsysMapping" partialUri="_b5JhcKhJEeOW79l_VMvVow_1394451910919CI"/>
+    <ownedAttributes frozen="true" name="hvtypeId" partialUri="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612512"/>
+    <ownedAttributes frozen="true" name="functionalCat" partialUri="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612512"/>
+    <ownedAttributes frozen="true" name="type" partialUri="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612512"/>
+    <ownedAttributes frozen="true" name="user_class" partialUri="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612512"/>
+    <ownedAttributes frozen="true" name="qname" partialUri="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612512"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="_au7_IfHoEeGDk64BndtiKQ_1346251632658"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="_au7_IfHoEeGDk64BndtiKQ_1346251632658"/>
+    <ownedAttributes frozen="true" name="Archive" partialUri="_au7_IfHoEeGDk64BndtiKQ_1346251632658"/>
+    <ownedAttributes frozen="true" name="label" partialUri="_au7_IfHoEeGDk64BndtiKQ_1346251632658"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="_p665wPHrEeGDk64BndtiKQ_1346253023068"/>
+    <ownedAttributes frozen="true" name="label" partialUri="_p665wPHrEeGDk64BndtiKQ_1346253023068"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="_p665wPHrEeGDk64BndtiKQ_1346253023068"/>
+    <ownedAttributes frozen="true" name="Archive" partialUri="_p665wPHrEeGDk64BndtiKQ_1346253023068"/>
+    <ownedAttributes frozen="true" name="subsysMapping" partialUri="_yRRM8a5-EeOn4p88u7MSdQ_1395134531391"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="_yRRM8a5-EeOn4p88u7MSdQ_1395134531391"/>
+    <ownedAttributes frozen="true" name="hvdatatype" partialUri="_yRRM8a5-EeOn4p88u7MSdQ_1395134531391"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="_au7_IvHoEeGDk64BndtiKQ_1346251632658"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="_au7_IvHoEeGDk64BndtiKQ_1346251632658"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="_au7_IvHoEeGDk64BndtiKQ_1346251632658"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="_0oxAYPNHEeGREvDOjWK0TQ_1346402559846"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="_0oxAYPNHEeGREvDOjWK0TQ_1346402559846"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="_0oxAYPNHEeGREvDOjWK0TQ_1346402559846"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="_0oxAYPNHEeGREvDOjWK0TQ_1346402559846"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="_0oxAYPNHEeGREvDOjWK0TQ_1346402559846"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="_0oxAYPNHEeGREvDOjWK0TQ_1346402559846"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="_0oxAYPNHEeGREvDOjWK0TQ_1346402559846"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="_au7_MPHoEeGDk64BndtiKQ_1346251632658"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="_au7_MPHoEeGDk64BndtiKQ_1346251632658"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="_p665wfHrEeGDk64BndtiKQ_1346253023068"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="_p665wfHrEeGDk64BndtiKQ_1346253023068"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="_p665wfHrEeGDk64BndtiKQ_1346253023068"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="_zXVw4PHrEeGDk64BndtiKQ_1346253086446"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="_zXVw4PHrEeGDk64BndtiKQ_1346253086446"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="_zXVw4PHrEeGDk64BndtiKQ_1346253086446"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="_zXVw4PHrEeGDk64BndtiKQ_1346253086446"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="_zXVw4PHrEeGDk64BndtiKQ_1346253086446"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="_zXVw4PHrEeGDk64BndtiKQ_1346253086446"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="_zXVw4PHrEeGDk64BndtiKQ_1346253086446"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="_p665z_HrEeGDk64BndtiKQ_1346253023068"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="_p665z_HrEeGDk64BndtiKQ_1346253023068"/>
+    <ownedAttributes frozen="true" name="hvqname" partialUri="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612512"/>
+    <ownedAttributes frozen="true" name="scstype" partialUri="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612512"/>
+    <ownedAttributes frozen="true" name="hmiOrder" partialUri="_au7_IfHoEeGDk64BndtiKQ_1346251632658"/>
+    <ownedAttributes frozen="true" name="hmiOrder" partialUri="_p665wPHrEeGDk64BndtiKQ_1346253023068"/>
+    <ownedAttributes frozen="true" name="label" partialUri="_azvbAc8iEeSRg8tCBh3NPg_1426870746288"/>
+    <parentPrototypes>BasicEquipment_MotionDet_GG2LoCJxEeadBLsIIQVFSA_1464177981786</parentPrototypes>
+  </ownedPrototype>
+</scsproject:Project>

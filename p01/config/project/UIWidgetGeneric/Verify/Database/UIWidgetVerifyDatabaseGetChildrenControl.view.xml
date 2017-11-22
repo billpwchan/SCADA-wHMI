@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>16</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyDatabaseGetChildrenControl-panel-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>Verify Database Reading Control Class:</label>
+		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-label-title</css>
+		<element>title</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|1">
+		<widget>Label</widget>
+		<label>Create Database Reading Control Class:</label>
+		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-label-createlabel</css>
+		<element>createlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|2">
+		<widget>TextBox</widget>
+		<label>DatabaseGetChildren</label>
+		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-label-createvalue</css>
+		<element>createvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|3">
+		<widget>Button</widget>
+		<label>Create</label>
+		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-button-create</css>
+		<element>create</element>
+		<cssContainer>project-UIWidgetVerifyDatabaseGetChildrenControl-container-create</cssContainer>
+		<tooltip>create</tooltip>
+	</option>
+	
+	<option key="0|4">
+		<widget>Button</widget>
+		<label>Connect</label>
+		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-button-connect</css>
+		<element>connect</element>
+		<cssContainer>project-UIWidgetVerifyDatabaseGetChildrenControl-container-connect</cssContainer>
+		<tooltip>connect</tooltip>
+	</option>
+	
+	<option key="0|5">
+		<widget>Button</widget>
+		<label>Disconnect</label>
+		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-button-disconnect</css>
+		<element>disconnect</element>
+		<cssContainer>project-UIWidgetVerifyDatabaseGetChildrenControl-container-disconnect</cssContainer>
+		<tooltip>disconnect</tooltip>
+	</option>
+	
+	<!-- GetChilden -->
+	
+	<option key="0|6">
+		<widget>Label</widget>
+		<label>GetChilden Test Case:</label>
+		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-label-getchilden_label</css>
+		<element>getchilden_label</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|7">
+		<widget>Label</widget>
+		<label>key:</label>
+		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-label-getchilden_keylabel</css>
+		<element>getchilden_keylabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|8">
+		<widget>TextBox</widget>
+		<label>getchildenkey</label>
+		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-label-getchilden_keyvalue</css>
+		<element>getchilden_keyvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|9">
+		<widget>Label</widget>
+		<label>scsenvid:</label>
+		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-label-getchilden_scsenvidlabel</css>
+		<element>getchilden_scsenvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|10">
+		<widget>TextBox</widget>
+		<label>M100CONN</label>
+		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-label-getchilden_scsenvidvalue</css>
+		<element>getchilden_scsenvidvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|11">
+		<widget>Label</widget>
+		<label>address:</label>
+		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-label-getchilden_addresslabel</css>
+		<element>getchilden_addresslabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|12">
+		<widget>TextBox</widget>
+		<label>:TUN:M000001:ECT:TES_0001</label>
+		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-label-getchilden_addressvalue</css>
+		<element>getchilden_addressvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+
+	<option key="0|13">
+		<widget>Button</widget>
+		<label>GetChilden</label>
+		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-button-getchilden</css>
+		<element>getchilden</element>
+		<cssContainer>project-UIWidgetVerifyDatabaseGetChildrenControl-container-getchilden</cssContainer>
+		<tooltip>getchilden</tooltip>
+	</option>
+	
+	<option key="0|14">
+		<widget>Label</widget>
+		<label>Get Childen Result:</label>
+		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-label-getchilden_resultlabel</css>
+		<element>getchilden_resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|15">
+		<widget>TextArea</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-label-getchilden_resultvalue</css>
+		<element>getchilden_resultvalue</element>
+		<format></format>
+		<media></media>
+		<characterwidth>20</characterwidth>
+		<visiblelines>5</visiblelines>
+	</option>
+
+	
+</data-set>

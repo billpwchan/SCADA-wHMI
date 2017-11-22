@@ -44,7 +44,6 @@ public class DatabaseHelper {
 			value = value.replace("\"", "");
 			value = value.replace("[", "");	
 		}
-
 		return value;
 	}
 	
@@ -64,10 +63,10 @@ public class DatabaseHelper {
 		if ( null != addresses ) {
 			if ( addresses.length > 0 ) {
 				result = true;
-				if ( logger.isDebugEnabled() ) {
-					logger.debug(className, function, "addresses.length[{}]", addresses.length);
+				if ( logger.isTraceEnabled() ) {
+					logger.trace(className, function, "addresses.length[{}]", addresses.length);
 					for ( int i = 0 ; i < addresses.length ; ++i ) {
-						logger.debug(className, function, "addresses({})[{}]", i, addresses[i]);
+						logger.trace(className, function, "addresses({})[{}]", i, addresses[i]);
 					}					
 				}
 			} else {
@@ -93,11 +92,9 @@ public class DatabaseHelper {
 	
 	public static String getArrayValues(String string, int col, int row) {
 		final String function = "getArrayValues";
-		
 		String str = null;
-		
 		logger.begin(className, function);
-		logger.debug(className, function, "string[{}] col[{}] row[{}]", new Object[]{string, col, row});
+		logger.trace(className, function, "string[{}] col[{}] row[{}]", new Object[]{string, col, row});
 				
 		if (null != string && string.length() > 0) {
 
@@ -109,13 +106,13 @@ public class DatabaseHelper {
 				String s = strs[col];
 				s = removeBegin(s, '[');
 				s = removeBegin(s, ']');
-				logger.debug(className, function, "s[{}]", s);
+				logger.trace(className, function, "s[{}]", s);
 //				String str2s[] = s.split(",");
 				String str2s[] = s.split("\\s*,\\s*");
-				logger.debug(className, function, "str2s[{}][{}]", row, str2s[row]);
+				logger.trace(className, function, "str2s[{}][{}]", row, str2s[row]);
 				if ( str2s.length > 0 && row < str2s.length ) {
 					str = str2s[row];
-					logger.debug(className, function, "str[{}]", str);				
+					logger.trace(className, function, "str[{}]", str);				
 				}
 			} else {
 				// Invalid str length or index
@@ -123,10 +120,8 @@ public class DatabaseHelper {
 			}
 		}
 		
-		logger.debug(className, function, "str[{}]", str);
-		
+		logger.trace(className, function, "str[{}]", str);
 		logger.end(className, function);
-
 		return str;
 	}
 	
@@ -135,7 +130,7 @@ public class DatabaseHelper {
 		logger.begin(className, function);
 		String value = null;
 		String dbaddress = address + point;
-		logger.debug(className, function, "address[{}] point[{}] = dbaddress[{}]", new Object[]{address, point, dbaddress});
+		logger.trace(className, function, "address[{}] point[{}] = dbaddress[{}]", new Object[]{address, point, dbaddress});
 		if ( dbvalues.containsKey(dbaddress) ) {
 			value = dbvalues.get(dbaddress);
 		} else {
@@ -204,32 +199,6 @@ public class DatabaseHelper {
 	}
 	public static int string2int(String string) {
 		return string2int(string, "");
-	}
-	
-	public static String getColorCSS(String alarmVector, String validity, String forcedStatus) {
-		final String function = "getColorCSS";
-		
-		logger.begin(className, function);
-		
-		logger.debug(className, function, "alarmVector[{}] validity[{}] forcedStatus[{}]", new Object[]{alarmVector, validity, forcedStatus});
-		
-		String colorCSS	= RTDB_i.strCSSStatusGrey;
-		
-		if ( isForced(forcedStatus) ) {
-			colorCSS = RTDB_i.strCSSStatusBlue;
-		} else if ( ! isValid(validity)) {
-			colorCSS = RTDB_i.strCSSStatusGrey;
-		} else if ( isAlarm(alarmVector) ) {
-			colorCSS = RTDB_i.strCSSStatusRed;
-		} else {
-			colorCSS = RTDB_i.strCSSStatusGreen;
-		}
-		
-		logger.debug(className, function, "colorCode[{}]", colorCSS);
-		
-		logger.end(className, function);
-
-		return colorCSS;
 	}
 	
 	public static final String strDynamic			= "dynamic";

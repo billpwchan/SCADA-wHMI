@@ -23,7 +23,7 @@ SET M2_REPO=%CUR_PATH%/.m2/repo
 SET MAVEN_OPTS=-Xmx768m
 
 SET PATH=.
-SET PATH=%PATH%;%JAVA_HOME%/bin;%MAVEN_HOME%/bin;
+SET PATH=%PATH%;%JAVA_HOME%/bin;%MAVEN_HOME%/bin;%TOOLS_BASE%;
 
 SET PATH=%PATH%;%SystemRoot%/system32;%SystemRoot%;%SystemRoot%/System32/Wbem;
 

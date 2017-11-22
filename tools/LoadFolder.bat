@@ -11,15 +11,15 @@ SET _WEBAPP=OCCENVWEB1
 echo Folder Path for _WEBAPP is [%_WEBAPP%]
 
 SET sp_ver=
-SET war_ver=1.2.5
+SET war_ver=1.3.5
 SET TOMCAT_VER=-8.0.23
 
 SET sp_fas=workspace.fas%sp_ver%
 SET sp_fas_name=workspace.fas%sp_ver%
 echo Folder Path for sp_fas is [%sp_fas%]
 
-SET sp_webapp_fas=..\f02.fas\workspace.devweb.631%sp_ver%
-SET sp_webapp_fas_name=workspace.devweb.631%sp_ver%
+SET sp_webapp_fas=..\f02.fas\workspace.devweb%sp_ver%
+SET sp_webapp_fas_name=workspace.devweb%sp_ver%
 echo Folder Path for sp_webapp_fas is [%sp_webapp_fas%]
 
 SET sp_wrapper=workspace.wrapper%sp_ver%

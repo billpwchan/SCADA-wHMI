@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-UILayoutVerifyDatabasePollingSummary-root</rootCSS>
+	</header>
+
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyDatabaseGroupPollingControl</uiCtrl>
+		<uiView>Verify/Database/UIWidgetVerifyDatabaseGroupPollingDiffControl.view.xml</uiView>
+		<element>UIWidgetVerifyDatabaseGroupPollingDiffControl</element>
+	</option>
+
+</data-set>

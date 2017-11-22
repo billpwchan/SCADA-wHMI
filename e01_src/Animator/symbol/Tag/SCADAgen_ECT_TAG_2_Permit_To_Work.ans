@@ -1,0 +1,23 @@
+// Animator Version: ANIMATOR2007 4.10.0
+// File generated: 10/05/2016 15:34:20
+// Model: Tag/SCADAgen_ECT_TAG_2_Permit_To_Work
+
+Version = "41000"
+
+Symbol
+{
+  PrimitiveSet
+  {
+    Rectangle {
+      Size = ((-20, -21), 40, 40)
+      Filled = True
+      Palette = { "SCADAgen_background","SCADAgen_undefined","default","solid","solid",1 }
+    }
+    Label {
+      Point = (0, 10)
+      Label = "P"
+      Transformer = ( 4, 0, 0, 4, -10.4, -18.6 )
+      Palette = { "SCADAgen_background","highlight","Arial/8","solid","solid",1 }
+    }
+  }
+}

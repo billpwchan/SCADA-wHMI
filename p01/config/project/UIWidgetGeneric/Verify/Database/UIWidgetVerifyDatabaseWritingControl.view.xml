@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>58</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCss>project-UIWidgetDatabaseVerifyDatabaseWritingControl-panel-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>Verify Database Write:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-title</css>
+		<element>title</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|1">
+		<widget>Label</widget>
+		<label>Create Database Write Class:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-createlabel</css>
+		<element>createlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|2">
+		<widget>TextBox</widget>
+		<label>DatabaseWriting</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-createvalue</css>
+		<element>createvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|3">
+		<widget>Button</widget>
+		<label>Create</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-button-create</css>
+		<element>create</element>
+		<cssContainer>project-UIWidgetDatabaseVerifyDatabaseWritingControl-container-create</cssContainer>
+		<tooltip>create</tooltip>
+	</option>
+	
+	<option key="0|4">
+		<widget>Button</widget>
+		<label>Connect</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-button-connect</css>
+		<element>connect</element>
+		<cssContainer>project-UIWidgetDatabaseVerifyDatabaseWritingControl-container-connect</cssContainer>
+		<tooltip>connect</tooltip>
+	</option>
+	
+	<option key="0|5">
+		<widget>Button</widget>
+		<label>Disconnect</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-button-disconnect</css>
+		<element>disconnect</element>
+		<cssContainer>project-UIWidgetDatabaseVerifyDatabaseWritingControl-container-disconnect</cssContainer>
+		<tooltip>disconnect</tooltip>
+	</option>
+	
+	<!-- date -->
+	
+	<option key="0|6">
+		<widget>Label</widget>
+		<label>WriteDateValue Test Case:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writedatevalue_keyvalue</css>
+		<element>writedatevalue_keyvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|7">
+		<widget>Label</widget>
+		<label>key:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writedatevalue_keylabel</css>
+		<element>writedatevalue_keylabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|8">
+		<widget>TextBox</widget>
+		<label>writedatekey</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writedatevalue_keyvalue</css>
+		<element>writedatevalue_keyvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|9">
+		<widget>Label</widget>
+		<label>scsenvid:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writedatevalue_scsenvidlabel</css>
+		<element>writedatevalue_scsenvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|10">
+		<widget>TextBox</widget>
+		<label>M100CONN</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writedatevalue_scsenvidvalue</css>
+		<element>writedatevalue_scsenvidvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|11">
+		<widget>Label</widget>
+		<label>address:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writedatevalue_addresslabel</css>
+		<element>writedatevalue_addresslabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|12">
+		<widget>TextBox</widget>
+		<label>:TUN:M000001:ECT:TES_0001.opDate</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writedatevalue_addressvalue</css>
+		<element>writedatevalue_addressvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|13">
+		<widget>Label</widget>
+		<label>second:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writedatevalue_secondlabel</css>
+		<element>writedatevalue_secondlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|14">
+		<widget>TextBox</widget>
+		<label>1</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writedatevalue_secondvalue</css>
+		<element>writedatevalue_secondvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|15">
+		<widget>Label</widget>
+		<label>usecond:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writedatevalue_usecondlabel</css>
+		<element>writedatevalue_secondlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|16">
+		<widget>TextBox</widget>
+		<label>1</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writedatevalue_usecondvalue</css>
+		<element>writedatevalue_usecondvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+
+	<option key="0|17">
+		<widget>Button</widget>
+		<label>WriteDateValue</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-button-writedatevalue</css>
+		<element>writedatevalue</element>
+		<cssContainer>project-UIWidgetDatabaseVerifyDatabaseWritingControl-container-writedatevalue</cssContainer>
+		<tooltip>writedatevalue</tooltip>
+	</option>
+	
+	
+	<!-- int -->
+	<option key="0|18">
+		<widget>Label</widget>
+		<label>WriteIntValue Test:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writeintvalue_label</css>
+		<element>writeintvalue_label</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|19">
+		<widget>Label</widget>
+		<label>key:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writeintvalue_keylabel</css>
+		<element>writeintvalue_keylabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|20">
+		<widget>TextBox</widget>
+		<label>writeintkey</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writeintvalue_keyvalue</css>
+		<element>writeintvalue_keyvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|21">
+		<widget>Label</widget>
+		<label>scsenvid:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writeintvalue_scsenvidlabel</css>
+		<element>writeintvalue_scsenvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|22">
+		<widget>TextBox</widget>
+		<label>M100CONN</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writeintvalue_scsenvidvalue</css>
+		<element>writeintvalue_scsenvidvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|23">
+		<widget>Label</widget>
+		<label>address:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writeintvalue_addresslabel</css>
+		<element>writeintvalue_addresslabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|24">
+		<widget>TextBox</widget>
+		<label>:TUN:M000001:ECT:TES_0001.tagStatus</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writeintvalue_addressvalue</css>
+		<element>writeintvalue_addressvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|25">
+		<widget>Label</widget>
+		<label>value:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writeintvalue_valuelabel</css>
+		<element>writeintvalue_valuelabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|26">
+		<widget>TextBox</widget>
+		<label>1</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writeintvalue_value</css>
+		<element>writeintvalue_value</element>
+		<format></format>
+		<media></media>
+	</option>
+
+	<option key="0|27">
+		<widget>Button</widget>
+		<label>WriteIntValue</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-button-writeintvalue</css>
+		<element>writeintvalue</element>
+		<cssContainer>project-UIWidgetDatabaseVerifyDatabaseWritingControl-container-writeintvalue</cssContainer>
+		<tooltip>writeintvalue</tooltip>
+	</option>
+	
+	<!-- float -->
+	<option key="0|28">
+		<widget>Label</widget>
+		<label>WriteFloatValue Test:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writefloatvalue_label</css>
+		<element>writefloatvalue_label</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|29">
+		<widget>Label</widget>
+		<label>key:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writefloatvalue_keylabel</css>
+		<element>writefloatvalue_keylabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|30">
+		<widget>TextBox</widget>
+		<label>writefloatkey</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writefloatvalue_keyvalue</css>
+		<element>writefloatvalue_keyvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|31">
+		<widget>Label</widget>
+		<label>scsenvid:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writefloatvalue_scsenvidlabel</css>
+		<element>writefloatvalue_scsenvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|32">
+		<widget>TextBox</widget>
+		<label>M100CONN</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writefloatvalue_scsenvidvalue</css>
+		<element>writefloatvalue_scsenvidvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|33">
+		<widget>Label</widget>
+		<label>address:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writefloatvalue_addresslabel</css>
+		<element>writefloatvalue_addresslabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|34">
+		<widget>TextBox</widget>
+		<label>:CTVECTTES_0001aciECT-TEMP.value</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writefloatvalue_addressvalue</css>
+		<element>writefloatvalue_addressvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|35">
+		<widget>Label</widget>
+		<label>value:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writefloatvalue_valuelabel</css>
+		<element>writefloatvalue_valuelabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|36">
+		<widget>TextBox</widget>
+		<label>1.1</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writefloatvalue_value</css>
+		<element>writefloatvalue_value</element>
+		<format></format>
+		<media></media>
+	</option>
+
+	<option key="0|37">
+		<widget>Button</widget>
+		<label>WriteFloatValue</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-button-writefloatvalue</css>
+		<element>writefloatvalue</element>
+		<cssContainer>project-UIWidgetDatabaseVerifyDatabaseWritingControl-container-writefloatvalue</cssContainer>
+		<tooltip>writefloatvalue</tooltip>
+	</option>
+	
+	<!-- string -->
+	<option key="0|38">
+		<widget>Label</widget>
+		<label>writestringvalue Test:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writestringvalue_label</css>
+		<element>writestringvalue_label</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|39">
+		<widget>Label</widget>
+		<label>key:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writestringvalue_keylabel</css>
+		<element>writestringvalue_keylabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|40">
+		<widget>TextBox</widget>
+		<label>writestringkey</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writestringvalue_keyvalue</css>
+		<element>writestringvalue_keyvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|41">
+		<widget>Label</widget>
+		<label>scsenvid:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writestringvalue_scsenvidlabel</css>
+		<element>writestringvalue_scsenvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|42">
+		<widget>TextBox</widget>
+		<label>M100CONN</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writestringvalue_scsenvidvalue</css>
+		<element>writestringvalue_scsenvidvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|43">
+		<widget>Label</widget>
+		<label>address:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writestringvalue_addresslabel</css>
+		<element>writestringvalue_addresslabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|44">
+		<widget>TextBox</widget>
+		<label>:TUN:M000001:ECT:TES_0001:aciECT-TEMP.unit</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writestringvalue_addressvalue</css>
+		<element>writestringvalue_addressvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|45">
+		<widget>Label</widget>
+		<label>value:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writestringvalue_valuelabel</css>
+		<element>writestringvalue_valuelabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|46">
+		<widget>TextBox</widget>
+		<label>one</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writestringvalue_value</css>
+		<element>writestringvalue_value</element>
+		<format></format>
+		<media></media>
+	</option>
+
+	<option key="0|47">
+		<widget>Button</widget>
+		<label>WriteStringValue</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-button-writestringvalue</css>
+		<element>writestringvalue</element>
+		<cssContainer>project-UIWidgetDatabaseVerifyDatabaseWritingControl-container-writestringvalue</cssContainer>
+		<tooltip>writestringvalue</tooltip>
+	</option>
+	
+	<!-- value -->
+	<option key="0|48">
+		<widget>Label</widget>
+		<label>Write Value Test:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writevalue_label</css>
+		<element>writevalue_label</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|49">
+		<widget>Label</widget>
+		<label>key:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writevalue_keylabel</css>
+		<element>writevalue_keylabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|50">
+		<widget>TextBox</widget>
+		<label>writevaluekey</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writevalue_keyvalue</css>
+		<element>writevalue_keyvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|51">
+		<widget>Label</widget>
+		<label>scsenvid:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writevalue_scsenvidlabel</css>
+		<element>writevalue_scsenvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|52">
+		<widget>TextBox</widget>
+		<label>M100CONN</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writevalue_scsenvidvalue</css>
+		<element>writevalue_scsenvidvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|53">
+		<widget>Label</widget>
+		<label>address:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writevalue_addresslabel</css>
+		<element>writevalue_addresslabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|54">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writevalue_addressvalue</css>
+		<element>writevalue_addressvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|55">
+		<widget>Label</widget>
+		<label>value:</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writevalue_valuelabel</css>
+		<element>writevalue_valuelabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|56">
+		<widget>TextBox</widget>
+		<label>value</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writevalue_value</css>
+		<element>writevalue_value</element>
+		<format></format>
+		<media></media>
+	</option>
+
+	<option key="0|57">
+		<widget>Button</widget>
+		<label>WriteValue</label>
+		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-button-writevalue</css>
+		<element>writevalue</element>
+		<cssContainer>project-UIWidgetDatabaseVerifyDatabaseWritingControl-container-writevalue</cssContainer>
+		<tooltip>writevalue</tooltip>
+	</option>
+</data-set>

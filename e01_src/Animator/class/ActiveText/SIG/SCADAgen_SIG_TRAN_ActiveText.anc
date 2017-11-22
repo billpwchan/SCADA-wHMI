@@ -1,0 +1,20 @@
+// Animator Version: ANIMATOR2007 4.10.0
+// File generated: 26/09/2016 15:57:31
+// Model: SIG/SCADAgen_SIG_TRAN_ActiveText
+
+Version = "41000"
+
+ActiveText
+{
+  Font = "Arial/40"
+  Colors =
+  {
+    "SCADAgen_foreground"
+  }
+  Default Color = 0
+  Count = 5
+  Text = "XXXXX"
+  Alignment = Center
+  Property "AccessorList" { AnListProperty  1
+ScsAccessor ActiveText  Text  "Animator/ECT/SIL_ECT_TMSN.fml-DbLabel"  5 }
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:imageeditor="http://www.thalesgroup.com/configurator/imageeditor" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_CPQEIJIJEeeebZj6uZbRgQ" type="Imageeditor" name="M001HV_TEST.imageeditor_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_lKamgJIJEeeebZj6uZbRgQ" type="2001" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_lKamgpIJEeeebZj6uZbRgQ" type="5002">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_lKamg5IJEeeebZj6uZbRgQ" y="5"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_lKamhJIJEeeebZj6uZbRgQ" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_5ukKkJIKEeeebZj6uZbRgQ" type="3001" fontName="Segoe UI">
+        <children xmi:type="notation:DecorationNode" xmi:id="_5ukKkpIKEeeebZj6uZbRgQ" type="5001">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_5ukKk5IKEeeebZj6uZbRgQ" y="5"/>
+        </children>
+        <element xmi:type="imageeditor:GraphicalItem" href="/ImageProject_SCADAgen/M001HV_TEST/M001HV_TEST.imageeditor#//@canvas/@ownedItem.0"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5ukKkZIKEeeebZj6uZbRgQ" x="336" y="324" width="200" height="200"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_8UAi0JIKEeeebZj6uZbRgQ" type="3001" fontName="Segoe UI">
+        <children xmi:type="notation:DecorationNode" xmi:id="_8UAi0pIKEeeebZj6uZbRgQ" type="5001">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_8UJswJIKEeeebZj6uZbRgQ" y="5"/>
+        </children>
+        <element xmi:type="imageeditor:GraphicalItem" href="/ImageProject_SCADAgen/M001HV_TEST/M001HV_TEST.imageeditor#//@canvas/@ownedItem.1"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8UAi0ZIKEeeebZj6uZbRgQ" x="474" y="576" width="200" height="200"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_-bFkEJIKEeeebZj6uZbRgQ" type="3001" fontName="Segoe UI">
+        <children xmi:type="notation:DecorationNode" xmi:id="_-bFkEpIKEeeebZj6uZbRgQ" type="5001">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_-bFkE5IKEeeebZj6uZbRgQ" y="5"/>
+        </children>
+        <element xmi:type="imageeditor:GraphicalItem" href="/ImageProject_SCADAgen/M001HV_TEST/M001HV_TEST.imageeditor#//@canvas/@ownedItem.2"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-bFkEZIKEeeebZj6uZbRgQ" x="474" y="720" width="200" height="200"/>
+      </children>
+    </children>
+    <element xmi:type="imageeditor:GraphicalCanvas" href="/ImageProject_SCADAgen/M001HV_TEST/M001HV_TEST.imageeditor#//@canvas"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_lKamgZIJEeeebZj6uZbRgQ" x="668" y="199"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_CPQEIZIJEeeebZj6uZbRgQ"/>
+  <styles xmi:type="notation:FillStyle" xmi:id="_CeRXkJIJEeeebZj6uZbRgQ" fillColor="13816530"/>
+  <element xmi:type="imageeditor:GraphicalViewer" href="/ImageProject_SCADAgen/M001HV_TEST/M001HV_TEST.imageeditor#/"/>
+</notation:Diagram>

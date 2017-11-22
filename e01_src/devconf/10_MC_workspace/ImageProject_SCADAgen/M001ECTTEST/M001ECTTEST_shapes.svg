@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<svg xmlns="http://www.w3.org/2000/svg" height="1126" preserveAspectRatio="xMinYMin meet" version="1.1" viewBox="0 0 1758 1126" width="1758">
+
+  
+  <g><g class="AnLayer" id="AnDefaultLayer">
+
+    
+    <g anclass="SCADAgen_ECT_TES__ActiveBackdrop" anpath=":TUN:M000001:ECT:TES_0001" class="SCADAgen_ECT_TES__ActiveBackdrop ActiveBackdrop" cmn_acla="ActiveBackdropInstance:SCADAgen_ECT_TES__ActiveBackdrop" hv_id="M001CONN_TUNM000001ECTTES_0001" id=":TUN:M000001:ECT:TES_0001_2" style="fill:#00FF00; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, -112.000000, 132.000000)"><polygon class="AnPolygon" fill-rule="evenodd" points="488,182 797,182 797,264 488,264 488,182 " />
+
+    
+    </g></g>
+
+    
+    </g>
+
+</g></svg>

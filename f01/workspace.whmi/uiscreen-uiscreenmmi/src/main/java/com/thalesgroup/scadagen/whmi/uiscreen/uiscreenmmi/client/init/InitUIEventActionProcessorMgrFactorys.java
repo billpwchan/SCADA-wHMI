@@ -10,6 +10,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActi
 
 public class InitUIEventActionProcessorMgrFactorys {
 	
+	private final static String name = InitUIEventActionProcessorMgrFactorys.class.getName();
 	private final static String className = UIWidgetUtil.getClassSimpleName(InitUIEventActionProcessorMgrFactorys.class.getName());
 	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
@@ -19,7 +20,7 @@ public class InitUIEventActionProcessorMgrFactorys {
 		
 		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
 		uiEventActionProcessorMgr.clearUIEventActionProcessorMgrFactorys();
-		uiEventActionProcessorMgr.addUIEventActionProcessorMgrFactory(className, new UIEventActionProcessorMgrFactory() {
+		uiEventActionProcessorMgr.addUIEventActionProcessorMgrFactory(name, new UIEventActionProcessorMgrFactory() {
 			
 			@Override
 			public UIEventActionProcessor_i getUIEventActionProcessor(String key) {

@@ -1,0 +1,16 @@
+// Animator Version: ANIMATOR2007 4.10.0
+// File generated: 10/05/2016 15:02:49
+// Model: SCADAgen_SymbolHighling_undefined
+
+Version = "41000"
+
+Symbol
+{
+  Rectangle {
+    Size = ((-100, -100), 200, 200)
+    Filled = True
+    Palette = { "SCADAgen_background","foreground","default","solid","solid",1,-1,-1,-1 }
+  }
+  Property "AnV8SelectionProperty" { AnV8SelectionProperty 0"" }
+  Property "AnV8CommentProperty" { AnV8CommentProperty "" }
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>2</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetEventSummaryFilter-root</rootCss>
+	</header>
+
+	<option key="0|0">
+		<widget>Button</widget>
+		<label>&amp;UIWidgetEventSummaryFilter_FilterReset</label>
+		<css>project-UIWidgetEventSummaryFilter-button-reset</css>
+		
+		<cssContainer>project-UIWidgetEventSummaryFilter-button-reset-container</cssContainer>
+		
+		<cssUp>project-UIWidgetEventSummaryFilter-button-reset-up</cssUp>
+		<cssDown>project-UIWidgetEventSummaryFilter-button-reset-down</cssDown>
+		<cssDisable>project-UIWidgetEventSummaryFilter-button-reset-disable</cssDisable>
+		
+		<tooltipUp>&amp;UIWidgetEventSummaryFilter_FilterReset</tooltipUp>
+		<tooltipDown>&amp;UIWidgetEventSummaryFilter_FilterResetAvaiable</tooltipDown>
+		<tooltipDisable>&amp;UIWidgetEventSummaryFilter_FilterResetDisabled</tooltipDisable>
+		
+		<element>clear</element>
+	</option>
+	
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>&amp;UIWidgetEventSummaryFilter_FilterApplied</label>
+		<css>project-UIWidgetEventSummaryFilter-button-applied</css>
+		
+		<cssContainer>project-UIWidgetEventSummaryFilter-button-applied-container</cssContainer>
+		
+		<cssUp>project-UIWidgetEventSummaryFilter-button-applied-up</cssUp>
+		<cssDown>project-UIWidgetEventSummaryFilter-button-applied-down</cssDown>
+		<cssDisable>project-UIWidgetEventSummaryFilter-button-applied-disable</cssDisable>
+		
+		<tooltipUp>&amp;UIWidgetEventSummaryFilter_FilterApplied</tooltipUp>
+		<tooltipDown>&amp;UIWidgetEventSummaryFilter_FilterAppliedAvaiable</tooltipDown>
+		<tooltipDisable>&amp;UIWidgetEventSummaryFilter_FilterAppliedDisabled</tooltipDisable>
+		
+		<element>applied</element>
+	</option>
+	
+</data-set>

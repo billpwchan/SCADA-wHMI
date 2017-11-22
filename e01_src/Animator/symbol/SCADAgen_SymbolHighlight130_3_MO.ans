@@ -1,0 +1,34 @@
+// Animator Version: ANIMATOR2007 4.10.0
+// File generated: 02/06/2016 16:55:42
+// Model: SCADAgen_SymbolHighlight130_3_MO
+
+Version = "41000"
+
+Symbol
+{
+  PrimitiveSet
+  {
+    Polygon {
+      Points = { (-100, -65), (-91, -65), (-91, 64), (-100, 64)      }
+      Filled = True
+      Palette = { "SCADAgen_background","C30","default","","",0 }
+    }
+    Polygon {
+      Points = { (-100, -65), (99, -65), (99, -56), (-100, -56)      }
+      Filled = True
+      Palette = { "SCADAgen_background","C30","default","","",0 }
+    }
+    Polygon {
+      Points = { (99, 64), (99, -65), (90, -65), (90, 64)      }
+      Filled = True
+      Palette = { "SCADAgen_background","C30","default","","",0 }
+    }
+    Polygon {
+      Points = { (99, 64), (-100, 64), (-100, 55), (99, 55)      }
+      Filled = True
+      Palette = { "SCADAgen_background","C30","default","","",0 }
+    }
+  }
+  Property "AnV8SelectionProperty" { AnV8SelectionProperty 0"" }
+  Property "AnV8CommentProperty" { AnV8CommentProperty "" }
+}

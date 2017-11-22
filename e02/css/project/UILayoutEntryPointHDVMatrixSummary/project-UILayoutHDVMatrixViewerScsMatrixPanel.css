@@ -1,75 +1,127 @@
 .scsmx {
   color: #DC143C;
   fill: #DC143C;
-  stroke-width: 1px;
+  stroke-width: 2px;
   stroke: #DC143C;
   cursor: pointer;
 }
 
 /* Matrix counter */
+.scsmx_counter_hdvState_-1 {
+    color: gray;
+    fill: gray;
+    stroke-width: 2px;
+    stroke: gray;
+    cursor: pointer;
+}
+
 .scsmx_counter_hdvState_0 {
-    color: #C92F18;
-    fill: #C92F18;
-    stroke-width: 1px;
-    stroke: #C92F18;
+    color: orange;
+    fill: orange;
+    stroke-width: 2px;
+    stroke: orange;
     cursor: pointer;
 }
 
 .scsmx_counter_hdvState_257 {
-    color: #F29D00;
-    fill: #F29D00;
-    stroke-width: 1px;
-    stroke: #F29D00;
+    color: green;
+    fill: green;
+    stroke-width: 2px;
+    stroke: green;
     cursor: pointer;
 }
 
 .scsmx_counter_hdvState_258 {
-    color: #F9F900;
-    fill: #F9F900;
-    stroke-width: 1px;
-    stroke: #F9F900;
+    color: red;
+    fill: red;
+    stroke-width: 2px;
+    stroke: aqua;
+    cursor: pointer;
+}
+
+.scsmx_counter_hdvState_260 {
+    color: red;
+    fill: red;
+    stroke-width: 2px;
+    stroke: violet;
     cursor: pointer;
 }
 
 .scsmx_counter_hdvState_513 {
-    color: green;
-    fill: green;
-    stroke-width: 1px;
+    color: red;
+    fill: red;
+    stroke-width: 2px;
     stroke: green;
     cursor: pointer;
 }
 
 .scsmx_counter_hdvState_514 {
-    color: #C92F18;
-    fill: #C92F18;
-    stroke-width: 3px;
-    stroke: red;
+    color: aqua;
+    fill: aqua;
+    stroke-width: 2px;
+    stroke: aqua;
+    cursor: pointer;
+}
+
+.scsmx_counter_hdvState_516 {
+    color: red;
+    fill: red;
+    stroke-width: 2px;
+    stroke: violet;
+    cursor: pointer;
+}
+
+.scsmx_counter_hdvState_1025 {
+    color: red;
+    fill: red;
+    stroke-width: 2px;
+    stroke: green;
+    cursor: pointer;
+}
+
+.scsmx_counter_hdvState_1026 {
+    color: red;
+    fill: red;
+    stroke-width: 2px;
+    stroke: aqua;
+    cursor: pointer;
+}
+
+.scsmx_counter_hdvState_1028 {
+    color: violet;
+    fill: violet;
+    stroke-width: 2px;
+    stroke: violet;
     cursor: pointer;
 }
 
 .mwt-gm-square-selected {
   fill: none;
-  stroke-width: 1px;
+  stroke-width: 2px;
   stroke: #FFCD12;
   cursor: pointer;
 }
 
 .mwt-gm-frame-selected {
   fill: none;
-  stroke-width: 1px;
+  stroke-width: 2px;
   stroke: #FFCD12;
   cursor: pointer;
 }
 
 .mwt-gm-square-outer-selected {
   fill: none;
-  stroke-width: 1px;
+  stroke-width: 2px;
   stroke: #FFCD12;
   cursor: pointer;
 }
 
 .mwt-gm-label-text-selected {
   fill: cyan;
+}
+
+.mwt-gm-coefficient-hdv--1 {
+  fill: lightgray;
 }
 
 .mwt-gm-coefficient-hdv-0 {
@@ -84,10 +136,30 @@
   fill: lightgray;
 }
 
+.mwt-gm-coefficient-hdv-260 {
+  fill: lightgray;
+}
+
 .mwt-gm-coefficient-hdv-513 {
   fill: lightgray;
 }
 
 .mwt-gm-coefficient-hdv-514 {
+  fill: lightgray;
+}
+
+.mwt-gm-coefficient-hdv-516 {
+  fill: lightgray;
+}
+
+.mwt-gm-coefficient-hdv-1025 {
+  fill: lightgray;
+}
+
+.mwt-gm-coefficient-hdv-1026 {
+  fill: lightgray;
+}
+
+.mwt-gm-coefficient-hdv-1028 {
   fill: lightgray;
 }

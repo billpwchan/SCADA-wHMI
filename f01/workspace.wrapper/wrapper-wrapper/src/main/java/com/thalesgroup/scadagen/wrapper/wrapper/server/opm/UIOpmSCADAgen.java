@@ -9,6 +9,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.server.rpc.session
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.server.rpc.session.SessionManager;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OpmRequestDto;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.net.Network;
 
 public class UIOpmSCADAgen implements UIOpm_i {
 
@@ -20,6 +21,8 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return instance;
 	}
 	private UIOpmSCADAgen () {}
+	
+	private Network network = new Network();
 
 	@Override
 	public boolean checkAccess(String function, String location, String action, String mode) {
@@ -118,23 +121,30 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		}
 		return result;
 	}
+	
 	@Override
 	public String getRemoteHostName(HttpServletRequest httpServletRequest) {
-		return httpServletRequest.getRemoteHost();
+		String ret = network.getRemoteHostName(httpServletRequest);
+		logger.debug("getRemoteHostName ret[{}]", ret);
+		return ret;
 	}
 	@Override
 	public String getRemoteIPAddress(HttpServletRequest httpServletRequest) {
-		return httpServletRequest.getRemoteAddr();
+		String ret = network.getRemoteIPAddress(httpServletRequest);
+		logger.debug("getRemoteIPAddress ret[{}]", ret);
+		return ret;
 	}
 	@Override
 	public String getHostName() {
-		// TODO Auto-generated method stub
-		return null;
+		String ret = network.getHostName();
+		logger.debug("getHostName ret[{}]", ret);
+		return ret;
 	}
 	@Override
 	public String getIPAddress() {
-		// TODO Auto-generated method stub
-		return null;
+		String ret = network.getIPAddress();
+		logger.debug("getIPAddress ret[{}]", ret);
+		return ret;
 	}
 
 }

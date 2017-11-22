@@ -1,14 +1,13 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
 
 import com.google.gwt.user.client.ui.FormPanel;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UICookies;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class SpringLogin {
@@ -16,21 +15,26 @@ public class SpringLogin {
 	private final String className = UIWidgetUtil.getClassSimpleName(SpringLogin.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
+	private final String strCssForm = "project-SpringLogin-from";
+	private final String strCssPanel = "project-SpringLogin-panel";
+	private final String strCssLabel = "project-SpringLogin-label-connect";
+	
+	private String strMsgConnecting = "Connecting to Web Server......";
+	
+	private final String strSpringLogin = "SpringLoginLabel";
+	
 	private FormPanel form = null;
 	private Hidden field1 = null, field2 = null;
 
 	public SpringLogin(String actionUrl, String name1, String name2) {
-		String function = "SpringLoginForm";
-		
+		String function = "SpringLogin";
 		logger.begin(className, function);
 		
-		logger.info(className, function, "actionUrl[{}] name1[{}] name2[{}]  ", new Object[]{actionUrl, name1, name2});
+		logger.debug(className, function, "actionUrl[{}] name1[{}] name2[{}]  ", new Object[]{actionUrl, name1, name2});
 
     	// Create a FormPanel and point it at a service.
         form = new FormPanel();
-        form.addStyleName("project-gwt-panel-from");
-		form.setWidth("100%");
-		form.setHeight("100%");
+        form.addStyleName(strCssForm);
         form.setAction(actionUrl);
 
         // Removing target attribute prevent 302 HTTP responses to be stored within a hidden iframe
@@ -43,11 +47,7 @@ public class SpringLogin {
 
         // Create a panel to hold all of the form widgets.		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		horizontalPanel.addStyleName("project-gwt-panel-gwslogin");
-		horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		horizontalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		horizontalPanel.setWidth("100%");
-		horizontalPanel.setHeight("100%");
+		horizontalPanel.addStyleName(strCssPanel);
 
         form.setWidget(horizontalPanel);
     	
@@ -60,10 +60,14 @@ public class SpringLogin {
         horizontalPanel.add(field1);
         horizontalPanel.add(field2);
         
-        InlineLabel inlineLabel = new InlineLabel("Connecting to the Web Server.....");
-        inlineLabel.addStyleName("project-gwt-inlinelabel-gwslogin-connecting");
+        if ( null != UICookies.getCookies(strSpringLogin) ) {
+        	strMsgConnecting = UICookies.getCookies(strSpringLogin);
+        }
         
-        horizontalPanel.add(inlineLabel);
+        Label label = new Label(strMsgConnecting);
+        label.addStyleName(strCssLabel);
+        
+        horizontalPanel.add(label);
         
         // Fix the Chrome "Form submission canceled because the form is not connected"
         RootLayoutPanel.get().add(form);
@@ -73,15 +77,12 @@ public class SpringLogin {
 
 	public void login(String value1, String value2) {
 		String function = "login";
-		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "value1[{}] value2[{}]", value1, value2);
+		logger.debug(className, function, "value1[{}] value2[{}]", value1, value2);
 		
 		field1.setValue(value1);
-		
 		field2.setValue(value2);
-		
 		form.submit();
 		
 		logger.end(className, function);

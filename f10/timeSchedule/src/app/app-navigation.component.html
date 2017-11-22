@@ -1,0 +1,9 @@
+<div id="app-component-nav">
+    <nav class="navbar" id="nav-schedule-table-planning">
+        <a [routerLink]="['/schedule-table']" [queryParams]="{periodic: false}" routerLinkActive="active" queryParamsHandling="merge" id="oneshot-schedule-link">{{'Oneshot Schedule' | translate}}</a>
+        <a [routerLink]="['/schedule-table']" [queryParams]="{periodic: true}" routerLinkActive="active" queryParamsHandling="merge" id="periodic-schedule-link">{{'Periodic Schedules' | translate}}</a>
+        <div *ngIf="!disableSchedulePlanning">
+        <a routerLink="/schedule-planning" routerLinkActive="active" queryParamsHandling="merge" id="schedule-planning-link">{{'Schedule Planning' | translate}}</a>
+        </div>
+    </nav>
+</div>

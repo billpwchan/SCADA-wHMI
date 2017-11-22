@@ -3,15 +3,22 @@ package com.thalesgroup.scadagen.whmi.uiroot.uiroot.client;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.InlineLabel;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.Label;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UICookies;
 
 /**
  * @author syau
  * Auto submit page
  */
 public class UIGwsLogin {
+	
+	private final String strCssForm		= "project-UIGwsLogin-from";
+	private final String strCssPanel	= "project-UIGwsLogin-panel";
+	private final String strCssLabel	= "project-UIGwsLogin-label-connect";
+	
+	private String strMsgConnecting = "Connecting to Thales Web Server......";
+	
+	private final String strUIGwsLoginLabel = "UIGwsLoginLabel";
 	
 	private FormPanel form = null;
 	
@@ -35,9 +42,7 @@ public class UIGwsLogin {
     	
     	// Create a FormPanel and point it at a service.
         form = new FormPanel();
-        form.addStyleName("project-gwt-panel-from");
-		form.setWidth("100%");
-		form.setHeight("100%");
+        form.addStyleName(strCssForm);
         form.setAction(actionUrl);
 
         // Removing target attribute prevent 302 HTTP responses to be stored within a hidden iframe
@@ -50,11 +55,7 @@ public class UIGwsLogin {
 
         // Create a panel to hold all of the form widgets.		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		horizontalPanel.addStyleName("project-gwt-panel-gwslogin");
-		horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		horizontalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		horizontalPanel.setWidth("100%");
-		horizontalPanel.setHeight("100%");
+		horizontalPanel.addStyleName(strCssPanel);
 
         form.setWidget(horizontalPanel);
     	
@@ -69,10 +70,14 @@ public class UIGwsLogin {
         horizontalPanel.add(field1);
         horizontalPanel.add(field2);
         
-        InlineLabel inlineLabel = new InlineLabel("Connecting to the Web Server.....");
-        inlineLabel.addStyleName("project-gwt-inlinelabel-gwslogin-connecting");
+        if ( null != UICookies.getCookies(strUIGwsLoginLabel) ) {
+        	strMsgConnecting = UICookies.getCookies(strUIGwsLoginLabel);
+        }
         
-        horizontalPanel.add(inlineLabel);
+        Label label = new Label(strMsgConnecting);
+        label.addStyleName(strCssLabel);
+        
+        horizontalPanel.add(label);
 
         return form;
     	

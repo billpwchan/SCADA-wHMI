@@ -315,8 +315,8 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 												if ( null != scsEnvId && null != address ) {
 													
 													logger.info(className, function, "alias BF [{}]", address);
-													
-													address = "<alias>" + selectedAlias;
+
+													if ( ! selectedAlias.startsWith("<alias>") ) address = "<alias>" + selectedAlias;
 													
 													logger.info(className, function, "alias AF [{}]", address);
 													

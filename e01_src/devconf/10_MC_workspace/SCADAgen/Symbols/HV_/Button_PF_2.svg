@@ -1,0 +1,21 @@
+<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0"><g id="_SCADAGEN_SYMBOLS_HV__BUTTON_PF_2_SVG"><rect x="28.0" fill="red" width="144.0" height="94.0" y="53.0" opacity="0"/><g id="HV_/Button_PF_2" transform="matrix(1.000000, 0, 0, 1.000000, 100.000000, 100.000000)">
+
+  
+  <polygon fill="#D2D2D2" class="AnPolygon" fill-rule="evenodd" points="-70,-44 69,-44 69,43 -70,43 -70,-44 "/>
+
+  
+  <polyline fill="none" stroke-width="3px" class="AnPolyline" points="-70,44 69,44 " stroke="#989898"/>
+
+  
+  <polyline fill="none" stroke-width="3px" class="AnPolyline" points="69,44 69,-44 " stroke="#989898"/>
+
+  
+  <polyline fill="none" stroke-width="3px" class="AnPolyline" points="-70,-44 69,-44 " stroke="#EBEFF0"/>
+
+  
+  <polyline fill="none" stroke-width="3px" class="AnPolyline" points="-70,44 -70,-44 " stroke="#EBEFF0"/>
+
+  
+  <text x="-45px" font-size="60" y="20px" text-decoration="none" fill="#FF0000" font-family="Arial" class="AnText" font-style="normal" font-weight="normal">PF</text>
+
+</g></g></svg>

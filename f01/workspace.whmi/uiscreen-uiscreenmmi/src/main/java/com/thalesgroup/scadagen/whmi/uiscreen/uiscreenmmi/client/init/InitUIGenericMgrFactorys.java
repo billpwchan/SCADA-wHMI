@@ -11,6 +11,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGen
 
 public class InitUIGenericMgrFactorys {
 	
+	private final static String name = InitUIGenericMgrFactorys.class.getName();
 	private final static String className = UIWidgetUtil.getClassSimpleName(InitUIGenericMgrFactorys.class.getName());
 	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
@@ -20,7 +21,7 @@ public class InitUIGenericMgrFactorys {
 		
 		UIGenericMgr uiGenericMgr = UIGenericMgr.getInstance();
 		uiGenericMgr.clearUIGenericMgrFactorys();
-		uiGenericMgr.addUIGenericMgrFactory(className, new UIGenericMgrFactory() {
+		uiGenericMgr.addUIGenericMgrFactory(name, new UIGenericMgrFactory() {
 	
 			@Override
 			public UIGeneric getUIGeneric(String key) {

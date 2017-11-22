@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="1126" preserveAspectRatio="xMinYMin meet" style="background-color:#D2D2D2;" version="1.1" viewBox="0 0 1758 1126" width="1758">
+  <g transform="translate(-112, 132)">
+    <g class="AnLayer" id="AnDefaultLayer">
+      <polygon class="AnPolygon" fill="#FFFFFF" fill-rule="evenodd" points="335,715 1834,715 1834,993 335,993 335,715 " />
+      <text class="AnText" fill="#000000" font-size="12" font-style="normal" font-weight="normal" text-decoration="none" transform="matrix(3.200000,0.000000,0.000000,3.200000,625.820007,723.070007)" x="0px" y="13px">Equipment</text>
+      <text class="AnText" fill="#000000" font-size="12" font-style="normal" font-weight="normal" text-decoration="none" transform="matrix(3.200000,0.000000,0.000000,3.200000,363.044006,793.070007)" x="0px" y="13px">CTV - Tunnel Ventilation Fan (TVF-001)</text>
+      <text class="AnText" fill="#000000" font-size="12" font-style="normal" font-weight="normal" text-decoration="none" transform="matrix(3.200000,0.000000,0.000000,3.200000,1186.489990,723.070007)" x="0px" y="13px">Current Value</text>
+      <text class="AnText" fill="#000000" font-size="12" font-style="normal" font-weight="normal" text-decoration="none" transform="matrix(3.200000,0.000000,0.000000,3.200000,1549.819946,723.070007)" x="0px" y="13px">Target Value</text>
+      <text class="AnText" fill="#000000" font-size="12" font-style="normal" font-weight="normal" text-decoration="none" transform="matrix(3.200000,0.000000,0.000000,3.200000,1586.819946,793.070007)" x="0px" y="13px">Stopped</text>
+      <text class="AnText" fill="#000000" font-size="12" font-style="normal" font-weight="normal" text-decoration="none" transform="matrix(3.840000,0.000000,0.000000,3.840000,335.585999,635.684021)" x="0px" y="13px">Equipment</text>
+      <text class="AnText" fill="#000000" font-size="12" font-style="normal" font-weight="normal" text-decoration="none" transform="matrix(4.800000,0.000000,0.000000,4.800000,722.479980,518.604980)" x="0px" y="13px">Emergency Mode Details</text>
+      <polygon class="AnPolygon" fill="#A9A9A9" fill-rule="evenodd" points="1478,74 1869,74 1869,373 1478,373 1478,74 " />
+      <polyline class="AnPolyline" fill="none" points="1478,74 1869,74 1869,373 1478,373 1478,74 " stroke="#000000" stroke-width="3px" />
+      <text class="AnText" fill="#FFFFFF" font-size="12" font-style="normal" font-weight="normal" text-decoration="none" transform="matrix(4.000000,0.000000,0.000000,4.000000,1583.000000,301.000000)" x="0px" y="13px">TVF-003</text>
+      <text class="AnText" fill="#000000" font-size="12" font-style="normal" font-weight="normal" text-decoration="none" transform="matrix(8.000000,0.000000,0.000000,8.000000,455.000000,-132.000000)" x="0px" y="13px">Tunnel Ventilation Overview</text>
+      <text class="AnText" fill="#000000" font-size="12" font-style="normal" font-weight="normal" text-decoration="none" transform="matrix(4.000000,0.000000,0.000000,4.000000,112.000000,121.000000)" x="0px" y="13px">Temperature</text>
+      <text class="AnText" fill="#000000" font-size="12" font-style="normal" font-weight="normal" text-decoration="none" transform="matrix(4.000000,0.000000,0.000000,4.000000,127.000000,166.000000)" x="0px" y="13px">Monitoring</text>
+      <text class="AnText" fill="#000000" font-size="12" font-style="normal" font-weight="normal" text-decoration="none" transform="matrix(4.000000,0.000000,0.000000,4.000000,167.000000,211.000000)" x="0px" y="13px">Zones</text>
+      <text class="AnText" fill="#000000" font-size="12" font-style="normal" font-weight="normal" text-decoration="none" transform="matrix(4.000000,0.000000,0.000000,4.000000,613.000000,278.000000)" x="0px" y="13px">S1</text>
+      <polyline class="AnPolyline" fill="none" points="488,182 797,182 797,265 488,265 488,182 " stroke="#000000" stroke-width="2px" />
+    </g>
+  </g>
+</svg>

@@ -1,5 +1,22 @@
 {
-    "opmmgr_url": "http://localhost:12081",
-    "i18n_default_lang": "en",
-    "i18n_use_culture_lang": "true"
+      "opmmgr_url": "$$OPM_ADDRESS$$"
+    , "i18n": {
+          "default_lang": "en"
+        , "resolve_by_browser_lang": true
+        , "use_culture_lang": true
+        , "resolve_by_browser_cookie": false
+        , "use_cookie_name": "iscs.webapp.Lang"
+    }
+    , "profile_management": {
+        "enabled": true
+      , "profile_detail": {
+          "location_name_field": "description"
+        , "location_tooltip_field": "description"
+        , "function_name_field": "description"
+        , "function_tooltip_field": "description"
+      }
+    }
+    , "operator_management": {
+        "enabled": true
+    }
 }

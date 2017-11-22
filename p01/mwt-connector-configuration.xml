@@ -5,8 +5,8 @@
                             xsi:schemaLocation="http://www.thalesgroup.com/hv/sdk/configuration-v1 ConnectorConfiguration.xsd
                                                 http://www.thalesgroup.com/hv/ws/dialect/entity-content-v1 hypervisor_dialect_entity_content.xsd">
 
-  <sdk:sharedCacheConfigurationFile>ehcache.xml</sdk:sharedCacheConfigurationFile>
-  <sdk:quartzConfigurationFile>quartz.properties</sdk:quartzConfigurationFile>
+  <!--<sdk:sharedCacheConfigurationFile>ehcache.xml</sdk:sharedCacheConfigurationFile>
+  <sdk:quartzConfigurationFile>quartz.properties</sdk:quartzConfigurationFile>-->
 
   <sdk:operationConfiguration>
     <!-- Value can be one of: REQUESTER, RESPONDER, REQUESTER_AND_RESPONDER -->

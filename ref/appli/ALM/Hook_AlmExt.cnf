@@ -1,0 +1,314 @@
+####
+# External alarms configuration for component AlarmServer
+#
+# Value automatons :
+# - "2States"    : 2 state automaton 
+# - "2StatesLog" : 2 state automaton. Always log
+#
+# Acknowledgment automatons :
+# - "Ack"      : default
+# - "AckLog"   : acknowledgment is logged
+# - "Ackreset" : one shot alarm.
+#
+# States (Error or Normal) : N for event generation
+#                            A for alarm generation
+#
+# Severity levels (0 to 16)
+#    LOW      = 0
+#    URGENT   = 1
+#    CRITICAL = 2
+#
+####
+
+
+########################################################
+#
+#    EVENTS on General Send Command (DO)
+#
+########################################################
+CLASS            = 102
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomaton
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 0
+SEVERITY_N       = 0
+OBJECT_NAME      =
+FUNCTIONAL_CAT   = 
+GEOGRAPHICAL_CAT = 
+EQUIPMENT_CLASS  = 
+GROUP_1          = 
+GROUP_2          =
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+
+
+########################################################
+#
+#    EVENTS on General Send Command (AO)
+#
+########################################################
+CLASS            = 103
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomaton
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 0
+SEVERITY_N       = 0
+OBJECT_NAME      =
+FUNCTIONAL_CAT   = 
+GEOGRAPHICAL_CAT = 
+EQUIPMENT_CLASS  = 
+GROUP_1          = 
+GROUP_2          =
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+
+
+########################################################
+#
+#    EVENTS on General Send Command (SO)
+#
+########################################################
+CLASS            = 104
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomaton
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 0
+SEVERITY_N       = 0
+OBJECT_NAME      =
+FUNCTIONAL_CAT   = 
+GEOGRAPHICAL_CAT = 
+EQUIPMENT_CLASS  = 
+GROUP_1          = 
+GROUP_2          =
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+
+
+
+########################################################
+#
+#    EVENTS on Alarm Acknowldege
+#
+########################################################
+CLASS            = 121
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 0
+SEVERITY_N       = 0 
+OBJECT_NAME      = 
+FUNCTIONAL_CAT   =
+GEOGRAPHICAL_CAT =
+EQUIPMENT_CLASS  =
+GROUP_1          = 
+GROUP_2          =
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+
+
+
+########################################################
+#
+#    EVENTS on General GRC Command
+#
+########################################################
+CLASS            = 111
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomaton
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 0
+SEVERITY_N       = 0
+OBJECT_NAME      =
+FUNCTIONAL_CAT   = 
+GEOGRAPHICAL_CAT = 
+EQUIPMENT_CLASS  = 
+GROUP_1          = 
+GROUP_2          =
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+
+
+########################################################
+#
+#    EVENTS on OPM operations
+#
+########################################################
+CLASS            = 161
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomaton
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 0
+SEVERITY_N       = 0
+OBJECT_NAME      = 
+FUNCTIONAL_CAT   =
+GEOGRAPHICAL_CAT =
+EQUIPMENT_CLASS  = 
+GROUP_1          = 
+GROUP_2          = 
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+
+
+
+########################################################
+#
+#    EVENTS on TSC_TASK_CMD_CALLBACK
+#
+########################################################
+CLASS            = 22
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 0
+SEVERITY_N       = 0 
+OBJECT_NAME      = 
+FUNCTIONAL_CAT   = 
+GEOGRAPHICAL_CAT = 
+EQUIPMENT_CLASS  =
+GROUP_1          = 
+GROUP_2          =
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+
+
+########################################################
+#
+#    EVENTS on Dpc changeVarStatus
+#
+########################################################
+CLASS            = 131
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 0
+SEVERITY_N       = 0 
+OBJECT_NAME      = 
+FUNCTIONAL_CAT   =
+GEOGRAPHICAL_CAT =
+EQUIPMENT_CLASS  =
+GROUP_1          = 
+GROUP_2          =
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+
+
+
+########################################################
+#
+#    EVENTS on Dpc changeVarStatus (Chatter Counter)
+#
+########################################################
+CLASS            = 151
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 1
+SEVERITY_N       = 0
+OBJECT_NAME      =
+FUNCTIONAL_CAT   =
+GEOGRAPHICAL_CAT =
+EQUIPMENT_CLASS  =
+GROUP_1          = 
+GROUP_2          =
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+
+
+########################################################
+#
+#    EVENTS on Dpc changeVarForce (Manual Override - DCI)
+#
+########################################################
+CLASS            = 141
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 0
+SEVERITY_N       = 0 
+OBJECT_NAME      =
+FUNCTIONAL_CAT   =
+GEOGRAPHICAL_CAT =
+EQUIPMENT_CLASS  =
+GROUP_1          = 
+GROUP_2          =
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+
+
+########################################################
+#
+#    EVENTS on Dpc changeVarForce (Manual Override - ACI)
+#
+########################################################
+CLASS            = 142
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 0
+SEVERITY_N       = 0 
+OBJECT_NAME      =
+FUNCTIONAL_CAT   =
+GEOGRAPHICAL_CAT =
+EQUIPMENT_CLASS  =
+GROUP_1          = 
+GROUP_2          =
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+
+
+########################################################
+#
+#    EVENTS on Dpc changeVarForce (Manual Override - SCI)
+#
+########################################################
+CLASS            = 143
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 0
+SEVERITY_N       = 0 
+OBJECT_NAME      =
+FUNCTIONAL_CAT   =
+GEOGRAPHICAL_CAT =
+EQUIPMENT_CLASS  =
+GROUP_1          = 
+GROUP_2          =
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+

@@ -1,0 +1,39 @@
+// Animator Version: ANIMATOR2007 4.10.0
+// File generated: 21/03/2017 15:48:53
+// Model: HV_/SCADAgen_HV__VTC__2_Alarm
+
+Version = "41000"
+
+Symbol
+{
+  PrimitiveSet
+  {
+    Polygon {
+      Points = { (-70, -44), (69, -44), (69, 43), (-70, 43), (-70, -44)      }
+      Filled = True
+      Palette = { "SCADAgen_background","SCADAgen_background","default","solid","solid",1 }
+    }
+    Polyline {
+      Points = { (-70, 44), (69, 44)      }
+      Palette = { "SCADAgen_background","SCADAgen_undefined","default","solid","solid",3 }
+    }
+    Polyline {
+      Points = { (69, 44), (69, -44)      }
+      Palette = { "SCADAgen_background","SCADAgen_undefined","default","solid","solid",3 }
+    }
+    Polyline {
+      Points = { (-70, -44), (69, -44)      }
+      Palette = { "SCADAgen_background","SVG_COL039","default","solid","solid",3 }
+    }
+    Polyline {
+      Points = { (-70, 44), (-70, -44)      }
+      Palette = { "SCADAgen_background","SVG_COL039","default","solid","solid",3 }
+    }
+    Label {
+      Point = (0, 67)
+      Label = "PF"
+      Transformer = ( 1, 0, 0, 1, -45, -34 )
+      Palette = { "SCADAgen_background","SCADAgen_alarm","Arial/60","solid","solid",1 }
+    }
+  }
+}

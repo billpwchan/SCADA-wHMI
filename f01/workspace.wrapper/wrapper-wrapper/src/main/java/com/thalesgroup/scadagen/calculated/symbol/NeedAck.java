@@ -120,7 +120,7 @@ public class NeedAck extends SCSStatusComputer implements SGSymbol_i {
     	util.setPrefix(inValue1);
     	
     	// Append the prefix if exists
-    	String configPrefix = util.getConfitPrefix(mappings, m_name, inValue1);
+    	String configPrefix = util.getConfigPrefix(mappings, inValue1);
     	logger.debug("compute configPrefix[{}]", configPrefix);
     	
     	int outValue1 = 0;

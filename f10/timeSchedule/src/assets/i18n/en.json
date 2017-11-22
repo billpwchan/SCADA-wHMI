@@ -1,0 +1,21 @@
+{
+	"Time Schedule": "en:Time Schedule",
+	"Schedule Table": "en:Schedule Table",
+	"Schedule Planning": "en:Schedule Planning",
+	"OneShot": "en:One Shot",
+	"Predefined": "en:Predefined",
+	"Userdefined": "en:Userdefined",
+	"Select a schedule": "en:Select a schedule",
+	"Selection": "en:Selection",
+	"No Selections": "en:No Selections",
+	"selected": "en:selected",
+	"total": "en:total",
+	"No item to display":"en:No item to display",
+
+	"Location": "en:Location",
+	"System": "en:System",
+	"Equipment Label": "en:Equipment Label",
+	"Equipment Description": "en:Equipment Description",
+	"On Time": "en:On Time",
+	"Off Time": "en:Off Time"
+}

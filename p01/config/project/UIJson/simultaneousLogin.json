@@ -1,0 +1,8 @@
+{
+	"OpmApi": "UIOpmSCADAgen"
+	
+	, "GwsIdentityType": "IpAddress"
+	, "UsrIdentityType": "Operator"
+
+	, "ByPassUsrIdentity": ["ADMIN"]
+}

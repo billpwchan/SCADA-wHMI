@@ -17,7 +17,8 @@ public interface UILayoutGeneric_i {
 	}
 	
 	public enum RootAttribute {
-		  rows("rows")
+		  type("type")
+		, rows("rows")
 		, cols("cols")
 		, rootPanel("rootPanel")
 		, rootCSS("rootCSS")
@@ -65,6 +66,7 @@ public interface UILayoutGeneric_i {
 		, eventbusname("eventbusname")
 		, eventbusscope("eventbusscope")
 		
+		, debugId("debugId")
 		;
 		private final String text;
 		private WidgetAttribute(final String text) { this.text = text; }

@@ -1,0 +1,11 @@
+<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0">
+  <g id="TES__ActiveBackdrop">
+    <g style="stroke: black;&#xA;stroke-width: 3;&#xA;fill: rgb(153, 153, 153);&#xA;" id="_C1166B_SYMBOLS_ECT_C1166B_ECT_CABP_1_UNDEFINED_SVG" transform="translate(-100.0 -100.0)scale(1.0 1.0)">
+      <rect x="50.0" y="50.0" fill="red" width="100.0" style="stroke: black;&#xA;stroke-width: 3;&#xA;fill: rgb(153, 153, 153);&#xA;" height="100.0" opacity="0" />
+      <g style="stroke: black;&#xA;stroke-width: 3;&#xA;fill: rgb(153, 153, 153);&#xA;" id="ECT/C1166B_ECT_CABP_1_Undefined" transform="matrix(1.000000, 0, 0, 1.000000, 100.000000, 100.000000)">
+        <rect x="-50px" y="-50px" fill="#989898" width="100px" fill-rule="evenodd" style="stroke: black;&#xA;stroke-width: 3;&#xA;fill: rgb(153, 153, 153);&#xA;" class="AnRectangle" height="100px" />
+        <rect x="-50px" y="-50px" fill="none" width="100px" style="stroke: black;&#xA;stroke-width: 3;&#xA;fill: rgb(153, 153, 153);&#xA;" class="AnRectangle" height="100px" stroke="#000000" stroke-width="2px" />
+      </g>
+    </g>
+  </g>
+</svg>

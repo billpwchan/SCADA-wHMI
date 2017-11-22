@@ -1,12 +1,10 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
@@ -16,18 +14,24 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.checker.IAutho
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OpmRequestDto;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.RoleDto;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.hom.UIHomFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.hom.UIHom_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.uigeneric.UIGenericMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.uigeneric.UIGenericMgrEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.uiaction.UIActionOpm_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.UIGenericServiceImpl_i;
 
+/**
+ * SCADAgen is the subclass of UIOpm_i, it implement the OPM functionality for SCADAgen WHMI.
+ * 
+ * @author syau
+ *
+ */
 public class UIOpmSCADAgen implements UIOpm_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIOpmSCADAgen.class.getName());
@@ -39,10 +43,23 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return instance;
 	}
 	private UIOpmSCADAgen () {}
+	
+	private final String STR_UIHOM_SCADAGEN = "UIHomSCADAgen";
+	private UIHom_i uiHom_i = null;
+	private UIHom_i getUIHom() {
+		if ( null == uiHom_i ) {
+			uiHom_i = UIHomFactory.getInstance().get(STR_UIHOM_SCADAGEN);
+		}
+		return uiHom_i;
+	}
 
 	private DatabaseMultiRead_i databaseMultiRead_i = null;
 	
 	private String [] profileNames	= null;
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#init()
+	 */
 	@Override
 	public void init() {
 		String function = "init";
@@ -68,12 +85,15 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.end(className, function);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#checkAccess(java.util.Map)
+	 */
 	@Override
 	public boolean checkAccess(Map<String, String> parameter) {
 		String function = "checkAccess";
 		logger.begin(className, function);
 		
-		boolean result = false;
+		boolean ret = false;
 		
 		if ( null != parameter ) {
 			
@@ -92,15 +112,18 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			dto.setRequestParameters(parameter);
 			OperatorOpmInfo operatorOpmInfo = ConfigProvider.getInstance().getOperatorOpmInfo();
 			IAuthorizationCheckerC checker = new AuthorizationCheckerC();
-			result = checker.checkOperationIsPermitted( operatorOpmInfo, dto );
+			ret = checker.checkOperationIsPermitted( operatorOpmInfo, dto );
 
 		} else {
 			logger.warn(className, function,  "parameter IS NULL");
 		}
-		logger.debug(className, function, "result[{}]", result);
-		return result;
+		logger.debug(className, function, "ret[{}]", ret);
+		return ret;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#checkAccess(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public boolean checkAccess(
 			  String opmName1, String opmValue1
@@ -115,7 +138,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.debug(className, function, "opmName3[{}] opmValue3[{}]", opmName3, opmValue3);
 		logger.debug(className, function, "opmName4[{}] opmValue4[{}]", opmName4, opmValue4);
 		
-		boolean result = false;
+		boolean ret = false;
 		
 		if ( 
 				   opmName1 != null && ! opmName1.isEmpty() 
@@ -141,7 +164,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			// TO: remove the non target role in here
 		
 			IAuthorizationCheckerC checker = new AuthorizationCheckerC();
-			result = checker.checkOperationIsPermitted( operatorOpmInfo, dto );
+			ret = checker.checkOperationIsPermitted( operatorOpmInfo, dto );
 		} else {
 			logger.warn(className, function, "args null, or empty - " 
 				+ "  "+opmName1+"=" + opmValue1 
@@ -150,177 +173,33 @@ public class UIOpmSCADAgen implements UIOpm_i {
 				+ ", "+opmName4+"=" + opmValue4
 				+ " - checkAccess return 'false'" );
 		}
-		
-		return result;
+		logger.debug(className, function, "ret[{}]", ret);
+		return ret;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#checkAccess(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public boolean checkAccess(String functionValue, String locationValue, String actionValue, String modeValue) {
-		final String function = "function";
+		final String function = "checkAccess";
 		logger.begin(className, function);
 		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}]  ", new Object[]{functionValue, locationValue, actionValue, modeValue});
-		
-		boolean result = false;
-		
-		result = checkAccess(
+
+		boolean ret = checkAccess(
 								  FUNCTION, functionValue
 								, LOCATION, locationValue
 								, ACTION, actionValue
 								, MODE, modeValue
-							);
-		
+								);
+		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}] ret[{}] ", new Object[]{functionValue, locationValue, actionValue, modeValue, ret});
 		logger.end(className, function);
-		return result;
+		return ret;
 	}
 	
-	@Override
-	public boolean checkHom(final int hdvValue, final String key) {
-		boolean homResult = false;
-		if ( ! isByPassValue(hdvValue) ) {
-			if ( (hdvValue & getConfigHOMMask(key)) > 0 ) {
-				homResult = true;
-			}
-		} else {
-			homResult = true;
-		}
-		return homResult;
-	}
-	
-	@Override
-	public void checkAccessWithHom(final String functionValue
-			, final String locationValue
-			, final String actionValue
-			, final String modeValue
-			, final int hdvValue
-			, final String key
-			, final CheckAccessWithHOMEvent_i resultEvent) {
-		final String function = "checkAccess";
-		logger.begin(className, function);
-		logger.debug(className, function, "functionValue[{}] locationValue[{}] actionValue[{}] modeValue[{}] hdvValue[{}] key[{}]"
-				, new Object[]{functionValue, locationValue, actionValue, modeValue, hdvValue, key});
-		
-		boolean isHOMRequested = false;
-		boolean caResult = false;
-		boolean homResult = false;
-		
-		if ( null != resultEvent ) {
-			if ( isHOMAction(actionValue) ) {
-				isHOMRequested = true;
-				homResult = checkHom(hdvValue, key);
-			}
-			
-			caResult = checkAccess(
-					  functionValue
-					, locationValue
-					, actionValue
-					, modeValue
-					);
-			
-			resultEvent.result(isHOMRequested?(caResult && homResult):caResult);
-			
-		} else {
-			logger.warn(className, function, "resultEvent IS NULL");
-		}
-		
-		logger.end(className, function);
-	}
-
-	@Override
-	public void checkAccessWithHom(final String functionValue
-			, final String locationValue
-			, final String actionValue
-			, final String modeValue
-			, final String scsEnvId
-			, final String alias
-			, final String key
-			, final CheckAccessWithHOMEvent_i resultEvent) {
-		final String function = "checkAccess";
-		logger.begin(className, function);
-		logger.debug(className, function, "functionValue[{}] locationValue[{}] actionValue[{}] modeValue[{}] scsEnvId[{}] alias[{}] key[{}]"
-				, new Object[]{functionValue, locationValue, actionValue, modeValue, scsEnvId, alias, key});
-		
-		if ( null != resultEvent ) {
-			if ( isHOMAction(actionValue) ) {
-				getCurrentHOMValue(scsEnvId, alias, new GetCurrentHOMValueEvent_i() {
-					@Override
-					public void update(String dbaddress, int value) {
-						
-						checkAccessWithHom(functionValue
-								, locationValue
-								, actionValue
-								, modeValue
-								, value
-								, key
-								, resultEvent);
-
-					}
-				});
-			} else {
-				boolean caResult = false;
-				
-				caResult = checkAccess(
-						  functionValue
-						, locationValue
-						, actionValue
-						, modeValue
-						);
-				
-				resultEvent.result(caResult);
-			}
-		} else {
-			logger.warn(className, function, "resultEvent IS NULL");
-		}
-		
-		logger.end(className, function);
-	}
-	
-	@Override
-	public void checkAccessWithHostName(
-			String functionValue
-			, String locationValue
-			, String actionValue
-			, String modeValue
-			, String scsEnvId
-			, String alias
-			, CheckAccessWithHOMEvent_i resultEvent) {
-		final String function = "checkAccessWithHostName";
-		logger.begin(className, function);
-		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}] scsEnvId[{}] alias[{}]", new Object[]{function, locationValue, actionValue, modeValue, scsEnvId, alias});
-		
-		checkAccessWithHom(
-				  functionValue
-				, locationValue
-				, actionValue
-				, modeValue
-				, scsEnvId
-				, alias
-				, getCurrentHostName()
-				, resultEvent
-				);
-		
-		logger.end(className, function);
-	}
-	
-	@Override
-	public void checkAccessWithProfileName(String functionValue, String locationValue, String actionValue, String modeValue, String scsEnvId, String alias, CheckAccessWithHOMEvent_i resultEvent) {
-		final String function = "checkAccessWithProfileName";
-		logger.begin(className, function);
-		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}] scsEnvId[{}] alias[{}]", new Object[]{function, locationValue, actionValue, modeValue, scsEnvId, alias});
-
-		checkAccessWithHom(
-				  functionValue
-				, locationValue
-				, actionValue
-				, modeValue
-				, scsEnvId
-				, alias
-				, getCurrentProfile()
-				, resultEvent
-				);
-		
-		logger.end(className, function);
-	}
-	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#changePassword(java.lang.String, java.lang.String, java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIWrapperRpcEvent_i)
+	 */
 	@Override
 	public void changePassword(String operator, String oldPass, String newPass, UIWrapperRpcEvent_i uiWrapperRpcEvent_i) {
 		String function = "changePassword";
@@ -332,6 +211,10 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		
 		logger.end(className, function);
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentOperator()
+	 */
 	@Override
 	public String getCurrentOperator() {
 		String function = "getCurrentOperator";
@@ -341,6 +224,10 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.debug(className, function, "operatorId[{}]", operatorId);
 		return operatorId;
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentProfile()
+	 */
 	@Override
 	public String getCurrentProfile() {
 		String function = "getCurrentProfile";
@@ -349,16 +236,17 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		if ( null == profileNames ) {
 			getCurrentProfiles();
 		}
-		if ( null != profileNames ) {
-			if ( profileNames.length > 0 ) {
-				profile = profileNames[0];
-			}
+		if ( null != profileNames && profileNames.length > 0 ) {
+			profile = profileNames[0];
 		}
 		logger.debug(className, function, "profile[{}]", profile);
 		logger.end(className, function);
 		return profile;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentProfiles()
+	 */
 	@Override
 	public String[] getCurrentProfiles() {
 		String function = "getCurrentProfiles";
@@ -391,13 +279,10 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return profileNames;
 	}
 	
-	@Override
-	public void setCurrentProfile() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	private String currentHostName = null;
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentHostName()
+	 */
 	@Override
 	public String getCurrentHostName() {
 		final String function = "getCurrentHostName";
@@ -453,9 +338,13 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	
 	private String currentIPAddress = null;
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentIPAddress()
+	 */
 	@Override
 	public String getCurrentIPAddress() {
-		final String function = "getIPAddress";
+		final String function = "getCurrentIPAddress";
 		logger.begin(className, function);
 		
 		if ( null == currentIPAddress ) {
@@ -507,101 +396,10 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return currentIPAddress;
 	}
 
-	@Override
-	public void getCurrentHOMValue(final String scsEnvId, final String alias, final GetCurrentHOMValueEvent_i getCurrentHOMValueEvent_i) {
-		final String function = "getCurrentHOMValue";
-		logger.begin(className, function);
-		logger.debug(className, function, "scsEnvId[{}] alias[{}]", scsEnvId, alias);
-		
-		String dbAddress = alias + getDbAttribute();
-		String [] dbAddresses = new String[]{dbAddress};
-		
-		final String clientKey = className+function;
-		if ( null != databaseMultiRead_i ) {
-			databaseMultiRead_i.addMultiReadValueRequest(clientKey, scsEnvId, dbAddresses, new DatabasePairEvent_i() {
 
-				@Override
-				public void update(String key, String[] dbAddresses, String[] dbValues) {
-					if ( null != key ) {
-						if ( key.equals(clientKey) ) {
-							if ( null != getCurrentHOMValueEvent_i ) {
-								if ( null != dbAddresses && null != dbValues ) {
-									if ( dbAddresses.length > 0 && dbValues.length > 0 ) {
-										String dbaddress = dbAddresses[0];
-										String dbvalue = dbValues[0];
-										int value = Integer.parseInt(dbvalue);
-										getCurrentHOMValueEvent_i.update(dbaddress, value);
-									} else {
-										logger.warn(className, function, "dbAddresses.length > 0 || dbAddresses.length > 0 IS INVALID");
-									}
-								} else {
-									logger.warn(className, function, "dbAddresses || dbValues IS NULL");
-								}
-							} else {
-								logger.warn(className, function, "getCurrentHOMValueEvent_i IS NULL");
-							}
-						}
-					}
-				}
-			});
-		} else {
-			logger.warn(className, function, "databaseMultiRead_i IS NULL");
-		}
-
-		logger.end(className, function);
-	}
-	
-	private HashMap<String, Integer> confighommasks	= new HashMap<String, Integer>();
-	@Override
-	public int getConfigHOMMask(String key) {
-		String function = "getConfigHOMMask";
-		logger.begin(className, function);
-		
-		if ( ! confighommasks.containsKey(key) ) {
-			
-			String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
-			String fileName = UIOpmSCADAgen_i.fileName;
-
-			int defaultValue = getHOMLevelDefaultValue();
-			logger.debug(className, function, "defaultValue[{}]", defaultValue);
-			
-			String arraykey = UIOpmSCADAgen_i.homLevelsArrayKey;
-			JSONArray jsonArray = ReadJson.readArray(dictionariesCacheName, fileName, arraykey);
-			
-			String objectkey = "Key";
-			JSONObject jsonObject = ReadJson.readObject(jsonArray, objectkey, key);
-			
-			String valueKey = "Value";
-			int confighommask = ReadJson.readInt(jsonObject, valueKey, defaultValue);
-			
-			confighommasks.put(key, confighommask);
-		}
-		int confighommask = confighommasks.get(key);
-		logger.debug(className, function, "confighommask[{}]", confighommask);
-		logger.end(className, function);
-		return confighommask;
-	}
-	
-//	@Override
-//	public void createOperator(String operator) {
-//		// TODO Auto-generated method stub
-//
-//	}
-//	@Override
-//	public void removeOperator(String operator) {
-//		// TODO Auto-generated method stub
-//
-//	}
-//	@Override
-//	public void addProfileToOperator(String operator, String profile) {
-//		// TODO Auto-generated method stub
-//
-//	}
-//	@Override
-//	public void removeProfileFromOperatior(String operator, String profile) {
-//		// TODO Auto-generated method stub
-//
-//	}
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#login(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void login(String operator, String password) {
 		String function = "login";
@@ -615,6 +413,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		
 		logger.end(className, function);
 	}
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#logout()
+	 */
 	@Override
 	public void logout() {
 		String function = "logout";
@@ -626,122 +427,43 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		
 		logger.end(className, function);
 	}
-
-	private String dbAttribute = null;
-	private String getDbAttribute() {
-		String function = "getDbAttribute";
-		logger.begin(className, function);
-
-		if ( null == dbAttribute ) {
-			String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
-			String fileName = UIOpmSCADAgen_i.fileName;
-			String key = UIOpmSCADAgen_i.dbAttributekey;
-			String defaultValue = "Can't not read db attribute";
-			dbAttribute = ReadJson.readString(dictionariesCacheName, fileName, key, defaultValue);
-		}
-		logger.debug(className, function, "dbAttribute[{}]", dbAttribute);
-		logger.end(className, function);
-		return dbAttribute;
-	}
 	
-	private String homActions[] = null;
-	private String[] getHomActions() {
-		final String function = "getHomActions";
-		logger.begin(className, function);
-		
-		if ( null == homActions ) {
-			String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
-			String fileName = UIOpmSCADAgen_i.fileName;
-			String key = UIOpmSCADAgen_i.homActionsArrayKey;
-			JSONArray array = ReadJson.readArray(dictionariesCacheName, fileName, key);
-			if ( null != array ) {
-				homActions = new String[array.size()];
-				for ( int i = 0 ; i < array.size() ; ++i ) {
-					JSONValue v = array.get(i);
-					if ( null != v && null != v.isString() ) {
-						homActions[i] = v.isString().stringValue();
-						logger.debug(className, function, "homActions({})[{}]", i, homActions[i]);
-					}
-				}
-			} else {
-				logger.warn(className, function, "array IS NULL");
-			}
-		}
-		logger.end(className, function);
-		return homActions;
+	@Override
+	public boolean checkHom(final int hdv, final String identity) {
+		return getUIHom().checkHom(hdv, identity);
 	}
-	
+	@Override
+	public void checkAccessWithHom(
+			String function, String location, String action, String mode
+			, String scsEnvId, String dbAddress
+			, CheckAccessWithHOMEvent_i resultEvent) {
+		getUIHom().checkAccessWithHom(function, location, action, mode
+				, scsEnvId, dbAddress
+				, this
+				, resultEvent);
+	}
+	@Override
+	public void checkAccessWithHom(
+			String function, String location, String action, String mode
+			, int hdv, String identity
+			, CheckAccessWithHOMEvent_i resultEvent) {
+		getUIHom().checkAccessWithHom(
+				function, location, action, mode
+				, hdv, identity
+				, this
+				, resultEvent);
+	}
 	@Override
 	public boolean isHOMAction(String action) {
-		final String function = "isHOMAction";
-		logger.begin(className, function);
-		boolean result = false;
-		String [] homActions = getHomActions();
-		if ( null != homActions) {
-			for ( int i = 0 ; i < homActions.length ; i++ ) {
-				String homAction = homActions[i];
-				if ( homAction != null ) {
-					logger.debug(className, function, "homActions[{}] == action[{}]", homAction, action);
-					if ( 0 == homAction.compareTo(action) ) {
-						result = true;
-						break;
-					}
-				} else {
-					logger.warn(className, function, "homActions([{}]) IS NULL", i);
-				}
-			}
-		} else {
-			logger.warn(className, function, "homActions IS NULL");
-		}
-		logger.end(className, function);
-		return result;
+		return getUIHom().isHOMAction(action);
 	}
-
-	private int byPassValue				= -1;
-	boolean byPassValueReady 			= false;
-	private int getByPassValue() {
-		String function = "getByPassValue";
-		logger.begin(className, function);
-		
-		if ( ! byPassValueReady ) {
-			String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
-			String fileName = UIOpmSCADAgen_i.fileName;
-			String key = UIOpmSCADAgen_i.byPassValuekey;
-			int defaultValue = 0;
-			byPassValue = ReadJson.readInt(dictionariesCacheName, fileName, key, defaultValue);
-			
-			byPassValueReady = true;
-		}
-		logger.debug(className, function, "byPassValue[{}]", byPassValue);
-		logger.end(className, function);
-		return byPassValue;
-	}
-	
-	private int homLevelDefaultValue = 0;
-	boolean homLevelDefaultValueReady = false;
-	private int getHOMLevelDefaultValue() {
-		String function = "getByPassValue";
-		logger.begin(className, function);
-		
-		if ( ! homLevelDefaultValueReady ) {
-			String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
-			String fileName = UIOpmSCADAgen_i.fileName;
-			String key = UIOpmSCADAgen_i.homLevelDefaultValueKey;
-			int defaultValue = 0;
-			homLevelDefaultValue = ReadJson.readInt(dictionariesCacheName, fileName, key, defaultValue);
-			
-			homLevelDefaultValueReady = true;
-		}
-		logger.debug(className, function, "homLevelDefaultValue[{}]", homLevelDefaultValue);
-		logger.end(className, function);
-		return homLevelDefaultValue;
-	}	
-	
 	@Override
-	public boolean isByPassValue(int value) {
-		String function = "isByPassValue";
-		logger.debug(className, function, "getByPassValue()[{}] == value[{}]", getByPassValue(), value);
-		return (getByPassValue() == value);
+	public boolean isBypassValue(int value) {
+		return getUIHom().isBypassValue(value);
+	}
+	@Override
+	public void getCurrentHOMValue(String scsEnvId, String dbAddress, GetCurrentHOMValueEvent_i event) {
+		getUIHom().getCurrentHOMValue(scsEnvId, dbAddress, event);
 	}
 
 }

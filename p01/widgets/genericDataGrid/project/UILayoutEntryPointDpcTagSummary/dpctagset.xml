@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <p:genericDataGridConfiguration xmlns:p="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid" xmlns:cmn="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns:sds="http://www.thalesgroup.com/hv/mwt/conf/subscription-data-source" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid mwt-gdg-config.xsd                       http://www.thalesgroup.com/hv/mwt/conf/common mwt-common.xsd">
 
-    <p:gridConfiguration fastForwardPages="2" name="dpctagset" pageSize="32"  displayPager="true"/>
+    <p:gridConfiguration fastForwardPages="2" name="dpctagset" pageSize="32"  displayPager="false"/>
 
     <p:subject>
         <p:dataSource xsi:type="sds:subscriptionDataSource">
@@ -144,6 +144,10 @@
 	
     <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_SL_Cond_Res" width="0" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
          <p:source name="GDGColumn06" statusComputerName="GDGColumn06" xsi:type="cmn:computedStatusDataSourceType"/>
+    </p:column>
+	
+	<p:column filterable="true" sortable="false" name="gdg_column_checkopm" type="INTEGER" format="" width="0" widthUnit="PX" xsi:type="p:numberColumnType">
+        <p:source name="GDGColumnCheckAccess01" statusComputerName="GDGColumnCheckAccess01" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
 
     <!-- default sorting of the GDG -->

@@ -1,0 +1,181 @@
+/* Operator Management - Detail Panel */
+.operator-detail-panel{
+    cursor: default;
+    user-select: none;
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 1rem;
+    height: calc(100% - /*padding*/1rem*2);
+}
+
+.operator-detail-name{
+    margin: 0.1em;
+    font-size: 1.5rem;
+    display: flex;
+    flex-flow: row nowrap;
+}
+.operator-detail-name-input{
+    font-size: 1.5rem;
+}
+
+.operator-detail-passwords{
+    display: flex;
+    flex-flow: row nowrap;
+    flex: 0 0 auto;
+}
+.operator-detail-passwords-1st-label,
+.operator-detail-passwords-2nd-label,
+.operator-detail-password-1st-input,
+.operator-detail-password-2st-input{
+    padding: 0.1em;
+    font-size: 1em;
+}
+
+.operator-detail-password-1st-input > input,
+.operator-detail-password-2nd-input > input{
+    padding: 0.1em;
+    font-size: 1em;
+}
+
+.operator-detail-name-conflict,
+.operator-detail-name-empty,
+.operator-detail-passwords-empty,
+.operator-detail-passwords-mismatch{
+    color: red;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.operator-detail-table{
+    display: flex;
+    flex-flow: row nowrap;
+    height: calc(
+        /* workaround for Chrome 44, for newer browser, uncomment the follow line */
+        /*100% -*/
+        /* workaround for Chrome 44 starts */
+        100vh -
+        /*margin*/1rem*2 - /*text*/1rem*2 - /*margin2*/1rem*2 - /*padding*/1rem*2 - 1rem -
+        /* workaround for Chrome 44 ends */
+        (/*name*/ 0.1em*2 + 1.5em) -
+        (/*password*/ 0.1em*2 + 1em + 0.1em*2) -
+        (/*action*/1em*2 + 1em + 0.5em*2)
+    );
+}
+
+.operator-detail-assigned-profiles,
+.operator-detail-available-profiles{
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1 0 auto;
+    margin: 0.5em;
+    height: 100%;
+    border: thin solid black;
+}
+
+.operator-detail-assigned-profiles-label,
+.operator-detail-available-profiles-label{
+    background: darkgrey;
+    font-weight: bold;
+    padding: 0.1em;
+    font-size: 1.5em;
+    white-space: nowrap;
+}
+
+.operator-detail-assigned-profiles-list-table,
+.operator-detail-available-profiles-list-table{
+    display: flex;
+    flex-flow: column nowrap;
+    height: calc(100% - (/*table header*/0.1em*2 - 1.5em));
+    overflow-y: auto;
+}
+
+.operator-detail-assigned-profiles-list-table-header,
+.operator-detail-available-profiles-list-table-header,
+.operator-detail-assigned-profiles-list-table-item-id,
+.operator-detail-available-profiles-list-table-item-id,
+.operator-detail-assigned-profiles-list-table-item-description,
+.operator-detail-available-profiles-list-table-item-description{
+    display: none;
+}
+
+.operator-detail-assigned-profiles-list-table-items,
+.operator-detail-available-profiles-list-table-items,
+.operator-detail-assigned-profiles-list-table-item,
+.operator-detail-available-profiles-list-table-item{
+    border-top: thin solid black;
+    cursor: pointer;
+}
+
+.operator-detail-assigned-profiles-list-table-item-name,
+.operator-detail-available-profiles-list-table-item-name{
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0.5em;
+    font-size: 1em;
+}
+
+.operator-detail-assigned-profiles-list-table-item.selected,
+.operator-detail-available-profiles-list-table-item.selected{
+    background-color: black;
+    color: white;
+}
+
+.operator-detail-assign{
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 0 0 auto;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.operator-detail-assign-assign,
+.operator-detail-assign-remove{
+    font-size: 1em;
+    font-weight: bold;
+    margin: 1em;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+.operator-detail-assign-assign:before{
+    content: "<-";
+}
+.operator-detail-assign-remove:after{
+    content: "->";
+}
+
+.operator-detail-assign-assign[disabled],
+.operator-detail-assign-remove[disabled]{
+    cursor: default;
+}
+
+.operator-detail-actions{
+    text-align: right;
+}
+
+.operator-detail-actions-create,
+.operator-detail-actions-reset,
+.operator-detail-actions-progress{
+    font-size: 1em;
+    font-weight: bold;
+    margin: 1em;
+    padding: 0.5em;
+    cursor: pointer;
+    width: 8em;
+}
+
+.operator-detail-actions-create[disabled],
+.operator-detail-actions-reset[disabled],
+.operator-detail-actions-progress{
+    cursor: default;
+}
+
+.operator-detail-actions-progress-label{
+    float: left;
+}
+
+.operator-detail-actions-progress-label:after{
+    content: ":";
+    display: inline;
+    padding-right: 1ch;
+}

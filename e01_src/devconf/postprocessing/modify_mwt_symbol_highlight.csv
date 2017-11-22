@@ -1,0 +1,12 @@
+path,filePattern,width,height,matchFilePatterns
+symbols\,SCADAgen.*ECT_TTVF_ActiveText_symbol\.xml,200,100,
+symbols\,SCADAgen.*ActiveText_symbol\.xml,0,0,
+symbols\,SCADAgen.*ECT_TES__ActiveNumber_symbol\.xml,200,100,
+symbols\,SCADAgen.*ActiveNumber_symbol\.xml,0,0,
+symbols\,SCADAgen_([^_]+)_(.+)_Up_symbol\.xml,,,bricks\$1_$2_U_State_MO.svg bricks\$2_U_State_MO.svg bricks\$1_$2_U_State_Selected.svg bricks\$2_U_State_Selected.svg
+symbols\,SCADAgen_([^_]+)_(.+)_Down_symbol\.xml,,,bricks\$1_$2_D_State_MO.svg bricks\$2_D_State_MO.svg bricks\$1_$2_D_State_Selected.svg bricks\$2_D_State_Selected.svg
+symbols\,SCADAgen_([^_]+)_(.+)_Left_symbol\.xml,,,bricks\$1_$2_L_State_MO.svg bricks\$2_L_State_MO.svg bricks\$1_$2_L_State_Selected.svg bricks\$2_L_State_Selected.svg
+symbols\,SCADAgen_([^_]+)_(.+)_Right_symbol\.xml,,,bricks\$1_$2_R_State_MO.svg bricks\$2_R_State_MO.svg bricks\$1_$2_R_State_Selected.svg bricks\$2_R_State_Selected.svg
+symbols\,SCADAgen_([^_]+)_(.+)_Horizontal_symbol\.xml,,,bricks\$1_$2_H_State_MO.svg bricks\$2_H_State_MO.svg bricks\$1_$2_H_State_Selected.svg bricks\$2_H_State_Selected.svg
+symbols\,SCADAgen_([^_]+)_(.+)_Vertical_symbol\.xml,,,bricks\$1_$2_V_State_MO.svg bricks\$2_V_State_MO.svg bricks\$1_$2_V_State_Selected.svg bricks\$2_V_State_Selected.svg
+symbols\,SCADAgen_([^_]+)_(.+)_symbol\.xml,,,bricks\$1_$2_State_MO.svg bricks\$2_State_MO.svg bricks\$1_$2_State_Selected.svg bricks\$2_State_Selected.svg

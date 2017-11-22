@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" type="Aspect" name="OK_Color.module_diagram" measurementUnit="Pixel">
+  <children xsi:type="notation:Shape" type="2005" lineColor="0">
+    <children xsi:type="notation:DecorationNode" type="5006"/>
+    <children xsi:type="notation:DecorationNode" type="7003">
+      <children xsi:type="notation:Shape" type="3012">
+        <element href="OK_Color.scsrepresentation#_zF6bYP2sEeGHEeSpO4ABcg"/>
+        <layoutConstraint xsi:type="notation:Bounds"/>
+      </children>
+      <styles xsi:type="notation:SortingStyle"/>
+      <styles xsi:type="notation:FilteringStyle"/>
+    </children>
+    <element href="OK_Color.scsrepresentation#_uaspcf2sEeGHEeSpO4ABcg"/>
+    <layoutConstraint xsi:type="notation:Bounds" x="35" y="35"/>
+  </children>
+  <styles xsi:type="notation:DiagramStyle"/>
+  <element href="OK_Color.scsrepresentation#_uaspcP2sEeGHEeSpO4ABcg"/>
+</notation:Diagram>

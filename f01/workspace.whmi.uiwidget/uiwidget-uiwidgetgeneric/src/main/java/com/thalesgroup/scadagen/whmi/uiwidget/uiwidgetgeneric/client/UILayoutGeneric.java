@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.gwt.dom.client.Style.Unit;
@@ -32,9 +33,9 @@ public class UILayoutGeneric extends UIGeneric {
 	private final String className = UIWidgetUtil.getClassSimpleName(UILayoutGeneric.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private HashMap<String, UIWidget_i> uiGeneric = new HashMap<String, UIWidget_i>();
+	private Map<String, UIWidget_i> uiGeneric = new HashMap<String, UIWidget_i>();
 	
-	private HashMap<Integer, HashMap<String, String>> values = new HashMap<Integer, HashMap<String, String>>();
+	private Map<Integer, Map<String, String>> values = new HashMap<Integer, Map<String, String>>();
 	
 	private int rows;
 	private int cols;
@@ -83,7 +84,7 @@ public class UILayoutGeneric extends UIGeneric {
 	@Override
 	public void init() {
 		final String function = "init";
-		
+		logger.begin(className, function);
 		logger.debug(className, function, "viewXMLFile[{}]", this.viewXMLFile);
 
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance("UIWidgetGeneric");
@@ -94,9 +95,6 @@ public class UILayoutGeneric extends UIGeneric {
 		ready(this.dictionaryHeader);
 		ready(this.dictionaryOption);
 		
-		// Start the UIGeneric
-
-		logger.begin(className, function);
 		logger.debug(className, function, "strPanel[{}] strCSS[{}]", strPanel, strCSS);
 		
 		rootPanel = null;
@@ -109,8 +107,6 @@ public class UILayoutGeneric extends UIGeneric {
 				rootPanel = new DockLayoutPanel(Unit.PX);
 			} else if ( PanelAttribute.AbsolutePanel.equalsName(strPanel) ) {
 				rootPanel = new AbsolutePanel();
-//				Element e = rootPanel.getElement();
-//				DOM.setStyleAttribute(e, "position", "absolute");
 			} else {
 			}
 
@@ -128,15 +124,15 @@ public class UILayoutGeneric extends UIGeneric {
 			
 		    for ( int i = 0 ; i < rows ; ++i ) {
 		    	
-		    	logger.debug(className, function, "Build Filter Table Loop i[{}] Begin", i);
+		    	logger.trace(className, function, "Build Filter Table Loop i[{}] Begin", i);
 				
 				for ( int j = 0 ; j < cols ; ++j ) {
 					
 					int index = (i*cols)+j;
 					
-					logger.debug(className, function, "Build Filter Table Loop i[{}] j[{}] => index[{}]", new Object[]{i, j, index});
+					logger.trace(className, function, "Build Filter Table Loop i[{}] j[{}] => index[{}]", new Object[]{i, j, index});
 					
-					HashMap<String, String> valueMap = this.values.get(index);
+					Map<String, String> valueMap = this.values.get(index);
 					
 					if ( null != valueMap ) {
 						
@@ -154,18 +150,20 @@ public class UILayoutGeneric extends UIGeneric {
 						String left					= valueMap.get(WidgetAttribute.left.toString());
 						String top					= valueMap.get(WidgetAttribute.top.toString());
 						String csscontainer			= valueMap.get(WidgetAttribute.csscontainer.toString());
+						
+						String debugId				= valueMap.get(WidgetAttribute.debugId.toString());
 
-						HashMap<String, Object> options = new HashMap<String, Object>();
+						Map<String, Object> options = new HashMap<String, Object>();
 						
 						for ( String key : valueMap.keySet() ) {
 							Object value = valueMap.get(key);
 							if ( null != value ) options.put(key, value);
 						}
 						
-						if ( logger.isDebugEnabled() ) {
+						if ( logger.isTraceEnabled() ) {
 							for ( String key : valueMap.keySet() ) {
 								String value = valueMap.get(key);
-								logger.debug(className, function, "valueMap key[{}] value[{}]", key, value);
+								logger.trace(className, function, "valueMap key[{}] value[{}]", key, value);
 							}
 						}
 						
@@ -215,12 +213,12 @@ public class UILayoutGeneric extends UIGeneric {
 								if ( null != element ) {
 									if ( null != element && element.trim().length() > 0 ) {
 										uiGeneric.put(element, uiWidget);
-										logger.debug(className, function, "uiGeneric element[{}] ADDED", element);
+										logger.trace(className, function, "uiGeneric element[{}] ADDED", element);
 									}
 								}
 								if ( ! uiGeneric.containsKey(element) ) {
 									uiGeneric.put(uiCtrl, uiWidget);
-									logger.debug(className, function, "uiGeneric uiCtrl[{}] ADDED", uiCtrl);									
+									logger.trace(className, function, "uiGeneric uiCtrl[{}] ADDED", uiCtrl);									
 								}
 							} else {
 								logger.warn(className, function, "created UIWidgetGeneric type[{}] uiCtrl[{}] IS NULL", type, uiCtrl);
@@ -266,7 +264,7 @@ public class UILayoutGeneric extends UIGeneric {
 										if ( null != left )	x = Integer.parseInt(left);
 										if ( null != top )	y = Integer.parseInt(top);
 									} catch ( NumberFormatException e ) {
-										logger.debug(className, function, "left or top IS INVALID");
+										logger.warn(className, function, "left or top IS INVALID");
 									}
 									((AbsolutePanel)rootPanel).add(panel, x, y);
 								
@@ -277,14 +275,22 @@ public class UILayoutGeneric extends UIGeneric {
 									if ( null != cellheight )	((CellPanel) rootPanel).setCellHeight(panel, cellwidth);
 								}
 								
-								logger.debug(className, function, "csscontainer["+csscontainer+"]");
-								
+								logger.trace(className, function, "csscontainer["+csscontainer+"]");
 								if ( null != panel ) {
 									if ( null != csscontainer ) {
 										DOM.getParent(panel.getElement()).setClassName(csscontainer);
 									}
 								}
 								
+								logger.trace(className, function, "debugId["+debugId+"]");
+								if ( null != panel ) {
+									if ( null == debugId ) {
+										panel.ensureDebugId(this.uiNameCard.getUiPath()+this.uiNameCard.getUiScreen());
+									} else {
+										panel.ensureDebugId(debugId);
+									}
+								}
+															
 							} else {
 								logger.warn(className, function, "complexPanel IS NULL");
 							}
@@ -376,7 +382,7 @@ public class UILayoutGeneric extends UIGeneric {
 									if ( null != key) {
 										keys = v.split("\\|");
 										
-										logger.debug(className, function, "dictionary key[{}]", key);
+										logger.trace(className, function, "dictionary key[{}]", key);
 										
 										break;
 									}
@@ -386,7 +392,7 @@ public class UILayoutGeneric extends UIGeneric {
 							}
 						}
 						
-						logger.debug(className, function, "dictionary key[{}]", key);
+						logger.trace(className, function, "dictionary key[{}]", key);
 						
 						if ( null != keys ) {
 							if ( 2 == keys.length ) {
@@ -401,20 +407,20 @@ public class UILayoutGeneric extends UIGeneric {
 								}
 								
 								if ( isvalid ) {
-									logger.debug(className, function, "dictionary row[{}] col[{}]", new Object[]{row, col});
+									logger.trace(className, function, "dictionary row[{}] col[{}]", new Object[]{row, col});
 									
 									index = (row * cols) + col;
 									
 									logger.debug(className, function, "dictionary row[{}] col[{}] => index[{}]", new Object[]{row, col, index});
 									
-									HashMap<String, String> hashMap = this.values.get(Integer.valueOf(index));
+									Map<String, String> hashMap = this.values.get(Integer.valueOf(index));
 									if ( null != hashMap ) {
 										for ( Object o2 : d2.getValueKeys() ) {
 											if ( null != o2 ) {
 												String k = (String)o2;
 												String v = (String)d2.getValue(o2);
 												
-												logger.debug(className, function, "dictionary k[{}] v[{}]", new Object[]{k, v});
+												logger.trace(className, function, "dictionary k[{}] v[{}]", new Object[]{k, v});
 				
 												hashMap.put(k, v);
 											}

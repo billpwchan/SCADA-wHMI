@@ -12,8 +12,11 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionDpc;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionGrc;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionJS;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionOls;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionOpm;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionSimultaneousLogin;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTsc;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionWidget;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecuteMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
@@ -21,6 +24,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActi
 
 public class InitUIEventActionExecuteMgrFactorys {
 	
+	private final static String name = InitUIEventActionExecuteMgrFactorys.class.getName();
 	private final static String className = UIWidgetUtil.getClassSimpleName(InitUIEventActionExecuteMgrFactorys.class.getName());
 	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
@@ -30,7 +34,7 @@ public class InitUIEventActionExecuteMgrFactorys {
 		
 		UIEventActionExecuteMgr uiEventActionExecuteMgr = UIEventActionExecuteMgr.getInstance();
 		uiEventActionExecuteMgr.clearUIEventActionExecuteMgrFactorys();
-		uiEventActionExecuteMgr.addUIEventActionExecute(className, new UIEventActionExecuteMgrFactory() {
+		uiEventActionExecuteMgr.addUIEventActionExecute(name, new UIEventActionExecuteMgrFactory() {
 			
 			@Override
 			public UIEventActionExecute_i getUIEventActionExecute(String key) {
@@ -60,6 +64,9 @@ public class InitUIEventActionExecuteMgrFactorys {
 				else if ( key.equals(UIActionEventType_i.UIActionEventType.opm.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionOpm();
 				}
+				else if ( key.equals(UIActionEventType_i.UIActionEventType.simlogin.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionSimultaneousLogin();
+				}
 				else if ( key.equals(UIActionEventType_i.UIActionEventType.uitask.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionTaskLaunch();
 				}
@@ -71,6 +78,12 @@ public class InitUIEventActionExecuteMgrFactorys {
 				}
 				else if ( key.equals(UIActionEventType_i.UIActionEventType.js.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionJS();
+				}
+				else if ( key.equals(UIActionEventType_i.UIActionEventType.tsc.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionTsc();
+				}
+				else if ( key.equals(UIActionEventType_i.UIActionEventType.ols.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionOls();
 				}
 				
 				if ( null == uiEventActionExecute_i ) logger.warn(className, function, "key[{}] uiEventActionExecute_i IS NULL", key);

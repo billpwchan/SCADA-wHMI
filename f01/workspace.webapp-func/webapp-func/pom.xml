@@ -6,40 +6,33 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <parent>
         <groupId>com.thalesgroup.hv.mwt</groupId>
         <artifactId>mwt</artifactId>
-        <version>3.7.0</version>
+        <version>3.8.0</version>
     </parent>
-    <!--<parent>
-    	<groupId>com.thalesgroup.hv.gzcocc</groupId>
-        <artifactId>gzcocc-reactor</artifactId>
-        <version>1.3.5-SNAPSHOT</version>
-    </parent>-->
 
-  <groupId>com.thalesgroup.hv.myproject</groupId>
-  <artifactId>myproject-webapp-func</artifactId>
-  <version>1.4.3</version>
-  <packaging>jar</packaging>
-  <name>ScsTraining :: Reactor</name>
-	
-	<!--
-    <groupId>com.thalesgroup.hv.gzcocc</groupId>
-    <artifactId>gzcocc-webapp-func</artifactId>
-    <version>1.3.5-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <name> Hypervisor :: Guangzhou COCC :: Functional Components for HMI Web Application</name>
-	-->
+	<groupId>com.thalesgroup.hv.myproject</groupId>
+		<artifactId>myproject-webapp-func</artifactId>
+		<version>1.5.4</version>
+		<packaging>jar</packaging>
+	<name>ScsTraining :: Reactor</name>
+
     <properties>
-        <commons.uiwidget.version>1.4.3</commons.uiwidget.version>
-        <commons.whmi.version>1.4.3</commons.whmi.version>
-        <commons.uiwrapper.version>1.4.3</commons.uiwrapper.version>
-        <commons.whmi.fun.version>1.4.3</commons.whmi.fun.version>
 	
+        <!-- Version of the SCADAgen WHMI -->
+        <scadagen.whmi.version>1.5.4</scadagen.whmi.version>
 	
         <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
-        <mwt.version>3.7.0</mwt.version>
-        <scadasoft.version>6.3.1</scadasoft.version>
+        <mwt.version>3.8.0</mwt.version>
+        <scadasoft.mwt.version>6.3.1_P06-HV960P01</scadasoft.mwt.version>
+        <jackson.version>2.8.4</jackson.version>
         <maven.javadoc.skip>true</maven.javadoc.skip>
     </properties>
     <dependencies>
+	
+		<dependency>
+			<groupId>org.vectomatic</groupId>
+			<artifactId>lib-gwt-svg</artifactId>
+			<version>0.5.11</version>
+		</dependency>
 
         <dependency>
           <groupId>com.thalesgroup.hv.gzcocc</groupId>
@@ -48,35 +41,19 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		  <version>1.3.5-SNAPSHOT</version>
           <scope>provided</scope>
         </dependency>
-       <!--
-        <dependency>
-          <groupId>com.thalesgroup.hv.gzcocc</groupId>
-          <artifactId>gzcocc-system-conf</artifactId>
-          <version>${project.version}</version>
-          <type>pom</type>
-        </dependency>
-        -->
-        <!--<dependency>
-          <groupId>com.thalesgroup.hv.gzcocc</groupId>
-          <artifactId>gzcocc-webservices-cxf</artifactId>
-          <version>${project.version}</version>
-        </dependency>-->
+
        
         <!-- SCADAsoft dependencies -->
         <dependency>
             <groupId>com.thalesgroup.scadasoft</groupId>
-            <artifactId>scs-data-model</artifactId>
-            <version>${scadasoft.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.thalesgroup.scadasoft</groupId>
-            <artifactId>scsapi</artifactId>
-            <version>${scadasoft.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.thalesgroup.scadasoft</groupId>
             <artifactId>scswebapp</artifactId>
-            <version>${scadasoft.version}</version>
+            <version>${scadasoft.mwt.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
         
         <!--  MWT dependencies  -->
@@ -142,28 +119,28 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <dependency>
           <groupId>com.thalesgroup.scadagen.whmi.uiroot.uiroot</groupId>
           <artifactId>uiroot-uiroot</artifactId>
-          <version>${commons.whmi.version}</version>
+          <version>${scadagen.whmi.version}</version>
           <scope>provided</scope>
         </dependency>
         
         <dependency>
           <groupId>com.thalesgroup.scadagen.whmi.config.config</groupId>
           <artifactId>config-config</artifactId>
-          <version>${commons.uiwidget.version}</version>
+          <version>${scadagen.whmi.version}</version>
           <scope>provided</scope>
         </dependency>
 		
         <dependency>
           <groupId>com.thalesgroup.scadagen.whmi.config.configenv</groupId>
           <artifactId>config-configenv</artifactId>
-          <version>${commons.uiwidget.version}</version>
+          <version>${scadagen.whmi.version}</version>
           <scope>provided</scope>
         </dependency>
 		
         <dependency>
           <groupId>com.thalesgroup.scadagen.whmi.config.confignav</groupId>
           <artifactId>config-confignav</artifactId>
-          <version>${commons.whmi.version}</version>
+          <version>${scadagen.whmi.version}</version>
           <scope>provided</scope>
         </dependency>
         
@@ -171,7 +148,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <dependency>
           <groupId>com.thalesgroup.scadagen.wrapper.widgetcontroller</groupId>
           <artifactId>wrapper-widgetcontroller</artifactId>
-          <version>${commons.uiwrapper.version}</version>
+          <version>${scadagen.whmi.version}</version>
         </dependency>
         
     </dependencies>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:OUTPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../../../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR ../../../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR" xmi:id="BasicEquipment_FAMHDV_CFM_CENT_7OFnYQPSEeehb9yqxWEC3A_1488959011030" nom_instance="FAMHDV_CFM_CNT" label="fas sample" shortname="Handover Management with Confirm for Central" scstype="FASHDVCFMCNT">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <user_fields xmi:id="UserFields_SYm7wYmiEeezOY3x0ZWeYg_1503671576956" nom_instance="TIMEOUTACT"/>
+  <outputs xsi:type="OUTPUT_VAR:dio_type" xmi:id="dio_type_dioFAM-HDVSTATUS_7OGOcAPSEeehb9yqxWEC3A_1488959011031" nom_instance="dioFAM-HDVSTATUS" label="&amp;dioFAM-HDVSTATUS" opSource="">
+    <valueTable xmi:id="struct_valueTable_dio_type_7OGOcQPSEeehb9yqxWEC3A_1488959011031" dovname="dovFAM-REQ1" label="&amp;dovFAM-DELEGATE"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_7OGOcgPSEeehb9yqxWEC3A_1488959011031" dovname="dovFAM-REQ2" label="&amp;dovFAM-TAKEOVER" value="1"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_7OGOcwPSEeehb9yqxWEC3A_1488959011031" dovname="dovFAM-RPY1" label="&amp;dovFAM-CONFIRM" value="2"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_7OGOdAPSEeehb9yqxWEC3A_1488959011031" dovname="dovFAM-RPY2" label="&amp;dovFAM-REJECT" value="3"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_7OGOdQPSEeehb9yqxWEC3A_1488959011031"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_7OGOdgPSEeehb9yqxWEC3A_1488959011031"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_7OGOdwPSEeehb9yqxWEC3A_1488959011031"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_7OGOeAPSEeehb9yqxWEC3A_1488959011031"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_7OGOeQPSEeehb9yqxWEC3A_1488959011031"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_7OGOegPSEeehb9yqxWEC3A_1488959011031"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_7OGOewPSEeehb9yqxWEC3A_1488959011031"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_7OGOfAPSEeehb9yqxWEC3A_1488959011031"/>
+    <DOV xmi:id="dov_type_dovFAM-LEVEL1_7OG1gAPSEeehb9yqxWEC3A_1488959011032" returnCondTO="300" nom_instance="dovFAM-REQ1" ctlvalue="513">
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OG1gQPSEeehb9yqxWEC3A_1488959011032" condInfo="valid intf"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OG1ggPSEeehb9yqxWEC3A_1488959011032" condInfo="next = current"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OG1gwPSEeehb9yqxWEC3A_1488959011032" condInfo="hdv in central"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OG1hAPSEeehb9yqxWEC3A_1488959011032"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OG1hQPSEeehb9yqxWEC3A_1488959011032"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OG1hgPSEeehb9yqxWEC3A_1488959011032"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OG1hwPSEeehb9yqxWEC3A_1488959011032"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OG1iAPSEeehb9yqxWEC3A_1488959011032"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OG1iQPSEeehb9yqxWEC3A_1488959011032" condInfo="reply received from other side"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OG1igPSEeehb9yqxWEC3A_1488959011032" condInfo="valid intf"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OG1iwPSEeehb9yqxWEC3A_1488959011032"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OG1jAPSEeehb9yqxWEC3A_1488959011032"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OG1jQPSEeehb9yqxWEC3A_1488959011032"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OG1jgPSEeehb9yqxWEC3A_1488959011032"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OHckAPSEeehb9yqxWEC3A_1488959011033"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OHckQPSEeehb9yqxWEC3A_1488959011033"/>
+    </DOV>
+    <DOV xmi:id="dov_type_dovFAM-LEVEL2_7OHckgPSEeehb9yqxWEC3A_1488959011033" returnCondTO="300" nom_instance="dovFAM-REQ2" ctlvalue="258">
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OHckwPSEeehb9yqxWEC3A_1488959011033" condInfo="valid intf"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OHclAPSEeehb9yqxWEC3A_1488959011033" condInfo="next = current"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OHclQPSEeehb9yqxWEC3A_1488959011033" condInfo="hdv in station"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OHclgPSEeehb9yqxWEC3A_1488959011033"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OHclwPSEeehb9yqxWEC3A_1488959011033"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OHcmAPSEeehb9yqxWEC3A_1488959011033"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OHcmQPSEeehb9yqxWEC3A_1488959011033"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OHcmgPSEeehb9yqxWEC3A_1488959011033"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OHcmwPSEeehb9yqxWEC3A_1488959011033" condInfo="reply received from other side"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OHcnAPSEeehb9yqxWEC3A_1488959011033" condInfo="valid intf"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OHcnQPSEeehb9yqxWEC3A_1488959011033"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OHcngPSEeehb9yqxWEC3A_1488959011033"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OHcnwPSEeehb9yqxWEC3A_1488959011033"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OHcoAPSEeehb9yqxWEC3A_1488959011034"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OIDoAPSEeehb9yqxWEC3A_1488959011034"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OIDoQPSEeehb9yqxWEC3A_1488959011034"/>
+    </DOV>
+    <DOV xmi:id="dov_type_dovFAM-FLGLV1_7OIDogPSEeehb9yqxWEC3A_1488959011034" returnCondTO="300" nom_instance="dovFAM-RPY1" ctlvalue="514">
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OIDowPSEeehb9yqxWEC3A_1488959011034" condInfo="valid intf"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OIDpAPSEeehb9yqxWEC3A_1488959011034" condInfo="free, degraded or unstable"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OIDpQPSEeehb9yqxWEC3A_1488959011034" condInfo="hdv not in station"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OIDpgPSEeehb9yqxWEC3A_1488959011034" condInfo="req initiated from other side"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OIDpwPSEeehb9yqxWEC3A_1488959011034"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OIDqAPSEeehb9yqxWEC3A_1488959011034"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OIDqQPSEeehb9yqxWEC3A_1488959011034"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OIDqgPSEeehb9yqxWEC3A_1488959011034"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OIDqwPSEeehb9yqxWEC3A_1488959011034" condInfo="reply from other side received"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OIDrAPSEeehb9yqxWEC3A_1488959011034" condInfo="valid intf"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OIDrQPSEeehb9yqxWEC3A_1488959011034"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OIDrgPSEeehb9yqxWEC3A_1488959011035"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OIqsAPSEeehb9yqxWEC3A_1488959011035"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OIqsQPSEeehb9yqxWEC3A_1488959011035"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OIqsgPSEeehb9yqxWEC3A_1488959011035"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OIqswPSEeehb9yqxWEC3A_1488959011035"/>
+    </DOV>
+    <DOV xmi:id="dov_type_dovFAM-FLGLV2_7OIqtAPSEeehb9yqxWEC3A_1488959011035" returnCondTO="300" nom_instance="dovFAM-RPY2" ctlvalue="257">
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OIqtQPSEeehb9yqxWEC3A_1488959011035" condInfo="valid intf"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OIqtgPSEeehb9yqxWEC3A_1488959011035" condInfo="free, degraded or unstable"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OIqtwPSEeehb9yqxWEC3A_1488959011035" condInfo="hdv not in central"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OIquAPSEeehb9yqxWEC3A_1488959011035" condInfo="req initiated from other side"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OIquQPSEeehb9yqxWEC3A_1488959011035"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OIqugPSEeehb9yqxWEC3A_1488959011035"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OIquwPSEeehb9yqxWEC3A_1488959011035"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_7OIqvAPSEeehb9yqxWEC3A_1488959011035"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OIqvQPSEeehb9yqxWEC3A_1488959011035" condInfo="reply from other side received"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OIqvgPSEeehb9yqxWEC3A_1488959011035" condInfo="valid intf"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OIqvwPSEeehb9yqxWEC3A_1488959011035"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OJRwAPSEeehb9yqxWEC3A_1488959011036"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OJRwQPSEeehb9yqxWEC3A_1488959011036"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OJRwgPSEeehb9yqxWEC3A_1488959011036"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OJRwwPSEeehb9yqxWEC3A_1488959011036"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_7OJRxAPSEeehb9yqxWEC3A_1488959011036"/>
+    </DOV>
+  </outputs>
+</Class:BasicEquipment>

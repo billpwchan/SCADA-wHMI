@@ -16,7 +16,7 @@ set PATH_SOURCE="%SOURCE_BASE_F01%\workspace.webapp-func\webapp-func\target"
 cd %PATH_SOURCE%
 
 for /r %%a in (myproject-webapp-func*.zip) do (
-	%SEVEN_ZIP_HOME% e %%~fa -o%PATH_FOLDER% -y
+	%PATH_7Z_BIN% e %%~fa -o%PATH_FOLDER% -y
 )
 
 cd %CUR_PATH%

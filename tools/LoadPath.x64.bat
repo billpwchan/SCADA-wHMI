@@ -12,15 +12,16 @@ SET REPO_BASE=%CUR_PATH%/../../cots
 SET SOFTS_DIR=softs.x86_64
 
 REM Absolute Path For 7 Zip Command Line
-SET DEPOT_HOME=C:\Build.SCADAgen.depot
-SET SOURCE_BASE_HOME=R:\whmi
+SET DEPOT_HOME=D:\Build.SCADAgen.output
+SET SOURCE_BASE_HOME=D:\Build.SCADAgen\whmi
 
 SET JAVA_HOME=%SOFTS_BASE%/%SOFTS_DIR%/jdk1.7.0_79_x86_64
 SET MAVEN_HOME=%SOFTS_BASE%/%SOFTS_DIR%/apache-maven-3.3.9
 SET CATALINA_HOME=%SOFTS_BASE%/%SOFTS_DIR%/apache-tomcat-8.0.30-x86_64
 SET ECLIPSE_HOME=%SOFTS_BASE%/%SOFTS_DIR%/eclipse-jee-mars-R-win32-x86_64
-SET CHROME_HOME=C:\Users\syau\PortableApps\GoogleChromePortable\GoogleChromePortable.exe
-SET SEVEN_ZIP_HOME=%SOFTS_BASE%/%SOFTS_DIR%/PortableApps/7-ZipPortable/App/7-Zip64/7z.exe
+SET CHROME_HOME=D:\Users\syau\PortableApps\GoogleChromePortable\GoogleChromePortable.exe
+SET PATH_7Z_BIN=%SOFTS_BASE%/%SOFTS_DIR%/PortableApps/7-ZipPortable/App/7-Zip64/7z.exe
+SET DOXYGEN_HOME=%SOFTS_BASE%/%SOFTS_DIR%/doxygen
 
 SET TAIL_EXE=%SOFTS_BASE%/%SOFTS_DIR%/Tail-4.2.12\Tail.exe
 
@@ -35,7 +36,7 @@ SET M2_HOME=%MAVEN_HOME%
 SET M2_REPO=%REPO_BASE%/.m2/repo
 
 SET PATH=.
-SET PATH=%PATH%;%JAVA_HOME%/bin;%MAVEN_HOME%/bin;
+SET PATH=%PATH%;%JAVA_HOME%/bin;%MAVEN_HOME%/bin;%TOOLS_BASE%;
 
 SET PATH=%PATH%;%SystemRoot%/system32;%SystemRoot%;%SystemRoot%/System32/Wbem;
 

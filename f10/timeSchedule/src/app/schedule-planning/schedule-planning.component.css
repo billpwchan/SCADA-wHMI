@@ -1,0 +1,41 @@
+#schedule-planning {
+    width: 100%;
+}
+#running-schedules {
+    width: calc(100% - /* margin */ 2 * 5px);
+    margin: 5px;
+}
+#running-schedules-label {
+    width: 20%;
+    margin: 2px;
+    font-size: medium;
+}
+#running-schedules-input {
+    width: 30%;
+    margin: 5px;
+    margin-left: 10px;
+    font-size: medium;
+}
+#weekday-planning-container {
+    margin-bottom: 20px;
+}
+
+.weekday-planning {
+    width: 100%;
+    margin: 5px;
+}
+.weekday-planning-label {
+    width: 20%;
+    margin: 2px;
+    font-size: medium;
+}
+.weekday-planning-select {
+    width: 20%;
+    margin: 5px;
+    margin-left: 10px;
+    font-size: medium;
+}
+.periodic-action {
+    padding: 5px;
+}
+

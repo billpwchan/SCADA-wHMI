@@ -16,7 +16,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.widget.SymbolWidget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.widget.WidgetFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.zoom.strategy.IZoomStrategy;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsSituationViewPanelEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.SCADAgenSituationViewPanelEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.util.ConfigurationConstantUtil;
 
 /**
@@ -25,9 +25,9 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.util.Configuratio
 public class ScsWidgetFactory extends WidgetFactory {
     private static final ClientLogger s_logger = ClientLogger.getClientLogger();
     private static Logger logger = Logger.getLogger(ScsWidgetFactory.class.getName());
-	private WrapperScsSituationViewPanelEvent wrapperScsSituationViewPanelEvent = null;
+	private SCADAgenSituationViewPanelEvent wrapperScsSituationViewPanelEvent = null;
 	
-	public ScsWidgetFactory(WrapperScsSituationViewPanelEvent wrapperScsSituationViewPanelEvent) {
+	public ScsWidgetFactory(SCADAgenSituationViewPanelEvent wrapperScsSituationViewPanelEvent) {
 		super();
 		this.wrapperScsSituationViewPanelEvent = wrapperScsSituationViewPanelEvent;
 	}
@@ -87,7 +87,7 @@ public class ScsWidgetFactory extends WidgetFactory {
 					
 					String hv_type = symbolWidget.getEntityClassName();
 					
-					logger.log(Level.SEVERE, "getSymbolWidget symbolWidget is hv_id["+hv_id+"]  hv_type["+hv_type+"]");
+					logger.log(Level.FINE, "getSymbolWidget symbolWidget is hv_id["+hv_id+"]  hv_type["+hv_type+"]");
 					
 					if ( null != wrapperScsSituationViewPanelEvent ) {
 						

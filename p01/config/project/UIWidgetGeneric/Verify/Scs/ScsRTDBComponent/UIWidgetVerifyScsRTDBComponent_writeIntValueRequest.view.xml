@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>14</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-panel-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>ScsRTDBComponent writeIntValueRequest:</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-inlinelabel-firstlabel</css>
+		<element>firstlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>connect</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-button-connect</css>
+		<element>connect</element>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-container-connect</cssContainer>
+		
+		<tooltip>connect</tooltip>
+		
+	</option>
+	
+	<option key="0|2">
+		<widget>Button</widget>
+		<label>writeIntValueRequest</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-button-writeIntValueRequest</css>
+		<element>writeIntValueRequest</element>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-container-writeIntValueRequest</cssContainer>
+		
+		<tooltip>writeIntValueRequest</tooltip>
+		
+	</option>
+	
+	<option key="0|3">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-inlinelabel-resultlabel</css>
+		<element>resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|4">
+		<widget>TextArea</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-textbox-resultvalue</css>
+		<element>resultvalue</element>
+		<disableTranslation>true</disableTranslation>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-container-resultvalue</cssContainer>
+		
+	</option>
+	
+	<!-- Information Session -->
+	
+	<option key="0|5">
+		<widget>InlineLabel</widget>
+		<label>key:</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-inlinelabel-keylabel</css>
+		<element>keylabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|6">
+		<widget>TextArea</widget>
+		<label>writeStringValueRequest</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-textbox-keyvalue</css>
+		<element>keyvalue</element>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-container-keyvalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|7">
+		<widget>InlineLabel</widget>
+		<label>scsenvid:</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-inlinelabel-scsenvidlabel</css>
+		<element>scsenvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|8">
+		<widget>TextArea</widget>
+		<label>M100CONN</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-textbox-scsenvidvalue</css>
+		<element>scsenvidvalue</element>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-container-scsenvidvalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|9">
+		<widget>InlineLabel</widget>
+		<label>address:</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-inlinelabel-addresslabel</css>
+		<element>addresslabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|10">
+		<widget>TextArea</widget>
+		<label>:TUN:M000001:ECT:TES_0001.tagStatus</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-textbox-addressvalue</css>
+		<element>addressvalue</element>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-container-addressvalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|11">
+		<widget>InlineLabel</widget>
+		<label>value:</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-inlinelabel-valuelabel</css>
+		<element>valuelabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|12">
+		<widget>TextArea</widget>
+		<label>1</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-textbox-value</css>
+		<element>value</element>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-container-value</cssContainer>
+		
+	</option>
+	
+	<option key="0|13">
+		<widget>Button</widget>
+		<label>disconnect</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-button-disconnect</css>
+		<element>disconnect</element>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeIntValueRequest-container-disconnect</cssContainer>
+		
+		<tooltip>disconnect</tooltip>
+		
+	</option>
+
+</data-set>

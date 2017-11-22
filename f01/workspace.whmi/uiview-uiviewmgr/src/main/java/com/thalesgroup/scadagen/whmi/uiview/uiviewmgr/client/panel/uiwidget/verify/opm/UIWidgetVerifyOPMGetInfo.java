@@ -6,13 +6,12 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UIWidgetRealize;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i.GetCurrentHOMValueEvent_i;
 
 public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 	
@@ -63,101 +62,66 @@ public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 		logger.end(className, function);
 	}
 	
-	private void getCurrentHOMValue() {
-		final String function = "getCurrentHOMValue";
+	private void getCurrentOperator() {
+		final String function = "getCurrentOperator";
 		logger.begin(className, function);
 		
 		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
-		String scsenvidvalue	= uiGeneric.getWidgetValue("scsenvidvalue");
-		String aliasvalue		= uiGeneric.getWidgetValue("aliasvalue");
 		
 		logger.debug(className, function, "uiopmapivalue[{}]",uiopmapivalue);
-		logger.debug(className, function, "scsenvidvalue[{}]", scsenvidvalue);
-		logger.debug(className, function, "hvidvalue[{}]", aliasvalue);
 		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
+		String result = null;
 		if ( null != uiOpm_i ) {
-			uiOpm_i.getCurrentHOMValue(scsenvidvalue, aliasvalue, new GetCurrentHOMValueEvent_i() {
-				
-				@Override
-				public void update(final String dbaddress, final int value) {
-					
-					String result = Integer.toString(value);
-					logger.debug(className, function, "result[{}]", result);
-					
-					uiGeneric.setWidgetValue("resultvalue", result);
-				}
-			});
+			result = uiOpm_i.getCurrentOperator();
 		} else {
 			logger.warn(className, function, "uiopmapivalue[{}] uiOpm_i IS NULL", uiopmapivalue);
 		}
-
+		
+		uiGeneric.setWidgetValue("resultvalue", result);
 		logger.end(className, function);
 	}
 	
-	private void getConfigHOMMask() {
-		final String function = "getConfigHOMMask";
+	private void getCurrentProfile() {
+		final String function = "getCurrentProfile";
 		logger.begin(className, function);
 		
 		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
-		String keyvalue			= uiGeneric.getWidgetValue("keyvalue");
 		
 		logger.debug(className, function, "uiopmapivalue[{}]",uiopmapivalue);
-		logger.debug(className, function, "keyvalue[{}]", keyvalue);
 		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
-		int result = -1;
+		String result = null;
 		if ( null != uiOpm_i ) {
-			result = uiOpm_i.getConfigHOMMask(keyvalue);
+			result = uiOpm_i.getCurrentProfile();
 		} else {
 			logger.warn(className, function, "uiopmapivalue[{}] uiOpm_i IS NULL", uiopmapivalue);
 		}
 		
-		uiGeneric.setWidgetValue("resultvalue", Integer.toString(result));
+		uiGeneric.setWidgetValue("resultvalue", result);
 		logger.end(className, function);
 	}
-	
-//	private void getHOMLevelDefaultValue() {
-//		final String function = "getHOMLevelDefaultValue";
-//		logger.begin(className, function);
-//		
-//		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
-//		
-//		logger.debug(className, function, "uiopmapivalue[{}]",uiopmapivalue);
-//		
-//		OpmMgr opmMgr = OpmMgr.getInstance();
-//		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
-//		
-//		int result = -1;
-//		if ( null != uiOpm_i ) {
-//			result = uiOpm_i.getHOMLevelDefaultValue();
-//		} else {
-//			logger.warn(className, function, "uiopmapivalue[{}] uiOpm_i IS NULL", uiopmapivalue);
-//		}
-//		
-//		uiGeneric.setWidgetValue("resultvalue", Integer.toString(result));
-//		logger.end(className, function);
-//	}
 	
 	private void launch(String element) {
-		if ( "getcurrenthostname".equals(element) ) {
+		if ( 0 == "getCurrentHostName".compareToIgnoreCase(element) ) {
 			getCurrentHostName();
-		} else if ( "getcurrentipaddress".equals(element) ) {
-			getCurrentIPAddress();
-		} else if ( "getcurrenthomvalue".equals(element) ) {
-			getCurrentHOMValue();
-		} else if ( "getconfighommask".equals(element) ) {
-			getConfigHOMMask();
 		}
-//		else if ( "gethomleveldefaultvalue".equals(element) ) {
-//			getHOMLevelDefaultValue();
-//		}
+		else if ( 0 == "getCurrentIPAddress".compareToIgnoreCase(element) ) {
+			getCurrentIPAddress();
+		}
+		else if ( 0 == "getCurrentOperator".compareToIgnoreCase(element) ) {
+			getCurrentOperator();
+		}
+		else if ( 0 == "getCurrentProfile".compareToIgnoreCase(element) ) {
+			getCurrentProfile();
+		}
+		
 	}
-	
+
 	@Override
 	public void init() {
 		super.init();

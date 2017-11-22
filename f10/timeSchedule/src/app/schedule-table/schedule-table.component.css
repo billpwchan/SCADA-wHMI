@@ -1,0 +1,108 @@
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+
+#on-off-time-group {
+    padding: 5px;
+}
+
+#on-time-group {
+    display: block;
+    padding: 2px;
+}
+
+#off-time-group {
+    display: block;
+    padding: 2px;
+}
+
+#save-on-off-time {
+    display: block;
+    padding: 2px;
+}
+
+#selected-row {
+    display: block;
+    padding: 2px;
+}
+
+#empty-selected-row {
+    display: block;
+    padding: 2px;
+}
+#periodicTitleBlock {
+    width: 30%;
+    padding-bottom: 5px;
+}
+#schedule-cutoff-time {
+    width: calc(100% - /* margin */ 2 * 5px);
+    margin: 5px;
+}
+#label-schedule-cutoff-time {
+    width: 20%;
+    margin: 2px;
+    font-size: medium;
+}
+#cutoff-time-input {
+    font-size: medium;
+    margin-left: 10px;
+}
+#schedule-item-detail {
+    width: 50%;
+}
+#label-on-time {
+    font-size: medium;
+    padding: 2px;
+}
+#label-off-time {
+    font-size: medium;
+    padding: 2px;
+}
+#add-schedule-select-apply-cancel {
+    font-size: medium;
+    padding: 4px;
+    padding-top: 10px;
+}
+#rename-schedule-input-apply-cancel {
+    font-size: medium;
+    padding: 4px;
+    padding-top: 10px;
+}
+#input-rename-schedule {
+    width: 25%;
+}
+#select-new-schedule {
+    width: 25%;
+}
+.label {
+    margin: 2px;
+}
+.input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: medium;
+    margin: 2px;
+}
+.input:hover {
+    border: 1px solid #adadad;
+    border-radius: 4px;
+    background-color: #e6e6e6;
+}
+.select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: medium;
+    padding: 2px;
+}
+#newOnTimeInvalid {
+    width: 25%;
+}
+#newOffTimeInvalid {
+    width: 25%;
+}
+#newScheduleTitleInvalid {
+    width: 25%
+}
+.pull-right {
+    float: right !important;
+}

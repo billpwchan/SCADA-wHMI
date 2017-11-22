@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_iFhMoJN-EeeBsejFH_1odg" prototypeRefId="SGEQPT8_SGEQPT8_xo3goFXDEee4As-TYSGT9g_1497968499626" name="SCADAGEN_UTC_M100_SC_Int2IntCompare" defaultAspect="_RtmtkJN_EeeBsejFH_1odg" category="_iFhMpJN-EeeBsejFH_1odg">
+    <aspectPackage xmi:id="_iFhMoZN-EeeBsejFH_1odg" name="Aspect Container">
+      <ownedAspect xmi:id="_RtmtkJN_EeeBsejFH_1odg" name="Int2IntCompare_0">
+        <ownedDecoratedSymbol xmi:id="_ostbsJOBEeeBsejFH_1odg" x="61.0" y="-4.0" width="76.0" height="208.0" ratio_width="1.0" ratio_height="1.0" symbol="_oswfAJOBEeeBsejFH_1odg"/>
+        <condition xmi:id="_WWrxgJN_EeeBsejFH_1odg" value="0" attribute="_doAqEJN_EeeBsejFH_1odg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_T_kJIJN_EeeBsejFH_1odg" name="Int2IntCompare_1">
+        <ownedDecoratedSymbol xmi:id="_u4awAJOBEeeBsejFH_1odg" x="61.0" y="-4.0" width="76.0" height="208.0" ratio_width="1.0" ratio_height="1.0" symbol="_u4bXEJOBEeeBsejFH_1odg"/>
+        <condition xmi:id="_WjrEoJN_EeeBsejFH_1odg" value="1" attribute="_doAqEJN_EeeBsejFH_1odg"/>
+      </ownedAspect>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_doAqEJN_EeeBsejFH_1odg" id="Int2IntCompare" condition="_WWrxgJN_EeeBsejFH_1odg _WjrEoJN_EeeBsejFH_1odg" qualifiedName="Int2IntCompare" outputType="INT"/>
+    </aspectPackage>
+    <symbolLibrary xmi:id="_iFhMopN-EeeBsejFH_1odg">
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_oswfAJOBEeeBsejFH_1odg" filePath="Symbols/SC_/NUM_ZERO.svg" id="_SCADAGEN_SYMBOLS_SC__NUM_ZERO_SVG" width="76.0" height="208.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_u4bXEJOBEeeBsejFH_1odg" filePath="Symbols/SC_/NUM_ONE.svg" id="_SCADAGEN_SYMBOLS_SC__NUM_ONE_SVG" width="76.0" height="208.0"/>
+    </symbolLibrary>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_iFhMo5N-EeeBsejFH_1odg">
+    <ownedCategories xmi:id="_iFhMpJN-EeeBsejFH_1odg" name="Functional"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

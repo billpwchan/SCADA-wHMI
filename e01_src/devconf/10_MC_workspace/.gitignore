@@ -1,0 +1,8 @@
+.metadata/.plugins
+.metadata/.lock
+.metadata/*.log
+.metadata/version.ini
+.metadata/.mylyn/
+scsconf/
+BaseProject/
+ImageProject_BaseProject/

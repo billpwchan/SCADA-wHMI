@@ -1,0 +1,59 @@
+.project-UIWidgetSocFilterControl1-root {
+	height: 55px;
+	float: left;
+}
+
+.project-UIWidgetSocFilterControl1-container-filterColumnSOCCard {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocFilterControl1-label-filterColumnSOCCard {
+	color: black;
+	font-weight: bold;
+	font-size: 16px;
+	margin-right: 10px;
+}
+
+.project-UIWidgetSocFilterControl1-container-SOCCardValue {
+	width: 150px;
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocFilterControl1-textbox-SOCCardValue {
+	font-size: 16px;
+	height: 39px;
+	width: 150px;
+	color: black;
+	background: white;
+	border: thin solid black !important;
+}
+
+.project-UIWidgetSocFilterControl1-container-updateSOCCardFilter {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocFilterControl1-button-updateSOCCardFilter {
+	width:115px;
+	height:45px;
+	font-weight: bold !important;
+    font-size: 16px !important;
+	margin-left: 5px !important;
+	margin-right: 5px !important;
+}
+.project-UIWidgetSocFilterControl1-button-updateSOCCardFilter-up {
+	
+}
+.project-UIWidgetSocFilterControl1-button-updateSOCCardFilter-down {
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
+}
+.project-UIWidgetSocFilterControl1-button-updateSOCCardFilter-disable {
+
+}
+
+.project-UIWidgetSocFilterControl1-container-filterColumnSOCCardStatus {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocFilterControl1-label-filterColumnSOCCardStatus {
+	color: red;
+	font-weight: bold;
+	font-size: 16px;
+	margin-right: 10px;
+}

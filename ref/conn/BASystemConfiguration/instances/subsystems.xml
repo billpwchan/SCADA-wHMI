@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Definition of all the subsystems defined in the system -->
+<hv-conf:entitiesConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                               xmlns:hv-conf="http://www.thalesgroup.com/hv/data-v1/entity/configuration" 
+                               xmlns:hv-sub="http://www.thalesgroup.com/hv/data-v1/service/configuration"
+                               xmlns:scadagen-sub="http://www.thalesgroup.com/scadagen/scadaphysicalsystem/scada_cluster/configuration">
+    <hv-conf:entity xsi:type="hv-sub:PresentationLayerType" id="M100WEB1" />
+    <!--<hv-conf:entity xsi:type="hv-sub:PresentationLayerType" id="M100WEB2" />-->
+
+    <hv-conf:entity xsi:type="scadagen-sub:SCADAType" id="M100CONN">
+        <hv-sub:notificationProducerEndpoint>$$M100CONN1_NOTIFICATION_ADDRESS$$/producer</hv-sub:notificationProducerEndpoint>
+        <hv-sub:operationResponderEndpoint>$$M100CONN1_OPERATION_ADDRESS$$/responder</hv-sub:operationResponderEndpoint>
+    </hv-conf:entity>
+
+</hv-conf:entitiesConfiguration>

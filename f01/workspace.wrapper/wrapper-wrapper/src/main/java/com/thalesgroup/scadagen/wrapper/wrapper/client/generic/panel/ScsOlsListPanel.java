@@ -43,7 +43,9 @@ public class ScsOlsListPanel extends UIWidget_i {
     private String selectionMode = null;
     private boolean hasSCADAgenPager = false;
     
-    private LinkedList<String> attributes = new LinkedList<String>();
+    private String debugId = null;
+    
+    private List<String> attributes = new LinkedList<String>();
     
     /**
      * Main panel wrapping this widget and passed to its {@link ResizeComposite}
@@ -79,7 +81,9 @@ public class ScsOlsListPanel extends UIWidget_i {
     	return contextMenu_;
     }
     
-    private String menuEnableCallImage = null;
+    private String menuCallImageEnable = null;
+    private String menuCallImageLabel = null;
+    private String menuCallImageGdgAttribute = null;
 
     /**
      * The configuration id of the datagrid
@@ -90,13 +94,9 @@ public class ScsOlsListPanel extends UIWidget_i {
      */
     private ScsGenericDataGridView gridView_;
     
-    public ScsGenericDataGridView getView() {
-    	return gridView_;
-    }
+    public ScsGenericDataGridView getView() { return gridView_; }
     
-    public ScsAlarmDataGridPresenterClient getPresenter() {
-    	return gridPresenter_;
-    }
+    public ScsAlarmDataGridPresenterClient getPresenter() { return gridPresenter_; }
 
     private boolean isTerminated_ = false;
     public boolean isTerminated() {
@@ -113,6 +113,16 @@ public class ScsOlsListPanel extends UIWidget_i {
         	}
         }
         return iSelectionModel;
+    }
+    
+    private void setDebugId(ScsGenericDataGridView gridView_) {
+        LOGGER.debug(LOG_PREFIX + "setDebugId debugId["+debugId+"]");
+        String strDebugId = uiNameCard.getUiPath()+uiNameCard.getUiScreen();
+        if ( null != debugId ) {
+        	strDebugId = debugId;
+        }
+        LOGGER.debug(LOG_PREFIX + "setDebugId strDebugId["+strDebugId+"]");
+        gridView_.ensureDebugId(strDebugId);
     }
 
     /**
@@ -157,8 +167,8 @@ public class ScsOlsListPanel extends UIWidget_i {
      * Initialize and create all needed components
      */
     private void initComponents() {
-    	if ( null != menuEnableCallImage && menuEnableCallImage.equalsIgnoreCase(ParameterValue.True.toString())) {
-    		contextMenu_ = new ScsOlsListPanelMenu(eventBus);
+    	if ( null != menuCallImageEnable && menuCallImageEnable.equalsIgnoreCase(ParameterValue.True.toString())) {
+    		contextMenu_ = new ScsOlsListPanelMenu(menuCallImageLabel, menuCallImageGdgAttribute);
     	}
         initDataGridView();
         initMainPanel();
@@ -190,6 +200,8 @@ public class ScsOlsListPanel extends UIWidget_i {
 
         gridView_ = new ScsGenericDataGridView();
         
+        setDebugId(gridView_);
+       
         gridView_.setHasSCADAgenPager(hasSCADAgenPager);
         
         // Customize CSS class according to the alarm state
@@ -232,11 +244,27 @@ public class ScsOlsListPanel extends UIWidget_i {
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
 			listConfigId_			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ListConfigId.toString(), strHeader);
-			menuEnableCallImage		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MenuEnableCallImage.toString(), strHeader);
+			
+			menuCallImageEnable			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MenuCallImageEnable.toString(), strHeader);
+			menuCallImageLabel			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MenuCallImageLabel.toString(), strHeader);
+			menuCallImageGdgAttribute	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MenuCallImageGdgAttribute.toString(), strHeader);
+			
 			selectionMode			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.SelectionMode.toString(), strHeader);
+			
+			debugId					= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DebugId.toString(), strHeader);
 
 			String mwtEventBusName	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MwtEventBusName.toString(), strHeader);
 			String mwtEventBusScope	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MwtEventBusScope.toString(), strHeader);
+			
+			LOGGER.debug(LOG_PREFIX + "init listConfigId_["+listConfigId_+"]");
+			
+			LOGGER.debug(LOG_PREFIX + "init menuCallImageLabel["+menuCallImageLabel+"]");
+			LOGGER.debug(LOG_PREFIX + "init menuCallImageEnable["+menuCallImageEnable+"]");
+			LOGGER.debug(LOG_PREFIX + "init menuCallImageGdgAttribute["+menuCallImageGdgAttribute+"]");
+			
+			LOGGER.debug(LOG_PREFIX + "init selectionMode["+selectionMode+"]");
+			
+			LOGGER.debug(LOG_PREFIX + "init debugId["+debugId+"]");
 			
 			LOGGER.debug(LOG_PREFIX + "init mwtEventBusName["+mwtEventBusName+"]");
 			LOGGER.debug(LOG_PREFIX + "init mwtEventBusScope["+mwtEventBusScope+"]");
@@ -276,7 +304,11 @@ public class ScsOlsListPanel extends UIWidget_i {
             }
 			
 			setParameter(ParameterName.ListConfigId.toString(), listConfigId_);
-			setParameter(ParameterName.MenuEnableCallImage.toString(), menuEnableCallImage);
+			
+			setParameter(ParameterName.MenuCallImageEnable.toString(), menuCallImageEnable);
+			setParameter(ParameterName.MenuCallImageLabel.toString(), menuCallImageLabel);
+			setParameter(ParameterName.MenuCallImageGdgAttribute.toString(), menuCallImageGdgAttribute);
+			
 			setParameter(ParameterName.SelectionMode.toString(), selectionMode);
 			setParameter(ParameterName.EventBus.toString(), eventBus);
 		}

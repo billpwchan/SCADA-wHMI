@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>20</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyHILCControl-panel-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>&amp;UIWidgetVerifyHILCControl_VerifyHILCControl</label>
+		<css>project-UIWidgetVerifyHILCControl-label-title</css>
+		<element>title</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|1">
+		<widget>Label</widget>
+		<label>&amp;UIWidgetVerifyHILCControl_scsEnvId</label>
+		<css>project-UIWidgetVerifyHILCControl-label-scsEnvId</css>
+		<element>scsEnvIdLabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|2">
+		<widget>TextBox</widget>
+		<label>HVSCADA2</label>
+		<css>project-UIWidgetVerifyHILCControl-textbox-scsEnvId</css>
+		<element>scsEnvId</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|3">
+		<widget>Label</widget>
+		<label>&amp;UIWidgetVerifyHILCControl_workstationName</label>
+		<css>project-UIWidgetVerifyHILCControl-label-workstationName</css>
+		<element>workstationNameLabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|4">
+		<widget>TextBox</widget>
+		<label>TestWorkstation</label>
+		<css>project-UIWidgetVerifyHILCControl-textbox-workstationName</css>
+		<element>workstationName</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|5">
+		<widget>Label</widget>
+		<label>&amp;UIWidgetVerifyHILCControl_cmdType (2=DIO, 3=AIO):</label>
+		<css>project-UIWidgetVerifyHILCControl-label-cmdType</css>
+		<element>cmdTypeLabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|6">
+		<widget>TextBox</widget>
+		<label>2</label>
+		<css>project-UIWidgetVerifyHILCControl-textbox-cmdType</css>
+		<element>cmdType</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|7">
+		<widget>Label</widget>
+		<label>&amp;UIWidgetVerifyHILCControl_cmdValue</label>
+		<css>project-UIWidgetVerifyHILCControl-label-cmdValue</css>
+		<element>cmdValueLabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|8">
+		<widget>TextBox</widget>
+		<label>1</label>
+		<css>project-UIWidgetVerifyHILCControl-textbox-cmdValue</css>
+		<element>cmdValue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|9">
+		<widget>Label</widget>
+		<label>&amp;UIWidgetVerifyHILCControl_cmdValueDiv</label>
+		<css>project-UIWidgetVerifyHILCControl-label-cmdValueDiv</css>
+		<element>cmdValueDivLabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|10">
+		<widget>TextBox</widget>
+		<label>1</label>
+		<css>project-UIWidgetVerifyHILCControl-textbox-cmdValueDiv</css>
+		<element>cmdValueDiv</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|11">
+		<widget>Label</widget>
+		<label>&amp;UIWidgetVerifyHILCControl_eqpAlias</label>
+		<css>project-UIWidgetVerifyHILCControl-label-eqpAlias</css>
+		<element>eqpAliasLabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|12">
+		<widget>TextBox</widget>
+		<label>PWRTPSTPS01TCB_1CB</label>
+		<css>project-UIWidgetVerifyHILCControl-textbox-eqpAlias</css>
+		<element>eqpAlias</element>
+		<format></format>
+		<media></media>
+	</option>
+
+	<option key="0|13">
+		<widget>Label</widget>
+		<label>&amp;UIWidgetVerifyHILCControl_eqpType (e.g. CBR, TCBCB):</label>
+		<css>project-UIWidgetVerifyHILCControl-label-eqpType</css>
+		<element>eqpTypeLabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|14">
+		<widget>TextBox</widget>
+		<label>TCBCB</label>
+		<css>project-UIWidgetVerifyHILCControl-textbox-eqpType</css>
+		<element>eqpType</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|15">
+		<widget>Label</widget>
+		<label>&amp;UIWidgetVerifyHILCControl_cmdName (e.g. Open, Close, Reset):</label>
+		<css>project-UIWidgetVerifyHILCControl-label-cmdName</css>
+		<element>cmdNameLabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|16">
+		<widget>TextBox</widget>
+		<label>Open</label>
+		<css>project-UIWidgetVerifyHILCControl-textbox-cmdName</css>
+		<element>cmdName</element>
+		<format></format>
+		<media></media>
+	</option>
+
+	<option key="0|17">
+		<widget>Button</widget>
+		<label>&amp;UIWidgetVerifyHILCControl_Select</label>
+		<css>project-UIWidgetVerifyHILCControl-button-select</css>
+		<element>HILCPreparationRequest</element>
+		<cssContainer>project-UIWidgetVerifyHILCControl-container-select</cssContainer>
+		<tooltip>&amp;UIWidgetVerifyHILCControl_Select</tooltip>
+	</option>
+	
+	<option key="0|18">
+		<widget>Button</widget>
+		<label>&amp;UIWidgetVerifyHILCControl_Confirm</label>
+		<css>project-UIWidgetVerifyHILCControl-button-confirm</css>
+		<element>HILCConfirmRequest</element>
+		<cssContainer>project-UIWidgetVerifyHILCControl-container-confirm</cssContainer>
+		<tooltip>&amp;UIWidgetVerifyHILCControl_Confirm</tooltip>
+	</option>
+	
+	<option key="0|19">
+		<widget>TextArea</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyHILCControl-textbox-message</css>
+		<element>message</element>
+		<format></format>
+		<media></media>
+	</option>
+</data-set>

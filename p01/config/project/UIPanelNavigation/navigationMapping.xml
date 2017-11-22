@@ -175,19 +175,9 @@
 	<option key="OCC|Utilities|OPM"><setting>104</setting></option>
 	<option key="LMC|MCS|PTW Summary(DpcTag)"><setting>105</setting></option>
 
-	<option key="LMC|MCS|Change Password Summary"><setting>107</setting></option>
-	<option key="LMC|MCS|Change Target User Password Summary"><setting>108</setting></option>
 	<option key="LMC|MCS|Login Summary"><setting>109</setting></option>
 	<option key="LMC|MCS|Soc Summary"><setting>110</setting></option>
-	<option key="LMC|MCS|Database Verify Summary"><setting>111</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|MultiReading"><setting>112</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|GetChilden"><setting>113</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|Subscription"><setting>114</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|Polling"><setting>115</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|GroupPolling"><setting>116</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|GroupPollingDiff"><setting>117</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|GroupPollingDiffSingleton"><setting>118</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|Writing"><setting>119</setting></option>
+	
 	<option key="LMC|MCS|Central Station"><setting>120</setting></option>
 	<option key="LMC|MCS|Central Station|HDV Summary"><setting>121</setting></option>
 	<option key="LMC|MCS|Central Station|HDV Summary (Station)"><setting>122</setting></option>
@@ -196,13 +186,145 @@
 	
 	<option key="LMC|MCS|JSON Verify Summary"><setting>130</setting></option>
 	<option key="LMC|MCS|JSON Verify Summary|JSON Read"><setting>131</setting></option>
-	
-	<option key="LMC|MCS|OPM Verify"><setting>132</setting></option>
-	<option key="LMC|MCS|OPM Verify Summary|OPM Summary"><setting>133</setting></option>
+
 
 	<option key="LMC|MCS|Central Station|HDV Matrix Summary"><setting>134</setting></option>
+	<option key="LMC|MCS|Central Station|HDV Matrix Summary (Station)"><setting>135</setting></option>
 	
-	<option key="LMC|MCS|UIEventAction Verify Summary"><setting>150</setting></option>
-	<option key="LMC|MCS|UIEventAction Verify Summary|UIEventActionDbm"><setting>151</setting></option>
-	<option key="LMC|MCS|UIEventAction Verify Summary|UIEventActionJS"><setting>152</setting></option>
+	<option key="LMC|UIEventAction Verify Summary"><setting>150</setting></option>
+	<option key="LMC|UIEventAction Verify Summary|UIEventActionDbm"><setting>151</setting></option>
+	<option key="LMC|UIEventAction Verify Summary|UIEventActionJS"><setting>152</setting></option>
+	<option key="LMC|UIEventAction Verify Summary|UIEventActionOls"><setting>154</setting></option>
+	
+	<option key="LMC|UIEventAction Verify Tsc Summary"><setting>160</setting></option>
+	<option key="LMC|UIEventAction Verify Tsc Summary|GetTaskNamesAddTaskRemoveTask"><setting>161</setting></option>
+	<option key="LMC|UIEventAction Verify Tsc Summary|EnableTaskDisableTaskIsEnabledTask"><setting>162</setting></option>
+	<option key="LMC|UIEventAction Verify Tsc Summary|GetStartTimeSetStartTime"><setting>163</setting></option>
+	<option key="LMC|UIEventAction Verify Tsc Summary|GetEndTimeSetEndTime"><setting>164</setting></option>
+	<option key="LMC|UIEventAction Verify Tsc Summary|GetDescriptionSetDescription"><setting>165</setting></option>
+	<option key="LMC|UIEventAction Verify Tsc Summary|GetFilterSetFilter"><setting>166</setting></option>
+
+	<option key="LMC|UIEventAction Verify Tsc Summary|AddCompleteTask"><setting>167</setting></option>
+	<option key="LMC|UIEventAction Verify Tsc Summary|GetCommandSetCommand"><setting>168</setting></option>
+	<option key="LMC|UIEventAction Verify Tsc Summary|GetArgumentsSetArguments"><setting>169</setting></option>
+	<option key="LMC|UIEventAction Verify Tsc Summary|GetDatesSetDates"><setting></setting>170</option>
+	<option key="LMC|UIEventAction Verify Tsc Summary|GetIntervalSetInterval"><setting>171</setting></option>
+	
+	<option key="LMC|UIEventAction Verify Tsc Summary|GetLog"><setting>172</setting></option>
+	<option key="LMC|UIEventAction Verify Tsc Summary|GetTaskType"><setting>173</setting></option>
+	<option key="LMC|UIEventAction Verify Tsc Summary|SetTaskArguments"><setting>174</setting></option>
+	<option key="LMC|UIEventAction Verify Tsc Summary|GetDayGroupNamesAndIds"><setting>175</setting></option>
+	
+	<option key="LMC|MCS|Verify Translation Summary"><setting>176</setting></option>
+	
+	<option key="LMC|Verify ScsRTDBComponent Summary"><setting>180</setting></option>
+	<option key="LMC|Verify ScsRTDBComponent Summary|Verify Write Summary"><setting>181</setting></option>
+	
+	<option key="LMC|MCS|Simultaneous Login Summary"><setting>185</setting></option>
+	<option key="LMC|MCS|Auto Logout"><setting>186</setting></option>
+	<option key="LMC|MCS|Chatter Summary"><setting>187</setting></option>
+	
+	<option key="LMC|MCS|Oneshot Time Schedule"><setting>188</setting></option>
+	<option key="LMC|MCS|Periodic Time Schedule"><setting>189</setting></option>
+	<option key="LMC|MCS|Weekly Schedule Planning"><setting>190</setting></option>
+	
+	<option key="LMC|Verify ControlPriority"><setting>191</setting></option>
+	<option key="LMC|Verify ControlPriority|Request Reservation"><setting>192</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_RequestReservation"><setting>193</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_WithdrawReservation"><setting>194</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_GetCurrentReservationBy"><setting>195</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationLevel"><setting>196</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationAvailability"><setting>197</setting></option>
+	
+	<option key="LMC|MCS|OPM Verify"><setting>200</setting></option>
+	<option key="LMC|MCS|OPM Verify|OPM Summary"><setting>201</setting></option>
+	<option key="LMC|MCS|OPM Verify|Change Password Summary"><setting>202</setting></option>
+	<option key="LMC|MCS|OPM Verify|Change Target User Password Summary"><setting>203</setting></option>
+	
+	<option key="LMC|Verify Menu Append"><setting>220</setting></option>
+	<option key="LMC|Verify Menu Append - Second"><setting>221</setting></option>
+	<option key="LMC|Verify Menu Append|Item 1"><setting>222</setting></option>
+	<option key="LMC|Verify Menu Append - Second|Item 2"><setting>223</setting></option>
+	
+	<option key="LMC|MCS|Database Verify Summary"><setting>230</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|MultiReading"><setting>231</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GetFullPath"><setting>232</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GetChilden"><setting>233</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|Subscription"><setting>234</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|Polling"><setting>235</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GroupPolling"><setting>236</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GroupPollingDiff"><setting>237</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GroupPollingDiffSingleton"><setting>238</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|Writing"><setting>239</setting></option>
+	
+	<option key="M100"><setting>300</setting></option>
+	<option key="M100|ECT"><setting>301</setting></option>
+	<option key="M100|ECT|Central Overview"><setting>302</setting></option>
+	<option key="M100|HV_"><setting>303</setting></option>
+	<option key="M100|HV_|Central Overview"><setting>304</setting></option>
+
+	<option key="M100|MCS"><setting>305</setting></option>
+	<option key="M100|MCS|PTW Summary"><setting>306</setting></option>
+	<option key="M100|MCS|Alarm Summary"><setting>307</setting></option>
+	<option key="M100|MCS|Event Summary"><setting>308</setting></option>
+	<option key="M100|MCS|Alarm Mgmt"><setting>309</setting></option>
+	<option key="M100|MCS|Help"><setting>310</setting></option>
+	
+	<option key="M100|Utilities"><setting>311</setting></option>
+	
+	<option key="M100|Utilities|Notepad"><setting>312</setting></option>
+	<option key="M100|Utilities|Input Table"><setting>313</setting></option>
+	<option key="M100|Utilities|Realtime Report"><setting>314</setting></option>
+	<option key="M100|Utilities|Historical Report"><setting>315</setting></option>
+	<option key="M100|Utilities|OPM"><setting>316</setting></option>
+	<option key="M100|Utilities|Help"><setting>317</setting></option>
+	<option key="M100|Utilities|OPM|Summary"><setting>318</setting></option>
+	
+	<option key="M001"><setting>350</setting></option>
+	<option key="M001|ECT"><setting>351</setting></option>
+	<option key="M001|ECT|Station Overview"><setting>352</setting></option>
+	<option key="M001|HV_"><setting>353</setting></option>
+	<option key="M001|HV_|Station Overview"><setting>354</setting></option>
+	
+	<option key="M001|MCS"><setting>360</setting></option>
+	
+	<option key="M001|MCS|PTW Summary"><setting>361</setting></option>
+	<option key="M001|MCS|Alarm Summary"><setting>362</setting></option>
+	<option key="M001|MCS|Event Summary"><setting>363</setting></option>
+	<option key="M001|MCS|Alarm Mgmt"><setting>364</setting></option>
+	<option key="M001|MCS|Time Schedule"><setting>365</setting></option>
+	<option key="M001|MCS|Time Schedule|Time Schedule"><setting>366</setting></option>
+	<option key="M001|MCS|Time Schedule|OneShot Schedule"><setting>367</setting></option>
+	<option key="M001|MCS|Time Schedule|Periodic Schedule"><setting>368</setting></option>
+	<option key="M001|MCS|Time Schedule|Schedule Planing"><setting>369</setting></option>
+	<option key="M001|MCS|Help"><setting>370</setting></option>
+	
+	<option key="M001|Utilities"><setting>371</setting></option>
+	<option key="M001|Utilities|Notepad"><setting>372</setting></option>
+	<option key="M001|Utilities|Input Table"><setting>373</setting></option>
+	<option key="M001|Utilities|Realtime Report"><setting>374</setting></option>
+	<option key="M001|Utilities|Historical Report"><setting>375</setting></option>
+	<option key="M001|Utilities|OPM"><setting>376</setting></option>
+	<option key="M001|Utilities|Help"><setting>377</setting></option>
+	<option key="M001|MCS|SOC"><setting>378</setting></option>
+	<option key="M001|Utilities|OPM|Summary"><setting>379</setting></option>
+	
+	<option key="Verify"><setting>400</setting></option>
+	<option key="Verify|Status Computer"><setting>401</setting></option>
+	<option key="Verify|Status Computer|Int2IntCompare"><setting>411</setting></option>
+	<option key="Verify|Status Computer|Int2IntMapping"><setting>412</setting></option>
+	<option key="Verify|Status Computer|IntFormatting"><setting>413</setting></option>
+	<option key="Verify|Status Computer|IntMapping"><setting>414</setting></option>
+	<option key="Verify|Status Computer|NeedAck"><setting>415</setting></option>
+	<option key="Verify|Status Computer|Str2StrCompare"><setting>417</setting></option>
+	<option key="Verify|Status Computer|IntRange2CsvMapping01"><setting>418</setting></option>
+	<option key="Verify|Status Computer|IntRange2CsvMapping02"><setting>419</setting></option>
+	
+	<option key="Verify|OPM"><setting>420</setting></option>
+	<option key="Verify|OPM|Change Password"><setting>421</setting></option>
+	<option key="Verify|OPM|Change Targe Password"><setting>422</setting></option>
+	
+	<!-- Keep it as Default Page for not found -->
+	<option key="MenuNotFound"><setting>-1</setting></option>
+	
 </data-set>

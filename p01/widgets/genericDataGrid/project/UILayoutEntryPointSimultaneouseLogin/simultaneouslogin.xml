@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<p:genericDataGridConfiguration xmlns:p="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid" xmlns:cmn="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns:sds="http://www.thalesgroup.com/hv/mwt/conf/subscription-data-source" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid mwt-gdg-config.xsd                       http://www.thalesgroup.com/hv/mwt/conf/common mwt-common.xsd">
+
+    <p:gridConfiguration fastForwardPages="2" name="simultaneouslogin" pageSize="1024" displayPager="false"/>
+
+    <p:subject>
+        <p:dataSource xsi:type="sds:subscriptionDataSource">
+            <sds:transientDataSource>
+                <sds:type>com.thalesgroup.scadasoft.data.exchange.entity.alarm.ScsListType</sds:type>
+            </sds:transientDataSource>
+        </p:dataSource>
+
+        <p:criteria xsi:type="cmn:equals" status="listname">
+            <cmn:value>SCADAgenWkstMgn</cmn:value>
+        </p:criteria>
+
+    </p:subject>
+
+    <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_gws_identity" width="100" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
+         <p:source name="GDGColumn01" statusComputerName="GDGColumn01" xsi:type="cmn:computedStatusDataSourceType"/>
+    </p:column>
+
+	<p:column filterable="true" sortable="true" i18n="false" name="gdg_column_alias" width="150" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
+         <p:source name="GDGColumn02" statusComputerName="GDGColumn02" xsi:type="cmn:computedStatusDataSourceType"/>
+    </p:column>
+	
+    <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_area" width="150" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
+         <p:source name="GDGColumn03" statusComputerName="GDGColumn03" xsi:type="cmn:computedStatusDataSourceType"/>
+    </p:column>
+	
+    <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_resrvreservedid" width="100" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
+         <p:source name="GDGColumn04" statusComputerName="GDGColumn04" xsi:type="cmn:computedStatusDataSourceType"/>
+    </p:column>
+
+    <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_serviceownerid" width="150" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
+		<p:source name="sourceID" xsi:type="cmn:statusDataSourceType"/>
+    </p:column>
+
+</p:genericDataGridConfiguration>

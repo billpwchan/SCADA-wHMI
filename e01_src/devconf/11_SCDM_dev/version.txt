@@ -1,0 +1,3 @@
+ScADAgen_RTDB V0.2.1
+
+location: \\nitrogen\products\SCADAgen\4 Release\4.2 RTDB\RTDB_0.2.1

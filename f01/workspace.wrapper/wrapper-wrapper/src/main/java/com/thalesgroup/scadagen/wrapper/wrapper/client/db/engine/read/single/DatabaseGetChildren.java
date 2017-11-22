@@ -1,24 +1,37 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseReadEvent_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleRead_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseReadSingle2MultiEvent_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingle2MultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Database.ScsRTDBComponentAccessGetChildrenResult;
 
-public class DatabaseGetChildren implements DatabaseSingleRead_i {
+/**
+ * Implementation the Database Get Children Operation
+ * 
+ * @author syau
+ *
+ */
+public class DatabaseGetChildren implements DatabaseSingle2MultiRead_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseGetChildren.class.getName());
 	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private HashMap<String, DatabaseReadEvent_i> databaseReadEvents = new HashMap<String, DatabaseReadEvent_i>();
+	private Map<String, DatabaseReadSingle2MultiEvent_i> databaseReadEvents = new HashMap<String, DatabaseReadSingle2MultiEvent_i>();
 	
+	/**
+	 * Instance for the database
+	 */
 	private Database database = new Database();
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#connect()
+	 */
 	@Override
 	public void connect() {
 		final String function = "connect";
@@ -36,10 +49,10 @@ public class DatabaseGetChildren implements DatabaseSingleRead_i {
 						logger.debug(className, function, "instances[{}][{}]", i, instances[i]);
 					}	
 				}
-				DatabaseReadEvent_i databaseReadEvent = databaseReadEvents.get(clientKey);
+				DatabaseReadSingle2MultiEvent_i databaseReadEvent = databaseReadEvents.get(clientKey);
+				databaseReadEvents.remove(clientKey);
 				if ( null != databaseReadEvent ) {
 					databaseReadEvent.update(clientKey, instances);
-					databaseReadEvents.remove(clientKey);
 				}
 				logger.end(className, function);
 			}
@@ -48,6 +61,9 @@ public class DatabaseGetChildren implements DatabaseSingleRead_i {
 		logger.end(className, function);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#disconnect()
+	 */
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
@@ -56,16 +72,12 @@ public class DatabaseGetChildren implements DatabaseSingleRead_i {
 		logger.end(className, function);
 	}
 
-	/**
-	 * @param api : Database API to call
-	 * @param clientKey : Key for the Reading and Result
-	 * @param scsEnvId : scsEnvId to connect
-	 * @param dbaddresses : database address to read
-	 * @param databaseEvent : Callback for result
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleRead_i#addGetChildrenRequest(java.lang.String, java.lang.String, java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseReadEvent_i)
 	 */
 	@Override
-	public void addGetChildrenRequest(String clientKey, String scsEnvId, String dbaddress, DatabaseReadEvent_i databaseEvent) {
-		final String function = "addGetChildrenRequest";
+	public void addSingle2MultiRequest(String clientKey, String scsEnvId, String dbaddress, DatabaseReadSingle2MultiEvent_i databaseEvent) {
+		final String function = "addSingle2MultiRequest";
 		logger.begin(className, function);
 		logger.debug(className, function, "clientKey[{}] scsEnvId[{}]", new Object[]{clientKey, scsEnvId});
 		logger.debug(className, function, "dbaddress[{}]", dbaddress);

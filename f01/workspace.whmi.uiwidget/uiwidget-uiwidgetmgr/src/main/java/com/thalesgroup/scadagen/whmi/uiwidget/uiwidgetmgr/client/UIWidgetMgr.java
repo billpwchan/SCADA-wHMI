@@ -1,6 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client;
 
 import java.util.HashMap;
+import java.util.Map;
+
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -22,13 +24,12 @@ public class UIWidgetMgr implements UIWidgetMgrFactory {
 
 	private HashMap<String, UIWidgetMgrFactory> uiWidgetMgrFactorys = new HashMap<String, UIWidgetMgrFactory>();
 	public void clearUIWidgetFactorys() { this.uiWidgetMgrFactorys.clear(); }
-	public void addUIWidgetFactory(UIWidgetMgrFactory uiWidgetMgrEvent) { this.uiWidgetMgrFactorys.put(className, uiWidgetMgrEvent); }
-	public void addUIWidgetFactory(String xmlName, UIWidgetMgrFactory uiWidgetMgrEvent) { this.uiWidgetMgrFactorys.put(xmlName, uiWidgetMgrEvent); }
-	public void removeUIWidgetFactory(UIWidgetMgrFactory uiWidgetMgrEvent) { this.uiWidgetMgrFactorys.remove(uiWidgetMgrEvent); }
+	public void addUIWidgetFactory(String key, UIWidgetMgrFactory uiWidgetMgrEvent) { this.uiWidgetMgrFactorys.put(key, uiWidgetMgrEvent); }
+	public void removeUIWidgetFactory(String key) { this.uiWidgetMgrFactorys.remove(key); }
 
 	@Override
 	public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String element
-			, String uiDict, HashMap<String, Object> options) {
+			, String uiDict, Map<String, Object> options) {
 		final String function = "getUIWidget";
 		
 		logger.begin(className, function);
@@ -36,17 +37,17 @@ public class UIWidgetMgr implements UIWidgetMgrFactory {
 		
 		UIWidget_i uiWidget = null;
 		
-		for ( String xmlName : uiWidgetMgrFactorys.keySet() ) {
+		for ( String factoryName : uiWidgetMgrFactorys.keySet() ) {
 			
-			UIWidgetMgrFactory uiWidgetMgrFactory = uiWidgetMgrFactorys.get(xmlName);
+			logger.debug(className, function, "factoryName[{}]", factoryName);
 			
-			if ( null != uiWidgetMgrFactory ) {
+			UIWidgetMgrFactory factory = uiWidgetMgrFactorys.get(factoryName);
 			
-				logger.debug(className, function, "uiCtrl[{}]", uiCtrl);
-				logger.debug(className, function, "uiView[{}]", uiView);
-				logger.debug(className, function, "uiOpts[{}]", uiOpts);
+			if ( null != factory ) {
 			
-				uiWidget = uiWidgetMgrFactory.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, element, uiDict, options);
+				logger.debug(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}]", new Object[]{uiCtrl, uiView, uiOpts});
+				
+				uiWidget = factory.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, element, uiDict, options);
 				
 				if ( null != uiWidget ) break;
 			

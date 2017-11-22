@@ -9,11 +9,23 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.Data
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.cache.DatabaseMultiReadingProxy;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.cache.DatabaseMultiReadingProxySingleton;
 
+/**
+ * Database Get Multi Read Class Factory
+ * 
+ * @author syau
+ *
+ */
 public class DatabaseMultiReadFactory {
 	
 	private static final String className = UIWidgetUtil.getClassSimpleName(DatabaseMultiReadFactory.class.getName());
 	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
+	/**
+	 * Factory Method to return the instance of the Database Writing Object
+	 * 
+	 * @param key Name of the Database Multi Read Class Request
+	 * @return    Instance of the Database Multi Read Object 
+	 */
 	public static DatabaseMultiRead_i get(String key) {
 		final String function = "get";
 		logger.begin(className, function);

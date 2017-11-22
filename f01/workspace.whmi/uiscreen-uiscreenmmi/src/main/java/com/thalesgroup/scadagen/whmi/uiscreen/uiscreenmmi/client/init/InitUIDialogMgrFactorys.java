@@ -10,6 +10,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.
 
 public class InitUIDialogMgrFactorys {
 	
+	private final static String name = InitUIDialogMgrFactorys.class.getName();
 	private final static String className = UIWidgetUtil.getClassSimpleName(InitUIDialogMgrFactorys.class.getName());
 	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
@@ -17,9 +18,9 @@ public class InitUIDialogMgrFactorys {
 		String function = "init";
 		logger.begin(className, function);
 		
-		UIDialogMgr uiDialgMgr = UIDialogMgr.getInstance();
-		uiDialgMgr.clearUIDialogMgrFactorys();
-		uiDialgMgr.addUIDialogMgrFactory(className, new UIDialogMgrFactory() {
+		UIDialogMgr uiDialogMgr = UIDialogMgr.getInstance();
+		uiDialogMgr.clearUIDialogMgrFactorys();
+		uiDialogMgr.addUIDialogMgrFactory(name, new UIDialogMgrFactory() {
 			
 			@Override
 			public UIDialog_i getUIDialog(String key) {

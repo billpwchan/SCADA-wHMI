@@ -9,68 +9,11 @@
 	
 	<inherits name='com.thalesgroup.scadagen.whmi.common.Common'/>
 	<inherits name='com.thalesgroup.scadagen.wrapper.widgetcontroller.WidgetController'/>
+	<inherits name='com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.EntryPointSwitch'/>
 	
 	<inherits name='com.thalesgroup.prj_gz_cocc.gwebhmi.main.scsmain'/>
 	
-	<entry-point class='com.thalesgroup.scadasoft.gwebhmi.main.client.AppEntryPoint'/>
+	<entry-point class='com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.main.AppEntryPoint'/>
+	<!--<entry-point class='com.thalesgroup.scadasoft.gwebhmi.main.client.AppEntryPoint'/>-->
 	
 </module>
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 

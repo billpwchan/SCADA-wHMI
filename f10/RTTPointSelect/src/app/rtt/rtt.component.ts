@@ -37,7 +37,9 @@ export class RttComponent implements OnInit, OnDestroy {
     // public listName = 'ptwdciset';
     public listServer = 'HisServer';
     public listName = 'TECSOperating';
+    public chType = 'Step';
     public archiveNameList: String[] = [];
+    public chartTypeList: String[] = [];
 
     public selectedOlsdatas: Olsdata[] = [];
 
@@ -74,6 +76,7 @@ export class RttComponent implements OnInit, OnDestroy {
         // this.cutoffTime = this.configService.config.getIn(['schedule_table', 'cutoff_time']);
         // console.log('{schedule-table}', '[loadConfig]', 'cutoff_time=', this.cutoffTime);
         this.archiveNameList = this.configService.config.getIn(['archive_names']);
+        this.chartTypeList = this.configService.config.getIn(['chart_types']);
     }
     loadData() {
         this.subRoute = this.route.queryParams.subscribe(params => {
@@ -153,6 +156,7 @@ export class RttComponent implements OnInit, OnDestroy {
       // -- subscriptionInfo: env_name+eqpclass+line+"equipment"+java_class+pointname("trackno")
       const env = 'OCC';
       const archiveName = this.listName;
+      const selectedChart = this.chType;
       const yaxisLabel1 = this.yaxislabel1;
       const yaxisLabel2 = this.yaxislabel2;
       const xaxisLabel = 'Time';
@@ -174,7 +178,11 @@ export class RttComponent implements OnInit, OnDestroy {
         rttparams += amper + RttTrendDef.SUBINFO + (index + 1) + '=' + subinfoparam;
       });
 
-      rttparams += amper + RttTrendDef.XAXIS_E + xaxisLabel + amper + RttTrendDef.CALLERID_E + (Math.floor(Math.random() * 1000));
+      // add params that affect the overall chart
+      rttparams += amper + RttTrendDef.XAXIS_E
+            + xaxisLabel + amper
+            + RttTrendDef.CALLERID_E + (Math.floor(Math.random() * 1000)) + amper
+            + RttTrendDef.CHARTTYPE_E + selectedChart + 'chart';
       console.log('Rtt Params: ' + rttparams);
 
       this.rttTrendService.readTrendUrl(rttparams)

@@ -16,6 +16,8 @@
     "YAXIS1": "Y-Axis Label 1",
     "YAXIS2": "Y-Axis Label 2",
     "COLOR": "Color",
+    "ARCHIVES": "Archives",
+    "CHARTTYPE": "Chart Type",
 
     "COL_LBL6": "Station",
     "COL_LBL5": "System",

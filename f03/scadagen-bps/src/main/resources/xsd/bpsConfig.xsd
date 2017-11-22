@@ -14,6 +14,7 @@
       <xsd:sequence>
         <xsd:element name="bpsConfiguration" type="bpsConfigurationType" minOccurs="1" maxOccurs="1"/>
         <xsd:element name="subject" type="subjectType" minOccurs="1" maxOccurs="1"/>
+        <xsd:element name="mode" type="notificationHandlingMode" minOccurs="0" maxOccurs="1"/>
         <xsd:element name="trigger" type="triggerType" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
     </xsd:complexType>
@@ -35,6 +36,13 @@
       <xsd:element name="criteria" type="cmn:operator" minOccurs="0" maxOccurs="1"/>
     </xsd:sequence>
   </xsd:complexType>
+
+  <xsd:simpleType name="notificationHandlingMode">
+    <xsd:restriction base="notEmptyStringType">
+      <xsd:enumeration value="fullSet" />
+      <xsd:enumeration value="newChangeOnly" />
+    </xsd:restriction>
+  </xsd:simpleType>
   
   <xsd:complexType name="triggerType">
     <xsd:sequence>

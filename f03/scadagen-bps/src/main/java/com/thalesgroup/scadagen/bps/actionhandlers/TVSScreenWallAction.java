@@ -20,6 +20,9 @@ import com.thalesgroup.scadagen.bps.connector.operation.IGenericOperationConnect
 
 public class TVSScreenWallAction extends AbstractActionFromOls {
 	protected static final Logger LOGGER = LoggerFactory.getLogger(TVSScreenWallAction.class);
+	
+	protected String cameraType_ = "RTSP";
+	protected int paneIdx_ = 0;
 
 	@Override
 	protected boolean isIncludeCorrelationId() {
@@ -47,9 +50,17 @@ public class TVSScreenWallAction extends AbstractActionFromOls {
     		for (PropertyType property: propertyList) {
     			if (property.getName().compareTo("hvOperColumnName") == 0) {
     				hvOperColumnName = property.getValue();
-    			}
-    			if (property.getName().compareTo("hvidColumnName") == 0) {
+    			} else if (property.getName().compareTo("hvidColumnName") == 0) {
     				hvidColumnName = property.getValue();
+    			} else if (property.getName().compareTo("cameraType") == 0) {
+    				cameraType_ = property.getValue();
+    			} else if (property.getName().compareTo("paneIdx") == 0) {
+    				String str = property.getValue();
+    				try {
+    					paneIdx_ = Integer.parseInt(str);
+    				} catch (NumberFormatException e) {
+    					LOGGER.error("Invalid paneIdx value in operation configuration {}", e);
+    				}
     			}
     		}
     	}
@@ -76,6 +87,8 @@ public class TVSScreenWallAction extends AbstractActionFromOls {
 	}
 	
 
+	// Expected csvData format: operatorID,camerID,layoutIdx
+	// Sample csvData: operator1,CAM001,1
 	protected void extractDataFromCsvStr(IGenericOperationConnector operationConnector, String csvData, String delimiter) throws HypervisorException {
 
 		try {
@@ -139,10 +152,10 @@ public class TVSScreenWallAction extends AbstractActionFromOls {
 							beanEditor.setValue(sourceMappingContainerTypeObj, "valid", true);
 							beanEditor.setValue(sourceMappingContainerTypeObj, "timestamp", currentTimeStamp);
 						}
-					}
-					
+					}		
 					operationComplexParam_.put("sourceMappingContainer", sourceMappingContainerTypeObj);
 				}
+				scanner.close();
 			}
 		} catch (Exception e) {
 			throw new HypervisorException(e);
@@ -150,11 +163,11 @@ public class TVSScreenWallAction extends AbstractActionFromOls {
 	}
 	
 	protected String getCameraType() {
-		return "RTSP";
+		return cameraType_;
 	}
 	
 	protected int getPaneIdx() {
-		return 0;
+		return paneIdx_;
 	}
 
 }

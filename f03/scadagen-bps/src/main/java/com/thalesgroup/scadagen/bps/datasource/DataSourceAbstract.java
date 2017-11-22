@@ -26,6 +26,7 @@ public abstract class DataSourceAbstract<T extends DataSource> {
 
 	private String configName_;
 
+	@SuppressWarnings("unused")
 	private Class<T> type_;
 
 	private SCADAgenBPS bps_;
@@ -58,8 +59,9 @@ public abstract class DataSourceAbstract<T extends DataSource> {
 		type_ = type;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public final void initProtected(BpsConfig config, Set<DataSource> dataSources) throws HypervisorException {
+		LOGGER.trace("initProtected");
 		Set<SubscriptionDataSource> ds = new HashSet(dataSources);
 
 		init(config, (Set<T>) ds);
@@ -109,6 +111,7 @@ public abstract class DataSourceAbstract<T extends DataSource> {
 	public final void startSubscriptionProtected() throws HypervisorException {
 		getWriteLock().lock();
 		try {
+			LOGGER.trace("startSubscriptionProtected");
 			startSubscription();
 		} catch (Exception e) {
 			LOGGER.error("Error while starting the BPS [" + configName_ + "] using the data source ["
@@ -123,6 +126,7 @@ public abstract class DataSourceAbstract<T extends DataSource> {
 	public final void pauseSubscriptionProtected() throws HypervisorException {
 		getWriteLock().lock();
 		try {
+			LOGGER.trace("pauseSubscriptionProtected");
 			pauseSubscription();
 		} catch (Exception e) {
 			LOGGER.error("Error while pausing the BPS [" + configName_ + "] using the data source ["
@@ -137,6 +141,7 @@ public abstract class DataSourceAbstract<T extends DataSource> {
 	public final void resumeSubscriptionProtected() throws HypervisorException {
 		getWriteLock().lock();
 		try {
+			LOGGER.trace("resumeSubscriptionProtected");
 			resumeSubscription();
 		} catch (Exception e) {
 			LOGGER.error("Error while resuming the BPS [" + configName_ + "] using the data source ["
@@ -151,6 +156,7 @@ public abstract class DataSourceAbstract<T extends DataSource> {
 	public final void stopProtectedSubscription() throws HypervisorException {
 		getWriteLock().lock();
 		try {
+			LOGGER.trace("stopProtectedSubscription");
 			stopSubscription();
 		} catch (Exception e) {
 			LOGGER.error("Error while stopping the BPS [" + configName_ + "] using the data source ["

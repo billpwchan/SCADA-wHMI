@@ -1,0 +1,33 @@
+{
+    "HELLO": "hello world {{value}}"
+	
+	, "&ScenarioList": "Scenario List"
+	
+	, "&Modify": "Modify"
+	, "&New": "New"
+	, "&Modify": "Modify"
+	, "&Delete": "Delete"
+	, "&Copy": "Copy"
+
+	, "&Execute": "Execute"	
+	, "&Start": "Start"	
+	, "&Pause": "Pause"	
+	, "&Resume": "Resume"
+	, "&Stop": "Stop"	
+	, "&Reset": "Reset"
+	
+	, "&ScenarioStepList": "Scenario Step List"
+	, "&Modifystep": "Modify step"
+	, "&AddStep": "Add Step"
+	, "&DeleteStep": "Delete step"
+	, "&SaveScenario": "Save Scenario"
+	, "&ReloadScenario": "Reload Scenario"
+
+	, "&ExecuteSelectionStep": "Execute selection step"
+	, "&Start": "Start"
+	, "&Stop": "Stop"
+
+	, "&ImportExportScenario": "Import/Export Scenario"	
+	, "&ExportCSV": "ExportCSV"	
+	, "&ImportCSV": "ImportCSV"	
+}

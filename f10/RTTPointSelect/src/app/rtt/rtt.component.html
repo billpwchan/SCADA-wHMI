@@ -1,8 +1,8 @@
 <div class="panel panel-default">
 
     <div class="row">
-        <label class="col-md-1">Archives: </label>
-        <select [(ngModel)]="listName" name="Select listName">
+        <label class="col-md-1">{{ 'ARCHIVES' | translate }}: </label>
+        <select [(ngModel)]="listName" name="listName">
           <option *ngFor="let n of archiveNameList" [ngValue]="n">{{n}}</option>
         </select>
         <!-- input name="listName" class="col-md-2 input" type="text" [(ngModel)]="listName" -->
@@ -94,7 +94,7 @@
         </div>
 
             <div class="label">
-              <label>{{ 'FITLERALL' | translate }}: </label>
+              <label>{{ 'FILTERALL' | translate }}: </label>
             </div>
             <div class="label">
               <input class="filter-all" type="text" name="ols" [(ngModel)]="filter.Name" placeholder="Keyword Filter">
@@ -111,6 +111,12 @@
           <div class="label">
             <label>{{ 'YAXIS2' | translate }}: </label>
             <input [(ngModel)]="yaxislabel2" placeholder="name of y-axis 2 (Optional)"/>
+          </div>
+          <div class="label">
+            <label>{{ 'CHARTTYPE' | translate }}: </label>
+            <select [(ngModel)]="chType" name="chType">
+              <option *ngFor="let n of chartTypeList" [ngValue]="n">{{n}}</option>
+            </select>
           </div>
 
           <div class="olsdata-empty-line"></div>

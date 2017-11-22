@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,7 +64,8 @@ public class RttController {
 	
     @RequestMapping("/hvSubscribe")
     @ResponseBody    
-    public String subscribe(@RequestParam(value="callerId", required=true, defaultValue="") String callerId,
+    public String subscribe(@RequestParam(value="chType", required=false) String chType,
+    						@RequestParam(value="callerId", required=true, defaultValue="") String callerId,
     						@RequestParam(value="xaxisLabel", required=true, defaultValue="") String xaxisLabel,
     						@RequestParam(value="yaxisLabel1", required=true, defaultValue="") String yaxisLabel1,
     						@RequestParam(value="yaxisLabel2", required=false, defaultValue="") String yaxisLabel2,
@@ -122,20 +124,22 @@ public class RttController {
     		}
     	}
     	scheduler.refreshAllSubscribedData();
-        return urlPrefix + callerId;
+        return urlPrefix + callerId + "&chType=" + chType;
     }
     
     
     @RequestMapping("/Chart")
     public String chart(@RequestParam(value="callerId") String callerId, Model model,
-    		@RequestParam(value="xaxisTickInterval", required=false) String xaxisTickInterval) 
+    		@RequestParam(value="xaxisTickInterval", required=false) String xaxisTickInterval, @RequestParam(value="chType", required=false) String chType) 
     {
     	Collection<SubscriptionRequest> subCol = tracker.getSubscriptions(callerId);
     	List<SubscriptionRequest> subList = new ArrayList<SubscriptionRequest>(subCol);
     	Collections.sort(subList);
     	int i = 0;
     	String tempField = "";
-//    	boolean fieldMapped = false;
+    	//default chart type to step chart
+    	chType = StringUtils.isEmpty(chType) ? "stepchart" : chType.toLowerCase();
+    	//    	boolean fieldMapped = false;
     	//Iterator<SubscriptionRequest> iter = subscriptions.iterator();
     	Iterator<SubscriptionRequest> iter = subList.iterator();
     	while (iter.hasNext()) {
@@ -166,12 +170,12 @@ public class RttController {
 			model.addAttribute("subField" + i, subReq.getHypervisorId());
 			model.addAttribute("color" + i, "#"+subReq.getColor());
 			i++;
-					
+		
 		model.addAttribute("callerId", callerId);
     	}
     	model.addAttribute("xaxisIncrement", xaxisTickInterval);
     	
-    	return "rtt";
+    	return chType;
     }
     
     

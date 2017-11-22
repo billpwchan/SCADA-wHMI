@@ -24,6 +24,11 @@ export class ConfigService {
             'TM_ARCHIVE',
             'TS_ARCHIVE'
         ],
+        chart_types: [
+          'Step',
+          'Line',
+          'Bar'
+        ],
         col_idx_1: '3',
         col_idx_2: '4',
         col_idx_3: '5',

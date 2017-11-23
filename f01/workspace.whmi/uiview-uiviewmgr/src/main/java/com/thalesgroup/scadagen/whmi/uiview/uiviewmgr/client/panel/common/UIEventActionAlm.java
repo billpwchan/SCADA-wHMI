@@ -18,6 +18,13 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionAlm.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
+	private final String STR_GET_OPERATOR		= "%GETOPERATOR%";
+	private final String STR_GET_PROFILE		= "%GETPROFILE%";
+	private final String STR_GET_IPADDRESS		= "%GETIPADDRESS%";
+	private final String STR_GET_HOSTNAME		= "%GETHOSTNAME%";
+	private final String STR_GET_ENV			= "%GETENV%";
+	private final String STR_GET_ALIAS			= "%GETALIAS%";
+	
 	public UIEventActionAlm ( ) {
 		supportedActions = new String[] {
 				  UIEventActionAlmAction.NotifyExternalAlarm.toString()
@@ -72,10 +79,22 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 				String strMessage			= (String) action.getParameter(ActionAttribute.OperationString10.toString());
 				String strOpmApi			= (String) action.getParameter(ActionAttribute.OperationString11.toString());
 				
+				String strOpmOptEnv			= (String) action.getParameter(ActionAttribute.OperationString12.toString());
+				String strOpmOptAlias		= (String) action.getParameter(ActionAttribute.OperationString13.toString());
+				
 				boolean isAlarm = false;
-				if ( null != strIsAlarm && strIsAlarm.equalsIgnoreCase("true") ) isAlarm = true;
+				if ( Boolean.parseBoolean(strIsAlarm) ) isAlarm = true;
 				
 				strMessage = replaceOpmKeyword(strOpmApi, strMessage);
+				logger.debug(className, function, "strMessage[{}]", strMessage);
+				
+				strScsEnvId = replaceOpmKeyword(strOpmApi, strScsEnvId);
+				if ( 0 == strScsEnvId.compareTo(STR_GET_ENV) ) { strScsEnvId = strOpmOptEnv; }
+				logger.debug(className, function, "strScsEnvId[{}]", strScsEnvId);
+				
+				strPointAlias = replaceOpmKeyword(strOpmApi, strPointAlias);
+				if ( 0 == strPointAlias.compareTo(STR_GET_ALIAS) ) { strPointAlias = strOpmOptAlias; }
+				logger.debug(className, function, "strPointAlias[{}]", strPointAlias);
 				
 				almMgr.notifyExternalAlarm(strKey, strScsEnvId
 						, strConfigFileName, classId, strPointAlias
@@ -86,7 +105,19 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 				String strMessage			= (String) action.getParameter(ActionAttribute.OperationString9.toString());
 				String strOpmApi			= (String) action.getParameter(ActionAttribute.OperationString10.toString());
 				
+				String strOpmOptEnv			= (String) action.getParameter(ActionAttribute.OperationString11.toString());
+				String strOpmOptAlias		= (String) action.getParameter(ActionAttribute.OperationString12.toString());
+				
 				strMessage = replaceOpmKeyword(strOpmApi, strMessage);
+				logger.debug(className, function, "strMessage[{}]", strMessage);
+				
+				strScsEnvId = replaceOpmKeyword(strOpmApi, strScsEnvId);
+				if ( 0 == strScsEnvId.compareTo(STR_GET_ENV) ) { strScsEnvId = strOpmOptEnv; }
+				logger.debug(className, function, "strScsEnvId[{}]", strScsEnvId);
+				
+				strPointAlias = replaceOpmKeyword(strOpmApi, strPointAlias);
+				if ( 0 == strPointAlias.compareTo(STR_GET_ALIAS) ) { strPointAlias = strOpmOptAlias; }
+				logger.debug(className, function, "strPointAlias[{}]", strPointAlias);
 				
 				almMgr.notifyExternalEvent(strKey, strScsEnvId
 		    			, strConfigFileName, classId, strPointAlias
@@ -100,14 +131,9 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 	}
 	
 	public String replaceOpmKeyword(String strOpmApi, String strMessage) {
-		String function = "replaceOpmKeyword";
+		final String function = "replaceOpmKeyword";
 		logger.begin(className, function);
 		logger.debug(className, function, "strOpmApi[{}] strMessage[{}]", strOpmApi, strMessage);
-		
-		final String strGetOperator = "%GETOPERATOR%";
-		final String strGetProfile = "%GETPROFILE%";
-		final String strGetIPAddress = "%GETIPADDRESS%";
-		final String strGetHostName = "%GETHOSTNAME%";
 		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(strOpmApi);
@@ -116,40 +142,58 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 			
 			String strOperator = uiOpm_i.getCurrentOperator();
 			if ( null != strOperator ) {
-				logger.debug(className, function, logPrefix+"strGetProfile[{}] strProfile[{}]", strGetOperator, strOperator);
-				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetOperator, strOperator);
+				logger.debug(className, function, logPrefix+"STR_GET_OPERATOR[{}] strProfile[{}]", STR_GET_OPERATOR, strOperator);
+				strMessage = UIWidgetUtil.replaceKeyword(strMessage, STR_GET_OPERATOR, strOperator);
 				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
-				logger.debug(className, function, logPrefix+"strOperator IS NULL");
+				logger.warn(className, function, logPrefix+"strOperator IS NULL");
 			}
 
 			String strProfile = uiOpm_i.getCurrentProfile();
 			if ( null != strProfile ) {
-				logger.debug(className, function, logPrefix+"strGetProfile[{}] strProfile[{}]", strGetProfile, strProfile);
-				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetProfile, strProfile);
+				logger.debug(className, function, logPrefix+"STR_GET_PROFILE[{}] strProfile[{}]", STR_GET_PROFILE, strProfile);
+				strMessage = UIWidgetUtil.replaceKeyword(strMessage, STR_GET_PROFILE, strProfile);
 				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
-				logger.debug(className, function, logPrefix+"strProfile IS NULL");
+				logger.warn(className, function, logPrefix+"strProfile IS NULL");
 			}
 			
 			String strIPAddress = uiOpm_i.getCurrentIPAddress();
 			if ( null != strIPAddress ) {
-				logger.debug(className, function, logPrefix+"strGetIPAddress[{}] strWorkstation[{}]", strGetIPAddress, strIPAddress);
-				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetIPAddress, strIPAddress);
+				logger.debug(className, function, logPrefix+"STR_GET_IPADDRESS[{}] strWorkstation[{}]", STR_GET_IPADDRESS, strIPAddress);
+				strMessage = UIWidgetUtil.replaceKeyword(strMessage, STR_GET_IPADDRESS, strIPAddress);
 				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
-				logger.debug(className, function, logPrefix+"strIPAddress IS NULL");
+				logger.warn(className, function, logPrefix+"strIPAddress IS NULL");
 			}
 
 			String strHostName = uiOpm_i.getCurrentHostName();
 			if ( null != strHostName ) {
-				logger.debug(className, function, logPrefix+"strGetHostName[{}] strHostName[{}]", strGetHostName, strHostName);
-				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetHostName, strHostName);
+				logger.debug(className, function, logPrefix+"STR_GET_HOSTNAME[{}] strHostName[{}]", STR_GET_HOSTNAME, strHostName);
+				strMessage = UIWidgetUtil.replaceKeyword(strMessage, STR_GET_HOSTNAME, strHostName);
 				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
-				logger.debug(className, function, logPrefix+"strHostName IS NULL");
+				logger.warn(className, function, logPrefix+"strHostName IS NULL");
 			}
 			
+			String strEnv = uiOpm_i.getCurrentEnv();
+			if ( null != strEnv ) {
+				logger.debug(className, function, logPrefix+"STR_GET_ENV[{}] strEnv[{}]", STR_GET_ENV, strEnv);
+				strMessage = UIWidgetUtil.replaceKeyword(strMessage, STR_GET_ENV, strEnv);
+				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
+			} else {
+				logger.warn(className, function, logPrefix+"strEnv IS NULL");
+			}
+
+			String strAlias = uiOpm_i.getCurrentAlias();
+			if ( null != strAlias ) {
+				logger.debug(className, function, logPrefix+"STR_GET_ALIAS[{}] strAlias[{}]", STR_GET_ALIAS, strAlias);
+				strMessage = UIWidgetUtil.replaceKeyword(strMessage, STR_GET_ALIAS, strAlias);
+				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
+			} else {
+				logger.warn(className, function, logPrefix+"strAlias IS NULL");
+			}
+
 		} else {
 			logger.warn(className, function, logPrefix+"opmapi[{}] instance IS NULL", strOpmApi);
 		}

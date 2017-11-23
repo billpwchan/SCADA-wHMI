@@ -181,6 +181,34 @@ public interface UIOpm_i {
 	 * @return Current Client IP Address
 	 */
 	String getCurrentIPAddress();
+	
+	/**
+	 * Get the current client Env Address
+	 * 
+	 * @return Current Client Env Address
+	 */
+	String getCurrentEnv();
+	
+	/**
+	 * Set the current client Env Address
+	 * 
+	 * @param env
+	 */
+	void setCurrentEnv(String env);
+	
+	/**
+	 * Get the current client Alias Address
+	 * 
+	 * @return Current Client Alias Address
+	 */
+	String getCurrentAlias();
+	
+	/**
+	 * Set the current client Alias Address
+	 * 
+	 * @param alias
+	 */
+	void setCurrentAlias(String alias);
 
 	/**
 	 * Check the action value is HOM action

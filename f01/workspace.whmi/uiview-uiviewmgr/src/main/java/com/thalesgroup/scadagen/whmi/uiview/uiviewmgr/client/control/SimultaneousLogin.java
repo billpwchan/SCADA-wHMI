@@ -184,6 +184,26 @@ public class SimultaneousLogin {
 		return (null!=selfGwsAlias);
 	}
 	
+	public void setCurrentWS() {
+		final String function = "setCurrentWS";
+		logger.begin(className, function);
+		
+		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(opmApi);
+		if ( null != uiOpm_i ) {
+
+			logger.debug(className, function, "selfGwsScsEnvId[{}] selfGwsAlias[{}]", selfGwsScsEnvId, selfGwsAlias);
+			
+			uiOpm_i.setCurrentEnv(selfGwsScsEnvId);
+			uiOpm_i.setCurrentAlias(selfGwsAlias);
+			
+			logger.debug(className, function, "uiOpm_i.getCurrentEnv[{}] uiOpm_i.getCurrentAlias[{}]", uiOpm_i.getCurrentEnv(), uiOpm_i.getCurrentAlias());
+		} else {
+			logger.warn(className, function, "opmApi[{}] IS NULL", opmApi);
+		}
+		
+		logger.end(className, function);
+	}
+
 	public String getArea(String key) {
 		final String function = "getArea";
 		logger.begin(className, function);

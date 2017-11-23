@@ -193,7 +193,13 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 
 			// Login Valid, forward to Main
 			
-			logger.debug(className, function, "Login Valid, forword to Main");
+			logger.debug(className, function, "Login Valid");
+			
+			logger.debug(className, function, "set current ws");
+			
+			SimultaneousLogin.getInstance().setCurrentWS();
+			
+			logger.debug(className, function, "forword to Main");
 			
 			exit(UIWidgetSimultaneousLoginControl_i.loginValidProcedure);
 
@@ -346,13 +352,13 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 //		logger.end(className, function);
 //	}
 	
-	private void storeData(Set<HashMap<String, String>> rowUpdated) {
+	private void storeData(Set<Map<String, String>> rowUpdated) {
 		final String function = "storeData";
 		logger.begin(className, function);
 		
 		logger.debug(className, function, "rowUpdated.size()[{}]", rowUpdated.size());
 		
-		for ( HashMap<String, String> entities : rowUpdated ) {
+		for ( Map<String, String> entities : rowUpdated ) {
 			if ( null != entities ) {
 
 				String area = entities.get(columnNameArea);
@@ -480,7 +486,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 				
 				if ( null != obj1 ) {
 					
-					storeData((Set<HashMap<String, String>>) obj1);
+					storeData((Set<Map<String, String>>) obj1);
 
 				} else {
 					logger.warn(className, function, "obj1 IS NULL");

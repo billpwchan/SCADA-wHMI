@@ -9,6 +9,7 @@
 		<TargetDataGrid_B>UIDataGridFormatterSOCDetails</TargetDataGrid_B>
 		<TargetDataGridColumn_B>Step</TargetDataGridColumn_B>
 		<TargetDataGridColumn_B2>SuccessDelay</TargetDataGridColumn_B2>
+		<MaxDelayAfterSuccess>6</MaxDelayAfterSuccess>
 	</header>
 	
 	<actionset key="init">

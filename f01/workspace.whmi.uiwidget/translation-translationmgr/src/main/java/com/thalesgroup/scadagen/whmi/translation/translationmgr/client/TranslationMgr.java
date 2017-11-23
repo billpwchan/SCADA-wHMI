@@ -30,5 +30,14 @@ public class TranslationMgr {
 		logger.end(className, function);
 		return translation;
 	}
-
+	
+	public String getTranslation(String msgWithPlaceHolder, Object[] msgParam) {
+		final String function = "getTranslation";
+		logger.begin(className, function);
+		logger.debug(className, function, "message[{}]", msgWithPlaceHolder);
+		String translation = (null != engines?engines.getMessage(msgWithPlaceHolder,msgParam):msgWithPlaceHolder);
+		logger.debug(className, function, "translation[{}]", translation);
+		logger.end(className, function);
+		return translation;
+	}
 }

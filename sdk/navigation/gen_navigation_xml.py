@@ -39,6 +39,9 @@ class Settings:
             if not (type(self.getItemTypeIndex()) is int): return False
             if not (type(self.getItemSituationViewNameIndex()) is int): return False
             if not (type(self.getItemUiViewNameIndex()) is int): return False
+            if not (type(self.getItemUiScreenNameIndex()) is int): return False
+            if not (type(self.getItemUiCtrlNameIndex()) is int): return False
+            if not (type(self.getItemUiOptsNameIndex()) is int): return False
             for level in xrange(self.getTreeDepth()):
                 if not (type(self.getItemTextIndex(level)) is int): return False
         except:
@@ -55,28 +58,26 @@ class Settings:
         return self._settings['NAVIGATION_ITEM_TITLE_COLUMN']
     def getItemTooltipColumn(self):
         return self._settings['NAVIGATION_ITEM_TOOLTIP_COLUMN']
-    # def getItemGeoCatColumn(self):
-    #     return self._settings['NAVIGATION_ITEM_GEOCAT_COLUMN']
-    # def getItemFunCatColumn(self):
-    #     return self._settings['NAVIGATION_ITEM_FUNCAT_COLUMN']
-    # def getItemModeCatColumn(self):
-    #     return self._settings['NAVIGATION_ITEM_MODECAT_COLUMN']
-    # def getItemActionCatColumn(self):
-    #     return self._settings['NAVIGATION_ITEM_ACTIONCAT_COLUMN']
+    def getItemCSSColumn(self):
+        return self._settings['NAVIGATION_ITEM_CSS_COLUMN']
+    def getItemTypeColumn(self):
+        return self._settings['NAVIGATION_ITEM_TYPE_COLUMN']
+    def getItemSituationViewNameColumn(self):
+        return self._settings['NAVIGATION_ITEM_UISVID_NAME_COLUMN']
+    def getItemUiViewNameColumn(self):
+        return self._settings['NAVIGATION_ITEM_UIVIEW_NAME_COLUMN']
+    def getItemUiScreenNameColumn(self):
+        return self._settings['NAVIGATION_ITEM_UISCREEN_COLUMN']
+    def getItemUiCtrlNameColumn(self):
+        return self._settings['NAVIGATION_ITEM_UICTRL_NAME_COLUMN']
+    def getItemUiOptsColumn(self):
+        return self._settings['NAVIGATION_ITEM_UIOPTS_NAME_COLUMN']
+    def getItemSkipColumn(self):
+        return self._settings['NAVIGATION_ITEM_SKIP_COLUMN']
     def getItemOPMColumn(self):
         return self._settings['NAVIGATION_ITEM_OPM_COLUMN']
     def getItemOPMOperationColumn(self):
         return self._settings['NAVIGATION_ITEM_OPM_OPERATION_COLUMN']
-    def getItemTypeColumn(self):
-        return self._settings['NAVIGATION_ITEM_TYPE_COLUMN']
-    def getItemSituationViewNameColumn(self):
-        return self._settings['NAVIGATION_ITEM_SITUATIONVIEW_NAME_COLUMN']
-    def getItemUiViewNameColumn(self):
-        return self._settings['NAVIGATION_ITEM_UIVIEW_NAME_COLUMN']
-    def getItemCSSColumn(self):
-        return self._settings['NAVIGATION_ITEM_CSS_COLUMN']
-    def getItemSkipColumn(self):
-        return self._settings['NAVIGATION_ITEM_SKIP_COLUMN']
 
     def getItemTextIndex(self, level = 0):
         return Settings.__ColumnToIndex(self.getItemTextColumn(level))
@@ -90,34 +91,9 @@ class Settings:
             return Settings.__ColumnToIndex(self.getItemTooltipColumn())
         else:
             return None
-    # def getItemGeoCatIndex(self):
-    #     if None != self.getItemGeoCatColumn():
-    #         return Settings.__ColumnToIndex(self.getItemGeoCatColumn())
-    #     else:
-    #         return None
-    # def getItemFunCatIndex(self):
-    #     if None != self.getItemFunCatColumn():
-    #         return Settings.__ColumnToIndex(self.getItemFunCatColumn())
-    #     else:
-    #         return None
-    # def getItemModeCatIndex(self):
-    #     if None != self.getItemModeCatColumn():
-    #         return Settings.__ColumnToIndex(self.getItemModeCatColumn())
-    #     else:
-    #         return None
-    # def getItemActionCatIndex(self):
-    #     if None != self.getItemActionCatColumn():
-    #         return Settings.__ColumnToIndex(self.getItemActionCatColumn())
-    #     else:
-    #         return None
-    def getItemOPMIndex(self):
-        if None != self.getItemOPMColumn():
-            return Settings.__ColumnToIndex(self.getItemOPMColumn())
-        else:
-            return None
-    def getItemOPMOperationIndex(self):
-        if None != self.getItemOPMOperationColumn():
-            return Settings.__ColumnToIndex(self.getItemOPMOperationColumn())
+    def getItemCSSIndex(self):
+        if None != self.getItemCSSColumn():
+            return Settings.__ColumnToIndex(self.getItemCSSColumn())
         else:
             return None
     def getItemTypeIndex(self):
@@ -126,14 +102,25 @@ class Settings:
         return Settings.__ColumnToIndex(self.getItemSituationViewNameColumn())
     def getItemUiViewNameIndex(self):
         return Settings.__ColumnToIndex(self.getItemUiViewNameColumn())
-    def getItemCSSIndex(self):
-        if None != self.getItemCSSColumn():
-            return Settings.__ColumnToIndex(self.getItemCSSColumn())
-        else:
-            return None
+    def getItemUiScreenNameIndex(self):
+        return Settings.__ColumnToIndex(self.getItemUiScreenNameColumn())
+    def getItemUiCtrlNameIndex(self):
+        return Settings.__ColumnToIndex(self.getItemUiCtrlNameColumn())
+    def getItemUiOptsNameIndex(self):
+        return Settings.__ColumnToIndex(self.getItemUiOptsColumn())
     def getItemSkipIndex(self):
         if None != self.getItemSkipColumn():
             return Settings.__ColumnToIndex(self.getItemSkipColumn())
+        else:
+            return None
+    def getItemOPMIndex(self):
+        if None != self.getItemOPMColumn():
+            return Settings.__ColumnToIndex(self.getItemOPMColumn())
+        else:
+            return None
+    def getItemOPMOperationIndex(self):
+        if None != self.getItemOPMOperationColumn():
+            return Settings.__ColumnToIndex(self.getItemOPMOperationColumn())
         else:
             return None
 
@@ -197,17 +184,16 @@ class NodeData:
         self._data['TEXT'] = NodeData.__GetRowText(row, settings)
         self._data['TITLE'] = NodeData.__GetRowContent(row, settings.getItemTitleIndex())
         self._data['TOOLTIP'] = NodeData.__GetRowContent(row, settings.getItemTooltipIndex())
-        # self._data['GEOCAT'] = NodeData.__GetRowContent(row, settings.getItemGeoCatIndex())
-        # self._data['FUNCAT'] = NodeData.__GetRowContent(row, settings.getItemFunCatIndex())
-        # self._data['MODECAT'] = NodeData.__GetRowContent(row, settings.getItemModeCatIndex())
-        # self._data['ACTIONCAT'] = NodeData.__GetRowContent(row, settings.getItemActionCatIndex())
-        self._data['OPM'] = NodeData.__GetRowContent(row, settings.getItemOPMIndex())
-        self._data['OPMOPERATION'] = NodeData.__GetRowContent(row, settings.getItemOPMOperationIndex())
         self._data['TYPE'] = NodeData.__GetRowContent(row, settings.getItemTypeIndex())
+        self._data['CSS'] = NodeData.__GetRowContent(row, settings.getItemCSSIndex())
         self._data['SITUATIONVIEWNAME'] = NodeData.__GetRowContent(row, settings.getItemSituationViewNameIndex())
         self._data['UIVIEWNAME'] = NodeData.__GetRowContent(row, settings.getItemUiViewNameIndex())
-        self._data['CSS'] = NodeData.__GetRowContent(row, settings.getItemCSSIndex())
+        self._data['UISCREEN'] = NodeData.__GetRowContent(row, settings.getItemUiScreenNameIndex())
+        self._data['UICTRL'] = NodeData.__GetRowContent(row, settings.getItemUiCtrlNameIndex())
+        self._data['UIOPTS'] = NodeData.__GetRowContent(row, settings.getItemUiOptsNameIndex())
         self._data['SKIP'] = NodeData.__GetRowContent(row, settings.getItemSkipIndex())
+        self._data['OPM'] = NodeData.__GetRowContent(row, settings.getItemOPMIndex())
+        self._data['OPMOPERATION'] = NodeData.__GetRowContent(row, settings.getItemOPMOperationIndex())
 
         valid = self._sanityCheck()
         if not valid:
@@ -219,29 +205,83 @@ class NodeData:
         return len(self._data)
 
     def _sanityCheck(self):
-        if not ((None == self.getSkip()) or (0 < len(self.getSkip()))): return False
+        if not ((None == self.getSkip()) or (0 < len(self.getSkip()))):
+            print '[ERROR] Invalid Skip Column'
+            return False
         if self.getSkip(): return True # this row is skipped, no need to check further
 
-        if not ((type(self.getKey()) is unicode) and (0 < len(self.getKey()))): return False
-        if not ((type(self.getParent()) is unicode) and (0 < len(self.getParent()))): return False
-        if not ((type(self.getText()) is unicode) and (0 < len(self.getText()))): return False
-        if not (0 > self.getText().find('|')): return False
-        if not ((None == self.getTitle()) or (0 < len(self.getTitle()))): return False
-        if not ((None == self.getTooltip()) or (0 < len(self.getTooltip()))): return False
-        # if not ((None == self.getGeoCat()) or (0 < len(self.getGeoCat()))): return False
-        # if not ((None == self.getFunCat()) or (0 < len(self.getFunCat()))): return False
-        # if not ((None == self.getModeCat()) or (0 < len(self.getModeCat()))): return False
-        # if not ((None == self.getActionCat()) or (0 < len(self.getActionCat()))): return False
-        if not ((None == self.getOPM()) or (0 < len(self.getOPM()))): return False
-        if not ((None == self.getOPMOperation()) or (0 < len(self.getOPMOperation()))): return False
-        if not ((type(self.getType()) is unicode) and (0 < len(self.getType()))): return False
-        if not (('M' == self.getType()) or ('S' == self.getType()) or ('P' == self.getType())): return False
+        if not ((type(self.getKey()) is unicode) and (0 < len(self.getKey()))):
+            print '[ERROR] Invalid Key'
+            return False
+        if not ((type(self.getParent()) is unicode) and (0 < len(self.getParent()))):
+            print '[ERROR] Invalid Parent'
+            return False
+        if not ((type(self.getText()) is unicode) and (0 < len(self.getText()))):
+            print '[ERROR] Invalid Text'
+            return False
+        if not (0 > self.getText().find('|')):
+            print '[ERROR] Invalid Text (Invalid Character?)'
+            return False
+        if not ((None == self.getTitle()) or (0 < len(self.getTitle()))):
+            print '[ERROR] Invalid Title'
+            return False
+        if not ((None == self.getTooltip()) or (0 < len(self.getTooltip()))):
+            print '[ERROR] Invalid Tooltips'
+            return False
+        if not ((type(self.getType()) is unicode) and (0 < len(self.getType()))):
+            print '[ERROR] Invalid Type'
+            return False
+        if not (('M' == self.getType()) or ('S' == self.getType()) or ('P' == self.getType())):
+            print '[ERROR] Invalid Type (not M/S/P)'
+            return False
         if 'M' == self.getType():
-            if not ((None == self.getSituationViewName()) or (0 >= len(self.getSituationViewName()))): return False
-            if not ((None == self.getUiViewName()) or (0 >= len(self.getUiViewName()))): return False
+            if not ((None == self.getSituationViewName()) or (0 >= len(self.getSituationViewName()))):
+                print '[ERROR][M] Non empty Situation View'
+                return False
+            if not ((None == self.getUiViewName()) or (0 >= len(self.getUiViewName()))):
+                print '[ERROR][M] Non empty View Name'
+                return False
+            if not ((None == self.getUiCtrlName()) or (0 >= len(self.getUiCtrlName()))):
+                print '[ERROR][M] Non empty Ctrl Name'
+                return False
+            if not ((None == self.getUiOptsName()) or (0 >= len(self.getUiOptsName()))):
+                print '[ERROR][M] Non empty Opts Name'
+                return False
         elif 'S' == self.getType():
-            if not ((None == self.getUiViewName()) or (0 >= len(self.getUiViewName()))): return False
-        if not ((None == self.getCSS()) or (0 < len(self.getCSS()))): return False
+            if ((None == self.getSituationViewName()) or (0 >= len(self.getSituationViewName()))):
+                print '[ERROR][S] Empty Situation View'
+                return False
+            if not ((None == self.getUiViewName()) or (0 >= len(self.getUiViewName()))):
+                print '[ERROR][S] Non empty View Name'
+                return False
+            if ((None == self.getUiCtrlName()) or (0 >= len(self.getUiCtrlName()))):
+                print '[ERROR][S] Empty Ctrl Name'
+                return False
+            if not ((None == self.getUiOptsName()) or (0 >= len(self.getUiOptsName()))):
+                print '[ERROR][S] Non empty Opts Name'
+                return False
+        elif 'P' == self.getType():
+            if not ((None == self.getSituationViewName()) or (0 >= len(self.getSituationViewName()))):
+                print '[ERROR][P] Non empty Situation View'
+                return False
+            if ((None == self.getUiViewName()) or (0 >= len(self.getUiViewName()))):
+                print '[ERROR][P] Empty View Name'
+                return False
+            if ((None == self.getUiCtrlName()) or (0 >= len(self.getUiCtrlName()))):
+                print '[ERROR][P] Empty Ctrl Name'
+                return False
+        if ((None == self.getUiScreenName()) or (0 >= len(self.getUiScreenName()))):
+            print '[ERROR] Empty Screen Name'
+            return False
+        if not ((None == self.getCSS()) or (0 < len(self.getCSS()))):
+            print '[ERROR] Empty CSS'
+            return False
+        if not ((None == self.getOPM()) or (0 < len(self.getOPM()))):
+            print '[ERROR] Empty OPM'
+            return False
+        if not ((None == self.getOPMOperation()) or (0 < len(self.getOPMOperation()))):
+            print '[ERROR] Empty OPM Operation'
+            return False
         return True
 
     def getRowId(self):
@@ -256,28 +296,26 @@ class NodeData:
         return self._data['TITLE']
     def getTooltip(self):
         return self._data['TOOLTIP']
-    # def getGeoCat(self):
-    #     return self._data['GEOCAT']
-    # def getFunCat(self):
-    #     return self._data['FUNCAT']
-    # def getModeCat(self):
-    #     return self._data['MODECAT']
-    # def getActionCat(self):
-    #     return self._data['ACTIONCAT']
-    def getOPM(self):
-        return self._data['OPM']
-    def getOPMOperation(self):
-        return self._data['OPMOPERATION']
     def getType(self):
         return self._data['TYPE']
+    def getCSS(self):
+        return self._data['CSS']
     def getSituationViewName(self):
         return self._data['SITUATIONVIEWNAME']
     def getUiViewName(self):
         return self._data['UIVIEWNAME']
-    def getCSS(self):
-        return self._data['CSS']
+    def getUiScreenName(self):
+        return self._data['UISCREEN']
+    def getUiCtrlName(self):
+        return self._data['UICTRL']
+    def getUiOptsName(self):
+        return self._data['UIOPTS']
     def getSkip(self):
         return self._data['SKIP']
+    def getOPM(self):
+        return self._data['OPM']
+    def getOPMOperation(self):
+        return self._data['OPMOPERATION']
 
     def setSettingId(self, id):
         self._data['SETTINGID'] = id
@@ -368,31 +406,29 @@ def generateConfigurationSettingFile(mapping, filename):
         for item in mapping:
             itemData = item[0].data
             key = item[1]
-            f.write('\t<option key="%d">\n\t\t<type>%s</type>\n\t\t<name>%s</name>\n' % (key, itemData.getType(), escapeText(itemData.getText())))
+            f.write('\t<option key="%d">\n' % key)
+            f.write('\t\t<type>%s</type>\n' % escapeText(itemData.getType()))
+            f.write('\t\t<name>%s</name>\n' % escapeText(itemData.getText()))
+            f.write('\t\t<uiPath>%s</uiPath>\n' % escapeText(UiPath))
             if itemData.getTitle():
                 f.write('\t\t<title>%s</title>\n' % escapeText(itemData.getTitle()))
-            if itemData.getSituationViewName():
-                f.write('\t\t<uiPanel>%s</uiPanel>\n' % escapeText(itemData.getSituationViewName()))
-            f.write('\t\t<uiScreen>0</uiScreen>\n')
-            f.write('\t\t<uiPath>%s</uiPath>\n' % UiPath)
+            if itemData.getTooltip():
+                f.write('\t\t<tooltips>%s</tooltips>\n' % escapeText(itemData.getTooltip()))
+            if itemData.getUiScreenName():
+                f.write('\t\t<uiScreen>%s</uiScreen>\n' % escapeText(itemData.getUiScreenName()))
+            if itemData.getUiCtrlName():
+                if itemData.getSituationViewName():
+                    f.write('\t\t<uiConf>uiCtrl=%s&amp;uiSvId=%s</uiConf>\n' % (escapeText(itemData.getUiCtrlName()), escapeText(itemData.getSituationViewName())))
+                elif itemData.getUiViewName() and itemData.getUiOptsName():
+                    f.write('\t\t<uiConf>uiCtrl=%s&amp;uiView=%s&amp;uiOpts=%s</uiConf>\n' % (escapeText(itemData.getUiCtrlName()), escapeText(itemData.getUiViewName()), escapeText(itemData.getUiOptsName())))
+                elif itemData.getUiViewName():
+                    f.write('\t\t<uiConf>uiCtrl=%s&amp;uiView=%s</uiConf>\n' % (escapeText(itemData.getUiCtrlName()), escapeText(itemData.getUiViewName())))
             if itemData.getCSS():
                 f.write('\t\t<css>%s</css>\n' % escapeText(itemData.getCSS()))
-            # if itemData.getGeoCat():
-            #     f.write('\t\t<locCat>%s</locCat>\n' % escapeText(itemData.getGeoCat()))
-            # if itemData.getFunCat():
-            #     f.write('\t\t<funCat>%s</funCat>\n' % escapeText(itemData.getFunCat()))
-            # if itemData.getActionCat():
-            #     f.write('\t\t<actionCat>%s</actionCat>\n' % escapeText(itemData.getActionCat()))
-            # if itemData.getModeCat():
-            #     f.write('\t\t<modeCat>%s</modeCat>\n' % escapeText(itemData.getModeCat()))
             if itemData.getOPM():
                 f.write('\t\t<opm>%s</opm>\n' % escapeText(itemData.getOPM()))
             if itemData.getOPMOperation():
                 f.write('\t\t<opmOperation>%s</opmOperation>\n' % escapeText(itemData.getOPMOperation()))
-            if itemData.getUiViewName():
-                f.write('\t\t<uiView>%s</uiView>\n' % escapeText(itemData.getUiViewName()))
-            if itemData.getTooltip():
-                f.write('\t\t<tooltips>%s</tooltips>\n' % escapeText(itemData.getTooltip()))
             f.write('\t</option>\n')
 
         f.write('</data-set>\n')
@@ -420,11 +456,12 @@ def generateConfiguration(navTree):
 def main():
     import argparse
     ap = argparse.ArgumentParser(
-        formatter_class=argparse.RawDescriptionHelpFormatter,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         description='Convert Navigation XLS to navigationMapping.xml & navigationSetting.xml',
     )
     ap.add_argument('-i', '--input', type=argparse.FileType('rb'), required=True, help='Input Excel file (.xls), must contain a sheet called "Navigation"')
-    ap.add_argument('-g', '--graph', action='store_true', help='Generate png output')
+    ap.add_argument('-t', '--tree', action='store_true', help='Display the generated navigation tree')
+    ap.add_argument('-s', '--setting', default='settings', help='Name of sheet containing the setting parameters')
     ns = ap.parse_args()
 
     settings = None
@@ -432,7 +469,7 @@ def main():
     xls = ns.input
     with xls:
         xls.seek(0)
-        settings = readSetting(xls, 'settings')
+        settings = readSetting(xls, ns.setting)
         #print settings
         if not settings:
             print '[ERROR] Cannot parse the input XLS for setting: %s' % ns.input.name
@@ -447,7 +484,7 @@ def main():
     assert rows
 
     navTree = constructNavigationtree(rows, settings)
-    navTree.show()
+    if ns.tree: navTree.show()
     if not navTree:
         print '[ERORR] Cannot construct navigation tree from the input XLS: %s' % ns.input.name
         return -1

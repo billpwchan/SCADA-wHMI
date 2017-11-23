@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<actionset key="ackpage">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>event_ackvisible</OperationString1>
+	</actionset>
+	
+	<action key="event_ackvisible">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UILayoutAlarmSummaryViewer</OperationElement>
+		<OperationString1>AckVisible</OperationString1>
+		<OperationString2>scsalarmList_checkaccess</OperationString2>
+		<OperationString3>2</OperationString3>
+		<OperationString4>2</OperationString4>
+	</action>
+	
+	<actionset key="alarm">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>UITaskLaunch_alarm</OperationString1>
+	</actionset>
+		
+	<action key="UITaskLaunch_alarm">
+		<OperationType>action</OperationType>
+		<OperationAction>uitask</OperationAction>
+		<OperationString1>UITaskLaunch</OperationString1>
+		<OperationString2>:UIGws:UIPanelScreen:UIScreenMMI:NavigationMgr</OperationString2>
+		<OperationString3>-1</OperationString3>
+		<OperationString4>{}|MCS|Alarm Summary</OperationString4>
+		<OperationString5>true</OperationString5>
+	</action>
+	
+	<actionset key="event">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>UITaskLaunch_event</OperationString1>
+	</actionset>
+		
+	<action key="UITaskLaunch_event">
+		<OperationType>action</OperationType>
+		<OperationAction>uitask</OperationAction>
+		<OperationString1>UITaskLaunch</OperationString1>
+		<OperationString2>:UIGws:UIPanelScreen:UIScreenMMI:NavigationMgr</OperationString2>
+		<OperationString3>-1</OperationString3>
+		<OperationString4>{}|MCS|Event Summary</OperationString4>
+		<OperationString5>true</OperationString5>
+	</action>
+	
+</data-set>

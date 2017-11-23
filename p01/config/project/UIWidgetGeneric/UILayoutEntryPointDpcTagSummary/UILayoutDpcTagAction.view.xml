@@ -17,6 +17,8 @@
 	<option key="0|1">
 		<uiCtrl>UIWidgetPrint</uiCtrl>
 		<uiView>UILayoutEntryPointDpcTagSummary/UIWidgetDpcTagPrint.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointDpcTagSummary/UIWidgetDpcTagPrint.opts.xml</uiOpts>
+		<element>UIWidgetDpcTagPrint</element>
 	</option>
 	<option key="0|2">
 		<uiCtrl>UIWidgetFilter</uiCtrl>

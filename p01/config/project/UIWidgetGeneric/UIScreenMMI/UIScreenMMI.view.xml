@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>5</cols>
+		<rootPanel>DockLayoutPanel</rootPanel>
+		<rootCSS>project-gwt-panel-mmi-inner</rootCSS>
+	</header>
+	
+	<option key="0|0">
+		<type>layoutconfiguration</type>
+		<uiCtrl>UIScreenMMINorthPanel</uiCtrl>
+		<uiView>UIScreenMMI/NorthPanel.view.xml</uiView>
+		<element>UIScreenMMINorthPanel</element>
+		<direction>North</direction>
+		<width>150</width>
+	</option>
+	
+	<option key="0|1">
+		<type>layoutconfiguration</type>
+		<uiCtrl>UIScreenMMIWestPanel</uiCtrl>
+		<uiView>UIScreenMMI/WestPanel.view.xml</uiView>
+		<element>UIScreenMMIWestPanel</element>
+		<direction>West</direction>
+		<width>160</width>
+	</option>
+	
+	<option key="0|2">
+		<type>layoutconfiguration</type>
+		<uiCtrl>UIScreenMMISouthPanel</uiCtrl>
+		<uiView>UIScreenMMI/SouthPanel.view.xml</uiView>
+		<element>UIScreenMMISouthPanel</element>
+		<direction>South</direction>
+		<width>70</width>
+	</option>
+	
+	<option key="0|3">
+		<type>layoutconfiguration</type>
+		<uiCtrl>UIScreenMMIEastPanel</uiCtrl>
+		<uiView>UIScreenMMI/EastPanel.view.xml</uiView>
+		<element>UIScreenMMIEastPanel</element>
+		<direction>East</direction>
+		<width>160</width>
+	</option>	
+
+	<option key="0|4">
+		<uiCtrl>UIPanelViewLayout</uiCtrl>
+		<uiView>UIScreenMMI/ViewLayout.view.xml</uiView>
+		<element>UIPanelViewLayout</element>
+		<direction>Center</direction>
+	</option>
+	
+</data-set>

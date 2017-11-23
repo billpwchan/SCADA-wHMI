@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>3</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-UILayoutEventSummary-root</rootCSS>
+	</header>
+	
+	<option key="0|0">
+		<type>layoutconfiguration</type>
+		<uiCtrl>EventSummary/Action</uiCtrl>
+		<uiView>EventSummary/Action.view.xml</uiView>
+	</option>
+	<option key="0|1">
+		<uiCtrl>UIWidgetViewer</uiCtrl>
+		<uiView>EventSummary/Viewer.view.xml</uiView>
+		<uiOpts>EventSummary/Viewer.opts.xml</uiOpts>
+		<element>UILayoutEventSummaryViewer</element>
+	</option>
+	<option key="0|2">
+		<uiCtrl>UIWidgetViewerPager</uiCtrl>
+		<uiView>EventSummary/Pager.view.xml</uiView>
+		<uiOpts>EventSummary/Pager.opts.xml</uiOpts>
+		<element>UIWidgetEventSummaryPager</element>
+		<csscontainer>project-UIWidgetEventSummaryPager-panel-Pager</csscontainer>
+	</option>
+
+</data-set>

@@ -3,7 +3,6 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 import java.util.HashMap;
 
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
@@ -21,6 +20,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttri
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.DataGridEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocDelayControl_i.MessageTranslationID;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocGrcPoint_i.GrcPointEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.Equipment_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
@@ -47,6 +48,8 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 	
 	private String targetDataGrid_B			= "";
 	private String targetDataGridColumn_B 	= "";
+	
+	private int maxDelay					= 5; //default delay for 5 seconds?
 	
 	private String datagridSelected = null;
 	private Equipment_i equipmentSelected_A = null;
@@ -116,17 +119,28 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 							}
 						}
 						
-						logger.info(className, function, "delay[{}]", delay);
+						if (delay >= 0 && delay <= maxDelay)
+						{
+							logger.info(className, function, "delay[{}]", delay);
 							
-						HashMap<String, Object> parameter = new HashMap<String, Object>();
-						parameter.put(ActionAttribute.OperationString2.toString(), scsenvid);
-						parameter.put(ActionAttribute.OperationString3.toString(), dbalias);
-						parameter.put(ActionAttribute.OperationString4.toString(), Integer.toString(delay));
-						
-						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
-						override.put(strWriteDelayToDB, parameter);
-						
-						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+							sendDisplayMessageEvent(scsenvid, dbalias, "", null);
+							
+							HashMap<String, Object> parameter = new HashMap<String, Object>();
+							parameter.put(ActionAttribute.OperationString2.toString(), scsenvid);
+							parameter.put(ActionAttribute.OperationString3.toString(), dbalias);
+							parameter.put(ActionAttribute.OperationString4.toString(), Integer.toString(delay));
+							
+							HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+							override.put(strWriteDelayToDB, parameter);
+							
+							uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+						}
+						else
+						{
+							String msg = MessageTranslationID.E_invalid_delay_input.toString();
+							sendDisplayMessageEvent(scsenvid, dbalias, msg, new Object[]{maxDelay});
+						}
+
 					}
 				}
 			}
@@ -141,7 +155,7 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 			
 			String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 			
-			logger.info(className, function, "os1["+os1+"]");
+			logger.info(className, function, "os1[{}]",os1);
 			
 			if ( null != os1 ) {
 				if ( os1.equals(DataGridEvent.RowSelected.toString() ) ) {
@@ -222,8 +236,8 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 					// General Case
 					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 					
-					logger.info(className, function, "oe ["+oe+"]");
-					logger.info(className, function, "os1["+os1+"]");
+					logger.info(className, function, "oe [{}]", oe);
+					logger.info(className, function, "os1[{}]", os1);
 					
 					if ( null != oe ) {
 						if ( oe.equals(element) ) {
@@ -235,7 +249,21 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 			logger.end(className, function);
 		}
 	};
-		
+	
+	private void sendDisplayMessageEvent(String scsenvid, String dbalias, String msgWithPlaceHolder, Object[] msgParam) {
+		final String function = "sendDisplayMessageEvent";
+		UIEventAction displayMessageEvent = new UIEventAction();
+		if (displayMessageEvent != null) {
+			displayMessageEvent.setParameter(ViewAttribute.OperationString1.toString(), GrcPointEvent.DisplayMessage.toString());
+			displayMessageEvent.setParameter(ViewAttribute.OperationObject1.toString(), scsenvid);
+			displayMessageEvent.setParameter(ViewAttribute.OperationObject2.toString(), dbalias);
+			displayMessageEvent.setParameter(ViewAttribute.OperationObject3.toString(), msgWithPlaceHolder);
+			displayMessageEvent.setParameter(ViewAttribute.OperationObject4.toString(), msgParam);
+			eventBus.fireEvent(displayMessageEvent);
+			logger.debug(className, function, "fire UIEventAction displayMessageEvent");
+		}
+	}
+	
 	@Override
 	public void init() {
 		final String function = "init";
@@ -257,6 +285,19 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 			
 			targetDataGrid_B		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid_B.toString(), strHeader);
 			targetDataGridColumn_B	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_B.toString(), strHeader);
+			
+			String maxDelayStr		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MaxDelayAfterSuccess.toString(), strHeader);
+			if(null != maxDelayStr)
+			{
+				try
+				{
+					maxDelay = Integer.parseInt(maxDelayStr);
+				}
+				catch(NumberFormatException ex )
+				{
+					logger.info(className, function, "Property MaxDelayAfterSuccess is invalid, use default value {}", maxDelay);
+				}
+			}
 		}
 		
 		logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn_A);

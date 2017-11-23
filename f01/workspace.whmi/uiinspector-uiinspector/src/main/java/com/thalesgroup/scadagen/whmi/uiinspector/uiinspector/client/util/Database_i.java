@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util;
 
 public class Database_i {
+	
 	public static final int isAlarmVectorIndex = 1;
 	public static final int isNeedAckAlarmVectorIndex = 2;
 	
@@ -25,13 +26,14 @@ public class Database_i {
 		
 		// Static 
 		label(".label")
+		
 //		, shortLabel(".shortLabel")
 		, geographicalCat(".geographicalCat")
 		, functionalCat(".functionalCat")
 		
 		, aalValueTable(":aal.valueTable")
 		, dalValueTable(":dal.valueTable")
-		, salValueTable(":sal.valueTable")
+		, salValueTable(":sal.valueTable") // Not exists
 		
 		, hmiOrder(".hmiOrder")
 		, valueTable(".valueTable")

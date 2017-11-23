@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>3</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCSS>project-UILayoutEventSummaryAction-root</rootCSS>
+	</header>
+	<option key="0|0">
+		<type>widgetconfiguration</type>
+		<uiCtrl>UIWidgetEmpty</uiCtrl>
+		<uiView>EventSummary/Empty.view.xml</uiView>
+		<csscontainer>project-UILayoutEventSummaryAction-empty-container</csscontainer>
+	</option>
+	<option key="0|1">
+		<uiCtrl>UIWidgetPrint</uiCtrl>
+		<uiView>EventSummary/Print.view.xml</uiView>
+		<uiOpts>EventSummary/Print.opts.xml</uiOpts>
+		<element>UIWidgetEventSummaryViewer</element>
+	</option>
+	<option key="0|2">
+		<uiCtrl>UIWidgetFilter</uiCtrl>
+		<uiView>EventSummary/Filter.view.xml</uiView>
+		<uiOpts>EventSummary/Filter.opts.xml</uiOpts>
+		<element>UIWidgetEventSummaryFilter</element>
+		<csscontainer>project-UILayoutEventSummaryAction-filter-container</csscontainer>
+	</option>
+
+</data-set>

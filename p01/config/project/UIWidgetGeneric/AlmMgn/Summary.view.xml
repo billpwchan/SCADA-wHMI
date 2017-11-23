@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>2</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-gwt-panel-summaryview-almmgn</rootCSS>
+	</header>
+	<option key="0|0">
+		<type>layoutconfiguration</type>
+		<uiCtrl>AlmMgn/Action</uiCtrl>
+		<uiView>AlmMgn/Action.view.xml</uiView>
+		<element>UILayoutAlmMgnAction</element>
+	</option>
+	<option key="0|1">
+		<uiCtrl>UIWidgetCSSSwitch</uiCtrl>
+		<uiView>AlmMgn/CSSSwitch.view.xml</uiView>
+		<uiOpts>AlmMgn/CSSSwitch.opts.xml</uiOpts>
+		<element>UILayoutAlmMgnCSSSwitch</element>
+	</option>
+</data-set>

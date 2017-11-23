@@ -4,6 +4,21 @@
 
 	<header key="header">
 		<ScsOlsListElement>UILayoutDpcTagViewerScsOlsListPanel</ScsOlsListElement>
+
+		<!--  DebugID to the Target Generic Data Grid, Printer will using it to walkthough the GDD in the DOM -->
+		<PrintDataDebugId>gwt-debug-UILayoutDpcTagViewerScsOlsListPanel</PrintDataDebugId>
+		<!-- Columns Header Display in the CSS, it support the translation; More a column should be split by ','-->
+		<PrintDataColumns>&amp;UIWidgetPTWDpcTag_ExportCSVCol_DateTime,&amp;UIWidgetPTWDpcTag_ExportCSVCol_Operator,&amp;UIWidgetPTWDpcTag_ExportCSVCol_Location,&amp;UIWidgetPTWDpcTag_ExportCSVCol_System,&amp;UIWidgetPTWDpcTag_ExportCSVCol_EquipmentLabel,&amp;UIWidgetPTWDpcTag_ExportCSVCol_Tag1Label,&amp;UIWidgetPTWDpcTag_ExportCSVCol_TagStatus</PrintDataColumns>
+		<!-- Columns index will be export to the CSV; More a column should be split by ','-->
+		<PrintDataIndexs>0,1,2,3,4,5,6</PrintDataIndexs>
+		<!-- CSV File name will be export to -->
+		<PrintDataAttachement>PTWDpcTagSummary.csv</PrintDataAttachement>
+		
+		<PrintDataStart>0</PrintDataStart>
+		<PrintDataLength>8000</PrintDataLength>
+		
+		<PrintDataReceviedWait>6000</PrintDataReceviedWait>
+		<PrintDataWalkthoughWait>4000</PrintDataWalkthoughWait>
 	</header>
 
 	<actionset key="FilterAdded">

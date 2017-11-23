@@ -37,7 +37,7 @@ public class UIGws {
 	private EventBus EVENT_BUS = null;
 	private ResettableEventBus RESETABLE_EVENT_BUS  = null;
 	
-	private final String opts = "UILayoutEntryPointUIGwsSummary/"+className+".opts.xml";
+	private final String opts = className+"/"+className+".opts.xml";
 
 	private final String strCssPanel	= "project-"+className+"-panel";
 	
@@ -229,13 +229,13 @@ public class UIGws {
 		return root;
 	}
 
-	private HashMap<String, Object> options = null;
-	public void setOptions(HashMap<String, Object> options) {
+	private Map<String, Object> options = null;
+	public void setOptions(Map<String, Object> options) {
 		this.options = options;
 	}
 
 	private boolean isCreated = false;
-	private void loadUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiElem, String uiDict, HashMap<String, Object> options) {
+	private void loadUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiElem, String uiDict, Map<String, Object> options) {
 		final String function = "loadUIWidget";
 		logger.begin(className, function);
 

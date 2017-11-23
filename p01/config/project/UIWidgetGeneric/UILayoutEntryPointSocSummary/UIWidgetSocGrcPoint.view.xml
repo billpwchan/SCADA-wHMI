@@ -24,6 +24,7 @@
 		<css>project-UIWidgetSocGrcPoint-textbox-grccurstatus</css>
 		<element>grccurstatusvalue</element>
 		<maxlength>16</maxlength>
+		<readonly>true</readonly>
 		
 		<cssContainer>project-UIWidgetSocGrcPoint-container-grccurstatusvalue</cssContainer>
 		
@@ -45,6 +46,7 @@
 		<css>project-UIWidgetSocGrcPoint-textbox-grccurstep</css>
 		<element>grccurstepvalue</element>
 		<maxlength>4</maxlength>
+		<readonly>true</readonly>
 		
 		<cssContainer>project-UIWidgetSocGrcPoint-container-grccurstepvalue</cssContainer>
 		
@@ -66,6 +68,7 @@
 		<css>project-UIWidgetSocGrcPoint-textbox-grcmessage</css>
 		<element>grcmessagevalue</element>
 		<maxlength>80</maxlength>
+		<readonly>true</readonly>
 		
 		<cssContainer>project-UIWidgetSocGrcPoint-container-grcmessagevalue</cssContainer>
 		

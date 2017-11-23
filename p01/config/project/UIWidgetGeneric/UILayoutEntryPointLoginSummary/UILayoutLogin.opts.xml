@@ -7,7 +7,7 @@
 		<!-- Opm API Switch -->
 		<OpmApi>UIOpmSCADAgen</OpmApi>
 		<!-- Upsercase switch-->
-		<UpperCaseName>false</UpperCaseName>
+		<UpperCaseName>true</UpperCaseName>
 		<!-- Lowercase switch-->
 		<LowerCaseName>false</LowerCaseName>
 	</header>

@@ -92,6 +92,28 @@ public class UIWidgetVerifyTranslationControl extends UIWidgetRealize {
 				
 				return Translation.getDBMessage(message);
 			}
+			
+			@Override
+			public String getMessage(String msgWithPlaceHolder, Object[] msgParam) {
+				String result = Translation.getDBMessage(msgWithPlaceHolder); 
+				if (null != msgParam && msgParam.length > 0)
+				{
+					String [] splits = result.split("{}");
+					final StringBuffer buffer = new StringBuffer();
+					for ( int i = 0 ; i < splits.length ; ++i) {
+						buffer.append(splits[i]);
+						if ( i < splits.length - 1 ) {
+							if ( null != msgParam[i] ) {
+								buffer.append(msgParam[i]);
+							} else {
+								buffer.append("{}");
+							}
+						}
+					}
+					result = buffer.toString();
+				}
+				return result;
+			}
 		});
 		
 		logger.end(className, function);

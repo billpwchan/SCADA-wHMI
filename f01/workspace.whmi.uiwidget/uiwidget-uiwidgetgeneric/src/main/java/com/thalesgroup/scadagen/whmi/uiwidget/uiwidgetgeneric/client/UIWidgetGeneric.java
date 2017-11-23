@@ -894,6 +894,11 @@ public class UIWidgetGeneric extends UIGeneric {
     
 	@Override
 	public void setWidgetValue (String element, String value) {
+		setWidgetValue (element, value, null);
+	}
+	
+	@Override
+	public void setWidgetValue (String element, String value, Object[] msgParam) {
 		final String function = "setWidgetValue";
 		
 		if ( null != value ) logger.begin(className, function);
@@ -924,7 +929,11 @@ public class UIWidgetGeneric extends UIGeneric {
 					if ( null == disableTranslation || ( null != disableTranslation && ! disableTranslation.equalsIgnoreCase("true") )) {
 						TranslationMgr translationMgr = TranslationMgr.getInstance();
 						if ( null != translationMgr ) {
-							label = translationMgr.getTranslation(label);
+							if(null != msgParam) {
+								label = translationMgr.getTranslation(label, msgParam);
+							} else {
+								label = translationMgr.getTranslation(label);
+							}
 						} else {
 							logger.warn(className, function, "getTranslation IS NULL");
 						}

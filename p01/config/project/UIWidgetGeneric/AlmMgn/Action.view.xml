@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>4</rows>
+		<cols>1</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCSS>project-gwt-panel-actionview-inner</rootCSS>
+	</header>
+	<option key="0|0">
+		<uiCtrl>UIWidgetDpcControl</uiCtrl>
+		<uiView>AlmMgn/Control.view.xml</uiView>
+		<uiOpts>AlmMgn/Control.opts.xml</uiOpts>
+		<element>UIWidgetAlmMgnControl</element>
+		<csscontainer>project-gwt-panel-action-control</csscontainer>
+	</option>
+	<option key="0|1">
+		<type>widgetconfiguration</type>
+		<uiCtrl>UIWidgetEmpty</uiCtrl>
+		<uiView>AlmMgn/Empty.view.xml</uiView>
+		<csscontainer>project-gwt-panel-action-empty</csscontainer>
+	</option>
+	<option key="0|2">
+		<uiCtrl>UIWidgetCSSSelection</uiCtrl>
+		<uiView>AlmMgn/CSSSelection.view.xml</uiView>
+		<uiOpts>AlmMgn/CSSSelection.opts.xml</uiOpts>
+		<element>UIWidgetAlmMgnCSSSelection</element>
+		<csscontainer>project-gwt-panel-action-almgn-filter1</csscontainer>
+	</option>
+	<option key="0|3">
+		<uiCtrl>UIWidgetFilter</uiCtrl>
+		<uiView>AlmMgn/Filter.view.xml</uiView>
+		<uiOpts>AlmMgn/Filter.opts.xml</uiOpts>
+		<element>UIWidgetAlmMgnFilter</element>
+		<csscontainer>project-gwt-panel-action-almgn-filter2</csscontainer>
+	</option>
+</data-set>

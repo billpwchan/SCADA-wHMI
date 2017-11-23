@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page.PageCounter;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.UIButtonToggle;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorAdvance_i.Attribute;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadProp;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
@@ -49,10 +50,12 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorAdvance.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
-	private final String inspAdvPropPrefix = "inspectorpanel.advance.";
-	private final String inspAdvProp = inspAdvPropPrefix+"properties";
 
+	private int dalValueTableLength = 12;
+	
+	private int dalValueTableLabelColIndex = 4;
+	private int dalValueTableValueColIndex = 1;
+	
 	private boolean moApplyWithoutReset			= false;
 	
 	// Static Attribute List
@@ -69,6 +72,10 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	private String parent		= null;
 	private String[] addresses	= null;
 	private Database database	= null;
+	
+	private static final String DICTIONARY_CACHE_NAME = UIInspector_i.strUIInspector;
+	private static final String DICTIONARY_FILE_NAME = "inspectorpanel.advance.properties";
+	private static final String CONFIG_PREFIX = "inspectorpanel.advance.";
 	
 	final private String INSPECTOR = "inspector";
 	
@@ -207,6 +214,8 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	public void connect() {
 		final String function = "connect";
 		logger.begin(className, function);
+		
+		readProperties();
 
 		// Read static
 		{
@@ -654,20 +663,18 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 					logger.debug(className, function, "valueTable[{}]", valueTable);
 					
 					if ( null != valueTable ) {
-						int valueCol = 0, labelCol = 1;
-						String labels[]	= new String[12];
-						String values[]	= new String[12];
-						{
-							for( int r = 0 ; r < 12 ; ++r ) {
-								values[r]	= DatabaseHelper.getArrayValues(valueTable, valueCol, r );
+
+						String labels[]	= new String[dalValueTableLength];
+						String values[]	= new String[dalValueTableLength];
+							for( int r = 0 ; r < dalValueTableLength ; ++r ) {
+								values[r]	= DatabaseHelper.getArrayValues(valueTable, dalValueTableValueColIndex, r );
 								values[r]	= DatabaseHelper.removeDBStringWrapper(values[r]);
-								labels[r]	= DatabaseHelper.getArrayValues(valueTable, labelCol, r );
+								labels[r]	= DatabaseHelper.getArrayValues(valueTable, dalValueTableLabelColIndex, r );
 								labels[r]	= DatabaseHelper.removeDBStringWrapper(labels[r]);
 							}					
-						}
 						
 						lstValues[y].clear();
-						for( int r = 0 ; r < 12 ; ++r ) {
+						for( int r = 0 ; r < dalValueTableLength ; ++r ) {
 							
 							if ( 0 == labels[r].compareTo("") ) break;
 							
@@ -793,7 +800,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 					value = DatabaseHelper.removeDBStringWrapper(value);
 					logger.debug(className, function, "value[{}]", value);
 					
-					
 					if ( null != value ) {
 						String point = DatabaseHelper.getPoint(address);
 						if ( null != point ) {
@@ -807,11 +813,10 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 								logger.trace(className, function, "valueTable[{}]", valueTable);
 								
 								if ( null != valueTable ) {
-									int valueCol = 0;
 									String sValue = String.valueOf(value);
 									String tValue = "";
-									for( int r = 0 ; r < 12 ; ++r ) {
-										tValue	= DatabaseHelper.getArrayValues(valueTable, valueCol, r );
+									for( int r = 0 ; r < dalValueTableLength ; ++r ) {
+										tValue	= DatabaseHelper.getArrayValues(valueTable, dalValueTableValueColIndex, r );
 										tValue	= DatabaseHelper.removeDBStringWrapper(tValue);
 										
 										if ( 0 == sValue.compareTo(tValue) ) {
@@ -987,8 +992,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 								String valueTable = DatabaseHelper.getAttributeValue(dbaddress, PointName.dalValueTable.toString(), dbvalues);
 								logger.debug(className, function, "sforcedStatus[{}]", valueTable);
 
-								int valueCol = 0;
-								String sValue	= DatabaseHelper.getArrayValues(valueTable, valueCol, moIndex);
+								String sValue	= DatabaseHelper.getArrayValues(valueTable, dalValueTableValueColIndex, moIndex);
 								sValue			= DatabaseHelper.removeDBStringWrapper(sValue);
 								
 								logger.debug(className, function, "sValue[{}]", sValue);
@@ -1144,12 +1148,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	@Override
 	public void init() {
 		final String function = "init";
-		
 		logger.begin(className, function);
-		
-		moApplyWithoutReset = ReadProp.readBoolean(UIInspector_i.strUIInspector, inspAdvProp, inspAdvPropPrefix+"moApplyWithoutReset", false);
-		
-		logger.debug(className, function, "moApplyWithoutReset[{}]", moApplyWithoutReset);
 
 		vpCtrls = new VerticalPanel();
 		vpCtrls.setWidth("100%");
@@ -1246,4 +1245,27 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		database = db;
 	}
 
+	private void readProperties() {
+		final String function = "readProperties";
+		logger.begin(className, function);
+
+		dalValueTableLength = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
+				, CONFIG_PREFIX+Attribute.dalValueTableLength.toString(), 12);
+		
+		dalValueTableLabelColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
+				, CONFIG_PREFIX+Attribute.dalValueTableLabelColIndex.toString(), 1);
+		dalValueTableValueColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
+				, CONFIG_PREFIX+Attribute.dalValueTableValueColIndex.toString(), 4);
+		
+		moApplyWithoutReset = ReadProp.readBoolean(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
+				, CONFIG_PREFIX+Attribute.moApplyWithoutReset.toString(), false);
+		
+		logger.debug(className, function, "dalValueTableLength[{}]", dalValueTableLength);
+		logger.debug(className, function, "dalValueTableLabelColIndex[{}]", dalValueTableLabelColIndex);
+		logger.debug(className, function, "dalValueTableValueColIndex[{}]", dalValueTableValueColIndex);
+
+		logger.debug(className, function, "moApplyWithoutReset[{}]", moApplyWithoutReset);
+		
+		logger.end(className, function);
+	}
 }

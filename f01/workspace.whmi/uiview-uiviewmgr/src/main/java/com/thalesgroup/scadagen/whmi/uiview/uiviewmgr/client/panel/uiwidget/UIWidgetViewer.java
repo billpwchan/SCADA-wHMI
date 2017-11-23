@@ -49,8 +49,6 @@ public class UIWidgetViewer extends UILayoutRealize {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetViewer.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
-	private String contextMenuOptsXMLFile = "UIEventActionProcessor_CallImage/" + "UIEventActionProcessor_CallImage.opts.xml";
 
 	private UIEventActionProcessor_i uiEventActionProcessorContextMenu_i = null;
 	
@@ -73,6 +71,8 @@ public class UIWidgetViewer extends UILayoutRealize {
 	
 	private int printDataReceviedWait = 5000;
 	private int printDataWalkthoughWait = 5000;
+	
+	private String menuHandlerUIOpts = "";
 	
 	PrintGDGPage printGDGPage = null;
 	
@@ -173,6 +173,8 @@ public class UIWidgetViewer extends UILayoutRealize {
 			} catch ( NumberFormatException ex ) {
 				logger.warn(className, function, "strPrintDataWalkthoughWait[{}] IS INVALID", strPrintDataWalkthoughWait);
 			}
+			
+			menuHandlerUIOpts		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.MenuHandlerUIOpts.toString(), strHeader);
 		}
 		logger.debug(className, function, "scsOlsListElement[{}]", scsOlsListElement);
 		logger.debug(className, function, "enableRowUpdated[{}]", enableRowUpdated);
@@ -187,6 +189,8 @@ public class UIWidgetViewer extends UILayoutRealize {
 		
 		logger.debug(className, function, "printDataReceviedWait[{}]", printDataReceviedWait);
 		logger.debug(className, function, "printDataWalkthoughWait[{}]", printDataWalkthoughWait);
+		
+		logger.debug(className, function, "menuHandlerUIOpts[{}]", menuHandlerUIOpts);
 		
 		if ( null == scsOlsListElement ) {
 			
@@ -440,7 +444,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 				uiEventActionProcessorContextMenu_i.setElement(element);
 				uiEventActionProcessorContextMenu_i.setDictionariesCacheName("UIWidgetGeneric");
 //				uiEventActionProcessorContextMenu.setEventBus(eventBus);
-				uiEventActionProcessorContextMenu_i.setOptsXMLFile(contextMenuOptsXMLFile);
+				uiEventActionProcessorContextMenu_i.setOptsXMLFile(menuHandlerUIOpts);
 //				uiEventActionProcessorContextMenu.setUIGeneric(uiWidgetGeneric);
 				uiEventActionProcessorContextMenu_i.setActionSetTagName(UIActionEventType.actionset.toString());
 				uiEventActionProcessorContextMenu_i.setActionTagName(UIActionEventType.action.toString());
@@ -449,13 +453,13 @@ public class UIWidgetViewer extends UILayoutRealize {
 	            contextMenu.setScsOlsListPanelMenuHandler(new ScsOlsListPanelMenuHandler() {
 	    			
 	    			@Override
-	    			public void onSelection(Set<HashMap<String, String>> entity) {
+	    			public void onSelection(Set<Map<String, String>> entity) {
 	    				logger.warn(className, function, "entity[{}]", entity);
 	    				
 	    				if ( null != entity ) {
-	    					HashMap<String, String> hashMap = entity.iterator().next();
-	    					if ( null != hashMap ) {
-	    						String actionsetkey = hashMap.get("sourceID");
+	    					Map<String, String> map = entity.iterator().next();
+	    					if ( null != map ) {
+	    						String actionsetkey = map.get("sourceID");
 	    						logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
 	    						if ( null != actionsetkey ) {
 	    							if ( null != uiEventActionProcessorContextMenu_i ) {
@@ -482,7 +486,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 			printGDGPage.setGDGParameter(printDataDebugId);
 			printGDGPage.setPageContentParameter(printDataColumns, printDataIndexs);
 			printGDGPage.setPageRangeParameter(printDataStart, printDataLength);
-			printGDGPage.setTimerParameter(printDataReceviedWait, printDataWalkthoughWait, printDataIndexs, printDataAttachement);
+			printGDGPage.setTimerParameter(printDataReceviedWait, printDataWalkthoughWait);
 			printGDGPage.setDownloadParameter(printDataAttachement);
 			
 		} else {

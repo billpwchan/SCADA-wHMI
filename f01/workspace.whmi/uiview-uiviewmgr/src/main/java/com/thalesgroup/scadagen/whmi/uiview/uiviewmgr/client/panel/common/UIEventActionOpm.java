@@ -5,6 +5,7 @@ import java.util.HashMap;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
+import com.google.gwt.user.client.Timer;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -41,8 +42,9 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 			return bContinue;
 		}
 
-		String action = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
-		String opmApi = (String) uiEventAction.getParameter(ActionAttribute.OperationString2.toString());
+		String action	= (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
+		String opmApi	= (String) uiEventAction.getParameter(ActionAttribute.OperationString2.toString());
+		
 
 		if (action == null) {
 			logger.warn(className, function, logPrefix + "action IS NULL");
@@ -60,11 +62,48 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 			
 			logger.debug(className, function, logPrefix + "OpmLogout");
 
-			OpmMgr opmMgr = OpmMgr.getInstance();
-			UIOpm_i uiOpm_i = opmMgr.getOpm(opmApi);
+			String waitms	= (String) uiEventAction.getParameter(ActionAttribute.OperationString3.toString());
+
+			int wait = 0;
+			if (waitms != null) {
+				try {
+					wait = Integer.parseInt(waitms);
+					if ( wait < 0 ) wait = 0;
+				} catch ( NumberFormatException ex ) {
+					logger.error(className, function, logPrefix + "waitms[{}] IS INVALID", waitms);
+				}
+			} else {
+				logger.warn(className, function, logPrefix + "waitms IS NULL");
+			}
+			
+			logger.debug(className, function, logPrefix + "wait[{}]", wait);
+
+			final UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(opmApi);
 			if (null != uiOpm_i) {
 				logger.debug(className, function, "call opm_i logout");
-				uiOpm_i.logout();
+				
+				if ( wait <= 0 ) {
+					uiOpm_i.logout();
+				} else {
+					
+					Timer timer = new Timer() {
+						
+						@Override
+						public void run() {
+							final String function = "Timer run";
+							logger.begin(className, function);
+							logger.debug(className, function, logPrefix + "time to exexute logout");
+							uiOpm_i.logout();
+							
+							logger.end(className, function);
+						}
+					};
+					
+					logger.debug(className, function, logPrefix + "schedule timer wait[{}]", wait);
+					timer.schedule(wait);
+
+				}
+				
 			} else {
 				logger.warn(className, function, logPrefix + "opmapi[{}] instance IS NULL", opmApi);
 			}

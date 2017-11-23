@@ -11,4 +11,13 @@ public interface UIWidgetSocDelayControl_i {
 		@Override
 		public String toString() { return this.text; }
 	}
+	
+	public enum MessageTranslationID {
+		E_invalid_delay_input("&SCADAGEN_SOC_UIWidgetSocDelayControl_invalid_delay_input")
+		;
+		private final String text;
+		private MessageTranslationID(final String text) { this.text = text; }
+		@Override
+		public String toString() { return this.text; }
+	}
 }

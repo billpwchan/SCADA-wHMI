@@ -324,6 +324,9 @@
 	<option key="Verify|OPM|Change Password"><setting>421</setting></option>
 	<option key="Verify|OPM|Change Targe Password"><setting>422</setting></option>
 	
+	<option key="Verify|Log"><setting>423</setting></option>
+	<option key="Verify|Log|UILogger"><setting>424</setting></option>
+	
 	<!-- Keep it as Default Page for not found -->
 	<option key="MenuNotFound"><setting>-1</setting></option>
 	

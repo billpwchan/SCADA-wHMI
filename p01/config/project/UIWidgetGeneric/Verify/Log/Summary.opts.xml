@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<header key="header">
+		<EventBusName>log</EventBusName>
+		<EventBusScope>local</EventBusScope>
+		<InitDelayMS>1000</InitDelayMS>
+	</header>
+	
+	<actionset key="init">
+	</actionset>
+	
+	<actionset key="init_delay">
+	</actionset>
+
+</data-set>

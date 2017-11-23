@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:HMI="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/HMI" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xmlns:OUTPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/HMI ../../../../../Generated/config.ecore#:R:A:CLASSES:SCADAGEN:HMI http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR" xmi:id="BasicEquipment_TAHU_We34gFWXEee4QdkqvzimmQ_1497949419528" hvqname="scadagen.data.config.equipment.common.SGEQPT8" nom_instance="TAHU" scstype="TAHUType">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <outputs xsi:type="OUTPUT_VAR:dio_type" xmi:id="dio_type_dioTVF-OpCmdStartFw_We34gVWXEee4QdkqvzimmQ_1497949419528" nom_instance="dioTAHU-CmdStart" label="&amp;dioTAHU-CmdStart">
+    <valueTable xmi:id="struct_valueTable_dio_type_We34glWXEee4QdkqvzimmQ_1497949419528" dovname="dovTAHU-Start" label="&amp;dovTAHU-Start" value="1"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34g1WXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34hFWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34hVWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34hlWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34h1WXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34iFWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34iVWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34ilWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34i1WXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34jFWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34jVWXEee4QdkqvzimmQ_1497949419528"/>
+    <DOV xmi:id="dov_type_dovTVF-OpCmdStartFw-StartForwardCmd_We34jlWXEee4QdkqvzimmQ_1497949419528" nom_instance="dovTAHU-Start" ctlvalue="8193">
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We34j1WXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We34kFWXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We34kVWXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We34klWXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We34k1WXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We34lFWXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We34lVWXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We34llWXEee4QdkqvzimmQ_1497949419528"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_We34l1WXEee4QdkqvzimmQ_1497949419528"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_We34mFWXEee4QdkqvzimmQ_1497949419528"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_We34mVWXEee4QdkqvzimmQ_1497949419528"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_We34mlWXEee4QdkqvzimmQ_1497949419528"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_We34m1WXEee4QdkqvzimmQ_1497949419528"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_We34nFWXEee4QdkqvzimmQ_1497949419528"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_We34nVWXEee4QdkqvzimmQ_1497949419528"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_We34nlWXEee4QdkqvzimmQ_1497949419528"/>
+    </DOV>
+  </outputs>
+  <outputs xsi:type="OUTPUT_VAR:dio_type" xmi:id="dio_type_dioTVF-OpCmdStartRev_We34n1WXEee4QdkqvzimmQ_1497949419528" nom_instance="dioTAHU-CmdStop" label="&amp;dioTAHU-CmdStop">
+    <valueTable xmi:id="struct_valueTable_dio_type_We34oFWXEee4QdkqvzimmQ_1497949419528" dovname="dovTAHU-Stop" label="&amp;dovTAHU-Stop" value="1"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34oVWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34olWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34o1WXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34pFWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34pVWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34plWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34p1WXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34qFWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34qVWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34qlWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We34q1WXEee4QdkqvzimmQ_1497949419528"/>
+    <DOV xmi:id="dov_type_dovTVF-OpCmdStartRev-StartReverseCmd_We34rFWXEee4QdkqvzimmQ_1497949419528" nom_instance="dovTAHU-Stop" ctlvalue="8193">
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We34rVWXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We34rlWXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We34r1WXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We34sFWXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We34sVWXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We34slWXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We34s1WXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We34tFWXEee4QdkqvzimmQ_1497949419528"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_We34tVWXEee4QdkqvzimmQ_1497949419528"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_We34tlWXEee4QdkqvzimmQ_1497949419528"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_We34t1WXEee4QdkqvzimmQ_1497949419528"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_We34uFWXEee4QdkqvzimmQ_1497949419528"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_We34uVWXEee4QdkqvzimmQ_1497949419528"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_We34ulWXEee4QdkqvzimmQ_1497949419528"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_We34u1WXEee4QdkqvzimmQ_1497949419528"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_We34vFWXEee4QdkqvzimmQ_1497949419528"/>
+    </DOV>
+  </outputs>
+  <outputs xsi:type="OUTPUT_VAR:dio_type" xmi:id="dio_type_dioTVF-OpReset_We3421WXEee4QdkqvzimmQ_1497949419528" nom_instance="dioTAHU-CmdReset" label="&amp;dioTAHU-CmdReset">
+    <valueTable xmi:id="struct_valueTable_dio_type_We343FWXEee4QdkqvzimmQ_1497949419528" dovname="dovTAHU-NotReset" label="&amp;dovTAHU-NotReset"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We343VWXEee4QdkqvzimmQ_1497949419528" dovname="dovTAHU-Reset" label="&amp;dovTAHU-Reset" value="1"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We343lWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We3431WXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We344FWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We344VWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We344lWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We3441WXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We345FWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We345VWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We345lWXEee4QdkqvzimmQ_1497949419528"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_We3451WXEee4QdkqvzimmQ_1497949419528"/>
+    <DOV xmi:id="dov_type_dovTVF-OpReset-NotReset_We346FWXEee4QdkqvzimmQ_1497949419528" nom_instance="dovTAHU-NotReset" ctlvalue="8192">
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We346VWXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We346lWXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We3461WXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We347FWXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We347VWXEee4QdkqvzimmQ_1497949419528"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_We347lWXEee4QdkqvzimmQ_1497949419544"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpgFWXEee4QdkqvzimmQ_1497949419544"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpgVWXEee4QdkqvzimmQ_1497949419544"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpglWXEee4QdkqvzimmQ_1497949419544"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpg1WXEee4QdkqvzimmQ_1497949419544"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBphFWXEee4QdkqvzimmQ_1497949419544"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBphVWXEee4QdkqvzimmQ_1497949419544"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBphlWXEee4QdkqvzimmQ_1497949419544"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBph1WXEee4QdkqvzimmQ_1497949419544"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpiFWXEee4QdkqvzimmQ_1497949419544"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpiVWXEee4QdkqvzimmQ_1497949419544"/>
+    </DOV>
+    <DOV xmi:id="dov_type_dovTVF-OpReset-Reset_WfBpilWXEee4QdkqvzimmQ_1497949419544" nom_instance="dovTAHU-Reset" ctlvalue="8193">
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpi1WXEee4QdkqvzimmQ_1497949419544"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpjFWXEee4QdkqvzimmQ_1497949419544"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpjVWXEee4QdkqvzimmQ_1497949419544"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpjlWXEee4QdkqvzimmQ_1497949419544"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpj1WXEee4QdkqvzimmQ_1497949419544"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpkFWXEee4QdkqvzimmQ_1497949419544"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpkVWXEee4QdkqvzimmQ_1497949419544"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpklWXEee4QdkqvzimmQ_1497949419544"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpk1WXEee4QdkqvzimmQ_1497949419544"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBplFWXEee4QdkqvzimmQ_1497949419544"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBplVWXEee4QdkqvzimmQ_1497949419544"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpllWXEee4QdkqvzimmQ_1497949419544"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpl1WXEee4QdkqvzimmQ_1497949419544"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpmFWXEee4QdkqvzimmQ_1497949419544"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpmVWXEee4QdkqvzimmQ_1497949419544"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpmlWXEee4QdkqvzimmQ_1497949419544"/>
+    </DOV>
+  </outputs>
+  <outputs xsi:type="OUTPUT_VAR:aio_type" xmi:id="aio_type_aioTVF-OpCmdSpeed_WfBpm1WXEee4QdkqvzimmQ_1497949419544" nom_instance="aioTAHU-CmdTempRef" label="&amp;aioTAHU-CmdTempRef">
+    <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpnFWXEee4QdkqvzimmQ_1497949419544"/>
+    <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpnVWXEee4QdkqvzimmQ_1497949419544"/>
+    <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpnlWXEee4QdkqvzimmQ_1497949419544"/>
+    <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpn1WXEee4QdkqvzimmQ_1497949419544"/>
+    <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpoFWXEee4QdkqvzimmQ_1497949419544"/>
+    <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpoVWXEee4QdkqvzimmQ_1497949419544"/>
+    <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpolWXEee4QdkqvzimmQ_1497949419544"/>
+    <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpo1WXEee4QdkqvzimmQ_1497949419544"/>
+    <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBppFWXEee4QdkqvzimmQ_1497949419544"/>
+    <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBppVWXEee4QdkqvzimmQ_1497949419544"/>
+    <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpplWXEee4QdkqvzimmQ_1497949419544"/>
+    <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpp1WXEee4QdkqvzimmQ_1497949419544"/>
+    <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpqFWXEee4QdkqvzimmQ_1497949419544"/>
+    <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpqVWXEee4QdkqvzimmQ_1497949419544"/>
+    <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpqlWXEee4QdkqvzimmQ_1497949419544"/>
+    <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpq1WXEee4QdkqvzimmQ_1497949419544"/>
+    <valueLimits>-0.001</valueLimits>
+    <valueLimits>100.1</valueLimits>
+  </outputs>
+  <inputs xsi:type="INPUT_VAR:ACI_TYPE" xmi:id="ACI_TYPE_aciTVF-TempdeBear_WfBprFWXEee4QdkqvzimmQ_1497949419544" nom_instance="aciTAHU-Flow" label="&amp;aciTAHU-Flow">
+    <AAC xmi:id="aac_type_aac_WfBprVWXEee4QdkqvzimmQ_1497949419544" nom_instance="aac">
+      <veTable xmi:id="struct_veTable_aac_type_WfBprlWXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_aac_type_WfBpr1WXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_aac_type_WfBpsFWXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_aac_type_WfBpsVWXEee4QdkqvzimmQ_1497949419544"/>
+    </AAC>
+    <AFO xmi:id="afo_type_afo_WfBpslWXEee4QdkqvzimmQ_1497949419544" nom_instance="afo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:ACI_TYPE" xmi:id="ACI_TYPE_aciTVF-TempNdeBear_WfBps1WXEee4QdkqvzimmQ_1497949419544" nom_instance="aciTAHU-InAirTemp" label="&amp;aciTAHU-InAirTemp">
+    <AAC xmi:id="aac_type_aac_WfBptFWXEee4QdkqvzimmQ_1497949419544" nom_instance="aac">
+      <veTable xmi:id="struct_veTable_aac_type_WfBptVWXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_aac_type_WfBptlWXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_aac_type_WfBpt1WXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_aac_type_WfBpuFWXEee4QdkqvzimmQ_1497949419544"/>
+    </AAC>
+    <AFO xmi:id="afo_type_afo_WfBpuVWXEee4QdkqvzimmQ_1497949419544" nom_instance="afo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:ACI_TYPE" xmi:id="ACI_TYPE_aciTVF-Vibrations_WfBpulWXEee4QdkqvzimmQ_1497949419544" nom_instance="aciTAHU-OutAirTemp" label="&amp;aciTAHU-OutAirTemp">
+    <AAC xmi:id="aac_type_aac_WfBpu1WXEee4QdkqvzimmQ_1497949419544" nom_instance="aac">
+      <veTable xmi:id="struct_veTable_aac_type_WfBpvFWXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_aac_type_WfBpvVWXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_aac_type_WfBpvlWXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_aac_type_WfBpv1WXEee4QdkqvzimmQ_1497949419544"/>
+    </AAC>
+    <AFO xmi:id="afo_type_afo_WfBpwFWXEee4QdkqvzimmQ_1497949419544" nom_instance="afo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:ACI_TYPE" xmi:id="ACI_TYPE_aciTVF-MotorSpeed_WfBpwVWXEee4QdkqvzimmQ_1497949419544" nom_instance="aciTAHU-Humidity" label="&amp;aciTAHU-Humidity">
+    <AAC xmi:id="aac_type_aac_WfBpwlWXEee4QdkqvzimmQ_1497949419544" nom_instance="aac">
+      <veTable xmi:id="struct_veTable_aac_type_WfBpw1WXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_aac_type_WfBpxFWXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_aac_type_WfBpxVWXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_aac_type_WfBpxlWXEee4QdkqvzimmQ_1497949419544"/>
+    </AAC>
+    <AFO xmi:id="afo_type_afo_WfBpx1WXEee4QdkqvzimmQ_1497949419544" nom_instance="afo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTVF-AlaGeneral_WfBp5FWXEee4QdkqvzimmQ_1497949419544" nom_instance="dciTAHU-Running" label="&amp;dciTAHU-Running">
+    <DAC xmi:id="dac_type_dac_WfBp5VWXEee4QdkqvzimmQ_1497949419544" nom_instance="dac" nature="1">
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <veTable xmi:id="struct_veTable_dac_type_WfBp5lWXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_dac_type_WfBp51WXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_dac_type_WfBp6FWXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_dac_type_WfBp6VWXEee4QdkqvzimmQ_1497949419544"/>
+    </DAC>
+    <DAL xmi:id="dal_type_dal_WfBp6lWXEee4QdkqvzimmQ_1497949419544" nom_instance="dal">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBp61WXEee4QdkqvzimmQ_1497949419544" label="Stopped" severity="2" state="A"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBp7FWXEee4QdkqvzimmQ_1497949419544" label="Running" state="N" value="1"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBp7VWXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBp7lWXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBp71WXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBp8FWXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBp8VWXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBp8lWXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBp81WXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBp9FWXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBp9VWXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBp9lWXEee4QdkqvzimmQ_1497949419544"/>
+    </DAL>
+    <DFO xmi:id="dfo_type_dfo_WfBp91WXEee4QdkqvzimmQ_1497949419544" nom_instance="dfo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTVF-AlaTempDeBear_WfBp-FWXEee4QdkqvzimmQ_1497949419544" nom_instance="dciTAHU-Fault" label="&amp;dciTAHU-Fault" initValue="1">
+    <DAC xmi:id="dac_type_dac_WfBp-VWXEee4QdkqvzimmQ_1497949419544" nom_instance="dac" nature="1">
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <veTable xmi:id="struct_veTable_dac_type_WfBp-lWXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_dac_type_WfBp-1WXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_dac_type_WfBp_FWXEee4QdkqvzimmQ_1497949419544"/>
+      <veTable xmi:id="struct_veTable_dac_type_WfBp_VWXEee4QdkqvzimmQ_1497949419544"/>
+    </DAC>
+    <DAL xmi:id="dal_type_dal_WfBp_lWXEee4QdkqvzimmQ_1497949419544" nom_instance="dal">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBp_1WXEee4QdkqvzimmQ_1497949419544" label="Normal" state="N"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBqAFWXEee4QdkqvzimmQ_1497949419544" label="Alarm" severity="2" state="A" value="1"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBqAVWXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBqAlWXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBqA1WXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBqBFWXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBqBVWXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBqBlWXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBqB1WXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBqCFWXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBqCVWXEee4QdkqvzimmQ_1497949419544"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_WfBqClWXEee4QdkqvzimmQ_1497949419544"/>
+    </DAL>
+    <DFO xmi:id="dfo_type_dfo_WfBqC1WXEee4QdkqvzimmQ_1497949419544" nom_instance="dfo"/>
+  </inputs>
+  <HMI xmi:id="HMITags_Zgq28YHIEeediJf1kzsT0Q_1502808336351" nom_instance="HMI">
+    <HMIObjects xsi:type="HMI:Symbol" xmi:id="Symbol_c3UCoIHIEeediJf1kzsT0Q_1502808358858" nom_instance="Symbol1"/>
+  </HMI>
+</Class:BasicEquipment>

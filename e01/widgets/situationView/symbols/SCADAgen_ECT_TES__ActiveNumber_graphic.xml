@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+  <graphic id="SCADAgen_ECT_TES__ActiveNumber_graphic">
+    <root>
+      <svgText initValue="12.3" horizontalAlignment="middle" verticalAlignment="bottom" id="SCADAgen_ECT_TES__ActiveNumber_TES__ActiveNumber_UNNAMED" cssClass="TES__ActiveNumber" tx="3.0" ty="30.0"></svgText>
+    </root>
+  </graphic>
+</graphicConfiguration>

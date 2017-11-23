@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>14</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+	</header>
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>Check Access:</label>
+	</option>
+	
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>checkAccess</label>
+		<element>checkAccess</element>
+	</option>
+	
+	<option key="0|2">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+		<element>resultlabel</element>
+	</option>
+	<option key="0|3">
+		<widget>TextBox</widget>
+		<element>resultvalue</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|4">
+		<widget>InlineLabel</widget>
+		<label>UIOPM API:</label>
+	</option>
+	
+	<option key="0|5">
+		<widget>TextBox</widget>
+		<label>UIOpmSCADAgen</label>
+		<element>uiopmapivalue</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|6">
+		<widget>InlineLabel</widget>
+		<label>Function:</label>
+	</option>
+	
+	<option key="0|7">
+		<widget>TextBox</widget>
+		<element>functionvalue</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|8">
+		<widget>InlineLabel</widget>
+		<label>Location:</label>
+	</option>
+	<option key="0|9">
+		<widget>TextBox</widget>
+		<element>locationvalue</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|10">
+		<widget>InlineLabel</widget>
+		<label>Action:</label>
+	</option>
+	<option key="0|11">
+		<widget>TextBox</widget>
+		<element>actionvalue</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|12">
+		<widget>InlineLabel</widget>
+		<label>Mode:</label>
+	</option>
+	<option key="0|13">
+		<widget>TextBox</widget>
+		<element>modevalue</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+</data-set>

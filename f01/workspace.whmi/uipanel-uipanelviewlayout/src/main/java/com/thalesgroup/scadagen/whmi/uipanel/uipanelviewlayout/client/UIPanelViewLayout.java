@@ -32,7 +32,7 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 		
 		this.viewLayoutMgr = new ViewLayoutMgr(this, this.uiNameCard);
 		
-		logger.info(className, function, "this.uiNameCard.getUiScreen()[{}] this.uiNameCard.getUiPath()[{}]", this.uiNameCard.getUiScreen(), this.uiNameCard.getUiPath());
+		logger.debug(className, function, "this.uiNameCard.getUiScreen()[{}] this.uiNameCard.getUiPath()[{}]", this.uiNameCard.getUiScreen(), this.uiNameCard.getUiPath());
 		
 		rootPanel = new DockLayoutPanel(Unit.PX);
 		rootPanel.addStyleName("project-gwt-panel-viewlayout-main");
@@ -83,7 +83,7 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "ViewLayoutMode[{}] viewLayoutAction[{}]", viewLayoutMode, viewLayoutAction);
+		logger.debug(className, function, "ViewLayoutMode[{}] viewLayoutAction[{}]", viewLayoutMode, viewLayoutAction);
 		
 //		UIPanelMgr uiPanelFactoryMgr = UIPanelMgr.getInstance();
 //		upperMainPanel = uiPanelFactoryMgr.getMainPanel("UIPanelEmpty", uiNameCard);
@@ -103,12 +103,12 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 		
 		if ( ViewLayoutMode.Image == viewLayoutMode ) {
 			
-			logger.info(className, function, "ViewLayoutMode.Image");
+			logger.debug(className, function, "ViewLayoutMode.Image");
 
 			borderVisible = true;
 			
 		} else if ( ViewLayoutMode.Panel == viewLayoutMode ) {
-			logger.info(className, function, "ViewLayoutMode.Panel");
+			logger.debug(className, function, "ViewLayoutMode.Panel");
 		}
 		
 		if ( null != uiPanelViews ) {
@@ -121,7 +121,7 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 		{
 		case VDoubleLayout:
 		{
-			logger.info(className, function, "ViewLayoutAction.VDoubleLayout");
+			logger.debug(className, function, "ViewLayoutAction.VDoubleLayout");
 			
 			upperMainPanel.clear();
 			
@@ -153,7 +153,7 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 			break;
 		case HDoubleLayout:
 		{
-			logger.info(className, function, "ViewLayoutAction.HDoubleLayout");
+			logger.debug(className, function, "ViewLayoutAction.HDoubleLayout");
 			
 			upperMainPanel.clear();
 			
@@ -184,10 +184,10 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 		}
 			break;
 		case SingleLayout:
-			logger.info(className, function, "ViewLayoutAction.SingleLayout");
+			logger.debug(className, function, "ViewLayoutAction.SingleLayout");
 		default:
 		{
-			logger.info(className, function, "default ViewLayoutAction.SingleLayout");
+			logger.debug(className, function, "default ViewLayoutAction.SingleLayout");
 			borderVisible = false;
 			
 			upperMainPanel.clear();
@@ -232,10 +232,10 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 				uiPanelView.terminate();
 				uiPanelView.setTaskLaunch(taskLaunch);
 			} else {
-				logger.info(className, function, "viewId is INVALID viewId["+viewId+"] set to this.uiPanelViews.length["+this.uiPanelViews.length+"]");
+				logger.debug(className, function, "viewId is INVALID viewId["+viewId+"] set to this.uiPanelViews.length["+this.uiPanelViews.length+"]");
 			}
 		} else {
-			logger.info(className, function, "this.uiPanelViews is null");
+			logger.debug(className, function, "this.uiPanelViews is null");
 		}
 		logger.end(className, function);
 	}

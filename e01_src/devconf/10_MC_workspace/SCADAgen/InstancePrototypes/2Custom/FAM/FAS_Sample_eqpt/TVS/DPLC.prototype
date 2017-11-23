@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR" xmi:id="BasicEquipment_DPLC_2Rzy0FJvEeee9omJKKZbfw_1497602599549" hvqname="scadagen.data.config.equipment.common.SGEQPT8" nom_instance="DPLC" scstype="DPLCType">
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTVF-OperStat_2RzzL1JvEeee9omJKKZbfw_1497602599549" nom_instance="dciDPLC-OpStatus" label="&amp;dciDPLC-OpStatus" initValue="1">
+    <DAC xmi:id="dac_type_dac_2RzzMFJvEeee9omJKKZbfw_1497602599549" nom_instance="dac" nature="1">
+      <veTable xmi:id="struct_veTable_dac_type_2RzzMVJvEeee9omJKKZbfw_1497602599549"/>
+      <veTable xmi:id="struct_veTable_dac_type_2RzzMlJvEeee9omJKKZbfw_1497602599549"/>
+      <veTable xmi:id="struct_veTable_dac_type_2RzzM1JvEeee9omJKKZbfw_1497602599549"/>
+      <veTable xmi:id="struct_veTable_dac_type_2RzzNFJvEeee9omJKKZbfw_1497602599549"/>
+    </DAC>
+    <DAL xmi:id="dal_type_dal_2RzzNVJvEeee9omJKKZbfw_1497602599549" nom_instance="dal">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2RzzNlJvEeee9omJKKZbfw_1497602599549" label="Out of service" severity="3" state="A"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2RzzN1JvEeee9omJKKZbfw_1497602599549" label="In service" state="N" value="1"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2RzzOFJvEeee9omJKKZbfw_1497602599549"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2RzzOVJvEeee9omJKKZbfw_1497602599549"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2RzzOlJvEeee9omJKKZbfw_1497602599549"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2RzzO1JvEeee9omJKKZbfw_1497602599549"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2RzzPFJvEeee9omJKKZbfw_1497602599549"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2RzzPVJvEeee9omJKKZbfw_1497602599549"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2RzzPlJvEeee9omJKKZbfw_1497602599564"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2R88wFJvEeee9omJKKZbfw_1497602599564"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2R88wVJvEeee9omJKKZbfw_1497602599564"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2R88wlJvEeee9omJKKZbfw_1497602599564"/>
+    </DAL>
+    <DFO xmi:id="dfo_type_dfo_2R88w1JvEeee9omJKKZbfw_1497602599564" nom_instance="dfo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTVF-FanDir_2R88xFJvEeee9omJKKZbfw_1497602599564" nom_instance="dciDPLC-ComStatus" label="&amp;dciDPLC-ComStatus">
+    <DAC xmi:id="dac_type_dac_2R88xVJvEeee9omJKKZbfw_1497602599564" nom_instance="dac" nature="1">
+      <veTable xmi:id="struct_veTable_dac_type_2R88xlJvEeee9omJKKZbfw_1497602599564"/>
+      <veTable xmi:id="struct_veTable_dac_type_2R88x1JvEeee9omJKKZbfw_1497602599564"/>
+      <veTable xmi:id="struct_veTable_dac_type_2R88yFJvEeee9omJKKZbfw_1497602599564"/>
+      <veTable xmi:id="struct_veTable_dac_type_2R88yVJvEeee9omJKKZbfw_1497602599564"/>
+    </DAC>
+    <DAL xmi:id="dal_type_dal_sXVfAFJ1Eeee9omJKKZbfw_1497605110000" nom_instance="dal">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_sXVfAVJ1Eeee9omJKKZbfw_1497605110000" label="Normal" state="N"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_sXVfAlJ1Eeee9omJKKZbfw_1497605110000" label="Faulty" severity="2" state="A" value="1"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_sXVfA1J1Eeee9omJKKZbfw_1497605110000"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_sXVfBFJ1Eeee9omJKKZbfw_1497605110000"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_sXVfBVJ1Eeee9omJKKZbfw_1497605110000"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_sXVfBlJ1Eeee9omJKKZbfw_1497605110000"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_sXVfB1J1Eeee9omJKKZbfw_1497605110000"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_sXVfCFJ1Eeee9omJKKZbfw_1497605110000"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_sXVfCVJ1Eeee9omJKKZbfw_1497605110000"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_sXVfClJ1Eeee9omJKKZbfw_1497605110000"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_sXVfC1J1Eeee9omJKKZbfw_1497605110000"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_sXVfDFJ1Eeee9omJKKZbfw_1497605110000"/>
+    </DAL>
+    <DFO xmi:id="dfo_type_dfo_2R8811JvEeee9omJKKZbfw_1497602599564" nom_instance="dfo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTVF-SpeedAla_2R882FJvEeee9omJKKZbfw_1497602599564" nom_instance="dciDPLC-PrimSecStatus" label="&amp;dciDPLC-PrimSecStatus" initValue="1">
+    <DAC xmi:id="dac_type_dac_2R882VJvEeee9omJKKZbfw_1497602599564" nom_instance="dac" nature="1">
+      <veTable xmi:id="struct_veTable_dac_type_2R882lJvEeee9omJKKZbfw_1497602599564"/>
+      <veTable xmi:id="struct_veTable_dac_type_2R8821JvEeee9omJKKZbfw_1497602599564"/>
+      <veTable xmi:id="struct_veTable_dac_type_2R883FJvEeee9omJKKZbfw_1497602599564"/>
+      <veTable xmi:id="struct_veTable_dac_type_2R883VJvEeee9omJKKZbfw_1497602599564"/>
+    </DAC>
+    <DAL xmi:id="dal_type_dal_SwLMsFJ3Eeee9omJKKZbfw_1497605797115" nom_instance="dal">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_SwLMsVJ3Eeee9omJKKZbfw_1497605797115" label="Normal" state="N"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_SwLMslJ3Eeee9omJKKZbfw_1497605797115" label="Alarm" severity="2" state="A" value="1"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_SwLMs1J3Eeee9omJKKZbfw_1497605797115"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_SwLMtFJ3Eeee9omJKKZbfw_1497605797115"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_SwLMtVJ3Eeee9omJKKZbfw_1497605797115"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_SwLMtlJ3Eeee9omJKKZbfw_1497605797115"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_SwLMt1J3Eeee9omJKKZbfw_1497605797115"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_SwLMuFJ3Eeee9omJKKZbfw_1497605797115"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_SwLMuVJ3Eeee9omJKKZbfw_1497605797115"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_SwLMulJ3Eeee9omJKKZbfw_1497605797115"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_SwLMu1J3Eeee9omJKKZbfw_1497605797115"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_SwLMvFJ3Eeee9omJKKZbfw_1497605797115"/>
+    </DAL>
+    <DFO xmi:id="dfo_type_dfo_2R8861JvEeee9omJKKZbfw_1497602599564" nom_instance="dfo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:ACI_TYPE" xmi:id="ACI_TYPE_aciTVF-SpeedVal_2R89G1JvEeee9omJKKZbfw_1497602599564" nom_instance="aciDPLC-HealthStatus" label="&amp;aciDPLC-HealthStatus">
+    <AAC xmi:id="aac_type_aac_2R89HFJvEeee9omJKKZbfw_1497602599564" nom_instance="aac">
+      <veTable xmi:id="struct_veTable_aac_type_2R89HVJvEeee9omJKKZbfw_1497602599564"/>
+      <veTable xmi:id="struct_veTable_aac_type_2R89HlJvEeee9omJKKZbfw_1497602599564"/>
+      <veTable xmi:id="struct_veTable_aac_type_2R89H1JvEeee9omJKKZbfw_1497602599564"/>
+      <veTable xmi:id="struct_veTable_aac_type_2R89IFJvEeee9omJKKZbfw_1497602599564"/>
+    </AAC>
+    <AFO xmi:id="afo_type_afo_2R89IVJvEeee9omJKKZbfw_1497602599564" nom_instance="afo"/>
+  </inputs>
+</Class:BasicEquipment>

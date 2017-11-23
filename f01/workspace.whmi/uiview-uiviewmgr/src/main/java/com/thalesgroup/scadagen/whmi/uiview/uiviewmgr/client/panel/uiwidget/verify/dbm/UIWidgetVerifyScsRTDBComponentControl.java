@@ -3,6 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.ver
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
@@ -151,8 +152,7 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 			
 			@Override
 			public void setWriteValueRequestResult(String clientKey, int errorCode, String errorMessage) {
-				// TODO Auto-generated method stub
-				
+				uiGeneric.setWidgetValue("resultvalue", "clientKey:[" + clientKey + "|] errorCode:[" + errorCode + "] errorMessage:[" + errorMessage + "]");
 			}
 			
 			@Override
@@ -310,30 +310,44 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 		logger.end(className, function);
 	}
 	
+	private void disconnect() {
+		final String function = "disconnect";
+		logger.begin(className, function);
+		
+		try {
+			scsRTDBComponentAccess.terminate();
+		} catch (IllegalStatePresenterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		logger.end(className, function);
+	}
+	
 	private void launch(String element) {
 		final String function = "launch";
 		logger.begin(className, function);
-		
 		logger.debug(className, function, "element[{}]", element);
 		
-		element = element.toLowerCase();
-		
-		if ( "connect".toLowerCase().equals(element) ) {
+		if ( 0 == "connect".compareToIgnoreCase(element) ) {
 			connect();
 		}
-		else if ( "writeDataValueRequest".toLowerCase().equals(element) ) {
+		else if ( 0 == "disconnect".compareToIgnoreCase(element) ) {
+			disconnect();
+		}
+		else if ( 0 == "writeDateValueRequest".compareToIgnoreCase(element) ) {
 			writeDateValueRequest();
 		}
-		else if ( "writeIntValueRequest".toLowerCase().equals(element) ) {
+		else if ( 0 == "writeIntValueRequest".compareToIgnoreCase(element) ) {
 			writeIntValueRequest();
 		}
-		else if ( "writeFloatValueRequest".toLowerCase().equals(element) ) {
+		else if ( 0 == "writeFloatValueRequest".compareToIgnoreCase(element) ) {
 			writeFloatValueRequest();
 		}
-		else if ( "writeStringValueRequest".toLowerCase().equals(element) ) {
+		else if ( 0 == "writeStringValueRequest".compareToIgnoreCase(element) ) {
 			writeStringValueRequest();
 		}
-		else if ( "writeValueRequest".toLowerCase().equals(element) ) {
+		else if ( 0 == "writeValueRequest".compareToIgnoreCase(element) ) {
 			writeValueRequest();
 		}
 		logger.end(className, function);

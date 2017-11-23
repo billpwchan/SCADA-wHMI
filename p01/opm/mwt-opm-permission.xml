@@ -19,6 +19,38 @@
     <permissionAllowList>permission_VIEW_ENTITY_CONTEXTUAL</permissionAllowList>
     <permissionAllowList>permission_COMMAND_ENTITY_CONTEXTUAL</permissionAllowList>
   </role>
+  
+   <!-- List of ROLES -->
+  <role id="SA">
+    <permissionAllowList>permission_ROOT_ALL</permissionAllowList>
+	<!--
+	<permissionAllowList>permission_ROOT_LMC</permissionAllowList>
+	<permissionAllowList>permission_ROOT_CTV</permissionAllowList>
+	<permissionAllowList>permission_ROOT_SSV</permissionAllowList>
+	-->
+	<permissionAllowList>permission_VIEW_IMAGE_ALL</permissionAllowList>
+    <permissionAllowList>permission_VIEW_ENTITY_ALL</permissionAllowList>
+    <permissionAllowList>permission_COMMAND_ENTITY_ALL</permissionAllowList>
+    <permissionAllowList>permissionAllow_SCS_ALL</permissionAllowList>
+    <permissionAllowList>permission_VIEW_ENTITY_CONTEXTUAL</permissionAllowList>
+    <permissionAllowList>permission_COMMAND_ENTITY_CONTEXTUAL</permissionAllowList>
+  </role>
+  
+  <!-- List of ROLES -->
+  <role id="CHIEF">
+    <permissionAllowList>permission_ROOT_ALL</permissionAllowList>
+	<!--
+	<permissionAllowList>permission_ROOT_LMC</permissionAllowList>
+	<permissionAllowList>permission_ROOT_CTV</permissionAllowList>
+	<permissionAllowList>permission_ROOT_SSV</permissionAllowList>
+	-->
+	<permissionAllowList>permission_VIEW_IMAGE_ALL</permissionAllowList>
+    <permissionAllowList>permission_VIEW_ENTITY_ALL</permissionAllowList>
+    <permissionAllowList>permission_COMMAND_ENTITY_ALL</permissionAllowList>
+    <permissionAllowList>permissionAllow_SCS_ALL</permissionAllowList>
+    <permissionAllowList>permission_VIEW_ENTITY_CONTEXTUAL</permissionAllowList>
+    <permissionAllowList>permission_COMMAND_ENTITY_CONTEXTUAL</permissionAllowList>
+  </role>
 
   <!-- List of PERMISSIONS -->
   <!-- PERMISSIONS for ROOT -->

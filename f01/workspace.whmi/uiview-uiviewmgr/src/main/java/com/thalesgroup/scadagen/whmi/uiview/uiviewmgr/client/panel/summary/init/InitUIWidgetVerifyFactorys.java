@@ -7,6 +7,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabaseGetChildrenControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabaseGetFullPathControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabaseGroupPollingControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabaseGroupPollingDiffControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabaseMultiReadingControl;
@@ -21,6 +22,8 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.veri
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetVerifyOPMChangePassword;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetVerifyOPMCheckAccess;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetVerifyOPMGetInfo;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetVerifyOPMHom;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetVerifyOPMLoginLogout;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.translaction.UIWidgetVerifyTranslationControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.tsc.UIIWidgetVerifyTSCControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.uieventaction.UIWidgetVerifyUIEventActionControl;
@@ -84,7 +87,7 @@ public class InitUIWidgetVerifyFactorys {
 	
 					uiWidget_i = new UIWidgetVerifyOPMCheckAccess();
 	
-				} 
+				}
 				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyOPMGetInfo.class.getName())
 						.equals(uiCtrl)
@@ -92,7 +95,23 @@ public class InitUIWidgetVerifyFactorys {
 	
 					uiWidget_i = new UIWidgetVerifyOPMGetInfo();
 	
-				} 
+				}
+				else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyOPMHom.class.getName())
+						.equals(uiCtrl)
+						) {
+	
+					uiWidget_i = new UIWidgetVerifyOPMHom();
+	
+				}
+				else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyOPMLoginLogout.class.getName())
+						.equals(uiCtrl)
+						) {
+	
+					uiWidget_i = new UIWidgetVerifyOPMLoginLogout();
+	
+				}
 				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyReadJSON.class.getName())
 						.equals(uiCtrl)
@@ -156,7 +175,15 @@ public class InitUIWidgetVerifyFactorys {
 		
 					uiWidget_i = new UIWidgetVerifyDatabaseGetChildrenControl();
 		
-				} 
+				}
+				else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseGetFullPathControl.class.getName())
+						.equals(uiCtrl)
+						) {
+		
+					uiWidget_i = new UIWidgetVerifyDatabaseGetFullPathControl();
+		
+				}
 				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyUIEventActionControl.class.getName())
 						.equals(uiCtrl)

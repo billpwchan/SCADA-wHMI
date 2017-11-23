@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>3</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-UILayoutVerifyUIEventActionTscControl-panel-root</rootCSS>
+	</header>
+
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyUIEventActionControl</uiCtrl>
+		<uiView>Verify/UIEventAction/Tsc/UIWidgetVerifyUIEventActionTscControl_GetTaskNames.view.xml</uiView>
+		<element>UIWidgetVerifyUIEventActionTscControl_GetTaskNames</element>
+	</option>
+
+	<option key="0|1">
+		<uiCtrl>UIWidgetVerifyUIEventActionControl</uiCtrl>
+		<uiView>Verify/UIEventAction/Tsc/UIWidgetVerifyUIEventActionTscControl_AddTask.view.xml</uiView>
+		<element>UIWidgetVerifyUIEventActionTscControl_AddTask</element>
+	</option>
+	
+	<option key="0|2">
+		<uiCtrl>UIWidgetVerifyUIEventActionControl</uiCtrl>
+		<uiView>Verify/UIEventAction/Tsc/UIWidgetVerifyUIEventActionTscControl_RemoveTask.view.xml</uiView>
+		<element>UIWidgetVerifyUIEventActionTscControl_RemoveTask</element>
+	</option>
+
+<!--
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyUIEventActionControl</uiCtrl>
+		<uiView>Verify/UIEventAction/Tsc/UIWidgetVerifyUIEventActionTscControl_EnableTask.view.xml</uiView>
+		<element>UIWidgetVerifyUIEventActionTscControl_EnableTask</element>
+	</option>
+	
+	<option key="0|1">
+		<uiCtrl>UIWidgetVerifyUIEventActionControl</uiCtrl>
+		<uiView>Verify/UIEventAction/Tsc/UIWidgetVerifyUIEventActionTscControl_DisableTask.view.xml</uiView>
+		<element>UIWidgetVerifyUIEventActionTscControl_DisableTask</element>
+	</option>
+	
+	<option key="0|3">
+		<uiCtrl>UIWidgetVerifyUIEventActionControl</uiCtrl>
+		<uiView>Verify/UIEventAction/Tsc/UIWidgetVerifyUIEventActionTscControl_IsEnabled.view.xml</uiView>
+		<element>UIWidgetVerifyUIEventActionTscControl_IsEnabled</element>
+	</option>
+-->
+<!--
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyUIEventActionControl</uiCtrl>
+		<uiView>Verify/UIEventAction/Tsc/UIWidgetVerifyUIEventActionTscControl_GetStartTime.view.xml</uiView>
+		<element>UIWidgetVerifyUIEventActionTscControl_GetStartTime</element>
+	</option>
+
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyUIEventActionControl</uiCtrl>
+		<uiView>Verify/UIEventAction/Tsc/UIWidgetVerifyUIEventActionTscControl_GetRemoveAtEnd.view.xml</uiView>
+		<element>UIWidgetVerifyUIEventActionTscControl_GetRemoveAtEnd</element>
+	</option>	
+	-->	
+
+</data-set>

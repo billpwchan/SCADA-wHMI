@@ -46,7 +46,7 @@ public class UIInspectorMgr {
 
 	private DatabaseSingle2SingleRead_i databaseSingle2SingleRead_i = null;
 	private DatabaseMultiRead_i databaseMultiRead_i = null;
-	public void getFunctionLocationAndLaunchInspectorDialog(final UINameCard uiNameCard, final HashMap<String, String> options) {
+	public void getFunctionLocationAndLaunchInspectorDialog(final UINameCard uiNameCard, final Map<String, String> options) {
 		final String function = "getFunctionLocationAndLaunchInspectorDialog";
 		logger.begin(className, function);
 		logger.debug(className, function, "Launch Inspector Panel OPM Checking...");
@@ -95,7 +95,7 @@ public class UIInspectorMgr {
 				
 				logger.debug(className, function, "scsEnvId[{}] parent[{}] clientKey[{}]", new Object[]{scsEnvId, parent, clientKey});
 				
-				databaseSingle2SingleRead_i.addRequest(clientKey, scsEnvId, parent, new DatabaseReadSingle2SingleResult_i() {
+				databaseSingle2SingleRead_i.addSingle2SingleRequest(clientKey, scsEnvId, parent, new DatabaseReadSingle2SingleResult_i() {
 					
 					@Override
 					public void update(final String key, final String values) {
@@ -333,7 +333,7 @@ public class UIInspectorMgr {
 			
 			logger.debug(className, function, "scsEnvId[{}] <alias>+dbaddress[{}] clientKey[{}]", new Object[]{scsEnvId, dbaddress, clientKey});
 			
-			databaseSingle2SingleRead_i.addRequest(clientKey, scsEnvId, dbaddress, new DatabaseReadSingle2SingleResult_i() {
+			databaseSingle2SingleRead_i.addSingle2SingleRequest(clientKey, scsEnvId, dbaddress, new DatabaseReadSingle2SingleResult_i() {
 				
 				@Override
 				public void update(String key, String values) {

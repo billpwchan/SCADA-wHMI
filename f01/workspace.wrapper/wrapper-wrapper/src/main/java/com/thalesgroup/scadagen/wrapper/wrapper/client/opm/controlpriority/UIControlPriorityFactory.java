@@ -1,11 +1,11 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 
 /**
  * @author syau
@@ -13,10 +13,10 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
  */
 public class UIControlPriorityFactory {
 
-	private static final String className = UIWidgetUtil.getClassSimpleName(OpmMgr.class.getName());
+	private static final String className = UIWidgetUtil.getClassSimpleName(UIControlPriorityFactory.class.getName());
 	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private HashMap<String, UIControlPriorityFactory_i> factorys = new HashMap<String, UIControlPriorityFactory_i>();
+	private Map<String, UIControlPriorityFactory_i> factorys = new HashMap<String, UIControlPriorityFactory_i>();
 	public void addFactory(String className, UIControlPriorityFactory_i uiControlPriorityFactory) { this.factorys.put(className, uiControlPriorityFactory); }
 	public void cleanFactory() { this.factorys.clear(); };
 	

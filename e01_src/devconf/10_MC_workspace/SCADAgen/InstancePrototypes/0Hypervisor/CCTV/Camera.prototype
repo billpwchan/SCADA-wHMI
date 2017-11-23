@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ASCII"?>
+<EQPT_CLASSES:CAMERA xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:EQPT_CLASSES="http://www.thalesgroup.com/prototypeLibraryModel/Class/VMS_CLASSES/EQPT_CLASSES" xmlns:HV="http://www.thalesgroup.com/prototypeLibraryModel/Class/CoreModel/HV" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class/VMS_CLASSES/EQPT_CLASSES ../../../Generated/config.ecore#:R:A:CLASSES:VMS_CLASSES:EQPT_CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/CoreModel/HV ../../../Generated/config.ecore#_ZB56QCayEeOr-rLLLmg18A" xmi:id="CAMERA_Camera_GTMlkCJxEeadBLsIIQVFSA_1464177983081" hvqname="myproject.data.config.equipment.Camera" nom_instance="Camera" scstype="Camera">
+  <status xsi:type="HV:HvStatusInteger" xmi:id="HvStatusInteger_state_GVH4MSJxEeadBLsIIQVFSA_1464177983283" nom_instance="state" hvdatatype="Integer" hvqname="myproject.data.config.equipment.Camera.state"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="HvStatusInteger_recstate_GVH4MiJxEeadBLsIIQVFSA_1464177983283" nom_instance="recstate" hvdatatype="Integer" hvqname="myproject.data.config.equipment.Camera.recstate"/>
+  <status xsi:type="HV:HvStatusFloat" xmi:id="HvStatusFloat_angle_GVRpMCJxEeadBLsIIQVFSA_1464177983299" nom_instance="angle" hvqname="myproject.data.config.equipment.Camera.angle"/>
+  <status xsi:type="HV:HvStatusFloat" xmi:id="HvStatusFloat_zoom_GVRpMSJxEeadBLsIIQVFSA_1464177983299" nom_instance="zoom" hvqname="myproject.data.config.equipment.Camera.zoom"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+</EQPT_CLASSES:CAMERA>

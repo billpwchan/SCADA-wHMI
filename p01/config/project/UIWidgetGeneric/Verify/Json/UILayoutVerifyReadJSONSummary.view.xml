@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>6</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-gwt-panel-summaryview-inner</rootCSS>
+	</header>
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyReadJSON</uiCtrl>
+		<uiView>Verify/Json/UIWidgetVerifyReadJSONReadJson.view.xml</uiView>
+		<element>UIWidgetVerifyReadJSONReadJson</element>
+	</option>
+	<option key="0|1">
+		<uiCtrl>UIWidgetVerifyReadJSON</uiCtrl>
+		<uiView>Verify/Json/UIWidgetVerifyReadJSONReadString.view.xml</uiView>
+		<element>UIWidgetVerifyReadJSONReadString</element>
+	</option>
+	<option key="0|2">
+		<uiCtrl>UIWidgetVerifyReadJSON</uiCtrl>
+		<uiView>Verify/Json/UIWidgetVerifyReadJSONReadInt.view.xml</uiView>
+		<element>UIWidgetVerifyReadJSONReadInt</element>
+	</option>
+	<option key="0|3">
+		<uiCtrl>UIWidgetVerifyReadJSON</uiCtrl>
+		<uiView>Verify/Json/UIWidgetVerifyReadJSONReadBoolean.view.xml</uiView>
+		<element>UIWidgetVerifyReadJSONReadBoolean</element>
+	</option>
+	<option key="0|4">
+		<uiCtrl>UIWidgetVerifyReadJSON</uiCtrl>
+		<uiView>Verify/Json/UIWidgetVerifyReadJSONReadArray.view.xml</uiView>
+		<element>UIWidgetVerifyReadJSONReadArray</element>
+	</option>
+	<option key="0|5">
+		<uiCtrl>UIWidgetVerifyReadJSON</uiCtrl>
+		<uiView>Verify/Json/UIWidgetVerifyReadJSONReadObjectFromArray.view.xml</uiView>
+		<element>UIWidgetVerifyReadJSONReadObjectFromArray</element>
+	</option>
+
+</data-set>

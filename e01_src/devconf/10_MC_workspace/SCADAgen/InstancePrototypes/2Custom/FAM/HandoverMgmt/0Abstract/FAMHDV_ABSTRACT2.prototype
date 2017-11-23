@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xmlns:UFE="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/UFE" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/UFE ../../../../../Generated/config.ecore#:R:A:CLASSES:SCADAGEN:UFE" xmi:id="BasicEquipment_FAMHDV_ABT_STATUS2_NRAZgXONEeewuatvcs1m1g_1501243597592" nom_instance="FAMHDV_ABSTRACT2" label="fas abstact" shortname="Handover Status Abstract - Group Stations" scstype="FASHDV">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciFAM-HDVSTATUS_NRAZgnONEeewuatvcs1m1g_1501243597592" nom_instance="dciFAM-HDVSTATUS" label="&amp;dciFAM-HDVSTATUS">
+    <DAL xmi:id="dal_type_dal_NRAZiHONEeewuatvcs1m1g_1501243597592" nom_instance="dal" valueAutomaton="DIBasic3StateTimerLog 10">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_NRAZiXONEeewuatvcs1m1g_1501243597592" label="&amp;dalfam_central" state="N" value="257"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_NRAZinONEeewuatvcs1m1g_1501243597592" label="&amp;dalfam_Master" state="N" value="514"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_NRAZi3ONEeewuatvcs1m1g_1501243597592" label="&amp;dalfam_Satellite" state="N" value="1028"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_NRAZjHONEeewuatvcs1m1g_1501243597592" label="&amp;dal_free" state="N"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_NRAZjXONEeewuatvcs1m1g_1501243597592" label="&amp;dalfam_unknown" severity="2" state="T" value="-1"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_NRAZjnONEeewuatvcs1m1g_1501243597592"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_NRAZj3ONEeewuatvcs1m1g_1501243597592"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_NRAZkHONEeewuatvcs1m1g_1501243597592"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_NRAZkXONEeewuatvcs1m1g_1501243597592"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_NRAZknONEeewuatvcs1m1g_1501243597592"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_NRAZk3ONEeewuatvcs1m1g_1501243597592"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_NRAZlHONEeewuatvcs1m1g_1501243597592"/>
+    </DAL>
+    <DCO xmi:id="dco_type_lxGgkHRQEeewuatvcs1m1g_1501327513881" nom_instance="dco"/>
+    <DFO xmi:id="dfo_type_dfo_NRAZlXONEeewuatvcs1m1g_1501243597592" nom_instance="dfo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciFAM-HDVSTATUS_fhXA0HRQEeewuatvcs1m1g_1501327471965" nom_instance="dciFAM-HDVSTATUSACQ" hmiOrder="-1" label="&amp;dciFAM-HDVSTATUS">
+    <DAC xmi:id="dac_type_dac_fhXA0XRQEeewuatvcs1m1g_1501327471965" nom_instance="dac" nature="1">
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <veTable xmi:id="struct_veTable_dac_type_fhXA0nRQEeewuatvcs1m1g_1501327471965"/>
+      <veTable xmi:id="struct_veTable_dac_type_fhXA03RQEeewuatvcs1m1g_1501327471965"/>
+      <veTable xmi:id="struct_veTable_dac_type_fhXA1HRQEeewuatvcs1m1g_1501327471965"/>
+      <veTable xmi:id="struct_veTable_dac_type_fhXA1XRQEeewuatvcs1m1g_1501327471965"/>
+    </DAC>
+    <DFO xmi:id="dfo_type_dfo_6vTRcHRTEeewuatvcs1m1g_1501328943111" nom_instance="dfo"/>
+  </inputs>
+  <UFES xmi:id="ufes_HOM_4ItgAHXPEeecZaoeVCkJVg_1501492134400" nom_instance="Handover" label="handover management">
+    <UFE xsi:type="UFE:ufe_int" xmi:id="ufe_int_OFiRYHzbEee9mNLYQho_BA_1502266664310" nom_instance="setValue"/>
+  </UFES>
+</Class:BasicEquipment>

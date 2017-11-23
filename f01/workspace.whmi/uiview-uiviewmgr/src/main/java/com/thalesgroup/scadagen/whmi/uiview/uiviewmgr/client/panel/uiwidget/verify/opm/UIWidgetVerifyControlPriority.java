@@ -89,6 +89,27 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 		logger.end(className, function);
 	}
 	
+	private void checkReservationLevel() {
+		final String function = "checkReservationLevel";
+		logger.begin(className, function);
+		
+		String uicpapivalue		= uiGeneric.getWidgetValue("uicpapivalue");
+		String identityvalue	= uiGeneric.getWidgetValue("identityvalue");
+		
+		UIControlPriority_i uiControlPriority_i = UIControlPriorityFactory.getInstance().get(uicpapivalue);
+		
+		uiControlPriority_i.checkReservationLevel(identityvalue, new UIControlPriorityCallback() {
+			
+			@Override
+			public void callBack(String strJson) {
+				int result = ReadJson.readInt(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, -1);
+				uiGeneric.setWidgetValue("resultvalue", Integer.toString(result));
+			}
+		});
+
+		logger.end(className, function);
+	}
+	
 	private void checkReservationAvailability() {
 		final String function = "checkReservationAvailability";
 		logger.begin(className, function);
@@ -123,7 +144,10 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 		} 
 		else if ( 0 == "getCurrentReservationBy".compareToIgnoreCase(element) ) {
 			getCurrentReservationBy();
-		} 
+		}
+		else if ( 0 == "checkReservationLevel".compareToIgnoreCase(element) ) {
+			checkReservationLevel();
+		}
 		else if ( 0 == "checkReservationAvailability".compareToIgnoreCase(element) ) {
 			checkReservationAvailability();
 		}

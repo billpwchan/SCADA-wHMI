@@ -30,7 +30,7 @@ public class InitOpm implements Init_i {
 		
 	}
 	
-	public void initOpmFactory() {
+	public void initFactory() {
 		final String function = "initOpmFactory";
 		logger.begin(className, function);
 		

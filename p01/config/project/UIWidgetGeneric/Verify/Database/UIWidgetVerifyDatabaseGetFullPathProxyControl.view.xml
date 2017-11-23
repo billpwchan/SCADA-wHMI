@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>16</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyDatabaseGetFullPathControl-panel-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>Verify Database GetFullPath Proxy Control Class:</label>
+		<css>project-UIWidgetVerifyDatabaseGetFullPathControl-label-title</css>
+		<element>title</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|1">
+		<widget>Label</widget>
+		<label>Create Database GetFullPath Proxy Control Class:</label>
+		<css>project-UIWidgetVerifyDatabaseGetFullPathControl-label-createlabel</css>
+		<element>createlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|2">
+		<widget>TextBox</widget>
+		<label>DatabaseGetFullPathProxy</label>
+		<css>project-UIWidgetVerifyDatabaseGetFullPathControl-label-createvalue</css>
+		<element>createvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|3">
+		<widget>Button</widget>
+		<label>Create</label>
+		<css>project-UIWidgetVerifyDatabaseGetFullPathControl-button-create</css>
+		<element>create</element>
+		<cssContainer>project-UIWidgetVerifyDatabaseGetFullPathControl-container-create</cssContainer>
+		<tooltip>create</tooltip>
+	</option>
+	
+	<option key="0|4">
+		<widget>Button</widget>
+		<label>Connect</label>
+		<css>project-UIWidgetVerifyDatabaseGetFullPathControl-button-connect</css>
+		<element>connect</element>
+		<cssContainer>project-UIWidgetVerifyDatabaseGetFullPathControl-container-connect</cssContainer>
+		<tooltip>connect</tooltip>
+	</option>
+	
+	<option key="0|5">
+		<widget>Button</widget>
+		<label>Disconnect</label>
+		<css>project-UIWidgetVerifyDatabaseGetFullPathControl-button-disconnect</css>
+		<element>disconnect</element>
+		<cssContainer>project-UIWidgetVerifyDatabaseGetFullPathControl-container-disconnect</cssContainer>
+		<tooltip>disconnect</tooltip>
+	</option>
+	
+	<!-- GetFullPath -->
+	
+	<option key="0|6">
+		<widget>Label</widget>
+		<label>GetFullPath Proxy Test Case:</label>
+		<css>project-UIWidgetVerifyDatabaseGetFullPathControl-label-getfullpath_label</css>
+		<element>getfullpath_label</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|7">
+		<widget>Label</widget>
+		<label>key:</label>
+		<css>project-UIWidgetVerifyDatabaseGetFullPathControl-label-getfullpath_keylabel</css>
+		<element>getfullpath_keylabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|8">
+		<widget>TextBox</widget>
+		<label>getfullpathproxykey</label>
+		<css>project-UIWidgetVerifyDatabaseGetFullPathControl-label-getfullpath_keyvalue</css>
+		<element>getfullpath_keyvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|9">
+		<widget>Label</widget>
+		<label>scsenvid:</label>
+		<css>project-UIWidgetVerifyDatabaseGetFullPathControl-label-getfullpath_scsenvidlabel</css>
+		<element>getfullpath_scsenvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|10">
+		<widget>TextBox</widget>
+		<label>M100CONN</label>
+		<css>project-UIWidgetVerifyDatabaseGetFullPathControl-label-getfullpath_scsenvidvalue</css>
+		<element>getfullpath_scsenvidvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|11">
+		<widget>Label</widget>
+		<label>address:</label>
+		<css>project-UIWidgetVerifyDatabaseGetFullPathControl-label-getfullpath_addresslabel</css>
+		<element>getfullpath_addresslabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|12">
+		<widget>TextBox</widget>
+		<label>&lt;alias&gt;TUNM000001ECTTES_0001</label>
+		<css>project-UIWidgetVerifyDatabaseGetFullPathControl-label-getfullpath_addressvalue</css>
+		<element>getfullpath_addressvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+
+	<option key="0|13">
+		<widget>Button</widget>
+		<label>GetFullPath</label>
+		<css>project-UIWidgetVerifyDatabaseGetFullPathControl-button-getfullpath</css>
+		<element>getfullpath</element>
+		<cssContainer>project-UIWidgetVerifyDatabaseGetFullPathControl-container-getfullpath</cssContainer>
+		<tooltip>getfullpath</tooltip>
+	</option>
+	
+	<option key="0|14">
+		<widget>Label</widget>
+		<label>Get Full Path Result:</label>
+		<css>project-UIWidgetVerifyDatabaseGetFullPathControl-label-getfullpath_resultlabel</css>
+		<element>getfullpath_resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|15">
+		<widget>TextArea</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyDatabaseGetFullPathControl-label-getfullpath_resultvalue</css>
+		<element>getfullpath_resultvalue</element>
+		<format></format>
+		<media></media>
+		<characterwidth>20</characterwidth>
+		<visiblelines>5</visiblelines>
+	</option>
+
+	
+</data-set>

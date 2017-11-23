@@ -1,0 +1,2 @@
+path,filePattern,excludeFilePattern
+symbols\,*_animation.xml,"*ActiveText*,*ActiveBackdrop*,*ActiveNumber*"

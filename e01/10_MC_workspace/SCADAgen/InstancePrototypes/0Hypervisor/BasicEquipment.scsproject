@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="4">
-  <ownedPrototype id="BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003">
-    <ownedAttributes frozen="true" name="functionalCat" partialUri="BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003"/>
-    <parentPrototypes>BasicEquipment_Copy_of_HvEquipment_k41VcDIEEeantp1Jjt3Gdw_1465890591815</parentPrototypes>
-  </ownedPrototype>
-</scsproject:Project>

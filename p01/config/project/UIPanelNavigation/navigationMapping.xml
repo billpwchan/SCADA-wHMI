@@ -175,19 +175,9 @@
 	<option key="OCC|Utilities|OPM"><setting>104</setting></option>
 	<option key="LMC|MCS|PTW Summary(DpcTag)"><setting>105</setting></option>
 
-	<option key="LMC|MCS|Change Password Summary"><setting>107</setting></option>
-	<option key="LMC|MCS|Change Target User Password Summary"><setting>108</setting></option>
 	<option key="LMC|MCS|Login Summary"><setting>109</setting></option>
 	<option key="LMC|MCS|Soc Summary"><setting>110</setting></option>
-	<option key="LMC|MCS|Database Verify Summary"><setting>111</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|MultiReading"><setting>112</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|GetChilden"><setting>113</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|Subscription"><setting>114</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|Polling"><setting>115</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|GroupPolling"><setting>116</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|GroupPollingDiff"><setting>117</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|GroupPollingDiffSingleton"><setting>118</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|Writing"><setting>119</setting></option>
+	
 	<option key="LMC|MCS|Central Station"><setting>120</setting></option>
 	<option key="LMC|MCS|Central Station|HDV Summary"><setting>121</setting></option>
 	<option key="LMC|MCS|Central Station|HDV Summary (Station)"><setting>122</setting></option>
@@ -196,9 +186,7 @@
 	
 	<option key="LMC|MCS|JSON Verify Summary"><setting>130</setting></option>
 	<option key="LMC|MCS|JSON Verify Summary|JSON Read"><setting>131</setting></option>
-	
-	<option key="LMC|MCS|OPM Verify"><setting>132</setting></option>
-	<option key="LMC|MCS|OPM Verify Summary|OPM Summary"><setting>133</setting></option>
+
 
 	<option key="LMC|MCS|Central Station|HDV Matrix Summary"><setting>134</setting></option>
 	<option key="LMC|MCS|Central Station|HDV Matrix Summary (Station)"><setting>135</setting></option>
@@ -230,13 +218,7 @@
 	<option key="LMC|MCS|Verify Translation Summary"><setting>176</setting></option>
 	
 	<option key="LMC|Verify ScsRTDBComponent Summary"><setting>180</setting></option>
-	<option key="LMC|Verify ScsRTDBComponent Summary|writeValueRequest"><setting>181</setting></option>
-	<!--
-	<option key="LMC|Verify ScsRTDBComponent Summary|writeStringValueRequest"><setting>182</setting></option>
-	<option key="LMC|Verify ScsRTDBComponent Summary|writeFloatValueRequest"><setting>183</setting></option>
-	<option key="LMC|Verify ScsRTDBComponent Summary|writeIntValueRequest"><setting>184</setting></option>
-	<option key="LMC|Verify ScsRTDBComponent Summary|writeDateValueRequest"><setting>185</setting></option>
-	-->
+	<option key="LMC|Verify ScsRTDBComponent Summary|Verify Write Summary"><setting>181</setting></option>
 	
 	<option key="LMC|MCS|Simultaneous Login Summary"><setting>185</setting></option>
 	<option key="LMC|MCS|Auto Logout"><setting>186</setting></option>
@@ -248,9 +230,54 @@
 	
 	<option key="LMC|Verify ControlPriority"><setting>191</setting></option>
 	<option key="LMC|Verify ControlPriority|Request Reservation"><setting>192</setting></option>
-	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_RequestReservation.view.xml"><setting>193</setting></option>
-	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_WithdrawReservation.view.xml"><setting>194</setting></option>
-	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_GetCurrentReservationBy.view.xml"><setting>195</setting></option>
-	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationAvailability.view.xml"><setting>196</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_RequestReservation"><setting>193</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_WithdrawReservation"><setting>194</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_GetCurrentReservationBy"><setting>195</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationLevel"><setting>196</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationAvailability"><setting>197</setting></option>
+	
+	<option key="LMC|MCS|OPM Verify"><setting>200</setting></option>
+	<option key="LMC|MCS|OPM Verify|OPM Summary"><setting>201</setting></option>
+	<option key="LMC|MCS|OPM Verify|Change Password Summary"><setting>202</setting></option>
+	<option key="LMC|MCS|OPM Verify|Change Target User Password Summary"><setting>203</setting></option>
+	
+	<option key="LMC|Verify Menu Append"><setting>220</setting></option>
+	<option key="LMC|Verify Menu Append - Second"><setting>221</setting></option>
+	<option key="LMC|Verify Menu Append|Item 1"><setting>222</setting></option>
+	<option key="LMC|Verify Menu Append - Second|Item 2"><setting>223</setting></option>
+	
+	<option key="LMC|MCS|Database Verify Summary"><setting>230</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|MultiReading"><setting>231</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GetFullPath"><setting>232</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GetChilden"><setting>233</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|Subscription"><setting>234</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|Polling"><setting>235</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GroupPolling"><setting>236</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GroupPollingDiff"><setting>237</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GroupPollingDiffSingleton"><setting>238</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|Writing"><setting>239</setting></option>
+	
+	<option key="M100"><setting>300</setting></option>
+	<option key="M100|ECT"><setting>301</setting></option>
+	<option key="M100|ECT|Central Overview"><setting>302</setting></option>
+	<option key="M100|HV_"><setting>303</setting></option>
+	<option key="M100|HV_|Central Overview"><setting>304</setting></option>	
+	
+	<option key="M001"><setting>320</setting></option>
+	<option key="M001|ECT"><setting>321</setting></option>
+	<option key="M001|ECT|Station Overview"><setting>322</setting></option>
+	<option key="M001|HV_"><setting>323</setting></option>
+	<option key="M001|HV_|Station Overview"><setting>324</setting></option>
+	
+	<option key="Verify"><setting>400</setting></option>
+	<option key="Verify|Status Computer"><setting>401</setting></option>
+	<option key="Verify|Status Computer|Int2IntCompare"><setting>411</setting></option>
+	<option key="Verify|Status Computer|Int2IntMapping"><setting>412</setting></option>
+	<option key="Verify|Status Computer|IntFormatting"><setting>413</setting></option>
+	<option key="Verify|Status Computer|IntMapping"><setting>414</setting></option>
+	<option key="Verify|Status Computer|NeedAck"><setting>415</setting></option>
+	
+	<!-- Keep it as Default Page for not found -->
+	<option key="MenuNotFound"><setting>-1</setting></option>
 	
 </data-set>

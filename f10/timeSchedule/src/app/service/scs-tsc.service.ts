@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
+import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
@@ -8,26 +7,20 @@ import { ConfigService } from './config.service';
 import { ScsTscDef } from './scs-tsc-def';
 @Injectable()
 export class ScsTscService {
-    private static headers = new Headers({
-        'Content-Type': 'application/json;charset=UTF-8'
-    });
     private urlScsTsc = this.configService.config.getIn(['scs_tsc_url']);
     constructor(
         private http: Http,
         private configService: ConfigService
     ) { }
     public getDescFilterEnable(taskNames: string[]): Observable<any> {
-        return Observable.forkJoin(this.getDescFilterEnableObservables(taskNames)).map((data: any[]) => data );
-    }
-    private getDescFilterEnableObservables(taskNames: string []): Array<Observable<string>> {
-        console.log('{ScsTscService}', '[getDescFilterEnableObservables]', taskNames);
-        const obs: Array<Observable<string>> = new Array<Observable<string>>() ;
-        for (const taskname of taskNames) {
-            obs.push(this.http.get(this.urlScsTsc + ScsTscDef.GET_DESCRIPTION + this.getEncodedURIComponent(taskname)).map(this.extractDescription));
-            obs.push(this.http.get(this.urlScsTsc + ScsTscDef.GET_FILTER + this.getEncodedURIComponent(taskname)).map(this.extractFilter));
-            obs.push(this.http.get(this.urlScsTsc + ScsTscDef.IS_ENABLED + this.getEncodedURIComponent(taskname)).map(this.extractEnableFlag));
-        }
-        return obs;
+        return Observable.from(taskNames).concatMap( (taskName) => {
+            return this.http.get(this.urlScsTsc + ScsTscDef.GET_DESCRIPTION + this.getEncodedURIComponent(taskName))
+                .concat(this.http.get(this.urlScsTsc + ScsTscDef.GET_FILTER + this.getEncodedURIComponent(taskName)))
+                .concat(this.http.get(this.urlScsTsc + ScsTscDef.IS_ENABLED + this.getEncodedURIComponent(taskName)))
+                .map((res: any) => {
+                    res.json()
+                })
+            });
     }
     private extractEnableFlag(res: Response) {
     //    console.log('{ScsTscService}', '[extractEnableFlag]', res);
@@ -64,9 +57,9 @@ export class ScsTscService {
         return this.http.get(url).map(this.extractDescription).catch(this.handleError);
     }
     private extractDescription(res: Response) {
-    //    console.log('{ScsTscService}', '[extractTaskDescription]', res);
+    //    console.log('{ScsTscService}', '[extractDescription]', res);
         const jsonObj = res.json();
-        console.log('{ScsTscService}', '[extractTaskDescription]', jsonObj.response.description);
+        console.log('{ScsTscService}', '[extractDescription]', jsonObj.response.description);
         return jsonObj.response.description || {};
     }
     //
@@ -120,6 +113,13 @@ export class ScsTscService {
             this.getEncodedURIComponent(filter) + ScsTscDef.CLIENT_PARAM + this.getEncodedURIComponent(clientName);
         console.log('{ScsTscService}', '[setFilter]', 'taskName=', taskName, ' filter=', filter, 'url=', url);
         return this.http.get(url).map(res => res.json()).catch(this.handleError);
+    }
+    //
+    // getEnableFlag
+    //
+    public getEnableFlag(taskName: string): Observable<string> {
+        const url = this.urlScsTsc + ScsTscDef.IS_ENABLED + this.getEncodedURIComponent(taskName);
+        return this.http.get(url).map(this.extractEnableFlag).catch(this.handleError);
     }
     //
     // setEnableFlag

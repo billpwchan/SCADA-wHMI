@@ -1,0 +1,14 @@
+// Animator Version: ANIMATOR2007 4.10.0
+// File generated: 31/05/2016 14:40:23
+// Model: ECT/SCADAgen_ECT_TTVF_Down
+
+Version = "41000"
+
+ActiveSymbol
+{
+  Symbols =
+  {
+    "ECT/ECT_Static_TTVF_Down"
+  }
+  Default Symbol = 0
+}

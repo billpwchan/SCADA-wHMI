@@ -7,7 +7,7 @@
         
     </div>
     <div id="schedule-table-body">
-        <div class="row" id="schedule-cutoff-time">
+        <div *ngIf="displayCutoffTime" class="row" id="schedule-cutoff-time">
             <label class="col-md-2 label label-default" id="label-schedule-cutoff-time">{{'Schedule cutoff time:' | translate}}</label>
             <input class="col-md-1 input" id="cutoff-time-input" readonly [ngModel]="cutoffTime" type="text">
         </div>
@@ -16,7 +16,7 @@
                 <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>{{'Refresh' | translate}}
             </button>
         </div>
-        <div class="row" id="running-schedules">
+        <div *ngIf="displayRunningSchedules" class="row" id="running-schedules">
             <label class="col-md-4 label label-warning" id="running-schedules-label">{{'Running Schedules' | translate}}</label>
             <input class="col-md-6 input" id="running-schedules-input" readonly [ngModel]="runningSchedulesStr" type="text">
         </div>
@@ -82,67 +82,76 @@
         </div>
 
         <div class="panel panel-body">
-            <ngx-datatable
+            <ngx-datatable #scheduleTable
                 class="material striped"
                 [rows]="scheduleItems"
                 [columnMode]="'force'"
                 [headerHeight]="50"
                 [footerHeight]="50"
-                [rowHeight]="'auto'"
-                [limit]="5"
+                [limit]="pageSize"
                 [selected]="selectedRow"
                 [selectionType]="'single'"
                 [messages]="messages"
-                [sorts]="sortingColumn"
+                [sorts]="defaultSorts"
                 (activate)="onActivate($event)"
-                (select)='onSelect($event)'>
+                (select)='onSelect($event)'
+                (page)='onPage($event)'
+                (sort)='onSort($event)'>
+                <!--<ngx-datatable-column name="Location" [sortable]='true'>
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'Index' }}</span>
+                    </ng-template>
+                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                        <strong>{{ scheduleItems.indexOf(row) }}</strong>
+                    </ng-template>
+                </ngx-datatable-column>-->
                 <ngx-datatable-column prop="geoCat" name="Location" [sortable]='true'>
-                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-                    <span (click)="sort()">{{ 'Location' | translate }}</span>
-                </ng-template>
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <strong>{{ geocatTranslationPrefix + value | translate }}</strong>
-                </ng-template>
+                    <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                        <span (click)="sort()">{{ 'Location' | translate }}</span>
+                    </ng-template>
+                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                        <strong>{{ geocatTranslationPrefix + value | translate }}</strong>
+                    </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column prop="funcCat" name="System" [sortable]='true'>
-                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-                    <span (click)="sort()">{{ 'System' | translate }}</span>
-                </ng-template>
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <strong>{{ funcatTranslationPrefix + value | translate }}</strong>
-                </ng-template>
+                    <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                        <span (click)="sort()">{{ 'System' | translate }}</span>
+                    </ng-template>
+                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                        <strong>{{ funcatTranslationPrefix + value | translate }}</strong>
+                    </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column prop="eqtLabel" name="Equipment Label" [sortable]='true'>
-                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-                    <span (click)="sort()">{{ 'Equipment Label' | translate }}</span>
-                </ng-template>
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <strong>{{ value | translate }}</strong>
-                </ng-template>
+                <ngx-datatable-column prop="eqtLabel" name="Equipment Label" [sortable]='false'>
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'Equipment Label' | translate }}</span>
+                    </ng-template>
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        <strong>{{ value | translate }}</strong>
+                    </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column prop="eqtDescription" name="Equipment Description" [sortable]='true'>
-                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-                    <span (click)="sort()">{{ 'Equipment Description' | translate }}</span>
-                </ng-template>
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <strong>{{ value | translate }}</strong>
-                </ng-template>
+                <ngx-datatable-column prop="eqtDescription" name="Equipment Description" [sortable]='false'>
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'Equipment Description' | translate }}</span>
+                    </ng-template>
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        <strong>{{ value | translate }}</strong>
+                    </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column prop="onTimeDisplay" name="On Time" [sortable]='true'>
-                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-                    <span (click)="sort()">{{ 'On Time' | translate }}</span>
-                </ng-template>
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <strong>{{ value }}</strong>
-                </ng-template>
+                <ngx-datatable-column prop="onTimeDisplay" name="On Time" [sortable]='false'>
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'On Time' | translate }}</span>
+                    </ng-template>
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        <strong>{{ value }}</strong>
+                    </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column prop="offTimeDisplay" name="Off Time" [sortable]='true'>
-                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-                    <span (click)="sort()">{{ 'Off Time' | translate }}</span>
-                </ng-template>
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <strong>{{ value }}</strong>
-                </ng-template>
+                <ngx-datatable-column prop="offTimeDisplay" name="Off Time" [sortable]='false'>
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span>{{ 'Off Time' | translate }}</span>
+                    </ng-template>
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        <strong>{{ value }}</strong>
+                    </ng-template>
                 </ngx-datatable-column>
             </ngx-datatable>
         </div>

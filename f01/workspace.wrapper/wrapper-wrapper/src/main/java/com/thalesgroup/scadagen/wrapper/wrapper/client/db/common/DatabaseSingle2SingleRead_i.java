@@ -16,6 +16,6 @@ public interface DatabaseSingle2SingleRead_i extends Connectable_i {
 	 * @param dbAddress     DBAddress for the target RTDB Address
 	 * @param databaseEvent Callback for result
 	 */
-	void addRequest(String key, String scsEnvId, String dbAddress, DatabaseReadSingle2SingleResult_i databaseEvent);
+	void addSingle2SingleRequest(String key, String scsEnvId, String dbAddress, DatabaseReadSingle2SingleResult_i databaseEvent);
 	
 }

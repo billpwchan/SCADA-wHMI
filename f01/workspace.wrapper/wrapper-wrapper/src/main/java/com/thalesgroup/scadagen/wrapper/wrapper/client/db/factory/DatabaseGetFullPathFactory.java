@@ -6,6 +6,8 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingle2SingleRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.DatabaseGetFullPath;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.DatabaseGetFullPathSingleton;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.cache.DatabaseGetFullPathProxy;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.cache.DatabaseGetFullPathProxySingleton;
 
 /**
  * Database Get Children Class Factory
@@ -35,6 +37,8 @@ public class DatabaseGetFullPathFactory {
 			
 			String strDatabaseGetFullPath				= UIWidgetUtil.getClassSimpleName(DatabaseGetFullPath.class.getName());
 			String strDatabaseGetFullPathSingleton		= UIWidgetUtil.getClassSimpleName(DatabaseGetFullPathSingleton.class.getName());
+			String strDatabaseGetFullPathProxy			= UIWidgetUtil.getClassSimpleName(DatabaseGetFullPathProxy.class.getName());
+			String strDatabaseGetFullPathProxySingleton	= UIWidgetUtil.getClassSimpleName(DatabaseGetFullPathProxySingleton.class.getName());
 			
 			if ( 0 == key.compareTo(strDatabaseGetFullPath) ) {
 				databaseGetFullPath_i = new DatabaseGetFullPath();
@@ -42,6 +46,13 @@ public class DatabaseGetFullPathFactory {
 			else if ( 0 == key.compareTo(strDatabaseGetFullPathSingleton) ) {
 				databaseGetFullPath_i = DatabaseGetFullPathSingleton.getInstance();
 			}
+			else if ( 0 == key.compareTo(strDatabaseGetFullPathProxy) ) {
+				databaseGetFullPath_i = new DatabaseGetFullPathProxy();
+			}
+			else if ( 0 == key.compareTo(strDatabaseGetFullPathProxySingleton) ) {
+				databaseGetFullPath_i = DatabaseGetFullPathProxySingleton.getInstance();
+			}
+			
 		}
 		logger.end(className, function);
 		return databaseGetFullPath_i;

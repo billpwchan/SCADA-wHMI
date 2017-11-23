@@ -30,7 +30,7 @@ public class InitControlPriority implements Init_i {
 		
 	}
 	
-	public void initControlPriorityFactory() {
+	public void initFactory() {
 		final String function = "initControlPriorityFactory";
 		logger.begin(className, function);
 		

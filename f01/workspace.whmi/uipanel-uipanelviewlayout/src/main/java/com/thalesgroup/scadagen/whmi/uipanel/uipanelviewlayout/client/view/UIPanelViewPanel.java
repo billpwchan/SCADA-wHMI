@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -11,11 +12,13 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch_i.UITaskLaunchAttribute;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.UIViewMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
 
 public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i {
 	
@@ -58,58 +61,70 @@ public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i
 			if ( taskProvide instanceof UITaskLaunch ) {
 				
 				if ( null != uiWidget_i ) {
+					logger.debug(className, function, "uiWidget_i.terminate");
 					uiWidget_i.terminate();
 					uiWidget_i = null;
+					logger.debug(className, function, "root.clear");
 					this.rootPanel.clear();
 				}
 				
+				this.equipmenpLabel.setText("Panel: ---- ");
+				
 				UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
 				
-				String uiPanel = taskLaunch.getUiPanel();
-				String uiView = taskLaunch.getUiView();
+				String uiConf = taskLaunch.getUiConf();
+				logger.debug(className, function, "uiConf[{}]", uiConf);
+				
+				String uiCtrl = null;
+				String uiView = null;
 				String uiOpts = null;
 				String uiElem = null;
 				String uiDict = null;
+				
+				if ( null != uiConf && uiConf.trim().length() > 0 ) {
+					Map<String, String> confs = Util.getParameters(uiConf);
+					uiCtrl	= confs.get(UITaskLaunchAttribute.UICtrl.toString());
+					uiView	= confs.get(UITaskLaunchAttribute.UIView.toString());
+					uiOpts	= confs.get(UITaskLaunchAttribute.UIOpts.toString());
+					uiElem	= confs.get(UITaskLaunchAttribute.UIElem.toString());
+					uiDict	= confs.get(UITaskLaunchAttribute.UIDict.toString());
+				} else {
+					logger.debug(className, function, "uiConf IS NULL");
+					
+					uiCtrl	= taskLaunch.getUiCtrl();
+					uiView	= taskLaunch.getUiView();
+					uiOpts	= taskLaunch.getUiOpts();
+					uiElem	= taskLaunch.getUiElem();
+					uiDict	= taskLaunch.getUiDict();
+				}
+				logger.debug(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiElem[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiElem});
+				
+				Map<String, Object> options = new HashMap<String, Object>();
 
-				logger.info(className, function, "uiPanel[{}] uiView[{}] uiOpts[{}] uiElem[{}]", new Object[]{uiPanel, uiView, uiOpts, uiElem});
-				
-				HashMap<String, Object> options = new HashMap<String, Object>();
-				
-				this.equipmenpLabel.setText("Panel: ---- ");
-				
-				logger.info(className, function, "root clear()");
-				
-				UIViewMgr viewFactoryMgr = UIViewMgr.getInstance();
-				
-				uiWidget_i = viewFactoryMgr.getUIWidget(uiPanel, uiView, uiNameCard, uiOpts, uiElem, uiDict, options);
+				UIWidgetMgrFactory factory = UIWidgetMgr.getInstance();
+				uiWidget_i = factory.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, uiElem, uiDict, options);
 				
 				if ( null != uiWidget_i ) {
-					
-					logger.info(className, function, "root.clear");
-
-					logger.info(className, function, "uiViewProvide.getMainPanel[{}]", uiNameCard.getUiPath());
+					logger.debug(className, function, "uiViewProvide.getMainPanel[{}]", uiNameCard.getUiPath());
 				
 					Panel panel = uiWidget_i.getMainPanel();
-					
-					logger.info(className, function, "root.add");
+					logger.debug(className, function, "root.add");
 				
 					this.rootPanel.add(panel);					
 				
 				} else {
-					
-					logger.info(className, function, "taskLaunch.getUiPanel()[{}] can't NOT FOUND!", taskLaunch.getUiPanel());
+					logger.debug(className, function, "uiCtrl[{}] can't NOT FOUND!", uiCtrl);
 					
 					String header = taskLaunch.getHeader();
-					
-					logger.info(className, function, "taskLaunch.getHeader()[{}]", header);
+					logger.debug(className, function, "taskLaunch.getHeader()[{}]", header);
 				
 					this.equipmenpLabel.setText("Panel: "+header);					
 				}
 			} else {
-				logger.info(className, function, "taskProvide is not TaskLaunch");
+				logger.warn(className, function, "taskProvide is not TaskLaunch");
 			}
 		} else {
-			logger.info(className, function, "taskProvide is null");
+			logger.warn(className, function, "taskProvide is null");
 		}
 		
 		logger.end(className, function);

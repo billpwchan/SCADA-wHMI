@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_CraWMJN-EeeBsejFH_1odg" prototypeRefId="SGEQPT8_SGEQPT8_xo3goFXDEee4As-TYSGT9g_1497968499626" name="SCADAGEN_UTC_M100_SC_NeedAck" defaultAspect="_oSB8wJN_EeeBsejFH_1odg" category="_CraWNJN-EeeBsejFH_1odg">
+    <aspectPackage xmi:id="_CraWMZN-EeeBsejFH_1odg" name="Aspect Container">
+      <ownedAspect xmi:id="_oSB8wJN_EeeBsejFH_1odg" name="NeedAck_Negative">
+        <ownedDecoratedSymbol xmi:id="_xvNhgJOCEeeBsejFH_1odg" x="56.0" y="53.0" width="87.0" height="93.0" ratio_width="1.0" ratio_height="1.0" symbol="_xvNhgZOCEeeBsejFH_1odg"/>
+        <condition xmi:id="_3EYWwJN_EeeBsejFH_1odg" value="-1" attribute="_7qUnIJN_EeeBsejFH_1odg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_xkj4EJN_EeeBsejFH_1odg" name="NeedAck_Zero">
+        <ownedDecoratedSymbol xmi:id="_OXzvEJOCEeeBsejFH_1odg" x="61.0" y="-4.0" width="76.0" height="208.0" ratio_width="1.0" ratio_height="1.0" symbol="_OXzvEZOCEeeBsejFH_1odg"/>
+        <condition xmi:id="_3SdPAJN_EeeBsejFH_1odg" value="0" attribute="_7qUnIJN_EeeBsejFH_1odg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_zazA8JN_EeeBsejFH_1odg" name="NeedAck_Positive">
+        <ownedDecoratedSymbol xmi:id="_OHT08JOCEeeBsejFH_1odg" x="61.0" y="-4.0" width="76.0" height="208.0" ratio_width="1.0" ratio_height="1.0" symbol="_OHW4QJOCEeeBsejFH_1odg"/>
+        <condition xmi:id="_3fwEIJN_EeeBsejFH_1odg" value="1" attribute="_7qUnIJN_EeeBsejFH_1odg"/>
+      </ownedAspect>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_7qUnIJN_EeeBsejFH_1odg" id="NeedAck" condition="_3EYWwJN_EeeBsejFH_1odg _3SdPAJN_EeeBsejFH_1odg _3fwEIJN_EeeBsejFH_1odg" qualifiedName="NeedAck" outputType="INT"/>
+    </aspectPackage>
+    <symbolLibrary xmi:id="_CraWMpN-EeeBsejFH_1odg">
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_OHW4QJOCEeeBsejFH_1odg" filePath="Symbols/SC_/NUM_ONE.svg" id="_SCADAGEN_SYMBOLS_SC__NUM_ONE_SVG" width="76.0" height="208.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_OXzvEZOCEeeBsejFH_1odg" filePath="Symbols/SC_/NUM_ZERO.svg" id="_SCADAGEN_SYMBOLS_SC__NUM_ZERO_SVG" width="76.0" height="208.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_xvNhgZOCEeeBsejFH_1odg" filePath="Symbols/SC_/NUM_NEGATIVE_ONE.svg" id="SC_/NUM_NEGATIVE_ONE" width="87.0" height="93.0"/>
+    </symbolLibrary>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_CraWM5N-EeeBsejFH_1odg">
+    <ownedCategories xmi:id="_CraWNJN-EeeBsejFH_1odg" name="Functional"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

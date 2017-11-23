@@ -1,0 +1,20 @@
+// Animator Version: ANIMATOR 2015 5.3.1
+// File generated: 24/08/2017 16:06:56 PM
+// Model: ECT/SCADAgen_ECT_TTVF_ActiveText
+
+Version = "50301"
+
+ActiveText
+{
+  Font = "Arial/40"
+  Colors =
+  {
+    "SCADAgen_foreground"
+  }
+  Default Color = 0
+  Count = 10
+  Text = "XXXXXXXX"
+  Alignment = Center
+  Property "AccessorList" { AnListProperty  1
+ScsAccessor ActiveText  Text  "Animator/ECT/KTE_ECT_EMOD.fml-Text"  5 }
+}

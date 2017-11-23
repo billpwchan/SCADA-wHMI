@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>2</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-UILayoutVerifyDatabaseSummary-root</rootCSS>
+	</header>
+	<!--
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyDatabaseWritingControl</uiCtrl>
+		<uiView>Verify/Database/UIWidgetVerifyDatabaseWritingControl.view.xml</uiView>
+		<uiOpts>Verify/Database/UIWidgetVerifyDatabaseWritingControl.opts.xml</uiOpts>
+		<element>UIWidgetVerifyDatabaseWritingControl</element>
+	</option>
+	-->
+	<!--
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyDatabaseMultiReadingControl</uiCtrl>
+		<uiView>Verify/Database/UIWidgetVerifyDatabaseMultiReadingControl.view.xml</uiView>
+		<uiOpts>Verify/Database/UIWidgetVerifyDatabaseMultiReadingControl.opts.xml</uiOpts>
+		<element>UIWidgetVerifyDatabaseMultiReadingControl</element>
+	</option>
+	-->
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyDatabaseMultiReadingControl</uiCtrl>
+		<uiView>Verify/Database/UIWidgetVerifyDatabaseMultiReadingProxyControl.view.xml</uiView>
+		<uiOpts>Verify/Database/UIWidgetVerifyDatabaseMultiReadingProxyControl.opts.xml</uiOpts>
+		<element>UIWidgetVerifyDatabaseMultiReadingControl</element>
+	</option>
+	<option key="0|1">
+		<uiCtrl>UIWidgetVerifyDatabaseGetChildrenControl</uiCtrl>
+		<uiView>Verify/Database/UIWidgetVerifyDatabaseGetChildrenProxyControl.view.xml</uiView>
+		<uiOpts>Verify/Database/UIWidgetVerifyDatabaseGetChildrenProxyControl.opts.xml</uiOpts>
+		<element>UIWidgetVerifyDatabaseGetChildrenProxyControl</element>
+	</option>
+	<!--
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyDatabasePollingControl</uiCtrl>
+		<uiView>Verify/Database/UIWidgetVerifyDatabasePollingControl.view.xml</uiView>
+		<uiOpts>Verify/Database/UIWidgetVerifyDatabasePollingControl.opts.xml</uiOpts>
+		<element>UIWidgetVerifyDatabasePollingControl</element>
+	</option>
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyDatabaseGroupPollingControl</uiCtrl>
+		<uiView>Verify/Database/UIWidgetVerifyDatabaseGroupPollingControl.view.xml</uiView>
+		<uiOpts>Verify/Database/UIWidgetVerifyDatabaseGroupPollingControl.opts.xml</uiOpts>
+		<element>UIWidgetVerifyDatabaseGroupPollingControl</element>
+	</option>
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyDatabaseGroupPollingDiffControl</uiCtrl>
+		<uiView>Verify/Database/UIWidgetVerifyDatabaseGroupPollingDiffControl.view.xml</uiView>
+		<uiOpts>Verify/Database/UIWidgetVerifyDatabaseGroupPollingDiffControl.opts.xml</uiOpts>
+		<element>UIWidgetVerifyDatabaseGroupPollingDiffControl</element>
+	</option>
+
+	<option key="0|1">
+		<uiCtrl>UIWidgetVerifyDatabaseSubscriptionControl</uiCtrl>
+		<uiView>Verify/Database/UIWidgetVerifyDatabaseSubscriptionControl.view.xml</uiView>
+		<uiOpts>Verify/Database/UIWidgetVerifyDatabaseSubscriptionControl.opts.xml</uiOpts>
+		<element>UIWidgetVerifyDatabaseSubscriptionControl</element>
+	</option>
+	-->	
+</data-set>

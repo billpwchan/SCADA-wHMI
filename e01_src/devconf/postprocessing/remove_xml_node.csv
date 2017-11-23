@@ -1,0 +1,3 @@
+path,filePattern,excludeFilePattern,attributeName,attributeValue,removeParentLevel
+symbols\,*_animation.xml,"*ActiveText*,*ActiveBackdrop*,*ActiveNumber*",nodeId,SymbolHighlight_node,1
+symbols\,*_graphic.xml,"*ActiveText*,*ActiveBackdrop*,*ActiveNumber*",id,SymbolHighlight_node,1

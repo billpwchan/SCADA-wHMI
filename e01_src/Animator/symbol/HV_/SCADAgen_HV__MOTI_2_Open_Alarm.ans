@@ -1,0 +1,13 @@
+// Animator Version: ANIMATOR2007 4.10.0
+// File generated: 15/06/2017 17:40:28
+// Model: HV_/SCADAgen_HV__MOTI_2_Open_Alarm
+
+Version = "41000"
+
+Symbol
+{
+  Polygon {
+    Points = { (-55, -55), (54, -55), (54, 54), (-55, 54), (-55, -55)    }
+    Palette = { "background","SVG_COL052","Arial/14","solid","solid",2,-1,-1,-1 }
+  }
+}

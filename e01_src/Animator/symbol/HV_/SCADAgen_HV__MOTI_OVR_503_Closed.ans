@@ -1,0 +1,14 @@
+// Animator Version: ANIMATOR2007 4.10.0
+// File generated: 03/03/2017 14:28:25
+// Model: HV_/New folder/Isolator/SCADAgen_HV__ISO__503_Closed
+
+Version = "41000"
+
+Symbol
+{
+  Polygon {
+    Points = { (-55, -55), (54, -55), (54, 54), (-55, 54), (-55, -55)    }
+    Filled = True
+    Palette = { "background","SVG_COL053","Arial/14","solid","solid",0,-1,-1,-1 }
+  }
+}

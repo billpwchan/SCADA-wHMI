@@ -1,0 +1,7 @@
+/shp/
+/images/
+/sample/
+/svgSymbol/
+*.pyc
+*.pyo
+import*.log

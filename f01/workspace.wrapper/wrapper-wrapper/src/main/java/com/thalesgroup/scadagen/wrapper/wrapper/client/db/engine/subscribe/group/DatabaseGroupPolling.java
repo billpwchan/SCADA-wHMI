@@ -11,7 +11,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.MultiPairResponsible_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.Multi2MultiResponsible_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.DatabasePolling;
 
 /**
@@ -20,7 +20,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.Datab
  * @author syau
  *
  */
-public class DatabaseGroupPolling implements DatabaseSubscribe_i, MultiPairResponsible_i {
+public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiResponsible_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseGroupPolling.class.getName());
 	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);

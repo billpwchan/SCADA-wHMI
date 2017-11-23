@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="12">
+  <ownedPrototype id="BasicEquipment_TES__TOUL0II7EeeDru6gupombA_1502857686285">
+    <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_TES__TOUL0II7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="label" partialUri="ACI_TYPE_aciINF-IncCur_TOUL0YI7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="ACI_TYPE_aciINF-IncCur_TOUL0YI7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="Unit" partialUri="ACI_TYPE_aciINF-IncCur_TOUL0YI7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_TOUL3oI7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciINF-GasPFault1_TOUL2II7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciINF-GasPFault1_TOUL2II7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="hvqname" partialUri="BasicEquipment_TES__TOUL0II7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_TOUL8oI7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciINF-GasPFault2_TOUL7II7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciINF-GasPFault2_TOUL7II7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_TOUMBoI7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciINF-PilotWS_TOUMAII7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciINF-PilotWS_TOUMAII7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_TOUMGoI7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciINF-PilotWPRF_TOUMFII7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciINF-PilotWPRF_TOUMFII7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_TOUL2YI7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_TOUL7YI7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_TOUMAYI7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_TOUMFYI7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,-1,[^.hdvValue])" name="hdvValue" partialUri="BasicEquipment_TES__TOUL0II7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" formula="IF([^:^.validSynthesis]>0,0,IF([^:^:aciECT-TEMP.value]>=55,3,IF([^:^:aciECT-TEMP.value]>=45,2,IF([^:^:aciECT-TEMP.value]>=0,1,3))))" name="value" partialUri="Symbol_Symbol1_TOUMKYI7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="aal_type_rEG8QII7EeeDru6gupombA_1502857846276"/>
+    <ownedAttributes frozen="true" name="valueLimits" partialUri="aal_type_rEG8QII7EeeDru6gupombA_1502857846276"/>
+    <ownedAttributes frozen="true" formula="[^:^:aciECT-TEMP.value]" name="value" partialUri="Number_SJk74II8EeeDru6gupombA_1502858108574"/>
+    <ownedAttributes frozen="true" formula="SCS_FTOA([.value],&quot;1&quot;,{.unit})" name="computedMessage" partialUri="ACI_TYPE_aciINF-IncCur_TOUL0YI7EeeDru6gupombA_1502857686285"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="aal_type_rEG8QII7EeeDru6gupombA_1502857846276"/>
+    <ownedAttributes frozen="true" name="AIAlmCEBehaviour" partialUri="aal_type_rEG8QII7EeeDru6gupombA_1502857846276"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="aal_type_rEG8QII7EeeDru6gupombA_1502857846276"/>
+    <parentPrototypes>BasicEquipment_FasBasicEquipment_amMc8Y3vEeeCWf0xiOvNtA_1504144507967</parentPrototypes>
+  </ownedPrototype>
+</scsproject:Project>

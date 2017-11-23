@@ -1,5 +1,7 @@
 {
 "UIOpmName": "UIOpmSCADAgen"
+, "DatabaseMultiReadKey": "DatabaseMultiReading"
+
 , "UsrIdentityType": "Profile"
 
 , "ResrvReserveReqID": ".resrvReserveReqID"

@@ -85,10 +85,10 @@ public interface UIOpm_i {
 	 * Reading hdv value from RTDB (By HVID with "DBAttribute"), make a AND operation with predefined value "HOMLevels".
 	 * 
 	 * @param hdvValue Currently HOM value for checking.
-	 * @param key      Key of the HOM Configuration.
-	 * @return Return  Value from the MWT checkOperationIsPermitted.
+	 * @param identity Key of the HOM Configuration.
+	 * @return Return  Value of the hdvValue & HOMMask result.
 	 */
-	boolean checkHom(int hdvValue, String key);
+	boolean checkHom(final int hdv, final String identity);
 	
 	/**
 	 * Interface for the CheckAccessWithHOM Callback
@@ -106,6 +106,23 @@ public interface UIOpm_i {
 	}
 	
 	/**
+	 * Verify the access right for the input parameter with HOM.
+	 * Check access right with HOM, According configuration in in "hom.json" and "homLevel.json", 
+	 * HOMIdentity defined in HOMIdentityType.
+	 * Reading hdv value from RTDB (By HVID with "DBAttribute"), make a AND operation with predefined value "HOMLevels".
+	 * 
+	 * @param function    Function value for the opm rule checking.
+	 * @param location    Location value for the opm rule checking.
+	 * @param action      Action value for the opm rule checking.
+	 * @param mode        Mode value for the opm rule checking.
+	 * @param scsEnvId    RTDB ScsEnvId to read the hdvValue.
+	 * @param dbAddress       RTDB Alias to read the hdvValue.
+	 * @param resultEvent Asynchronous callback for the check result.
+	 */
+	void checkAccessWithHom(String function, String location, String action, String mode,
+			String scsEnvId, String dbAddress, CheckAccessWithHOMEvent_i resultEvent);
+	
+	/**
 	 * Verify the access right for the input parameter with HOM, HHV Value and "HOMLevels" key is a parameters.
 	 * Check access right with HOM, According configuration in in "hom.json", 
 	 * Reading hdv value from RTDB (By HVID with "DBAttribute"), make a AND operation with predefined value "HOMLevels".
@@ -114,58 +131,12 @@ public interface UIOpm_i {
 	 * @param location    Location value for the opm rule checking.
 	 * @param action      Action value for the opm rule checking.
 	 * @param mode        Mode value for the opm rule checking.
-	 * @param hdvValue    hdvValue for the AND Operation.
-	 * @param key         Key for the HOMLevels.
+	 * @param hdv         hdvValue for the AND Operation.
+	 * @param identity         Key for the HOMLevels.
 	 * @param resultEvent Asynchronous callback for the check result.
 	 */
-	void checkAccessWithHom(String function, String location, String action, String mode, int hdvValue, String key, CheckAccessWithHOMEvent_i resultEvent);
+	void checkAccessWithHom(String function, String location, String action, String mode, int hdv, String identity, CheckAccessWithHOMEvent_i resultEvent);
 
-	/**
-	 * Verify the access right for the input parameter with HOM, "HOMLevels" key is a parameter.
-	 * Check access right with HOM, According configuration in in "hom.json", 
-	 * Reading hdv value from RTDB (By HVID with "DBAttribute"), make a AND operation with predefined value "HOMLevels".
-	 * 
-	 * @param function    Function value for the opm rule checking.
-	 * @param location    Location value for the opm rule checking.
-	 * @param action      Action value for the opm rule checking.
-	 * @param mode        Mode value for the opm rule checking.
-	 * @param scsEnvId    RTDB ScsEnvId to read the hdvValue.
-	 * @param alias       RTDB Alias to read the hdvValue.
-	 * @param key         Key for the HOMLevels.
-	 * @param resultEvent Asynchronous callback for the check result.
-	 */
-	void checkAccessWithHom(String function, String location, String action, String mode, String scsEnvId, String alias, String key, CheckAccessWithHOMEvent_i resultEvent);
-	
-	/**
-	 * Verify the access right for the input parameter with HOM, using HostName as a key for "HOMLevels".
-	 * Check access right with HOM, According configuration in in "hom.json", 
-	 * Reading hdv value from RTDB (By HVID with "DBAttribute"), make a AND operation with predefined value "HOMLevels".
-	 * 
-	 * @param functionValue Function value for the opm rule checking.
-	 * @param locationValue Location value for the opm rule checking.
-	 * @param actionValue   Action value for the opm rule checking.
-	 * @param modeValue     Mode value for the opm rule checking.
-	 * @param scsEnvId      RTDB ScsEnvId to read the hdvValue.
-	 * @param alias         RTDB Alias to read the hdvValue.
-	 * @param resultEvent   Asynchronous callback for the check result.
-	 */
-	void checkAccessWithHostName(String functionValue, String locationValue, String actionValue, String modeValue, String scsEnvId, String alias, CheckAccessWithHOMEvent_i resultEvent);
-	
-	/**
-	 * Verify the access right for the input parameter with HOM., using ProfileName as a key for "HOMLevels".
-	 * Check access right with HOM, According configuration in in "hom.json", 
-	 * Reading hdv value from RTDB (By HVID with "DBAttribute"), make a AND operation with predefined value "HOMLevels".
-	 * 
-	 * @param functionValue Function value for the opm rule checking.
-	 * @param locationValue Location value for the opm rule checking.
-	 * @param actionValue   Action value for the opm rule checking.
-	 * @param modeValue     Mode value for the opm rule checking.
-	 * @param scsEnvId      RTDB ScsEnvId to read the hdvValue.
-	 * @param alias         RTDB Alias to read the hdvValue.
-	 * @param resultEvent   Asynchronous callback for the check result.
-	 */
-	void checkAccessWithProfileName(String functionValue, String locationValue, String actionValue, String modeValue, String scsEnvId, String alias, CheckAccessWithHOMEvent_i resultEvent);
-	
 	/**
 	 * Change the operator password, oldPassword must be equal to operator current password.
 	 * 
@@ -196,35 +167,7 @@ public interface UIOpm_i {
 	 * @return Profile list.
 	 */
 	String[] getCurrentProfiles();
-	
-	/**
-	 * Select the profile name for the current operation in current session.
-	 */
-	void setCurrentProfile();
-	
-	/**
-	 * Check the action value is HOM action
-	 * 
-	 * @param action Action key to check
-	 * @return Return ture if the action is HOM Action, otherwise return false
-	 */
-	boolean isHOMAction(String action);
-	
-	/**
-	 * Check the action value is By Pass Value
-	 * @param value
-	 * @return Return true if the action is by pass value, otherwise return false
-	 */
-	boolean isByPassValue(int value);
-	
-	/**
-	 * Get HOM Mask value in the configuration, defined in the hom.json with key "HOMLevels"
-	 * 
-	 * @param key HOM Mask Key for retrieve the value
-	 * @return    Value defined in the configuration file related to key
-	 */
-	int getConfigHOMMask(String key);
-	
+
 	/**
 	 * Get the current client Host Name
 	 * 
@@ -238,6 +181,21 @@ public interface UIOpm_i {
 	 * @return Current Client IP Address
 	 */
 	String getCurrentIPAddress();
+
+	/**
+	 * Check the action value is HOM action
+	 * 
+	 * @param action Action key to check
+	 * @return Return ture if the action is HOM Action, otherwise return false
+	 */
+	boolean isHOMAction(String action);
+	
+	/**
+	 * Check the action value is By Pass Value
+	 * @param value
+	 * @return Return true if the action is by pass value, otherwise return false
+	 */
+	boolean isBypassValue(int value);
 	
 	/**
 	 * @author syau
@@ -249,11 +207,11 @@ public interface UIOpm_i {
 	/**
 	 * Get Current HOM value from the RTDB
 	 * 
-	 * @param scsEnvId RTDB ScsEnvId to read the hdvValue.
-	 * @param alias    RTDB Alias to read the hdvValue.
-	 * @param event    Return the Integer value
+	 * @param scsEnvId  RTDB ScsEnvId to read the hdv.
+	 * @param dbAddress RTDB Alias to read the hdv.
+	 * @param event     Return the Integer value
 	 */
-	void getCurrentHOMValue(final String scsEnvId, final String alias, final GetCurrentHOMValueEvent_i event);
+	void getCurrentHOMValue(final String scsEnvId, final String dbAddress, final GetCurrentHOMValueEvent_i event);
 
 	/**
 	 * Log-in into spring framework, Authentication bean setting in the applicationContext-security.xml configuration file. 
@@ -267,4 +225,5 @@ public interface UIOpm_i {
 	 * Log-out the current spring framework session, bean setting in the applicationContext-security.xml configuration file.
 	 */
 	void logout();
+
 }

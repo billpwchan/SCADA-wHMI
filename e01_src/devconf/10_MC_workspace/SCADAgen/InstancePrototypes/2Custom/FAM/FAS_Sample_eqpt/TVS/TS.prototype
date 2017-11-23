@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR" xmi:id="BasicEquipment_TS_YBRwUFWgEee4QdkqvzimmQ_1497953295317" hvqname="scadagen.data.config.equipment.common.SGEQPT8" nom_instance="TS" scstype="TSType">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <inputs xsi:type="INPUT_VAR:ACI_TYPE" xmi:id="ACI_TYPE_aciTVF-TempdeBear_YBRw61WgEee4QdkqvzimmQ_1497953295317" nom_instance="aciTS-TempZone" label="&amp;aciTS-TempZone">
+    <AAC xmi:id="aac_type_aac_YBRw7FWgEee4QdkqvzimmQ_1497953295317" nom_instance="aac">
+      <veTable xmi:id="struct_veTable_aac_type_YBRw7VWgEee4QdkqvzimmQ_1497953295317"/>
+      <veTable xmi:id="struct_veTable_aac_type_YBRw7lWgEee4QdkqvzimmQ_1497953295317"/>
+      <veTable xmi:id="struct_veTable_aac_type_YBRw71WgEee4QdkqvzimmQ_1497953295317"/>
+      <veTable xmi:id="struct_veTable_aac_type_YBRw8FWgEee4QdkqvzimmQ_1497953295317"/>
+    </AAC>
+    <AFO xmi:id="afo_type_afo_YBRw8VWgEee4QdkqvzimmQ_1497953295317" nom_instance="afo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTVF-InterlockStatus_YBbiU1WgEee4QdkqvzimmQ_1497953295333" nom_instance="dciTS-FaultSensZone" label="&amp;dciTS-FaultSensZone" initValue="1">
+    <DAC xmi:id="dac_type_dac_YBbiVFWgEee4QdkqvzimmQ_1497953295333" nom_instance="dac" nature="1">
+      <veTable xmi:id="struct_veTable_dac_type_YBbiVVWgEee4QdkqvzimmQ_1497953295333"/>
+      <veTable xmi:id="struct_veTable_dac_type_YBbiVlWgEee4QdkqvzimmQ_1497953295333"/>
+      <veTable xmi:id="struct_veTable_dac_type_YBbiV1WgEee4QdkqvzimmQ_1497953295333"/>
+      <veTable xmi:id="struct_veTable_dac_type_YBbiWFWgEee4QdkqvzimmQ_1497953295333"/>
+    </DAC>
+    <DAL xmi:id="dal_type_dal_YBbiWVWgEee4QdkqvzimmQ_1497953295333" nom_instance="dal">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_YBbiWlWgEee4QdkqvzimmQ_1497953295333" label="Normal" state="N"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_YBbiW1WgEee4QdkqvzimmQ_1497953295333" label="Fault" severity="2" state="A" value="1"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_YBbiXFWgEee4QdkqvzimmQ_1497953295333"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_YBbiXVWgEee4QdkqvzimmQ_1497953295333"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_YBbiXlWgEee4QdkqvzimmQ_1497953295333"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_YBbiX1WgEee4QdkqvzimmQ_1497953295333"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_YBbiYFWgEee4QdkqvzimmQ_1497953295333"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_YBbiYVWgEee4QdkqvzimmQ_1497953295333"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_YBbiYlWgEee4QdkqvzimmQ_1497953295333"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_YBbiY1WgEee4QdkqvzimmQ_1497953295333"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_YBbiZFWgEee4QdkqvzimmQ_1497953295333"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_YBbiZVWgEee4QdkqvzimmQ_1497953295333"/>
+    </DAL>
+    <DFO xmi:id="dfo_type_dfo_YBbiZlWgEee4QdkqvzimmQ_1497953295333" nom_instance="dfo"/>
+  </inputs>
+</Class:BasicEquipment>

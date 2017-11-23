@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<svg
+  
+   xmlns="http://www.w3.org/2000/svg"
+   width="200"
+   height="200"
+  >
+  
+  <g
+     id="doorOpened"
+     style="stroke:#000000;stroke-opacity:1">
+     <rect id="dummy_box" height="200" width="200" y="0" x="0" fill="red" opacity="0"/>
+     <g transform="matrix(1.5,0,0,1.5,26,30)">
+    <line
+      style="fill:none;stroke:#216ca8;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3"
+       x1="0"
+       y1="0"
+       x2="96"
+       y2="0"
+       id="line5" />
+    <line
+       style="fill:none;stroke:#216ca8;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3"
+       x1="36"
+       y1="80"
+       x2="60"
+       y2="80"
+       id="line7" />
+    <path
+       d="M 0,80 36,96 36,16 0,0 z"
+       id="polygon9"
+       style="fill:none;stroke:#216ca8;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3" />
+    <path
+       d="M 60,96 96,80 96,0 60,16 z"
+       id="polygon11"
+      style="fill:none;stroke:#216ca8;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3" />
+    <line
+       style="fill:none;stroke:#216ca8;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3"
+       x1="24"
+       y1="56"
+       x2="30"
+       y2="58"
+       id="line13" />
+    <line
+       style="fill:none;stroke:#216ca8;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3"
+       x1="72"
+       y1="56"
+       x2="66"
+       y2="58"
+       id="line15" />
+       </g>
+  </g>
+</svg>

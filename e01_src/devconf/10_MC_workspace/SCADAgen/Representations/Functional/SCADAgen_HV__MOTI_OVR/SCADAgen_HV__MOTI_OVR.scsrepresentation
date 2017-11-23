@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_mPf7AAU6EeeeUpCskvQn5g" prototypeRefId="SGEQPT8_SGEQPT8_xo3goFXDEee4As-TYSGT9g_1497968499626" name="SCADAgen_HV__MOTI_OVR" defaultAspect="_mPf7AgU6EeeeUpCskvQn5g" category="_mPf7lAU6EeeeUpCskvQn5g">
+    <aspectPackage xmi:id="_mPf7AQU6EeeeUpCskvQn5g" name="Aspect Container">
+      <ownedAspect xmi:id="_mPf7AgU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_0_Undefined">
+        <ownedDecoratedSymbol xmi:id="_28lF4AVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="_28lF4QVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7AwU6EeeeUpCskvQn5g" value="0" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7BAU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_1_Open">
+        <ownedDecoratedSymbol xmi:id="_3bM7kAVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="_3bM7kQVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7BQU6EeeeUpCskvQn5g" value="1" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7BgU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_2_Open_Alarm">
+        <ownedDecoratedSymbol xmi:id="_3_UVQAVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="_3_UVQQVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7BwU6EeeeUpCskvQn5g" value="2" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7CAU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_3_Closed">
+        <ownedDecoratedSymbol xmi:id="_5fypgAVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="_5fypgQVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7CQU6EeeeUpCskvQn5g" value="3" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7CgU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_4_Closed_Alarm">
+        <ownedDecoratedSymbol xmi:id="_6AydwAVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="_6AydwQVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7CwU6EeeeUpCskvQn5g" value="4" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7DAU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_Decor_Empty">
+        <condition xmi:id="_mPf7DQU6EeeeUpCskvQn5g" value="0" attribute="_mPf7PAU6EeeeUpCskvQn5g"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7DgU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_Decor_MO">
+        <ownedDecoratedSymbol xmi:id="_mPf7DwU6EeeeUpCskvQn5g" x="155.0" y="155.0" width="40.0" height="42.0" ratio_width="1.0" ratio_height="1.0" symbol="_mPf7QwU6EeeeUpCskvQn5g" cx="75.0" cy="76.0"/>
+        <condition xmi:id="_mPf7EAU6EeeeUpCskvQn5g" value="3" attribute="_mPf7PAU6EeeeUpCskvQn5g"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7EQU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_Decor_NotInService">
+        <ownedDecoratedSymbol xmi:id="_mPf7EgU6EeeeUpCskvQn5g" x="155.0" y="155.0" width="40.0" height="42.0" ratio_width="1.0" ratio_height="1.0" symbol="_mPf7RAU6EeeeUpCskvQn5g" cx="75.0" cy="76.0"/>
+        <condition xmi:id="_mPf7EwU6EeeeUpCskvQn5g" value="4" attribute="_mPf7PAU6EeeeUpCskvQn5g"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7FAU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_Decor_PTW">
+        <ownedDecoratedSymbol xmi:id="_mPf7FQU6EeeeUpCskvQn5g" x="155.0" y="155.0" width="40.0" height="42.0" ratio_width="1.0" ratio_height="1.0" symbol="_mPf7QgU6EeeeUpCskvQn5g" cx="75.0" cy="76.0"/>
+        <condition xmi:id="_mPf7FgU6EeeeUpCskvQn5g" value="2" attribute="_mPf7PAU6EeeeUpCskvQn5g"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7FwU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_Decor_Empty_L">
+        <condition xmi:id="_mPf7GAU6EeeeUpCskvQn5g" value="0" attribute="_mPf7PQU6EeeeUpCskvQn5g"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7GQU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_Decor_Local">
+        <ownedDecoratedSymbol xmi:id="_mPf7GgU6EeeeUpCskvQn5g" x="5.0" y="155.0" width="40.0" height="44.0" ratio_width="1.0" ratio_height="1.0" symbol="_mPf7QQU6EeeeUpCskvQn5g" cx="-74.0" cy="77.0"/>
+        <condition xmi:id="_mPf7GwU6EeeeUpCskvQn5g" value="1" attribute="_mPf7PQU6EeeeUpCskvQn5g"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7HAU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_State_Empty">
+        <condition xmi:id="_mPf7HQU6EeeeUpCskvQn5g" value="0" attribute="_mPf7PgU6EeeeUpCskvQn5g"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7HgU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_State_MO">
+        <ownedDecoratedSymbol xmi:id="_mPf7HwU6EeeeUpCskvQn5g" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_mPf7RwU6EeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7IAU6EeeeUpCskvQn5g" value="3" attribute="_mPf7PgU6EeeeUpCskvQn5g"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7IQU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_104_Closed_Alarm">
+        <ownedDecoratedSymbol xmi:id="_7MmJkAVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="_7MmJkQVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7IgU6EeeeUpCskvQn5g" value="104" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7IwU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_5_Transit">
+        <ownedDecoratedSymbol xmi:id="_4mj7cAVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="_4mj7cQVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7JAU6EeeeUpCskvQn5g" value="5" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7JQU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_203_Closed">
+        <ownedDecoratedSymbol xmi:id="_7jyhkAVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="_7jyhkQVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7JgU6EeeeUpCskvQn5g" value="203" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7JwU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_103_Closed">
+        <ownedDecoratedSymbol xmi:id="_6v6NkAVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="_6v6NkQVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7KAU6EeeeUpCskvQn5g" value="103" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7KQU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_204_Closed_Alarm">
+        <ownedDecoratedSymbol xmi:id="_8BOEcAVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="_8BOEcQVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7KgU6EeeeUpCskvQn5g" value="204" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7KwU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_303_Closed">
+        <ownedDecoratedSymbol xmi:id="_8brL0AVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="_8brL0QVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7LAU6EeeeUpCskvQn5g" value="303" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7LQU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_304_Closed_Alarm">
+        <ownedDecoratedSymbol xmi:id="_849kwAVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="_849kwQVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7LgU6EeeeUpCskvQn5g" value="304" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7LwU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_403_Closed">
+        <ownedDecoratedSymbol xmi:id="_9Wi4oAVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="_9Wi4oQVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7MAU6EeeeUpCskvQn5g" value="403" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7MQU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_404_Closed_Alarm">
+        <ownedDecoratedSymbol xmi:id="_9vEGUAVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="_9vEGUQVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7MgU6EeeeUpCskvQn5g" value="404" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7MwU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_503_Closed">
+        <ownedDecoratedSymbol xmi:id="_-TCWEAVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="_-TCWEQVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7NAU6EeeeUpCskvQn5g" value="503" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7NQU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_504_Closed_Alarm">
+        <ownedDecoratedSymbol xmi:id="_-tWTgAVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="_-tWTgQVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7NgU6EeeeUpCskvQn5g" value="504" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7NwU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_603_Closed">
+        <ownedDecoratedSymbol xmi:id="__FSSYAVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="__FSSYQVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7OAU6EeeeUpCskvQn5g" value="603" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_mPf7OQU6EeeeUpCskvQn5g" name="HV__MOTI_OVR_604_Closed_Alarm">
+        <ownedDecoratedSymbol xmi:id="__hE2gAVGEeeeUpCskvQn5g" x="45.0" y="45.0" width="110.0" height="110.0" ratio_width="1.0" ratio_height="1.0" symbol="__hE2gQVGEeeeUpCskvQn5g"/>
+        <condition xmi:id="_mPf7OgU6EeeeUpCskvQn5g" value="604" attribute="_ZSFugAhdEeezK-_CKHtlqA"/>
+      </ownedAspect>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_mPf7PAU6EeeeUpCskvQn5g" id="tag2.value" defaultValue="0" condition="_mPf7DQU6EeeeUpCskvQn5g _mPf7EAU6EeeeUpCskvQn5g _mPf7EwU6EeeeUpCskvQn5g _mPf7FgU6EeeeUpCskvQn5g" relativePath="tag2.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_mPf7PQU6EeeeUpCskvQn5g" id="tag3.value" defaultValue="0" condition="_mPf7GAU6EeeeUpCskvQn5g _mPf7GwU6EeeeUpCskvQn5g" relativePath="tag3.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_mPf7PgU6EeeeUpCskvQn5g" id="SCADAgen_ECS_State" defaultValue="0" condition="_mPf7HQU6EeeeUpCskvQn5g _mPf7IAU6EeeeUpCskvQn5g" qualifiedName="com.thalesgroup.scadasoft.stresstest.calculated.widget.SCADAgen_ECS_State"/>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_ZSFugAhdEeezK-_CKHtlqA" id="Int2IntMapping" defaultValue="0" condition="_mPf7AwU6EeeeUpCskvQn5g _mPf7BQU6EeeeUpCskvQn5g _mPf7BwU6EeeeUpCskvQn5g _mPf7CQU6EeeeUpCskvQn5g _mPf7CwU6EeeeUpCskvQn5g _mPf7JAU6EeeeUpCskvQn5g _mPf7KAU6EeeeUpCskvQn5g _mPf7IgU6EeeeUpCskvQn5g _mPf7JgU6EeeeUpCskvQn5g _mPf7KgU6EeeeUpCskvQn5g _mPf7LAU6EeeeUpCskvQn5g _mPf7LgU6EeeeUpCskvQn5g _mPf7MAU6EeeeUpCskvQn5g _mPf7MgU6EeeeUpCskvQn5g _mPf7NAU6EeeeUpCskvQn5g _mPf7NgU6EeeeUpCskvQn5g _mPf7OAU6EeeeUpCskvQn5g _mPf7OgU6EeeeUpCskvQn5g" qualifiedName="Int2IntMapping" outputType="INT"/>
+    </aspectPackage>
+    <symbolLibrary xmi:id="_mPf7PwU6EeeeUpCskvQn5g">
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7QAU6EeeeUpCskvQn5g" filePath="Symbols/Tag/SCADAgen_ECT_TAG_1_Trip.svg" id="_SCADAgen_SYMBOLS_TAG_SCADAgen_ECT_TAG_1_TRIP_SVG" width="40.0" height="42.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7QQU6EeeeUpCskvQn5g" filePath="Symbols/Tag/SCADAgen_ECT_TAG_Local.svg" id="_SCADAgen_SYMBOLS_TAG_SCADAgen_ECT_TAG_LOCAL_SVG" width="40.0" height="44.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7QgU6EeeeUpCskvQn5g" filePath="Symbols/Tag/SCADAgen_ECT_TAG_2_Permit_To_Work.svg" id="_SCADAgen_SYMBOLS_TAG_SCADAgen_ECT_TAG_2_PERMIT_TO_WORK_SVG" width="40.0" height="42.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7QwU6EeeeUpCskvQn5g" filePath="Symbols/Tag/SCADAgen_ECT_TAG_3_Manual_Override.svg" id="_SCADAgen_SYMBOLS_TAG_SCADAgen_ECT_TAG_3_MANUAL_OVERRIDE_SVG" width="40.0" height="42.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7RAU6EeeeUpCskvQn5g" filePath="Symbols/Tag/SCADAgen_ECT_TAG_4_Not_In_Service.svg" id="_SCADAgen_SYMBOLS_TAG_SCADAgen_ECT_TAG_4_NOT_IN_SERVICE_SVG" width="40.0" height="42.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7RQU6EeeeUpCskvQn5g" filePath="Symbols/SCADAgen_SymbolHighlight_1_Invalid.svg" id="_SCADAgen_SYMBOLS_SCADAgen_SYMBOLHIGHLIGHT_1_INVALID_SVG" width="200.0" height="200.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7RgU6EeeeUpCskvQn5g" filePath="Symbols/SCADAgen_SymbolHighlight_2_Selected_Blinking.svg" id="_SCADAgen_SYMBOLS_SCADAgen_SYMBOLHIGHLIGHT_2_SELECTED_BLINKING_SVG" width="200.0" height="200.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7RwU6EeeeUpCskvQn5g" filePath="Symbols/SCADAgen_SymbolHighlight_3_MO.svg" id="_SCADAgen_SYMBOLS_SCADAgen_SYMBOLHIGHLIGHT_3_MO_SVG" width="200.0" height="200.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7SAU6EeeeUpCskvQn5g" filePath="Symbols/SCADAgen_SymbolHighlight_4_Selected_MO_Blinking.svg" id="_SCADAgen_SYMBOLS_SCADAgen_SYMBOLHIGHLIGHT_4_SELECTED_MO_BLINKING_SVG" width="200.0" height="200.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7SQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__0_Undefined.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__0_UNDEFINED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7SgU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__1_Open.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__1_OPEN_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7SwU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__2_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__2_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7TAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__3_Transit.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__3_TRANSIT_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7TQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__4_Alarm_Open.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__4_ALARM_OPEN_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7TgU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__5_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__5_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7TwU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__OVR_2_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__OVR_2_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7UAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__OVR_5_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__OVR_5_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7UQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__OVR_102_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__OVR_102_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7UgU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__OVR_105_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__OVR_105_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7UwU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__OVR_202_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__OVR_202_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7VAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__OVR_205_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__OVR_205_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7VQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__OVR_302_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__OVR_302_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7VgU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__OVR_305_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__OVR_305_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7VwU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__OVR_402_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__OVR_402_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7WAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__OVR_405_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__OVR_405_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7WQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__OVR_502_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__OVR_502_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7WgU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__OVR_505_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__OVR_505_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7WwU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__OVR_602_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__OVR_602_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7XAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP__OVR_605_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP__OVR_605_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7XQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_0_Undefined.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_0_UNDEFINED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7XgU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_1_Open.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_1_OPEN_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7XwU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_OVR_2_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_OVR_2_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7YAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_OVR_5_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_OVR_5_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7YQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_3_Transit.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_3_TRANSIT_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7YgU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_4_Alarm_Open.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_4_ALARM_OPEN_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7YwU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_OVR_102_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_OVR_102_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7ZAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_OVR_105_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_OVR_105_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7ZQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_OVR_202_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_OVR_202_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7ZgU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_OVR_205_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_OVR_205_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7ZwU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_OVR_302_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_OVR_302_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7aAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_OVR_305_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_OVR_305_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7aQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_OVR_402_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_OVR_402_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7agU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_OVR_405_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_OVR_405_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7awU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_OVR_502_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_OVR_502_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7bAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_OVR_505_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_OVR_505_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7bQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_OVR_602_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_OVR_602_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7bgU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__BSP2_OVR_605_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BSP2_OVR_605_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7bwU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__0_Undefined.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__0_UNDEFINED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7cAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__1_Open.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__1_OPEN_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7cQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__3_Transit.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__3_TRANSIT_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7cgU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__4_Alarm_Open.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__4_ALARM_OPEN_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7cwU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__OVR_2_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__OVR_2_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7dAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__OVR_5_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__OVR_5_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7dQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__OVR_102_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__OVR_102_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7dgU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__OVR_105_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__OVR_105_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7dwU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__OVR_202_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__OVR_202_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7eAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__OVR_205_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__OVR_205_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7eQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__OVR_302_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__OVR_302_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7egU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__OVR_305_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__OVR_305_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7ewU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__OVR_402_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__OVR_402_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7fAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__OVR_405_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__OVR_405_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7fQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__OVR_502_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__OVR_502_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7fgU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__OVR_505_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__OVR_505_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7fwU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__OVR_602_Close.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__OVR_602_CLOSE_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7gAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__IFP__OVR_605_Alarm_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__IFP__OVR_605_ALARM_CLOSED_SVG" width="120.0" height="120.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7gQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__0_Undefined.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__0_UNDEFINED_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7ggU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__1_Open.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__1_OPEN_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7gwU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__2_Open_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__2_OPEN_ALARM_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7hAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__5_Transit.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__5_TRANSIT_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7hQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__OVR_3_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__OVR_3_CLOSED_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7hgU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__OVR_4_Closed_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__OVR_4_CLOSED_ALARM_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7hwU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__OVR_103_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__OVR_103_CLOSED_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7iAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__OVR_104_Closed_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__OVR_104_CLOSED_ALARM_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7iQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__OVR_203_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__OVR_203_CLOSED_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7igU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__OVR_204_Closed_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__OVR_204_CLOSED_ALARM_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7iwU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__OVR_303_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__OVR_303_CLOSED_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7jAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__OVR_304_Closed_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__OVR_304_CLOSED_ALARM_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7jQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__OVR_403_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__OVR_403_CLOSED_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7jgU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__OVR_404_Closed_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__OVR_404_CLOSED_ALARM_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7jwU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__OVR_503_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__OVR_503_CLOSED_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7kAU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__OVR_504_Closed_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__OVR_504_CLOSED_ALARM_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7kQU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__OVR_603_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__OVR_603_CLOSED_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_mPf7kgU6EeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__ISO__OVR_604_Closed_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__ISO__OVR_604_CLOSED_ALARM_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_28lF4QVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_0_Undefined.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_0_UNDEFINED_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_3bM7kQVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_1_Open.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_1_OPEN_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_3_UVQQVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_2_Open_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_2_OPEN_ALARM_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_4mj7cQVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_5_Transit.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_5_TRANSIT_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_5fypgQVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_OVR_3_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_OVR_3_CLOSED_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_6AydwQVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_OVR_4_Closed_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_OVR_4_CLOSED_ALARM_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_6v6NkQVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_OVR_103_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_OVR_103_CLOSED_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_7MmJkQVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_OVR_104_Closed_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_OVR_104_CLOSED_ALARM_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_7jyhkQVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_OVR_203_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_OVR_203_CLOSED_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_8BOEcQVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_OVR_204_Closed_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_OVR_204_CLOSED_ALARM_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_8brL0QVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_OVR_303_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_OVR_303_CLOSED_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_849kwQVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_OVR_304_Closed_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_OVR_304_CLOSED_ALARM_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_9Wi4oQVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_OVR_403_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_OVR_403_CLOSED_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_9vEGUQVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_OVR_404_Closed_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_OVR_404_CLOSED_ALARM_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_-TCWEQVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_OVR_503_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_OVR_503_CLOSED_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_-tWTgQVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_OVR_504_Closed_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_OVR_504_CLOSED_ALARM_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="__FSSYQVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_OVR_603_Closed.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_OVR_603_CLOSED_SVG" width="110.0" height="110.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="__hE2gQVGEeeeUpCskvQn5g" filePath="Symbols/HV_/SCADAgen_HV__MOTI_OVR_604_Closed_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__MOTI_OVR_604_CLOSED_ALARM_SVG" width="110.0" height="110.0"/>
+    </symbolLibrary>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_mPf7kwU6EeeeUpCskvQn5g">
+    <ownedCategories xmi:id="_mPf7lAU6EeeeUpCskvQn5g" name="Functional"/>
+    <ownedCategories xmi:id="_mPf7lQU6EeeeUpCskvQn5g" name="Geographical"/>
+    <ownedCategories xmi:id="_mPf7lgU6EeeeUpCskvQn5g" name="Outline"/>
+    <ownedCategories xmi:id="_mPf7lwU6EeeeUpCskvQn5g" name="Synthesis"/>
+    <ownedCategories xmi:id="_mPf7mAU6EeeeUpCskvQn5g" name="System"/>
+    <ownedCategories xmi:id="_mPf7mQU6EeeeUpCskvQn5g" name="Technical"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

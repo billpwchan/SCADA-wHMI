@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>5</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCSS>project-gwt-panel-summaryview-inner</rootCSS>
+	</header>
+	
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyControlPriority</uiCtrl>
+		<uiView>Verify/ControlPriority/RequestReservation.view.xml</uiView>
+		<element>RequestReservation</element>
+	</option>
+	
+	<option key="0|1">
+		<uiCtrl>UIWidgetVerifyControlPriority</uiCtrl>
+		<uiView>Verify/ControlPriority/WithdrawReservation.view.xml</uiView>
+		<element>WithdrawReservation</element>
+	</option>
+	
+	<option key="0|2">
+		<uiCtrl>UIWidgetVerifyControlPriority</uiCtrl>
+		<uiView>Verify/ControlPriority/GetCurrentReservationBy.view.xml</uiView>
+		<element>GetCurrentReservationBy</element>
+	</option>
+	
+	<option key="0|3">
+		<uiCtrl>UIWidgetVerifyControlPriority</uiCtrl>
+		<uiView>Verify/ControlPriority/CheckReservationLevel.view.xml</uiView>
+		<element>CheckReservationLevel</element>
+	</option>
+	
+	<option key="0|4">
+		<uiCtrl>UIWidgetVerifyControlPriority</uiCtrl>
+		<uiView>Verify/ControlPriority/CheckReservationAvailability.view.xml</uiView>
+		<element>CheckReservationAvailability</element>
+	</option>
+
+</data-set>

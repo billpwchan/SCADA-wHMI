@@ -17,7 +17,7 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.UIViewMgr;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.UIEntryPointFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitProcess_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
@@ -46,7 +46,6 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 	
 	public UIWidgetEntryPoint(String uiCtrl, String uiView, String uiOpts, String uiElem, String uiDict) {
 		final String function = "UIWidgetEntryPoint";
-		
 		logger.begin(className, function);
 		
 		this.uiCtrl = uiCtrl;
@@ -55,7 +54,8 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 		this.uiElem = uiElem;
 		this.uiDict = uiDict;
 		
-		logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
+		logger.debug(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiOpts[{}] uiDict[{}]"
+				, new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
 
 		this.EVENT_BUS = GWT.create(SimpleEventBus.class);
 		this.RESETABLE_EVENT_BUS = new ResettableEventBus(EVENT_BUS);
@@ -75,20 +75,19 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 	
 	private void buildWidget() {
 		final String function = "buildWidget";
-		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}]", new Object[]{uiCtrl, uiView, uiOpts});
+		logger.debug(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiElem[{}]"
+				, new Object[]{uiCtrl, uiView, uiOpts, uiElem});
 		
-		HashMap<String, Object> options = new HashMap<String, Object>();
+		Map<String, Object> options = new HashMap<String, Object>();
 		
-		UIViewMgr viewFactoryMgr = UIViewMgr.getInstance();
-		
-		uiWidget_i = viewFactoryMgr.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, uiElem, uiDict, options);
+		UIEntryPointFactory factory = UIEntryPointFactory.getInstance();
+		uiWidget_i = factory.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, uiElem, uiDict, options);
 		
 		if ( null != uiWidget_i ) {
 			
-			logger.info(className, function, "initWidget before");
+			logger.debug(className, function, "initWidget before");
 		
 			Widget widget = uiWidget_i.getMainPanel();
 			
@@ -98,10 +97,9 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 			
 			simplePanel.add(widget);
 			
-			logger.info(className, function, "initWidget after");
+			logger.debug(className, function, "initWidget after");
 
 		}
-
 	}
 	
     /**

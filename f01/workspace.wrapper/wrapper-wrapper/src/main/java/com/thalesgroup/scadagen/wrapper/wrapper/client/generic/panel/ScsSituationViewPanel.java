@@ -20,7 +20,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.selection.ISelectionModel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.selection.MultipleSelectionModel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.selection.SingleSelectionModel;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsSituationViewPanelEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.widget.ScsWidgetFactory;
 
 
@@ -70,7 +69,7 @@ public class ScsSituationViewPanel extends ResizeComposite implements IClientLif
      * @param eventBus
      *            a bus used to subscribe to and publish events
      */
-    public ScsSituationViewPanel(final String configurationId, final EventBus eventBus, final WrapperScsSituationViewPanelEvent wrapperScsSituationViewPanelEvent) {
+    public ScsSituationViewPanel(final String configurationId, final EventBus eventBus, final SCADAgenSituationViewPanelEvent wrapperScsSituationViewPanelEvent) {
         this(configurationId, eventBus, wrapperScsSituationViewPanelEvent, null);
     }
 
@@ -85,7 +84,7 @@ public class ScsSituationViewPanel extends ResizeComposite implements IClientLif
      *            Presenter State handler
      */
     public ScsSituationViewPanel(final String configurationId, final EventBus eventBus,
-    		final WrapperScsSituationViewPanelEvent wrapperScsSituationViewPanelEvent,
+    		final SCADAgenSituationViewPanelEvent wrapperScsSituationViewPanelEvent,
             final IPresenterStateHandler presenterStateHandler) {
         configId_ = configurationId;
         eventBus_ = eventBus;
@@ -168,6 +167,6 @@ public class ScsSituationViewPanel extends ResizeComposite implements IClientLif
         }
     }
     
-	private WrapperScsSituationViewPanelEvent wrapperScsSituationViewPanelEvent = null;
+	private SCADAgenSituationViewPanelEvent wrapperScsSituationViewPanelEvent = null;
 
 }

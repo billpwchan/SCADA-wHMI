@@ -11,6 +11,7 @@ import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitProce
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitControlPriority;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitDatabase;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitHom;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitOpm;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitTranslation;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
@@ -79,26 +80,14 @@ public class PhaseBLoader implements Loader_i{
 				logger.begin(className, function);
 
 				boolean opmInitInValid = false;
-				
 				// Loading SCADAgen OPM Factory
-				InitOpm.getInstance().initOpmFactory();
-
+				InitOpm.getInstance().initFactory();
 				try {
 			        // Init the SCADAgen OPM API
 			        InitOpm.getInstance().initOpm(parameters.get(strUIOpmSCADAgenKey));
 				} catch (Exception ex) {
 					opmInitInValid = true;
 					logger.warn(className, function, "uiOpm_i init Exception:"+ex.toString());
-				}
-				
-				// Loading SCADAgen Control Priority Factory
-				InitControlPriority.getInstance().initControlPriorityFactory();
-				
-				try {
-			        // Init the SCADAgen Control Priority API
-			        InitControlPriority.getInstance().initControlPriority(parameters.get(strUIControlPrioritySCADAgenKey));
-				} catch (Exception ex) {
-					logger.warn(className, function, "uiControlPriority_i init Exception:"+ex.toString());
 				}
 				
 		        // Init for the translation
@@ -149,6 +138,25 @@ public class PhaseBLoader implements Loader_i{
 			        	logger.warn(className, function, "translationMgr IS NULL", translationMgr);
 			        }
 
+			        
+					// Loading SCADAgen Control Priority Factory
+					InitControlPriority.getInstance().initFactory();
+					try {
+				        // Init the SCADAgen Control Priority API
+				        InitControlPriority.getInstance().initControlPriority(parameters.get(strUIControlPrioritySCADAgenKey));
+					} catch (Exception ex) {
+						logger.warn(className, function, "uiControlPriority_i init Exception:"+ex.toString());
+					}
+					
+					// Loading SCADAgen Handover Management Factory
+					InitHom.getInstance().initFactory();
+					try {
+				        // Init the SCADAgen Control Priority API
+				        InitHom.getInstance().initHom(parameters.get(strUIControlPrioritySCADAgenKey));
+					} catch (Exception ex) {
+						logger.warn(className, function, "uiControlPriority_i init Exception:"+ex.toString());
+					}
+			
 				} else {
 					logger.warn(className, function, "opmInitInValid[{}] bypass RPC init", opmInitInValid);
 				}

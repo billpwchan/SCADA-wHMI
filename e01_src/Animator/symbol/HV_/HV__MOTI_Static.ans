@@ -1,0 +1,43 @@
+// Animator Version: ANIMATOR2007 4.10.0
+// File generated: 16/03/2017 15:57:15
+// Model: HV_/detail view activesymbol/square/HV__MOTI_Static.ans
+
+Version = "41000"
+
+Symbol
+{
+  PrimitiveSet
+  {
+    Polygon {
+      Points = { (-55, -55), (54, -55), (54, 54), (-55, 54)      }
+      Filled = True
+      Palette = { "background","SCADAgen_normal","Arial/14","solid","solid",1 }
+    }
+    Rectangle {
+      Size = ((-100, -100), 200, 200)
+      Palette = { "SCADAgen_background","SCADAgen_undefined","default","solid","dot",1 }
+    }
+    Rectangle {
+      Size = ((59, 59), 40, 40)
+      Filled = True
+      Palette = { "SCADAgen_background","SCADAgen_undefined","default","solid","solid",1 }
+    }
+    Label {
+      Point = (0, 13)
+      Label = "P"
+      Transformer = ( 4, 0, 0, 4, 66.6, 53.4 )
+      Palette = { "SCADAgen_background","SVG_COL051","default","solid","solid",1 }
+    }
+    Rectangle {
+      Size = ((-99, 59), 40, 40)
+      Filled = True
+      Palette = { "SCADAgen_background","SCADAgen_undefined","default","solid","solid",1 }
+    }
+    Label {
+      Point = (0, 13)
+      Label = "L"
+      Transformer = ( 4, 0, 0, 4, -89.4, 53.4 )
+      Palette = { "SCADAgen_background","nocom","default","solid","solid",1 }
+    }
+  }
+}

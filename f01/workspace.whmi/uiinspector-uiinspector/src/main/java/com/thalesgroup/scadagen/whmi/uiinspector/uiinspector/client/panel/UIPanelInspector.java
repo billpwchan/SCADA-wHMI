@@ -73,9 +73,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	private boolean equipmentReserveUseHostName = false;
 	private int equipmentReserveDefaultIndex = 0;
 	
-	private String homIdentity = null;
-	private String homByPassValues [] = null;
-	
 	final private String INSPECTOR		= "inspector";
 	
 	public void setPeriodMillis(int periodMillis) {
@@ -691,16 +688,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		mode = ReadProp.readString(dictionariesCacheName, fileName, keymode, "");
 		logger.debug(className, function, "mode[{}]", mode);
 		
-		String keyStrHOMIdentity = prefix+UIPanelInspector_i.strHOMIdentity;
-		homIdentity = ReadProp.readString(dictionariesCacheName, fileName, keyStrHOMIdentity, "IpAddress");
-		logger.debug(className, function, "homIdentity[{}]", homIdentity);
-		
-		String keyStrHOMByPassValues = prefix+UIPanelInspector_i.strHOMByPassValues;
-		String homByPassValue = ReadProp.readString(dictionariesCacheName, fileName, keyStrHOMByPassValues, "");
-		logger.debug(className, function, "homByPassValue[{}]", homByPassValue);
-		
-		homByPassValues = UIWidgetUtil.getStringArray(homByPassValue, ",");
-		
 		String keyNumOfAction = prefix+UIPanelInspector_i.strNumOfAction;
 		int numOfAction = ReadProp.readInt(dictionariesCacheName, fileName, keyNumOfAction, 0);
 		logger.debug(className, function, "numOfAction[{}]", numOfAction);
@@ -779,10 +766,14 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	
 	private Map<Integer, String> tabHtmls = new HashMap<Integer, String>();
 	private Map<String, Boolean> tabHomRights = new HashMap<String, Boolean>();
-	private void checkAccessWithHomAndApplyTab(String action, int eqtHom, String key, final int i, final String tabHtml) {
+	private void checkAccessWithHomAndApplyTab(final String action, final int i, final String tabHtml) {
 		final String function = "checkAccessWithHomAndApplyTab";
 		logger.begin(className, function);
-		uiOpm_i.checkAccessWithHom(getFunction(), getLocation(), action, mode, eqtHom, key
+		
+		logger.debug(className, function, "scsEnvId[{}] parent[{}]", new Object[]{scsEnvId, parent});
+		logger.debug(className, function, "action[{}] i[{}] tabHtml[{}]", new Object[]{action, i, tabHtml});
+		
+		uiOpm_i.checkAccessWithHom(getFunction(), getLocation(), action, mode, scsEnvId, parent
 				, new CheckAccessWithHOMEvent_i() {
 			
 			@Override
@@ -909,21 +900,9 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 				
 				logger.debug(className, function, "eqtHom[{}]", eqtHom);
 				
-				boolean isByPassValue = false;
-				if ( null != homByPassValues ) {
-					for ( int i = 0 ; i < homByPassValues.length ; ++i ) {
-						logger.debug(className, function, "eqtHom[{}] homByPassValues({})[{}]", new Object[]{eqtHom, i, homByPassValues[i]});
-						if ( null != homByPassValues[i] && homByPassValues.equals(String.valueOf(eqtHom)) ) {
-							isByPassValue = true;
-							break;
-						}
-					}
-				} else {
-					logger.warn(className, function, "homByPassValues IS NULL");
-				}
-				
-				logger.debug(className, function, "isByPassValue[{}]", isByPassValue);
-				
+				boolean isByPassValue = uiOpm_i.isBypassValue(eqtHom);
+				logger.debug(className, function, "eqtHom[{}] isByPassValue[{}]", eqtHom, isByPassValue);
+
 				if ( isByPassValue ) {
 					
 					logger.debug(className, function, "isByPassValue[{}], Skip the HOM Checking", isByPassValue);
@@ -933,20 +912,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 					logger.debug(className, function, "isByPassValue[{}], Start HOM Checking...", isByPassValue);
 					
 					if ( null != panelTab ) {
-						
-						String key = null;
-						if ( homIdentity.equals("HostName") ) {
-							key = uiOpm_i.getCurrentHostName();
-						} else if ( homIdentity.equals("Profile") ) {
-							key = uiOpm_i.getCurrentProfile();
-						} else if ( homIdentity.equals("Operator") ) {
-							key = uiOpm_i.getCurrentOperator();
-						} else {
-							key = uiOpm_i.getCurrentIPAddress();
-						}
-						
-						logger.debug(className, function, "homIdentity[{}] key[{}]", homIdentity, key);
-						
 						int tabCount = panelTab.getTabBar().getTabCount();
 						if ( tabCount > 0 ) {
 							for ( int i = 0 ; i < tabCount ; ++i ) {
@@ -961,7 +926,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 										String tabConfigName = d.tabConfigName;
 										String action = rightNames.get(tabConfigName);
 										logger.debug(className, function, "tabConfigName[{}] action[{}]", tabConfigName, action);
-										checkAccessWithHomAndApplyTab(action, eqtHom, key, i, tabHtml);
+										checkAccessWithHomAndApplyTab(action, i, tabHtml);
 									}
 								}
 							}

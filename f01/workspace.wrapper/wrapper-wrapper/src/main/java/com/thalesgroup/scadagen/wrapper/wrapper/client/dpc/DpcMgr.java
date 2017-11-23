@@ -65,42 +65,42 @@ public class DpcMgr {
 			public void setChangeVarStatusResult(String clientKey, int errorCode, String errorMessage) {
 				// TODO Auto-generated method stub
 				final String function = "setChangeVarStatusResult";
-				logger.info(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
+				logger.debug(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
 			}
 			
 			@Override
 			public void setChangeStringVarForceResult(String clientKey, int errorCode, String errorMessage) {
 				// TODO Auto-generated method stub
 				final String function = "setChangeStringVarForceResult";
-				logger.info(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
+				logger.debug(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
 			}
 			
 			@Override
 			public void setChangeIntVarForceResult(String clientKey, int errorCode, String errorMessage) {
 				// TODO Auto-generated method stub
 				final String function = "setChangeIntVarForceResult";
-				logger.info(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
+				logger.debug(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
 			}
 			
 			@Override
 			public void setChangeFloatVarForceResult(String clientKey, int errorCode, String errorMessage) {
 				// TODO Auto-generated method stub
 				final String function = "setChangeFloatVarForceResult";
-				logger.info(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
+				logger.debug(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
 			}
 			
 			@Override
 			public void setChangeEqpTagResult(String clientKey, int errorCode, String errorMessage) {
 				// TODO Auto-generated method stub
 				final String function = "setChangeEqpTagResult";
-				logger.info(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
+				logger.debug(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
 			}
 			
 			@Override
 			public void setChangeEqpStatusResult(String clientKey, int errorCode, String errorMessage) {
 				// TODO Auto-generated method stub
 				final String function = "setChangeEqpStatusResult";
-				logger.info(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
+				logger.debug(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
 			}
 		});
 		
@@ -124,74 +124,62 @@ public class DpcMgr {
 		logger.end(className, function);
 	}
 	
-	public void sendChangeVarStatus(String key, String scsEnvId, String alias, DCP_i.ValidityStatus status) {
+	public void sendChangeVarStatus(String key, String scsEnvId, String name, DCP_i.ValidityStatus status) {
 		final String function = "sendChangeVarStatus";
 		logger.begin(className, function);
-		logger.info(className, function, "key[{}], scsEnvId[{}] alias[{}] status[{}]", new Object[]{key, scsEnvId, alias, status.toString()});
-		if ( !alias.startsWith("<alias>") ) alias = "<alias>"+alias;
-		logger.info(className, function, "alias[{}]", alias);
-		sendChangeVarStatus(key, scsEnvId, alias, status.getValue());
+		logger.debug(className, function, "key[{}], scsEnvId[{}] name[{}] status[{}]", new Object[]{key, scsEnvId, name, status.toString()});
+		sendChangeVarStatus(key, scsEnvId, name, status.getValue());
 		logger.end(className, function);
 	}
 	
-	public void sendChangeVarStatus(String key, String scsEnvId, String alias, int status) {
+	public void sendChangeVarStatus(String key, String scsEnvId, String name, int status) {
 		final String function = "sendChangeVarStatus";
 		logger.begin(className, function);
-		logger.info(className, function, "key[{}], scsEnvId[{}] alias[{}] status[{}]", new Object[]{key, scsEnvId, alias, status});
-		if ( !alias.startsWith("<alias>") ) alias = "<alias>"+alias;
-		logger.info(className, function, "alias[{}]", alias);
-		dpcAccess.changeVarStatus(key, scsEnvId, alias, status);
+		logger.debug(className, function, "key[{}], scsEnvId[{}] name[{}] status[{}]", new Object[]{key, scsEnvId, name, status});
+		dpcAccess.changeVarStatus(key, scsEnvId, name, status);
 		logger.end(className, function);
 	}
 
-	public void sendChangeEqpTag(String key, String scsEnvId, String alias, TaggingStatus status, String taggingLabel1, String taggingLabel2) {
+	public void sendChangeEqpTag(String key, String scsEnvId, String name, TaggingStatus status, String taggingLabel1, String taggingLabel2) {
 		final String function = "sendChangeEqpTag";
 		logger.begin(className, function);
-		logger.info(className, function, "key[{}], scsEnvId[{}] name[{}] status[{}] taggingLabel1[{}] taggingLabel2[{}]", new Object[]{key, scsEnvId, alias, status, taggingLabel1, taggingLabel2});
-		if ( !alias.startsWith("<alias>") ) alias = "<alias>"+alias;
-		logger.info(className, function, "alias[{}]", alias);
-		dpcAccess.changeEqpTag(key, scsEnvId, alias, status.getValue(), taggingLabel1, taggingLabel2);
+		logger.debug(className, function, "key[{}], scsEnvId[{}] name[{}] status[{}] taggingLabel1[{}] taggingLabel2[{}]", new Object[]{key, scsEnvId, name, status, taggingLabel1, taggingLabel2});
+		dpcAccess.changeEqpTag(key, scsEnvId, name, status.getValue(), taggingLabel1, taggingLabel2);
 		logger.end(className, function);
 	}
 	
-	public void sendChangeVarForce ( String key, String scsEnvId, String alias, boolean enable, int value) {
+	public void sendChangeVarForce ( String key, String scsEnvId, String name, boolean enable, int value) {
 		final String function = "sendChangeVarForce";
 		logger.begin(className, function);
-		logger.info(className, function, "key[{}], scsEnvId[{}] alias[{}] enable[{}] value[{}]", new Object[]{key, scsEnvId, alias, enable, value});
-		if ( !alias.startsWith("<alias>") ) alias = "<alias>"+alias;
-		logger.info(className, function, "alias[{}]", alias);
+		logger.debug(className, function, "key[{}], scsEnvId[{}] name[{}] enable[{}] value[{}]", new Object[]{key, scsEnvId, name, enable, value});
 		if ( enable ) {
-			dpcAccess.changeIntVarForce(key, scsEnvId, alias, DCP_i.ForcedStatus.FORCED.getValue(), value);
+			dpcAccess.changeIntVarForce(key, scsEnvId, name, DCP_i.ForcedStatus.FORCED.getValue(), value);
 		} else {
-			dpcAccess.changeIntVarForce(key, scsEnvId, alias, DCP_i.ForcedStatus.NOT_FORCED.getValue(), value);
+			dpcAccess.changeIntVarForce(key, scsEnvId, name, DCP_i.ForcedStatus.NOT_FORCED.getValue(), value);
 		}
 		logger.end(className, function);
 	}
 	
-	public void sendChangeVarForce ( String key, String scsEnvId, String alias, boolean enable, float value) {
+	public void sendChangeVarForce ( String key, String scsEnvId, String name, boolean enable, float value) {
 		final String function = "sendChangeVarForce";
 		logger.begin(className, function);
-		logger.info(className, function, "key[{}], scsEnvId[{}] alias[{}] enable[{}] value[{}]", new Object[]{key, scsEnvId, alias, enable, value});
-		if ( !alias.startsWith("<alias>") ) alias = "<alias>"+alias;
-		logger.info(className, function, "alias[{}]", alias);
+		logger.debug(className, function, "key[{}], scsEnvId[{}] name[{}] enable[{}] value[{}]", new Object[]{key, scsEnvId, name, enable, value});
 		if ( enable ) {
-			dpcAccess.changeFloatVarForce(key, scsEnvId, alias, DCP_i.ForcedStatus.FORCED.getValue(), value);
+			dpcAccess.changeFloatVarForce(key, scsEnvId, name, DCP_i.ForcedStatus.FORCED.getValue(), value);
 		} else {
-			dpcAccess.changeFloatVarForce(key, scsEnvId, alias, DCP_i.ForcedStatus.NOT_FORCED.getValue(), value);
+			dpcAccess.changeFloatVarForce(key, scsEnvId, name, DCP_i.ForcedStatus.NOT_FORCED.getValue(), value);
 		}
 		logger.end(className, function);
 	}
 	
-	public void sendChangeVarForce ( String key, String scsEnvId, String alias, boolean enable, String value) {
+	public void sendChangeVarForce ( String key, String scsEnvId, String name, boolean enable, String value) {
 		final String function = "sendChangeVarForce";
 		logger.begin(className, function);
-		logger.info(className, function, "key[{}], scsEnvId[{}] alias[{}] enable[{}] value[{}]", new Object[]{key, scsEnvId, alias, enable, value});
-		if ( !alias.startsWith("<alias>") ) alias = "<alias>"+alias;
-		logger.info(className, function, "alias[{}]", alias);
+		logger.debug(className, function, "key[{}], scsEnvId[{}] name[{}] enable[{}] value[{}]", new Object[]{key, scsEnvId, name, enable, value});
 		if ( enable ) {
-			dpcAccess.changeStringVarForce(key, scsEnvId, alias, DCP_i.ForcedStatus.FORCED.getValue(), value);
+			dpcAccess.changeStringVarForce(key, scsEnvId, name, DCP_i.ForcedStatus.FORCED.getValue(), value);
 		} else {
-			dpcAccess.changeStringVarForce(key, scsEnvId, alias, DCP_i.ForcedStatus.NOT_FORCED.getValue(), value);
+			dpcAccess.changeStringVarForce(key, scsEnvId, name, DCP_i.ForcedStatus.NOT_FORCED.getValue(), value);
 		}
 		logger.end(className, function);
 	}

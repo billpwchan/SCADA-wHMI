@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<option key="M"><type>M</type></option>
+	
+	<option key="-1">
+		<type>P</type>
+		<name> </name>
+		<title> </title>
+		<tooltips> </tooltips>
+		
+		<css>project-gwt-button-navigation-menu-not-found</css>
+
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiScreen>-1</uiScreen>
+
+		<uiConf>uiCtrl=UILayoutSummary&amp;uiView=MenuNotFound/Summary.view.xml&amp;uiOpts=MenuNotFound/Summary.opts.xml</uiConf>
+	</option>
+	
 	<option key="0">
 		<type>M</type>
 		<name>LMC</name>
 		<title>Lok Ma Chau Station</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-location-lmc</css>
 		<tooltips>Lok Ma Chau Station</tooltips>
@@ -14,7 +29,7 @@
 		<type>M</type>
 		<name>TECS</name>
 		<title>Tunnel Environmental Control System</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Tunnel Environmental Control System</tooltips>
 	
@@ -71,17 +86,20 @@
 		<type>S</type>
 		<name>Tunnel Overview</name>
 		<title>TECS Tunnel Overview</title>
-		<uiPanel>C1166B_TECS_ALLOVRTECS</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>TECS Tunnel Overview</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=C1166B_TECS_ALLOVRTECS</uiConf>
 	</option>
 	<option key="3">
 		<type>S</type>
 		<name>Overview</name>
 		<title>LMC/CTV/SSV - TECS - Overview</title>
-		<uiPanel>C1166B_TECS_L02OVRTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02OVRTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>LMC/CTV/SSV - TECS - Overview</tooltips>
 	</option>
@@ -89,7 +107,7 @@
 		<type>M</type>
 		<name>Mode</name>
 		<title>Mode</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Mode</tooltips>
 	</option>
@@ -97,8 +115,9 @@
 		<type>S</type>
 		<name>Overview</name>
 		<title>LMC/CTV/SSV - TECS - Mode - Overview</title>
-		<uiPanel>C1166B_TECS_L02MODTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02MODTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>LMC/CTV/SSV - TECS - Mode - Overview</tooltips>
 	</option>
@@ -106,8 +125,9 @@
 		<type>S</type>
 		<name>N1</name>
 		<title>LMC/SSV/CTV - Normal Mode Details - N1</title>
-		<uiPanel>C1166B_TECS_L02N1_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02N1_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Normal Mode Details - N1</tooltips>
@@ -116,8 +136,9 @@
 		<type>S</type>
 		<name>C1</name>
 		<title>LMC/SSV/CTV - Congestion Mode Details - C1</title>
-		<uiPanel>C1166B_TECS_L02C1_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02C1_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Congestion Mode Details - C1</tooltips>
@@ -126,8 +147,9 @@
 		<type>S</type>
 		<name>C2</name>
 		<title>LMC/SSV/CTV - Congestion Mode Details - C2</title>
-		<uiPanel>C1166B_TECS_L02C2_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02C2_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Congestion Mode Details - C2</tooltips>
@@ -136,8 +158,9 @@
 		<type>S</type>
 		<name>C3</name>
 		<title>LMC/SSV/CTV - Congestion Mode Details - C3</title>
-		<uiPanel>C1166B_TECS_L02C3_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02C3_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Congestion Mode Details - C3</tooltips>
@@ -146,8 +169,9 @@
 		<type>S</type>
 		<name>C4</name>
 		<title>LMC/SSV/CTV - Congestion Mode Details - C4</title>
-		<uiPanel>C1166B_TECS_L02C4_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02C4_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Congestion Mode Details - C4</tooltips>
@@ -156,8 +180,9 @@
 		<type>S</type>
 		<name>C5</name>
 		<title>LMC/SSV/CTV - Congestion Mode Details - C5</title>
-		<uiPanel>C1166B_TECS_L02C5_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02C5_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Congestion Mode Details - C5</tooltips>
@@ -166,8 +191,9 @@
 		<type>S</type>
 		<name>C6</name>
 		<title>LMC/SSV/CTV - Congestion Mode Details - C6</title>
-		<uiPanel>C1166B_TECS_L02C6_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02C6_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Congestion Mode Details - C6</tooltips>
@@ -176,8 +202,9 @@
 		<type>S</type>
 		<name>C7</name>
 		<title>LMC/SSV/CTV - Congestion Mode Details - C7</title>
-		<uiPanel>C1166B_TECS_L02C7_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02C7_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Congestion Mode Details - C7</tooltips>
@@ -186,8 +213,9 @@
 		<type>S</type>
 		<name>C8</name>
 		<title>LMC/SSV/CTV - Congestion Mode Details - C8</title>
-		<uiPanel>C1166B_TECS_L02C8_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02C8_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Congestion Mode Details - C8</tooltips>
@@ -196,8 +224,9 @@
 		<type>S</type>
 		<name>F1</name>
 		<title>LMC/SSV/CTV - Emergency Mode Details - F1</title>
-		<uiPanel>C1166B_TECS_L02F1_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02F1_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Emergency Mode Details - F1</tooltips>
@@ -206,8 +235,9 @@
 		<type>S</type>
 		<name>F2</name>
 		<title>LMC/SSV/CTV - Emergency Mode Details - F2</title>
-		<uiPanel>C1166B_TECS_L02F2_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02F2_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Emergency Mode Details - F2</tooltips>
@@ -216,8 +246,9 @@
 		<type>S</type>
 		<name>F3</name>
 		<title>LMC/SSV/CTV - Emergency Mode Details - F3</title>
-		<uiPanel>C1166B_TECS_L02F3_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02F3_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Emergency Mode Details - F3</tooltips>
@@ -226,8 +257,9 @@
 		<type>S</type>
 		<name>F4</name>
 		<title>LMC/SSV/CTV - Emergency Mode Details - F4</title>
-		<uiPanel>C1166B_TECS_L02F4_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02F4_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Emergency Mode Details - F4</tooltips>
@@ -236,8 +268,9 @@
 		<type>S</type>
 		<name>F5</name>
 		<title>LMC/SSV/CTV - Emergency Mode Details - F5</title>
-		<uiPanel>C1166B_TECS_L02F5_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02F5_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Emergency Mode Details - F5</tooltips>
@@ -246,8 +279,9 @@
 		<type>S</type>
 		<name>F6</name>
 		<title>LMC/SSV/CTV - Emergency Mode Details - F6</title>
-		<uiPanel>C1166B_TECS_L02F6_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02F6_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Emergency Mode Details - F6</tooltips>
@@ -256,8 +290,9 @@
 		<type>S</type>
 		<name>F7</name>
 		<title>LMC/SSV/CTV - Emergency Mode Details - F7</title>
-		<uiPanel>C1166B_TECS_L02F7_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02F7_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Emergency Mode Details - F7</tooltips>
@@ -266,8 +301,9 @@
 		<type>S</type>
 		<name>F7X</name>
 		<title>LMC/SSV/CTV - Emergency Mode Details - F7X</title>
-		<uiPanel>C1166B_TECS_L02F7XTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02F7XTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Emergency Mode Details - F7X</tooltips>
@@ -276,8 +312,9 @@
 		<type>S</type>
 		<name>F8</name>
 		<title>LMC/SSV/CTV - Emergency Mode Details - F8</title>
-		<uiPanel>C1166B_TECS_L02F8_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02F8_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Emergency Mode Details - F8</tooltips>
@@ -286,8 +323,9 @@
 		<type>S</type>
 		<name>F9</name>
 		<title>LMC/SSV/CTV - Emergency Mode Details - F9</title>
-		<uiPanel>C1166B_TECS_L02F9_TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02F9_TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Emergency Mode Details - F9</tooltips>
@@ -296,8 +334,9 @@
 		<type>S</type>
 		<name>F10</name>
 		<title>LMC/SSV/CTV - Emergency Mode Details - F10</title>
-		<uiPanel>C1166B_TECS_L02F10TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02F10TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Emergency Mode Details - F10</tooltips>
@@ -306,8 +345,9 @@
 		<type>S</type>
 		<name>F11</name>
 		<title>LMC/SSV/CTV - Emergency Mode Details - F11</title>
-		<uiPanel>C1166B_TECS_L02F11TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02F11TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Emergency Mode Details - F11</tooltips>
@@ -316,8 +356,9 @@
 		<type>S</type>
 		<name>F12</name>
 		<title>LMC/SSV/CTV - Emergency Mode Details - F12</title>
-		<uiPanel>C1166B_TECS_L02F12TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02F12TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-lmc-mode</css>
 		<tooltips>LMC/SSV/CTV - Emergency Mode Details - F12</tooltips>
@@ -326,8 +367,9 @@
 		<type>S</type>
 		<name>C. Mode Sum.</name>
 		<title>Congestion Mode Summary</title>
-		<uiPanel>C1166B_TECS_ALLSM1TECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_ALLSM1TECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Congestion Mode Summary</tooltips>
 	</option>
@@ -335,8 +377,9 @@
 		<type>S</type>
 		<name>Control Sum.</name>
 		<title>TECS Control Summary</title>
-		<uiPanel>C1166B_TECS_ALLSUMTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_ALLSUMTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>TECS Control Summary</tooltips>
 	</option>
@@ -344,8 +387,9 @@
 		<type>S</type>
 		<name>Tunnel Temp.</name>
 		<title>LMC/CTV/SSV - TECS - Tunnel Temperature Summary</title>
-		<uiPanel>C1166B_TECS_L02SUMTTMP</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02SUMTTMP</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>LMC/CTV/SSV - TECS - Tunnel Temperature Summary</tooltips>
 	</option>
@@ -353,8 +397,9 @@
 		<type>S</type>
 		<name>Compressed Air</name>
 		<title>LMC/CTV/SSV - TECS - Compressed Air Summary</title>
-		<uiPanel>C1166B_TECS_L02SUMCAIR</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02SUMCAIR</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>LMC/CTV/SSV - TECS - Compressed Air Summary</tooltips>
 	</option>
@@ -362,8 +407,9 @@
 		<type>S</type>
 		<name>M.S. Data</name>
 		<title>LMC/CTV/SSV - Multisourced Data Summary</title>
-		<uiPanel>C1166B_TECS_L02MSDTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02MSDTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>LMC/CTV/SSV - Multisourced Data Summary</tooltips>
 	</option>
@@ -371,8 +417,9 @@
 		<type>S</type>
 		<name>Smoke Probe</name>
 		<title>LMC/CTV/SSV - Smoke Probe Unit Summary</title>
-		<uiPanel>C1166B_TECS_L02SPUTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02SPUTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>LMC/CTV/SSV - Smoke Probe Unit Summary</tooltips>
 	</option>
@@ -380,7 +427,7 @@
 		<type>M</type>
 		<name>Schematics</name>
 		<title>Schematics</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Schematics</tooltips>
 	</option>
@@ -388,8 +435,9 @@
 		<type>S</type>
 		<name>CTV</name>
 		<title>CTV - TECS - Overview</title>
-		<uiPanel>C1166B_TECS_L03OVRTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L03OVRTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>CTV - TECS - Overview</tooltips>
 	</option>
@@ -397,8 +445,9 @@
 		<type>S</type>
 		<name>SSV</name>
 		<title>SSV - TECS - Overview</title>
-		<uiPanel>C1166B_TECS_L04OVRTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L04OVRTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>SSV - TECS - Overview</tooltips>
 	</option>
@@ -406,7 +455,7 @@
 		<type>M</type>
 		<name>Summary</name>
 		<title>Summary</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Summary</tooltips>
 	</option>
@@ -414,8 +463,9 @@
 		<type>S</type>
 		<name>Control Sum.</name>
 		<title>LMC/CTV/SSV - TECS - Control Summary</title>
-		<uiPanel>C1166B_TECS_L02SUMTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02SUMTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>LMC/CTV/SSV - TECS - Control Summary</tooltips>
 	</option>
@@ -423,8 +473,9 @@
 		<type>S</type>
 		<name>DSS</name>
 		<title>LMC - TECS - Decision Support System</title>
-		<uiPanel>C1166B_TECS_L02DSSTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L02DSSTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>LMC - TECS - Decision Support System</tooltips>
 	</option>
@@ -432,7 +483,7 @@
 		<type>M</type>
 		<name>MCS</name>
 		<title>Main Control System</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Main Control System</tooltips>
 	</option>
@@ -440,8 +491,9 @@
 		<type>S</type>
 		<name>System Health</name>
 		<title>LMC - MCS - System Health</title>
-		<uiPanel>C1166B_MCS_L02HLTMCS_</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_MCS_L02HLTMCS_</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>LMC - MCS - System Health</tooltips>
 	</option>
@@ -449,8 +501,8 @@
 		<type>P</type>
 		<name>PTW Summary</name>
 		<title>PTW Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointPTWSummary/UILayoutEntryPointPTWSummary.view.xml</uiView>
 		<tooltips>PTW Summary</tooltips>
@@ -459,8 +511,8 @@
 		<type>P</type>
 		<name>Alarm Summary</name>
 		<title>Alarm Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointAlarmSummary/UILayoutEntryPointAlarmSummary.view.xml</uiView>
 		<tooltips>Alarm Summary</tooltips>
@@ -469,8 +521,8 @@
 		<type>P</type>
 		<name>Event Summary</name>
 		<title>Event Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointEventSummary/UILayoutEntryPointEventSummary.view.xml</uiView>
 		<tooltips>Event Summary</tooltips>
@@ -479,8 +531,8 @@
 		<type>P</type>
 		<name>Alarm Mgmt.</name>
 		<title>Alarm Management</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointAlmMgnSummary/UILayoutEntryPointAlmMgnSummary.view.xml</uiView>
 		<tooltips>Alarm Management</tooltips>
@@ -489,8 +541,8 @@
 		<type>P</type>
 		<name>Help</name>
 		<title>Help</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointHelpURLSummary/UILayoutEntryPointHelpURLSummary.view.xml</uiView>
 		<tooltips>Help</tooltips>
@@ -499,7 +551,7 @@
 		<type>M</type>
 		<name>Utilities</name>
 		<title>Utilities</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Utilities</tooltips>
 	</option>
@@ -507,7 +559,7 @@
 		<type>P</type>
 		<name>Notepad</name>
 		<title>Notepad</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Notepad</tooltips>
 	</option>
@@ -515,8 +567,8 @@
 		<type>P</type>
 		<name>Input Table</name>
 		<title>Input Table</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointInputTableSummary/UILayoutEntryPointInputTableSummary.view.xml</uiView>
 		<tooltips>Input Table</tooltips>
@@ -525,8 +577,8 @@
 		<type>P</type>
 		<name>Historical Report</name>
 		<title>Historical Report</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointDBMSURLSummary/UILayoutEntryPointDBMSURLSummary.view.xml</uiView>
 		<tooltips>Historical Report</tooltips>
@@ -535,7 +587,7 @@
 		<type>P</type>
 		<name>OPM</name>
 		<title>Operator Profile Management</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Operator Profile Management</tooltips>
 	</option>
@@ -543,7 +595,7 @@
 		<type>M</type>
 		<name>CTV</name>
 		<title>Chau Tau Ventilation Building</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-location-ctv</css>
 		<tooltips>Chau Tau Ventilation Building</tooltips>
@@ -552,7 +604,7 @@
 		<type>M</type>
 		<name>3.3kV &amp; LV</name>
 		<title>3.3kV &amp; LV</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>3.3kV &amp; LV</tooltips>
 	</option>
@@ -560,8 +612,9 @@
 		<type>S</type>
 		<name>Electrical Sch.</name>
 		<title>CTV Electrical Schematic</title>
-		<uiPanel>C1166B_POW_L03SCH33LV</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_POW_L03SCH33LV</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>CTV Electrical Schematic</tooltips>
 	</option>
@@ -569,8 +622,9 @@
 		<type>S</type>
 		<name>110V DC Batt.</name>
 		<title>CTV 110V DC Battery Charger</title>
-		<uiPanel>C1166B_POW_L03SCHBATT</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_POW_L03SCHBATT</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>CTV 110V DC Battery Charger</tooltips>
 	</option>
@@ -578,7 +632,7 @@
 		<type>M</type>
 		<name>TECS</name>
 		<title>Tunnel Environmental Control System</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Tunnel Environmental Control System</tooltips>
 	</option>
@@ -586,8 +640,9 @@
 		<type>S</type>
 		<name>Overview</name>
 		<title>CTV - TECS - Overview</title>
-		<uiPanel>C1166B_TECS_L03OVRTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L03OVRTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>CTV - TECS - Overview</tooltips>
 	</option>
@@ -595,7 +650,7 @@
 		<type>M</type>
 		<name>Mode</name>
 		<title>Mode</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Mode</tooltips>
 	</option>
@@ -603,7 +658,7 @@
 		<type>M</type>
 		<name>SSV</name>
 		<title>Sheung Shui Ventilation Building</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-location-ctv</css>
 		<tooltips>Sheung Shui Ventilation Building</tooltips>
@@ -612,7 +667,7 @@
 		<type>M</type>
 		<name>3.3kV &amp; LV</name>
 		<title>3.3kV &amp; LV</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>3.3kV &amp; LV</tooltips>
 	</option>
@@ -620,8 +675,9 @@
 		<type>S</type>
 		<name>Electrical Sch.</name>
 		<title>SSV Electrical Schematic</title>
-		<uiPanel>C1166B_POW_L04SCH33LV</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_POW_L04SCH33LV</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>SSV Electrical Schematic</tooltips>
 	</option>
@@ -629,8 +685,9 @@
 		<type>S</type>
 		<name>110V DC Batt.</name>
 		<title>SSV 110V DC Battery Charger</title>
-		<uiPanel>C1166B_POW_L04SCHBATT</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_POW_L04SCHBATT</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>SSV 110V DC Battery Charger</tooltips>
 	</option>
@@ -638,7 +695,7 @@
 		<type>M</type>
 		<name>TECS</name>
 		<title>Tunnel Environmental Control System</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Tunnel Environmental Control System</tooltips>
 	</option>
@@ -646,8 +703,9 @@
 		<type>S</type>
 		<name>Overview</name>
 		<title>SSV - TECS - Overview</title>
-		<uiPanel>C1166B_TECS_L04OVRTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L04OVRTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>SSV - TECS - Overview</tooltips>
 	</option>
@@ -655,7 +713,7 @@
 		<type>M</type>
 		<name>Mode</name>
 		<title>Mode</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Mode</tooltips>
 	</option>
@@ -663,7 +721,7 @@
 		<type>M</type>
 		<name>KOT</name>
 		<title>Kowloon Tong Station</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Kowloon Tong Station</tooltips>
 	</option>
@@ -671,7 +729,7 @@
 		<type>M</type>
 		<name>3.3kV &amp; LV</name>
 		<title>3.3kV &amp; LV</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>3.3kV &amp; LV</tooltips>
 	</option>
@@ -679,8 +737,9 @@
 		<type>S</type>
 		<name>ACB &amp; UPS</name>
 		<title>KOT ACB &amp; UPS Summary</title>
-		<uiPanel>C1166B_POW_L25SUMUPS_</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_POW_L25SUMUPS_</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>KOT ACB &amp; UPS Summary</tooltips>
 	</option>
@@ -688,7 +747,7 @@
 		<type>M</type>
 		<name>TECS</name>
 		<title>Tunnel Environmental Control System</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Tunnel Environmental Control System</tooltips>
 	</option>
@@ -696,8 +755,9 @@
 		<type>S</type>
 		<name>Overview</name>
 		<title>KOT - TECS - Overview</title>
-		<uiPanel>C1166B_TECS_L25OVRTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L25OVRTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>KOT - TECS - Overview</tooltips>
 	</option>
@@ -705,8 +765,9 @@
 		<type>S</type>
 		<name>Mode</name>
 		<title>KOT - TECS - Mode</title>
-		<uiPanel>C1166B_TECS_L25OVRTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L25OVRTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>KOT - TECS - Mode</tooltips>
 	</option>
@@ -714,8 +775,9 @@
 		<type>S</type>
 		<name>Tunnel Temp.</name>
 		<title>KOT - TECS - Tunnel Temperature Summary</title>
-		<uiPanel>C1166B_TECS_L25OVRTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L25OVRTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>KOT - TECS - Tunnel Temperature Summary</tooltips>
 	</option>
@@ -723,8 +785,9 @@
 		<type>S</type>
 		<name>Compressed Air</name>
 		<title>KOT - TECS - Compressed Air Summary</title>
-		<uiPanel>C1166B_TECS_L25SUMCAIR</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L25SUMCAIR</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>KOT - TECS - Compressed Air Summary</tooltips>
 	</option>
@@ -732,8 +795,9 @@
 		<type>S</type>
 		<name>Schematics</name>
 		<title>KOT - TECS - Schematics</title>
-		<uiPanel>C1166B_TECS_L25OVRTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L25OVRTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>KOT - TECS - Schematics</tooltips>
 	</option>
@@ -741,7 +805,7 @@
 		<type>M</type>
 		<name>Summary</name>
 		<title>Summary</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Summary</tooltips>
 	</option>
@@ -749,8 +813,9 @@
 		<type>S</type>
 		<name>Control Sum.</name>
 		<title>KOT - TECS - Control Summary</title>
-		<uiPanel>C1166B_TECS_L25SUMTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L25SUMTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>KOT - TECS - Control Summary</tooltips>
 	</option>
@@ -758,8 +823,9 @@
 		<type>S</type>
 		<name>Tunnel Temp.</name>
 		<title>KOT - TECS - Tunnel Temperature</title>
-		<uiPanel>C1166B_TECS_L25OVRTECS</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L25OVRTECS</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>KOT - TECS - Tunnel Temperature</tooltips>
 	</option>
@@ -767,8 +833,9 @@
 		<type>S</type>
 		<name>Compressed Air</name>
 		<title>KOT - TECS - Compressed Air</title>
-		<uiPanel>C1166B_TECS_L25SUMCAIR</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L25SUMCAIR</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>KOT - TECS - Compressed Air</tooltips>
 	</option>
@@ -776,8 +843,9 @@
 		<type>S</type>
 		<name>Misc.</name>
 		<title>KOT - TECS - Miscellaneous</title>
-		<uiPanel>C1166B_TECS_L25SUMMISC</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_TECS_L25SUMMISC</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>KOT - TECS - Miscellaneous</tooltips>
 	</option>
@@ -785,7 +853,7 @@
 		<type>M</type>
 		<name>MCS</name>
 		<title>Main Control System</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Main Control System</tooltips>
 	</option>
@@ -793,8 +861,9 @@
 		<type>S</type>
 		<name>System Health</name>
 		<title>KOT - MCS - System Health</title>
-		<uiPanel>C1166B_MCS_L25HLTMCS_</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_MCS_L25HLTMCS_</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>KOT - MCS - System Health</tooltips>
 	</option>
@@ -802,8 +871,8 @@
 		<type>P</type>
 		<name>PTW Summary</name>
 		<title>PTW Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointPTWSummary/UILayoutEntryPointPTWSummary.view.xml</uiView>
 		<tooltips>PTW Summary</tooltips>
@@ -812,8 +881,8 @@
 		<type>P</type>
 		<name>Alarm Summary</name>
 		<title>Alarm Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointAlarmSummary/UILayoutEntryPointAlarmSummary.view.xml</uiView>
 		<tooltips>Alarm Summary</tooltips>
@@ -822,8 +891,8 @@
 		<type>P</type>
 		<name>Event Summary</name>
 		<title>Event Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointEventSummary/UILayoutEntryPointEventSummary.view.xml</uiView>
 		<tooltips>Event Summary</tooltips>
@@ -832,8 +901,8 @@
 		<type>P</type>
 		<name>Alarm Mgmt.</name>
 		<title>Alarm Management</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointAlmMgnSummary/UILayoutEntryPointAlmMgnSummary.view.xml</uiView>
 		<tooltips>Alarm Management</tooltips>
@@ -842,8 +911,8 @@
 		<type>P</type>
 		<name>Help</name>
 		<title>Help</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointHelpURLSummary/UILayoutEntryPointHelpURLSummary.view.xml</uiView>
 		<tooltips>Help</tooltips>
@@ -852,7 +921,7 @@
 		<type>M</type>
 		<name>Utilities</name>
 		<title>Utilities</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Utilities</tooltips>
 	</option>
@@ -860,7 +929,7 @@
 		<type>P</type>
 		<name>Notepad</name>
 		<title>Notepad</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Notepad</tooltips>
 	</option>
@@ -868,8 +937,8 @@
 		<type>P</type>
 		<name>Input Table</name>
 		<title>Input Table</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointInputTableSummary/UILayoutEntryPointInputTableSummary.view.xml</uiView>
 		<tooltips>Input Table</tooltips>
@@ -878,8 +947,8 @@
 		<type>P</type>
 		<name>Historical Report</name>
 		<title>Historical Report</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointDBMSURLSummary/UILayoutEntryPointDBMSURLSummary.view.xml</uiView>
 		<tooltips>Historical Report</tooltips>
@@ -888,7 +957,7 @@
 		<type>P</type>
 		<name>OPM</name>
 		<title>Operator Profile Management</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Operator Profile Management</tooltips>
 	</option>
@@ -896,7 +965,7 @@
 		<type>M</type>
 		<name>OCC</name>
 		<title>Operations Control Centre</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-location-occ</css>
 		<tooltips>Operations Control Centre</tooltips>
@@ -905,7 +974,7 @@
 		<type>M</type>
 		<name>MCS</name>
 		<title>Main Control System</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Main Control System</tooltips>
 	</option>
@@ -913,8 +982,9 @@
 		<type>S</type>
 		<name>System Health</name>
 		<title>OCC - MCS - System Health</title>
-		<uiPanel>C1166B_MCS_L01HLTMCS_</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
+		<uiSvId>C1166B_MCS_L01HLTMCS_</uiSvId>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>OCC - MCS - System Health</tooltips>
 	</option>
@@ -922,8 +992,8 @@
 		<type>P</type>
 		<name>PTW Summary</name>
 		<title>PTW Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointPTWSummary/UILayoutEntryPointPTWSummary.view.xml</uiView>
 		<tooltips>PTW Summary</tooltips>
@@ -932,8 +1002,8 @@
 		<type>P</type>
 		<name>Alarm Summary</name>
 		<title>Alarm Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointAlarmSummary/UILayoutEntryPointAlarmSummary.view.xml</uiView>
 		<tooltips>Alarm Summary</tooltips>
@@ -942,8 +1012,8 @@
 		<type>P</type>
 		<name>Event Summary</name>
 		<title>Event Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointEventSummary/UILayoutEntryPointEventSummary.view.xml</uiView>
 		<tooltips>Event Summary</tooltips>
@@ -952,8 +1022,8 @@
 		<type>P</type>
 		<name>Alarm Mgmt.</name>
 		<title>Alarm Management</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointAlmMgnSummary/UILayoutEntryPointAlmMgnSummary.view.xml</uiView>
 		<tooltips>Alarm Management</tooltips>
@@ -962,8 +1032,8 @@
 		<type>P</type>
 		<name>Help</name>
 		<title>Help</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointHelpURLSummary/UILayoutEntryPointHelpURLSummary.view.xml</uiView>
 		<tooltips>Help</tooltips>
@@ -972,7 +1042,7 @@
 		<type>M</type>
 		<name>Utilities</name>
 		<title>Utilities</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Utilities</tooltips>
 	</option>
@@ -980,7 +1050,7 @@
 		<type>P</type>
 		<name>Notepad</name>
 		<title>Notepad</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Notepad</tooltips>
 	</option>
@@ -988,8 +1058,8 @@
 		<type>P</type>
 		<name>Input Table</name>
 		<title>Input Table</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointInputTableSummary/UILayoutEntryPointInputTableSummary.view.xml</uiView>
 		<tooltips>Input Table</tooltips>
@@ -998,8 +1068,8 @@
 		<type>P</type>
 		<name>Historical Report</name>
 		<title>Historical Report</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointDBMSURLSummary/UILayoutEntryPointDBMSURLSummary.view.xml</uiView>
 		<tooltips>Historical Report</tooltips>
@@ -1008,7 +1078,7 @@
 		<type>P</type>
 		<name>OPM</name>
 		<title>Operator Profile Management</title>
-		<uiScreen>0</uiScreen>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Operator Profile Management</tooltips>
 	</option>
@@ -1016,40 +1086,19 @@
 		<type>P</type>
 		<name>PTW Summary(DpcTag)</name>
 		<title>PTW Summary(DpcTag)</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointDpcTagSummary/UILayoutEntryPointDpcTagSummary.view.xml</uiView>
 		<tooltips>PTW Summary(DpcTag)</tooltips>
 	</option>
-
-	<option key="107">
-		<type>P</type>
-		<name>Change Password Summary</name>
-		<title>Change Password Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointOPMChangePasswordSummary/UILayoutEntryPointOPMChangePasswordSummary.view.xml</uiView>
-		<tooltips>Change Password Summary</tooltips>
-	</option>
-	<option key="108">
-		<type>P</type>
-		<name>Change Target User Password Summary</name>
-		<title>Change Target User Password Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointOPMChangeTargetUserPasswordSummary/UILayoutEntryPointOPMChangeTargetUserPasswordSummary.view.xml</uiView>
-		<tooltips>Change User Password Summary</tooltips>
-	</option>	
 	
 	<option key="109">
 		<type>P</type>
 		<name>Login Summary</name>
 		<title>Login Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointLoginSummary/UILayoutEntryPointLoginSummary.view.xml</uiView>
 		<tooltips>Login Summary</tooltips>
@@ -1058,120 +1107,27 @@
 		<type>P</type>
 		<name>SOC Summary</name>
 		<title>SOC Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointSocSummary/UILayoutEntryPointSocSummary.view.xml</uiView>
 		<tooltips>SOC Summary</tooltips>
 	</option>
-	<option key="111">
-		<type>M</type>
-		<name>Verify Database Class Summary</name>
-		<title>Verify Database Class Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseSummary.view.xml</uiView>
-		<tooltips>Database Verify Summary</tooltips>
-	</option>
-	<option key="112">
-		<type>P</type>
-		<name>MultiReading</name>
-		<title>MultiReading</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseMultiReadingSummary.view.xml</uiView>
-		<tooltips>MultiReading</tooltips>
-	</option>
-	<option key="113">
-		<type>P</type>
-		<name>GetChildren</name>
-		<title>GetChildren</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseGetChildrenSummary.view.xml</uiView>
-		<tooltips>GetChildren</tooltips>
-	</option>
-	<option key="114">
-		<type>P</type>
-		<name>Subscription</name>
-		<title>Subscription</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseSubscriptionSummary.view.xml</uiView>
-		<tooltips>Subscription</tooltips>
-	</option>
-	<option key="115">
-		<type>P</type>
-		<name>Polling</name>
-		<title>Polling</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabasePollingSummary.view.xml</uiView>
-		<tooltips>Polling</tooltips>
-	</option>
-	<option key="116">
-		<type>P</type>
-		<name>GroupPolling</name>
-		<title>GroupPolling</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseGroupPollingSummary.view.xml</uiView>
-		<tooltips>GroupPolling</tooltips>
-	</option>
-	<option key="117">
-		<type>P</type>
-		<name>GroupPollingDiff</name>
-		<title>GroupPollingDiff</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseGroupPollingDiffSummary.view.xml</uiView>
-		<tooltips>GroupPollingDiff</tooltips>
-	</option>
-	<option key="118">
-		<type>P</type>
-		<name>GroupPollingDiff Singleton</name>
-		<title>GroupPollingDiff Singleton</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseGroupPollingDiffSingletonSummary.view.xml</uiView>
-		<tooltips>GroupPollingDiff Singleton</tooltips>
-	</option>
-	<option key="119">
-		<type>P</type>
-		<name>Writing</name>
-		<title>Writing</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseWritingSummary.view.xml</uiView>
-		<tooltips>Writing</tooltips>
-	</option>
+
 	<option key="120">
 		<type>M</type>
 		<name>Central Station</name>
 		<title>Central Station</title>
-		<uiPanel>Central Station</uiPanel>
-		<uiScreen>0</uiScreen>
-		<!--
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseSummary.view.xml</uiView>
-		-->
+		<uiCtrl>Central Station</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<tooltips>Central Station</tooltips>
 	</option>
 	<option key="121">
 		<type>P</type>
 		<name>Handover Panel</name>
 		<title>Handover Panel</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointHDVSummary/UILayoutEntryPointHDVSummary.view.xml</uiView>
 		<tooltips>Handover Panel</tooltips>
@@ -1180,8 +1136,8 @@
 		<type>P</type>
 		<name>Handover Panel (Station)</name>
 		<title>Handover Panel (Station)</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointHDVSummaryStn/UILayoutEntryPointHDVSummaryStn.view.xml</uiView>
 		<tooltips>Handover Panel (Station)</tooltips>
@@ -1191,11 +1147,11 @@
 		<type>P</type>
 		<name>Verify HILC API</name>
 		<title>Verify HILC API</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyHILCSummary/UILayoutEntryPointVerifyHILCSummary.view.xml</uiView>
+		<uiView>Verify/HILC/UILayoutEntryPointVerifyHILCSummary.view.xml</uiView>
 
 		<tooltips>HILC Verify Summary</tooltips>
 	</option>
@@ -1206,10 +1162,6 @@
 		<type>M</type>
 		<name>Verify Read JSON Summary</name>
 		<title>Verify Read JSON Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyReadJSONSummary/UILayoutEntryPointVerifyReadJSONSummary.view.xml</uiView>
 		<tooltips>Verify Read JSON Summary</tooltips>
 	</option>
 	
@@ -1217,41 +1169,19 @@
 		<type>P</type>
 		<name>Verify Read JSON Summary</name>
 		<title>Verify Read JSON Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyReadJSONSummary/UILayoutEntryPointVerifyReadJSONSummary.view.xml</uiView>
+		<uiView>Verify/Json/UILayoutEntryPointVerifyReadJSONSummary.view.xml</uiView>
 		<tooltips>Verify Read JSON Summary</tooltips>
-	</option>
-	
-	<option key="132">
-		<type>M</type>
-		<name>Verify OPM Summary</name>
-		<title>Verify OPM Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyOPMSummary/UILayoutEntryPointVerifyOPMSummary.view.xml</uiView>
-		<tooltips>Verify OPM Summary</tooltips>
-	</option>
-	
-	<option key="133">
-		<type>P</type>
-		<name>Verify OPM Summary</name>
-		<title>Verify OPM Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyOPMSummary/UILayoutEntryPointVerifyOPMSummary.view.xml</uiView>
-		<tooltips>Verify OPM Summary</tooltips>
 	</option>
 	
 	<option key="134">
 		<type>P</type>
 		<name>Handover Matrix Panel</name>
 		<title>Handover Matrix Panel</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointHDVMatrixSummary/UILayoutEntryPointHDVMatrixSummary.view.xml</uiView>
 		<tooltips>Handover Matrix Panel</tooltips>
@@ -1261,8 +1191,8 @@
 		<type>P</type>
 		<name>Handover Matrix Panel (Station)</name>
 		<title>Handover Matrix Panel (Station)</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointHDVMatrixSummaryStn/UILayoutEntryPointHDVMatrixSummaryStn.view.xml</uiView>
 		<tooltips>Handover Matrix Panel (Station)</tooltips>
@@ -1278,20 +1208,20 @@
 		<type>P</type>
 		<name>UIEventAction Dbm Panel</name>
 		<title>UIEventAction Dbm Panel</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionDbmSummary/UILayoutEntryPointVerifyUIEventActionDbmSummary.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Dbm/UILayoutEntryPointVerifyUIEventActionDbmSummary.view.xml</uiView>
 		<tooltips>UIEventAction Dbm Panel</tooltips>
 	</option>
 	<option key="152">
 		<type>P</type>
 		<name>UIEventAction JS Panel</name>
 		<title>UIEventAction JS Panel</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionJSSummary/UILayoutEntryPointVerifyUIEventActionJSSummary.view.xml</uiView>
+		<uiView>Verify/UIEventAction/JS/UILayoutEntryPointVerifyUIEventActionJSSummary.view.xml</uiView>
 		<tooltips>UIEventAction JS Panel</tooltips>
 	</option>
 
@@ -1299,10 +1229,10 @@
 		<type>P</type>
 		<name>UIEventAction Ols Panel</name>
 		<title>UIEventAction Ols Panel</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionOlsSummary/UILayoutEntryPointVerifyUIEventActionOlsSummary.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Ols/UILayoutEntryPointVerifyUIEventActionOlsSummary.view.xml</uiView>
 		<tooltips>UIEventAction Ols Panel</tooltips>
 	</option>
 	
@@ -1316,60 +1246,60 @@
 		<type>P</type>
 		<name>GetTaskNamesAddTaskRemoveTask</name>
 		<title>GetTaskNamesAddTaskRemoveTask</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetTaskNamesAddTaskRemoveTask.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetTaskNamesAddTaskRemoveTask.view.xml</uiView>
 		<tooltips>GetTaskNamesAddTaskRemoveTask</tooltips>
 	</option>
 	<option key="162">
 		<type>P</type>
 		<name>EnableTaskDisableTaskIsEnabledTask</name>
 		<title>EnableTaskDisableTaskIsEnabledTask</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_EnableTaskDisableTaskIsEnabledTask.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_EnableTaskDisableTaskIsEnabledTask.view.xml</uiView>
 		<tooltips>EnableTaskDisableTaskIsEnabledTask</tooltips>
 	</option>
 	<option key="163">
 		<type>P</type>
 		<name>GetStartTimeSetStartTime</name>
 		<title>GetStartTimeSetStartTime</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetStartTimeSetStartTime.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetStartTimeSetStartTime.view.xml</uiView>
 		<tooltips>GetStartTimeSetStartTime</tooltips>
 	</option>
 	<option key="164">
 		<type>P</type>
 		<name>GetEndTimeSetEndTime</name>
 		<title>GetEndTimeSetEndTime</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetEndTimeSetEndTime.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetEndTimeSetEndTime.view.xml</uiView>
 		<tooltips>GetEndTimeSetEndTime</tooltips>
 	</option>
 	<option key="165">
 		<type>P</type>
 		<name>GetDescriptionSetDescription</name>
 		<title>GetDescriptionSetDescription</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetDescriptionSetDescription.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetDescriptionSetDescription.view.xml</uiView>
 		<tooltips>GetDescriptionSetDescription</tooltips>
 	</option>
 	<option key="166">
 		<type>P</type>
 		<name>GetFilterSetFilter</name>
 		<title>GetFilterSetFilter</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetFilterSetFilter.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetFilterSetFilter.view.xml</uiView>
 		<tooltips>GetFilterSetFilter</tooltips>
 	</option>
 	
@@ -1377,90 +1307,90 @@
 		<type>P</type>
 		<name>AddCompleteTask</name>
 		<title>AddCompleteTask</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_AddCompleteTask.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_AddCompleteTask.view.xml</uiView>
 		<tooltips>AddCompleteTask</tooltips>
 	</option>
 	<option key="168">
 		<type>P</type>
 		<name>GetCommandSetCommand</name>
 		<title>GetCommandSetCommand</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetCommandSetCommand.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetCommandSetCommand.view.xml</uiView>
 		<tooltips>GetCommandSetCommand</tooltips>
 	</option>
 	<option key="169">
 		<type>P</type>
 		<name>GetArgumentsSetArguments</name>
 		<title>GetArgumentsSetArguments</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetArgumentsSetArguments.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetArgumentsSetArguments.view.xml</uiView>
 		<tooltips>GetArgumentsSetArguments</tooltips>
 	</option>
 	<option key="170">
 		<type>P</type>
 		<name>GetDatesSetDates</name>
 		<title>GetDatesSetDates</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetDatesSetDates.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetDatesSetDates.view.xml</uiView>
 		<tooltips>GetDatesSetDates</tooltips>
 	</option>	
 	<option key="171">
 		<type>P</type>
 		<name>GetIntervalSetInterval</name>
 		<title>GetIntervalSetInterval</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetIntervalSetInterval.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetIntervalSetInterval.view.xml</uiView>
 		<tooltips>GetIntervalSetInterval</tooltips>
 	</option>	
 	<option key="172">
 		<type>P</type>
 		<name>GetLog</name>
 		<title>GetLog</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetLog.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetLog.view.xml</uiView>
 		<tooltips>GetLog</tooltips>
 	</option>	
 	<option key="173">
 		<type>P</type>
 		<name>GetTaskType</name>
 		<title>GetTaskType</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetTaskType.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetTaskType.view.xml</uiView>
 		<tooltips>GetTaskType</tooltips>
 	</option>	
 	<option key="174">
 		<type>P</type>
 		<name>SetTaskArguments</name>
 		<title>SetTaskArguments</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_SetTaskArguments.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_SetTaskArguments.view.xml</uiView>
 		<tooltips>SetTaskArguments</tooltips>
 	</option>	
 	<option key="175">
 		<type>P</type>
 		<name>GetDayGroupNamesAndIds</name>
 		<title>GetDayGroupNamesAndIds</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetDayGroupNamesAndIds.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetDayGroupNamesAndIds.view.xml</uiView>
 		<tooltips>GetDayGroupNamesAndIds</tooltips>
 	</option>
 	
@@ -1468,10 +1398,10 @@
 		<type>P</type>
 		<name>Verify Translation Summary</name>
 		<title>Verify Translation Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyTranslationSummary/UILayoutEntryPointVerifyTranslationSummary.view.xml</uiView>
+		<uiView>Verify/Translation/UILayoutEntryPointVerifyTranslationSummary.view.xml</uiView>
 		<tooltips>Verify Translation Summary</tooltips>
 	</option>
 	
@@ -1479,21 +1409,25 @@
 		<type>M</type>
 		<name>Verify ScsRTDBComponent Summary</name>
 		<title>Verify ScsRTDBComponent Summary</title>
-		<!--
-		<uiPanel>UILayoutEntryPoint</uiPanel>
+	</option>
+	
+	<option key="181">
+		<type>P</type>
+		<name>Verify Write Summary</name>
+		<title>Verify Write Summary</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyTranslationSummary/UILayoutEntryPointVerifyTranslationSummary.view.xml</uiView>
-		<tooltips>Verify ScsRTDBComponent Summary</tooltips>
-		-->
+		<uiView>Verify/Scs/ScsRTDBComponent/UILayoutEntryPointVerifyScsRTDBComponentControlSummary.view.xml</uiView>
+		<tooltips>Verify Write Summary</tooltips>
 	</option>
 	
 	<option key="185">
 		<type>P</type>
 		<name>Simultaneous Login Summary</name>
 		<title>Simultaneous Login Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointSimultaneousLoginSummary/UILayoutEntryPointPTWSummary.view.xml</uiView>
 		<tooltips>Login Summary</tooltips>
@@ -1504,8 +1438,8 @@
 		<type>P</type>
 		<name>Auto Logout</name>
 		<title>Auto Logout</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UIAutoLogoutConfigPanel/EntryPoint.view.xml</uiView>
 		<tooltips>Login Summary</tooltips>
@@ -1515,8 +1449,8 @@
 		<type>P</type>
 		<name>Chatter Filter Table</name>
 		<title>Chatter Filter Table</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointChatterSummary/UILayoutEntryPointChatterSummary.view.xml</uiView>
 		<tooltips>Chatter Filter Table</tooltips>
@@ -1526,8 +1460,8 @@
 		<type>P</type>
 		<name>Oneshot Time Schedule</name>
 		<title>Oneshot Time Schedule</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointOneshotTimeScheduleURLSummary/UILayoutEntryPointOneshotTimeScheduleURLSummary.view.xml</uiView>
 		<tooltips>Oneshot Time Schedule</tooltips>
@@ -1537,8 +1471,8 @@
 		<type>P</type>
 		<name>Periodic Time Schedule</name>
 		<title>Periodic Time Schedule</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointPeriodicTimeScheduleURLSummary/UILayoutEntryPointPeriodicTimeScheduleURLSummary.view.xml</uiView>
 		<tooltips>Periodic Time Schedule</tooltips>
@@ -1548,8 +1482,8 @@
 		<type>P</type>
 		<name>Weekly Schedule Planning</name>
 		<title>Weekly Schedule Planning</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointWeeklySchedulePlanningURLSummary/UILayoutEntryPointWeeklySchedulePlanningURLSummary.view.xml</uiView>
 		<tooltips>Weekly Schedule Planning</tooltips>
@@ -1559,67 +1493,404 @@
 		<type>M</type>
 		<name>Verify Control Priority</name>
 		<title>Verify Control Priority</title>
-		<!--
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyTranslationSummary/UILayoutEntryPointVerifyTranslationSummary.view.xml</uiView>
-		<tooltips>Verify ScsRTDBComponent Summary</tooltips>
-		-->
+		<tooltips>Verify Control Priority</tooltips>
 	</option>
 
 	<option key="192">
 		<type>P</type>
 		<name>Reservation</name>
 		<title>Reservation</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<tooltips>Reservation</tooltips>
+		
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UIVerifyControlPriority/UIEntryPoint.view.xml</uiView>
-		<tooltips>Verify Control Priority</tooltips>
+		<uiScreen>-1</uiScreen>
+
+		<uiConf>uiCtrl=UILayoutSummary&amp;uiView=Verify/ControlPriority/Summary.view.xml&amp;uiOpts=Verify/ControlPriority/Summary.opts.xml&amp;uiElem=UIVerifyControlPriority</uiConf>
 	</option>
-	
 	<option key="193">
 		<type>P</type>
 		<name>Request Reservation</name>
 		<title>Request Reservation</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<tooltips>Request Reservation</tooltips>
+		
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UIVerifyControlPriority/UIEntryPointVerifyControlPriority_RequestReservation.view.xml</uiView>
-		<tooltips>Verify Control Priority</tooltips>
+		<uiScreen>-1</uiScreen>
+
+		<uiConf>uiCtrl=UIWidgetVerifyControlPriority&amp;uiView=Verify/ControlPriority/RequestReservation.view.xml</uiConf>
 	</option>
 	
 	<option key="194">
 		<type>P</type>
 		<name>Withdraw Reservation</name>
 		<title>Withdraw Reservation</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
+		<tooltips>Withdraw Reservation</tooltips>
+		
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UIVerifyControlPriority/UIEntryPointVerifyControlPriority_WithdrawReservation.view.xml</uiView>
-		<tooltips>WithdrawReservation</tooltips>
+		<uiScreen>-1</uiScreen>
+
+		<uiConf>uiCtrl=UIWidgetVerifyControlPriority&amp;uiView=Verify/ControlPriority/WithdrawReservation.view.xml</uiConf>
 	</option>
 	
 	<option key="195">
 		<type>P</type>
 		<name>Get Current Reservation By</name>
 		<title>Get Current Reservation By</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UIVerifyControlPriority/UIEntryPointVerifyControlPriority_GetCurrentReservationBy.view.xml</uiView>
 		<tooltips>Get Current Reservation By</tooltips>
+
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiScreen>-1</uiScreen>
+
+		<uiConf>uiCtrl=UIWidgetVerifyControlPriority&amp;uiView=Verify/ControlPriority/GetCurrentReservationBy.view.xml</uiConf>
 	</option>
 	
 	<option key="196">
 		<type>P</type>
+		<name>Check Reservation Level</name>
+		<title>Check Reservation Level</title>
+		<tooltips>Check Reservation Level</tooltips>
+
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiScreen>-1</uiScreen>
+
+		<uiConf>uiCtrl=UIWidgetVerifyControlPriority&amp;uiView=Verify/ControlPriority/CheckReservationLevel.view.xml</uiConf>
+	</option>
+	
+	<option key="197">
+		<type>P</type>
 		<name>Check Reservation Availability</name>
 		<title>Check Reservation Availability</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UIVerifyControlPriority/UIEntryPointVerifyControlPriority_CheckReservationAvailability.view.xml</uiView>
 		<tooltips>Check Reservation Availability</tooltips>
+
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiScreen>-1</uiScreen>
+
+		<uiConf>uiCtrl=UIWidgetVerifyControlPriority&amp;uiView=Verify/ControlPriority/CheckReservationAvailability.view.xml</uiConf>
+	</option>
+	
+	<option key="200">
+		<type>M</type>
+		<name>Verify OPM Summary</name>
+		<title>Verify OPM Summary</title>
+		<tooltips>Verify OPM Summary</tooltips>
+	</option>
+	
+	<option key="201">
+		<type>P</type>
+		<name>Change Password Summary</name>
+		<title>Change Password Summary</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Opm/ChangePassword/UILayoutEntryPointOPMChangePasswordSummary.view.xml</uiView>
+		<tooltips>Change Password Summary</tooltips>
+	</option>
+	<option key="202">
+		<type>P</type>
+		<name>Change Target User Password Summary</name>
+		<title>Change Target User Password Summary</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Opm/ChangePassword/UILayoutEntryPointOPMChangeTargetUserPasswordSummary.view.xml</uiView>
+		<tooltips>Change User Password Summary</tooltips>
+	</option>
+	
+	<option key="203">
+		<type>P</type>
+		<name>Verify OPM Summary</name>
+		<title>Verify OPM Summary</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Opm/UILayoutEntryPointVerifyOPMSummary.view.xml</uiView>
+		<tooltips>Verify OPM Summary</tooltips>
+	</option>
+	
+	<option key="220">
+		<type>M</type>
+		<name>Verify Menu Append</name>
+		<title>Verify Menu Append</title>
+	</option>
+	
+	<option key="221">
+		<type>M</type>
+		<name>Verify Menu Append - Second</name>
+		<title>Verify Menu Append - Second</title>
+	</option>
+	
+	<option key="222">
+		<type>P</type>
+		<name>Item 1</name>
+		<title>Item 1</title>
+		<tooltips>Item 1</tooltips>
+
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiScreen>-1</uiScreen>
+
+		<uiConf></uiConf>
+	</option>
+	
+	<option key="223">
+		<type>P</type>
+		<name>Item 2</name>
+		<title>Item 2</title>
+		<tooltips>Item 2</tooltips>
+
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiScreen>-1</uiScreen>
+
+		<uiConf></uiConf>
+	</option>
+	
+	<option key="230">
+		<type>M</type>
+		<name>Verify Database Class Summary</name>
+		<title>Verify Database Class Summary</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseSummary.view.xml</uiView>
+		<tooltips>Database Verify Summary</tooltips>
+	</option>
+	<option key="231">
+		<type>P</type>
+		<name>MultiReading</name>
+		<title>MultiReading</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseMultiReadingSummary.view.xml</uiView>
+		<tooltips>MultiReading</tooltips>
+	</option>
+	<option key="232">
+		<type>P</type>
+		<name>GetFullPath</name>
+		<title>GetFullPath</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseGetFullPathSummary.view.xml</uiView>
+		<tooltips>GetFullPath</tooltips>
+	</option>
+	<option key="233">
+		<type>P</type>
+		<name>GetChildren</name>
+		<title>GetChildren</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseGetChildrenSummary.view.xml</uiView>
+		<tooltips>GetChildren</tooltips>
+	</option>
+	<option key="234">
+		<type>P</type>
+		<name>Subscription</name>
+		<title>Subscription</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseSubscriptionSummary.view.xml</uiView>
+		<tooltips>Subscription</tooltips>
+	</option>
+	<option key="235">
+		<type>P</type>
+		<name>Polling</name>
+		<title>Polling</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabasePollingSummary.view.xml</uiView>
+		<tooltips>Polling</tooltips>
+	</option>
+	<option key="236">
+		<type>P</type>
+		<name>GroupPolling</name>
+		<title>GroupPolling</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseGroupPollingSummary.view.xml</uiView>
+		<tooltips>GroupPolling</tooltips>
+	</option>
+	<option key="237">
+		<type>P</type>
+		<name>GroupPollingDiff</name>
+		<title>GroupPollingDiff</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseGroupPollingDiffSummary.view.xml</uiView>
+		<tooltips>GroupPollingDiff</tooltips>
+	</option>
+	<option key="238">
+		<type>P</type>
+		<name>GroupPollingDiff Singleton</name>
+		<title>GroupPollingDiff Singleton</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseGroupPollingDiffSingletonSummary.view.xml</uiView>
+		<tooltips>GroupPollingDiff Singleton</tooltips>
+	</option>
+	<option key="239">
+		<type>P</type>
+		<name>Writing</name>
+		<title>Writing</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseWritingSummary.view.xml</uiView>
+		<tooltips>Writing</tooltips>
+	</option>
+	
+	
+	<option key="300">
+		<type>M</type>
+		<name>M100</name>
+		<title>M100</title>
+		<tooltips>M100</tooltips>
+	</option>
+	<option key="301">
+		<type>M</type>
+		<name>ECT</name>
+		<title>ECT</title>
+		<tooltips>ECT</tooltips>
+	</option>
+	<option key="302">
+		<type>S</type>
+		<name>Central Overview</name>
+		<title>Central Overview</title>
+		<tooltips>Central Overview</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M001ECTTEST</uiConf>
+	</option>
+	<option key="303">
+		<type>M</type>
+		<name>HV_</name>
+		<title>HV_</title>
+		<tooltips>HV_</tooltips>
+	</option>
+	<option key="304">
+		<type>S</type>
+		<name>Central Overview</name>
+		<title>Central Overview</title>
+		<tooltips>Central Overview</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M001HV_TEST</uiConf>
+	</option>
+	
+	<option key="320">
+		<type>M</type>
+		<name>M001</name>
+		<title>M001</title>
+		<tooltips>M001</tooltips>
+	</option>
+	<option key="321">
+		<type>M</type>
+		<name>ECT</name>
+		<title>ECT</title>
+		<tooltips>ECT</tooltips>
+	</option>
+	<option key="322">
+		<type>S</type>
+		<name>Station Overview</name>
+		<title>Station Overview</title>
+		<tooltips>Station Overview</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M001ECTTEST</uiConf>
+	</option>
+	<option key="323">
+		<type>M</type>
+		<name>HV_</name>
+		<title>HV_</title>
+		<tooltips>HV_</tooltips>
+	</option>
+	<option key="324">
+		<type>S</type>
+		<name>Station Overview</name>
+		<title>Station Overview</title>
+		<tooltips>Station Overview</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M001HV_TEST</uiConf>
+	</option>
+	
+	<option key="400">
+		<type>M</type>
+		<name>Verify</name>
+		<title>Verify</title>
+		<tooltips>Verify</tooltips>
+	</option>
+	<option key="401">
+		<type>M</type>
+		<name>Status Computer</name>
+		<title>Status Computer</title>
+		<tooltips>Status Computer</tooltips>
+	</option>
+	<option key="411">
+		<type>S</type>
+		<name>Int2IntCompare</name>
+		<title>Int2IntCompare</title>
+		<tooltips>Int2IntCompare</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_Int2IntCompare</uiConf>
+	</option>
+	<option key="412">
+		<type>S</type>
+		<name>Int2IntMapping</name>
+		<title>Int2IntMapping</title>
+		<tooltips>Int2IntMapping</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_Int2IntMapping</uiConf>
+	</option>	
+	<option key="413">
+		<type>S</type>
+		<name>IntFormatting</name>
+		<title>IntFormatting</title>
+		<tooltips>IntFormatting</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_IntFormatting</uiConf>
+	</option>
+	<option key="414">
+		<type>S</type>
+		<name>IntMapping</name>
+		<title>IntMapping</title>
+		<tooltips>IntMapping</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_IntMapping</uiConf>
+	</option>
+	<option key="415">
+		<type>S</type>
+		<name>NeedAck</name>
+		<title>NeedAck</title>
+		<tooltips>NeedAck</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_NeedAck</uiConf>
 	</option>
 </data-set>

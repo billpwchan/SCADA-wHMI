@@ -1,22 +1,9 @@
 {
-  "HOMActions": ["c"],
-  "DBAttribute": ".hdvValue",
-  "ByPassValue": -1,
-  "HOMLevelDefaultValue": 0,
-  "HOMLevels":[{
-  "Key": "DUMMY1",
-  "Value": 2
-  },{
-  "Key": "127.0.0.1",
-  "Value": 4
-  },{
-  "Key": "ROOT",
-  "Value": 1
-  },{
-  "Key": "CHIEF",
-  "Value": 16
-  },{
-  "Key": "DUMMY4",
-  "Value": 32
-  }]
+  "DatabaseMultiReadKey": "DatabaseMultiReading"
+
+, "HOMActions": ["c"]
+, "DBAttribute": ".hdvValue"
+, "ByPassValues": [-1]
+, "HOMLevelDefaultValue": 0
+, "HOMIdentityType": "Profile"
 }

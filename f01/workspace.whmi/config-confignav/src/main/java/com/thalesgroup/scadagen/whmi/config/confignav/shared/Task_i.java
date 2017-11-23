@@ -18,27 +18,29 @@ public interface Task_i {
 	public enum TaskAttribute {
 		Key("key")
 		, Type("type")
-		, Order("order")
+		
 		, Name("name")
 		, Title("title")
 		, Enable("enable")
 		, Visible("visible")
-		, UIPanel("uiPanel")
 		, UIScreen("uiScreen")
 		, UIPath("uiPath")
 		, UICtrl("uiCtrl")
 		, Css("css")
 		
+		, UIConf("uiConf")
+		
 		, UIView("uiView")
 		, UIOpts("uiOpts")
 		, UIDict("uiDict")
 		, UIElem("uiElem")
+		, UISvId("uiSvId")
 		
 		, Tooltips("tooltips")
 
-		, opm("opm")
-		, opmOperation("opmOperation")
-		, opmName("opmName")
+		, Opm("opm")
+		, OpmOperation("opmOperation")
+		, OpmName("opmName")
 
 		;
 		private final String text;

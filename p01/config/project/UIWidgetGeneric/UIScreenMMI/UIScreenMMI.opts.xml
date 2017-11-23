@@ -26,14 +26,16 @@
 		<OperationAction>alm</OperationAction>
 		<OperationString1>NotifyExternalEvent</OperationString1>
 		<OperationString2>Key_NotifyExternalEvent_Login</OperationString2>
-		<OperationString3>M100CONN</OperationString3>
+		<OperationString3>%GETENV%</OperationString3>
 		<OperationString4>scsAlmExt.cnf</OperationString4>
 		<OperationString5>14</OperationString5>
-		<OperationString6>:SYS:M100000:GWS_0001</OperationString6>
+		<OperationString6>%GETALIAS%</OperationString6>
 		<OperationString7>1</OperationString7>
 		<OperationString8>1</OperationString8>
-		<OperationString9>|EXT_E_OPM|-|||%GETOPERATOR% : Login at %GETIPADDRESS%|||||||||||||</OperationString9>
+		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||&amp;Login||||||</OperationString9>
 		<OperationString10>UIOpmSCADAgen</OperationString10>
+		<OperationString11>M100CONN</OperationString11>
+		<OperationString12>:SYS:M100000:GWS_0003</OperationString12>
 	</action>
 	
 	<actionset key="UIPanelNavigation_resetInstance">

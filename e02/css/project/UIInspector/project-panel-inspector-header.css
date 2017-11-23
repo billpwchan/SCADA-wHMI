@@ -1,0 +1,70 @@
+.project-inspector-header-flextable-header 
+{
+}
+
+.project-inspector-header-flextable-header-parent
+{
+	padding:2px;
+}
+
+.project-inspector-header-inlinelabel-label-0
+, .project-inspector-header-inlinelabel-label-1
+, .project-inspector-header-inlinelabel-label-2
+, .project-inspector-header-inlinelabel-label-3
+, .project-inspector-header-inlinelabel-label-4
+, .project-inspector-header-inlinelabel-label-5
+{
+	font-size: 16px !important;
+}
+
+.project-inspector-header-inlinelabel-label-parent-0
+, .project-inspector-header-inlinelabel-label-parent-1
+, .project-inspector-header-inlinelabel-label-parent-2
+, .project-inspector-header-inlinelabel-label-parent-3
+, .project-inspector-header-inlinelabel-label-parent-4
+, .project-inspector-header-inlinelabel-label-parent-5
+{
+	padding:2px;
+}
+
+.project-inspector-header-textbox-value-0
+, .project-inspector-header-textbox-value-1
+, .project-inspector-header-textbox-value-2
+, .project-inspector-header-textbox-value-3
+, .project-inspector-header-textbox-value-4
+, .project-inspector-header-textbox-value-5
+{
+	color:black !important;
+	font-size: 16px;
+	width: 380px;
+	background-color: white;
+}
+
+.project-inspector-header-textbox-value-parent-0
+, .project-inspector-header-textbox-value-parent-1
+, .project-inspector-header-textbox-value-parent-2
+, .project-inspector-header-textbox-value-parent-3
+, .project-inspector-header-textbox-value-parent-4
+, .project-inspector-header-textbox-value-parent-5
+{
+	padding:2px;
+}
+
+/* Hidden the Field */
+.project-UIInspectorHeader-label-hidden
+, .project-UIInspectorHeader-value-hidden 
+{
+	visibility: hidden;
+}
+
+/* Show the Field */
+.project-UIInspectorHeader-label-show
+, .project-UIInspectorHeader-value-show 
+{
+	visibility: visible;
+}
+
+.project-inspector-header-panel-vpCtrls
+{
+	
+}

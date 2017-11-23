@@ -12,19 +12,19 @@
   <parent>
     <artifactId>myproject-webapp-reactor</artifactId>
     <groupId>com.thalesgroup.hv.myproject</groupId>
-    <version>1.5.3</version>
+    <version>1.5.4</version>
   </parent>
   -->
   <groupId>com.thalesgroup.scadagen.whmi.webapp.entrypointswitch</groupId>
   <artifactId>webapp-entrypointswitch</artifactId>
   <packaging>jar</packaging>
-  <version>1.5.3</version>
+  <version>1.5.4</version>
   <name>GWT Maven Archetype</name>
 
   <properties>
   
     <!-- Version of the SCADAgen WHMI -->
-    <scadagen.whmi.version>1.5.3</scadagen.whmi.version>
+    <scadagen.whmi.version>1.5.4</scadagen.whmi.version>
   
     <!-- Convenience property to set the GWT version -->
     <gwtVersion>2.7.0</gwtVersion>

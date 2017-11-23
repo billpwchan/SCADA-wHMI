@@ -310,7 +310,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		final String function = "updateValue";
 		logger.begin(className, function);
 		
-		logger.debug(className, function, "strClientKey[{}]", strClientKey);
+		logger.trace(className, function, "strClientKey[{}]", strClientKey);
 		
 		DataBaseClientKey clientKey = new DataBaseClientKey(STR_UNDERSCORE, strClientKey);
 		
@@ -432,21 +432,21 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		final String function = "updateDioControl";
 		logger.begin(className, function);
 		
-		logger.debug(className, function, "address[{}] row[{}]", address, row);
+		logger.trace(className, function, "address[{}] row[{}]", address, row);
 		
 		inlineLabels[row] = new InlineLabel();
 		inlineLabels[row].addStyleName(strCssPrefix+"label-"+row);
 
 		String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
 		label = DatabaseHelper.removeDBStringWrapper(label);
-		logger.debug(className, function, "label[{}]", label);
+		logger.trace(className, function, "label[{}]", label);
 		if ( null != label ) inlineLabels[row].setText(label);
 		
 		controlboxes[row] = new FlowPanel();
 		controlboxes[row].addStyleName(strCssPrefix+"panel-controlbox-"+row);
 		
 		String valueTable = DatabaseHelper.getAttributeValue(address, PointName.valueTable.toString(), dbvalues);
-		logger.debug(className, function, "valueTable[{}]", valueTable);
+		logger.trace(className, function, "valueTable[{}]", valueTable);
 
 		if ( null !=  valueTable ) {
 			
@@ -511,14 +511,14 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		final String function = "updateAioControl";
 		logger.begin(className, function);
 		
-		logger.debug(className, function, "address[{}] row[{}]", address, row);
+		logger.trace(className, function, "address[{}] row[{}]", address, row);
 		
 		inlineLabels[row] = new InlineLabel();
 		inlineLabels[row].addStyleName(strCssPrefix+"label-"+row);
 
 		String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
 		label = DatabaseHelper.removeDBStringWrapper(label);
-		logger.debug(className, function, "label[{}]", label);
+		logger.trace(className, function, "label[{}]", label);
 		if ( null != label ) inlineLabels[row].setText(label);
 		
 		controlboxes[row] = new FlowPanel();
@@ -568,14 +568,14 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		final String function = "updateSioControl";
 		logger.begin(className, function);
 		
-		logger.debug(className, function, "address[{}] row[{}]", address, row);
+		logger.trace(className, function, "address[{}] row[{}]", address, row);
 		
 		inlineLabels[row] = new InlineLabel();
 		inlineLabels[row].addStyleName(strCssPrefix+"label-"+row);
 
 		String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
 		label = DatabaseHelper.removeDBStringWrapper(label);
-		logger.debug(className, function, "label[{}]", label);
+		logger.trace(className, function, "label[{}]", label);
 		if ( null != label ) inlineLabels[row].setText(label);
 		
 		controlboxes[row] = new FlowPanel();

@@ -111,11 +111,10 @@ public class DatabaseHelper {
 	
 	public static String getArrayValues(String string, int col, int row) {
 		final String function = "getArrayValues";
+		logger.begin(className, function);
 		
 		String str = null;
-		
-		logger.begin(className, function);
-		logger.debug(className, function, "string[{}] col[{}] row[{}]", new Object[]{string, col, row});
+		logger.trace(className, function, "string[{}] col[{}] row[{}]", new Object[]{string, col, row});
 				
 		if (null != string && string.length() > 0) {
 
@@ -127,21 +126,20 @@ public class DatabaseHelper {
 				String s = strs[col];
 				s = removeBegin(s, '[');
 				s = removeBegin(s, ']');
-				logger.debug(className, function, "s[{}]", s);
+				logger.trace(className, function, "s[{}]", s);
 //				String str2s[] = s.split(",");
 				String str2s[] = s.split("\\s*,\\s*");
-				logger.debug(className, function, "str2s[{}][{}]", row, str2s[row]);
+				logger.trace(className, function, "str2s[{}][{}]", row, str2s[row]);
 				if ( str2s.length > 0 && row < str2s.length ) {
 					str = str2s[row];
-					logger.debug(className, function, "str[{}]", str);				
+					logger.trace(className, function, "str[{}]", str);				
 				}
 			} else {
 				// Invalid str length or index
 				logger.warn(className, function, "Invalid str length or index");
 			}
 		}
-		
-		logger.debug(className, function, "str[{}]", str);
+		logger.trace(className, function, "str[{}]", str);
 		
 		logger.end(className, function);
 

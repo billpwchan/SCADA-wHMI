@@ -199,17 +199,14 @@ export class SchedulePlanningComponent implements OnInit {
         for (const s of this.periodicSchedules) {
             if (assignedSchedulesMap.has(s.id)) {
                 const currentDate = new Date();
-                const nextDate = new Date();
                 currentDate.setHours(0, 0, 0, 0);
-                nextDate.setTime(nextDate.getTime() + 86400000);
-                nextDate.setHours(0, 0, 0, 0);
                 const wdayList = assignedSchedulesMap.get(s.id);
 
                 console.log('{schedule-planning}', '[updateWeeklyPlan]', 'current date', currentDate.getFullYear(), currentDate.getMonth() + 1,
-                    currentDate.getDate(), 'next date', nextDate.getFullYear(), nextDate.getMonth() + 1, nextDate.getDate());
+                    currentDate.getDate());
 
                 const datesList = UtilService.getWeekDatesList(wdayList, currentDate, this.periodicPlanningDuration);
-                const nextDatesList = UtilService.getWeekNextDatesList(wdayList, nextDate, this.periodicPlanningDuration);
+                const nextDatesList = UtilService.getWeekNextDatesList(wdayList, currentDate, this.periodicPlanningDuration);
 
                 if (datesList && datesList.length > 0) {
                     this.scheduleService.setSchedulePlanDates(s.id, datesList, nextDatesList);

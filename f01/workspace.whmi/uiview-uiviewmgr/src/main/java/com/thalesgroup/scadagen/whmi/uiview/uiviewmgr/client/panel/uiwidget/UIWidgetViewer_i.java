@@ -43,6 +43,7 @@ public interface UIWidgetViewer_i {
 		, PrintDataColumns("PrintDataColumns")
 		, PrintDataIndexs("PrintDataIndexs")
 		, PrintDataAttachement("PrintDataAttachement")
+		, PrintDataDivIndexes("PrintDataDivIndexes")
 		
 		, PrintDataStart("PrintDataStart")
 		, PrintDataLength("PrintDataLength")

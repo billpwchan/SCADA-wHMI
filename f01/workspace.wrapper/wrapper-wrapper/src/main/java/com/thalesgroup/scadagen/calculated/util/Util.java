@@ -1,10 +1,9 @@
 package com.thalesgroup.scadagen.calculated.util;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -14,11 +13,11 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
-import com.thalesgroup.hv.common.HypervisorException;
 import com.thalesgroup.hypervisor.mwt.core.util.config.loader.IConfigLoader;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implementation.ServicesImplFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.BooleanAttribute;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.Coordinates;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.CoordinatesAttribute;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.DateTimeAttribute;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.DoubleAttribute;
@@ -113,6 +112,29 @@ public class Util {
 	    return ret;
 	}
 	
+	public DoubleAttribute getDoubleAttribute(Double value, boolean isValid, Date date) {
+		final String function = "getStringAttribute";
+		logger.debug("{} {} value[{}] isValid[{}] date[{}]", new Object[]{function, prefix, value, date});
+		DoubleAttribute ret = new DoubleAttribute();
+	    ret.setValue(value);
+	    ret.setValid(isValid);
+	    ret.setTimestamp(date);
+	    logger.debug("{} {} ret.getValue()[{}]", new Object[]{function, prefix, ret.getValue()});
+	    return ret;
+	}
+	
+	public CoordinatesAttribute getCoordinatesAttribute(Coordinates coordinates, boolean isValid, Date date) {
+		final String function = "getStringAttribute";
+		logger.debug("{} {} coordinate.getX[{}] coordinate.getY[{}] isValid[{}] date[{}]", new Object[]{function, prefix, coordinates.getX(), coordinates.getY(), date});
+
+		CoordinatesAttribute ret = new CoordinatesAttribute();
+		ret.setValue(coordinates);
+    	ret.setTimestamp(new Date());
+    	ret.setValid(true);
+	    logger.debug("{} {} ret.getValue()[{}]", new Object[]{function, prefix, ret.getValue()});
+	    return ret;
+	}
+	
 	public String getConfigAttribute(String attributeName) {
 		return STR_DOT+attributeName;
 	}
@@ -200,59 +222,33 @@ public class Util {
 		logger.debug("{} {} End", function, prefix);
 	}
 	
-	public void readMapFromCsv(String csvFile, String delimiter, Map<Integer, List<Map<String, Double>>> mapListMap) throws HypervisorException {
+	public Map<Integer, String> readLineFromFile(String csvFile) {
+		final String function = "readLineFromFile";
+		logger.debug("{} {} Begin", new Object[]{function, prefix});
+		Map<Integer, String> ret = new HashMap<Integer, String>();
 		try {
+			logger.debug("Loading csvFile[{}]", csvFile);
 			ResourcePatternResolver pathResolver = new PathMatchingResourcePatternResolver();
 			Resource res = pathResolver.getResource(csvFile);
-			List<String> columnHeaders = null;
-	
 			Scanner scanner = new Scanner(res.getFile());
-			logger.debug("scanner=[{}]", scanner);
 			if (scanner != null) {
-				if (delimiter != null && !delimiter.isEmpty()) {
-					scanner.useDelimiter(delimiter);
-				}
-				
+				int i = 0;
 				while (scanner.hasNextLine()) {
 					String line = scanner.nextLine();
-					// logger.debug("csv line=[{}]", line);
-	
-					String [] tokens = line.trim().split(delimiter);
-					
-					if (columnHeaders == null) {
-						columnHeaders = new ArrayList<String>();
-
-						for (int i = 0; i < tokens.length; i++) {
-							String colHeader = tokens[i].trim();
-							columnHeaders.add(colHeader);
-							// logger.debug("colHeader=[{}]", colHeader);
-						}
-					} else {
-						Map<String, Double> strMap = new HashMap<String, Double>();
-						
-						String listKey = tokens[0].trim();
-						Integer listKeyNum = Integer.parseInt(listKey);
-						for (int i = 1; i < tokens.length && i < columnHeaders.size(); i++) {
-							String value = tokens[i].trim();
-							strMap.put(columnHeaders.get(i), Double.valueOf(value));
-							// logger.debug("strMap.put [{}] [{}]", columnHeaders.get(i), value);
-						}
-								
-						List<Map<String, Double>> listMap = mapListMap.get(listKeyNum);
-						if (listMap == null) {
-							listMap = new ArrayList<Map<String, Double>>();		
-						}
-						listMap.add(strMap);
-						mapListMap.put(listKeyNum, listMap);
-						logger.debug("mapListMap.put [{}] [{}]", listKeyNum, listMap);
-					}
+					logger.debug("i[{}] line[{}]", i, line);
+					ret.put(i++, line);
 				}
-				scanner.close();
 			}
+			scanner.close();
 		} catch (FileNotFoundException e) {
-			throw new HypervisorException(e);
-		} catch (Exception e) {
-			throw new HypervisorException(e);
+			logger.warn("{} {} csvFile[{}] FileNotFoundException", new Object[]{function, prefix, csvFile});
+			ret = null;
+		} catch (IOException e) {
+			logger.warn("{} {} csvFile[{}] IOException", new Object[]{function, prefix, csvFile});
+			ret = null;
 		}
+		logger.debug("{} {} End", function, prefix);
+		return ret;
 	}
+
 }

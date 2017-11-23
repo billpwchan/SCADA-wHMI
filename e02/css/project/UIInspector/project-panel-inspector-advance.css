@@ -1,83 +1,158 @@
-.project-gwt-panel-advance-inspector {
+.project-inspector-advance-panel-root 
+{
+	background-color: #BEBEBE;
+	font-size: 16px;
+}
+
+.project-inspector-advance-panel-base
+{
 	background-color: #BEBEBE;
 	width: 100%;
 	height: 100%;
 }
 
-/* pager styles */
-.gwt-Button.project-gwt-button-inspector-advance-up,
-.gwt-Button.project-gwt-button-inspector-advance-down {
-	width: 50px;
-	font-size: 20px;
-	height: 40px;
-	margin: 5px;
+.project-inspector-advance-panel-vpCtrls
+{
+	width: 100%;
 }
 
-.gwt-InlineLabel.project-gwt-inlinelabel-inspector-advance-pagenum {
-	width: 50px;
-	padding: 10px;
-	font-size: 22px;
+
+.project-inspector-advance-flextable-attribute
+{
+	width: 100%;
 }
 
-.project-gwt-inlinelabel-inspector-advance-header-label {
+.project-inspector-advance-inlinelabel-header-0
+, .project-inspector-advance-inlinelabel-header-1 
+, .project-inspector-advance-inlinelabel-header-2
+, .project-inspector-advance-inlinelabel-header-3
+, .project-inspector-advance-inlinelabel-header-4  
+, .project-inspector-advance-inlinelabel-header-5
+{
+	width: 100%;
 	font-size: 16px;
 	font-weight: bold;
 }
 
-.project-gwt-inlinelabel-inspector-advance-label {
+.project-inspector-advance-inlinelabel-header-parent-0
+, .project-inspector-advance-inlinelabel-header-parent-1 
+, .project-inspector-advance-inlinelabel-header-parent-2
+, .project-inspector-advance-inlinelabel-header-parent-3
+, .project-inspector-advance-inlinelabel-header-parent-4  
+, .project-inspector-advance-inlinelabel-header-parent-5
+{
+	
+}
+
+.project-inspector-advance-inlinelabel-points-0
+, .project-inspector-advance-inlinelabel-points-1
+, .project-inspector-advance-inlinelabel-points-2
+, .project-inspector-advance-inlinelabel-points-3
+, .project-inspector-advance-inlinelabel-points-4
+, .project-inspector-advance-inlinelabel-points-5
+, .project-inspector-advance-inlinelabel-points-6
+, .project-inspector-advance-inlinelabel-points-7 
+{
 	font-size: 16px;
 }
 
-.gwt-ListBox.project-gwt-listbox-inspector-advance-points-value {
-	font-size: 16px;
-	height: 24px;
-	width: 226px;
-}
-
-.project-gwt-textbox-inspector-advance-points-value {
-	background-color: #000000;
-	color: #FFFFFF;
-	font-size: 16px;
-	width: 220px;
-}
-
-.gwt-Button.project-gwt-button-inspector-advance-point-apply {
-	width: 64px;
-	font-size: 16px;
-	font-weight: bold;
-}
-
-/* make all columns fit all available width */
-.project-gwt-flextable-inspector-advance-status-col0,
-.project-gwt-flextable-inspector-advance-status-col1,
-.project-gwt-flextable-inspector-advance-status-col2,
-.project-gwt-flextable-inspector-advance-status-col3,
-.project-gwt-flextable-inspector-advance-status-col4,
-.project-gwt-flextable-inspector-advance-status-col5,
-.project-gwt-flextable-inspector-advance-status-col6,
-.project-gwt-flextable-inspector-advance-status-col7 {
-	width:100%;
+.project-inspector-advance-inlinelabel-points-parent-0
+, .project-inspector-advance-inlinelabel-points-parent-1
+, .project-inspector-advance-inlinelabel-points-parent-2
+, .project-inspector-advance-inlinelabel-points-parent-3
+, .project-inspector-advance-inlinelabel-points-parent-4
+, .project-inspector-advance-inlinelabel-points-parent-5
+, .project-inspector-advance-inlinelabel-points-parent-6
+, .project-inspector-advance-inlinelabel-points-parent-7
+{
+	
 }
 
 /* checkbox styles */
-.project-gwt-checkbox-inspector-advance-points-ai,
-.project-gwt-checkbox-inspector-advance-points-ss,
-.project-gwt-checkbox-inspector-advance-points-mo{
+.project-inspector-advance-checkbox-points-ai-0
+, .project-inspector-advance-checkbox-points-ss-0
+, .project-inspector-advance-checkbox-points-mo-0
+, .project-inspector-advance-checkbox-points-ai-1
+, .project-inspector-advance-checkbox-points-ss-1
+, .project-inspector-advance-checkbox-points-mo-1
+, .project-inspector-advance-checkbox-points-ai-2
+, .project-inspector-advance-checkbox-points-ss-2
+, .project-inspector-advance-checkbox-points-mo-2
+, .project-inspector-advance-checkbox-points-ai-3
+, .project-inspector-advance-checkbox-points-ss-3
+, .project-inspector-advance-checkbox-points-mo-3
+, .project-inspector-advance-checkbox-points-ai-4
+, .project-inspector-advance-checkbox-points-ss-4
+, .project-inspector-advance-checkbox-points-mo-4
+, .project-inspector-advance-checkbox-points-ai-5
+, .project-inspector-advance-checkbox-points-ss-5
+, .project-inspector-advance-checkbox-points-mo-5
+, .project-inspector-advance-checkbox-points-ai-6
+, .project-inspector-advance-checkbox-points-ss-6
+, .project-inspector-advance-checkbox-points-mo-6
+, .project-inspector-advance-checkbox-points-ai-7
+, .project-inspector-advance-checkbox-points-ss-7
+, .project-inspector-advance-checkbox-points-mo-7
+ {
 	position:relative;
 }
 
-.project-gwt-checkbox-inspector-advance-points-ai > input[type="checkbox"],
-.project-gwt-checkbox-inspector-advance-points-ss > input[type="checkbox"],
-.project-gwt-checkbox-inspector-advance-points-mo > input[type="checkbox"]{
+.project-inspector-advance-checkbox-points-ai-0 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-ss-0 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-mo-0 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-ai-1 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-ss-1 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-mo-1 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-ai-2 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-ss-2 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-mo-2 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-ai-3 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-ss-3 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-mo-3 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-ai-4 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-ss-4 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-mo-4 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-ai-5 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-ss-5 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-mo-5 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-ai-6 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-ss-6 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-mo-6 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-ai-7 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-ss-7 > input[type="checkbox"]
+, .project-inspector-advance-checkbox-points-mo-7 > input[type="checkbox"]
+{
 	visibility: hidden;
 	width: 22px;
 	height: 22px;
 	margin: 1px;
 }
 
-.project-gwt-checkbox-inspector-advance-points-ai > input[type="checkbox"] + label,
-.project-gwt-checkbox-inspector-advance-points-ss > input[type="checkbox"] + label,
-.project-gwt-checkbox-inspector-advance-points-mo > input[type="checkbox"] + label {
+.project-inspector-advance-checkbox-points-ai-0 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-ss-0 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-mo-0 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-ai-1 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-ss-1 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-mo-1 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-ai-2 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-ss-2 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-mo-2 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-ai-3 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-ss-3 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-mo-3 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-ai-4 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-ss-4 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-mo-4 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-ai-5 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-ss-5 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-mo-5 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-ai-6 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-ss-6 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-mo-6 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-ai-7 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-ss-7 > input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-mo-7 > input[type="checkbox"] + label
+{
 	cursor: pointer;
 	position: absolute;
 	width: 22px;
@@ -87,9 +162,31 @@
 	border: 1px solid grey;
 }
 
-.project-gwt-checkbox-inspector-advance-points-ai > input[type="checkbox"] + label::before,
-.project-gwt-checkbox-inspector-advance-points-ss > input[type="checkbox"] + label::before,
-.project-gwt-checkbox-inspector-advance-points-mo > input[type="checkbox"] + label::before {
+.project-inspector-advance-checkbox-points-ai-0 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-ss-0 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-mo-0 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-ai-1 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-ss-1 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-mo-1 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-ai-2 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-ss-2 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-mo-2 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-ai-3 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-ss-3 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-mo-3 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-ai-4 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-ss-4 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-mo-4 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-ai-5 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-ss-5 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-mo-5 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-ai-6 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-ss-6 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-mo-6 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-ai-7 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-ss-7 > input[type="checkbox"] + label::before
+, .project-inspector-advance-checkbox-points-mo-7 > input[type="checkbox"] + label::before
+{
 	opacity: 0.1;
 	content: '';
 	position: absolute;
@@ -104,18 +201,214 @@
 	transform: rotate(-45deg);
 }
 
-.project-gwt-checkbox-inspector-advance-points-ai > input[type="checkbox"] + label:hover::before,
-.project-gwt-checkbox-inspector-advance-points-ss > input[type="checkbox"] + label:hover::before,
-.project-gwt-checkbox-inspector-advance-points-mo > input[type="checkbox"] + label:hover::before {
+.project-inspector-advance-checkbox-points-ai-0 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-ss-0 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-mo-0 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-ai-1 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-ss-1 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-mo-1 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-ai-2 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-ss-2 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-mo-2 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-ai-3 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-ss-3 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-mo-3 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-ai-4 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-ss-4 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-mo-4 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-ai-5 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-ss-5 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-mo-5 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-ai-6 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-ss-6 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-mo-6 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-ai-7 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-ss-7 > input[type="checkbox"] + label:hover::before
+, .project-inspector-advance-checkbox-points-mo-7 > input[type="checkbox"] + label:hover::before
+{
 	opacity: 0.3;
 }
 
-.project-gwt-checkbox-inspector-advance-points-ai > input[type="checkbox"]:checked + label::before,
-.project-gwt-checkbox-inspector-advance-points-ss > input[type="checkbox"]:checked + label::before,
-.project-gwt-checkbox-inspector-advance-points-mo > input[type="checkbox"]:checked + label::before {
+.project-inspector-advance-checkbox-points-ai-0 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-ss-0 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-mo-0 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-ai-1 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-ss-1 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-mo-1 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-ai-2 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-ss-2 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-mo-2 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-ai-3 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-ss-3 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-mo-3 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-ai-4 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-ss-4 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-mo-4 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-ai-5 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-ss-5 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-mo-5 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-ai-6 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-ss-6 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-mo-6 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-ai-7 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-ss-7 > input[type="checkbox"]:checked + label::before
+, .project-inspector-advance-checkbox-points-mo-7 > input[type="checkbox"]:checked + label::before
+{
 	opacity: 1;
 }
 
-.project-gwt-checkbox-inspectoradvance-points-activated input[type="checkbox"] + label {
+.project-inspector-advance-checkbox-points-ai-parent-0
+, .project-inspector-advance-checkbox-points-ss-parent-0
+, .project-inspector-advance-checkbox-points-mo-parent-0
+, .project-inspector-advance-checkbox-points-ai-parent-1
+, .project-inspector-advance-checkbox-points-ss-parent-1
+, .project-inspector-advance-checkbox-points-mo-parent-1
+, .project-inspector-advance-checkbox-points-ai-parent-2
+, .project-inspector-advance-checkbox-points-ss-parent-2
+, .project-inspector-advance-checkbox-points-mo-parent-2
+, .project-inspector-advance-checkbox-points-ai-parent-3
+, .project-inspector-advance-checkbox-points-ss-parent-3
+, .project-inspector-advance-checkbox-points-mo-parent-3
+, .project-inspector-advance-checkbox-points-ai-parent-4
+, .project-inspector-advance-checkbox-points-ss-parent-4
+, .project-inspector-advance-checkbox-points-mo-parent-4
+, .project-inspector-advance-checkbox-points-ai-parent-5
+, .project-inspector-advance-checkbox-points-ss-parent-5
+, .project-inspector-advance-checkbox-points-mo-parent-5
+, .project-inspector-advance-checkbox-points-ai-parent-6
+, .project-inspector-advance-checkbox-points-ss-parent-6
+, .project-inspector-advance-checkbox-points-mo-parent-6
+, .project-inspector-advance-checkbox-points-ai-parent-7
+, .project-inspector-advance-checkbox-points-ss-parent-7
+, .project-inspector-advance-checkbox-points-mo-parent-7
+{
+	
+}
+
+.project-inspector-advance-listbox-point-label-0
+, .project-inspector-advance-listbox-point-label-1
+, .project-inspector-advance-listbox-point-label-2
+, .project-inspector-advance-listbox-point-label-3
+, .project-inspector-advance-listbox-point-label-4
+, .project-inspector-advance-listbox-point-label-5
+, .project-inspector-advance-listbox-point-label-6
+, .project-inspector-advance-listbox-point-label-7
+{
+	font-size: 16px;
+	height: 24px;
+	width: 226px;
+}
+
+.project-inspector-advance-textbox-points-value-0
+, .project-inspector-advance-textbox-points-value-1
+, .project-inspector-advance-textbox-points-value-2
+, .project-inspector-advance-textbox-points-value-3
+, .project-inspector-advance-textbox-points-value-4
+, .project-inspector-advance-textbox-points-value-5
+, .project-inspector-advance-textbox-points-value-6
+, .project-inspector-advance-textbox-points-value-7
+{
+	background-color: #000000;
+	color: #FFFFFF;
+	font-size: 16px;
+	width: 220px;
+}
+
+.project-inspector-advance-panel-points-value-0
+, .project-inspector-advance-panel-points-value-1
+, .project-inspector-advance-panel-points-value-2
+, .project-inspector-advance-panel-points-value-3
+, .project-inspector-advance-panel-points-value-4
+, .project-inspector-advance-panel-points-value-5
+, .project-inspector-advance-panel-points-value-6
+, .project-inspector-advance-panel-points-value-7
+{
+}
+
+.project-inspector-advance-panel-points-value-parent-0
+, .project-inspector-advance-panel-points-value-parent-1
+, .project-inspector-advance-panel-points-value-parent-2
+, .project-inspector-advance-panel-points-value-parent-3
+, .project-inspector-advance-panel-points-value-parent-4
+, .project-inspector-advance-panel-points-value-parent-5
+, .project-inspector-advance-panel-points-value-parent-6
+, .project-inspector-advance-panel-points-value-parent-7
+{
+}
+
+.project-inspector-advance-button-point-apply-0
+, .project-inspector-advance-button-point-apply-1
+, .project-inspector-advance-button-point-apply-2
+, .project-inspector-advance-button-point-apply-3
+, .project-inspector-advance-button-point-apply-4
+, .project-inspector-advance-button-point-apply-5
+, .project-inspector-advance-button-point-apply-6
+, .project-inspector-advance-button-point-apply-7
+{
+	width: 64px;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.project-inspector-advance-button-point-apply-parent-0
+, .project-inspector-advance-button-point-apply-parent-1
+, .project-inspector-advance-button-point-apply-parent-2
+, .project-inspector-advance-button-point-apply-parent-3
+, .project-inspector-advance-button-point-apply-parent-4
+, .project-inspector-advance-button-point-apply-parent-5
+, .project-inspector-advance-button-point-apply-parent-6
+, .project-inspector-advance-button-point-apply-parent-7
+{
+	
+}
+
+/* make all columns fit all available width */
+.project-inspector-advance-table-column-status-col-0
+, .project-inspector-advance-table-column-status-col-1
+, .project-inspector-advance-table-column-status-col-2
+, .project-inspector-advance-table-column-status-col-3
+, .project-inspector-advance-table-column-status-col-4
+, .project-inspector-advance-table-column-status-col-5
+, .project-inspector-advance-table-column-status-col-6
+, .project-inspector-advance-table-column-status-col-7 
+{
+	width:100%;
+}
+
+.project-inspector-advance-checkbox-points-activated-0 input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-activated-1 input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-activated-2 input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-activated-3 input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-activated-4 input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-activated-5 input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-activated-6 input[type="checkbox"] + label
+, .project-inspector-advance-checkbox-points-activated-7 input[type="checkbox"] + label
+{
 	background: yellow;
+}
+
+.project-inspector-advance-panel-pageBar 
+{
+}
+
+.project-inspector-advance-panel-bottomBar 
+{
+	width: 100%
+}
+
+/* pager styles */
+.gwt-Button.project-inspector-advance-button-up
+, .gwt-Button.project-inspector-advance-button-down 
+{
+	width: 50px;
+	font-size: 20px;
+	height: 40px;
+	margin: 5px;
+}
+
+.gwt-InlineLabel.project-inspector-advance-label-pagenum 
+{
+	width: 50px;
+	padding: 10px;
+	font-size: 22px;
 }

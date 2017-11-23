@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.InlineLabel;
@@ -47,10 +48,13 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	
 	final private String INSPECTOR = UIInspectorHeader_i.INSPECTOR;
 	
+	private String strCssPrefix;
+	
 	private String tabName = null;
 	@Override
-	public void setTabName(String tabName) {
+	public void setTabName(String tabName) { 
 		this.tabName = tabName;
+		this.strCssPrefix = "project-inspector-"+tabName+"-";
 	}
 	
 	private Map<String, Map<String, String>> attributesList = new HashMap<String, Map<String, String>>();
@@ -306,7 +310,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	public void updateValue(String strClientKey, Map<String, String> keyAndValue) {
 		final String function = "updateValue";
 		logger.begin(className, function);
-		logger.debug(className, function, "strClientKey[{}]", strClientKey);
+		logger.trace(className, function, "strClientKey[{}]", strClientKey);
 		
 		DataBaseClientKey clientKey = new DataBaseClientKey("_", strClientKey);
 		
@@ -368,7 +372,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 			String shortLabelValue = DatabaseHelper.getAttributeValue(parent, shortLabel, dbvalues);
 			shortLabelValue = DatabaseHelper.removeDBStringWrapper(shortLabelValue);
 			if ( null != shortLabelValue ) {
-				shortLabelValue = Translation.getWording(shortLabelValue);
+				shortLabelValue = Translation.getDBMessage(shortLabelValue);
 				txtAttributeStatus[0].setText(shortLabelValue);
 			}
 		}
@@ -379,7 +383,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 			String geographicalCatValue = DatabaseHelper.getAttributeValue(parent, geographicalCat, dbvalues);
 			geographicalCatValue = DatabaseHelper.removeDBStringWrapper(geographicalCatValue);
 			if ( null != geographicalCatValue ) {
-				geographicalCatValue = Translation.getWording(strLocationPrefix + geographicalCatValue);
+				geographicalCatValue = Translation.getDBMessage(strLocationPrefix + geographicalCatValue);
 				txtAttributeStatus[1].setText(geographicalCatValue);
 			}
 		}
@@ -411,7 +415,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	private void widgetRemoveCSS(Widget widget, String css) {
 		final String function = "widgetRemoveCSS";
 		logger.begin(className, function);
-		logger.debug(className, function, "widget[{}] css[{}]", widget, css);
+		logger.trace(className, function, "widget[{}] css[{}]", widget, css);
 		if ( widgetHasCSS(widget, css) ) {
 			widget.removeStyleName(css);
 		}
@@ -421,7 +425,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	private void widgetAddCSS(Widget widget, String css) {
 		final String function = "widgetAddCSS";
 		logger.begin(className, function);
-		logger.debug(className, function, "widget[{}] css[{}]", widget, css);
+		logger.trace(className, function, "widget[{}] css[{}]", widget, css);
 		if ( ! widgetHasCSS(widget, css) ) {
 			widget.addStyleName(css);
 		}
@@ -440,43 +444,43 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		{
 			String isControlableValue = DatabaseHelper.getAttributeValue(parent, attributes.get(AttributeName.IsControlableAttribute.toString()), dbvalues);
 			isControlableValue = DatabaseHelper.removeDBStringWrapper(isControlableValue);
-			logger.debug(className, function, "isControlableValue[{}]", isControlableValue);
+			logger.trace(className, function, "isControlableValue[{}]", isControlableValue);
 			if ( null != isControlableValue ) {
 				isControlableValue = controlRightLabels.get(isControlableValue);
-				logger.debug(className, function, "isControlableValue[{}]", isControlableValue);
-				isControlableValue = Translation.getWording(isControlableValue);
+				logger.trace(className, function, "isControlableValue[{}]", isControlableValue);
+				isControlableValue = Translation.getDBMessage(isControlableValue);
 				txtAttributeStatus[2].setText(isControlableValue);
 			}
 		}
 		{		
 			String resrvReservedIDValue = DatabaseHelper.getAttributeValue(parent, attributes.get(AttributeName.ResrvReservedIDAttribute.toString()), dbvalues);
 			resrvReservedIDValue = DatabaseHelper.removeDBStringWrapper(resrvReservedIDValue);
-			logger.debug(className, function, "resrvReservedIDValue[{}]", resrvReservedIDValue);
+			logger.trace(className, function, "resrvReservedIDValue[{}]", resrvReservedIDValue);
 
-			logger.debug(className, function, "resrvReservedPreviewValue[{}] == resrvReservedIDValue[{}]", resrvReservedPreviewValue, resrvReservedIDValue);
+			logger.trace(className, function, "resrvReservedPreviewValue[{}] == resrvReservedIDValue[{}]", resrvReservedPreviewValue, resrvReservedIDValue);
 			if ( null == resrvReservedPreviewValue || (null != resrvReservedIDValue && ! resrvReservedIDValue.equals(resrvReservedPreviewValue)) ) { 
 				
 				eqtReserved = EquipmentReserve.isEquipmentReservation(resrvReservedIDValue, equipmentReserveHasScreen, uiNameCard.getUiScreen());
-				logger.debug(className, function, "eqtReserved[{}]", eqtReserved);
+				logger.trace(className, function, "eqtReserved[{}]", eqtReserved);
 				
 				if ( null != equipmentReserveEvent ) equipmentReserveEvent.isAvaiable(eqtReserved);
 				resrvReservedPreviewValue = resrvReservedIDValue;
 
 				String strEqtReservedLabel = null;
 				strEqtReservedLabel = controlRightReservedLabels.get(eqtReserved);
-				logger.debug(className, function, "strEqtReservedLabel[{}]", strEqtReservedLabel);
-				strEqtReservedLabel = Translation.getWording(strEqtReservedLabel);
+				logger.trace(className, function, "strEqtReservedLabel[{}]", strEqtReservedLabel);
+				strEqtReservedLabel = Translation.getDBMessage(strEqtReservedLabel);
 				txtAttributeStatus[3].setText(strEqtReservedLabel);
 			}
 		}
 		{
 			String hdvFlagValue = DatabaseHelper.getAttributeValue(parent, attributes.get(AttributeName.HdvFlagAttribute.toString()), dbvalues);
 			hdvFlagValue = DatabaseHelper.removeDBStringWrapper(hdvFlagValue);
-			logger.debug(className, function, "hdvFlagValue[{}]", hdvFlagValue);
+			logger.trace(className, function, "hdvFlagValue[{}]", hdvFlagValue);
 			
 			if ( null != hdvFlagValue ) {
 				if ( ! hdvFlagValue.equals(hdvFlagPreviewValue) ) {
-					logger.debug(className, function, "hdvFlagPreviewValue[{}] == hdvFlagValue[{}]", hdvFlagPreviewValue, hdvFlagValue);
+					logger.trace(className, function, "hdvFlagPreviewValue[{}] == hdvFlagValue[{}]", hdvFlagPreviewValue, hdvFlagValue);
 					int eqtHom = Hom.isHom(hdvFlagValue);
 					if ( null != homEvent ) homEvent.isAvaiable(eqtHom);
 					hdvFlagPreviewValue = hdvFlagValue;
@@ -485,28 +489,28 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 				if ( null == handoverRightLabels ) handoverRightLabels = new HashMap<String, String>();
 				
 				if ( ! handoverRightLabels.containsKey(hdvFlagValue) ) {
-					logger.debug(className, function, "hdvFlagPreviewValue[{}] == hdvFlagValue[{}]", hdvFlagPreviewValue, hdvFlagValue);
+					logger.trace(className, function, "hdvFlagPreviewValue[{}] == hdvFlagValue[{}]", hdvFlagPreviewValue, hdvFlagValue);
 					String attribite = dictionariesCacheName_prefix + "HdvFlag"+UIPanelInspector_i.strDot+hdvFlagValue;
 					
-					logger.debug(className, function, "Reading dictionariesCacheName_fileName[{}] attribite[{}]", dictionariesCacheName_fileName, attribite);
+					logger.trace(className, function, "Reading dictionariesCacheName_fileName[{}] attribite[{}]", dictionariesCacheName_fileName, attribite);
 					handoverRightLabels.put(hdvFlagValue, ReadProp.readString(dictionariesCacheName, dictionariesCacheName_fileName, attribite, ""));
 				}
-				logger.debug(className, function, "handoverRightLabels.get({}) =[{}]", hdvFlagValue, handoverRightLabels.get(hdvFlagValue));
+				logger.trace(className, function, "handoverRightLabels.get({}) =[{}]", hdvFlagValue, handoverRightLabels.get(hdvFlagValue));
 				
 				String hdvFlagDisplayValue = handoverRightLabels.get(hdvFlagValue);
-				logger.debug(className, function, "hdvFlagDisplayValue[{}]", hdvFlagDisplayValue);
-				hdvFlagDisplayValue = Translation.getWording(hdvFlagDisplayValue);
+				logger.trace(className, function, "hdvFlagDisplayValue[{}]", hdvFlagDisplayValue);
+				hdvFlagDisplayValue = Translation.getDBMessage(hdvFlagDisplayValue);
 				txtAttributeStatus[4].setText(hdvFlagDisplayValue);
 				
-				logger.debug(className, function, "hdvFlagValue[{}] strHandoverRightHiddenHOMValue[{}]", new Object[]{hdvFlagValue, strHandoverRightHiddenHOMValue});
+				logger.trace(className, function, "hdvFlagValue[{}] strHandoverRightHiddenHOMValue[{}]", new Object[]{hdvFlagValue, strHandoverRightHiddenHOMValue});
 				
-				logger.debug(className, function, "strHandoverRightLabelCSSShow[{}] strHandoverRightLabelCSSHidden[{}] strHandoverRightValueCSSShow[{}] strHandoverRightValueCSSHidden[{}]"
+				logger.trace(className, function, "strHandoverRightLabelCSSShow[{}] strHandoverRightLabelCSSHidden[{}] strHandoverRightValueCSSShow[{}] strHandoverRightValueCSSHidden[{}]"
 						, new Object[]{strHandoverRightLabelCSSShow, strHandoverRightLabelCSSHidden, strHandoverRightValueCSSShow, strHandoverRightValueCSSHidden});
 				
 				boolean isHOMHiddenValue = false;
 				if ( null != strHandoverRightHiddenHOMValues ) {
 					for ( int i = 0 ; i < strHandoverRightHiddenHOMValues.length ; ++i ) {
-						logger.debug(className, function, "hdvFlagValue[{}] strHandoverRightHiddenHOMValues({})[{}]", new Object[]{hdvFlagValue, i, strHandoverRightHiddenHOMValues[i]});
+						logger.trace(className, function, "hdvFlagValue[{}] strHandoverRightHiddenHOMValues({})[{}]", new Object[]{hdvFlagValue, i, strHandoverRightHiddenHOMValues[i]});
 						if ( null != strHandoverRightHiddenHOMValues[i] && hdvFlagValue.equals(strHandoverRightHiddenHOMValues[i]) ) {
 							isHOMHiddenValue = true;
 							break;
@@ -517,7 +521,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 				}
 				
 				
-				logger.debug(className, function, "isHOMHiddenValue[{}]", isHOMHiddenValue);
+				logger.trace(className, function, "isHOMHiddenValue[{}]", isHOMHiddenValue);
 				
 				if ( isHOMHiddenValue ) {
 					
@@ -743,26 +747,29 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		String strHeadersStatus [] = new String[] { strEquipmentDescriptionInitValue, strLocationInitValue, strControlRightInitValue, strControlRightReservedInitValue, strHandoverRightInitValue };
 		
 		FlexTable flexTableHeader = new FlexTable();
-		flexTableHeader.addStyleName("project-gwt-flextable-header");
+		flexTableHeader.addStyleName(strCssPrefix+"flextable-header");
 		txtAttributeStatus = new TextBox[strHeadersStatus.length];
 		lblAttributeStatus = new InlineLabel[strHeadersStatus.length];
 		for ( int i = 0 ; i < strHeadersLabel.length ; i++ ) {
-			String strHeadersLabelDisplay = Translation.getWording(strHeadersLabel[i]);
+			String strHeadersLabelDisplay = Translation.getDBMessage(strHeadersLabel[i]);
 			lblAttributeStatus[i] = new InlineLabel(strHeadersLabelDisplay);
 			lblAttributeStatus[i].getElement().getStyle().setPadding(10, Unit.PX);
-			lblAttributeStatus[i].addStyleName("project-gwt-inlinelabel-headerlabel");
+			lblAttributeStatus[i].addStyleName(strCssPrefix+"inlinelabel-label-"+i);
 			flexTableHeader.setWidget(i, 0, lblAttributeStatus[i]);
+			DOM.getParent(lblAttributeStatus[i].getElement()).setClassName(strCssPrefix+"inlinelabel-label-parent-"+i);
+			
 			txtAttributeStatus[i] = new TextBox();
-			String strHeadersStatusDisplay = Translation.getWording(strHeadersStatus[i]);
+			String strHeadersStatusDisplay = Translation.getDBMessage(strHeadersStatus[i]);
 			txtAttributeStatus[i].setText(strHeadersStatusDisplay);
 			txtAttributeStatus[i].setMaxLength(16);
 			txtAttributeStatus[i].setReadOnly(true);
-			txtAttributeStatus[i].addStyleName("project-gwt-textbox-headervalue");
+			txtAttributeStatus[i].addStyleName(strCssPrefix+"textbox-value-"+i);
 			flexTableHeader.setWidget(i, 2, txtAttributeStatus[i]);
+			DOM.getParent(txtAttributeStatus[i].getElement()).setClassName(strCssPrefix+"textbox-value-parent-"+i);
 		}
 		
 		vpCtrls = new VerticalPanel();
-		vpCtrls.addStyleName("project-gwt-panel-header");
+		flexTableHeader.addStyleName(strCssPrefix+"panel-vpCtrlsr");
 		vpCtrls.add(flexTableHeader);
 		
 		logger.end(className, function);

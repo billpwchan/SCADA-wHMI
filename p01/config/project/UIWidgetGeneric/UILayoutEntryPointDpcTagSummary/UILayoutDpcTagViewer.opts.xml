@@ -13,6 +13,9 @@
 		<PrintDataIndexs>0,1,2,3,4,5,6</PrintDataIndexs>
 		<!-- CSV File name will be export to -->
 		<PrintDataAttachement>PTWDpcTagSummary.csv</PrintDataAttachement>
+		<!-- DIV Index -->
+		<PrintDataDivIndexes>1,0,1,0,2,0,1,0,0,2</PrintDataDivIndexes>
+		<!-- ISCS <PrintDataDivIndexes>1,0,2,0,2,0,1,0,0,2</PrintDataDivIndexes>-->
 		
 		<PrintDataStart>0</PrintDataStart>
 		<PrintDataLength>8000</PrintDataLength>

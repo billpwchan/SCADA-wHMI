@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <!--<script src=”xxx.js”></script>-->
+  <script type="text/javascript">
+    function downloadFile(url) {
+    var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            //document.getElementById("demo").innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+      }
+      function downstreamFile(url,elmid) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById(elmid).innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+      }
+      function upstreamFile(url,elmid,body) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById(elmid).innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("POST", url, true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(body);
+      }      
+    </script>
+  </head>
+  <body>
+    <div id="container">
+	  
+      <div id="demo1">
+        <h2>Post File</h2>
+        <form>
+          <input type="text" id="demo1_filepath" name="demo1_filepath" value="HelloWorld2.txt"/>
+          <input type="text" id="demo1_data" name="demo1_data" value="HelloWorld"/>
+          <button type="button" onclick="
+          var filepath=document.getElementById('demo1_filepath').value;
+          var data=document.getElementById('demo1_data').value;
+          upstreamFile(
+            'http://127.0.0.1:8080/'
+            ,'upstreamFile_result'
+            ,'filepath='+filepath+'&data='+data);
+          ">POST</button>
+        </form>
+        <div id="upstreamFile_result"></div>
+      </div>
+
+      <div id="demo2">
+        <h2>Get File</h2>
+          <form>
+		        <input type="text" id="demo2_filepath" name="demo2_filepath" value="helloWorld2.txt"/>
+            <input type="text" id="demo2_method" name="demo2_method" value="stream"/>
+            <button type="button" onclick="
+            var filepath=document.getElementById('demo2_filepath').value;
+            var method=document.getElementById('demo2_method').value;
+            downstreamFile(
+              'http://127.0.0.1:8080/?filepath='+filepath+'&method='+method
+              ,'downstreamFile_result');
+            ">GET</button>
+          </form>
+        <div id="downstreamFile_result"></div>
+      </div>
+	  
+      <!--
+      <div id="demo3">
+        <h2>Download File</h2>
+        <button type="button" onclick="downloadFile('http://127.0.0.1:8080/?filepath=helloworld.txt&method=download')">Download</button>
+      </div>
+      -->
+
+    </div>
+  </body>
+</html>

@@ -35,26 +35,12 @@ public class UILogger {
 	
 	public void begin(final String className, final String function) {
 		if ( Log.isTraceEnabled() ) {
-			StringBuffer buffer = new StringBuffer();
-			buffer.append(STR_OB);
-			buffer.append(className);
-			buffer.append(STR_CB);
-			buffer.append(function);
-			buffer.append(STR_EMPTY);
-			buffer.append(BEGIN);
-			Log.trace(buffer.toString());
+			Log.trace(STR_OB+className+STR_CB+STR_EMPTY+function+STR_EMPTY+BEGIN);
 		}
 	}
 	public void end(final String className, final String function) {
 		if ( Log.isTraceEnabled() ) {
-			StringBuffer buffer = new StringBuffer();
-			buffer.append(STR_OB);
-			buffer.append(className);
-			buffer.append(STR_CB);
-			buffer.append(function);
-			buffer.append(STR_EMPTY);
-			buffer.append(END);
-			Log.trace(buffer.toString());
+			Log.trace(STR_OB+className+STR_CB+STR_EMPTY+function+STR_EMPTY+END);
 		}
 	}
 
@@ -64,17 +50,17 @@ public class UILogger {
 	}
 	public void beginEnd(final String className, final String function, String log) {
 		begin(className, function);
-		warn(className, function, log);
+		trace(className, function, log);
 		end(className, function);
 	}
 	public void beginEnd(final String className, final String function, String log, Object argument1) {
 		begin(className, function);
-		warn(className, function, log, argument1);
+		trace(className, function, log, argument1);
 		end(className, function);
 	}
 	public void beginEnd(final String className, final String function, String log, Object argument1, Object argument2) {
 		begin(className, function);
-		warn(className, function, log, argument1, argument2);
+		trace(className, function, log, argument1, argument2);
 		end(className, function);
 	}
 	public void beginEnd(final String className, final String function, String log, Object [] arguments) {
@@ -88,12 +74,13 @@ public class UILogger {
 	public boolean isInfoEnabled()	{ return Log.isInfoEnabled(); }
 	public boolean isWarnEnabled()	{ return Log.isWarnEnabled(); }
 	public boolean isErrorEnabled()	{ return Log.isErrorEnabled(); }
+	public boolean isFatalEnabled()	{ return Log.isFatalEnabled(); }
 	
 	public void trace(final String message) {
 	    Log.trace(message);
 	}
 	public void trace(final String className, final String function, String log) {
-		if ( Log.isTraceEnabled() ) trace(className, function, log, null);
+		trace(className, function, log, null);
 	}
 	public void trace(final String className, final String function, String log, Object argument) {
 		if ( Log.isTraceEnabled() ) addLog(Log.LOG_LEVEL_TRACE, className, function, log, argument);
@@ -109,7 +96,7 @@ public class UILogger {
 	    Log.debug(message);
 	}
 	public void debug(final String className, final String function, String log) {
-		if ( Log.isDebugEnabled() ) debug(className, function, log, null);
+		debug(className, function, log, null);
 	}
 	public void debug(final String className, final String function, String log, Object argument) {
 		if ( Log.isDebugEnabled() ) addLog(Log.LOG_LEVEL_DEBUG, className, function, log, argument);
@@ -125,7 +112,7 @@ public class UILogger {
 	    Log.info(message);
 	}
 	public void info(final String className, final String function, String log) {
-		if ( Log.isInfoEnabled() ) info(className, function, log, null);
+		info(className, function, log, null);
 	}
 	public void info(final String className, final String function, String log, Object argument) {
 		if ( Log.isInfoEnabled() ) addLog(Log.LOG_LEVEL_INFO, className, function, log, argument);
@@ -141,7 +128,7 @@ public class UILogger {
 	    Log.warn(message);
 	}
 	public void warn(final String className, final String function, String log) {
-		if ( Log.isWarnEnabled() ) warn(className, function, log, null);
+		warn(className, function, log, null);
 	}
 	public void warn(final String className, final String function, String log, Object argument) {
 		if ( Log.isWarnEnabled() ) addLog(Log.LOG_LEVEL_WARN, className, function, log, argument);
@@ -157,7 +144,7 @@ public class UILogger {
 		Log.error(log);
 	}
 	public void error(final String className, final String function, final String log) {
-		if ( Log.isErrorEnabled() ) error(className, function, log, null);
+		error(className, function, log, null);
 	}
 	public void error(final String className, final String function, String log, Object argument) {
 		if ( Log.isErrorEnabled() ) addLog(Log.LOG_LEVEL_ERROR, className, function, log, argument);
@@ -173,7 +160,7 @@ public class UILogger {
 		Log.fatal(log);
 	}
 	public void fatal(final String className, final String function, final String log) {
-		if ( Log.isFatalEnabled() ) fatal(className, function, log, null);
+		fatal(className, function, log, null);
 	}
 	public void fatal(final String className, final String function, String log, Object argument) {
 		if ( Log.isFatalEnabled() ) addLog(Log.LOG_LEVEL_FATAL, className, function, log, argument);
@@ -199,31 +186,32 @@ public class UILogger {
 		addLog(level, className, function, log, objs);
 	}
 	private void addLog(int level, final String className, final String function, String log, Object[] arguments) {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append(STR_OB);
-		buffer.append(className);
-		buffer.append(STR_CB);
-		buffer.append(function);
-		buffer.append(STR_EMPTY);		
+		String message = STR_OB+className+STR_CB+STR_EMPTY+function+STR_EMPTY+log;
 		if ( null != arguments ) {
-			String [] splits = log.split(STR_OCB);
+			String [] splits = message.split(STR_OCB);
+			final StringBuffer buffer = new StringBuffer();
 			for ( int i = 0 ; i < splits.length ; ++i) {
 				buffer.append(splits[i]);
 				if ( i < splits.length - 1 ) {
-					buffer.append(null!=arguments[i] ? arguments[i] : STR_NULL);
+					if ( null != arguments[i] ) {
+						buffer.append(arguments[i]);
+					} else {
+						buffer.append(STR_NULL);
+					}
 				}
 			}
+			message = buffer.toString();
 		}
-		addLog(level, buffer.toString());
+		addLog(level, message);
 	}
 	private void addLog(int level, String message) {
 		switch ( level ) {
-			case Log.LOG_LEVEL_TRACE:	Log.debug(message);	break;		
+			case Log.LOG_LEVEL_TRACE:	Log.trace(message);	break;		
 			case Log.LOG_LEVEL_DEBUG:	Log.debug(message);	break;
 			case Log.LOG_LEVEL_INFO:	Log.info(message);	break;
 			case Log.LOG_LEVEL_WARN:	Log.warn(message);	break;
 			case Log.LOG_LEVEL_ERROR:	Log.error(message);	break;
-			case Log.LOG_LEVEL_FATAL:	Log.error(message);	break;
+			case Log.LOG_LEVEL_FATAL:	Log.fatal(message);	break;
 			default:break;
 		}
 	}

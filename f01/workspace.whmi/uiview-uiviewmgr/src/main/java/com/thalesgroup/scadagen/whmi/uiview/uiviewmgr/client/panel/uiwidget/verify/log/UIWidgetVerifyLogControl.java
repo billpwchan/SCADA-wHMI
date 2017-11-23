@@ -58,20 +58,27 @@ public class UIWidgetVerifyLogControl extends UIWidgetRealize {
 	private final String STR_LEVEL		= "level";
 	private final String STR_API		= "api";
 	
+	private final String STR_GETCURRENTLOGLEVEL = "getcurrentloglevel";
+	private final String STR_SETCURRENTLOGLEVEL = "setcurrentloglevel";
+	
 	private void addItems() {
 		final String function = "addItems";
 		Log.info("["+className+"] "+function+" Begin");
 		
 		ListBox level = (ListBox) uiGeneric.getWidget(STR_LEVEL);
-		level.clear();
-		for ( String s: STR_LEVELS) {
-			level.addItem(s);
+		if ( null != level ) {
+			level.clear();
+			for ( String s: STR_LEVELS) {
+				level.addItem(s);
+			}
 		}
 		
 		ListBox api = (ListBox) uiGeneric.getWidget(STR_API);
-		api.clear();
-		for ( String s: STR_APIS) {
-			api.addItem(s);
+		if ( null != api ) {
+			api.clear();
+			for ( String s: STR_APIS) {
+				api.addItem(s);
+			}
 		}
 		
 		Log.info("["+className+"] "+function+" End");
@@ -83,203 +90,217 @@ public class UIWidgetVerifyLogControl extends UIWidgetRealize {
 		
 		UILogger log = UILoggerFactory.getInstance().getLogger(element);
 		
-		String l_classname		= uiGeneric.getWidgetValue("classnamevalue");
-		String l_function		= uiGeneric.getWidgetValue("functionvalue");
-		String l_message		= uiGeneric.getWidgetValue("messagevalue");
-		String l_parameter1		= uiGeneric.getWidgetValue("parameter1value");
-		String l_parameter2		= uiGeneric.getWidgetValue("parameter2value");
-		
-		String strLevel = ((ListBox) uiGeneric.getWidget(STR_LEVEL)).getSelectedItemText();
-		Log.info("["+className+"] "+function+" strLevel["+strLevel+"]");
-		int level = Arrays.asList(STR_LEVELS).indexOf(strLevel);
-		Log.info("["+className+"] "+function+" level["+level+"]");
-		
-		String strApi = ((ListBox) uiGeneric.getWidget(STR_API)).getSelectedItemText();
-		Log.info("["+className+"] "+function+" strApi["+strApi+"]");
-		int api = Arrays.asList(STR_APIS).indexOf(strApi);
-		Log.info("["+className+"] "+function+" api["+api+"]");
-		
-		Log.info("["+className+"] "+function+" level["+level+"] api["+api+"]");
-		
-		Log.info("["+className+"] "+function+" l_classname["+l_classname+"]");
-		Log.info("["+className+"] "+function+" l_function["+l_function+"]");
-		Log.info("["+className+"] "+function+" l_message["+l_message+"]");
-		Log.info("["+className+"] "+function+" l_parameter1["+l_parameter1+"]");
-		Log.info("["+className+"] "+function+" l_parameter2["+l_parameter2+"]");		
-	
-		switch(level){
-		case 0:
-		{
-			switch(api){
-			case 0:
-				log.trace(l_message);
-				break;
-			case 1:
-				log.trace(l_classname, l_function, l_message);
-				break;
-			case 2:
-				log.trace(l_classname, l_function, l_message, l_parameter1);
-				break;
-			case 3:
-				log.trace(l_classname, l_function, l_message, l_parameter1, l_parameter2);
-				break;
-			case 4:
-				log.trace(l_classname, l_function, l_message, new Object[]{l_parameter1, l_parameter2});
-				break;
+		if ( 0 == element.compareToIgnoreCase(STR_GETCURRENTLOGLEVEL) ) {
+			uiGeneric.setWidgetValue("loglevelvalue", String.valueOf(log.getCurrentLogLevel()));
+		}
+		else if ( 0 == element.compareToIgnoreCase(STR_SETCURRENTLOGLEVEL) ) {
+			String l_loglevel		= uiGeneric.getWidgetValue("loglevelvalue");
+			try {
+				log.setCurrentLogLevel(Integer.parseInt(l_loglevel));
+			} catch (NumberFormatException e) {
+				Log.warn(e.toString());
 			}
 		}
-		break;
+		else {
+			String l_classname		= uiGeneric.getWidgetValue("classnamevalue");
+			String l_function		= uiGeneric.getWidgetValue("functionvalue");
+			String l_message		= uiGeneric.getWidgetValue("messagevalue");
+			String l_parameter1		= uiGeneric.getWidgetValue("parameter1value");
+			String l_parameter2		= uiGeneric.getWidgetValue("parameter2value");
 			
-		case 1:
-		{
-			switch(api){
-			case 0:
-				log.debug(l_message);
-				break;
-			case 1:
-				log.debug(l_classname, l_function, l_message);
-				break;
-			case 2:
-				log.debug(l_classname, l_function, l_message, l_parameter1);
-				break;
-			case 3:
-				log.debug(l_classname, l_function, l_message, l_parameter1, l_parameter2);
-				break;
-			case 4:
-				log.debug(l_classname, l_function, l_message, new Object[]{l_parameter1, l_parameter2});
-				break;
-			}
-		}
-		break;
+			String strLevel = ((ListBox) uiGeneric.getWidget(STR_LEVEL)).getSelectedItemText();
+			Log.info("["+className+"] "+function+" strLevel["+strLevel+"]");
+			int level = Arrays.asList(STR_LEVELS).indexOf(strLevel);
+			Log.info("["+className+"] "+function+" level["+level+"]");
 			
-		case 2:
-		{
-			switch(api){
-			case 0:
-				log.info(l_message);
-				break;
-			case 1:
-				log.info(l_classname, l_function, l_message);
-				break;
-			case 2:
-				log.info(l_classname, l_function, l_message, l_parameter1);
-				break;
-			case 3:
-				log.info(l_classname, l_function, l_message, l_parameter1, l_parameter2);
-				break;
-			case 4:
-				log.info(l_classname, l_function, l_message, new Object[]{l_parameter1, l_parameter2});
-				break;
-			}
-		}
-		break;
-		
-		case 3:
-		{
-			switch(api){
-			case 0:
-				log.warn(l_message);
-				break;
-			case 1:
-				log.warn(l_classname, l_function, l_message);
-				break;
-			case 2:
-				log.warn(l_classname, l_function, l_message, l_parameter1);
-				break;
-			case 3:
-				log.warn(l_classname, l_function, l_message, l_parameter1, l_parameter2);
-				break;
-			case 4:
-				log.warn(l_classname, l_function, l_message, new Object[]{l_parameter1, l_parameter2});
-				break;
-			}
-		}
-		break;
-		
-		case 4:
-		{
-			switch(api){
-			case 0:
-				log.error(l_message);
-				break;
-			case 1:
-				log.error(l_classname, l_function, l_message);
-				break;
-			case 2:
-				log.error(l_classname, l_function, l_message, l_parameter1);
-				break;
-			case 3:
-				log.error(l_classname, l_function, l_message, l_parameter1, l_parameter2);
-				break;
-			case 4:
-				log.error(l_classname, l_function, l_message, new Object[]{l_parameter1, l_parameter2});
-				break;
-			}
-		}
-		break;
-		
-		case 5:
-		{
-			switch(api){
-			case 0:
-				log.fatal(l_message);
-				break;
-			case 1:
-				log.fatal(l_classname, l_function, l_message);
-				break;
-			case 2:
-				log.fatal(l_classname, l_function, l_message, l_parameter1);
-				break;
-			case 3:
-				log.fatal(l_classname, l_function, l_message, l_parameter1, l_parameter2);
-				break;
-			case 4:
-				log.fatal(l_classname, l_function, l_message, new Object[]{l_parameter1, l_parameter2});
-				break;
-			}
-		}
-		break;
-		
-		case 6:
-		{
-			switch(api){
-			case 0:
-				log.begin(l_classname, l_function);
-				break;
-			}
-		}
-		break;
-		
-		case 7:
-		{
-			switch(api){
-			case 0:
-				log.end(l_classname, l_function);
-				break;
-			}
-		}
-		break;
-		
-		case 8:
-		{
-			switch(api){
-			case 0:
-				log.beginEnd(l_classname, l_function, l_message);
-				break;
-			case 1:
-				log.beginEnd(l_classname, l_function, l_message, l_parameter1);
-				break;
-			case 2:
-				log.beginEnd(l_classname, l_function, l_message, l_parameter1, l_parameter2);
-				break;
-			case 3:
-				log.beginEnd(l_classname, l_function, l_message, new Object[]{l_parameter1, l_parameter2});
-				break;
-			}
-		}
-		break;
+			String strApi = ((ListBox) uiGeneric.getWidget(STR_API)).getSelectedItemText();
+			Log.info("["+className+"] "+function+" strApi["+strApi+"]");
+			int api = Arrays.asList(STR_APIS).indexOf(strApi);
+			Log.info("["+className+"] "+function+" api["+api+"]");
 			
+			Log.info("["+className+"] "+function+" level["+level+"] api["+api+"]");
+			
+			Log.info("["+className+"] "+function+" l_classname["+l_classname+"]");
+			Log.info("["+className+"] "+function+" l_function["+l_function+"]");
+			Log.info("["+className+"] "+function+" l_message["+l_message+"]");
+			Log.info("["+className+"] "+function+" l_parameter1["+l_parameter1+"]");
+			Log.info("["+className+"] "+function+" l_parameter2["+l_parameter2+"]");		
+		
+			switch(level){
+			case 0:
+			{
+				switch(api){
+				case 0:
+					log.trace(l_message);
+					break;
+				case 1:
+					log.trace(l_classname, l_function, l_message);
+					break;
+				case 2:
+					log.trace(l_classname, l_function, l_message, l_parameter1);
+					break;
+				case 3:
+					log.trace(l_classname, l_function, l_message, l_parameter1, l_parameter2);
+					break;
+				case 4:
+					log.trace(l_classname, l_function, l_message, new Object[]{l_parameter1, l_parameter2});
+					break;
+				}
+			}
+			break;
+				
+			case 1:
+			{
+				switch(api){
+				case 0:
+					log.debug(l_message);
+					break;
+				case 1:
+					log.debug(l_classname, l_function, l_message);
+					break;
+				case 2:
+					log.debug(l_classname, l_function, l_message, l_parameter1);
+					break;
+				case 3:
+					log.debug(l_classname, l_function, l_message, l_parameter1, l_parameter2);
+					break;
+				case 4:
+					log.debug(l_classname, l_function, l_message, new Object[]{l_parameter1, l_parameter2});
+					break;
+				}
+			}
+			break;
+				
+			case 2:
+			{
+				switch(api){
+				case 0:
+					log.info(l_message);
+					break;
+				case 1:
+					log.info(l_classname, l_function, l_message);
+					break;
+				case 2:
+					log.info(l_classname, l_function, l_message, l_parameter1);
+					break;
+				case 3:
+					log.info(l_classname, l_function, l_message, l_parameter1, l_parameter2);
+					break;
+				case 4:
+					log.info(l_classname, l_function, l_message, new Object[]{l_parameter1, l_parameter2});
+					break;
+				}
+			}
+			break;
+			
+			case 3:
+			{
+				switch(api){
+				case 0:
+					log.warn(l_message);
+					break;
+				case 1:
+					log.warn(l_classname, l_function, l_message);
+					break;
+				case 2:
+					log.warn(l_classname, l_function, l_message, l_parameter1);
+					break;
+				case 3:
+					log.warn(l_classname, l_function, l_message, l_parameter1, l_parameter2);
+					break;
+				case 4:
+					log.warn(l_classname, l_function, l_message, new Object[]{l_parameter1, l_parameter2});
+					break;
+				}
+			}
+			break;
+			
+			case 4:
+			{
+				switch(api){
+				case 0:
+					log.error(l_message);
+					break;
+				case 1:
+					log.error(l_classname, l_function, l_message);
+					break;
+				case 2:
+					log.error(l_classname, l_function, l_message, l_parameter1);
+					break;
+				case 3:
+					log.error(l_classname, l_function, l_message, l_parameter1, l_parameter2);
+					break;
+				case 4:
+					log.error(l_classname, l_function, l_message, new Object[]{l_parameter1, l_parameter2});
+					break;
+				}
+			}
+			break;
+			
+			case 5:
+			{
+				switch(api){
+				case 0:
+					log.fatal(l_message);
+					break;
+				case 1:
+					log.fatal(l_classname, l_function, l_message);
+					break;
+				case 2:
+					log.fatal(l_classname, l_function, l_message, l_parameter1);
+					break;
+				case 3:
+					log.fatal(l_classname, l_function, l_message, l_parameter1, l_parameter2);
+					break;
+				case 4:
+					log.fatal(l_classname, l_function, l_message, new Object[]{l_parameter1, l_parameter2});
+					break;
+				}
+			}
+			break;
+			
+			case 6:
+			{
+				switch(api){
+				case 0:
+					log.begin(l_classname, l_function);
+					break;
+				}
+			}
+			break;
+			
+			case 7:
+			{
+				switch(api){
+				case 0:
+					log.end(l_classname, l_function);
+					break;
+				}
+			}
+			break;
+			
+			case 8:
+			{
+				switch(api){
+				case 0:
+					log.beginEnd(l_classname, l_function, l_message);
+					break;
+				case 1:
+					log.beginEnd(l_classname, l_function, l_message, l_parameter1);
+					break;
+				case 2:
+					log.beginEnd(l_classname, l_function, l_message, l_parameter1, l_parameter2);
+					break;
+				case 3:
+					log.beginEnd(l_classname, l_function, l_message, new Object[]{l_parameter1, l_parameter2});
+					break;
+				}
+			}
+			break;
+				
+			}
 		}
+
 		Log.info("["+className+"] "+function+" End");
 	}
 

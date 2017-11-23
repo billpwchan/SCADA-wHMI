@@ -3,12 +3,22 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>1</cols>
+		<cols>3</cols>
 		<rootPanel>VerticalPanel</rootPanel>
 	</header>
 	<option key="0|0">
 		<uiCtrl>UIWidgetVerifyLogControl</uiCtrl>
 		<uiView>Verify/Log/UIWidgetVerifyLogControl.view.xml</uiView>
 		<element>UIWidgetVerifyLogControl</element>
+	</option>
+	<option key="0|1">
+		<uiCtrl>UIWidgetVerifyLogControl</uiCtrl>
+		<uiView>Verify/Log/UIWidgetVerifySetCurrentLogLevelControl.view.xml</uiView>
+		<element>UIWidgetVerifySetCurrentLogLevelControl</element>
+	</option>
+	<option key="0|2">
+		<uiCtrl>UIWidgetVerifyLogControl</uiCtrl>
+		<uiView>Verify/Log/UIWidgetVerifyGetCurrentLogLevelControl.view.xml</uiView>
+		<element>UIWidgetVerifyGetCurrentLogLevelControl</element>
 	</option>
 </data-set>

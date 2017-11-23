@@ -26,22 +26,14 @@ public class UILogger {
 	
 	private final static String STR_NULL	= "null";
 
-	public void setCurrentLogLevel(int level) {
-		Log.setCurrentLogLevel(level);
-	}
-	public int getCurrentLogLevel(int level) {
-		return Log.getCurrentLogLevel();
-	}
+	public void setCurrentLogLevel(int level) { Log.setCurrentLogLevel(level); }
+	public int getCurrentLogLevel() { return Log.getCurrentLogLevel(); }
 	
 	public void begin(final String className, final String function) {
-		if ( Log.isTraceEnabled() ) {
-			Log.trace(STR_OB+className+STR_CB+STR_EMPTY+function+STR_EMPTY+BEGIN);
-		}
+		if ( Log.isTraceEnabled() ) Log.trace(STR_OB+className+STR_CB+STR_EMPTY+function+STR_EMPTY+BEGIN);
 	}
 	public void end(final String className, final String function) {
-		if ( Log.isTraceEnabled() ) {
-			Log.trace(STR_OB+className+STR_CB+STR_EMPTY+function+STR_EMPTY+END);
-		}
+		if ( Log.isTraceEnabled() ) Log.trace(STR_OB+className+STR_CB+STR_EMPTY+function+STR_EMPTY+END);
 	}
 
 	public void beginEnd(final String className, final String function) {
@@ -69,12 +61,12 @@ public class UILogger {
 		end(className, function);
 	}
 	
-	public boolean isTraceEnabled()	{ return Log.isTraceEnabled(); }
-	public boolean isDebugEnabled()	{ return Log.isDebugEnabled(); }
-	public boolean isInfoEnabled()	{ return Log.isInfoEnabled(); }
-	public boolean isWarnEnabled()	{ return Log.isWarnEnabled(); }
-	public boolean isErrorEnabled()	{ return Log.isErrorEnabled(); }
-	public boolean isFatalEnabled()	{ return Log.isFatalEnabled(); }
+	public boolean isTraceEnabled()	{ return Log.isTraceEnabled();	}
+	public boolean isDebugEnabled()	{ return Log.isDebugEnabled();	}
+	public boolean isInfoEnabled()	{ return Log.isInfoEnabled();	}
+	public boolean isWarnEnabled()	{ return Log.isWarnEnabled();	}
+	public boolean isErrorEnabled()	{ return Log.isErrorEnabled();	}
+	public boolean isFatalEnabled()	{ return Log.isFatalEnabled();	}
 	
 	public void trace(final String message) {
 	    Log.trace(message);
@@ -176,14 +168,10 @@ public class UILogger {
 		addLog(level, className, function, log, null);
 	}
 	private void addLog(int level, final String className, final String function, String log, Object argument) {
-		Object[] objs = null;
-		if ( null != argument ) objs = new Object[]{argument};
-		addLog(level, className, function, log, objs);
+		addLog(level, className, function, log, ( null != argument ) ? new Object[]{argument} : null);
 	}
 	private void addLog(int level, final String className, final String function, String log, Object argument1, Object argument2) {
-		Object[] objs = null;
-		objs = new Object[]{argument1, argument2};
-		addLog(level, className, function, log, objs);
+		addLog(level, className, function, log, ( null != argument1 || null != argument2 ) ? new Object[]{argument1, argument2} : null);
 	}
 	private void addLog(int level, final String className, final String function, String log, Object[] arguments) {
 		String message = STR_OB+className+STR_CB+STR_EMPTY+function+STR_EMPTY+log;
@@ -193,11 +181,7 @@ public class UILogger {
 			for ( int i = 0 ; i < splits.length ; ++i) {
 				buffer.append(splits[i]);
 				if ( i < splits.length - 1 ) {
-					if ( null != arguments[i] ) {
-						buffer.append(arguments[i]);
-					} else {
-						buffer.append(STR_NULL);
-					}
+					buffer.append( null != arguments[i] ? arguments[i] : STR_NULL );
 				}
 			}
 			message = buffer.toString();

@@ -47,7 +47,7 @@
 	</option>
 	<option key="0|7">
 		<widget>TextBox</widget>
-		<label>classname</label>
+		<label>verifylogclassname</label>
 		<element>classnamevalue</element>
 	</option>
 	
@@ -58,7 +58,7 @@
 	</option>
 	<option key="0|9">
 		<widget>TextBox</widget>
-		<label>function</label>
+		<label>verifylogfunction</label>
 		<element>functionvalue</element>
 	</option>
 	
@@ -69,7 +69,7 @@
 	</option>
 	<option key="0|11">
 		<widget>TextBox</widget>
-		<label>message {} {}</label>
+		<label>verifylogmessage [{}] [{}]</label>
 		<element>messagevalue</element>
 	</option>
 	
@@ -80,7 +80,7 @@
 	</option>
 	<option key="0|13">
 		<widget>TextBox</widget>
-		<label>parameter1</label>
+		<label>verifylogparameter1</label>
 		<element>parameter1value</element>
 	</option>
 	
@@ -91,7 +91,7 @@
 	</option>
 	<option key="0|15">
 		<widget>TextBox</widget>
-		<label>parameter2</label>
+		<label>verifylogparameter2</label>
 		<element>parameter2value</element>
 	</option>
 

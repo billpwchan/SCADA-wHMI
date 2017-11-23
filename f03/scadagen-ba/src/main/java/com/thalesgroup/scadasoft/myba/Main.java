@@ -11,6 +11,7 @@ import java.net.URI;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Properties;
+import java.util.UUID;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
@@ -30,6 +31,7 @@ import com.thalesgroup.hv.sdk.connector.Connector;
 import com.thalesgroup.scadagen.bps.BPSException;
 import com.thalesgroup.scadagen.bps.SCADAgenBPS;
 import com.thalesgroup.scadagen.scadagenba.services.proxy.ScadagenConnectorProxy;
+import com.thalesgroup.scadasoft.data.config.equipment.operation.OpSCADARequest;
 import com.thalesgroup.scadasoft.hvconnector.BAStateManager;
 import com.thalesgroup.scadasoft.hvconnector.configuration.SCSConfManager;
 import com.thalesgroup.scadasoft.services.proxy.ScsConnectorProxy;
@@ -101,7 +103,7 @@ public class Main {
     	}
         HttpServer srv = GrizzlyHttpServerFactory.createHttpServer(URI.create(rootURI), rc);
 
-        s_logger.info("Jersey app started with WADL available at {}application.wadl", BASE_URI);
+        s_logger.info("Jersey app started with WADL available at {}application.wadl", rootURI);
         return srv;
     }
 
@@ -183,6 +185,15 @@ public class Main {
         try {
             scadasoftBA = new SCADAgenBA();
             scadasoftBA.init();
+            
+            // call a first dummy SCADA Op to initialize the JSONComponent Manager
+            // to use Hypervisor Notification, instead of REST
+            // At the REST level notification are not available, only direct calls will work
+            // or subscription with url callback
+            OpSCADARequest dummy = new OpSCADARequest();
+            scadasoftBA.getOperationManager().eqptCommandRequestReception(UUID.randomUUID(), dummy);
+            // 
+            
             scadasoftBA.start();
         } catch (final Exception e) {
             s_logger.error("SCADAgen BA  - Error at instantiation: ", e);

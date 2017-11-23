@@ -6,21 +6,27 @@
     <parent>
         <groupId>com.thalesgroup.scadasoft</groupId>
         <artifactId>scadasoft</artifactId>
-        <version>6.3.1</version>
+        <version>6.3.1_P02</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
     <artifactId>scadagen-ba-comp</artifactId>
-    <version>1.4.3</version>
+    <version>1.4.4</version>
     <packaging>jar</packaging>
     <name>SCADAgen BA Component</name>
     <description>SCADAgen BA Executor and JSComponent library</description>
+	
+	<properties>
+		<scadasoft.version>6.3.1_P02</scadasoft.version>
+		<scadasoft.hv.version>6.3.1_P02-HV951P01</scadasoft.hv.version>
+	</properties>
 
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -36,17 +42,17 @@
 		<dependency>
             <groupId>com.thalesgroup.scadasoft</groupId>
             <artifactId>scsba</artifactId>
-            <version>6.3.1</version>
+            <version>${scadasoft.hv.version}</version>
         </dependency>
         <dependency>
             <groupId>com.thalesgroup.scadasoft</groupId>
             <artifactId>scsapi</artifactId>
-            <version>6.3.1</version>
+            <version>${scadasoft.version}</version>
         </dependency>
 		<dependency>
             <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
             <artifactId>fasapi</artifactId>
-            <version>1.4.3</version>
+            <version>1.4.4</version>
         </dependency>
     </dependencies>
     

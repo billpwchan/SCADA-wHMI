@@ -12,8 +12,8 @@ import com.thalesgroup.scadasoft.services.proxy.ScsPollerServicesProxy;
 public class MyDBMSubscription extends DBMSubscription {
     static private final Logger s_logger = LoggerFactory.getLogger(MyDBMSubscription.class);
 
-    public MyDBMSubscription(ScsPollerServicesProxy p, UUID subscriptionID, SCADAsoftBA scsBA) {
-        super(p, subscriptionID, scsBA);
+    public MyDBMSubscription(ScsPollerServicesProxy p, UUID subscriptionID, SCADAsoftBA scsBA, int subPeriodMS) {
+        super(p, subscriptionID, scsBA, subPeriodMS);
         s_logger.info("==== Create MyDBMSubscription ====");
     }
 

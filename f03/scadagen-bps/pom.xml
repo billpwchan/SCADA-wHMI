@@ -6,16 +6,17 @@
 	<groupId>com.thalesgroup.scadagen.scadagenba</groupId>
 	<artifactId>scadagen-bps</artifactId>
 	<packaging>jar</packaging>
-    <version>1.4.3</version>
+    <version>1.4.4</version>
 	<name>BPS Library</name>
 	
 	<properties>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
-        <hv.connector.sdk.version>2.11.0</hv.connector.sdk.version>
+        <hv.connector.sdk.version>2.11.1</hv.connector.sdk.version>
         <slf4j.version>1.6.1</slf4j.version>
-        <log4j.version>1.2.16</log4j.version>
-        <scadasoft.version>6.3.1</scadasoft.version>
+        <log4j.version>1.2.17</log4j.version>
+        <scadasoft.version>6.3.1_P02</scadasoft.version>
+		<scadasoft.model.version>6.3.1</scadasoft.model.version>
 	</properties>
 	
 	<dependencies>
@@ -49,18 +50,24 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
+        
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>apache-log4j-extras</artifactId>
+            <version>1.2.17</version>
+        </dependency>
 		
         <dependency>
 			<groupId>com.thalesgroup.hv.common</groupId>
 			<artifactId>data-model-jaxb</artifactId>
-			<version>1.10.0</version>
+			<version>1.10.1</version>
             <scope>provided</scope>
 		</dependency>
         
 		<dependency>
 			<groupId>com.thalesgroup.scadasoft</groupId>
 			<artifactId>scs-data-model</artifactId>
-			<version>${scadasoft.version}</version>
+			<version>${scadasoft.model.version}</version>
             <scope>provided</scope>
 		</dependency>
 	
@@ -139,8 +146,8 @@
 			<artifactId>maven-eclipse-plugin</artifactId>
 			<version>2.10</version>
 			<configuration>
-				<source>1.6</source>
-				<target>1.6</target>
+				<source>1.7</source>
+				<target>1.7</target>
 				<buildOutputDirectory>target/classes</buildOutputDirectory>
 			</configuration>
 			</plugin>

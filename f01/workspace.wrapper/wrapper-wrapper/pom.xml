@@ -9,24 +9,24 @@
 	<parent>
 		<groupId>com.thalesgroup.hv.mwt</groupId>
 		<artifactId>mwt</artifactId>
-		<version>3.7.0</version>
+		<version>3.7.2</version>
 	</parent>
   
   <groupId>com.thalesgroup.scadagen.wrapper.wrapper</groupId>
   <artifactId>wrapper-wrapper</artifactId>
   <packaging>jar</packaging>
-  <version>1.4.3</version>
+  <version>1.4.4</version>
   <name>GWT Maven Archetype</name>
 
   <properties>
-        <commons.uiwidget.version>1.4.3</commons.uiwidget.version>
-        <commons.whmi.version>1.4.3</commons.whmi.version>
-        <commons.uiwrapper.version>1.4.3</commons.uiwrapper.version>
-        <commons.whmi.fun.version>1.4.3</commons.whmi.fun.version>
+        <commons.uiwidget.version>1.4.4</commons.uiwidget.version>
+        <commons.whmi.version>1.4.4</commons.whmi.version>
+        <commons.uiwrapper.version>1.4.4</commons.uiwrapper.version>
+        <commons.whmi.fun.version>1.4.4</commons.whmi.fun.version>
 
-		<scadasoft.version>6.3.1</scadasoft.version>
-        <jackson.version>2.7.4</jackson.version>
-		<hv.common.integ.version>1.10.0</hv.common.integ.version>
+		<scadasoft.mwt.version>6.3.1_P02-HV951P01</scadasoft.mwt.version>
+        <jackson.version>2.8.4</jackson.version>
+		<hv.common.integ.version>1.10.1</hv.common.integ.version>
 		
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
   
@@ -87,13 +87,13 @@
 		<dependency>
 			<groupId>com.thalesgroup.scadasoft</groupId>
 			<artifactId>scswebapp</artifactId>
-			<version>${scadasoft.version}</version>
+			<version>${scadasoft.mwt.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.4.4</version>
+			<version>${jackson.version}</version>
 		</dependency>
 
 		<!-- MWT dependencies -->

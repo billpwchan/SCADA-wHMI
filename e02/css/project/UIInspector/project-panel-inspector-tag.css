@@ -1,43 +1,236 @@
-.project-gwt-panel-tag-inspector {
+.project-inspector-tag-panel-root 
+{
+	background-color: #BEBEBE;
+	font-size: 16px;
+}
+
+.project-inspector-tag-panel-base
+{
 	background-color: #BEBEBE;
 	width: 100%;
 	height: 100%;
 }
 
+.project-inspector-tag-panel-vpCtrls
+{
+	width: 100%;
+}
+
+.project-inspector-tag-panel-widgetbox-0
+, .project-inspector-tag-panel-widgetbox-1
+, .project-inspector-tag-panel-widgetbox-2
+, .project-inspector-tag-panel-widgetbox-3
+, .project-inspector-tag-panel-widgetbox-4
+, .project-inspector-tag-panel-widgetbox-5
+, .project-inspector-tag-panel-widgetbox-6
+, .project-inspector-tag-panel-widgetbox-7
+, .project-inspector-tag-panel-widgetbox-8
+{
+	background-color: #BEBEBE;
+	width: 100%;
+	height: 30%;
+}
+
+.gwt-InlineLabel.project-inspector-tag-label-0
+, .gwt-InlineLabel.project-inspector-tag-label-1
+, .gwt-InlineLabel.project-inspector-tag-label-2
+, .gwt-InlineLabel.project-inspector-tag-label-3
+, .gwt-InlineLabel.project-inspector-tag-label-4
+, .gwt-InlineLabel.project-inspector-tag-label-5
+, .gwt-InlineLabel.project-inspector-tag-label-6
+, .gwt-InlineLabel.project-inspector-tag-label-7
+, .gwt-InlineLabel.project-inspector-tag-label-8
+{
+	font-size: 16px;
+}
+
+.gwt-TextBox.project-inspector-tag-textbox-0
+, .gwt-TextBox.project-inspector-tag-textbox-1
+, .gwt-TextBox.project-inspector-tag-textbox-2
+, .gwt-TextBox.project-inspector-tag-textbox-3
+, .gwt-TextBox.project-inspector-tag-textbox-4
+, .gwt-TextBox.project-inspector-tag-textbox-5
+, .gwt-TextBox.project-inspector-tag-textbox-6
+, .gwt-TextBox.project-inspector-tag-textbox-7
+, .gwt-TextBox.project-inspector-tag-textbox-8
+{
+	font-size: 16px;
+}
+
+.gwt-Button.project-inspector-tag-button-0
+, .gwt-Button.project-inspector-tag-button-1
+, .gwt-Button.project-inspector-tag-button-2
+, .gwt-Button.project-inspector-tag-button-3
+, .gwt-Button.project-inspector-tag-button-4
+, .gwt-Button.project-inspector-tag-button-5
+, .gwt-Button.project-inspector-tag-button-6
+, .gwt-Button.project-inspector-tag-button-7
+, .gwt-Button.project-inspector-tag-button-8
+{
+	width: 140px;
+	height: 25px;
+	font-size: 16px;
+	margin-right: 5px;
+	font-weight: bold;
+}
+
+.gwt-Button.project-inspector-tag-button-0-0
+, .gwt-Button.project-inspector-tag-button-0-1
+, .gwt-Button.project-inspector-tag-button-0-2
+, .gwt-Button.project-inspector-tag-button-0-3
+, .gwt-Button.project-inspector-tag-button-0-4
+, .gwt-Button.project-inspector-tag-button-0-5
+, .gwt-Button.project-inspector-tag-button-0-6
+, .gwt-Button.project-inspector-tag-button-0-7
+, .gwt-Button.project-inspector-tag-button-0-8
+
+, .gwt-Button.project-inspector-tag-button-1-0
+, .gwt-Button.project-inspector-tag-button-1-1
+, .gwt-Button.project-inspector-tag-button-1-2
+, .gwt-Button.project-inspector-tag-button-1-3
+, .gwt-Button.project-inspector-tag-button-1-4
+, .gwt-Button.project-inspector-tag-button-1-5
+, .gwt-Button.project-inspector-tag-button-1-6
+, .gwt-Button.project-inspector-tag-button-1-7
+, .gwt-Button.project-inspector-tag-button-1-8
+
+, .gwt-Button.project-inspector-tag-button-2-0
+, .gwt-Button.project-inspector-tag-button-2-1
+, .gwt-Button.project-inspector-tag-button-2-2
+, .gwt-Button.project-inspector-tag-button-2-3
+, .gwt-Button.project-inspector-tag-button-2-4
+, .gwt-Button.project-inspector-tag-button-2-5
+, .gwt-Button.project-inspector-tag-button-2-6
+, .gwt-Button.project-inspector-tag-button-2-7
+, .gwt-Button.project-inspector-tag-button-2-8
+
+, .gwt-Button.project-inspector-tag-button-3-0
+, .gwt-Button.project-inspector-tag-button-3-1
+, .gwt-Button.project-inspector-tag-button-3-2
+, .gwt-Button.project-inspector-tag-button-3-3
+, .gwt-Button.project-inspector-tag-button-3-4
+, .gwt-Button.project-inspector-tag-button-3-5
+, .gwt-Button.project-inspector-tag-button-3-6
+, .gwt-Button.project-inspector-tag-button-3-7
+, .gwt-Button.project-inspector-tag-button-3-8
+
+, .gwt-Button.project-inspector-tag-button-4-0
+, .gwt-Button.project-inspector-tag-button-4-1
+, .gwt-Button.project-inspector-tag-button-4-2
+, .gwt-Button.project-inspector-tag-button-4-3
+, .gwt-Button.project-inspector-tag-button-4-4
+, .gwt-Button.project-inspector-tag-button-4-5
+, .gwt-Button.project-inspector-tag-button-4-6
+, .gwt-Button.project-inspector-tag-button-4-7
+, .gwt-Button.project-inspector-tag-button-4-8
+{
+	width: 140px;
+	height: 25px;
+	font-size: 16px;
+	margin-right: 5px;
+	font-weight: bold;
+}
+
+.project-inspector-tag-button-selected-0-0
+, .project-inspector-tag-button-selected-0-1
+, .project-inspector-tag-button-selected-0-2
+, .project-inspector-tag-button-selected-0-3
+, .project-inspector-tag-button-selected-0-4
+, .project-inspector-tag-button-selected-0-5
+, .project-inspector-tag-button-selected-0-6
+, .project-inspector-tag-button-selected-0-7
+, .project-inspector-tag-button-selected-0-8
+
+, .project-inspector-tag-button-selected-1-0
+, .project-inspector-tag-button-selected-1-1
+, .project-inspector-tag-button-selected-1-2
+, .project-inspector-tag-button-selected-1-3
+, .project-inspector-tag-button-selected-1-4
+, .project-inspector-tag-button-selected-1-5
+, .project-inspector-tag-button-selected-1-6
+, .project-inspector-tag-button-selected-1-7
+, .project-inspector-tag-button-selected-1-8
+
+, .project-inspector-tag-button-selected-2-0
+, .project-inspector-tag-button-selected-2-1
+, .project-inspector-tag-button-selected-2-2
+, .project-inspector-tag-button-selected-2-3
+, .project-inspector-tag-button-selected-2-4
+, .project-inspector-tag-button-selected-2-5
+, .project-inspector-tag-button-selected-2-6
+, .project-inspector-tag-button-selected-2-7
+, .project-inspector-tag-button-selected-2-8
+
+, .project-inspector-tag-button-selected-3-0
+, .project-inspector-tag-button-selected-3-1
+, .project-inspector-tag-button-selected-3-2
+, .project-inspector-tag-button-selected-3-3
+, .project-inspector-tag-button-selected-3-4
+, .project-inspector-tag-button-selected-3-5
+, .project-inspector-tag-button-selected-3-6
+, .project-inspector-tag-button-selected-3-7
+, .project-inspector-tag-button-selected-3-8
+
+, .project-inspector-tag-button-selected-4-0
+, .project-inspector-tag-button-selected-4-1
+, .project-inspector-tag-button-selected-4-2
+, .project-inspector-tag-button-selected-4-3
+, .project-inspector-tag-button-selected-4-4
+, .project-inspector-tag-button-selected-4-5
+, .project-inspector-tag-button-selected-4-6
+, .project-inspector-tag-button-selected-4-7
+, .project-inspector-tag-button-selected-4-8
+{
+	background-image: none;
+	background-color: rgb(246, 230, 139);
+}
+
+.gwt-Button.project-inspector-tag-button-0.project-inspector-tag-button-selected-0
+, .gwt-Button.project-inspector-tag-button-1.project-inspector-tag-button-selected-1
+, .gwt-Button.project-inspector-tag-button-2.project-inspector-tag-button-selected-2
+, .gwt-Button.project-inspector-tag-button-3.project-inspector-tag-button-selected-3
+, .gwt-Button.project-inspector-tag-button-4.project-inspector-tag-button-selected-4
+, .gwt-Button.project-inspector-tag-button-5.project-inspector-tag-button-selected-5
+, .gwt-Button.project-inspector-tag-button-6.project-inspector-tag-button-selected-6
+, .gwt-Button.project-inspector-tag-button-7.project-inspector-tag-button-selected-7
+, .gwt-Button.project-inspector-tag-button-8.project-inspector-tag-button-selected-8
+{
+	background-image: none;
+	background-color: rgb(246, 230, 139);
+}
+
+.project-inspector-tag-panel-pageBar 
+{
+}
+
+.project-inspector-tag-panel-bottomBar 
+{
+	width: 100%
+}
+
 /* pager styles */
-.gwt-Button.project-gwt-button-inspector-tag-up,
-.gwt-Button.project-gwt-button-inspector-tag-down {
+.gwt-Button.project-inspector-tag-button-up
+, .gwt-Button.project-inspector-tag-button-down 
+{
 	width: 50px;
 	font-size: 20px;
 	height: 40px;
 	margin: 5px;
 }
 
-.gwt-InlineLabel.project-gwt-inlinelabel-inspector-tag-pagenum {
+.gwt-InlineLabel.project-inspector-tag-label-pagenum 
+{
 	width: 50px;
 	padding: 10px;
 	font-size: 22px;
 }
 
-/* tag label */
-.project-gwt-label-inspector-tag-control {
-	font-size: 16px;
-}
-
-/* tag control button */
-.gwt-Button.project-gwt-button-inspector-tag-ctrl {
-	width: 110px;
-	font-size: 16px;
-	font-weight: bold;
-	margin-right: 5px;
-}
-
 /* tag execute button */
-.gwt-Button.project-gwt-button-inspector-tag-execute {
+.gwt-Button.project-inspector-tag-button-execute 
+{
 	margin: 5px;
 	height: 40px;
 	width: 105px;
 	font-size: 19px;
 	font-weight: bold;
 }
-

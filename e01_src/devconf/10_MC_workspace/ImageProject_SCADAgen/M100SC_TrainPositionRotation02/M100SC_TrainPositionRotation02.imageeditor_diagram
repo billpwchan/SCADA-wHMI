@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:imageeditor="http://www.thalesgroup.com/configurator/imageeditor" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_sx7KMK_0EeeoLdF8l4OIIg" type="Imageeditor" name="M100SC_TrainPositionRotation02.imageeditor_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_wV184K_0EeeoLdF8l4OIIg" type="2001" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_wV184q_0EeeoLdF8l4OIIg" type="5002">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_wV1846_0EeeoLdF8l4OIIg" y="5"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_wV185K_0EeeoLdF8l4OIIg" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_zW9kgK_0EeeoLdF8l4OIIg" type="3001" fontName="Segoe UI">
+        <children xmi:type="notation:DecorationNode" xmi:id="_zW9kgq_0EeeoLdF8l4OIIg" type="5001">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_zW9kg6_0EeeoLdF8l4OIIg" y="5"/>
+        </children>
+        <element xmi:type="imageeditor:GraphicalItem" href="/ImageProject_SCADAgen/M100SC_TrainPositionRotation02/M100SC_TrainPositionRotation02.imageeditor#//@canvas/@ownedItem.0"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zW9kga_0EeeoLdF8l4OIIg" x="856" y="380" width="200" height="200"/>
+      </children>
+    </children>
+    <element xmi:type="imageeditor:GraphicalCanvas" href="/ImageProject_SCADAgen/M100SC_TrainPositionRotation02/M100SC_TrainPositionRotation02.imageeditor#//@canvas"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wV184a_0EeeoLdF8l4OIIg" x="416" y="188"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_sx7KMa_0EeeoLdF8l4OIIg"/>
+  <styles xmi:type="notation:FillStyle" xmi:id="_s_d28K_0EeeoLdF8l4OIIg" fillColor="13816530"/>
+  <element xmi:type="imageeditor:GraphicalViewer" href="/ImageProject_SCADAgen/M100SC_TrainPositionRotation02/M100SC_TrainPositionRotation02.imageeditor#/"/>
+</notation:Diagram>

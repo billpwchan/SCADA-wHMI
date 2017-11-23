@@ -32,6 +32,10 @@ export class ScheduleDef {
     public static STARTED = 'started';
     public static STOPPED = 'stopped';
 
+    // schedule item On/Off target state
+    public static ON = 'ON';
+    public static OFF = 'OFF';
+
     // daygroup config
     public static PLAN_DAY_GROUP = 'plan_day_group';
     public static PLAN_NEXT_DAY_GROUP = 'plan_next_day_group';

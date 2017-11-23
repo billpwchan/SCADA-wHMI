@@ -684,15 +684,6 @@
         <composeScsValue xmi:id="_NR7_wFymEeeMMoHks0qVvw" name="MULTI_ADDRESSES" id="_NR7_wFymEeeMMoHks0qVvw"
             label="Multiple Addresses" description="Multiple Addresses" value="1"/>
       </composeScsDomain>
-      <composeScsDomain xmi:type="scsmodel:ScsEnumDomain" xmi:id="_SHHlQWhHEee_rpboo9p0rg"
-          name="Equipment_class_code" id="_SHHlQWhHEee_rpboo9p0rg" label="Equipment_class_code"
-          description="Equipment Class code, same as DEquipmentType in the old model"
-          dataType="CHARN">
-        <composeScsValue xmi:id="_eMuFIGhHEee_rpboo9p0rg" name="EQPT_CODE" id="_eMuFIGhHEee_rpboo9p0rg"
-            value="EQPT_CODE"/>
-        <composeScsValue xmi:id="_cS3qIZIhEeemJoY9olQZ0w" name="MOTI" id="_cS3qIZIhEeemJoY9olQZ0w"
-            value="MOTI"/>
-      </composeScsDomain>
       <composeScsDomain xmi:type="scsmodel:ScsEnumDomain" xmi:id="_qfNMoWrHEeefbstfMoPwAA"
           name="AIALMCE_BEHAVIOUR" id="_qfNMoWrHEeefbstfMoPwAA" label="AIALMCE_BEHAVIOUR"
           dataType="INT8">
@@ -700,6 +691,17 @@
             value="1"/>
         <composeScsValue xmi:id="_3JfG4GrHEeefbstfMoPwAA" name="IGNORE" id="_3JfG4GrHEeefbstfMoPwAA"
             value="3"/>
+      </composeScsDomain>
+      <composeScsDomain xmi:type="scsmodel:ScsEnumDomain" xmi:id="_2CY2sJKtEeegSZuPwQFChg"
+          name="TimeStampList" id="_2CY2sJKtEeegSZuPwQFChg" dataType="INT32">
+        <composeScsValue xmi:id="_Swey0JKuEeegSZuPwQFChg" name="AcqDateOnly" id="_Swey0JKuEeegSZuPwQFChg"
+            label="acqDate only" description="acqDate only" value="0"/>
+        <composeScsValue xmi:id="_BXQAsJKvEeegSZuPwQFChg" name="EquipmentDateOnly"
+            id="_BXQAsJKvEeegSZuPwQFChg" label="equipmentDate only" description="equipmentDate only"
+            value="1"/>
+        <composeScsValue xmi:id="_F6jMwJKvEeegSZuPwQFChg" name="AcqDateOrEqpDate"
+            id="_F6jMwJKvEeegSZuPwQFChg" label="acqDate or equipmentDate" description="acqDate or equipmentDate, depends on dumpDate"
+            value="2"/>
       </composeScsDomain>
     </composeScsDomainPackage>
   </composeScsDomainPackage>
@@ -3777,7 +3779,7 @@
                 <composeScsVectorElement xmi:id=":R:A:CLASSES:SCS_UMCD:INPUT_VAR:SOURCE:DAC:VETABLE:VENAME"
                     name="vename" id=":R:A:CLASSES:SCS_UMCD:INPUT_VAR:SOURCE:DAC:VETABLE:VENAME"
                     label="veTable.vename" description="Name of the discrete external variable"
-                    stringLength="48" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
+                    stringLength="64" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
                 <composeScsVectorElement xmi:id=":R:A:CLASSES:SCS_UMCD:INPUT_VAR:SOURCE:DAC:VETABLE:VEPOLE"
                     name="vepole" id=":R:A:CLASSES:SCS_UMCD:INPUT_VAR:SOURCE:DAC:VETABLE:VEPOLE"
                     label="veTable.vepole" description="Pole/Environment of the external variable"
@@ -4160,7 +4162,7 @@
                     stringLength="256" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:BITFIELD"/>
                 <composeScsVectorElement xmi:id="_lhyi79nFEeKS_JX1AXta-g" name="vename"
                     id="_lhyi79nFEeKS_JX1AXta-g" label="veTable.vename" description="Name of the analog external variable"
-                    stringLength="48" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
+                    stringLength="64" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
                 <composeScsVectorElement xmi:id="_lhyi8NnFEeKS_JX1AXta-g" name="vepole"
                     id="_lhyi8NnFEeKS_JX1AXta-g" label="veTable.vepole" description="Pole/Environment of the external variable"
                     stringLength="30" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
@@ -6158,46 +6160,64 @@
       </composeScsClass>
     </composeScsClassPackage>
     <composeScsClassPackage xmi:id="_lG2FUhKoEea7gOG8GF6d-w" name="SCADAgen" id="_lG2FUhKoEea7gOG8GF6d-w">
+      <composeScsClass xmi:id="_0kdBILihEeemP4XL-gvU-Q" name="dummy_scadagen_version"
+          id="_0kdBILihEeemP4XL-gvU-Q" description="SCADAgen_RTDB_v0.2.1" abstract="true"/>
       <composeScsClassPackage xmi:id="_lG2FUxKoEea7gOG8GF6d-w" name="nonRTDB_HvOnly"
           id="_lG2FUxKoEea7gOG8GF6d-w">
         <composeScsClass xmi:id="_lG_PPhKoEea7gOG8GF6d-w" name="SGEQPT1" id="_lG_PPhKoEea7gOG8GF6d-w"
             label="SGEQPT1" trigram="THK" referenceSuperClass="#:R:A:CLASSES:EQPT_BASIC"
             referenceChildClass="#_lG_PPxKoEea7gOG8GF6d-w">
-          <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_1-W_UIJnEeeAJ7uy9rDfHw"/>
+          <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_1-W_UIJnEeeAJ7uy9rDfHw"
+              SThistoricPeriodNumber="0" MThistoricPediodNumber="0" SThistoricPeriod="0"
+              MThistoricPeriod="0" CEmode="1"/>
         </composeScsClass>
         <composeScsClass xmi:id="_lG_PPxKoEea7gOG8GF6d-w" name="SGEQPT2" id="_lG_PPxKoEea7gOG8GF6d-w"
             label="SGEQPT2" trigram="THK" referenceSuperClass="#_lG_PPhKoEea7gOG8GF6d-w"
             referenceChildClass="#_lG_PQBKoEea7gOG8GF6d-w">
-          <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_1mstQIJnEeeAJ7uy9rDfHw"/>
+          <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_1mstQIJnEeeAJ7uy9rDfHw"
+              SThistoricPeriodNumber="0" MThistoricPediodNumber="0" SThistoricPeriod="0"
+              MThistoricPeriod="0" CEmode="1"/>
         </composeScsClass>
         <composeScsClass xmi:id="_lG_PQBKoEea7gOG8GF6d-w" name="SGEQPT3" id="_lG_PQBKoEea7gOG8GF6d-w"
             label="SGEQPT3" trigram="THK" referenceSuperClass="#_lG_PPxKoEea7gOG8GF6d-w"
             referenceChildClass="#_lG_PQRKoEea7gOG8GF6d-w">
-          <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_1KlZAIJnEeeAJ7uy9rDfHw"/>
+          <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_1KlZAIJnEeeAJ7uy9rDfHw"
+              SThistoricPeriodNumber="0" MThistoricPediodNumber="0" SThistoricPeriod="0"
+              MThistoricPeriod="0" CEmode="1"/>
         </composeScsClass>
         <composeScsClass xmi:id="_lG_PQRKoEea7gOG8GF6d-w" name="SGEQPT4" id="_lG_PQRKoEea7gOG8GF6d-w"
             label="SGEQPT4" trigram="THK" referenceSuperClass="#_lG_PQBKoEea7gOG8GF6d-w"
             referenceChildClass="#_lG_PQhKoEea7gOG8GF6d-w">
-          <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_0xvbMIJnEeeAJ7uy9rDfHw"/>
+          <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_0xvbMIJnEeeAJ7uy9rDfHw"
+              SThistoricPeriodNumber="0" MThistoricPediodNumber="0" SThistoricPeriod="0"
+              MThistoricPeriod="0" CEmode="1"/>
         </composeScsClass>
         <composeScsClass xmi:id="_lG_PQhKoEea7gOG8GF6d-w" name="SGEQPT5" id="_lG_PQhKoEea7gOG8GF6d-w"
             label="SGEQPT5" trigram="THK" referenceSuperClass="#_lG_PQRKoEea7gOG8GF6d-w"
             referenceChildClass="#_lG_PQxKoEea7gOG8GF6d-w">
-          <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_z5zGkIJnEeeAJ7uy9rDfHw"/>
+          <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_z5zGkIJnEeeAJ7uy9rDfHw"
+              SThistoricPeriodNumber="0" MThistoricPediodNumber="0" SThistoricPeriod="0"
+              MThistoricPeriod="0" CEmode="1"/>
         </composeScsClass>
         <composeScsClass xmi:id="_lG_PQxKoEea7gOG8GF6d-w" name="SGEQPT6" id="_lG_PQxKoEea7gOG8GF6d-w"
             label="SGEQPT6" trigram="THK" referenceSuperClass="#_lG_PQhKoEea7gOG8GF6d-w"
             referenceChildClass="#_lG_PRBKoEea7gOG8GF6d-w">
-          <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_0VUk8IJnEeeAJ7uy9rDfHw"/>
+          <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_0VUk8IJnEeeAJ7uy9rDfHw"
+              SThistoricPeriodNumber="0" MThistoricPediodNumber="0" SThistoricPeriod="0"
+              MThistoricPeriod="0" CEmode="1"/>
         </composeScsClass>
         <composeScsClass xmi:id="_lG_PRBKoEea7gOG8GF6d-w" name="SGEQPT7" id="_lG_PRBKoEea7gOG8GF6d-w"
             label="SGEQPT7" trigram="THK" referenceSuperClass="#_lG_PQxKoEea7gOG8GF6d-w"
             referenceChildClass="#_lG_PRRKoEea7gOG8GF6d-w">
-          <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_zfBPEIJnEeeAJ7uy9rDfHw"/>
+          <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_zfBPEIJnEeeAJ7uy9rDfHw"
+              SThistoricPeriodNumber="0" MThistoricPediodNumber="0" SThistoricPeriod="0"
+              MThistoricPeriod="0" CEmode="1"/>
         </composeScsClass>
         <composeScsClass xmi:id="_lG_PRRKoEea7gOG8GF6d-w" name="SGEQPT8" id="_lG_PRRKoEea7gOG8GF6d-w"
             label="SGEQPT8" trigram="THK" referenceSuperClass="#_lG_PRBKoEea7gOG8GF6d-w">
-          <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_ysSKkIJnEeeAJ7uy9rDfHw"/>
+          <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_ysSKkIJnEeeAJ7uy9rDfHw"
+              SThistoricPeriodNumber="0" MThistoricPediodNumber="0" SThistoricPeriod="0"
+              MThistoricPeriod="0" CEmode="1"/>
         </composeScsClass>
         <composeScsClass xmi:id="_M_aKeUl3Eeavj5BfNP8KqQ" name="SCSIVar" id="_M_aKeUl3Eeavj5BfNP8KqQ"
             label="SCSIVar" trigram="THK" referenceExtremiteAssoc="#_61Y8QEqCEeaL86LnHtw4ig"
@@ -6410,7 +6430,7 @@
             <composeScsAttribute xmi:id="_D5OJYV_GEeevqsWcTcqI2g" name="type" id="_D5OJYV_GEeevqsWcTcqI2g"
                 label="type" description="Type of equipment for runtime or GAI" attributesGroupInHMI=""
                 presentInCtrlPanel="true" triggeringOfCalculator="endElement" stringLength="64"
-                referenceScsDomain="#_SHHlQWhHEee_rpboo9p0rg">
+                referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING">
               <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_D5OJYl_GEeevqsWcTcqI2g">
                 <composeScsAttributeHistorianTarget xmi:id="_D5OJY1_GEeevqsWcTcqI2g"/>
               </composeScsExportTarget>
@@ -6435,7 +6455,8 @@
                 <composeScsAttributeHistorianTarget xmi:id="_PE0pMGrJEeefbstfMoPwAA"/>
               </composeScsExportTarget>
             </composeScsAttribute>
-            <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_O5lNEGrKEeefbstfMoPwAA"/>
+            <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_O5lNEGrKEeefbstfMoPwAA"
+                CEmode="1"/>
           </composeScsClass>
           <composeScsClass xmi:id=":R:A:CLASSES:SCADAGEN:EQPT:RESERVED_INFO" name="RESERVEDINFO"
               id=":R:A:CLASSES:SCADAGEN:EQPT:RESERVED_INFO" label="RESERVEDINFO" description="Attributes for Equipment reservation function"
@@ -6544,7 +6565,16 @@
                 <composeScsAttributeHistorianTarget xmi:id=":R:A:CLASSES:SCADAGEN:EQPT:RESERVED_INFO:UNRESERVEREQID_histo"/>
               </composeScsExportTarget>
             </composeScsAttribute>
-            <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_P5gZAGrKEeefbstfMoPwAA"/>
+            <composeScsAttribute xmi:id="_v_-KUKKdEeekUbKbJwDsEw" name="resrvTimeout"
+                id="_v_-KUKKdEeekUbKbJwDsEw" label="resrvTimeout" description="Reservation timeout (second)"
+                presentInCtrlPanel="true" triggeringOfCalculator="endElement" defaultValue="60"
+                referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_470RIa5oEeeUHNdmmWcxqA">
+                <composeScsAttributeHistorianTarget xmi:id="_zwOcYK5wEeeUHNdmmWcxqA"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_P5gZAGrKEeefbstfMoPwAA"
+                CEmode="1"/>
           </composeScsClass>
         </composeScsClassPackage>
         <composeScsClassPackage xmi:id=":R:A:CLASSES:SCADAGEN:HMI" name="HMI" id=":R:A:CLASSES:SCADAGEN:HMI">
@@ -6570,7 +6600,7 @@
               </composeScsExportTarget>
             </composeScsAttribute>
             <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id=":R:A:CLASSES:SCADAGEN:HMI:HMI_export"
-                SThistoricPeriod="" MThistoricPeriod="" CEmode="0"/>
+                SThistoricPeriod="" MThistoricPeriod="" CEmode="1"/>
           </composeScsClass>
           <composeScsClass xmi:id=":R:A:CLASSES:SCADAGEN:HMI:HMIObject" name="HMIObject"
               id=":R:A:CLASSES:SCADAGEN:HMI:HMIObject" label="HMIObject" description=""
@@ -6660,11 +6690,7 @@
                 name="initValue_init" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:ACI_GEN:INITVALUE_INIT"
                 label="initValue_init" description="Initial value" attributesGroupInHMI=""
                 presentInCtrlPanel="true" calculatorPass="1" calculatorOrder="6" triggeringOfCalculator="endElement"
-                changeableByRTOperator="true" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:FLOAT">
-              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:ACI_GEN:INITVALUE_INIT_export">
-                <composeScsAttributeHistorianTarget xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:ACI_GEN:INITVALUE_INIT_histo"/>
-              </composeScsExportTarget>
-            </composeScsAttribute>
+                changeableByRTOperator="true" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:FLOAT"/>
             <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:ACI_GEN_export"
                 SThistoricPeriod="" MThistoricPeriod="" CEmode="0"/>
           </composeScsClass>
@@ -6672,9 +6698,6 @@
               id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DCI_GEN" label="DCI_GEN" description=""
               trigram="DCI" referenceChildClass="#:R:A:CLASSES:SCS_UMCD:INPUT_VAR:DCI"
               abstract="true">
-            <composeScsComposition xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DCI_GEN:DAL_TYPE12"
-                name="DAL_TYPE12" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DCI_GEN:DAL_TYPE12"
-                label="" description="" maxCardinality="1" minCardinality="0" referenceScsClass="#:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12"/>
             <composeScsComposition xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DCI_GEN:DAL_TYPE32"
                 name="DAL_TYPE32" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DCI_GEN:DAL_TYPE32"
                 label="" description="" maxCardinality="1" minCardinality="0" referenceScsClass="#:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32"/>
@@ -6687,11 +6710,11 @@
                 name="initValue_init" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DCI_GEN:INITVALUE_INIT"
                 label="initValue_init" description="Initial value" attributesGroupInHMI=""
                 presentInCtrlPanel="true" calculatorPass="1" calculatorOrder="6" triggeringOfCalculator="endElement"
-                changeableByRTOperator="true" defaultValue="0" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
-              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DCI_GEN:INITVALUE_INIT_export">
-                <composeScsAttributeHistorianTarget xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DCI_GEN:INITVALUE_INIT_histo"/>
-              </composeScsExportTarget>
-            </composeScsAttribute>
+                changeableByRTOperator="true" defaultValue="0" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT"/>
+            <composeScsAttribute xmi:id="_Y9AKAJKvEeegSZuPwQFChg" name="timestampSelection"
+                id="_Y9AKAJKvEeegSZuPwQFChg" label="Time stamp selection" description="Selection of timestamp for valueDate"
+                presentInCtrlPanel="true" changeableByRTOperator="true" defaultValue="0"
+                referenceScsDomain="#_2CY2sJKtEeegSZuPwQFChg"/>
             <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DCI_GEN_export"
                 SThistoricPeriod="" MThistoricPeriod="" CEmode="0"/>
           </composeScsClass>
@@ -6732,9 +6755,6 @@
             <composeScsComposition xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DPC_IVAR:LSTTAG"
                 name="LSTTAG" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DPC_IVAR:LSTTAG"
                 label="" description="" referenceScsClass="#:R:A:CLASSES:SCADAGEN:LSTTAGS:LSTTAG"/>
-            <composeScsComposition xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DPC_IVAR:UFE"
-                name="UFE" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DPC_IVAR:UFE" label=""
-                description="" referenceScsClass="#:R:A:CLASSES:SCADAGEN:UFE:UFE"/>
             <composeScsComposition xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DPC_IVAR:UFES"
                 name="UFES" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DPC_IVAR:UFES" label=""
                 description="" referenceScsClass="#:R:A:CLASSES:SCADAGEN:UFE:UFES"/>
@@ -6784,7 +6804,7 @@
                   label="initValue_init" stringLength="256" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:BITFIELD"/>
             </composeScsVector>
             <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SCI_GEN_export"
-                SThistoricPeriod="" MThistoricPeriod="" CEmode="0"/>
+                SThistoricPeriod="" MThistoricPeriod="" CEmode="1"/>
           </composeScsClass>
           <composeScsClass xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOE_ONLY_TYPE"
               name="soe_only_type" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOE_ONLY_TYPE"
@@ -6933,7 +6953,7 @@
                 name="dal_gen_type" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE"
                 label="DAL_GEN_TYPE : DAL for SOE type" description="Discrete ALarm automaton (detailed internal variable of a DCI)&#xA;same as the one in SCS_UMCD except valueTable&#xA;To be extended by dal_soe_type, dal_type12, dal_type32..."
                 trigram="TRI" referenceSuperClass="#:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN #:R:A:CLASSES:SCS_UMCD:SCSOBJET #_t6xi8LwVEeOUw46ciuX3Og"
-                referenceChildClass="#:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12 #:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32 #:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE"
+                referenceChildClass="#:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32 #:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE"
                 abstract="true">
               <composeScsVector xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE:VALUEALARMVECTOR"
                   name="valueAlarmVector" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE:VALUEALARMVECTOR"
@@ -6954,14 +6974,19 @@
                   name="ackAutomaton" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE:ACKAUTOMATON"
                   label="ackAutomaton" description="Name of the alarm acknowledgement automaton. Possible values are: Ack, AckLog, AckHdv"
                   attributesGroupInHMI="" presentInCtrlPanel="true" mandatoryInConfigurator="true"
-                  triggeringOfCalculator="endElement" stringLength="80" referenceScsDomain="#:R:A:DOMAINES:SCADASOFT:AAL_ACKAUTOMATON"/>
+                  triggeringOfCalculator="endElement" stringLength="80" referenceScsDomain="#:R:A:DOMAINES:SCADASOFT:AAL_ACKAUTOMATON">
+                <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget"
+                    xmi:id="_cH-PwLLxEeeLj_ASY39eOg">
+                  <composeScsAttributeHistorianTarget xmi:id="_dPZx4LLxEeeLj_ASY39eOg"/>
+                </composeScsExportTarget>
+              </composeScsAttribute>
               <composeScsAttribute xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE:ALCLASS"
                   name="alClass" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE:ALCLASS"
                   label="alClass" description="Alarm class name" attributesGroupInHMI=""
                   triggeringOfCalculator="endElement" stringLength="64" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
-              <composeScsAttribute xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE:BEHAVIOUR"
-                  name="behaviour" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE:BEHAVIOUR"
-                  label="behaviour" description="alarm behaviour:&#xA;- FORCE (1): raise even if the analogue value has not changed &#xA;- CHANGE (2): raise only if the analogue value changes,&#xA;- IGNORE (3): do not raise"
+              <composeScsAttribute xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE:DIALMCEBEHAVIOUR"
+                  name="DIAlmCEBehaviour" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE:DIALMCEBEHAVIOUR"
+                  label="DIAlmCEBehaviour" description="alarm behaviour:&#xA;- FORCE (1): raise even if the analogue value has not changed &#xA;- CHANGE (2): raise only if the analogue value changes,&#xA;- IGNORE (3): do not raise"
                   attributesGroupInHMI="" presentInCtrlPanel="true" triggeringOfCalculator="endElement"
                   defaultValue="2" referenceScsDomain="#:R:A:DOMAINES:SCADASOFT:ALMCE_BEHAVIOUR"/>
               <composeScsAttribute xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE:CLASS_ID"
@@ -7008,7 +7033,12 @@
                   name="valueAutomaton" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE:VALUEAUTOMATON"
                   label="valueAutomaton" description="Name of the alarm automaton. For a DIIV, possible values are: 2States, 2StatesLog, 3StatesTimer X, 3StatesTimerLog X"
                   attributesGroupInHMI="" presentInCtrlPanel="true" mandatoryInConfigurator="true"
-                  triggeringOfCalculator="endElement" stringLength="80" referenceScsDomain="#:R:A:DOMAINES:SCADASOFT:DAL_VALUEAUTOMATON"/>
+                  triggeringOfCalculator="endElement" stringLength="80" referenceScsDomain="#:R:A:DOMAINES:SCADASOFT:DAL_VALUEAUTOMATON">
+                <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget"
+                    xmi:id="_dwyAoLLxEeeLj_ASY39eOg">
+                  <composeScsAttributeHistorianTarget xmi:id="_eXs2sLLxEeeLj_ASY39eOg"/>
+                </composeScsExportTarget>
+              </composeScsAttribute>
               <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE_export"
                   SThistoricPeriodNumber="0" MThistoricPediodNumber="0" SThistoricPeriod="0"
                   MThistoricPeriod="0" CEmode="1"/>
@@ -7020,7 +7050,7 @@
               <composeScsVector xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE"
                   name="valueTable" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE"
                   label="ValueTable" description="alarm definition" attributesGroupInHMI=""
-                  presentInCtrlPanel="true" triggeringOfCalculator="endElement" vectorLength="8">
+                  presentInCtrlPanel="true" triggeringOfCalculator="endElement" vectorLength="12">
                 <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget"
                     xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE_export">
                   <composeScsAttributeHistorianTarget xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE_histo"/>
@@ -7028,68 +7058,28 @@
                 <composeVectorElement xmi:type="scsmodel:ScsStruct" xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:ELEMENT"
                     name="valueTable" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:ELEMENT"
                     label="ValueTable" description="alarm definition">
-                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:01_VALUE"
-                      name="value" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:01_VALUE"
-                      label="valueTable.value" description="Alarm values" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT"/>
-                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:02_LABEL"
-                      name="label" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:02_LABEL"
-                      label="valueTable.label" description="Description of the current range"
-                      stringLength="20" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
-                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:03_STATE"
-                      name="state" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:03_STATE"
-                      label="valueTable.state" description="Alarm state for the current range. Possible values are defined by the chosen alarm automaton (see attribute 'valueAutomaton') : common states are : 'A' Alarm, 'N' Normal, 'T' Transitory"
-                      stringLength="4" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
-                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:04_SEVERITY"
-                      name="severity" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:04_SEVERITY"
-                      label="valueTable.severity" description="Alarm severity. Organisation of the alarm severity is project specific."
-                      referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT"/>
-                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:05_FORMAT"
-                      name="format" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:05_FORMAT"
+                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:FORMAT"
+                      name="format" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:FORMAT"
                       label="valueTable.format" description="Number of the alarm message format; that number must exist in the 'format' table attribute defined in the ScsAlarm point."
                       referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT"/>
+                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:LABEL"
+                      name="label" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:LABEL"
+                      label="valueTable.label" description="Description of the current range"
+                      stringLength="20" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
+                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:SEVERITY"
+                      name="severity" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:SEVERITY"
+                      label="valueTable.severity" description="Alarm severity. Organisation of the alarm severity is project specific."
+                      referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT"/>
+                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:STATE"
+                      name="state" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:STATE"
+                      label="valueTable.state" description="Alarm state for the current range. Possible values are defined by the chosen alarm automaton (see attribute 'valueAutomaton') : common states are : 'A' Alarm, 'N' Normal, 'T' Transitory"
+                      stringLength="4" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
+                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:VALUE"
+                      name="value" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE:VALUETABLE:VALUE"
+                      label="valueTable.value" description="Alarm values" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT"/>
                 </composeVectorElement>
               </composeScsVector>
               <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_SOE_TYPE_export"
-                  SThistoricPeriodNumber="0" MThistoricPediodNumber="0" SThistoricPeriod="0"
-                  MThistoricPeriod="0" CEmode="1"/>
-            </composeScsClass>
-            <composeScsClass xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12"
-                name="dal_type12" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12"
-                label="DAL_TYPE12 : DAL with valueTable size 12" description="Discrete ALarm automaton (detailed internal variable of a DCI)"
-                trigram="TRI" referenceSuperClass="#:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE">
-              <composeScsVector xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12:VALUETABLE"
-                  name="valueTable" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12:VALUETABLE"
-                  label="ValueTable" description="alarm definition" attributesGroupInHMI=""
-                  presentInCtrlPanel="true" triggeringOfCalculator="endElement" vectorLength="12">
-                <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget"
-                    xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12:VALUETABLE_export">
-                  <composeScsAttributeHistorianTarget xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12:VALUETABLE_histo"/>
-                </composeScsExportTarget>
-                <composeVectorElement xmi:type="scsmodel:ScsStruct" xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12:VALUETABLE:ELEMENT"
-                    name="valueTable" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12:VALUETABLE:ELEMENT"
-                    label="ValueTable" description="alarm definition">
-                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12:VALUETABLE:01_VALUE"
-                      name="value" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12:VALUETABLE:01_VALUE"
-                      label="valueTable.value" description="Alarm values" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT"/>
-                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12:VALUETABLE:02_LABEL"
-                      name="label" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12:VALUETABLE:02_LABEL"
-                      label="valueTable.label" description="Description of the current range"
-                      stringLength="20" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
-                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12:VALUETABLE:03_STATE"
-                      name="state" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12:VALUETABLE:03_STATE"
-                      label="valueTable.state" description="Alarm state for the current range. Possible values are defined by the chosen alarm automaton (see attribute 'valueAutomaton') : common states are : 'A' Alarm, 'N' Normal, 'T' Transitory"
-                      stringLength="4" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
-                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12:VALUETABLE:04_SEVERITY"
-                      name="severity" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12:VALUETABLE:04_SEVERITY"
-                      label="valueTable.severity" description="Alarm severity. Organisation of the alarm severity is project specific."
-                      referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT"/>
-                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12:VALUETABLE:05_FORMAT"
-                      name="format" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12:VALUETABLE:05_FORMAT"
-                      label="valueTable.format" description="Number of the alarm message format; that number must exist in the 'format' table attribute defined in the ScsAlarm point."
-                      referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT"/>
-                </composeVectorElement>
-              </composeScsVector>
-              <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE12_export"
                   SThistoricPeriodNumber="0" MThistoricPediodNumber="0" SThistoricPeriod="0"
                   MThistoricPeriod="0" CEmode="1"/>
             </composeScsClass>
@@ -7108,25 +7098,25 @@
                 <composeVectorElement xmi:type="scsmodel:ScsStruct" xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:ELEMENT"
                     name="valueTable" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:ELEMENT"
                     label="ValueTable" description="alarm definition">
-                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:01_VALUE"
-                      name="value" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:01_VALUE"
-                      label="valueTable.value" description="Alarm values" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT"/>
-                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:02_LABEL"
-                      name="label" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:02_LABEL"
-                      label="valueTable.label" description="Description of the current range"
-                      stringLength="20" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
-                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:03_STATE"
-                      name="state" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:03_STATE"
-                      label="valueTable.state" description="Alarm state for the current range. Possible values are defined by the chosen alarm automaton (see attribute 'valueAutomaton') : common states are : 'A' Alarm, 'N' Normal, 'T' Transitory"
-                      stringLength="4" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
-                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:04_SEVERITY"
-                      name="severity" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:04_SEVERITY"
-                      label="valueTable.severity" description="Alarm severity. Organisation of the alarm severity is project specific."
-                      referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT"/>
-                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:05_FORMAT"
-                      name="format" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:05_FORMAT"
+                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:FORMAT"
+                      name="format" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:FORMAT"
                       label="valueTable.format" description="Number of the alarm message format; that number must exist in the 'format' table attribute defined in the ScsAlarm point."
                       referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT"/>
+                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:LABEL"
+                      name="label" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:LABEL"
+                      label="valueTable.label" description="Description of the current range"
+                      stringLength="20" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
+                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:SEVERITY"
+                      name="severity" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:SEVERITY"
+                      label="valueTable.severity" description="Alarm severity. Organisation of the alarm severity is project specific."
+                      referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT"/>
+                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:STATE"
+                      name="state" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:STATE"
+                      label="valueTable.state" description="Alarm state for the current range. Possible values are defined by the chosen alarm automaton (see attribute 'valueAutomaton') : common states are : 'A' Alarm, 'N' Normal, 'T' Transitory"
+                      stringLength="4" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
+                  <composeScsVectorElement xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:VALUE"
+                      name="value" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32:VALUETABLE:VALUE"
+                      label="valueTable.value" description="Alarm values" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT"/>
                 </composeVectorElement>
               </composeScsVector>
               <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_TYPE32_export"
@@ -7308,7 +7298,7 @@
               id=":R:A:CLASSES:SCADAGEN:LSTTAGS:LSTTAG1" label="LstTag1" description="The Tag for StateList subscription"
               trigram="EQT" referenceSuperClass="#:R:A:CLASSES:SCADAGEN:LSTTAGS:LSTTAG">
             <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id=":R:A:CLASSES:SCADAGEN:LSTTAGS:LSTTAG1_export"
-                SThistoricPeriod="" MThistoricPeriod="" CEmode="0"/>
+                SThistoricPeriod="" MThistoricPeriod="" CEmode="1"/>
           </composeScsClass>
           <composeScsClass xmi:id=":R:A:CLASSES:SCADAGEN:LSTTAGS:LSTTAG10" name="LstTag10"
               id=":R:A:CLASSES:SCADAGEN:LSTTAGS:LSTTAG10" label="LstTag10" description="The Tag for StateList subscription"
@@ -7617,9 +7607,6 @@
             <composeScsComposition xmi:id=":R:A:CLASSES:SCADAGEN:OUTPUT_VAR:DPC_OVAR:LSTTAG"
                 name="LSTTAG" id=":R:A:CLASSES:SCADAGEN:OUTPUT_VAR:DPC_OVAR:LSTTAG"
                 label="" description="" referenceScsClass="#:R:A:CLASSES:SCADAGEN:LSTTAGS:LSTTAG"/>
-            <composeScsComposition xmi:id=":R:A:CLASSES:SCADAGEN:OUTPUT_VAR:DPC_OVAR:UFE"
-                name="UFE" id=":R:A:CLASSES:SCADAGEN:OUTPUT_VAR:DPC_OVAR:UFE" label=""
-                description="" referenceScsClass="#:R:A:CLASSES:SCADAGEN:UFE:UFE"/>
             <composeScsComposition xmi:id=":R:A:CLASSES:SCADAGEN:OUTPUT_VAR:DPC_OVAR:UFES"
                 name="UFES" id=":R:A:CLASSES:SCADAGEN:OUTPUT_VAR:DPC_OVAR:UFES" label=""
                 description="" referenceScsClass="#:R:A:CLASSES:SCADAGEN:UFE:UFES"/>

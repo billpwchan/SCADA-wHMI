@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--<!DOCTYPE Columns SYSTEM "../dtd/request_columns.dtd">-->
+<Columns automatic="all">
+	<!-- @name contains the coded name of the attribute-->
+	<!-- @label  contains the label displayed in the request result panel : it is an international code defined in messageClient.properties -->
+	<PresentationItem name="ID" label="gui.id"/>
+	<PresentationItem name="nom_instance" label="gui.instanceName"/>
+	<PresentationItem name="link_object_is_from_object_type" label="gui.fromObjectType"/>
+	<!-- ELEMENT_NAME is a special attribute to show XML Tag element name (class of the object)
+	<PresentationItem name="ELEMENT_NAME" label="gui.type"/>
+	-->
+</Columns>

@@ -2,9 +2,9 @@
 <animationConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/animation">
   <animationRules id="SCADAGEN_UTC_M100_SC_Int2IntCompare_animation">
     <animationRule>
-      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="Int2IntCompare" name="Int2IntMapping"></source>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="Int2IntCompare" name="Int2IntCompare"></source>
       <sourceType>INT</sourceType>
-      <svgRefAnimation nodeId="Int2IntMapping_node">
+      <svgRefAnimation nodeId="Int2IntCompare_node">
         <enumerationBinding>
           <item inputValue="0" value="Int2IntCompare_0"></item>
           <item inputValue="1" value="Int2IntCompare_1"></item>

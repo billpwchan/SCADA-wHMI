@@ -128,7 +128,7 @@ public class OlsMgr implements Mgr_i {
 				logger.begin(className, function);
 
 		    	JSONObject jsdata = subjectMgr.convert2Json(function, clientKey, errorCode, errorMessage);
-		    	jsdata.put("data", data);
+		    	jsdata.put(OlsMgr_i.FIELD_DATA, data);
 		    	
 		    	subjectMgr.setSubjectState(function, clientKey, jsdata);
 		    	
@@ -165,14 +165,12 @@ public class OlsMgr implements Mgr_i {
 	}
 	
 	private void logs(String function, String key, String scsEnvId) {
-		logger.info(className, function, "key[{}]", key);
-		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
+		logger.debug(className, function, "key[{}] scsEnvId[{}]", key, scsEnvId);
 	}
 	
 	private void logs(String function, String key, String scsEnvId, String listServer, String listName) {
 		logs(function, key, scsEnvId);
-		logger.info(className, function, "listServer[{}]", listServer);
-		logger.info(className, function, "listName[{}]", listName);
+		logger.debug(className, function, "listServer[{}] listName[{}]", listServer, listName);
 	}
 
 	public void deleteData(String key, String scsEnvId, String listServer, String listName, String[] keyList) {
@@ -191,7 +189,7 @@ public class OlsMgr implements Mgr_i {
 		
 		logs(function, key, scsEnvId, listServer, listName);
 		LogUtil.logArray(logger, className, function, "fieldList", fieldList);
-		logger.info(className, function, "filter", filter);
+		logger.debug(className, function, "filter", filter);
 		scsOLSComponentAccess.subscribeOlsList(key, scsEnvId, listServer, listName, fieldList, filter);
 		
 		logger.end(className, function);
@@ -201,7 +199,7 @@ public class OlsMgr implements Mgr_i {
 		logger.begin(className, function);
 		
 		logs(function, key, scsEnvId);
-		logger.info(className, function, "subUUID", subUUID);
+		logger.debug(className, function, "subUUID", subUUID);
 		scsOLSComponentAccess.unsubscribeOlsList(key, scsEnvId, listServer, subUUID);
 		
 		logger.end(className, function);
@@ -212,7 +210,7 @@ public class OlsMgr implements Mgr_i {
 		
 		logs(function, key, scsEnvId, listServer, listName);
 		LogUtil.logArray(logger, className, function, "fieldList", fieldList);
-		logger.info(className, function, "filter", filter);
+		logger.debug(className, function, "filter", filter);
 		scsOLSComponentAccess.readData(key, scsEnvId, listServer, listName, fieldList, filter);
 		
 		logger.end(className, function);
@@ -232,7 +230,7 @@ public class OlsMgr implements Mgr_i {
 		logger.begin(className, function);
 		
 		logs(function, key, scsEnvId, listServer, listName);
-		logger.info(className, function, "olsEntryKey", olsEntryKey);
+		logger.debug(className, function, "olsEntryKey", olsEntryKey);
 		LogUtil.logArray(logger, className, function, "olsEntry", olsEntry);
 		scsOLSComponentAccess.updateData(key, scsEnvId, listServer, listName, olsEntryKey, olsEntry);
 		

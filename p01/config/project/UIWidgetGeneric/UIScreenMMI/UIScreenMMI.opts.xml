@@ -25,7 +25,7 @@
 		<OperationType>action</OperationType>
 		<OperationAction>alm</OperationAction>
 		<OperationString1>NotifyExternalEvent</OperationString1>
-		<OperationString2>Key</OperationString2>
+		<OperationString2>Key_NotifyExternalEvent_Login</OperationString2>
 		<OperationString3>M100CONN</OperationString3>
 		<OperationString4>scsAlmExt.cnf</OperationString4>
 		<OperationString5>14</OperationString5>

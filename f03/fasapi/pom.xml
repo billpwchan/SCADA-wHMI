@@ -6,13 +6,13 @@
     <parent>
         <groupId>com.thalesgroup.scadasoft</groupId>
         <artifactId>scadasoft</artifactId>
-        <version>6.3.1_P05</version>
+        <version>6.3.1_P06</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
     <artifactId>fasapi</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.3</version>
     <packaging>jar</packaging>
     <name>FAS java API</name>
     <description>FAS java API based on C++ fasclient library (JNA)</description>

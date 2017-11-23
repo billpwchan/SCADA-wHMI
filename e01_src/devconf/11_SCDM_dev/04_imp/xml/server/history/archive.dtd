@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT Archives (Archive+)>
+<!ELEMENT Archive (ChangeBased | Database)>
+<!ATTLIST Archive
+	name CDATA #REQUIRED
+>
+<!ELEMENT ChangeBased (Points+)>
+<!ATTLIST ChangeBased
+	period CDATA #REQUIRED
+	min_files CDATA #REQUIRED
+	max_files CDATA #REQUIRED
+	size CDATA #REQUIRED
+	capacity CDATA #REQUIRED
+	list_type (CIRCULAR|LIMITED|UNLIMITED) #REQUIRED
+	reference_date CDATA #REQUIRED
+	file_period_in_minutes CDATA #REQUIRED
+>
+<!ELEMENT Database (Points+)>
+<!ATTLIST Database
+	period CDATA #REQUIRED
+	min_files CDATA #REQUIRED
+	max_files CDATA #REQUIRED
+>
+<!ELEMENT Points EMPTY>
+<!ATTLIST Points
+	type CDATA #REQUIRED
+	value CDATA #REQUIRED
+	quality CDATA #REQUIRED
+	timestamp CDATA #REQUIRED
+>

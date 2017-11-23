@@ -51,6 +51,10 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorAdvance.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
+	private int indexAI		= UIInspectorAdvance_i.CHKBOX_INDEX_AI;
+	private int indexSS		= UIInspectorAdvance_i.CHKBOX_INDEX_SS;
+	private int indexMO		= UIInspectorAdvance_i.CHKBOX_INDEX_MO;
+
 	private int dalValueTableLength = 12;
 	
 	private int dalValueTableLabelColIndex = 4;
@@ -81,9 +85,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	
 	private String tabName = null;
 	@Override
-	public void setTabName(String tabName) {
-		this.tabName = tabName;
-	}
+	public void setTabName(String tabName) { this.tabName = tabName; }
 	
 	private Map<String, Map<String, String>> attributesList = new HashMap<String, Map<String, String>>();
 	@Override
@@ -119,8 +121,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
-		logger.debug(className, function, "this.scsEnvId[{}]", this.scsEnvId);
-		logger.debug(className, function, "this.parent[{}]", this.parent);
+		logger.debug(className, function, "this.parent[{}] this.scsEnvId[{}]", this.parent, this.scsEnvId);
 	}
 	
 	@Override
@@ -495,15 +496,39 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				
 				flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][0]);
 				
+				chkDPMs[i][0].addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						selectCheckbox(event, indexAI);
+					}
+				});
+				
 				chkDPMs[i][1] = new CheckBox();
 				chkDPMs[i][1].addStyleName("project-gwt-checkbox-inspector-"+tabName+"-points-ss");
 				
 				flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][1]);
 				
+				chkDPMs[i][1].addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						selectCheckbox(event, indexSS);
+					}
+				});
+				
 				chkDPMs[i][2] = new CheckBox();
 				chkDPMs[i][2].addStyleName("project-gwt-checkbox-inspector-"+tabName+"-points-mo");
 				
 				flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][2]);
+				
+				chkDPMs[i][2].addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						selectCheckbox(event, indexMO);
+					}
+				});
 				
 				lstValues[i] = new ListBox();
 				lstValues[i].setVisibleItemCount(1);
@@ -752,10 +777,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				if ( null != sForcedStatus ) {
 					int forcedStatus = Integer.parseInt(sForcedStatus);
 					
-					int indexAI = 0;
-					int indexSS = 1;
-					int indexMO = 2;
-					
 					if ( null != chkDPMs[y][indexAI] ) {
 						if ( DatabaseHelper.isAI(forcedStatus) ) {
 							chkDPMs[y][indexAI].addStyleName(stylename);
@@ -764,6 +785,9 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 							}
 						} else {
 							chkDPMs[y][indexAI].removeStyleName(stylename);
+							if ( !valueRefreshed ) {
+								chkDPMs[y][indexAI].setValue(false);
+							}
 						}
 					}
 					if ( null != chkDPMs[y][indexSS] ) {
@@ -774,6 +798,9 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 							}
 						} else {
 							chkDPMs[y][indexSS].removeStyleName(stylename);
+							if ( !valueRefreshed ) {
+								chkDPMs[y][indexSS].setValue(false);
+							}
 						}
 					}
 					if ( null != chkDPMs[y][indexMO] ) {
@@ -784,6 +811,9 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 							}
 						} else {
 							chkDPMs[y][indexMO].removeStyleName(stylename);
+							if ( !valueRefreshed ) {
+								chkDPMs[y][indexMO].setValue(false);
+							}
 						}
 					}
 				} else {
@@ -793,51 +823,49 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			}
 
 			// Update the value Once time
-			{
-				if ( !valueRefreshed ) {
-					
-					String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
-					value = DatabaseHelper.removeDBStringWrapper(value);
-					logger.debug(className, function, "value[{}]", value);
-					
-					if ( null != value ) {
-						String point = DatabaseHelper.getPoint(address);
-						if ( null != point ) {
-							PointType pointType = DatabaseHelper.getPointType(point);
+			if ( !valueRefreshed ) {
+				
+				String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
+				value = DatabaseHelper.removeDBStringWrapper(value);
+				logger.debug(className, function, "value[{}]", value);
+				
+				if ( null != value ) {
+					String point = DatabaseHelper.getPoint(address);
+					if ( null != point ) {
+						PointType pointType = DatabaseHelper.getPointType(point);
 
-							logger.trace(className, function, "point[{}]", point);
+						logger.trace(className, function, "point[{}]", point);
+						
+						if ( PointType.dci == pointType ) {
+
+							String valueTable = DatabaseHelper.getAttributeValue(address, PointName.dalValueTable.toString(), dbvalues);
+							logger.trace(className, function, "valueTable[{}]", valueTable);
 							
-							if ( PointType.dci == pointType ) {
-
-								String valueTable = DatabaseHelper.getAttributeValue(address, PointName.dalValueTable.toString(), dbvalues);
-								logger.trace(className, function, "valueTable[{}]", valueTable);
-								
-								if ( null != valueTable ) {
-									String sValue = String.valueOf(value);
-									String tValue = "";
-									for( int r = 0 ; r < dalValueTableLength ; ++r ) {
-										tValue	= DatabaseHelper.getArrayValues(valueTable, dalValueTableValueColIndex, r );
-										tValue	= DatabaseHelper.removeDBStringWrapper(tValue);
-										
-										if ( 0 == sValue.compareTo(tValue) ) {
-											lstValues[y].setSelectedIndex(r);
-											intValuesOri[y] = r;
-											break;
-										}
+							if ( null != valueTable ) {
+								String sValue = String.valueOf(value);
+								String tValue = "";
+								for( int r = 0 ; r < dalValueTableLength ; ++r ) {
+									tValue	= DatabaseHelper.getArrayValues(valueTable, dalValueTableValueColIndex, r );
+									tValue	= DatabaseHelper.removeDBStringWrapper(tValue);
+									
+									if ( 0 == sValue.compareTo(tValue) ) {
+										lstValues[y].setSelectedIndex(r);
+										intValuesOri[y] = r;
+										break;
 									}
 								}
-							} else if ( PointType.aci == pointType ) {
-								txtValues[y].setValue(value);
-								strValuesOri[y] = value;
-							} else if ( PointType.sci == pointType ) {
-								txtValues[y].setValue(value);
-								strValuesOri[y] = value;
 							}
-
+						} else if ( PointType.aci == pointType ) {
+							txtValues[y].setValue(value);
+							strValuesOri[y] = value;
+						} else if ( PointType.sci == pointType ) {
+							txtValues[y].setValue(value);
+							strValuesOri[y] = value;
 						}
-					} else {
-						logger.warn(className, function, "value IS NULL!");
+
 					}
+				} else {
+					logger.warn(className, function, "value IS NULL!");
 				}
 			}
 		}
@@ -853,11 +881,9 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	
 	private String getStatusValue(String address, String strForcedStatus) {
 		final String function = "getStatusValue";
-		
 		logger.begin(className, function);
-		
-		String sforcedStatus = DatabaseHelper.getAttributeValue(address, strForcedStatus, dbvalues);
-		sforcedStatus = DatabaseHelper.removeDBStringWrapper(sforcedStatus);
+
+		String sforcedStatus = DatabaseHelper.removeDBStringWrapper(DatabaseHelper.getAttributeValue(address, strForcedStatus, dbvalues));
 		logger.trace(className, function, "sforcedStatus[{}]", sforcedStatus);
 		
 		logger.end(className, function);
@@ -865,9 +891,346 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		return sforcedStatus;
 	}
 	
+	private void verifyAndSendAI(final int y, final String dbaddress, final int forcedStatus) {
+		final String function = "verifyAndSendAI";
+		logger.begin(className, function);
+		
+		boolean isAI = DatabaseHelper.isAI(forcedStatus);
+		logger.debug(className, function, "isAI[{}]", new Object[]{isAI});
+		
+		boolean isTicked = chkDPMs[y][indexAI].getValue();
+		logger.debug(className, function, "isTicked[{}]", new Object[]{isTicked});
+
+		boolean isAIApply	= !isAI && isTicked;
+		boolean isAICancel	= isAI && !isTicked;
+		
+		logger.debug(className, function, "isAIApply[{}] isAICancel[{}]", new Object[]{isAIApply, isAICancel});
+
+		// Alarm Inhibit
+		if ( isAIApply ) {
+			
+			// SCSDPC ALARM_INHIBIT_VAR
+			String key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "alarminhibit" + "_"+ "true" + "_" + dbaddress;
+			
+			dpcMgr.sendChangeVarStatus(key, scsEnvId, dbaddress, DCP_i.ValidityStatus.ALARM_INHIBIT_VAR);
+			
+			chkDPMs[y][indexAI].setValue(true);
+		} else if (isAICancel ) {
+			// SCSDPC NO_ALARM_INHIBIT_VAR
+			String key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "alarminhibit" + "_"+ "false" + "_" + dbaddress;
+			
+			dpcMgr.sendChangeVarStatus(key, scsEnvId, dbaddress, DCP_i.ValidityStatus.NO_ALARM_INHIBIT_VAR);
+
+			chkDPMs[y][indexAI].setValue(false);
+		} else {
+			logger.warn(className, function, "Not a AI Action");
+		}
+		
+		logger.end(className, function);
+	}
+	
+	private void verifyAndSendSS(final int y, final String dbaddress, final int forcedStatus) {
+		final String function = "verifyAndSendSS";
+		logger.begin(className, function);
+		
+		boolean isSS = DatabaseHelper.isSS(forcedStatus);
+		logger.debug(className, function, "isSS[{}]", new Object[]{isSS});
+		
+		boolean isTicked = chkDPMs[y][indexSS].getValue();
+		logger.debug(className, function, "isTicked[{}]", new Object[]{isTicked});
+		
+		boolean isSSApply	= !isSS && isTicked;
+		boolean isSSCancel	= isSS && !isTicked;
+		
+		logger.debug(className, function, "isSSApply[{}] isSSCancel[{}]", new Object[]{isSSApply, isSSCancel});
+		
+		// Scan Suspend
+		if ( isSSApply ) {
+			// SS
+			String key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "scansuspend" + "_"+ "true" + "_" + dbaddress;
+			
+			dpcMgr.sendChangeVarStatus(key, scsEnvId, dbaddress, DCP_i.ValidityStatus.OPERATOR_INHIBIT);
+			
+			chkDPMs[y][indexSS].setValue(true);
+			
+		} else if ( isSSCancel ) {
+						
+			String key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "scansuspend" + "_"+ "false" + "_" + dbaddress;
+			
+			dpcMgr.sendChangeVarStatus(key, scsEnvId, dbaddress, DCP_i.ValidityStatus.VALID);
+			
+			chkDPMs[y][indexSS].setValue(false);
+		} else {
+			logger.warn(className, function, "Not a SS Action");
+		}
+		
+		logger.end(className, function);
+	}
+	
+	private void verifyAndSendMO(final int y, final String dbaddress, final int forcedStatus, final PointType pointType) {
+		final String function = "verifyAndSendMO";
+		logger.begin(className, function);
+		logger.debug(className, function, "y[{}]", new Object[]{y, dbaddress, forcedStatus});
+		logger.debug(className, function, "pointType[{}]", pointType);
+
+		boolean isMO = DatabaseHelper.isMO(forcedStatus);
+		logger.debug(className, function, "isMO[{}]", new Object[]{isMO});
+		
+		boolean isTicked = chkDPMs[y][indexMO].getValue();
+		logger.debug(className, function, "isTicked[{}]", new Object[]{isTicked});
+		
+		boolean isMOApply = !isMO && isTicked;
+		boolean isMOCancel = isMO && !isTicked;
+		boolean isMOChanged = isMO && isTicked;
+		
+		logger.debug(className, function, "isMOApply[{}] isMOCancel[{}] isMOChanged[{}]", new Object[]{isMOApply, isMOCancel, isMOChanged});
+		
+		if ( moApplyWithoutReset && isMOChanged ) {	
+			boolean changed = false;
+			if ( PointType.dci == pointType ) {
+				int moIndex = lstValues[y].getSelectedIndex();
+				if ( moIndex != intValuesOri[y] ) {
+					intValuesOri[y] = moIndex;
+					changed = true;
+				}
+			} else if ( PointType.aci == pointType || PointType.sci == pointType ) {
+				String moSValue = txtValues[y].getText();
+				if ( moSValue != strValuesOri[y] ) {
+					strValuesOri[y] = moSValue;
+					changed = true;
+				}
+			}
+			if ( changed ) isMOChanged = true;
+		}
+		
+		if ( isMOApply || isMOChanged || isMOCancel ) {
+
+			int moIValue = 0;
+			
+			float moFValue	= 0.0f;
+			
+			String moSValue	= "";	
+			
+			if ( PointType.dci == pointType ) {
+				
+				int moIndex = lstValues[y].getSelectedIndex();
+				
+				logger.debug(className, function, "moIndex[{}]", moIndex);
+				
+				String valueTable = DatabaseHelper.getAttributeValue(dbaddress, PointName.dalValueTable.toString(), dbvalues);
+				logger.debug(className, function, "sforcedStatus[{}]", valueTable);
+
+				String sValue	= DatabaseHelper.getArrayValues(valueTable, dalValueTableValueColIndex, moIndex);
+				sValue			= DatabaseHelper.removeDBStringWrapper(sValue);
+				
+				logger.debug(className, function, "sValue[{}]", sValue);
+				try {
+					moIValue = Integer.parseInt(sValue);
+				} catch ( NumberFormatException e ) {
+					logger.warn(className, function, "NumberFormatException[{}]", e.toString());
+					logger.warn(className, function, "Integer.parseInt({})", sValue);
+				}
+
+			} else if ( PointType.aci == pointType || PointType.sci == pointType ) {
+				
+				moSValue = txtValues[y].getText();
+				
+				logger.debug(className, function, "moSValue[{}]", moSValue);
+				
+				if ( PointType.aci == pointType ) {
+					
+					try {
+						moFValue = Float.parseFloat(moSValue);
+					} catch ( NumberFormatException e ) {
+						logger.warn(className, function, "NumberFormatException[{}]", e.toString());
+						logger.warn(className, function, "Float.parseFloat({})", moSValue);
+					}
+				}
+			}
+			
+			boolean forceAction = isMOApply || isMOChanged;
+			if ( isMOCancel ) forceAction = false;
+			
+			logger.debug(className, function, "moIValue[{}] moFValue[{}] moSValue[{}]", new Object[]{moIValue, moFValue, moSValue});
+			
+			String key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "manualoverride" + "_"+ forceAction + "_" + dbaddress;
+			logger.debug(className, function, "key[{}]", key);
+			
+			if ( PointType.dci == pointType ) {
+				
+				logger.debug(className, function, "key[{}] scsEnvId[{}] dbaddress[{}] forceAction[{}] moIValue[{}]"
+						, new Object[]{key, scsEnvId, dbaddress, forceAction, moIValue});
+				
+				dpcMgr.sendChangeVarForce ( key, scsEnvId, dbaddress, forceAction, moIValue );
+				
+			} else if ( PointType.aci == pointType ) {
+				
+				logger.debug(className, function, "key[{}] scsEnvId[{}] dbaddress[{}] forceAction[{}] moFValue[{}]"
+						, new Object[]{key, scsEnvId, dbaddress, forceAction, moFValue});
+				
+				dpcMgr.sendChangeVarForce ( key, scsEnvId, dbaddress, forceAction, moFValue );
+				
+			} else if ( PointType.sci == pointType ) {
+				
+				logger.debug(className, function, "key[{}] scsEnvId[{}] dbaddress[{}] forceAction[{}] moSValue[{}]"
+						, new Object[]{key, scsEnvId, dbaddress, forceAction, moSValue});
+				
+				dpcMgr.sendChangeVarForce ( key, scsEnvId, dbaddress, forceAction, moSValue );
+				
+			}
+			
+			chkDPMs[y][indexMO].setValue(forceAction);
+			
+		} else {
+			logger.warn(className, function, "Not a MO Action");
+		}
+
+		logger.end(className, function);
+	}
+	
+	private void selectCheckbox(ClickEvent event, int col) {
+		final String function = "selectCheckbox";
+		logger.begin(className, function);
+		
+		logger.debug(className, function, "col[{}]", col);
+
+		CheckBox chk = (CheckBox) event.getSource();
+		
+		if ( null != chk ) {
+			int rowBegin	= pageCounter.pageRowBegin;
+			int rowEnd		= pageCounter.pageRowEnd;
+			
+			CheckBox selected = null;
+			int row = -1;
+			for ( int x = rowBegin, y = 0 ; x < rowEnd ; ++x, ++y ) {
+				logger.debug(className, function, "y[{}] col[{}]", y, col);
+				if ( chk == chkDPMs[y][col] ) {
+					row = y;
+					selected = chk;
+					break;
+				}
+			}
+			logger.debug(className, function, "row[{}] col[{}]", row, col);
+			
+			if ( null != selected ) {
+				
+				pageCounter.calc(pageIndex);
+				int x = pageCounter.pageRowBegin + row;
+
+				logger.debug(className, function, "pageCounter.pageRowBegin[{}] x[{}] row[{}]", new Object[]{pageCounter.pageRowBegin, x, row});
+				
+				if ( -1 != row ) {
+					
+					String dbaddress = addresses[x];
+					String point	= DatabaseHelper.getPoint(dbaddress);
+					if ( null != point ) {
+						PointType pointType = DatabaseHelper.getPointType(point);
+						Integer iForcedStatus = getForcedStatus(dbaddress, row, pointType);
+						if ( null != iForcedStatus ) {
+							
+							int forcedStatus = iForcedStatus;
+
+							boolean isAI = DatabaseHelper.isAI(forcedStatus);
+							boolean isAITicked = chkDPMs[row][indexAI].getValue();
+							logger.debug(className, function, "isAI[{}] isAITicked[{}]", new Object[]{isAI, isAITicked});
+
+							boolean isSS = DatabaseHelper.isSS(forcedStatus);
+							boolean isSSTicked = chkDPMs[row][indexSS].getValue();
+							logger.debug(className, function, "isSS[{}] isSSTicked[{}]", new Object[]{isSS, isSSTicked});
+
+							boolean isMO = DatabaseHelper.isMO(forcedStatus);
+							boolean isMOTicked = chkDPMs[row][indexMO].getValue();
+							logger.debug(className, function, "isMO[{}] isMOTicked[{}]", new Object[]{isMO, isMOTicked});
+							
+							boolean invalid = false;
+							if ( isAITicked && ( ( isSS || isSSTicked ) || ( isMO || isMOTicked ) ) ) {
+								logger.warn(className, function, "AI Tick IS INVALID");
+								
+								invalid = true;
+							} else 
+							if ( isSSTicked && ( ( isAI || isAITicked ) || ( isMO || isMOTicked ) ) ) {
+								logger.warn(className, function, "SS Tick IS INVALID");
+								
+								invalid = true;
+							} else 
+							if ( isMOTicked && ( ( isAI || isAITicked ) || ( isSS || isSSTicked ) ) ) {
+								logger.warn(className, function, "MO Tick IS INVALID");
+								
+								invalid = true;
+							}
+							
+							logger.debug(className, function, "invalid[{}]", invalid);
+							if ( invalid ) {
+								logger.debug(className, function, "set value to false");
+								chk.setValue(false);
+							}
+
+						} else {
+							logger.warn(className, function, "iForcedStatus IS NULL");
+						}
+					} else {
+						logger.warn(className, function, "point IS NULL");
+					}
+				} else {
+					logger.warn(className, function, "row IS -1");
+				}
+			} else {
+				logger.warn(className, function, "selected IS NULL");
+			}
+		} else {
+			logger.warn(className, function, "chk IS NULL");
+		}
+		
+		
+		logger.end(className, function);
+	}
+	
+	private Integer getForcedStatus(final String dbaddress, final int col, final PointType pointType) {
+		final String function = "getForcedStatus";
+		logger.begin(className, function);
+		
+		Integer ret = null;
+		
+		logger.debug(className, function, "dbaddress[{}] col[{}] pointType[{}]", new Object[]{dbaddress, col, pointType});
+		
+		if ( null != chkDPMs[col] ) {
+
+			String sForcedStatusPoint = null;
+			if ( PointType.dci == pointType ) {
+				sForcedStatusPoint = PointName.dfoForcedStatus.toString();
+			} else if ( PointType.aci == pointType ){
+				sForcedStatusPoint = PointName.afoForcedStatus.toString();
+			} else if ( PointType.sci == pointType ) {
+				sForcedStatusPoint = PointName.sfoForcedStatus.toString();
+			}
+			logger.debug(className, function, "pointType[{}] sForcedStatusPoint[{}]", pointType, sForcedStatusPoint);
+			
+			String sForcedStatus = getStatusValue(dbaddress, sForcedStatusPoint);
+			logger.debug(className, function, "sForcedStatus[{}]", sForcedStatus);
+			
+			if ( null != sForcedStatus ) {
+				try {
+					ret = Integer.parseInt(sForcedStatus);
+					logger.debug(className, function, "ret[{}]", ret);
+				} catch ( NumberFormatException e ) {
+					logger.warn(className, function, "NumberFormatException[{}]", e.toString());
+					logger.warn(className, function, "Integer.parseInt({})", sForcedStatus);
+				}
+			} else {
+				logger.debug(className, function, "sForcedStatus IS NULL");
+			}
+			
+		} else {
+			logger.warn(className, function, "chkDPMs[{}] IS NULL", dbaddress);
+		}
+			
+		logger.end(className, function);
+		
+		return ret;
+	}
+	
 	private void sendControl(ClickEvent event) {
 		final String function = "sendControl";
-		
 		logger.begin(className, function);
 		
 		UIButtonToggle button = (UIButtonToggle) event.getSource();
@@ -889,232 +1252,20 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		logger.debug(className, function, "pageCounter.pageRowBegin[{}] x[{}] y[{}]", new Object[]{pageCounter.pageRowBegin, x, y});
 		
 		if ( -1 != btnIndex ) {
-			
+
 			String dbaddress = addresses[x];
-			
-			logger.debug(className, function, "dbaddress[{}]", dbaddress);
-			
-			if ( null != dbaddress ) {
-				
-				String point	= DatabaseHelper.getPoint(dbaddress);
-
-				if ( null != point ) {
-					PointType pointType = DatabaseHelper.getPointType(point);
-					
-					String alias	= "<alias>" + dbaddress.replace(":", "");
-					
-					logger.debug(className, function, "scsEnvId[{}] alias[{}]", scsEnvId, alias);				
-					
-					logger.debug(className, function, "point[{}] type[{}]", point, pointType);
-					
-					if ( null != chkDPMs[y] ) {
-						
-						int indexAI = 0;
-						int indexSS = 1;
-						int indexMO = 2;
-						
-						boolean isAIApply	= false;
-						boolean isAICancel	= false;
-						
-						boolean isSSApply	= false;
-						boolean isSSCancel	= false;
-						
-						boolean isManualOverrideApply	= false;
-						boolean isManualOverrideChange	= false;
-						boolean isManualOverrideCancel	= false;
-						
-						String sForcedStatusPoint = null;
-						if ( PointType.dci == pointType ) {
-							sForcedStatusPoint = PointName.dfoForcedStatus.toString();
-						} else if ( PointType.aci == pointType ){
-							sForcedStatusPoint = PointName.afoForcedStatus.toString();
-						} else if ( PointType.sci == pointType ) {
-							sForcedStatusPoint = PointName.sfoForcedStatus.toString();
-						}
-						logger.debug(className, function, "pointType[{}] sForcedStatusPoint[{}]", pointType, sForcedStatusPoint);
-						
-						String sForcedStatus = null;
-						sForcedStatus = getStatusValue(dbaddress, sForcedStatusPoint);
-						
-						if ( null != sForcedStatus ) {
-							int forcedStatus = 0;
-							try {
-								forcedStatus = Integer.parseInt(sForcedStatus);
-							} catch ( NumberFormatException e ) {
-								logger.warn(className, function, "NumberFormatException[{}]", e.toString());
-								logger.warn(className, function, "Integer.parseInt({})", sForcedStatus);
-							}
-							if ( !DatabaseHelper.isAI(forcedStatus) && chkDPMs[y][indexAI].getValue() ) {	isAIApply = true;	}
-							if ( DatabaseHelper.isAI(forcedStatus) && !chkDPMs[y][indexAI].getValue() ) {	isAICancel = true;	}
-							
-							if ( !DatabaseHelper.isSS(forcedStatus) && chkDPMs[y][indexSS].getValue() ) {	isSSApply = true;	}
-							if ( DatabaseHelper.isSS(forcedStatus) && !chkDPMs[y][indexSS].getValue() ) {	isSSCancel = true;	}
-							
-							if ( !DatabaseHelper.isMO(forcedStatus) && chkDPMs[y][indexMO].getValue() ) {	isManualOverrideApply = true;	}
-							if ( DatabaseHelper.isMO(forcedStatus) && !chkDPMs[y][indexMO].getValue() ) {	isManualOverrideCancel = true;	}
-							if ( moApplyWithoutReset && DatabaseHelper.isMO(forcedStatus) && chkDPMs[y][indexMO].getValue() ) {	
-								boolean changed = false;
-								if ( PointType.dci == pointType ) {
-									int moIndex = lstValues[y].getSelectedIndex();
-									if ( moIndex != intValuesOri[y] ) {
-										intValuesOri[y] = moIndex;
-										changed = true;
-									}
-								} else if ( PointType.aci == pointType || PointType.sci == pointType ) {
-									String moSValue = txtValues[y].getText();
-									if ( moSValue != strValuesOri[y] ) {
-										strValuesOri[y] = moSValue;
-										changed = true;
-									}
-								}
-								if ( changed ) {
-									isManualOverrideChange = true;
-								}
-								
-							}
-						}
-						
-						int moIValue = 0;
-						
-						float moFValue	= 0.0f;
-						
-						String moSValue	= "";					
-						
-						if ( isAIApply || isAICancel || isSSApply || isSSCancel || isManualOverrideApply || isManualOverrideChange || isManualOverrideCancel ) {
-
-							
-							if ( PointType.dci == pointType ) {
-								
-								int moIndex = lstValues[y].getSelectedIndex();
-								
-								logger.debug(className, function, "moIndex[{}]", moIndex);
-								
-								String valueTable = DatabaseHelper.getAttributeValue(dbaddress, PointName.dalValueTable.toString(), dbvalues);
-								logger.debug(className, function, "sforcedStatus[{}]", valueTable);
-
-								String sValue	= DatabaseHelper.getArrayValues(valueTable, dalValueTableValueColIndex, moIndex);
-								sValue			= DatabaseHelper.removeDBStringWrapper(sValue);
-								
-								logger.debug(className, function, "sValue[{}]", sValue);
-								try {
-									moIValue = Integer.parseInt(sValue);
-								} catch ( NumberFormatException e ) {
-									logger.warn(className, function, "NumberFormatException[{}]", e.toString());
-									logger.warn(className, function, "Integer.parseInt({})", sValue);
-								}
-
-							} else if ( PointType.aci == pointType || PointType.sci == pointType ) {
-								
-								moSValue = txtValues[y].getText();
-								
-								logger.debug(className, function, "moSValue[{}]", moSValue);
-								
-								if ( PointType.aci == pointType ) {
-									
-									try {
-										moFValue = Float.parseFloat(moSValue);
-									} catch ( NumberFormatException e ) {
-										logger.warn(className, function, "NumberFormatException[{}]", e.toString());
-										logger.warn(className, function, "Float.parseFloat({})", moSValue);
-									}
-								}
-							}
-							
-							logger.debug(className, function, "moIValue[{}] moFValue[{}] moSValue[{}]", new Object[]{moIValue, moFValue, moSValue});
-						}
-						
-						// Alarm Inhibit
-						if ( isAIApply ) {
-							
-							// SCSDPC ALARM_INHIBIT_VAR
-							String key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "alarminhibit" + "_"+ "true" + "_" + dbaddress;
-							
-							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.ALARM_INHIBIT_VAR);
-							
-							chkDPMs[y][indexAI].setValue(true);
-						} 
-
-						if (isAICancel ) {
-							// SCSDPC NO_ALARM_INHIBIT_VAR
-							String key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "alarminhibit" + "_"+ "false" + "_" + dbaddress;
-							
-							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.NO_ALARM_INHIBIT_VAR);
-
-							chkDPMs[y][indexAI].setValue(false);
-						}
-						
-						// Scan Suspend
-						if ( isSSApply ) {
-							// SS
-							String key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "scansuspend" + "_"+ "true" + "_" + dbaddress;
-							
-							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.OPERATOR_INHIBIT);
-							
-							chkDPMs[y][indexSS].setValue(true);
-							
-						} 
-
-						if ( isSSCancel ) {
-							
-							String key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "scansuspend" + "_"+ "false" + "_" + dbaddress;
-							
-							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.VALID);
-							
-							chkDPMs[y][indexSS].setValue(false);
-						}
-						
-						// Manual Override
-						{
-							String key = null;
-							boolean forceAction = false;
-							if ( isManualOverrideApply || isManualOverrideChange ) {
-								key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "manualoverride" + "_"+ "true" + "_" + dbaddress;
-								forceAction = true;
-							}
-							if ( isManualOverrideCancel ){
-								key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "manualoverride" + "_"+ "false" + "_" + dbaddress;
-								forceAction = false;
-							}
-							
-							if ( null != key ) {
-								
-								logger.debug(className, function, "pointType[{}]", pointType);
-								
-								if ( PointType.dci == pointType ) {
-									
-									logger.debug(className, function, "key[{}] scsEnvId[{}] alias[{}] forceAction[{}] moIValue[{}]"
-											, new Object[]{key, scsEnvId, alias, forceAction, moIValue});
-									
-									dpcMgr.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moIValue );
-									
-								} else if ( PointType.aci == pointType ) {
-									
-									logger.debug(className, function, "key[{}] scsEnvId[{}] alias[{}] forceAction[{}] moFValue[{}]"
-											, new Object[]{key, scsEnvId, alias, forceAction, moFValue});
-									
-									dpcMgr.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moFValue );
-									
-								} else if ( PointType.sci == pointType ) {
-									
-									logger.debug(className, function, "key[{}] scsEnvId[{}] alias[{}] forceAction[{}] moSValue[{}]"
-											, new Object[]{key, scsEnvId, alias, forceAction, moSValue});
-									
-									dpcMgr.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moSValue );
-									
-								}
-								
-								chkDPMs[y][indexMO].setValue(forceAction);
-								
-							} else {
-								logger.warn(className, function, "Manual Override Point Type IS INVALID");
-							}
-						}
-					} else {
-						logger.warn(className, function, "chkDPMs[{}] IS NULL", dbaddress);
-					}					
+			String point	= DatabaseHelper.getPoint(dbaddress);
+			if ( null != point ) {
+				PointType pointType = DatabaseHelper.getPointType(point);
+				Integer iForcedStatus = getForcedStatus(dbaddress, y, pointType);
+				if ( null != iForcedStatus ) {
+					int forcedStatus = iForcedStatus;
+					verifyAndSendAI(y, dbaddress, forcedStatus);
+					verifyAndSendSS(y, dbaddress, forcedStatus);
+					verifyAndSendMO(y, dbaddress, forcedStatus, pointType);
+				} else {
+					logger.debug(className, function, "iForcedStatus[{}] IS NULL");
 				}
-			} else {
-				logger.warn(className, function, "dbaddress[{}] IS NULL", dbaddress);
 			}
 		} else {
 			logger.warn(className, function, "btnIndex[{}] IS INVALID", btnIndex);

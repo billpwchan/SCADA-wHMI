@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+  <graphic id="SCADAGEN_UTC_M100_SC_Str2StrCompare_graphic">
+    <root>
+      <svgGroup id="SCADAGEN_UTC_M100_SC_Str2StrCompare_Str2StrCompare_0_Str2StrCompare_1">
+        <svgRef brickId="Str2StrCompare_1" id="Str2StrCompare_node"></svgRef>
+      </svgGroup>
+    </root>
+  </graphic>
+</graphicConfiguration>

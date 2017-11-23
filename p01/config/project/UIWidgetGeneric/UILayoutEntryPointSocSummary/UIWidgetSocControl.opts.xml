@@ -16,6 +16,8 @@
 		<RetryElement>retry</RetryElement>
 		<SkipElement>skip</SkipElement>
 
+		<ReserveIdentifier>OperatorName</ReserveIdentifier>
+		<!--ReserveIdentifier supports "OperatorName" (case sensitive) and "Profile"-->
 		<ReserveAttributeReserveReqID>resrvReserveReqID</ReserveAttributeReserveReqID>
 		<ReserveAttributeUnreserveReqID>resrvUnreserveReqID</ReserveAttributeUnreserveReqID>
 		<ReserveAttributeReservedID>resrvReservedID</ReserveAttributeReservedID>
@@ -24,6 +26,8 @@
 		<ReserveAttributeType>Integer</ReserveAttributeType>
 		<ReservedValueStr>1</ReservedValueStr>
 		<UnreservedValueStr></UnreservedValueStr>
+
+		<MaxReserveRetry>2</MaxReserveRetry>
 
 		<MessageDatetimeFormat></MessageDatetimeFormat>
 	</header>

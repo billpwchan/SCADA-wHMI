@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.thalesgroup.scadasoft.hvconnector.configuration.SCSConfManager;
 import com.thalesgroup.scadasoft.jsoncomponent.IJSNotifier;
 import com.thalesgroup.scadasoft.jsoncomponent.INotifManager;
 import com.thalesgroup.scadasoft.jsoncomponent.JSComponentMgr;
@@ -94,7 +95,13 @@ public class SCADARest implements INotifManager {
 
 	@Override
 	public String convertEqpIdFromRemoteId(String remoteEqpId) {
-		return remoteEqpId;
+		// Reference SCSOperationResponder implementation
+		String scspath = SCSConfManager.instance().getSCSIdFromHVId(remoteEqpId);
+		if (scspath != null) {
+			return scspath;
+		}
+
+		return convertToRTDBAddress(remoteEqpId);
 	}
 
 	public ArrayNode getUpdate(String notifid) {
@@ -128,6 +135,21 @@ public class SCADARest implements INotifManager {
 		}
 		
 		return n;
+	}
+
+	@Override
+	public String convertToRTDBAddress(String abstractAddress) {
+		// Reference SCSOperationResponder implementation
+		if ((abstractAddress.startsWith("<")) && (!abstractAddress.startsWith("<alias>")) && (!abstractAddress.startsWith("<root>"))) {
+			int pos = abstractAddress.indexOf('>');
+			if (pos != -1) {
+				String hvid = abstractAddress.substring(1, pos);
+				String relativePart = abstractAddress.substring(pos + 1);
+				String scspath = SCSConfManager.instance().getSCSIdFromHVId(hvid) + relativePart;
+				return scspath;
+			}
+		}
+		return abstractAddress;
 	}
 
 }

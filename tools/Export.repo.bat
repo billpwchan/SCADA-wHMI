@@ -14,8 +14,7 @@ ECHO Start of Export Repo
 
 SET _folder=%DEPOT_HOME%\%v_strdt%
 ECHO _folder=%_folder% 
-MD %_folder%
-
+IF NOT EXIST %_folder% ( MD %_folder% )
 
 SET _PACKAGE_SCADAGEN=com\thalesgroup\scadagen
 SET _REPO_SCADAGEN=%M2_REPO%\%_PACKAGE_SCADAGEN%
@@ -28,13 +27,12 @@ SET _REPO_DEPO_SCADAGEN=%_REPO_DEPO%\%_PACKAGE_SCADAGEN%
 ECHO _REPO_DEPO_SCADAGEN=%_REPO_DEPO_SCADAGEN%
 
 REM Export Repo
-
-MKDIR %_REPO_DEPO_SCADAGEN%
+IF NOT EXIST %_REPO_DEPO_SCADAGEN% ( MKDIR %_REPO_DEPO_SCADAGEN% )
 
 XCOPY "%_REPO_SCADAGEN%" "%_REPO_DEPO_SCADAGEN%" /s/h/e/k/f/c
 
 REM Zip Repo
 
-%SEVEN_ZIP_HOME% a %_folder%\repo %_REPO_DEPO%
+CALL ARCHIVE.cmd :ZIP "%_folder%\repo" "%_REPO_DEPO%\*" "-xr!.gitignore -xr!.gitkeep"
 
 ECHO END OF Export Repo

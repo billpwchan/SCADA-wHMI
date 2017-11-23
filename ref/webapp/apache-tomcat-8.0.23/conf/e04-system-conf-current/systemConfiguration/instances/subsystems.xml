@@ -8,15 +8,15 @@
     <!--<hv-conf:entity xsi:type="hv-sub:PresentationLayerType" id="M100WEB2" />-->
 
     <hv-conf:entity xsi:type="scadagen-sub:SCADAType" id="M100CONN">
-        <hv-sub:notificationProducerEndpoint>http://10.216.132.244:8801/scada1/notification/producer</hv-sub:notificationProducerEndpoint>
-        <hv-sub:operationResponderEndpoint>http://10.216.132.244:8801/scada1/operation/responder</hv-sub:operationResponderEndpoint>
+        <hv-sub:notificationProducerEndpoint>$$M100CONN1_NOTIFICATION_ADDRESS$$/producer</hv-sub:notificationProducerEndpoint>
+        <hv-sub:operationResponderEndpoint>$$M100CONN1_OPERATION_ADDRESS$$/responder</hv-sub:operationResponderEndpoint>
     </hv-conf:entity>
     <hv-conf:entity xsi:type="scadagen-sub:SCADAType" id="M001CONN">
-        <hv-sub:notificationProducerEndpoint>http://10.216.132.244:8802/scada1/notification/producer</hv-sub:notificationProducerEndpoint>
-        <hv-sub:operationResponderEndpoint>http://10.216.132.244:8802/scada1/operation/responder</hv-sub:operationResponderEndpoint>
+        <hv-sub:notificationProducerEndpoint>$$M001CONN1_NOTIFICATION_ADDRESS$$/producer</hv-sub:notificationProducerEndpoint>
+        <hv-sub:operationResponderEndpoint>$$M001CONN1_OPERATION_ADDRESS$$/responder</hv-sub:operationResponderEndpoint>
     </hv-conf:entity>
     <hv-conf:entity xsi:type="scadagen-sub:SCADAType" id="M002CONN">
-        <hv-sub:notificationProducerEndpoint>http://10.216.132.244:8803/scada1/notification/producer</hv-sub:notificationProducerEndpoint>
-        <hv-sub:operationResponderEndpoint>http://10.216.132.244:8803/scada1/operation/responder</hv-sub:operationResponderEndpoint>
+        <hv-sub:notificationProducerEndpoint>$$M002CONN1_NOTIFICATION_ADDRESS$$/producer</hv-sub:notificationProducerEndpoint>
+        <hv-sub:operationResponderEndpoint>$$M002CONN1_OPERATION_ADDRESS$$/responder</hv-sub:operationResponderEndpoint>
     </hv-conf:entity>
 </hv-conf:entitiesConfiguration>

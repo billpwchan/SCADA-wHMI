@@ -1,4 +1,6 @@
 export class UtilService {
+    public static UNIX_TIME_MAX = 2147483647;
+
     public static isCurrentDate(d: string): boolean {
         const seconds = +d;
         const testDate = new Date(seconds * 1000);
@@ -26,6 +28,18 @@ export class UtilService {
         return false;
     }
 
+    public static isDateExpired(dateTime: number, hour: number, minute: number): boolean {
+        const seconds = +dateTime;
+        const testDate = new Date(seconds * 1000);
+        testDate.setHours(hour, minute, 0, 0);
+        const currentDate = new Date();
+        currentDate.setSeconds(0, 0);
+
+        console.log('{UtilService}', '[isDateExpired]', 'testDate', testDate, testDate.getTime(), 'currentDate', currentDate, currentDate.getTime(),
+            testDate.getTime() < currentDate.getTime());
+        return testDate.getTime() < currentDate.getTime();
+    }
+
     public static includesComingDayOfWeek(d: string, dayofweek: number): boolean {
         const seconds = +d;
         const testDate = new Date(seconds * 1000);
@@ -40,6 +54,24 @@ export class UtilService {
             return true;
         }
         return false;
+    }
+
+    public static beyondNextWeek(d: string): boolean {
+        const seconds = +d;
+        const testDate = new Date(seconds * 1000);
+        testDate.setHours(0, 0, 0, 0);
+
+        const nextWeekDate = new Date();
+        nextWeekDate.setHours(0, 0, 0, 0);
+        nextWeekDate.setTime(nextWeekDate.getTime() + (7 * 86400000));
+
+        if (testDate.getTime() > nextWeekDate.getTime()) {
+            console.log('{UtilService}', '[beyondNextWeek]', 'testDate', testDate, 'nextWeekDate', nextWeekDate, 'return false');
+            return true;
+        } else {
+            console.log('{UtilService}', '[beyondNextWeek]', 'testDate', testDate, 'nextWeekDate', nextWeekDate, 'return true');
+            return false;
+        }
     }
 
     public static getWeekDatesList(weekdays: number[], startDate: Date, duration: number): string[] {
@@ -91,11 +123,12 @@ export class UtilService {
     }
 
     public static isTimeExpired(hour: number, minute: number): boolean {
-        console.log('{UtilService}', '[isTimeExpired]', 'hour', hour, 'minute', minute);
         const currentDate = new Date();
         if (hour < currentDate.getHours() || (hour === currentDate.getHours() && minute < currentDate.getMinutes())) {
+            console.log('{UtilService}', '[isTimeExpired]', 'hour', hour, 'minute', minute, 'return true');
             return true;
         }
+        console.log('{UtilService}', '[isTimeExpired]', 'hour', hour, 'minute', minute, 'return false');
         return false;
     }
 }

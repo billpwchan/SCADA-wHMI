@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation" xmi:id="_tFEexa_rEee6mqtCrBI10A" type="Aspect" name="default.aspect_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_vxDj4a_rEee6mqtCrBI10A" type="2001" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_vxDj4q_rEee6mqtCrBI10A" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_vxDj46_rEee6mqtCrBI10A" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_ejLzkK_0EeeoLdF8l4OIIg" type="3001" fontName="Segoe UI">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="SCADAGEN_UTC_M100_SC_TrainPositionRotation02.scsrepresentation#_ei44oa_0EeeoLdF8l4OIIg"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ejLzka_0EeeoLdF8l4OIIg" y="65" width="199" height="68"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_vxDj5q_rEee6mqtCrBI10A" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_vxDj56_rEee6mqtCrBI10A" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_vxDj6K_rEee6mqtCrBI10A" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_vxDj6a_rEee6mqtCrBI10A"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_vxDj6q_rEee6mqtCrBI10A"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="SCADAGEN_UTC_M100_SC_TrainPositionRotation02.scsrepresentation#_vxDj96_rEee6mqtCrBI10A"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_vxDj66_rEee6mqtCrBI10A" x="310" y="46"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_-GbxMa_vEee6mqtCrBI10A" type="2002" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_-GbxM6_vEee6mqtCrBI10A" type="5003">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_-GbxNK_vEee6mqtCrBI10A" y="5"/>
+    </children>
+    <element xmi:type="scsRepresentation:CalculatedAttribute" href="SCADAGEN_UTC_M100_SC_TrainPositionRotation02.scsrepresentation#_-GbxMK_vEee6mqtCrBI10A"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-GbxMq_vEee6mqtCrBI10A" x="372" y="384"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_SoVH8a_wEee6mqtCrBI10A" type="2002" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_SoVH86_wEee6mqtCrBI10A" type="5003">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_SoVH9K_wEee6mqtCrBI10A" y="5"/>
+    </children>
+    <element xmi:type="scsRepresentation:CalculatedAttribute" href="SCADAGEN_UTC_M100_SC_TrainPositionRotation02.scsrepresentation#_SoVH8K_wEee6mqtCrBI10A"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_SoVH8q_wEee6mqtCrBI10A" x="372" y="480"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_tFEexq_rEee6mqtCrBI10A"/>
+  <element xmi:type="scsRepresentation:AspectPackage" href="SCADAGEN_UTC_M100_SC_TrainPositionRotation02.scsrepresentation#_tFEewa_rEee6mqtCrBI10A"/>
+</notation:Diagram>

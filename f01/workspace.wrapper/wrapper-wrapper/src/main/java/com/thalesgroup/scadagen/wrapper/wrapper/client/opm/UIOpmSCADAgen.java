@@ -465,5 +465,24 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	public void getCurrentHOMValue(String scsEnvId, String dbAddress, GetCurrentHOMValueEvent_i event) {
 		getUIHom().getCurrentHOMValue(scsEnvId, dbAddress, event);
 	}
+	
+	private String env=null;
+	@Override
+	public String getCurrentEnv() {
+		return this.env;
+	}
+	@Override
+	public void setCurrentEnv(String env) {
+		this.env=env;
+	}
+	private String alias=null;
+	@Override
+	public String getCurrentAlias() {
+		return this.alias;
+	}
+	@Override
+	public void setCurrentAlias(String alias) {
+		this.alias=alias;
+	}
 
 }

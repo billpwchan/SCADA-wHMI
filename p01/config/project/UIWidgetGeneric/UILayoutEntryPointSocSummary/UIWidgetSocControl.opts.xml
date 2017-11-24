@@ -93,6 +93,7 @@
 		<OperationString2>LaunchGrc</OperationString2>
 		<OperationString3>set_start_disable</OperationString3>
 		<OperationString4>set_stop_up</OperationString4>
+		<OperationString5>set_apply_disable</OperationString5>
 	</actionset>
 	
 	<actionset key="LaunchGrcFromNextStep">
@@ -101,6 +102,7 @@
 		<OperationString2>LaunchGrc</OperationString2>
 		<OperationString3>set_start_disable</OperationString3>
 		<OperationString4>set_stop_up</OperationString4>
+		<OperationString5>set_apply_disable</OperationString5>
 	</actionset>
 	
 	<action key="PrepareGrc">
@@ -151,6 +153,7 @@
 		<OperationString2>set_stop_disable</OperationString2>
 		<OperationString3>set_retry_disable</OperationString3>
 		<OperationString4>set_skip_disable</OperationString4>
+		<OperationString5>set_apply_up</OperationString5>
 	</actionset>
 	
 	<actionset key="GrcStatus_WaitForRun">
@@ -159,6 +162,7 @@
 		<OperationString2>set_stop_up</OperationString2>
 		<OperationString3>set_retry_disable</OperationString3>
 		<OperationString4>set_skip_disable</OperationString4>
+		<OperationString5>set_apply_disable</OperationString5>
 	</actionset>
 	
 	<actionset key="GrcStatus_Initializing">
@@ -167,6 +171,7 @@
 		<OperationString2>set_stop_up</OperationString2>
 		<OperationString3>set_retry_disable</OperationString3>
 		<OperationString4>set_skip_disable</OperationString4>
+		<OperationString5>set_apply_disable</OperationString5>
 	</actionset>
 	
 	<actionset key="GrcStatus_Running">
@@ -175,6 +180,7 @@
 		<OperationString2>set_stop_up</OperationString2>
 		<OperationString3>set_retry_disable</OperationString3>
 		<OperationString4>set_skip_disable</OperationString4>
+		<OperationString5>set_apply_disable</OperationString5>
 	</actionset>
 	
 	<actionset key="GrcStatus_Waiting">
@@ -183,6 +189,7 @@
 		<OperationString2>set_stop_up</OperationString2>
 		<OperationString3>set_retry_disable</OperationString3>
 		<OperationString4>set_skip_disable</OperationString4>
+		<OperationString5>set_apply_disable</OperationString5>
 	</actionset>
 	
 	<actionset key="GrcStatus_Stopped">
@@ -191,6 +198,7 @@
 		<OperationString2>set_stop_disable</OperationString2>
 		<OperationString3>set_retry_disable</OperationString3>
 		<OperationString4>set_skip_disable</OperationString4>
+		<OperationString5>set_apply_up</OperationString5>
 	</actionset>
 	
 	<actionset key="GrcStatus_Stopped_Manu_Failed">
@@ -199,6 +207,7 @@
 		<OperationString2>set_skip_up</OperationString2>
 		<OperationString3>set_start_up</OperationString3>
 		<OperationString4>set_stop_disable</OperationString4>
+		<OperationString5>set_apply_disable</OperationString5>
 	</actionset>
 	
 	<actionset key="GrcStatus_Aborted">
@@ -207,6 +216,7 @@
 		<OperationString2>set_stop_disable</OperationString2>
 		<OperationString3>set_retry_disable</OperationString3>
 		<OperationString4>set_skip_disable</OperationString4>
+		<OperationString5>set_apply_up</OperationString5>
 	</actionset>
 	
 	<action key="set_start_disable">
@@ -273,4 +283,18 @@
 		<OperationString3>Up</OperationString3>
 	</action>
 
+	<action key="set_apply_disable">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UIWidgetSocDelayControl</OperationElement>
+		<OperationString1>set_apply_disable</OperationString1>
+	</action>
+	
+	<action key="set_apply_up">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UIWidgetSocDelayControl</OperationElement>
+		<OperationString1>set_apply_up</OperationString1>
+	</action>	
+	
 </data-set>

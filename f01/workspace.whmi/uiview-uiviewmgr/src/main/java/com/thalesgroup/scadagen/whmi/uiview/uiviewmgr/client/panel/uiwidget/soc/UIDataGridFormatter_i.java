@@ -13,7 +13,7 @@ public interface UIDataGridFormatter_i {
 	int getColumnWidth(int column);
 	int getColumnSort(int column);
 	String getColumnType(String columnLabel);
-	
+	SCADAgenCheckBoxCell getCheckBoxes();
 	DataGrid<Equipment_i> addDataGridColumn(DataGrid<Equipment_i> dataGrid);
 		
 }

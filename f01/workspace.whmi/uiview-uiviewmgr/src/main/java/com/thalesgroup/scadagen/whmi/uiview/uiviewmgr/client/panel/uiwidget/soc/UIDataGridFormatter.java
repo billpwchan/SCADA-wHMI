@@ -4,7 +4,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.NumberCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.dom.client.Style.Unit;
@@ -24,6 +23,7 @@ public class UIDataGridFormatter implements UIDataGridFormatter_i {
 	private int[] columnWidth		= null;
 	private int[] columnSort		= null;
 	private String strDataGrid		= null;
+	public SCADAgenCheckBoxCell checkBoxCell_ = null;
 	
 	private Map<String, String> columnLabelTypeMap = new HashMap<String, String>();
 	
@@ -81,12 +81,16 @@ public class UIDataGridFormatter implements UIDataGridFormatter_i {
 	}
 	
 	@Override
+	public SCADAgenCheckBoxCell getCheckBoxes(){
+		return checkBoxCell_;
+	}
+	
+	@Override
 	public DataGrid<Equipment_i> addDataGridColumn(DataGrid<Equipment_i> dataGrid) {
 	   
 		// Attach a column sort handler to the ListDataProvider to sort the list.
 	    ListHandler<Equipment_i> sortHandler =
-	        new ListHandler<Equipment_i>(UIDataGridDatabase.getInstance(strDataGrid).getDataProvider().getList());
-
+	    new ListHandler<Equipment_i>(UIDataGridDatabase.getInstance(strDataGrid).getDataProvider().getList());
 	    for ( int i = 0 ; i < columnLabels.length ; ++i ) {
 	    	String columnType = getColumnType(i);
 	    	
@@ -95,7 +99,7 @@ public class UIDataGridFormatter implements UIDataGridFormatter_i {
 	    	
 	    	int columnWidth = getColumnWidth(i);
 	    	int enableSort = getColumnSort(i);
-
+	    	
 	    	columnLabelTypeMap.put(columnLabel, columnType);
 	    	newColumn(sortHandler, dataGrid, columnType, headerString, columnLabel, columnWidth, enableSort);
 	    }
@@ -161,13 +165,15 @@ public class UIDataGridFormatter implements UIDataGridFormatter_i {
 			dataGrid.addColumn(numberColumn, headerString);
 			dataGrid.setColumnWidth(numberColumn, columnWidth, Unit.PX);
 		} else if ( columnType.equals("Boolean") ) {
-			Column<Equipment_i, Boolean> booleanColumn = new Column<Equipment_i, Boolean>(new CheckboxCell(true, false)) {
+			checkBoxCell_ = new SCADAgenCheckBoxCell(true, false);
+			Column<Equipment_i, Boolean> booleanColumn = new Column<Equipment_i, Boolean>(checkBoxCell_) {
 				@Override
 				public Boolean getValue(Equipment_i object) {
-		    		// Get the value from the selection model.
-		    		return object.getBooleanValue(columnLabel);
-//		            return selectionModel.isSelected(object);
+					// Get the value from the selection model.
+					return object.getBooleanValue(columnLabel);
+					//return selectionModel.isSelected(object);
 		    	}
+
 			};
 			dataGrid.addColumn(booleanColumn, headerString);
 			dataGrid.setColumnWidth(booleanColumn, columnWidth, Unit.PX);

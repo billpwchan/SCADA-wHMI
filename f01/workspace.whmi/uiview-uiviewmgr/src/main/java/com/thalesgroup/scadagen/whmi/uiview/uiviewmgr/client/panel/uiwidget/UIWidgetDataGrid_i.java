@@ -44,6 +44,7 @@ public interface UIWidgetDataGrid_i {
 		, ResetColumnData("ResetColumnData")
 		, ReloadColumnData("ReloadColumnData")
 		, ColumnFilterChange("ColumnFilterChange")
+		, DisableCheckBox("DisableCheckBox")
 		;
 		private final String text;
 		private DataGridEvent(final String text) { this.text = text; }

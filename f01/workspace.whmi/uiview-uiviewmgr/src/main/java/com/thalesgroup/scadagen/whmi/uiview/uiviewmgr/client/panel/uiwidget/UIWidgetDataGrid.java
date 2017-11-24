@@ -24,14 +24,6 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionBus;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIView_i.ViewAttribute;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIView_i.WidgetParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.DataGridEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
@@ -39,10 +31,18 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridDatabase;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFormatter_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.database.UIDataGridDatabaseMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIView_i.ViewAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIView_i.WidgetParameterName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionBus;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ButtonOperation_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.CreateText_i;
@@ -344,6 +344,40 @@ public class UIWidgetDataGrid extends UIWidget_i {
 							// Recover datagrid sort after refresh
 							ColumnSortEvent.fire(dataGrid, dataGrid.getColumnSortList());
 						}
+						
+					} else if ( os1.equals(DataGridEvent.DisableCheckBox.toString() )){
+						
+						logger.debug(className, function, "Disable Check Box os1[{}]", os1);
+						
+						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
+						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationString3.toString());
+												
+						logger.debug(className, function, "obj1[{}]", obj1.toString());
+						logger.debug(className, function, "obj2[{}]", obj2.toString());
+						
+						if ( null != strDataGrid ) {
+							
+							logger.debug(className, function, "strDataGrid[{}]", strDataGrid);
+							
+							if ( null != obj1 && null != obj2) {
+	
+								String dataGridSelected = (String) obj1;
+								boolean disableFlag = (boolean) obj2;
+									
+								logger.debug(className, function, "dataGridSelected is:[{}]", dataGridSelected);
+								logger.debug(className, function, "disableFlag:[{}]", disableFlag);
+								logger.debug(className, function, "strDataGrid is:[{}]", strDataGrid);
+								try{
+									dataGridFormatter.getCheckBoxes().isCheckBoxDisabled_ = disableFlag;
+								} catch (Exception e){
+									logger.warn(e.toString());
+								}								
+							} else {
+								logger.warn(className, function, "obj1 or obj2 IS NULL[{}]", strDataGrid);
+							}
+						} else {
+							logger.warn(className, function, "strDataGrid IS NULL[{}]", strDataGrid);
+						}			
 						
 					} else if ( oe.equals(element) ) {
 					
@@ -663,7 +697,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 								// Replace space with '_'
 								value.replace(' ','_');
 								strCssResult += " " + strCssPrefix + "_" + label + "_" + value;
-								logger.info(className, function, "strCssResult (Other) is:[{}]", strCssResult);
+								logger.info(className, function, "strCssResult(Other) Type:[{}] is:[{}]", strDataGridColumnsTypes[colNum] ,strCssResult);
 							}
 						}
 					}

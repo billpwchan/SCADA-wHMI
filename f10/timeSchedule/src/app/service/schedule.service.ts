@@ -1461,14 +1461,14 @@ export class ScheduleService implements OnDestroy {
         date.setSeconds(0, 0);
         const currentTime = date.getTime();
         const ONE_DAY = 86400000;
-        const ONE_MINUTE = 60000;
+        // const ONE_MINUTE = 60000;
         date.setHours(hour);
         date.setMinutes(minute);
         if (date.getTime() < currentTime) {
-            date.setTime(date.getTime() + ONE_DAY + ONE_MINUTE);
+            date.setTime(date.getTime() + ONE_DAY);
             console.log('{ScheduleService}', '[addOnOffUpdateTimer]', taskName, hour, minute, 'set to next day', date);
         } else {
-            date.setTime(date.getTime() + ONE_MINUTE);
+            date.setTime(date.getTime());
             console.log('{ScheduleService}', '[addOnOffUpdateTimer]', taskName, hour, minute, 'set to current day', date);
         }
 

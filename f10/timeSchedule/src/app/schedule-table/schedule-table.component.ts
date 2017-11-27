@@ -221,9 +221,6 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         console.log('{schedule-table}', '[loadConfig]', 'display_other_types_in_running_schedules=', this.displayOtherTypesInRunningSchedules);
     }
     loadData() {
-        if (this.subRoute) {
-            this.subRoute.unsubscribe();
-        }
         this.subRoute = this.route.queryParams.subscribe(params => {
             // this.cleanupScheduleSubscriptions();
             const p = params['periodic'];
@@ -608,7 +605,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.addScheduleClicked = false;
 
         if (this.newSchedule) {
-            const subAddSch = this.scheduleService.addSchedule(this.newSchedule.id).subscribe(
+            this.scheduleService.addSchedule(this.newSchedule.id).subscribe(
                 res => {
                     // set new schedule as selected schedule
                     this.activeItem = [this.newSchedule];
@@ -617,8 +614,6 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                     selectEvent.id = this.newSchedule.id;
                     selectEvent.text = this.newSchedule.text;
                     this.selected(selectEvent);
-
-                    subAddSch.unsubscribe();
                 }
             )
         }
@@ -633,7 +628,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         console.log('{schedule-table}', '[deleteSchedule]');
         this.disableScheduleAction();
         if (this.selectedSchedule.periodic && !this.selectedSchedule.titleReadOnly) {
-            const subDelSch = this.scheduleService.deleteSchedule(this.selectedSchedule.id).subscribe(
+            this.scheduleService.deleteSchedule(this.selectedSchedule.id).subscribe(
                 res => {
                     if (this.schedules[0]) {
                         // set first schedule as selected schedule
@@ -652,7 +647,6 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                         selectEvent.text = null;
                         this.selected(selectEvent);
                     }
-                    subDelSch.unsubscribe();
                 }
             )
         }
@@ -711,7 +705,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     }
     public stopOneShot() {
         console.log('{schedule-table}', '[stopOneShot]');
-        this.scheduleService.stopSchedule(this.selectedSchedule.id);
+        this.scheduleService.stopOneshotSchedule(this.selectedSchedule.id);
         this.oneshotStarted = false;
     }
 
@@ -793,66 +787,51 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public saveModified() {
         const selectedItem: ScheduleItem = this.selectedRow[0];
         let checkRunDates = false;
-        if (this.pendingOnTimeIsEnabled && !selectedItem.enableFlag1) {
-            checkRunDates = true;
-            const subEnableTask = this.scheduleService.enableTask(this.selectedRow[0].taskName1).subscribe(
-                res => {
-                    console.log('{schedule-table}', '[saveModified]', 'enableTask returned', res);
-                    subEnableTask.unsubscribe();
-                }
-            );
-        } else if (!this.pendingOnTimeIsEnabled && selectedItem.enableFlag1) {
-            const subDisableTask = this.scheduleService.disableTask(this.selectedRow[0].taskName1).subscribe(
-                res => {
-                    console.log('{schedule-table}', '[saveModified]', 'disableTask returned', res);
-                    subDisableTask.unsubscribe();
-                }
-            );
-        }
-
-        if (this.pendingOffTimeIsEnabled && !selectedItem.enableFlag2) {
-            checkRunDates = true;
-            const subEnableTask = this.scheduleService.enableTask(this.selectedRow[0].taskName2).subscribe(
-                res => {
-                    console.log('{schedule-table}', '[saveModified]', 'enableTask returned', res);
-                    subEnableTask.unsubscribe();
-                }
-            );
-        } else if (!this.pendingOffTimeIsEnabled && selectedItem.enableFlag2) {
-            const subDisableTask = this.scheduleService.disableTask(this.selectedRow[0].taskName2).subscribe(
-                res => {
-                    console.log('{schedule-table}', '[saveModified]', 'disableTask returned', res);
-                    subDisableTask.unsubscribe();
-                }
-            );
-        }
+        let onTime = null;
+        let offTime = null;
+        let onTimeEnable = null;
+        let offTimeEnable = null;
 
         if (this.newOnTime !== selectedItem.onTime) {
             if (this.newOnTime && this.selectedRow.length === 1 && this.newOnTime !== selectedItem.onTime) {
                 checkRunDates = true;
-                this.scheduleService.setScheduleItemOnTime(this.selectedSchedule.id, selectedItem, this.newOnTime).subscribe(
-                    res => {
-                        console.log('{schedule-table}', '[saveModified]', 'setFilter OnTime for returned', res);
-                    }
-                )
+                onTime = this.newOnTime;
             }
         }
 
         if (this.newOffTime !== selectedItem.offTime) {
             if (this.newOffTime && this.selectedRow.length === 1 && this.newOffTime !== selectedItem.offTime) {
                 checkRunDates = true;
-                this.scheduleService.setScheduleItemOffTime(this.selectedSchedule.id, selectedItem, this.newOffTime).subscribe(
-                    res => {
-                        console.log('{schedule-table}', '[saveModified]', 'setFilter OffTime returned', res);
-                    }
-                )
+                offTime = this.newOffTime;
             }
         }
 
-        // update dates in oneshot schedule run day group
-        if (!this.displayPeriodicSchedules && this.oneshotStarted && checkRunDates) {
-            this.scheduleService.addCurrentDayToOneshotSchedules();
+        if (this.pendingOnTimeIsEnabled && !selectedItem.enableFlag1) {
+            checkRunDates = true;
+            onTimeEnable = true;
+        } else if (!this.pendingOnTimeIsEnabled && selectedItem.enableFlag1) {
+            onTimeEnable = false;
         }
+
+        if (this.pendingOffTimeIsEnabled && !selectedItem.enableFlag2) {
+            checkRunDates = true;
+            offTimeEnable = true;
+        } else if (!this.pendingOffTimeIsEnabled && selectedItem.enableFlag2) {
+            offTimeEnable = false;
+        }
+
+        console.log('{schedule-table}', '[saveModified]', 'onTime =', onTime, 'offTime =', offTime,
+            'onTimeEnable =', onTimeEnable, 'offTimeEnable =', offTimeEnable);
+        this.scheduleService.updateOnOffTimeEnable(this.selectedSchedule.id, selectedItem, onTime, offTime, onTimeEnable, offTimeEnable).subscribe(
+            res => {
+                // update dates in oneshot schedule run day group
+                if (!this.displayPeriodicSchedules && this.oneshotStarted && checkRunDates) {
+                    this.scheduleService.addCurrentDayToOneshotSchedules();
+                } else {
+                    this.scheduleService.readDayGroupDates();
+                }
+            }
+        )
     }
 
     public resetModified() {

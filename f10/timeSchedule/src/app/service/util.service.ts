@@ -36,8 +36,8 @@ export class UtilService {
         currentDate.setSeconds(0, 0);
 
         console.log('{UtilService}', '[isDateExpired]', 'testDate', testDate, testDate.getTime(), 'currentDate', currentDate, currentDate.getTime(),
-            testDate.getTime() < currentDate.getTime());
-        return testDate.getTime() < currentDate.getTime();
+            testDate.getTime() <= currentDate.getTime());
+        return testDate.getTime() <= currentDate.getTime();
     }
 
     public static includesComingDayOfWeek(d: string, dayofweek: number): boolean {
@@ -124,7 +124,7 @@ export class UtilService {
 
     public static isTimeExpired(hour: number, minute: number): boolean {
         const currentDate = new Date();
-        if (hour < currentDate.getHours() || (hour === currentDate.getHours() && minute < currentDate.getMinutes())) {
+        if (hour < currentDate.getHours() || (hour === currentDate.getHours() && minute <= currentDate.getMinutes())) {
             console.log('{UtilService}', '[isTimeExpired]', 'hour', hour, 'minute', minute, 'return true');
             return true;
         }

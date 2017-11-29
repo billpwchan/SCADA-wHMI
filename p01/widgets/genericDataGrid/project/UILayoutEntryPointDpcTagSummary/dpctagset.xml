@@ -21,7 +21,7 @@
     </p:column>
 	
     <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_opsource" width="200" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
-         <p:source name="GDGColumn07" statusComputerName="GDGColumn07" xsi:type="cmn:computedStatusDataSourceType"/>
+         <p:source name="GDGColumnHyphen01" statusComputerName="GDGColumnHyphen01" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
 
 	<p:column filterable="true" i18n="true" name="gdg_column_geographicalcategory" sortable="true" width="120" widthUnit="PX" xsi:type="p:textEnumColumnType">
@@ -123,7 +123,7 @@
     </p:column>
 	
     <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_tag1label" width="200" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
-         <p:source name="GDGColumn04" statusComputerName="GDGColumn04" xsi:type="cmn:computedStatusDataSourceType"/>
+         <p:source name="GDGColumnHyphen02" statusComputerName="GDGColumnHyphen02" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
 	  
     <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_tag2label" width="0" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">

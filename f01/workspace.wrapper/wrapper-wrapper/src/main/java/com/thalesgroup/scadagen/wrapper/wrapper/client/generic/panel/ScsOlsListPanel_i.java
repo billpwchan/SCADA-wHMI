@@ -43,6 +43,8 @@ public interface ScsOlsListPanel_i {
 		, PagerName("PagerName")
 		, EnableRowExport("EnableRowExport")
 		, DebugId("DebugId")
+		, DefaultDateTimeValue("DefaultDateTimeValue")
+		, DateTimeCssSubfix("DateTimeCssSubfix")
 		
 		, MenuCallImageEnable("MenuCallImageEnable")
 		, MenuCallImageLabel("MenuCallImageLabel")

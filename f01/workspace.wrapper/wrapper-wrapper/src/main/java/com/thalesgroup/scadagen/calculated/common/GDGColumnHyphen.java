@@ -16,7 +16,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.translation.Translation;
 
-public abstract class GDGColumn extends OlsDecoder {
+public class GDGColumnHyphen extends OlsDecoder{
 	
 	protected Logger logger					= null;
 	
@@ -26,7 +26,7 @@ public abstract class GDGColumn extends OlsDecoder {
 	
 	protected String fieldName				= null;
 	
-	protected String defaultDataValue_		= "";
+	protected String defaultDataValue_		= "-";
 
 	@Override
 	public String getComputerId() {
@@ -36,6 +36,7 @@ public abstract class GDGColumn extends OlsDecoder {
 	/**
 	 * Loading and store the configuration according to the class name as prefix
 	 */
+
 	protected void loadCnf() {
 
 		logger = LoggerFactory.getLogger(GDGColumn.class.getName());
@@ -95,7 +96,17 @@ public abstract class GDGColumn extends OlsDecoder {
 				
 				fieldName = mappings.get(fieldname1key);
 				logger.debug("[{}] fieldname1key[{}] fieldName[{}]", new Object[]{logPrefix, fieldname1key, fieldName});
-			
+				
+				String defaultDataValueKey = getFieldKey(listname, defaultDataValue);
+				logger.debug("[{}] listname[{}] defaultDataValue[{}] defaultDataValueKey[{}]", new Object[]{logPrefix, listname, defaultDataValue, defaultDataValueKey});
+				
+				String defaultDataValueTemp = mappings.get(defaultDataValueKey);
+				logger.debug("[{}] defaultDataValueKey[{}] defaultDataValueTemp[{}]", new Object[]{logPrefix, defaultDataValueKey, defaultDataValueTemp});
+				
+				if( (defaultDataValueTemp != null) && ( !defaultDataValueTemp.equals("") ) ){
+					defaultDataValue_ = defaultDataValueTemp;
+				}
+				
 				JsonNode v = root.get(fieldName);
 	            
 				dataValue = v.asText();
@@ -116,11 +127,12 @@ public abstract class GDGColumn extends OlsDecoder {
         // prepare default response
     	StringAttribute ret = new StringAttribute();
         ret.setAttributeClass(StringAttribute.class.getName());
-        ret.setValue( (dataValue!=null?dataValue:defaultDataValue_) );
+        ret.setValue( ( ( ( dataValue!=null ) && ( !dataValue.equals("") ) ) ? dataValue: defaultDataValue_) );
         ret.setValid(true);
         ret.setTimestamp(new Date());
         
+        logger.debug("[{}] After .setTimestamp: ret[{}]", new Object[]{logPrefix, ret.toString()});
+        
         return ret;
     }
-
 }

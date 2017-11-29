@@ -9,5 +9,11 @@
 		<PagerName>SCADAgenPager</PagerName>
 		<MwtEventBusName>dpctagset</MwtEventBusName>
 		<MwtEventBusScope>Global</MwtEventBusScope>
+		
+		<OlsCssPrefix>DPCTAG_LIST_</OlsCssPrefix>
+		<GDGAttributeString1>GDGColumnSimpleDateFormat02</GDGAttributeString1>
+		
+		<DefaultDateTimeValue>Sat Jan 01 00:00:00 GMT+800 2000</DefaultDateTimeValue>
+		<DateTimeCssSubfix>default_time</DateTimeCssSubfix>
 	</header>
 </data-set>

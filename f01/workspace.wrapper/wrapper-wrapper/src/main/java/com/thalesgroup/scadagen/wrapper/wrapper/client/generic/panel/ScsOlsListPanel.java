@@ -1,8 +1,10 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -39,6 +41,8 @@ public class ScsOlsListPanel extends UIWidget_i {
     private static final String LOG_PREFIX = "["+className+"] ";
 
 	private String strOlsCssPrefix = "OLS_LIST_";
+	private String strDefaultDateTimeValue = "Sat Jan 01 00:00:00 GMT+800 2000";
+	private String strDateTimeCssSubfix = "default_time";
     
     private String selectionMode = null;
     private boolean hasSCADAgenPager = false;
@@ -223,9 +227,16 @@ public class ScsOlsListPanel extends UIWidget_i {
                 			
 					AttributeClientAbstract<?> gdgAttribute = row.getAttribute(strGDGAttribute);
 					if ( null != gdgAttribute && gdgAttribute.isValid() ) {
-						strCssResult += "_" + gdgAttribute.getValue();
+						if ( gdgAttribute.getValue() instanceof Date ) {
+							LOGGER.debug(LOG_PREFIX + " gdgAttribute.getValue() [Date] is:" + gdgAttribute.getValue());
+							if( gdgAttribute.getValue().toString().equals(strDefaultDateTimeValue)){
+								LOGGER.debug(LOG_PREFIX + " date value is default value!!!");
+								strCssResult += "_" + strDateTimeCssSubfix;
+							}
+						} else {
+							strCssResult += "_" + gdgAttribute.getValue();
+						}
 					}
-
         		}
 
                 LOGGER.debug(LOG_PREFIX + "getStyleNames strCssResult["+strCssResult+"]");
@@ -282,6 +293,12 @@ public class ScsOlsListPanel extends UIWidget_i {
 
 			String tmpStrOlsCssPrefix = dictionariesCache.getStringValue(optsXMLFile, ParameterName.OlsCssPrefix.toString(), strHeader);
 			if ( null != tmpStrOlsCssPrefix ) strOlsCssPrefix = tmpStrOlsCssPrefix;
+			
+			String defaultDateTimeValue = dictionariesCache.getStringValue(optsXMLFile, ParameterName.DefaultDateTimeValue.toString(), strHeader);
+			if ( null != defaultDateTimeValue ) strDefaultDateTimeValue = defaultDateTimeValue;
+			
+			String dateTimeCssSubfix = dictionariesCache.getStringValue(optsXMLFile, ParameterName.DateTimeCssSubfix.toString(), strHeader);
+			if ( null != dateTimeCssSubfix ) strDateTimeCssSubfix = dateTimeCssSubfix;
 			
 			String pagerName	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.PagerName.toString(), strHeader);
 			if ( null != pagerName && ParameterValue.SCADAgenPager.toString().equals(pagerName) ) {

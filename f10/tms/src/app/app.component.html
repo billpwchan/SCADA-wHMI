@@ -4,7 +4,7 @@
   <form>
       <div class="container">
           <fieldset class="">
-              <legend class="">{{ '&ScenarioList' | translate:param }}</legend>
+              <legend class="">{{ '&ScenarioList' | translate }}</legend>
               <div>
                 <div>
                   <ngx-datatable
@@ -20,23 +20,23 @@
                   </ngx-datatable>
                 </div>
                 <div>
-                    <label>{{ '&Modify' | translate:param }}</label>
-                    <button type="button" class="btn btn-info">{{ '&New' | translate:param }}</button>
-                    <button type="button" class="btn btn-info">{{ '&Modify' | translate:param }}</button>
-                    <button type="button" class="btn btn-info">{{ '&Delete' | translate:param }}</button>
-                    <button type="button" class="btn btn-info">{{ '&Copy' | translate:param }}</button>
+                    <label>{{ '&Modify' | translate }}</label>
+                    <button type="button" class="btn btn-info tms-card-btn-new" [disabled]="btnDisabledNew" (click)="btnClicked('new')">{{ '&New' | translate }}</button>
+                    <button type="button" class="btn btn-info tms-card-btn-modify" [disabled]="btnDisabledModify" (click)="btnClicked('modify')">{{ '&Modify' | translate }}</button>
+                    <button type="button" class="btn btn-info tms-card-btn-delete" [disabled]="btnDisabledDelete" (click)="btnClicked('delete')">{{ '&Delete' | translate }}</button>
+                    <button type="button" class="btn btn-info tms-card-btn-copy" [disabled]="btnDisabledCopy" (click)="btnClicked('copy')">{{ '&Copy' | translate }}</button>
                 </div>
                 <div>
                   <hr>
                 </div>
                 <div>
                     <div>
-                        <label>{{ '&Execute' | translate:param }}</label>
-                        <button type="button" class="btn btn-info">{{ '&Start' | translate:param }}</button>
-                        <button type="button" class="btn btn-info">{{ '&Pause' | translate:param }}</button>
-                        <button type="button" class="btn btn-info">{{ '&Resume' | translate:param }}</button>
-                        <button type="button" class="btn btn-info">{{ '&Stop' | translate:param }}</button>
-                        <button type="button" class="btn btn-info">{{ '&Reset' | translate:param }}</button>
+                        <label>{{ '&Execute' | translate }}</label>
+                        <button type="button" class="btn btn-info tms-card-btn-start" [disabled]="btnDisabledStart" (click)="btnClicked('start')">{{ '&Start' | translate }}</button>
+                        <button type="button" class="btn btn-info tms-card-btn-pause" [disabled]="btnDisabledPause" (click)="btnClicked('pause')">{{ '&Pause' | translate }}</button>
+                        <button type="button" class="btn btn-info tms-card-btn-resume" [disabled]="btnDisabledResume" (click)="btnClicked('resume')">{{ '&Resume' | translate }}</button>
+                        <button type="button" class="btn btn-info tms-card-btn-stop" [disabled]="btnDisabledStop" (click)="btnClicked('stop')">{{ '&Stop' | translate }}</button>
+                        <button type="button" class="btn btn-info tms-card-btn-reset" [disabled]="btnDisabledReset" (click)="btnClicked('reset')">{{ '&Reset' | translate }}</button>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
 
   <form>
     <fieldset class="">
-      <legend class="">{{ '&ScenarioStepList' | translate:param }}</legend>
+      <legend class="">{{ '&ScenarioStepList' | translate }}</legend>
       <div>
         <ngx-datatable
           class="material"
@@ -61,32 +61,33 @@
         </ngx-datatable>
       </div>
       <div>
-        <label>{{ '&Modifystep' | translate:param }}</label>
-        <button type="button" class="btn btn-info">{{ '&AddStep' | translate:param }}</button>
-        <button type="button" class="btn btn-info">{{ '&DeleteStep' | translate:param }}</button>
-        <button type="button" class="btn btn-info">{{ '&SaveScenario' | translate:param }}</button>
-        <button type="button" class="btn btn-info">{{ '&ReloadScenario' | translate:param }}</button>
+        <label>{{ '&Modifystep' | translate }}</label>
+        <button type="button" class="btn btn-info tms-step-btn-addedstep" [disabled]="btnDisabledAddedStep" (click)="btnClicked('addedstep')">{{ '&AddStep' | translate }}</button>
+        <button type="button" class="btn btn-info tms-step-btn-deletestep" [disabled]="btnDisabledDeleteStep" (click)="btnClicked('deletestep')">{{ '&DeleteStep' | translate }}</button>
+        <button type="button" class="btn btn-info tms-step-btn-savescenario" [disabled]="btnDisabledSaveScenario" (click)="btnClicked('savescenario')">{{ '&SaveScenario' | translate }}</button>
+        <button type="button" class="btn btn-info tms-step-btn-reloadscenario" [disabled]="btnDisabledReloadScenario" (click)="btnClicked('reloadscenario')">{{ '&ReloadScenario' | translate }}</button>
       </div>
     </fieldset>
   </form>
 
   <form>
       <fieldset class="">
-        <legend class="">{{ '&ExecuteSelectionStep' | translate:param }}</legend>
+        <legend class="">{{ '&ExecuteSelectionStep' | translate }}</legend>
         <div>
-          <label>{{ '&ExecuteSelectionStep' | translate:param }}</label>
-          <button type="button" class="btn btn-info">{{ '&Start' | translate:param }}</button>
-          <button type="button" class="btn btn-info">{{ '&Stop' | translate:param }}</button>
+          <label>{{ '&ExecuteSelectionStep' | translate }}</label>
+          <button type="button" class="btn btn-info tms-step-btn-startstep" [disabled]="btnDisabledStartStep" (click)="btnClicked('startstep')">{{ '&StartStep' | translate }}</button>
+          <button type="button" class="btn btn-info tms-step-btn-stopstep" [disabled]="btnDisabledStopStep" (click)="btnClicked('stopstep')">{{ '&StopStep' | translate }}</button>
         </div>
     </fieldset>
   </form>
 
   <form>
     <fieldset class="">
-      <legend class="">{{ '&ImportExportScenario' | translate:param }}</legend>
+      <legend class="">{{ '&ImportExportScenario' | translate }}</legend>
       <div>
-        <button type="button" class="btn btn-info">{{ '&ExportCSV' | translate:param }}</button>
-        <button type="button" class="btn btn-info">{{ '&ImportCSV' | translate:param }}</button>
+        <button type="button" class="btn btn-info tms-step-btn-exportcsv" [disabled]="btnDisabledExportCSV" (click)="btnClicked('exportcsv')">{{ '&ExportCSV' | translate }}</button>
+        <button type="button" class="btn btn-info tms-step-btn-importcv"  onclick="loadfile.click()" [disabled]="btnDisabledImportCSV" (click)="btnClicked('importcsv')">{{ '&ImportCSV' | translate }}</button>
+        <input type="file" id="upload" style="display:none" id="loadfile" accept='.csv' (change)="btnClicked('loadfile', $event)">
       </div>
     </fieldset>
   </form>

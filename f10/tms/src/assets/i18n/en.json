@@ -9,11 +9,11 @@
 	, "&Delete": "Delete"
 	, "&Copy": "Copy"
 
-	, "&Execute": "Execute"	
-	, "&Start": "Start"	
-	, "&Pause": "Pause"	
+	, "&Execute": "Execute"
+	, "&Start": "Start"
+	, "&Pause": "Pause"
 	, "&Resume": "Resume"
-	, "&Stop": "Stop"	
+	, "&Stop": "Stop"
 	, "&Reset": "Reset"
 	
 	, "&ScenarioStepList": "Scenario Step List"
@@ -24,10 +24,10 @@
 	, "&ReloadScenario": "Reload Scenario"
 
 	, "&ExecuteSelectionStep": "Execute selection step"
-	, "&Start": "Start"
-	, "&Stop": "Stop"
+	, "&StartStep": "Start Step"
+	, "&StopStep": "Stop Step"
 
-	, "&ImportExportScenario": "Import/Export Scenario"	
-	, "&ExportCSV": "ExportCSV"	
-	, "&ImportCSV": "ImportCSV"	
+	, "&ImportExportScenario": "Import/Export Scenario"
+	, "&ExportCSV": "Export CSV"
+	, "&ImportCSV": "Import CSV"
 }

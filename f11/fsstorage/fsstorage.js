@@ -37,29 +37,46 @@ function loadFile(pathname,method,res) {
         res.end();
       }
       else {
-        fs.readFile(full_path, "binary", function (err, file) {
-          if (err) {
-            res.writeHeader(500, { "Content-Type": "text/plain" });
-            res.write(err + "\n");
-            res.end();
-          }
-          else {
-            let base_name=path.basename(full_path);
-            let ext_name=path.extname(full_path);
-            console.log("base_name[",base_name,"] ext_name[",ext_name,"]");
-            if ( method.toLowerCase() === STR_DOWNLOAD ) {
+        if ( method.toLowerCase() === STR_DOWNLOAD ) {
+          fs.readFile(full_path, "binary", function (err, file) {
+            if (err) {
+              res.writeHeader(500, { "Content-Type": "text/plain" });
+              res.write(err + "\n");
+              res.end();
+            }
+            else {
+              let base_name=path.basename(full_path);
+              let ext_name=path.extname(full_path);
+              console.log("base_name[",base_name,"] ext_name[",ext_name,"]");
+
               /* response as file */
               res.setHeader('Content-disposition', 'attachment; filename='+base_name);
               res.writeHeader(200, {'Content-Type': 'text/csv'});
               res.write(file, "binary");
               res.end();
-            } else {
-              res.writeHeader(200);
-              res.write(file, "binary");
+            }
+          });
+        }
+        else {
+          fs.readFile(full_path, "utf8", function (err, file) {
+            if (err) {
+              res.writeHeader(500, { "Content-Type": "text/plain" });
+              res.write(err + "\n");
               res.end();
             }
-          }
-        });
+            else {
+              let base_name=path.basename(full_path);
+              let ext_name=path.extname(full_path);
+              console.log("base_name[",base_name,"] ext_name[",ext_name,"]");
+
+              let json = {}
+              json[STR_FILEPATH]=base_name;
+              json[STR_DATA]=file.toString();
+              res.write(JSON.stringify(json));
+              res.end();
+            }
+          });
+        }
       }
     });
   } else {
@@ -116,36 +133,79 @@ function addAccessControlHeader(origin,res){
   // to the API (e.g. in case you use sessions)
   res.setHeader('Access-Control-Allow-Credentials', true);
 }
+function resOptions(res){
+  var headers = {};
+  // IE8 does not allow domains to be specified, just the *
+  // headers["Access-Control-Allow-Origin"] = req.headers.origin;
+  headers["Access-Control-Allow-Origin"] = "*";
+  headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+  headers["Access-Control-Allow-Credentials"] = false;
+  headers["Access-Control-Max-Age"] = '86400'; // 24 hours
+  headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+  res.writeHead(200, headers);
+  res.end();
+}
 http.createServer(function(req,res){
   addAccessControlHeader('*',res);
   let reqmethod=req.method;
   console.log("reqmethod[",reqmethod,"]");
   let filepath, method;
-  if(reqmethod==='POST') {
+  
+  if(reqmethod==='OPTIONS') {
+    resOptions(res);
+  }
+  else if(reqmethod==='POST' || reqmethod==='PUT' ) {
     var body='';
     req.on('data', function (data) {
         body +=data;
+        // Too much POST data, kill the connection!
+        // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
+        if (body.length > 1e6) { 
+          req.connection.destroy();
+      }
     });
     req.on('end',function(){
-        var POST =  qs.parse(body);
-        console.log(POST);
-        filepath=POST[STR_FILEPATH];
-        data=POST[STR_DATA];
-        console.log("filepath[",filepath,"] data[",data,"]");
-        if (null!=filepath&&null!=data){
-          savefile(filepath,data,res);
-        }
+      var post = qs.parse(body);
+      console.log("post[",post,"]");
+
+      filepath=post[STR_FILEPATH];
+      data=post[STR_DATA];
+      console.log("filepath[",filepath,"] data[",data,"]");
+      if (null!=filepath&&null!=data){
+        savefile(filepath,data,res);
+      }
+      else {
+        let keys = Object.keys(post);
+        //console.log("keys[",keys,"]");
+        keys.forEach(function(key) {
+          //console.log("key[",key,"]");
+          if ( null!=key) {
+            let json = JSON.parse(key);
+            //console.log("json[",json,"]");
+            filepath=json[STR_FILEPATH];
+            data=json[STR_DATA];
+            console.log("filepath[",filepath,"] data[",data,"]");
+            if (null!=filepath&&null!=data){
+              savefile(filepath,data,res);
+            }
+          }
+        });
+      }
     });
   }
   else if(reqmethod==='GET') {
     let query=url.parse(req.url, true).query;
-    console.log(query);
+    console.log("query[",query,"]");
     filepath=query[STR_FILEPATH];
     method=query[STR_METHOD];
     console.log("filepath[",filepath,"] method[",method,"]");
     if(filepath!=null){
-        loadFile(filepath,method,res); 
-    } 
+        loadFile(filepath,method,res);
+    }
+  }
+  else {
+    res.writeHead(404);
+    res.end();
   }
 }).listen(port);
-console.log("Server Running on [",port,"]");  
+console.log("Server Running on [",port,"]");

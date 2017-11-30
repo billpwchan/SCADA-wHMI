@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { NgModel, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -17,6 +18,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   imports: [
     BrowserModule
+    , FormsModule
     , NgxDatatableModule
     , HttpClientModule
     , TranslateModule.forRoot({

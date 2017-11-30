@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>16</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+	</header>
+	
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>Verify UILogger:</label>
+		<element>title</element>
+	</option>
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>Log</label>
+		<element>log</element>
+	</option>
+	
+	<option key="0|2">
+		<widget>Label</widget>
+		<label>LogLevel</label>
+		<element>loglabel</element>
+	</option>
+	<option key="0|3">
+		<widget>ListBox</widget>
+		<label>Trace</label>
+		<element>level</element>
+	</option>
+	
+	<option key="0|4">
+		<widget>Label</widget>
+		<label>LogLevel</label>
+		<element>loglabel</element>
+	</option>
+	<option key="0|5">
+		<widget>ListBox</widget>
+		<label>1</label>
+		<element>api</element>
+	</option>
+	
+	<option key="0|6">
+		<widget>Label</widget>
+		<label>classname</label>
+		<element>classnamelabel</element>
+	</option>
+	<option key="0|7">
+		<widget>TextBox</widget>
+		<label>verifylogclassname</label>
+		<element>classnamevalue</element>
+	</option>
+	
+	<option key="0|8">
+		<widget>Label</widget>
+		<label>function</label>
+		<element>functionlabel</element>
+	</option>
+	<option key="0|9">
+		<widget>TextBox</widget>
+		<label>verifylogfunction</label>
+		<element>functionvalue</element>
+	</option>
+	
+	<option key="0|10">
+		<widget>Label</widget>
+		<label>message {} {}</label>
+		<element>messagelabel</element>
+	</option>
+	<option key="0|11">
+		<widget>TextBox</widget>
+		<label>verifylogmessage [{}] [{}]</label>
+		<element>messagevalue</element>
+	</option>
+	
+	<option key="0|12">
+		<widget>Label</widget>
+		<label>parameter1</label>
+		<element>parameter1label</element>
+	</option>
+	<option key="0|13">
+		<widget>TextBox</widget>
+		<label>verifylogparameter1</label>
+		<element>parameter1value</element>
+	</option>
+	
+	<option key="0|14">
+		<widget>Label</widget>
+		<label>parameter2</label>
+		<element>parameter2label</element>
+	</option>
+	<option key="0|15">
+		<widget>TextBox</widget>
+		<label>verifylogparameter2</label>
+		<element>parameter2value</element>
+	</option>
+
+</data-set>

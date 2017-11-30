@@ -106,3 +106,18 @@
 .OLS_LIST_scsalarmList.OLS_LIST_state_NPNA {
 	animation: var(--gdg-blinking-off, blinkingAlarm) 1s;
 }
+
+/*
+Following css are configurable according to the config file:
+.\WEBAPP\apache-tomcat-8.0.23\conf\p01-func-current\config\project\UIWidgetGeneric\UILayoutEntryPointDpcTagSummary\UILayoutDpcTagViewerScsOlsListPanel.opts.xml
+to convert the default value to "-" of "Date and Time" column.
+*/
+.DPCTAG_LIST_GDGColumnSimpleDateFormat02_default_time td:first-child div{
+	display : none;
+}
+
+.DPCTAG_LIST_GDGColumnSimpleDateFormat02_default_time td:first-child:after{
+	content: "-";
+	visibility : visible;
+}
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>4</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+	</header>
+	
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>Verify UILogger:</label>
+		<element>title</element>
+	</option>
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>setcurrentloglevel</label>
+		<element>setcurrentloglevel</element>
+	</option>
+	
+	<option key="0|2">
+		<widget>Label</widget>
+		<label>SetCurrentLogLevel</label>
+		<element>SetCurrentLogLevel</element>
+	</option>
+	<option key="0|3">
+		<widget>TextBox</widget>
+		<label>20000</label>
+		<element>loglevelvalue</element>
+	</option>
+
+</data-set>

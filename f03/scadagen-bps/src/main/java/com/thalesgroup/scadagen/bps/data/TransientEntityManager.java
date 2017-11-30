@@ -11,6 +11,7 @@ import com.thalesgroup.hv.common.HypervisorConversionException;
 import com.thalesgroup.hv.common.HypervisorException;
 import com.thalesgroup.hv.sdk.connector.notification.tools.TransientSubscriptionBuilder;
 import com.thalesgroup.hv.ws.notification_v1.xsd.FilterType;
+import com.thalesgroup.scadagen.bps.conf.bps.NotificationHandlingMode;
 import com.thalesgroup.scadagen.bps.connector.operation.IGenericOperationConnector;
 import com.thalesgroup.scadagen.bps.connector.subscription.IGenericSubscriptionConnector;
 
@@ -20,6 +21,9 @@ public class TransientEntityManager extends EntityManagerAbstract<TransientEntit
 
 	public TransientEntityManager(IGenericSubscriptionConnector subscriptionConnector, IGenericOperationConnector operationConnector) {
 		super(subscriptionConnector, operationConnector);
+		
+		// Override default NotificationHandlingMode for transient (alarm, event, olslist) type
+		notificationHandlingMode_ = NotificationHandlingMode.NEW_CHANGE_ONLY;
 	}
 
 	public void startSubscription(Set<TransientEntityDataDescription> entityDataDescriptions)

@@ -2295,4 +2295,22 @@
 		<tooltips>Change User Password</tooltips>
 	</option>
 	
+	
+	<option key="423">
+		<type>M</type>
+		<name>Log</name>
+		<title>Log</title>
+	</option>
+	
+	<option key="424">
+		<type>P</type>
+		<name>Verify UILogger</name>
+		<title>Verify UILogger</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Log/EntryPoint.view.xml</uiView>
+		<tooltips>Verify UILogger</tooltips>
+	</option>
+	
 </data-set>

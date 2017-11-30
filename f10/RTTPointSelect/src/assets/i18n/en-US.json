@@ -1,0 +1,28 @@
+{
+  "BUTTON": {
+		"APPLY": "Apply",
+		"ASSIGN": "Assign",
+		"CANCEL": "Cancel",
+		"CONFIRM": "Confirm",
+		"CREATE": "Create",
+		"REMOVE": "Remove",
+    "RESET": "Reset",
+    "DISPLAY_CHART": "Display Chart"
+	},
+    "DESELECT_ON_DBL_CLICK": "Double-click Name to Deselect",
+    "RETRIEVEDPOINTS": "Retrieved Pointnames",
+    "FILTERALL": "Filter All",
+    "CHARTPROP": "Chart Properties",
+    "YAXIS1": "Y-Axis Label 1",
+    "YAXIS2": "Y-Axis Label 2",
+    "COLOR": "Color",
+    "ARCHIVES": "Archives",
+    "CHARTTYPE": "Chart Type",
+
+    "COL_LBL6": "Station",
+    "COL_LBL5": "System",
+    "COL_LBL4": "Equip Type",
+    "COL_LBL3": "Equip Label",
+    "COL_LBL2": "Short Label",
+    "COL_LBL1": "Point Label"
+}

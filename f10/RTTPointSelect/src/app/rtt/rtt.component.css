@@ -1,0 +1,197 @@
+.olsdata-modify-page{
+    cursor: default;
+    user-select: none;
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 1rem;
+    height: calc(100% - /*text*/1rem*2 - /*padding*/1rem*2);
+}
+
+.olsdata-list-panel{
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 0 0 auto;
+    border: thin solid black;
+    padding: 1rem;
+    height: calc(100% - /*container padding*/1rem*2);
+}
+
+.olsdata-list-table{
+    text-align: left;
+    height: calc(100% - /*container padding*/1rem*2);
+    width: 700px;
+}
+
+.olsdata-list-items{
+    border: thin solid black;
+    overflow: auto;
+}
+
+.olsdata-list-rows{
+  display: flex;
+  flex-flow: row nowrap;
+  overflow:hidden;
+  word-wrap:break-word;
+}
+
+.olsdata-list-cell{
+  border: 1px solid black;
+  width: 1rem;
+  font-size: 1rem;
+  padding: 0.5rem 0rem 0.5rem 0rem;
+  text-align: left;
+  flex: 1 0 auto;
+}
+
+.olsdata-list-header-cell{
+  background-color: lightblue;
+  color: white;
+  border: 1px solid black;
+  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
+  padding: 0.5rem 0rem 0.5rem 0rem;
+  text-align: left;
+  flex: 1 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.olsdata-panel {
+    cursor: default;
+    user-select: none;
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 1rem;
+    height: calc(100% - /*padding*/1rem*2);
+}
+
+.olsdata-table-header-cell{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.olsdata-table{
+    border: thin solid black;
+    text-align: left;
+    flex-flow: 1 1 auto;
+    /* workaround for Chrome 44, for newer browser, simply use height: 100%;*/
+    height: calc(
+        80vh -
+        /*margin*/1rem*2 - /*text*/1rem*2 - /*margin2*/1rem*2 - /*padding*/1rem*2 -
+        /*profile text*/1.5rem -
+        /*button margin*/1rem - /*button padding*/0.5rem*2 - /*button text*/1rem
+    );
+    width: 750px;
+    overflow: auto;
+}
+
+.olsdata-table-rows{
+    display: flex;
+    flex-flow: row nowrap;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.olsdata-table-items{
+    border: 1px solid black;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.olsdata-table-search-cell{
+  background-color: lightgray;
+  border: 1px solid gray;
+  padding: 1px;
+  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
+  text-align: center;
+  flex: 1 0 auto;
+  line-height: 0px;
+}
+
+.olsdata-table-header-cell{
+  background-color: darkblue;
+  color: white;
+  border: thin solid black;
+  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+  text-align: left;
+  flex: 1 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.table-filter-input {
+  width: 90px;
+  height: 0.5rem;
+}
+
+.olsdata-table-action{
+    cursor: pointer;
+}
+
+.olsdata-table-action.selected{
+    background-color: black;
+    color: white;
+}
+
+.olsdata-table-action.disabled{
+    cursor: default;
+}
+
+.olsdata-table-cell{
+    border: thin solid black;
+    font-size: 1rem;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    text-align: left;
+    flex: 1 0 auto;
+}
+
+.olsdata-color-cell{
+  border: 1px solid black;
+  width: 1rem;
+  padding: 0.5rem 0rem 0.5rem 0rem;
+  font-size: 1rem;
+  text-align: center;
+  flex: 1 0 auto;
+}
+
+/* button css */
+.olsdata-modify-actions{
+    display: flex;
+    flex-flow: row nowrap;
+    flex: 0 0 auto;
+}
+
+.olsdata-color-picker.input{
+    width:100%;
+    max-width:20px;
+}
+
+.olsdata-empty-line{
+    margin-bottom: 20px;
+}
+
+.block label {
+  display: inline-block;
+  width: 140px;
+  text-align: right;
+}
+
+.form-input{
+  width: 1rem;
+  font-size: 1rem;
+  padding: 0.5rem 0rem 0.5rem 0rem;
+  text-align: left;
+  flex: 1 0 auto;
+}
+
+.filter-all {
+  width: 750px;
+}

@@ -166,7 +166,7 @@ public class UIWidgetVerifyUIEventActionGenericControl extends UIWidgetRealize {
 				final String function = "terminate";
 				logger.begin(className, function);
 				envDown(null);
-				logger.begin(className, function);
+				logger.end(className, function);
 			};
 		};
 

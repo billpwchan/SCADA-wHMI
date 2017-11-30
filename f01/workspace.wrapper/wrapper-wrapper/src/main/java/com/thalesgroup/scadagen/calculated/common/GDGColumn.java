@@ -25,6 +25,8 @@ public abstract class GDGColumn extends OlsDecoder {
 	protected String classname				= null;
 	
 	protected String fieldName				= null;
+	
+	protected String defaultDataValue_		= "";
 
 	@Override
 	public String getComputerId() {
@@ -114,7 +116,7 @@ public abstract class GDGColumn extends OlsDecoder {
         // prepare default response
     	StringAttribute ret = new StringAttribute();
         ret.setAttributeClass(StringAttribute.class.getName());
-        ret.setValue( (dataValue!=null?dataValue:"") );
+        ret.setValue( (dataValue!=null?dataValue:defaultDataValue_) );
         ret.setValid(true);
         ret.setTimestamp(new Date());
         

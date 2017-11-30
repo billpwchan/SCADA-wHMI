@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.thalesgroup.hv.common.HypervisorException;
 import com.thalesgroup.scadagen.bps.conf.SubscriptionDataSourceConfFactory;
 import com.thalesgroup.scadagen.bps.conf.bps.BpsConfig;
+import com.thalesgroup.scadagen.bps.conf.bps.NotificationHandlingMode;
 import com.thalesgroup.scadagen.bps.conf.bps.TriggerType;
 import com.thalesgroup.scadagen.bps.conf.subscription_data_source.SubscriptionDataSource;
 import com.thalesgroup.scadagen.bps.data.ConfiguredEntityStatusesDataDescriptionAbstract;
@@ -32,6 +33,7 @@ public class SubscriptionDataSourceImpl extends DataSourceAbstract<SubscriptionD
 		super(SubscriptionDataSource.class);
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void init(BpsConfig config, Set<SubscriptionDataSource> dataSources) {
 
 		bpsConfigId_ = config.getBpsConfiguration().getName();
@@ -49,6 +51,10 @@ public class SubscriptionDataSourceImpl extends DataSourceAbstract<SubscriptionD
 				entitiesManager_ = getBPS().createCfgEntitiesManager();
 			} else {
 				entitiesManager_ = getBPS().createTransientEntitiesManager();
+			}
+			NotificationHandlingMode mode = config.getMode();
+			if (mode != null) {
+				entitiesManager_.setNotificationHandlingMode(mode);
 			}
 			List<TriggerType> trigger = config.getTrigger();
 			if (trigger != null) {

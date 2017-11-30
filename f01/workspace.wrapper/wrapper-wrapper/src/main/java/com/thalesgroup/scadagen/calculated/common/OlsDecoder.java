@@ -24,6 +24,8 @@ public abstract class OlsDecoder extends SCSStatusComputer {
 	protected final String listname1		= "listname";
 	
 	protected final String fieldname1		= ".fieldname1";
+	
+	protected final String defaultDataValue	= ".defaultDataValue";
 
 	protected String field1					= null;
 	

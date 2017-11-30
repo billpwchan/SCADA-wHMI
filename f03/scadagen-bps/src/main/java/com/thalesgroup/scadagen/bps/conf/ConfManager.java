@@ -35,6 +35,7 @@ public class ConfManager {
 
 	private IConnectorTools iConnectorTools_;
 	
+	@SuppressWarnings("unused")
 	private OperationConfigLoader hvOperationConfigLoader_;
 	
 	private BpsConfLoader configLoader_;
@@ -77,7 +78,8 @@ public class ConfManager {
         } catch (HypervisorConversionException e) {
         	LOGGER.warn("SCADAgen BA - no bindings defined");
         }
-        
+  
+        // initialize OperationConfigLoader singleton
 		hvOperationConfigLoader_ = OperationConfigLoader.getInstance();
 		
 		configLoader_ = BpsConfLoader.getInstance();
@@ -103,6 +105,7 @@ public class ConfManager {
 		return cfg;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DataSourceAbstract<? extends DataSource> getDataSource(String configId) throws HypervisorException {
 		BpsConfig config = getConfig(configId);
 		Set<DataSource> dataSourceConf = new HashSet(config.getSubject().getDataSource());
@@ -121,6 +124,7 @@ public class ConfManager {
 		return dataSource;
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Set<DataSourceAbstract<? extends DataSource>> getDataSources() throws HypervisorException {
 		Set<DataSourceAbstract<? extends DataSource>> dataSources = new HashSet();
 		for (String configName: configLoader_.getConfigNameSet()) {

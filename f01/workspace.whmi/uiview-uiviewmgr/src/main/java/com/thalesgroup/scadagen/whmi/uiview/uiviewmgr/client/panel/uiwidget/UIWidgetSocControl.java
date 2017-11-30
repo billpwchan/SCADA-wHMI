@@ -248,6 +248,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 							} else {
 								preparegrc();
 							}
+							sendDisableCheckBoxEvent(true);
 							
 						} else if (element.equals(retryElement)) {
 
@@ -805,7 +806,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 							if (prevGrcStatus != grcStatus ) {
 								if (reserveNeeded()) {
 									String [] reserveAliases = getReserveAlias(resrvUnreserveReqID);
-									unsetReserve(reserveAliases);
+									unsetReserve(reserveAliases);									
 								}
 								
 								readGrcStepStatuses(numSteps);
@@ -1074,6 +1075,18 @@ public class UIWidgetSocControl extends UIWidget_i {
 			logger.debug(className, function, "fire UIEventAction reloadDataEvent");
 		}
 	}
+	
+	private void sendDisableCheckBoxEvent(boolean flag){
+		final String function = "sendDisableCheckBoxEvent";
+		UIEventAction disableCheckBoxEvent = new UIEventAction();
+		if (disableCheckBoxEvent != null){
+			disableCheckBoxEvent.setParameter(ViewAttribute.OperationString1.toString(), DataGridEvent.DisableCheckBox.toString());
+			disableCheckBoxEvent.setParameter(ViewAttribute.OperationString2.toString(), targetDataGridB);
+			disableCheckBoxEvent.setParameter(ViewAttribute.OperationString3.toString(), flag);
+			getEventBus().fireEvent(disableCheckBoxEvent);
+			logger.debug(className, function, "fire UIEventAction disableCheckBoxEvent[{}]", flag);
+		}
+	}
 
 	private void sendDisplayMessageEvent(String msg) {
 		sendDisplayMessageEvent(msg, null);
@@ -1291,7 +1304,10 @@ public class UIWidgetSocControl extends UIWidget_i {
 							
 							logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
 							uiEventActionProcessor_i.executeActionSet(actionsetkey);
-						}							
+						}
+						logger.debug(className, function, "SOC ends with setReadResult-values:[{}]", values);
+						logger.debug("Sending DisableCheckBox event when SOC ends.");
+						sendDisableCheckBoxEvent(false);
 					}
 				}
 			}

@@ -1,0 +1,214 @@
+<div class="panel panel-default">
+
+    <div class="row">
+        <label class="col-md-1">{{ 'ARCHIVES' | translate }}: </label>
+        <select [(ngModel)]="listName" name="listName">
+          <option *ngFor="let n of archiveNameList" [ngValue]="n">{{n}}</option>
+        </select>
+        <!-- input name="listName" class="col-md-2 input" type="text" [(ngModel)]="listName" -->
+    </div>
+
+    <div>
+        <button class="btn btn-primary" (click)="prepareOlsdataObj()">{{ 'Get Data' | translate }}</button>
+    </div>
+  <div class="olsdata-modify-page">
+      <!-- retrieved olsdata items -->
+      <div class="olsdata-panel" *ngIf="!isEmptyList(olsList)">
+        <div class="olsdata-table">
+              <div class="olsdata-table-items" *ngIf="!isEmptyList(olsList)">
+                {{ 'RETRIEVEDPOINTS' | translate }}
+                <div class="olsdata-table-rows">
+                    <div class="olsdata-table-search-cell">
+                        <input class="table-filter-input" type="text" name="ols" [(ngModel)]="filter.column1" placeholder="Column Filter">
+                    </div>
+                    <div class="olsdata-table-search-cell">
+                        <input class="table-filter-input" type="text" name="ols" [(ngModel)]="filter.column2" placeholder="Column Filter">
+                    </div>
+                    <div class="olsdata-table-search-cell">
+                        <input class="table-filter-input" type="text" name="ols" [(ngModel)]="filter.column3" placeholder="Column Filter">
+                    </div>
+                    <div class="olsdata-table-search-cell">
+                        <input class="table-filter-input" type="text" name="ols" [(ngModel)]="filter.column4" placeholder="Column Filter">
+                    </div>
+                    <div class="olsdata-table-search-cell">
+                        <input class="table-filter-input" type="text" name="ols" [(ngModel)]="filter.column5" placeholder="Column Filter">
+                    </div>
+                    <div class="olsdata-table-search-cell">
+                        <input class="table-filter-input" type="text" name="ols" [(ngModel)]="filter.column6" placeholder="Column Filter">
+                    </div>
+                </div>
+                <div class="olsdata-table-rows">
+                  <div class="olsdata-table-header-cell">
+                    {{'COL_LBL1' | translate}}
+                  </div>
+                  <div class="olsdata-table-header-cell">
+                    {{'COL_LBL2' | translate}}
+                  </div>
+                  <div class="olsdata-table-header-cell">
+                    {{'COL_LBL3' | translate}}
+                  </div>
+                  <div class="olsdata-table-header-cell">
+                    {{'COL_LBL4' | translate}}
+                  </div>
+                  <div class="olsdata-table-header-cell">
+                    {{'COL_LBL5' | translate}}
+                  </div>
+                  <div class="olsdata-table-header-cell">
+                    {{'COL_LBL6' | translate}}
+                  </div>
+                </div>
+                <div class="olsdata-table-rows" *ngFor="let ols of olsList | olsfilter:filter">
+                    <div class="olsdata-table-cell olsdata-table-action" [class.selected]="isSelectedOls(ols.ID)" (click)="selectOls(ols)" (dblclick)="deselectOls(ols)">
+                      {{ ols.column1 }}
+                    </div>
+                    <div class="olsdata-table-cell olsdata-table-action" [class.selected]="isSelectedOls(ols.ID)" (click)="selectOls(ols)" (dblclick)="deselectOls(ols)">
+                      {{ ols.column2 }}
+                    </div>
+                    <div class="olsdata-table-cell olsdata-table-action" [class.selected]="isSelectedOls(ols.ID)" (click)="selectOls(ols)" (dblclick)="deselectOls(ols)">
+                      {{ ols.column3 }}
+                    </div>
+                    <div class="olsdata-table-cell olsdata-table-action" [class.selected]="isSelectedOls(ols.ID)" (click)="selectOls(ols)" (dblclick)="deselectOls(ols)">
+                      {{ ols.column4 }}
+                    </div>
+                    <div class="olsdata-table-cell olsdata-table-action" [class.selected]="isSelectedOls(ols.ID)" (click)="selectOls(ols)" (dblclick)="deselectOls(ols)">
+                      {{ ols.column5 }}
+                    </div>
+                    <div class="olsdata-table-cell olsdata-table-action" [class.selected]="isSelectedOls(ols.ID)" (click)="selectOls(ols)" (dblclick)="deselectOls(ols)">
+                      {{ ols.column6 }}
+                    </div>
+
+                    <!-- for if the Name cannot be parsed, then the whole Name would be shown -->
+                    <!--
+                    <div
+                      *ngIf="isEmptyRequiredColumns(ols)"
+                      class="olsdata-table-cell olsdata-table-action"
+                      [class.selected]="isSelectedOls(ols.ID)"
+                      (click)="selectOls(ols)"
+                      (dblclick)="deselectOls(ols)"
+                    >
+                      {{ ols.Name }}
+                    </div>
+                    -->
+                </div>
+              </div>
+        </div>
+
+            <div class="label">
+              <label>{{ 'FILTERALL' | translate }}: </label>
+            </div>
+            <div class="label">
+              <input class="filter-all" type="text" name="ols" [(ngModel)]="filter.Name" placeholder="Keyword Filter">
+            </div>
+
+        <div class="olsdata-empty-line"></div>
+        <div class="olsdata-empty-line"></div>
+        <u>{{ 'CHARTPROP' | translate }}</u>
+        <div class="block">
+          <div class="label">
+              <label>{{ 'YAXIS1' | translate }}: </label>
+              <input [(ngModel)]="yaxislabel1" placeholder="name of y-axis 1"/>
+          </div>
+          <div class="label">
+            <label>{{ 'YAXIS2' | translate }}: </label>
+            <input [(ngModel)]="yaxislabel2" placeholder="name of y-axis 2 (Optional)"/>
+          </div>
+          <div class="label">
+            <label>{{ 'CHARTTYPE' | translate }}: </label>
+            <select [(ngModel)]="chType" name="chType">
+              <option *ngFor="let n of chartTypeList" [ngValue]="n">{{n}}</option>
+            </select>
+          </div>
+
+          <div class="olsdata-empty-line"></div>
+          <div class="row" >
+              <button
+                  class="btn btn-primary"
+                  *ngIf="!createProfile"
+                  (click)="displayTrend()"
+              >
+                  {{'BUTTON.DISPLAY_CHART' | translate}}
+              </button>
+              <button
+                  class="btn btn-primary"
+                  (click)="onReset()"
+              >
+                  {{'BUTTON.RESET' | translate}}
+              </button>
+          </div>
+        </div>
+      </div>
+      <!-- selected olsdata items -->
+      <div class="olsdata-panel" *ngIf="!isEmptyList(selectedOlsdatas)">
+        <div class="olsdata-list-table">
+            <div class="olsdata-list-panel">
+              <div class="olsdata-list-items" *ngIf="!isEmptyList(selectedOlsdatas)">
+                <div class="olsdata-list-rows">
+                    <div class="olsdata-list-cell olsdata-table-action">
+                        {{'DESELECT_ON_DBL_CLICK' | translate}}
+                    </div>
+                </div>
+                <div class="olsdata-list-rows">
+                  <div class="olsdata-list-header-cell">
+                      {{'COLOR' | translate}}
+                  </div>
+                  <div class="olsdata-list-header-cell">
+                    {{'COL_LBL1' | translate}}
+                  </div>
+                  <div class="olsdata-list-header-cell">
+                    {{'COL_LBL2' | translate}}
+                  </div>
+                  <div class="olsdata-list-header-cell">
+                    {{'COL_LBL3' | translate}}
+                  </div>
+                  <div class="olsdata-list-header-cell">
+                    {{'COL_LBL4' | translate}}
+                  </div>
+                  <div class="olsdata-list-header-cell">
+                    {{'COL_LBL5' | translate}}
+                  </div>
+                  <div class="olsdata-list-header-cell">
+                    {{'COL_LBL6' | translate}}
+                  </div>
+                </div>
+                <div class="olsdata-list-rows" *ngFor="let selectedOls of selectedOlsdatas;">
+                    <div class="olsdata-color-cell olsdata-color-picker">
+                        <input [(colorPicker)]="selectedOls.color" [size]="4" [style.background]="selectedOls.color" [value]="selectedOls.color"/>
+                    </div>
+                    <div class="olsdata-list-cell olsdata-table-action" (dblclick)="deselectOls(selectedOls)">
+                      <span class="tooltip-text tooltip-text-top">
+                          {{ selectedOls.column1 }}
+                      </span>
+                    </div>
+                    <div class="olsdata-list-cell olsdata-table-action" (dblclick)="deselectOls(selectedOls)">
+                      <span class="tooltip-text tooltip-text-top">
+                          {{ selectedOls.column2 }}
+                      </span>
+                    </div>
+                    <div class="olsdata-list-cell olsdata-table-action" (dblclick)="deselectOls(selectedOls)">
+                      <span class="tooltip-text tooltip-text-top">
+                          {{ selectedOls.column3 }}
+                      </span>
+                    </div>
+                    <div class="olsdata-list-cell olsdata-table-action" (dblclick)="deselectOls(selectedOls)">
+                      <span class="tooltip-text tooltip-text-top">
+                          {{ selectedOls.column4 }}
+                      </span>
+                    </div>
+                    <div class="olsdata-list-cell olsdata-table-action" (dblclick)="deselectOls(selectedOls)">
+                      <span class="tooltip-text tooltip-text-top">
+                          {{ selectedOls.column5 }}
+                      </span>
+                    </div>
+                    <div class="olsdata-list-cell olsdata-table-action" (dblclick)="deselectOls(selectedOls)">
+                      <span class="tooltip-text tooltip-text-top">
+                          {{ selectedOls.column6 }}
+                      </span>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+  </div>
+
+</div>

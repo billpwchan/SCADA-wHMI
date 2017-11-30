@@ -10,19 +10,19 @@
                   <!-- class="material" -->
                   <ngx-datatable
                     class="bootstrap"
-                    [rows]="rows_card"
+                    [rows]="rows_scenariocard"
                     [loadingIndicator]="loadingIndicator"
-                    [columns]="columns_card"
+                    [columns]="columns_scenariocard"
                     [columnMode]="'force'"
                     [headerHeight]="50"
                     [footerHeight]="50"
                     [rowHeight]="'auto'"
                     [reorderable]="reorderable"
                     
-                    [selected]="selected_card"
+                    [selected]="selected_scenariocard"
                     [selectionType]="'single'"
-                    (activate)="onRowActivate('card', $event)"
-                    (select)="onRowSelect('card', $event)">
+                    (activate)="onRowActivate('scenariocard', $event)"
+                    (select)="onRowSelect('scenariocard', $event)">
                     
                     >
                   </ngx-datatable>
@@ -59,19 +59,19 @@
         <!-- class="material" -->
         <ngx-datatable
           class="bootstrap"
-          [rows]="rows_step"
+          [rows]="rows_scenariostep"
           [loadingIndicator]="loadingIndicator"
-          [columns]="columns_step"
+          [columns]="columns_scenariostep"
           [columnMode]="'force'"
           [headerHeight]="50"
           [footerHeight]="50"
           [rowHeight]="'auto'"
           [reorderable]="reorderable"
           
-          [selected]="selected_step"
+          [selected]="selected_scenariostep"
           [selectionType]="'single'"
-          (activate)="onRowActivate('step', $event)"
-          (select)="onRowSelect('step', $event)">
+          (activate)="onRowActivate('scenariostep', $event)"
+          (select)="onRowSelect('scenariostep', $event)">
         </ngx-datatable>
       </div>
       <div>

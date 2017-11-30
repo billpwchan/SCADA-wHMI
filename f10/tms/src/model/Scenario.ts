@@ -18,7 +18,7 @@ export class ScenarioStep {
       , public point: string
       , public value: number
       , public delay: number
-      , public status: boolean
+      , public status: number
     ){}
   }
 
@@ -28,9 +28,10 @@ export class ScenarioStep {
 export class ScenarioCard {
     // name: string;
     // state: boolean;
-    public scenarioSteps: ScenarioStep[] = [];
+    public step: number;
+    public steps: ScenarioStep[] = [];
     constructor(
         public name: string
-        , public state: boolean
+        , public state: number
     ){}
 }

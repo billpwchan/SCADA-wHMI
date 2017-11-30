@@ -7,24 +7,32 @@
               <legend class="">{{ '&ScenarioList' | translate }}</legend>
               <div>
                 <div>
+                  <!-- class="material" -->
                   <ngx-datatable
-                    class="material"
-                    [rows]="rows_scenariolist"
+                    class="bootstrap"
+                    [rows]="rows_scenariocard"
                     [loadingIndicator]="loadingIndicator"
-                    [columns]="columns_scenariolist"
+                    [columns]="columns_scenariocard"
                     [columnMode]="'force'"
                     [headerHeight]="50"
                     [footerHeight]="50"
                     [rowHeight]="'auto'"
-                    [reorderable]="reorderable">
+                    [reorderable]="reorderable"
+                    
+                    [selected]="selected_scenariocard"
+                    [selectionType]="'single'"
+                    (activate)="onRowActivate('scenariocard', $event)"
+                    (select)="onRowSelect('scenariocard', $event)">
+                    
+                    >
                   </ngx-datatable>
                 </div>
                 <div>
                     <label>{{ '&Modify' | translate }}</label>
                     <button type="button" class="btn btn-info tms-card-btn-new" [disabled]="btnDisabledNew" (click)="btnClicked('new')">{{ '&New' | translate }}</button>
-                    <button type="button" class="btn btn-info tms-card-btn-modify" [disabled]="btnDisabledModify" (click)="btnClicked('modify')">{{ '&Modify' | translate }}</button>
+                    <!--<button type="button" class="btn btn-info tms-card-btn-modify" [disabled]="btnDisabledModify" (click)="btnClicked('modify')">{{ '&Modify' | translate }}</button>-->
                     <button type="button" class="btn btn-info tms-card-btn-delete" [disabled]="btnDisabledDelete" (click)="btnClicked('delete')">{{ '&Delete' | translate }}</button>
-                    <button type="button" class="btn btn-info tms-card-btn-copy" [disabled]="btnDisabledCopy" (click)="btnClicked('copy')">{{ '&Copy' | translate }}</button>
+                    <!--button type="button" class="btn btn-info tms-card-btn-copy" [disabled]="btnDisabledCopy" (click)="btnClicked('copy')">{{ '&Copy' | translate }}</button>-->
                 </div>
                 <div>
                   <hr>
@@ -33,10 +41,10 @@
                     <div>
                         <label>{{ '&Execute' | translate }}</label>
                         <button type="button" class="btn btn-info tms-card-btn-start" [disabled]="btnDisabledStart" (click)="btnClicked('start')">{{ '&Start' | translate }}</button>
-                        <button type="button" class="btn btn-info tms-card-btn-pause" [disabled]="btnDisabledPause" (click)="btnClicked('pause')">{{ '&Pause' | translate }}</button>
-                        <button type="button" class="btn btn-info tms-card-btn-resume" [disabled]="btnDisabledResume" (click)="btnClicked('resume')">{{ '&Resume' | translate }}</button>
+                        <!--<button type="button" class="btn btn-info tms-card-btn-pause" [disabled]="btnDisabledPause" (click)="btnClicked('pause')">{{ '&Pause' | translate }}</button>-->
+                        <!--<button type="button" class="btn btn-info tms-card-btn-resume" [disabled]="btnDisabledResume" (click)="btnClicked('resume')">{{ '&Resume' | translate }}</button>-->
                         <button type="button" class="btn btn-info tms-card-btn-stop" [disabled]="btnDisabledStop" (click)="btnClicked('stop')">{{ '&Stop' | translate }}</button>
-                        <button type="button" class="btn btn-info tms-card-btn-reset" [disabled]="btnDisabledReset" (click)="btnClicked('reset')">{{ '&Reset' | translate }}</button>
+                        <!--<button type="button" class="btn btn-info tms-card-btn-reset" [disabled]="btnDisabledReset" (click)="btnClicked('reset')">{{ '&Reset' | translate }}</button>-->
                     </div>
                 </div>
             </div>
@@ -48,24 +56,30 @@
     <fieldset class="">
       <legend class="">{{ '&ScenarioStepList' | translate }}</legend>
       <div>
+        <!-- class="material" -->
         <ngx-datatable
-          class="material"
-          [rows]="rows_steplist"
+          class="bootstrap"
+          [rows]="rows_scenariostep"
           [loadingIndicator]="loadingIndicator"
-          [columns]="columns_steplist"
+          [columns]="columns_scenariostep"
           [columnMode]="'force'"
           [headerHeight]="50"
           [footerHeight]="50"
           [rowHeight]="'auto'"
-          [reorderable]="reorderable">
+          [reorderable]="reorderable"
+          
+          [selected]="selected_scenariostep"
+          [selectionType]="'single'"
+          (activate)="onRowActivate('scenariostep', $event)"
+          (select)="onRowSelect('scenariostep', $event)">
         </ngx-datatable>
       </div>
       <div>
         <label>{{ '&Modifystep' | translate }}</label>
         <button type="button" class="btn btn-info tms-step-btn-addedstep" [disabled]="btnDisabledAddedStep" (click)="btnClicked('addedstep')">{{ '&AddStep' | translate }}</button>
         <button type="button" class="btn btn-info tms-step-btn-deletestep" [disabled]="btnDisabledDeleteStep" (click)="btnClicked('deletestep')">{{ '&DeleteStep' | translate }}</button>
-        <button type="button" class="btn btn-info tms-step-btn-savescenario" [disabled]="btnDisabledSaveScenario" (click)="btnClicked('savescenario')">{{ '&SaveScenario' | translate }}</button>
-        <button type="button" class="btn btn-info tms-step-btn-reloadscenario" [disabled]="btnDisabledReloadScenario" (click)="btnClicked('reloadscenario')">{{ '&ReloadScenario' | translate }}</button>
+        <!--<button type="button" class="btn btn-info tms-step-btn-savescenario" [disabled]="btnDisabledSaveScenario" (click)="btnClicked('savescenario')">{{ '&SaveScenario' | translate }}</button>-->
+        <!--<button type="button" class="btn btn-info tms-step-btn-reloadscenario" [disabled]="btnDisabledReloadScenario" (click)="btnClicked('reloadscenario')">{{ '&ReloadScenario' | translate }}</button>-->
       </div>
     </fieldset>
   </form>

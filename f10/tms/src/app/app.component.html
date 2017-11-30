@@ -1,0 +1,94 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+
+  <form>
+      <div class="container">
+          <fieldset class="">
+              <legend class="">{{ '&ScenarioList' | translate }}</legend>
+              <div>
+                <div>
+                  <ngx-datatable
+                    class="material"
+                    [rows]="rows_scenariolist"
+                    [loadingIndicator]="loadingIndicator"
+                    [columns]="columns_scenariolist"
+                    [columnMode]="'force'"
+                    [headerHeight]="50"
+                    [footerHeight]="50"
+                    [rowHeight]="'auto'"
+                    [reorderable]="reorderable">
+                  </ngx-datatable>
+                </div>
+                <div>
+                    <label>{{ '&Modify' | translate }}</label>
+                    <button type="button" class="btn btn-info tms-card-btn-new" [disabled]="btnDisabledNew" (click)="btnClicked('new')">{{ '&New' | translate }}</button>
+                    <button type="button" class="btn btn-info tms-card-btn-modify" [disabled]="btnDisabledModify" (click)="btnClicked('modify')">{{ '&Modify' | translate }}</button>
+                    <button type="button" class="btn btn-info tms-card-btn-delete" [disabled]="btnDisabledDelete" (click)="btnClicked('delete')">{{ '&Delete' | translate }}</button>
+                    <button type="button" class="btn btn-info tms-card-btn-copy" [disabled]="btnDisabledCopy" (click)="btnClicked('copy')">{{ '&Copy' | translate }}</button>
+                </div>
+                <div>
+                  <hr>
+                </div>
+                <div>
+                    <div>
+                        <label>{{ '&Execute' | translate }}</label>
+                        <button type="button" class="btn btn-info tms-card-btn-start" [disabled]="btnDisabledStart" (click)="btnClicked('start')">{{ '&Start' | translate }}</button>
+                        <button type="button" class="btn btn-info tms-card-btn-pause" [disabled]="btnDisabledPause" (click)="btnClicked('pause')">{{ '&Pause' | translate }}</button>
+                        <button type="button" class="btn btn-info tms-card-btn-resume" [disabled]="btnDisabledResume" (click)="btnClicked('resume')">{{ '&Resume' | translate }}</button>
+                        <button type="button" class="btn btn-info tms-card-btn-stop" [disabled]="btnDisabledStop" (click)="btnClicked('stop')">{{ '&Stop' | translate }}</button>
+                        <button type="button" class="btn btn-info tms-card-btn-reset" [disabled]="btnDisabledReset" (click)="btnClicked('reset')">{{ '&Reset' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+          </fieldset>
+      </div>
+  </form>
+
+  <form>
+    <fieldset class="">
+      <legend class="">{{ '&ScenarioStepList' | translate }}</legend>
+      <div>
+        <ngx-datatable
+          class="material"
+          [rows]="rows_steplist"
+          [loadingIndicator]="loadingIndicator"
+          [columns]="columns_steplist"
+          [columnMode]="'force'"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          [rowHeight]="'auto'"
+          [reorderable]="reorderable">
+        </ngx-datatable>
+      </div>
+      <div>
+        <label>{{ '&Modifystep' | translate }}</label>
+        <button type="button" class="btn btn-info tms-step-btn-addedstep" [disabled]="btnDisabledAddedStep" (click)="btnClicked('addedstep')">{{ '&AddStep' | translate }}</button>
+        <button type="button" class="btn btn-info tms-step-btn-deletestep" [disabled]="btnDisabledDeleteStep" (click)="btnClicked('deletestep')">{{ '&DeleteStep' | translate }}</button>
+        <button type="button" class="btn btn-info tms-step-btn-savescenario" [disabled]="btnDisabledSaveScenario" (click)="btnClicked('savescenario')">{{ '&SaveScenario' | translate }}</button>
+        <button type="button" class="btn btn-info tms-step-btn-reloadscenario" [disabled]="btnDisabledReloadScenario" (click)="btnClicked('reloadscenario')">{{ '&ReloadScenario' | translate }}</button>
+      </div>
+    </fieldset>
+  </form>
+
+  <form>
+      <fieldset class="">
+        <legend class="">{{ '&ExecuteSelectionStep' | translate }}</legend>
+        <div>
+          <label>{{ '&ExecuteSelectionStep' | translate }}</label>
+          <button type="button" class="btn btn-info tms-step-btn-startstep" [disabled]="btnDisabledStartStep" (click)="btnClicked('startstep')">{{ '&StartStep' | translate }}</button>
+          <button type="button" class="btn btn-info tms-step-btn-stopstep" [disabled]="btnDisabledStopStep" (click)="btnClicked('stopstep')">{{ '&StopStep' | translate }}</button>
+        </div>
+    </fieldset>
+  </form>
+
+  <form>
+    <fieldset class="">
+      <legend class="">{{ '&ImportExportScenario' | translate }}</legend>
+      <div>
+        <button type="button" class="btn btn-info tms-step-btn-exportcsv" [disabled]="btnDisabledExportCSV" (click)="btnClicked('exportcsv')">{{ '&ExportCSV' | translate }}</button>
+        <button type="button" class="btn btn-info tms-step-btn-importcv"  onclick="loadfile.click()" [disabled]="btnDisabledImportCSV" (click)="btnClicked('importcsv')">{{ '&ImportCSV' | translate }}</button>
+        <input type="file" id="upload" style="display:none" id="loadfile" accept='.csv' (change)="btnClicked('loadfile', $event)">
+      </div>
+    </fieldset>
+  </form>
+</div>

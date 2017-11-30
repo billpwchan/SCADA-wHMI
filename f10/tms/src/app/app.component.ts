@@ -152,9 +152,9 @@ export class AppComponent implements OnInit {
                 let datatableScenarioStep: DatatableScenarioStep = this.selected_scenariostep[x];
                 console.log(func,'delete','datatableScenarioStep.step',datatableScenarioStep.step,'x',x);
                 for ( let y = 0 ; y < scenarioCard.scenarioSteps.length ; ++y ) {
-                  let scenarioSteps: ScenarioStep = scenarioCard.scenarioSteps[y];
+                  let scenarioStep: ScenarioStep = scenarioCard.scenarioSteps[y];
                   console.log(func,'delete','datatableScenarioStep.step',datatableScenarioStep.step,'index',index);
-                  if ( ""+scenarioSteps.step === datatableScenarioStep.step ) {
+                  if ( ""+scenarioStep.step === datatableScenarioStep.step ) {
                     console.log(func,'delete','y',y);
                     scenarioCard.scenarioSteps.splice(y,1);
                   }
@@ -168,11 +168,69 @@ export class AppComponent implements OnInit {
     this.reloadScenarioStep();
   }
 
-  private startStep(): void {
+  private startScenarioStep(): void {
+    const func: string = "startScenarioStep";
+    console.log(func);
+    if ( this.selected_scenariostep.length > 0 ) {
+      if ( this.selected_scenariocard.length > 0 ) {
+        this.selected_scenariocard.forEach((item, index) => {
+          console.log(func,'name',item.name,'index',index);
+          for ( let i = 0 ; i < scenarioCards.length ; ++i ) {
+            let scenarioCard:ScenarioCard = scenarioCards[i];
+            console.log(func,'scenarioCard.name',scenarioCard.name);
+            if ( scenarioCard.name === item.name ) {
+              console.log(func,'delete','name',item.name,'index',index);
+  
+              for ( let x = 0 ; x < this.selected_scenariostep.length ; ++x ) {
+                let datatableScenarioStep: DatatableScenarioStep = this.selected_scenariostep[x];
+                console.log(func,'delete','datatableScenarioStep.step',datatableScenarioStep.step,'x',x);
+                for ( let y = 0 ; y < scenarioCard.scenarioSteps.length ; ++y ) {
+                  let scenarioStep: ScenarioStep = scenarioCard.scenarioSteps[y];
+                  console.log(func,'delete','datatableScenarioStep.step',datatableScenarioStep.step,'index',index);
+                  if ( ""+scenarioStep.step === datatableScenarioStep.step ) {
+                    console.log(func,'delete','y',y);
+                    scenarioStep.status = true;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+    }
     this.reloadScenarioStep();
   }
 
-  private stopStep(): void {
+  private stopScenarioStep(): void {
+    const func: string = "stopScenarioStep";
+    console.log(func);
+    if ( this.selected_scenariostep.length > 0 ) {
+      if ( this.selected_scenariocard.length > 0 ) {
+        this.selected_scenariocard.forEach((item, index) => {
+          console.log(func,'name',item.name,'index',index);
+          for ( let i = 0 ; i < scenarioCards.length ; ++i ) {
+            let scenarioCard:ScenarioCard = scenarioCards[i];
+            console.log(func,'scenarioCard.name',scenarioCard.name);
+            if ( scenarioCard.name === item.name ) {
+              console.log(func,'delete','name',item.name,'index',index);
+
+              for ( let x = 0 ; x < this.selected_scenariostep.length ; ++x ) {
+                let datatableScenarioStep: DatatableScenarioStep = this.selected_scenariostep[x];
+                console.log(func,'delete','datatableScenarioStep.step',datatableScenarioStep.step,'x',x);
+                for ( let y = 0 ; y < scenarioCard.scenarioSteps.length ; ++y ) {
+                  let scenarioStep: ScenarioStep = scenarioCard.scenarioSteps[y];
+                  console.log(func,'delete','datatableScenarioStep.step',datatableScenarioStep.step,'index',index);
+                  if ( ""+scenarioStep.step === datatableScenarioStep.step ) {
+                    console.log(func,'delete','y',y);
+                    scenarioStep.status = false;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+    }
     this.reloadScenarioStep();
   }
 

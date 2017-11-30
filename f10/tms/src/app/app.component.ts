@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { TranslateService } from '@ngx-translate/core';
-
-import { NgModel, FormsModule } from '@angular/forms';
+import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 import { ScenarioCard, ScenarioStep } from '../model/Scenario'; 
 import { DatatableScenarioCard, DatatableScenarioStep } from '../model/DatatableScenario';
+import { Console } from '@angular/core/src/console';
 
 const 
 strUrlfsstorage: string = 'http://127.0.0.1:8080'
@@ -53,8 +52,8 @@ export class AppComponent implements OnInit {
   }
 
   //Form
-  public editEnable = false;
-  public editName = "";
+  editEnable = false;
+  editName = "";
 
 
   param = {value: 'world'};
@@ -108,58 +107,73 @@ export class AppComponent implements OnInit {
     // Rset ScenarioStep
     this.rows_step = [];
 
-    let card: ScenarioCard = this.getSelectedScenarioCard();
-
-    if ( null != card ) {
-      let steps = card.steps;
-      if ( steps.length > 0 ) {
-        steps.forEach((item, index)=>{
-          let dtStep: DatatableScenarioStep = new DatatableScenarioStep(
-            ""+item.step
-            , "&location"+item.location
-            , "&system"+item.system
-            , item.equipment
-            , item.point
-            , "&equipment"+item.value
-            , ""+item.delay
-            , item.status?STR_RUNNING:STR_STOP
-          );
-          this.rows_step.push(dtStep);
-        });
-      }
-      else {
-        console.log(func,'card IS NULL');
-      }
+    if ( this.selected_card.length > 0 ) {
+        this.selected_card.forEach((item, index) => {
+          console.log(func,'name',item.name,'index',index);
+          
+          for ( let i = 0 ; i < cards.length ; ++i ) {
+            let card: ScenarioCard = cards[i];
+            console.log(func,'scenarioCard.name',card.name);
+            if ( card.name === item.name ) {
+              let steps = card.steps;
+              if ( steps.length > 0 ) {
+                steps.forEach((item, index)=>{
+                  let dtStep: DatatableScenarioStep = new DatatableScenarioStep(
+                    ""+item.step
+                    , "&location"+item.location
+                    , "&system"+item.system
+                    , item.equipment
+                    , item.point
+                    , "&equipment"+item.value
+                    , ""+item.delay
+                    , item.status?STR_RUNNING:STR_STOP
+                  );
+                  this.rows_step.push(dtStep);
+                });
+              }
+              else {
+                console.log(func,'scenarioCard.scenarioSteps IS EMPTY');
+              }
+            }
+          }
+      });
     }
-
     this.rows_step = [...this.rows_step]
   }
 
   private newScenarioStep(): void {
     const func: string = "newScenarioStep";
     console.log(func);
-    let card: ScenarioCard = this.getSelectedScenarioCard();
-    if ( null != card ) {
-      console.log(func,'name.name',card.name);
-      let key = card.steps.length;       
-      card.steps.push(new ScenarioStep(
-        key
-        , key
-        , key
-        , 'Breaker ('+key+')'
-        , 'Point # '+key
-        , key
-        , key
-        , INT_STOP
-      
-        , ""
-        , ""
-        , 0
-      )
-      );
+    if ( this.selected_card.length > 0 ) {
+      this.selected_card.forEach((item, index) => {
+        console.log(func,'name',item.name,'index',index);
+        for ( let i = 0 ; i < cards.length ; ++i ) {
+          console.log(func,'cards[i].name',cards[i].name);
+          if ( cards[i].name === item.name ) {
+            console.log(func,'new','name',item.name,'index',index);
+            let key = cards[i].steps.length;       
+            cards[i].steps.push(new ScenarioStep(
+              key
+              , key
+              , key
+              , 'Breaker ('+key+')'
+              , 'Point # '+key
+              , key
+              , key
+              , INT_STOP
+            
+              , ""
+              , ""
+              , 0
+            
+            )
+            );
+          }
+        }
+      });
     }
     else {
-      console.log(func,'card IS NULL');
+      console.log(func,'selected_card IS EMPTY');
     }
     this.reloadScenarioStep();
   }
@@ -192,44 +206,48 @@ export class AppComponent implements OnInit {
   private getSelectedScenarioCard(): ScenarioCard {
     const func: string = "getSelectedScenarioCard";
     console.log(func);
-    var card: ScenarioCard = null;
+    let card: ScenarioCard = null;
     if ( this.selected_card.length > 0 ) {
       this.selected_card.forEach((item, index) => {
         console.log(func,'name',item.name,'index',index);
         for ( let i = 0 ; i < cards.length ; ++i ) {
-          console.log(func,'cards[i].name',cards[i].name);
-          if ( cards[i].name === item.name ) {
-            console.log(func,cards[i]);
-            card = cards[i];
-            break;
-          }
+          card = cards[i];
+          break;
         }
       });
     }
-    console.log(func,card);
     return card;
   }
 
   private deleteScenarioStep(): void {
     const func: string = "deleteScenarioStep";
     console.log(func);
-    let card: ScenarioCard = this.getSelectedScenarioCard();
-    if ( null != card ) {
-      for ( let x = 0 ; x < this.selected_step.length ; ++x ) {
-        let dtStep: DatatableScenarioStep = this.selected_step[x];
-        console.log(func,'delete','dtStep.step',dtStep.step,'x',x);
-        for ( let y = 0 ; y < card.steps.length ; ++y ) {
-          let step: ScenarioStep = card.steps[y];
-          console.log(func,'delete','dtStep.step',dtStep.step);
-          if ( ""+step.step === dtStep.step ) {
-            console.log(func,'delete','y',y);
-            card.steps.splice(y,1);
+    if ( this.selected_step.length > 0 ) {
+      if ( this.selected_card.length > 0 ) {
+        this.selected_card.forEach((item, index) => {
+          console.log(func,'name',item.name,'index',index);
+          for ( let i = 0 ; i < cards.length ; ++i ) {
+            let card:ScenarioCard = cards[i];
+            console.log(func,'card.name',card.name);
+            if ( card.name === item.name ) {
+              console.log(func,'delete','name',item.name,'index',index);
+  
+              for ( let x = 0 ; x < this.selected_step.length ; ++x ) {
+                let dtStep: DatatableScenarioStep = this.selected_step[x];
+                console.log(func,'delete','dtStep.step',dtStep.step,'x',x);
+                for ( let y = 0 ; y < card.steps.length ; ++y ) {
+                  let step: ScenarioStep = card.steps[y];
+                  console.log(func,'delete','dtStep.step',dtStep.step,'index',index);
+                  if ( ""+step.step === dtStep.step ) {
+                    console.log(func,'delete','y',y);
+                    card.steps.splice(y,1);
+                  }
+                }
+              }
+            }
           }
-        }
+        });
       }
-    }
-    else {
-      console.log(func,"curExecCard IS NULL");
     }
     this.reloadScenarioStep();
   }
@@ -242,8 +260,23 @@ export class AppComponent implements OnInit {
     console.log(func,"firstStep[",firstStep,"]");
 
     if ( firstStep ) {
-      this.curExecCard = this.getSelectedScenarioCard();
-      console.log(func,this.curExecCard);
+
+      if ( this.selected_card.length > 0 ) {
+        this.selected_card.forEach((item, index) => {
+          console.log(func,'name',item.name,'index',index);
+          for ( let i = 0 ; i < cards.length ; ++i ) {
+            let card:ScenarioCard = cards[i];
+            console.log(func,'card.name',card.name);
+            if ( card.name === item.name ) {
+              console.log(func,'name',item.name,'index',index);
+              this.curExecCard = card;
+            }
+          }
+        });
+      }
+
+      // NOK
+      // this.curExecCard = this.getSelectedScenarioCard();
     }
 
     if ( null != this.curExecCard ) {
@@ -324,19 +357,71 @@ export class AppComponent implements OnInit {
     const func: string = "startScenarioStep";
     console.log(func);
 
-    let step: ScenarioStep = this.getSelectedScenarioStep();
-    step.status = INT_RUNNING;
-
+    if ( this.selected_step.length > 0 ) {
+      if ( this.selected_card.length > 0 ) {
+        this.selected_card.forEach((item, index) => {
+          console.log(func,'name',item.name,'index',index);
+          for ( let i = 0 ; i < cards.length ; ++i ) {
+            let card:ScenarioCard = cards[i];
+            console.log(func,'card.name',card.name);
+            if ( card.name === item.name ) {
+              console.log(func,'name',item.name,'index',index);
+  
+              for ( let x = 0 ; x < this.selected_step.length ; ++x ) {
+                let dtStep: DatatableScenarioStep = this.selected_step[x];
+                console.log(func,'dtStep.step',dtStep.step,'x',x);
+                for ( let y = 0 ; y < card.steps.length ; ++y ) {
+                  let step: ScenarioStep = card.steps[y];
+                  console.log(func,'dtStep.step',dtStep.step,'index',index);
+                  if ( ""+step.step === dtStep.step ) {
+                    console.log(func,'y',y);
+                    step.status = INT_RUNNING;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+    }
     this.reloadScenarioStep();
   }
 
   private stopScenarioStep(): void {
     const func: string = "stopScenarioStep";
     console.log(func);
-
-    let step: ScenarioStep = this.getSelectedScenarioStep();
-    step.status = INT_STOP;
-
+    if ( null != cards ) {
+      if ( this.selected_step.length > 0 ) {
+        if ( this.selected_card.length > 0 ) {
+          this.selected_card.forEach((item, index) => {
+            console.log(func,'name',item.name,'index',index);
+            for ( let i = 0 ; i < cards.length ; ++i ) {
+              let card:ScenarioCard = cards[i];
+              console.log(func,'card.name',card.name);
+              if ( card.name === item.name ) {
+                console.log(func,'delete','name',item.name,'index',index);
+  
+                for ( let x = 0 ; x < this.selected_step.length ; ++x ) {
+                  let dtStep: DatatableScenarioStep = this.selected_step[x];
+                  console.log(func,'delete','dtStep.step',dtStep.step,'x',x);
+                  for ( let y = 0 ; y < card.steps.length ; ++y ) {
+                    let step: ScenarioStep = card.steps[y];
+                    console.log(func,'delete','dtStep.step',dtStep.step,'index',index);
+                    if ( ""+step.step === dtStep.step ) {
+                      console.log(func,'delete','y',y);
+                      step.status = INT_STOP;
+                    }
+                  }
+                }
+              }
+            }
+          });
+        }
+      }
+    }
+    else {
+      console.log(func,"cards IS EMPTY");
+    }
     this.reloadScenarioStep();
   }
 
@@ -362,16 +447,16 @@ export class AppComponent implements OnInit {
     return 'Scenario # '+cards.length;
   }
 
-  private newScenario(name: string) {
+  private newScenario() {
     const func: string = "newScenario";
     console.log(func);
-    // let name: string = 'Scenario # '+cards.length;
+    let name: string = 'Scenario # '+cards.length;
     cards.push(new ScenarioCard(name, INT_STOP));
     this.reloadScenarioCard();
   }
 
-  private deleteSelectedScenario() {
-    const func: string = "deleteSelectedScenario";
+  private deleteScenario() {
+    const func: string = "deleteScenario";
     console.log(func);
     if ( this.selected_card.length > 0 ) {
       this.selected_card.forEach((item, index) => {
@@ -394,28 +479,41 @@ export class AppComponent implements OnInit {
   private startScenario(): void {
     const func: string = "startScenario";
     console.log(func);
-    let card: ScenarioCard = this.getSelectedScenarioCard();
-
-    if ( null != card ) {
-      console.log(func,'card.name',card.name);
-      card.state=INT_RUNNING;
+    if ( this.selected_card.length > 0 ) {
+      this.selected_card.forEach((item, index) => {
+        console.log(func,'name',item.name,'index',index);
+        for ( let i = 0 ; i < cards.length ; ++i ) {
+          console.log(func,'cards[i].name',cards[i].name);
+          if ( cards[i].name === item.name ) {
+            console.log(func,'start','name',item.name,'index',index);
+            cards[i].state=INT_RUNNING;
+          }
+        }
+      });
     }
     else {
       console.log(func,'selected_card IS EMPTY');
     }
-
     this.reloadScenarioCard();
   }
 
   private stopScenario(): void {
     const func: string = "stopScenario";
-    let card: ScenarioCard = this.getSelectedScenarioCard();
-    if ( null != card ) {
-      console.log(func,'card.name',card.name);
-      card.state=INT_STOP;
-     }
-      else {
-        console.log(func,'selected_card IS EMPTY');
+    console.log(func);
+    if ( this.selected_card.length > 0 ) {
+      this.selected_card.forEach((item, index) => {
+        console.log(func,'name',item.name,'index',index);
+        for ( let i = 0 ; i < cards.length ; ++i ) {
+          console.log(func,'cards[i].name',cards[i].name);
+          if ( cards[i].name === item.name ) {
+            console.log(func,'end','name',item.name,'index',index);
+            cards[i].state=INT_STOP;
+          }
+        }
+      });
+    }
+    else {
+      console.log(func,'selected_card IS EMPTY');
     }
     this.reloadScenarioCard();
   }
@@ -697,14 +795,14 @@ export class AppComponent implements OnInit {
       
     }
     else if ( btnlabel === 'delete' ) {
-      this.deleteSelectedScenario();
+      this.deleteScenario();
     }
     else if ( btnlabel === 'copy' ) {
       
     }
 
     else if ( btnlabel === 'newsave' ) {
-      this.newScenario(this.editName);
+      this.newScenario();
     }
     else if ( btnlabel === 'newsavecancel' ) {
       

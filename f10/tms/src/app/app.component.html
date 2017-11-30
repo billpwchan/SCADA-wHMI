@@ -2,74 +2,70 @@
 <div style="text-align:center">
 
   <form>
-    <div class="container">
-      <fieldset class="">
-        <legend class="">{{ '&ScenarioList' | translate }}</legend>
-          <div>
-          <div>
-            <!-- class="material" -->
-            <ngx-datatable
-              class="bootstrap"
-              [rows]="rows_card"
-              [loadingIndicator]="loadingIndicator"
-              [columns]="columns_card"
-              [columnMode]="'force'"
-              [headerHeight]="50"
-              [footerHeight]="50"
-              [rowHeight]="'auto'"
-              [reorderable]="reorderable"
-              
-              [selected]="selected_card"
-              [selectionType]="'single'"
-              (activate)="onRowActivate('card', $event)"
-              (select)="onRowSelect('card', $event)">
-              
-              >
-            </ngx-datatable>
-          </div>
-          <div>
-              <label>{{ '&Modify' | translate }}</label>
+      <div class="container">
+          <fieldset class="">
+              <legend class="">{{ '&ScenarioList' | translate }}</legend>
+              <div>
+                <div>
+                  <!-- class="material" -->
+                  <ngx-datatable
+                    class="bootstrap"
+                    [rows]="rows_card"
+                    [loadingIndicator]="loadingIndicator"
+                    [columns]="columns_card"
+                    [columnMode]="'force'"
+                    [headerHeight]="50"
+                    [footerHeight]="50"
+                    [rowHeight]="'auto'"
+                    [reorderable]="reorderable"
+                    
+                    [selected]="selected_card"
+                    [selectionType]="'single'"
+                    (activate)="onRowActivate('card', $event)"
+                    (select)="onRowSelect('card', $event)">
+                    
+                    >
+                  </ngx-datatable>
+                </div>
+                <div>
+                    <label>{{ '&Modify' | translate }}</label>
+                    <button type="button" class="btn btn-info tms-card-btn-new" 
+                    [disabled]="btnDisabledNew" 
+                    (click)="editEnable=true;btnClicked('new')"
+                    >{{ '&New' | translate }}</button>
+                    <!--<button type="button" class="btn btn-info tms-card-btn-modify" [disabled]="btnDisabledModify" (click)="btnClicked('modify')">{{ '&Modify' | translate }}</button>-->
+                    <button type="button" class="btn btn-info tms-card-btn-delete" 
+                    [disabled]="btnDisabledDelete" 
+                    (click)="btnClicked('delete')"
+                    >{{ '&Delete' | translate }}</button>
+                    <!--button type="button" class="btn btn-info tms-card-btn-copy" [disabled]="btnDisabledCopy" (click)="btnClicked('copy')">{{ '&Copy' | translate }}</button>-->
+                </div>
 
-              <button type="button" class="btn btn-info tms-card-btn-new" 
-              [disabled]="btnDisabledNew" 
-              (click)="editEnable=true;btnClicked('new')"
-              >{{ '&New' | translate }}</button>
-              
-              <!--<button type="button" class="btn btn-info tms-card-btn-modify" [disabled]="btnDisabledModify" (click)="btnClicked('modify')">{{ '&Modify' | translate }}</button>-->
-              <button type="button" class="btn btn-info tms-card-btn-delete" 
-              [disabled]="btnDisabledDelete" 
-              (click)="btnClicked('delete')"
-              >{{ '&Delete' | translate }}</button>
-              <!--button type="button" class="btn btn-info tms-card-btn-copy" [disabled]="btnDisabledCopy" (click)="btnClicked('copy')">{{ '&Copy' | translate }}</button>-->
-          </div>
-          <form>
-            <div [hidden]="!editEnable">
-                <input type="text" [(ngModel)]="editName" name="something" placeholder="{{ '&NewName' | translate }}">
-                <button type="button" class="btn btn-info tms-card-btn-new" 
-                [disabled]="btnNewSave" 
-                (click)="editEnable=false;btnClicked('newsave')"
-                >{{ '&Save' | translate }}</button>
-                <button type="button" class="btn btn-info tms-card-btn-new" 
-                [disabled]="btnNewSaveCancel" 
-                (click)="editEnable=false;btnClicked('newsavecancel')"
-                >{{ '&Cancel' | translate }}</button>
-              </div>
-          </form>
-
-          <div>
-            <hr>
-          </div>
-          <div>
-            <label>{{ '&Execute' | translate }}</label>
-            <button type="button" class="btn btn-info tms-card-btn-start" [disabled]="btnDisabledStart" (click)="btnClicked('start')">{{ '&Start' | translate }}</button>
-            <!--<button type="button" class="btn btn-info tms-card-btn-pause" [disabled]="btnDisabledPause" (click)="btnClicked('pause')">{{ '&Pause' | translate }}</button>-->
-            <!--<button type="button" class="btn btn-info tms-card-btn-resume" [disabled]="btnDisabledResume" (click)="btnClicked('resume')">{{ '&Resume' | translate }}</button>-->
-            <button type="button" class="btn btn-info tms-card-btn-stop" [disabled]="btnDisabledStop" (click)="btnClicked('stop')">{{ '&Stop' | translate }}</button>
-            <!--<button type="button" class="btn btn-info tms-card-btn-reset" [disabled]="btnDisabledReset" (click)="btnClicked('reset')">{{ '&Reset' | translate }}</button>-->
-          </div>
-        </div>
-      </fieldset>
-    </div>
+                <div [hidden]="!editEnable">
+                  <input id="newName" type="text" class="form-control" name="msg" placeholder="{{ '&NewName' | translate }}">
+                  <button type="button" class="btn btn-info tms-card-btn-new" 
+                  [disabled]="btnNewSave" 
+                  (click)="btnClicked('newsave')"
+                  >{{ '&Save' | translate }}</button>
+                  <button type="button" class="btn btn-info tms-card-btn-new" 
+                  [disabled]="btnNewSaveCancel" 
+                  (click)="editEnable=false;btnClicked('newsavecancel')"
+                  >{{ '&Cancel' | translate }}</button>
+                </div>
+                <div>
+                  <hr>
+                </div>
+                <div>
+                  <label>{{ '&Execute' | translate }}</label>
+                  <button type="button" class="btn btn-info tms-card-btn-start" [disabled]="btnDisabledStart" (click)="btnClicked('start')">{{ '&Start' | translate }}</button>
+                  <!--<button type="button" class="btn btn-info tms-card-btn-pause" [disabled]="btnDisabledPause" (click)="btnClicked('pause')">{{ '&Pause' | translate }}</button>-->
+                  <!--<button type="button" class="btn btn-info tms-card-btn-resume" [disabled]="btnDisabledResume" (click)="btnClicked('resume')">{{ '&Resume' | translate }}</button>-->
+                  <button type="button" class="btn btn-info tms-card-btn-stop" [disabled]="btnDisabledStop" (click)="btnClicked('stop')">{{ '&Stop' | translate }}</button>
+                  <!--<button type="button" class="btn btn-info tms-card-btn-reset" [disabled]="btnDisabledReset" (click)="btnClicked('reset')">{{ '&Reset' | translate }}</button>-->
+                </div>
+            </div>
+          </fieldset>
+      </div>
   </form>
 
   <form>
@@ -105,13 +101,13 @@
   </form>
 
   <form>
-    <fieldset class="">
-    <legend class="">{{ '&ExecuteSelectionStep' | translate }}</legend>
-      <div>
-        <label>{{ '&ExecuteSelectionStep' | translate }}</label>
-        <button type="button" class="btn btn-info tms-step-btn-startstep" [disabled]="btnDisabledStartStep" (click)="btnClicked('startstep')">{{ '&StartStep' | translate }}</button>
-        <button type="button" class="btn btn-info tms-step-btn-stopstep" [disabled]="btnDisabledStopStep" (click)="btnClicked('stopstep')">{{ '&StopStep' | translate }}</button>
-      </div>
+      <fieldset class="">
+        <legend class="">{{ '&ExecuteSelectionStep' | translate }}</legend>
+        <div>
+          <label>{{ '&ExecuteSelectionStep' | translate }}</label>
+          <button type="button" class="btn btn-info tms-step-btn-startstep" [disabled]="btnDisabledStartStep" (click)="btnClicked('startstep')">{{ '&StartStep' | translate }}</button>
+          <button type="button" class="btn btn-info tms-step-btn-stopstep" [disabled]="btnDisabledStopStep" (click)="btnClicked('stopstep')">{{ '&StopStep' | translate }}</button>
+        </div>
     </fieldset>
   </form>
 

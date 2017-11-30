@@ -10,19 +10,19 @@
                   <!-- class="material" -->
                   <ngx-datatable
                     class="bootstrap"
-                    [rows]="rows_scenariocard"
+                    [rows]="rows_scenariolist"
                     [loadingIndicator]="loadingIndicator"
-                    [columns]="columns_scenariocard"
+                    [columns]="columns_scenariolist"
                     [columnMode]="'force'"
                     [headerHeight]="50"
                     [footerHeight]="50"
                     [rowHeight]="'auto'"
                     [reorderable]="reorderable"
                     
-                    [selected]="selected_scenariocard"
+                    [selected]="selected_scenariolist"
                     [selectionType]="'single'"
-                    (activate)="onRowActivate('scenariocard', $event)"
-                    (select)="onRowSelect('scenariocard', $event)">
+                    (activate)="onRowActivate('scenariolist', $event)"
+                    (select)="onRowSelect('scenariolist', $event)">
                     
                     >
                   </ngx-datatable>
@@ -59,27 +59,22 @@
         <!-- class="material" -->
         <ngx-datatable
           class="bootstrap"
-          [rows]="rows_scenariostep"
+          [rows]="rows_steplist"
           [loadingIndicator]="loadingIndicator"
-          [columns]="columns_scenariostep"
+          [columns]="columns_steplist"
           [columnMode]="'force'"
           [headerHeight]="50"
           [footerHeight]="50"
           [rowHeight]="'auto'"
-          [reorderable]="reorderable"
-          
-          [selected]="selected_scenariostep"
-          [selectionType]="'single'"
-          (activate)="onRowActivate('scenariostep', $event)"
-          (select)="onRowSelect('scenariostep', $event)">
+          [reorderable]="reorderable">
         </ngx-datatable>
       </div>
       <div>
         <label>{{ '&Modifystep' | translate }}</label>
         <button type="button" class="btn btn-info tms-step-btn-addedstep" [disabled]="btnDisabledAddedStep" (click)="btnClicked('addedstep')">{{ '&AddStep' | translate }}</button>
         <button type="button" class="btn btn-info tms-step-btn-deletestep" [disabled]="btnDisabledDeleteStep" (click)="btnClicked('deletestep')">{{ '&DeleteStep' | translate }}</button>
-        <button type="button" class="btn btn-info tms-step-btn-savescenario" [disabled]="btnDisabledSaveScenario" (click)="btnClicked('savescenario')">{{ '&SaveScenario' | translate }}</button>
-        <button type="button" class="btn btn-info tms-step-btn-reloadscenario" [disabled]="btnDisabledReloadScenario" (click)="btnClicked('reloadscenario')">{{ '&ReloadScenario' | translate }}</button>
+        <!--<button type="button" class="btn btn-info tms-step-btn-savescenario" [disabled]="btnDisabledSaveScenario" (click)="btnClicked('savescenario')">{{ '&SaveScenario' | translate }}</button>-->
+        <!--<button type="button" class="btn btn-info tms-step-btn-reloadscenario" [disabled]="btnDisabledReloadScenario" (click)="btnClicked('reloadscenario')">{{ '&ReloadScenario' | translate }}</button>-->
       </div>
     </fieldset>
   </form>

@@ -17,13 +17,7 @@ strUrlfsstorage: string = 'http://127.0.0.1:8080'
 , STR_TMS_FILENAME = 'tms.csv'
 , STR_METHOD = 'method'
 , STR_DOWNLOAD = 'download'
-, STR_STREAM = 'stream'
-
-, STR_TMS_FILENAME_JSON = 'tms.json'
-
-, STR_NAME_SCEBARIOCARD='scenariocard'
-, STR_NAME_SCEBARIOSTEP='scenariostep'
-;
+, STR_STREAM = 'stream';
 
 var scenarioCards: ScenarioCard[] = [];
 
@@ -56,14 +50,34 @@ export class AppComponent implements OnInit {
 
   title = 'app';
   
- columns_scenariocard = [
+ columns_scenariolist = [
     { prop: 'name' }
     ,{ name: 'State' }
   ];
-  rows_scenariocard = new Array<DatatableScenarioCard>();
-  selected_scenariocard = new Array<DatatableScenarioCard>();
+  rows_scenariolist = new Array<DatatableScenarioCard>();
+  selected_scenariolist = new Array<DatatableScenarioCard>();
   
-  columns_scenariostep = [
+  // rows_scenariolist = new Array<DatatableScenario>();
+  // rows_scenariolist.push(new DatatableScenario('Scenario # 1', 'Stop'));
+  // rows_scenariolist.push(new DatatableScenario('Scenario # 2', 'Stop'));
+  // rows_scenariolist.push(new DatatableScenario('Scenario # 3', 'Stop'));
+  // rows_scenariolist.push(new DatatableScenario('Scenario # 4', 'Stop'));
+  // rows_scenariolist.push(new DatatableScenario('Scenario # 5', 'Stop'));
+
+  // columns_scenariolist = [
+  //   { prop: 'name' }
+  //   ,{ name: 'State' }
+  // ];
+  // rows_scenariolist = [
+  //   { name: 'Scenario # 1', state: 'Stop' }
+  //   ,{ name: 'Scenario # 2', state: 'Stop' }
+  //   ,{ name: 'Scenario # 3', state: 'Stop' }
+  //   ,{ name: 'Scenario # 4', state: 'Stop' }
+  //   ,{ name: 'Scenario # 5', state: 'Stop' }
+  // ];
+
+  // columns_steplist = new Array<DatatableScenario>();
+  columns_steplist = [
     { prop: 'step' }
     ,{ name: 'Location' }
     ,{ name: 'System' }
@@ -73,371 +87,124 @@ export class AppComponent implements OnInit {
     ,{ name: 'Delay' }
     ,{ name: 'Status' }
   ];
-  rows_scenariostep = new Array<DatatableScenarioStep>();
-  selected_scenariostep = new Array<DatatableScenarioStep>();
+  rows_steplist = [
+    { step: '1', location: 'Location # 1', system: 'POW', equipment: 'Breaker (301)', point: 'Point # 1', value: 'Open', delay: '5', status: 'Stop' }
+    ,{ step: '2', location: 'Location # 2', system: 'POW', equipment: 'Breaker (501)', point: 'Point # 2', value: 'Open', delay: '5', status: 'Stop' }
+  ];
 
-  private reloadScenarioStep(): void {
-    const func: string = "reloadScenarioStep";
-    console.log(func);
+  private _prepreScenarioDetail () {
+    console.log("_prepreScenarioDetail");
 
-    // Rset ScenarioStep
-    this.rows_scenariostep = [];
+    let scenarioCard: ScenarioCard;
 
-    if ( this.selected_scenariocard.length > 0 ) {
-        this.selected_scenariocard.forEach((item, index) => {
-          console.log(func,'name',item.name,'index',index);
-          
-          for ( let i = 0 ; i < scenarioCards.length ; ++i ) {
-            let scenarioCard: ScenarioCard = scenarioCards[i];
-            console.log(func,'scenarioCard.name',scenarioCard.name);
-            if ( scenarioCard.name === item.name ) {
-              let steps = scenarioCard.scenarioSteps;
-              if ( steps.length > 0 ) {
-                steps.forEach((item, index)=>{
-                  let datatableScenarioStep: DatatableScenarioStep = new DatatableScenarioStep(
-                    ""+item.step
-                    , "&location"+item.location
-                    , "&system"+item.system
-                    , item.equipment
-                    , item.point
-                    , "&equipment"+item.value
-                    , ""+item.delay
-                    , item.status?"Running":"Stop"
-                  );
-                  this.rows_scenariostep.push(datatableScenarioStep);
-                });
-              }
-              else {
-                console.log(func,'scenarioCard.scenarioSteps IS EMPTY');
-              }
-            }
-          }
-      });
-    }
-    this.rows_scenariostep = [...this.rows_scenariostep]
+    scenarioCards.push(new ScenarioCard('Scenario # 1', false));
+
+    scenarioCard = scenarioCards[scenarioCards.length-1];
+    scenarioCard.scenarioDetails.push(new ScenarioStep(1, 1, 1, 'Breaker (301)', 'Point # 1', 1, 5, false));
+    scenarioCard.scenarioDetails.push(new ScenarioStep(1, 1, 1, 'Breaker (501)', 'Point # 2', 1, 5, false));
+
+    scenarioCards.push(new ScenarioCard('Scenario # 2', false));
+    
+    scenarioCard = scenarioCards[scenarioCards.length-1];
+    scenarioCard.scenarioDetails.push(new ScenarioStep(1, 1, 1, 'Breaker (301)', 'Point # 1', 1, 5, false));
+    scenarioCard.scenarioDetails.push(new ScenarioStep(1, 1, 1, 'Breaker (501)', 'Point # 2', 1, 5, false));
+
+    scenarioCards.push(new ScenarioCard('Scenario # 3', false));
+    
+    scenarioCard = scenarioCards[scenarioCards.length-1];
+    scenarioCard.scenarioDetails.push(new ScenarioStep(1, 1, 1, 'Breaker (301)', 'Point # 1', 1, 5, false));
+    scenarioCard.scenarioDetails.push(new ScenarioStep(1, 1, 1, 'Breaker (501)', 'Point # 2', 1, 5, false));
+
+    scenarioCards.push(new ScenarioCard('Scenario # 4', false));
+    
+    scenarioCard = scenarioCards[scenarioCards.length-1];
+    scenarioCard.scenarioDetails.push(new ScenarioStep(1, 1, 1, 'Breaker (301)', 'Point # 1', 1, 5, false));
+    scenarioCard.scenarioDetails.push(new ScenarioStep(1, 1, 1, 'Breaker (501)', 'Point # 2', 1, 5, false));
+
+    scenarioCards.push(new ScenarioCard('Scenario # 5', false));
+    
+    scenarioCard = scenarioCards[scenarioCards.length-1];
+    scenarioCard.scenarioDetails.push(new ScenarioStep(1, 1, 1, 'Breaker (301)', 'Point # 1', 1, 5, false));
+    scenarioCard.scenarioDetails.push(new ScenarioStep(1, 1, 1, 'Breaker (501)', 'Point # 2', 1, 5, false));
   }
 
-  private newScenarioStep(): void {
-    const func: string = "newScenarioStep";
-    console.log(func);
-    if ( this.selected_scenariocard.length > 0 ) {
-      this.selected_scenariocard.forEach((item, index) => {
-        console.log(func,'name',item.name,'index',index);
-        for ( let i = 0 ; i < scenarioCards.length ; ++i ) {
-          console.log(func,'scenarioCards[i].name',scenarioCards[i].name);
-          if ( scenarioCards[i].name === item.name ) {
-            console.log(func,'new','name',item.name,'index',index);
-            let key = scenarioCards[i].scenarioSteps.length;       
-            scenarioCards[i].scenarioSteps.push(new ScenarioStep(
-              key
-              , key
-              , key
-              , 'Breaker ('+key+')'
-              , 'Point # '+key
-              , key
-              , key
-              , false)
-            );
-          }
-        }
-      });
-    }
-    else {
-      console.log(func,'selected_scenariolist IS EMPTY');
-    }
-    this.reloadScenarioStep();
-  }
+  private reloadScenarioList(): void {
+    console.log("reloadScenarioList");
+    this.rows_scenariolist = [];
+    scenarioCards.forEach((item, index) => {
 
-  private deleteScenarioStep(): void {
-    const func: string = "deleteScenarioStep";
-    console.log(func);
-    if ( this.selected_scenariostep.length > 0 ) {
-      if ( this.selected_scenariocard.length > 0 ) {
-        this.selected_scenariocard.forEach((item, index) => {
-          console.log(func,'name',item.name,'index',index);
-          for ( let i = 0 ; i < scenarioCards.length ; ++i ) {
-            let scenarioCard:ScenarioCard = scenarioCards[i];
-            console.log(func,'scenarioCard.name',scenarioCard.name);
-            if ( scenarioCard.name === item.name ) {
-              console.log(func,'delete','name',item.name,'index',index);
-  
-              for ( let x = 0 ; x < this.selected_scenariostep.length ; ++x ) {
-                let datatableScenarioStep: DatatableScenarioStep = this.selected_scenariostep[x];
-                console.log(func,'delete','datatableScenarioStep.step',datatableScenarioStep.step,'x',x);
-                for ( let y = 0 ; y < scenarioCard.scenarioSteps.length ; ++y ) {
-                  let scenarioStep: ScenarioStep = scenarioCard.scenarioSteps[y];
-                  console.log(func,'delete','datatableScenarioStep.step',datatableScenarioStep.step,'index',index);
-                  if ( ""+scenarioStep.step === datatableScenarioStep.step ) {
-                    console.log(func,'delete','y',y);
-                    scenarioCard.scenarioSteps.splice(y,1);
-                  }
-                }
-              }
-            }
-          }
-        });
-      }
-    }
-    this.reloadScenarioStep();
-  }
+      //console.log("index["+index+"] item.name["+item.name+"] item.state["+item.state+"]");
 
-  private startScenarioStep(): void {
-    const func: string = "startScenarioStep";
-    console.log(func);
-    if ( this.selected_scenariostep.length > 0 ) {
-      if ( this.selected_scenariocard.length > 0 ) {
-        this.selected_scenariocard.forEach((item, index) => {
-          console.log(func,'name',item.name,'index',index);
-          for ( let i = 0 ; i < scenarioCards.length ; ++i ) {
-            let scenarioCard:ScenarioCard = scenarioCards[i];
-            console.log(func,'scenarioCard.name',scenarioCard.name);
-            if ( scenarioCard.name === item.name ) {
-              console.log(func,'delete','name',item.name,'index',index);
-  
-              for ( let x = 0 ; x < this.selected_scenariostep.length ; ++x ) {
-                let datatableScenarioStep: DatatableScenarioStep = this.selected_scenariostep[x];
-                console.log(func,'delete','datatableScenarioStep.step',datatableScenarioStep.step,'x',x);
-                for ( let y = 0 ; y < scenarioCard.scenarioSteps.length ; ++y ) {
-                  let scenarioStep: ScenarioStep = scenarioCard.scenarioSteps[y];
-                  console.log(func,'delete','datatableScenarioStep.step',datatableScenarioStep.step,'index',index);
-                  if ( ""+scenarioStep.step === datatableScenarioStep.step ) {
-                    console.log(func,'delete','y',y);
-                    scenarioStep.status = true;
-                  }
-                }
-              }
-            }
-          }
-        });
-      }
-    }
-    this.reloadScenarioStep();
-  }
+      let name = item.name;
+      let state = item.state ? "Runnning" : "Stop";
+      
+      console.log("index["+index+"] name["+name+"] state["+state+"]");
+      
+      this.rows_scenariolist.push(new DatatableScenarioCard(name, state));
 
-  private stopScenarioStep(): void {
-    const func: string = "stopScenarioStep";
-    console.log(func);
-    if ( null != scenarioCards ) {
-      if ( this.selected_scenariostep.length > 0 ) {
-        if ( this.selected_scenariocard.length > 0 ) {
-          this.selected_scenariocard.forEach((item, index) => {
-            console.log(func,'name',item.name,'index',index);
-            for ( let i = 0 ; i < scenarioCards.length ; ++i ) {
-              let scenarioCard:ScenarioCard = scenarioCards[i];
-              console.log(func,'scenarioCard.name',scenarioCard.name);
-              if ( scenarioCard.name === item.name ) {
-                console.log(func,'delete','name',item.name,'index',index);
-  
-                for ( let x = 0 ; x < this.selected_scenariostep.length ; ++x ) {
-                  let datatableScenarioStep: DatatableScenarioStep = this.selected_scenariostep[x];
-                  console.log(func,'delete','datatableScenarioStep.step',datatableScenarioStep.step,'x',x);
-                  for ( let y = 0 ; y < scenarioCard.scenarioSteps.length ; ++y ) {
-                    let scenarioStep: ScenarioStep = scenarioCard.scenarioSteps[y];
-                    console.log(func,'delete','datatableScenarioStep.step',datatableScenarioStep.step,'index',index);
-                    if ( ""+scenarioStep.step === datatableScenarioStep.step ) {
-                      console.log(func,'delete','y',y);
-                      scenarioStep.status = false;
-                    }
-                  }
-                }
-              }
-            }
-          });
-        }
-      }
-    }
-    else {
-      console.log(func,"scenarioCards IS EMPTY");
-    }
-    this.reloadScenarioStep();
-  }
-
-  private reloadScenarioCard(): void {
-    const func: string = "reloadScenarioCard";
-    console.log(func);
-    this.rows_scenariocard = [];
-    if ( null != scenarioCards ) {
-      scenarioCards.forEach((item, index) => {
-        let name = item.name;
-        let state = item.state ? "Runnning" : "Stop";
-        console.log(func,"index["+index+"] name["+name+"] state["+state+"]");
-        this.rows_scenariocard.push(new DatatableScenarioCard(name, state));
-      })
-      this.rows_scenariocard = [...this.rows_scenariocard]
-    }
-    else {
-      console.log(func,"scenarioCards IS EMPTY");
-    }
+    })
+    this.rows_scenariolist = [...this.rows_scenariolist]
 
   }
 
   private newScenario() {
-    const func: string = "newScenario";
-    console.log(func);
+    console.log("newScenario");
     let name: string = 'Scenario # '+scenarioCards.length;
+
     scenarioCards.push(new ScenarioCard(name, false));
-    this.reloadScenarioCard();
+    this.reloadScenarioList();
   }
 
   private deleteScenario() {
-    const func: string = "deleteScenario";
-    console.log(func);
-    if ( this.selected_scenariocard.length > 0 ) {
-      this.selected_scenariocard.forEach((item, index) => {
-        console.log(func,'name',item.name,'index',index);
+    console.log("deleteScenario");
+    if ( this.selected_scenariolist.length > 0 ) {
+      this.selected_scenariolist.forEach((item, index) => {
+        console.log('deleteScenario','name',item.name,'index',index);
+
         for ( let i = 0 ; i < scenarioCards.length ; ++i ) {
-          console.log(func,'scenarioCards[i].name',scenarioCards[i].name);
+          console.log('deleteScenario','scenarioCards[i].name',scenarioCards[i].name);
           if ( scenarioCards[i].name === item.name ) {
-            console.log(func,'remove','name',item.name,'index',index);
             scenarioCards.splice(i,1);
           }
         }
       });
     }
     else {
-      console.log(func,'selected_scenariolist IS EMPTY');
+      console.log('deleteScenario','selected_scenariolist IS EMPTY');
     }
-    this.reloadScenarioCard();
+    this.reloadScenarioList();
   }
 
-  private startScenario(): void {
-    const func: string = "startScenario";
-    console.log(func);
-    if ( this.selected_scenariocard.length > 0 ) {
-      this.selected_scenariocard.forEach((item, index) => {
-        console.log(func,'name',item.name,'index',index);
-
-        for ( let i = 0 ; i < scenarioCards.length ; ++i ) {
-          console.log(func,'scenarioCards[i].name',scenarioCards[i].name);
-          if ( scenarioCards[i].name === item.name ) {
-            console.log(func,'start','name',item.name,'index',index);
-            scenarioCards[i].state=true;
-          }
-        }
-      });
-    }
-    else {
-      console.log(func,'selected_scenariolist IS EMPTY');
-    }
-    this.reloadScenarioCard();
-  }
-
-  private stopScenario(): void {
-    const func: string = "stopScenario";
-    console.log(func);
-    if ( this.selected_scenariocard.length > 0 ) {
-      this.selected_scenariocard.forEach((item, index) => {
-        console.log(func,'name',item.name,'index',index);
-        for ( let i = 0 ; i < scenarioCards.length ; ++i ) {
-          console.log(func,'scenarioCards[i].name',scenarioCards[i].name);
-          if ( scenarioCards[i].name === item.name ) {
-            console.log(func,'end','name',item.name,'index',index);
-            scenarioCards[i].state=false;
-          }
-        }
-      });
-    }
-    else {
-      console.log(func,'selected_scenariolist IS EMPTY');
-    }
-    this.reloadScenarioCard();
-  }
-
-  public saveScenario(): void {
-    const func: string = "saveScenario";
-    console.log(func);
-    let url: string = strUrlfsstorage+'/'+strUrlUpstreamFile;
-    let filepath: string = STR_TMS_FILENAME_JSON;
-    let strScenarioCards: string = JSON.stringify(scenarioCards);
-    this.postData(url,filepath,strScenarioCards);
-  }
-
-  public reloadScenario(): void {
-    const func: string = "reloadScenario";
-    console.log(func);
-
-    // Reset the scenario cards
-    scenarioCards = [];
-
-    let url = strUrlfsstorage+'/'+strUrlDownstramFile
-    +"?"+STR_FILEPATH+"="+STR_TMS_FILENAME_JSON
-    +"&"+STR_METHOD+"="+STR_STREAM;
-
-    // Handle the data recerived
-    {
-      this.httpClient.get(
-        url
-      )
-        .subscribe(
-          res => {
-            console.log(res);
-
-            console.log(func, "reloadScenario[",scenarioCards,"]");
-            
-            scenarioCards = JSON.parse(res[STR_DATA]);
-            
-            console.log(func, "reloadScenario[",scenarioCards,"]");
-            
-            this.reloadScenarioCard();
-            this.reloadScenarioStep();
-  
-          },
-          (err: HttpErrorResponse) => {
-            console.log(func,"PUT call in error", err.error);
-            if (err.error instanceof Error) {
-              console.log(func,"Client-side error occured.");
-            } else {
-              console.log(func,"Server-side error occured.");
-            }
-          }
-          , () => {
-            console.log(func,"The GET observable is now completed.");
-          }
-        );
-    }
-  }
-
-  private getData(url: string): string {
-    const func: string="getData";
-    console.log(func);
+  private getData(method){
     this.httpClient.get(
-        url
+        strUrlfsstorage+'/'+strUrlDownstramFile
+        +"?"+STR_FILEPATH+"="+STR_TMS_FILENAME
+        +"&"+STR_METHOD+"="+method
       )
         .subscribe(
           res => {
             console.log(res);
-            return res;
           },
           (err: HttpErrorResponse) => {
-            console.log(func,"PUT call in error", err.error);
+
+            console.log("PUT call in error", err.error);
+
             if (err.error instanceof Error) {
-              console.log(func,"Client-side error occured.");
+              console.log("Client-side error occured.");
             } else {
-              console.log(func,"Server-side error occured.");
+              console.log("Server-side error occured.");
             }
           }
           , () => {
-            console.log(func,"The GET observable is now completed.");
+            console.log("The PUT observable is now completed.");
           }
         );
-    return null;
   }
 
-  private downloadData(): void {
-    const func: string="downloadData";
-    console.log(func);
-    let url = strUrlfsstorage+'/'+strUrlDownstramFile
-    +"?"+STR_FILEPATH+"="+STR_TMS_FILENAME
-    +"&"+STR_METHOD+"="+STR_DOWNLOAD;
-    let res = this.getData(url);
-  }
-
-  private putData(url: string, filePath: string, filedata: File): void {
-    const func: string="putData";
-    console.log(func);
-    console.log(func,'url['+url+']');
-    console.log(func,'STR_FILEPATH['+STR_FILEPATH+'] filePath['+filePath+']');
-    console.log(func,'STR_DATA['+STR_DATA+'] data['+filedata+']');
+  private putData(url: string, filePath: string, filedata: File) {
+    console.log('url['+url+']');
+    console.log('STR_FILEPATH['+STR_FILEPATH+'] filePath['+filePath+']');
+    console.log('STR_DATA['+STR_DATA+'] data['+filedata+']');
 
     let bodydata = {};
     bodydata[STR_FILEPATH]=filePath;
@@ -456,23 +223,19 @@ export class AppComponent implements OnInit {
           },
           (err: HttpErrorResponse) => {
             if (err.error instanceof Error) {
-              console.log(func,"Client-side error occured.");
+              console.log("Client-side error occured.");
             } else {
-              console.log(func,"Server-side error occured.");
+              console.log("Server-side error occured.");
             }
           }
-          , () => {
-            console.log(func,"The PUT observable is now completed.");
-          }
       );
   }
 
-  private postData(url: string, filePath: string, filedata: string) {
-    const func: string="postData";
-    console.log(func);
-    console.log(func,'url['+url+']');
-    console.log(func,'STR_FILEPATH['+STR_FILEPATH+'] filePath['+filePath+']');
-    console.log(func,'STR_DATA['+STR_DATA+'] data['+filedata+']');
+  private postData(url: string, filePath: string, filedata: File) {
+
+    console.log('url['+url+']');
+    console.log('STR_FILEPATH['+STR_FILEPATH+'] filePath['+filePath+']');
+    console.log('STR_DATA['+STR_DATA+'] data['+filedata+']');
 
     let bodydata = {};
     bodydata[STR_FILEPATH]=filePath;
@@ -498,62 +261,15 @@ export class AppComponent implements OnInit {
         },
         (err: HttpErrorResponse) => {
           if (err.error instanceof Error) {
-            console.log(func,"Client-side error occured.");
+            console.log("Client-side error occured.");
           } else {
-            console.log(func,"Server-side error occured.");
+            console.log("Server-side error occured.");
           }
-        }
-        , () => {
-          console.log(func,"The PUT observable is now completed.");
-        }
-      );
-  }
-
-  private postFile(url: string, filePath: string, filedata: File) {
-    const func: string="postData";
-    console.log(func);
-    console.log(func,'url['+url+']');
-    console.log(func,'STR_FILEPATH['+STR_FILEPATH+'] filePath['+filePath+']');
-    console.log(func,'STR_DATA['+STR_DATA+'] data['+filedata+']');
-
-    let bodydata = {};
-    bodydata[STR_FILEPATH]=filePath;
-    bodydata[STR_DATA]=filedata;
-
-    // const bodydata = JSON.stringify({filepath: filePath, data: filedata});
-    // console.log('bodydata['+bodydata+']');
-
-//  let headers = new HttpHeaders().set('header1', 'hvalue1'); // create header object
-//  headers = headers.append('header2', hvalue2); // add a new header, creating a new object
-
-//  let params = new HttpParams().set('filepath', filePath); // create params object
-//  params = params.append('param2', value2); // add a new param, creating a new object
-
-    this.httpClient.post(
-      url
-      , bodydata
-//    ,{headers: headers, params: params}
-    )
-      .subscribe(
-        res => {
-          console.log(res);
-        },
-        (err: HttpErrorResponse) => {
-          if (err.error instanceof Error) {
-            console.log(func,"Client-side error occured.");
-          } else {
-            console.log(func,"Server-side error occured.");
-          }
-        }
-        , () => {
-          console.log(func,"The PUT observable is now completed.");
         }
       );
   }
   
   private loadFile(event) {
-    const func: string="loadFile";
-    console.log(func);
     let files : File[] = event.target.files;
     let file = files[0];
 
@@ -566,7 +282,7 @@ export class AppComponent implements OnInit {
 //      console.log('csv size', e.target.size);
       let result = e.target.result;
 
-      console.log(func,'csv result', result);
+      console.log('csv result', result);
 
       this.postData(strUrlfsstorage+'/'+strUrlUpstreamFile, STR_TMS_FILENAME, result);
     };
@@ -597,22 +313,18 @@ export class AppComponent implements OnInit {
   private btnDisabledExportCSV: boolean = false;
   private btnDisabledImportCSV: boolean = false;
 
+
   private onRowActivate(name: string, event: Event) {
-    const func: string="onRowActivate";
-    console.log(func,'name',name,'event',event);
+    console.log('onRowActivate','name',name,'event',event);
   }
   private onRowSelect(name: string, event: Event) {
-    const func: string="onRowSelect";
-    console.log(func,'name',name,'event',event,);
-    if ( name === STR_NAME_SCEBARIOCARD ) {
-      this.reloadScenarioStep();
-    }
+    console.log('onRowSelect','name',name,'event',event,);
   }
 
   // Button Handler
   private btnClicked(btnlabel: string, event?: Event) {
-    const func: string="btnClicked";
-    console.log(func,'btnlabel[', btnlabel, ']');
+
+    console.log('btnlabel[', btnlabel, ']');
     
     if ( btnlabel === 'new' ) {
       this.newScenario();
@@ -627,7 +339,7 @@ export class AppComponent implements OnInit {
       
     }
     else if ( btnlabel === 'start' ) {
-      this.startScenario();
+      
     }
     else if ( btnlabel === 'pause' ) {
       
@@ -636,29 +348,23 @@ export class AppComponent implements OnInit {
       
     }
     else if ( btnlabel === 'stop' ) {
-      this.stopScenario();
+      
     }
     else if ( btnlabel === 'reset' ) {
       
     }
     else if ( btnlabel === 'addedstep' ) {
-      this.newScenarioStep();
+      
     }
     else if ( btnlabel === 'deletestep' ) {
-      this.deleteScenarioStep();
+      
     }
     else if ( btnlabel === 'savescenario' ) {
-      this.saveScenario();
+      
     }
     else if ( btnlabel === 'reloadscenario' ) {
-      this.reloadScenario();
+      
     }
-    else if ( btnlabel === 'startstep' ) {
-      this.startScenarioStep();
-    }
-    else if ( btnlabel === 'stopstep' ) {
-      this.stopScenarioStep();
-    }   
     else if ( btnlabel === 'exportstart' ) {
       
     }
@@ -666,7 +372,7 @@ export class AppComponent implements OnInit {
       
     }
     else if ( btnlabel === 'exportcsv' ) {
-      this.downloadData();
+      this.getData(STR_DOWNLOAD);
     }
     else if ( btnlabel === 'importcsv' ) {
       

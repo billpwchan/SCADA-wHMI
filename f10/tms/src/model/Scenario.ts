@@ -28,9 +28,9 @@ export class ScenarioStep {
 export class ScenarioCard {
     // name: string;
     // state: boolean;
-    public scenarioSteps: ScenarioStep[] = [];
     constructor(
         public name: string
         , public state: boolean
     ){}
+    scenarioDetails: ScenarioStep[];
 }

@@ -1,0 +1,33 @@
+<div class="profile-modify-page">
+    <div class="profile-modify-list-panel">
+        <div class="profile-modify-list-caption">{{'PROFILE_MANAGEMENT.MODIFY.PROFILE_LIST' | translate}}</div>
+        <div class="profile-modify-list-table">
+            <div class="profile-modify-list-headers">
+                <div class="profile-modify-list-header-row">
+                    <div class="profile-modify-list-header-cell profile-modify-list-header-id">{{'PROFILE_MANAGEMENT.MODIFY.PROFILE_ID' | translate}}</div>
+                    <div class="profile-modify-list-header-cell profile-modify-list-header-name">{{'PROFILE_MANAGEMENT.MODIFY.PROFILE_NAME' | translate}}</div>
+                    <div class="profile-modify-list-header-cell profile-modify-list-header-description">{{'PROFILE_MANAGEMENT.MODIFY.PROFILE_DESCRIPTION' | translate}}</div>
+                </div>
+            </div>
+            <div class="profile-modify-list-items">
+                <div
+                    class="profile-modify-list-item-row"
+                    *ngFor="let profile of profiles"
+                    [class.selected]="selectedProfile === profile"
+                    (click)="onSelect(profile)"
+                >
+                    <div class="profile-modify-list-item-cell profile-modify-list-item-id">{{profile.id}}</div>
+                    <div class="profile-modify-list-item-cell profile-modify-list-item-name">{{profile.name}}</div>
+                    <div class="profile-modify-list-item-cell profile-modify-list-item-description">{{profile.description}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="profile-modify-detail-panel">
+        <app-profile-management-detail
+            [profileId]="selectedProfile ? selectedProfile.id:undefined"
+            [createProfile]="false"
+            [readonly]="readonly"
+        ></app-profile-management-detail>
+    </div>
+</div>

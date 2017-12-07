@@ -1,7 +1,0 @@
-<nav>
-    <a class="operator-management-modify" routerLink="modify" routerLinkActive="active" queryParamsHandling="merge">{{'OPERATOR_MANAGEMENT.MODIFY.TITLE' | translate}}</a>
-    <a class="operator-management-add" routerLink="add" routerLinkActive="active" *ngIf="!readonly" queryParamsHandling="merge">{{'OPERATOR_MANAGEMENT.ADD.TITLE' | translate}}</a>
-    <a class="operator-management-remove" routerLink="remove" routerLinkActive="active" *ngIf="!readonly" queryParamsHandling="merge">{{'OPERATOR_MANAGEMENT.REMOVE.TITLE' | translate}}</a>
-    <a class="operator-management-change-password" routerLink="change-password" routerLinkActive="active" *ngIf="!readonly" queryParamsHandling="merge">{{'OPERATOR_MANAGEMENT.CHANGE_PASSWORD.TITLE' | translate}}</a>
-</nav>
-<router-outlet></router-outlet>

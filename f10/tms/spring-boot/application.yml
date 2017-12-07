@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: TMS
+server:
+  port: 8775

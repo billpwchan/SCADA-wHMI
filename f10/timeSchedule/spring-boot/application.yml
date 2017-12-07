@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: time-schedule
+server:
+  port: 8774

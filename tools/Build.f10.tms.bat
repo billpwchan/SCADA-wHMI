@@ -6,7 +6,7 @@ IF [%1] == [] SET v_strdt=%strdt%
 IF [%v_strdt%] == [] SET v_strdt=%1
 
 SET SOURCE_BASE_F10=%SOURCE_BASE%/f10
-SET NODEJS_HOME=%SOFTS_BASE%/%SOFTS_DIR%/node-v8.1.3-win-x64
+SET NODEJS_HOME=%SOFTS_BASE%/%SOFTS_DIR%/node-v9.2.0-win-x64
 SET PATH=%PATH%;%NODEJS_HOME%
 
 set TMS=tms
@@ -25,7 +25,7 @@ ECHO Zip and copy node_modules libraries from cots...
 
 %PATH_7Z_BIN% a %NODE_MODULES_7Z% %REPO_BASE%/%NODE_MODULES%/%TMS%/*
 
-ECHO Extract node_modules to tms build folder
+ECHO Extract node_modules to %TMS% build folder
 
 %PATH_7Z_BIN% x %NODE_MODULES_7Z% -o%SOURCE_BASE_F10%/%TMS%/%ANGULAR%/%NODE_MODULES%
 
@@ -45,7 +45,7 @@ REM %PATH_7Z_BIN% a scadagen-f10-%TMS%.zip ./dist/*
 CD ../%SPRING_BOOT%
 
 echo Cleaning %TMS% spring-boot before build...
-call mvn clean -V > %LOG_FILE%
+call mvn clean -V >> %LOG_FILE%
 
 echo Building %TMS% spring-boot
 call mvn clean install >> %LOG_FILE%

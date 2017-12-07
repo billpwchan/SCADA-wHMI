@@ -25,7 +25,7 @@ ECHO Zip and copy node_modules libraries from cots...
 
 %PATH_7Z_BIN% a %NODE_MODULES_7Z% %REPO_BASE%/%NODE_MODULES%/%AUTOLOGOUT%/*
 
-ECHO Extract node_modules to autologout build folder
+ECHO Extract node_modules to %AUTOLOGOUT% build folder
 
 %PATH_7Z_BIN% x %NODE_MODULES_7Z% -o%SOURCE_BASE_F10%/%AUTOLOGOUT%/%ANGULAR%/%NODE_MODULES%
 
@@ -44,7 +44,7 @@ REM %PATH_7Z_BIN% a scadagen-f10-%AUTOLOGOUT%.zip ./dist/*
 CD ../%SPRING_BOOT%
 
 echo Cleaning %AUTOLOGOUT% spring-boot before build...
-call mvn clean -V > %LOG_FILE%
+call mvn clean -V >> %LOG_FILE%
 
 echo Building %AUTOLOGOUT% spring-boot
 call mvn clean install >> %LOG_FILE%

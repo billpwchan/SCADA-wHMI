@@ -22,4 +22,6 @@ CALL %TOOLS_PATH%\Build.f10.opm.bat %v_strdt%
 
 CALL %TOOLS_PATH%\Build.f10.time-schedule.bat %v_strdt%
 
+CALL %TOOLS_PATH%\Build.f10.tms.bat %v_strdt%
+
 ECHO End of building f10 packages.

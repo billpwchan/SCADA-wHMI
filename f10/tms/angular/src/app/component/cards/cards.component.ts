@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, SimpleChanges, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { CardService } from '../../service/card/card.service';
-import { Card } from '../../model/Scenario';
+import { Card, CardType } from '../../model/Scenario';
 import { DatatableCard } from '../../model/DatatableScenario';
 import { AppSettings } from '../../app-settings';
 import { CardsSettings } from './cards-settings';
@@ -9,6 +9,7 @@ import { OnChanges, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks
 import { FormGroup, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { SelectionService } from '../../service/card/selection.service';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-cards'
@@ -80,21 +81,37 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
         } break;
       }
     }
-
-    // Debug Dump
-    // for ( let propName in changes ) {
-    //   let change = changes[propName];
-    //   let curVal = JSON.stringify(change.currentValue);
-    //   let preVal = JSON.stringify(change.previousValue);
-    //   console.log(f, 'curVal'+curVal+']');
-    //   console.log(f, 'curVal'+curVal+']');
-    // }
   }
 
   sendNotifyParent(str: string) {
     const f = 'sendNotifyParent';
     console.log(this.c, f, str);
     this.notifyParent.emit(str);
+  }
+
+  private getCardTypeStr(cardType: CardType): string {
+    const f = 'getCardTypeStr';
+    console.log(this.c, f, cardType);
+
+    let ret = CardsSettings.STR_CARD_UNKNOW;
+    switch (cardType) {
+      case CardType.STOP: {
+        ret = CardsSettings.STR_CARD_STOP;
+      } break;
+      case CardType.STOP_RUNNING: {
+        ret = CardsSettings.STR_CARD_STOP_RUNNING;
+      } break;
+      case CardType.START: {
+        ret = CardsSettings.STR_CARD_START;
+      } break;
+      case CardType.START_RUNNING: {
+        ret = CardsSettings.STR_CARD_START_RUNNING;
+      } break;
+      case CardType.START_PAUSE: {
+        ret = CardsSettings.STR_CARD_PAUSE;
+      } break;
+    }
+    return ret;
   }
 
   private reloadCard(): void {
@@ -106,10 +123,12 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
 
     // Renew datatable from card service
     this.cardService.getCards().forEach((item, index) => {
-      const name = item.name;
-      const state = item.state ? AppSettings.STR_CARD_STOP_RUNNING : AppSettings.STR_CARD_STOP;
-      console.log(this.c, f, 'index[' + index + '] name[' + name + '] state[' + state + ']');
-      this.rows_card.push(new DatatableCard(name, state));
+      this.rows_card.push(
+        new DatatableCard(
+          item.name
+          , this.getCardTypeStr(item.state)
+        )
+      );
     });
 
     // this.rows_card = [...this.rows_card];

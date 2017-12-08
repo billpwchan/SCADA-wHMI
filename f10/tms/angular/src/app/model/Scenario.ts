@@ -37,12 +37,13 @@ export class Equipment {
 }
 
 export enum StepType {
-  stop = 0
-  , start = 1
-  , stop_running = 2
-  , start_running = 3
-  , stop_failed = 4
-  , start_failed = 5
+  STOP = 0
+  , START = 1
+  , STOP_RUNNING = 2
+  , START_RUNNING = 3
+  , STOP_FAILED = 4
+  , START_FAILED = 5
+  , UNKNOW = 6
 }
 
 /**
@@ -57,6 +58,16 @@ export class Step {
   ) {}
 }
 
+export enum CardType {
+  STOP = 0
+  , START = 1
+  , STOP_RUNNING = 2
+  , START_RUNNING = 3
+  , START_PAUSE = 4
+  , STOP_PAUSE = 5
+  , UNKNOW = 6
+}
+
 /**
  * A model for an individual Card
  */
@@ -66,7 +77,7 @@ export class Card {
   public timer: Subscription = null;
   constructor(
     public name: string
-    , public state: number
+    , public state: CardType
     , public step: number
     , public type: number
   ) {}

@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, SimpleChanges, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { CardService } from '../../service/card/card.service';
-import { Card } from '../../model/Scenario';
+import { Card, CardType } from '../../model/Scenario';
 import { DatatableCard } from '../../model/DatatableScenario';
 import { AppSettings } from '../../app-settings';
 import { CardsSettings } from './../cards/cards-settings';
@@ -116,9 +116,9 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     this.cardService.getCards().push(
       new Card(
         name
-        , AppSettings.INT_CARD_STOP
+        , CardType.STOP
         , 0
-        , AppSettings.INT_CARD_TYPE_START
+        , CardType.STOP
       ));
     this.cardService.notifyUpdate(CardService.STR_CARD_RELOADED);
   }

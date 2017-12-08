@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { CardService } from '../../service/card/card.service';
 import { AppSettings } from '../../app-settings';
-import { Card } from '../../model/Scenario';
+import { Card, CardType } from '../../model/Scenario';
 import { SelectionService } from '../../service/card/selection.service';
 import { Subscription } from 'rxjs/Subscription';
+import { CardExecType } from '../../service/card/card-setting';
 
 @Component({
   selector: 'app-cards-controller'
@@ -17,8 +18,6 @@ export class CardsControllerComponent implements OnInit, OnDestroy {
   public static readonly STR_CARD_SELECTED = AppSettings.STR_CARD_SELECTED;
   public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
-
-  public static readonly STR_CARD_STATE_CHANGE = 'cardstatechange';
 
   readonly c = CardsControllerComponent.name;
 
@@ -44,10 +43,22 @@ export class CardsControllerComponent implements OnInit, OnDestroy {
     console.log(this.c, f);
 
     this.cardSubscripion = this.cardService.cardItem
-    .subscribe( item => {});
+    .subscribe( item => {
+      console.log(this.c, f, 'cardSubscripion', item);
+      if ( CardService.STR_CARD_RELOADED == item ) {
+        this.btnClicked(CardsControllerComponent.STR_INIT);
+      } else if ( CardService.STR_CARD_UPDATED == item ) {
+
+      }
+    });
 
     this.selectionSubscription = this.selectionService.selectionItem
-    .subscribe( item => {});
+    .subscribe( item => {
+      console.log(this.c, f, 'selectionSubscription', item);
+      if ( item == SelectionService.STR_CARD_SELECTED ) {
+        this.btnClicked(CardsControllerComponent.STR_CARD_SELECTED);
+      }
+    });
 
   }
 
@@ -64,87 +75,109 @@ export class CardsControllerComponent implements OnInit, OnDestroy {
     this.notifyParent.emit(str);
   }
 
-  // private setCurrentCardState(state: number): void {
-  //   const cards: Card[] = this.cardService.getCards(
-  //     this.selectionService.getSelectedCardIdentifys()
-  //   );
-  //   cards.forEach( card => { card.state = state; });
-  // }
-
   private startCard(): void {
     const f = 'startCard';
     console.log(this.c, f);
-    const card: Card = this.cardService.getCard( this.selectionService.getSelectedCardIds());
+    const card: Card = this.cardService.getCard( 
+      this.selectionService.getSelectedCardIds()
+    );
     if ( null != card ) {
-      this.cardService.executeCard(card.name, true);
+      this.cardService.executeCard(
+        card.name
+        , CardExecType.START
+        , true);
     }
-    // this.setCurrentCardState(AppSettings.INT_CARD_RUNNING);
   }
 
   private stopCard(): void {
     const f = 'stopCard';
     console.log(this.c, f);
-    // this.setCurrentCardState(AppSettings.INT_CARD_STOP);
+    const card: Card = this.cardService.getCard( this.selectionService.getSelectedCardIds());
+    this.cardService.executeCard(
+      card.name
+      , CardExecType.STOP
+      , true);
   }
 
   private pauseCard(): void {
     const f = 'pauseCard';
     console.log(this.c, f);
-    // this.setCurrentCardState(AppSettings.INT_CARD_PAUSE);
+
+    const card: Card = this.cardService.getCard( this.selectionService.getSelectedCardIds());
+    this.cardService.pauseCard(
+      card.name);
   }
 
   private resumeCard(): void {
     const f = 'resumeCard';
     console.log(this.c, f);
-    // this.setCurrentCardState(AppSettings.INT_CARD_RUNNING);
+
+    const card: Card = this.cardService.getCard( this.selectionService.getSelectedCardIds());
+    this.cardService.resumeCard(
+      card.name);
   }
 
   private resetCard(): void {
     const f = 'resetCard';
     console.log(this.c, f);
-    // this.setCurrentCardState(AppSettings.INT_CARD_RUNNING);
   }
 
   private widgetController(card: Card) {
     const f = 'widgetController';
     console.log(this.c, f);
-    console.log(this.c, f,  card.state);
-    switch ( card.state ) {
-      case AppSettings.INT_CARD_STOP: {
-        this.btnDisabledStart = false;
-        this.btnDisabledPause = true;
-        this.btnDisabledResume = false;
-        this.btnDisabledStop = true;
-        this.btnDisabledReset = true;
-      } break;
-      case AppSettings.INT_CARD_STOP_RUNNING: {
-        this.btnDisabledStart = true;
-        this.btnDisabledPause = false;
-        this.btnDisabledResume = true;
-        this.btnDisabledStop = false;
-        this.btnDisabledReset = true;
-      } break;
-      case AppSettings.INT_CARD_PAUSE: {
-        this.btnDisabledStart = true;
-        this.btnDisabledPause = true;
-        this.btnDisabledResume = false;
-        this.btnDisabledStop = false;
-        this.btnDisabledReset = false;
-      } break;
+    if ( undefined != card && null != card ) {
+      console.log(this.c, f,  card.state);
+      switch ( card.state ) {
+        case CardType.STOP: {
+          this.btnDisabledStart = false;
+          this.btnDisabledPause = true;
+          this.btnDisabledResume = true;
+          this.btnDisabledStop = true;
+          this.btnDisabledReset = true;
+        } break;
+        case CardType.STOP_RUNNING: {
+          this.btnDisabledStart = true;
+          this.btnDisabledPause = false;
+          this.btnDisabledResume = true;
+          this.btnDisabledStop = false;
+          this.btnDisabledReset = true;
+        } break;
+        case CardType.START: {
+          this.btnDisabledStart = false;
+          this.btnDisabledPause = true;
+          this.btnDisabledResume = false;
+          this.btnDisabledStop = true;
+          this.btnDisabledReset = true;
+        } break;
+        case CardType.START_RUNNING: {
+          this.btnDisabledStart = true;
+          this.btnDisabledPause = false;
+          this.btnDisabledResume = true;
+          this.btnDisabledStop = false;
+          this.btnDisabledReset = true;
+        } break;
+        case CardType.START_PAUSE: {
+          this.btnDisabledStart = true;
+          this.btnDisabledPause = true;
+          this.btnDisabledResume = false;
+          this.btnDisabledStop = false;
+          this.btnDisabledReset = true;
+        } break;
+        case CardType.UNKNOW: {
+          this.btnDisabledStart = false;
+          this.btnDisabledPause = false;
+          this.btnDisabledResume = false;
+          this.btnDisabledStop = false;
+          this.btnDisabledReset = false;
+        } break;
+      }
     }
-  }
-
-  private cardUpdated() {
-    const f = 'cardUpdated';
-    console.log(this.c, f);
-    const ids: string[] = this.selectionService.getSelectedCardIds();
-    const cards: Card[] = this.cardService.getCards(ids);
-    this.widgetController(cards[0]);
   }
 
   private init(): void {
     const f = 'init';
     console.log(this.c, f);
+
     this.btnDisabledStart = true;
     this.btnDisabledPause = true;
     this.btnDisabledResume = true;
@@ -159,9 +192,6 @@ export class CardsControllerComponent implements OnInit, OnDestroy {
 
     switch (btnLabel) {
       case CardsControllerComponent.STR_INIT: {
-        this.init();
-      } break;
-      case CardsControllerComponent.STR_CARD_RELOADED: {
         this.init();
       } break;
       case CardsControllerComponent.STR_CARD_SELECTED: {

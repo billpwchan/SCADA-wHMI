@@ -10,10 +10,11 @@ import { DbmSettings } from '../../service/scs/dbm-settings';
 import { OlsService } from '../../service/scs/ols.service';
 import { DbmService } from '../../service/scs/dbm.service';
 import { Subscription } from 'rxjs/Subscription';
-import { indexDebugNode } from '@angular/core/src/debug/debug_node';
 import { DacSimSettings } from '../../service/scs/dac-sim-settings';
 import { Subscribable } from 'rxjs/Observable';
 import { SelectionService } from '../../service/card/selection.service';
+import { StepSettings } from '../steps/step-settings';
+import { SettingService } from '../../service/setting.service';
 
 class SelOptStr {
   constructor(
@@ -121,11 +122,14 @@ editEnableDelay = false;
 
   constructor(
     private translate: TranslateService
+    , private settingService: SettingService
     , private cardService: CardService
     , private selectionService: SelectionService
     , private olsService: OlsService
     , private dbmService: DbmService
-  ) {}
+  ) {
+
+  }
 
   ngOnInit(): void {
     const f = 'ngOnInit';
@@ -166,7 +170,7 @@ editEnableDelay = false;
               .forEach((value: number[], key: number) => {
                 this.selOptGeo.push(
                   new SelOptNum(
-                    this.translate.instant(AppSettings.STR_GEO_PREFIX + key)
+                    this.translate.instant(StepSettings.STR_GEO_PREFIX + key)
                     , key
                   )
                 );
@@ -281,29 +285,41 @@ editEnableDelay = false;
   }
 
   private initSelOptEnv(): void {
+    const f = 'initSelOptEnv';
+    console.log(this.c, f);
 
     this.selOptEnv.length = 0;
-    const json = {
-      'ENVS': [
-        {label: AppSettings.STR_M100, value: AppSettings.STR_CONN_M100}
-        , {label: AppSettings.STR_M001, value: AppSettings.STR_CONN_M001}
-        , {label: AppSettings.STR_M002, value: AppSettings.STR_CONN_M002}
-      ]
-    };
+    // const json = {
+    //   'ENVS': [
+    //     {label: AppSettings.STR_M100, value: AppSettings.STR_CONN_M100}
+    //     , {label: AppSettings.STR_M001, value: AppSettings.STR_CONN_M001}
+    //     , {label: AppSettings.STR_M002, value: AppSettings.STR_CONN_M002}
+    //   ]
+    // };
 
     this.selOptEnv.push(new SelOptStr(
       this.translate.instant('&tms_step_lst_env_default')
       , ''
     ));
 
-    json['ENVS'].forEach((item, index) => {
-      this.selOptEnv.push(
-        new SelOptStr(
-          item['label']
-          , item['value']
-        )
-      );
-    });
+    const settings: any = this.settingService.getSetting(
+      StepEditSettings.STR_ENVS_JSON);
+
+    console.log(this.c, f, 'settings', settings);
+
+    if ( undefined != settings && null != settings ) {
+
+      console.log('settings.envs', settings.ENVS);
+
+      settings[StepEditSettings.STR_ENVS].forEach((item, index) => {
+        this.selOptEnv.push(
+          new SelOptStr(
+            item[StepEditSettings.STR_LABEL]
+            , item[StepEditSettings.STR_VALUE]
+          )
+        );
+      });
+    }
 
     this.selEnv = '';
   }
@@ -397,7 +413,7 @@ editEnableDelay = false;
         eqps.get(this.selEnv).get(this.selGeo)
         .forEach((value, index) => {
           this.selOptFunc.push(new  SelOptNum(
-            this.translate.instant(AppSettings.STR_FUNC_PREFIX + value)
+            this.translate.instant(StepSettings.STR_FUNC_PREFIX + value)
             , value
           ));
         });
@@ -546,7 +562,7 @@ editEnableDelay = false;
     const cards = this.cardService.getCards(this.selectionService.getSelectedCardIds());
     const step: Step = new Step(
       cards[0].steps.length
-      , StepType.start
+      , StepType.STOP
       , Number(this.selDelay).valueOf()
       , new Equipment(
         this.selEnv

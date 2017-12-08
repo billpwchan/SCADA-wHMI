@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { CardService } from '../../service/card/card.service';
 import { AppSettings } from '../../app-settings';
 import { Step, Card, StepType } from '../../model/Scenario';
+import { DacSimExecType } from '../../service/scs/dac-sim-settings';
 
 @Component({
   selector: 'app-step-controller',
@@ -75,10 +76,10 @@ export class StepControllerComponent implements OnInit, OnDestroy {
 
     const step: Step = this.cardService.getSteps(this.cardSelected, [this.stepSelected])[0];
     if ( null != step ) {
-      if ( StepType.stop == step.state ) {
+      if ( StepType.STOP == step.state ) {
         this.btnDisabledStartStep = false;
         this.btnDisabledStopStep = true;
-      } else if ( StepType.start == step.state ) {
+      } else if ( StepType.START == step.state ) {
         this.btnDisabledStartStep = true;
         this.btnDisabledStopStep = false;
       }
@@ -106,13 +107,13 @@ export class StepControllerComponent implements OnInit, OnDestroy {
         this.cardService.executeStep(
           this.cardSelected
           , this.stepSelected
-          , CardService.INT_EXEC_TYPE_START);
+          , DacSimExecType.START);
       } break;
       case 'stopstep': {
         this.cardService.executeStep(
           this.cardSelected
           , this.stepSelected
-          , CardService.INT_EXEC_TYPE_STOP);
+          , DacSimExecType.STOP);
       } break;
     }
   }

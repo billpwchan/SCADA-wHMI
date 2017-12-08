@@ -4,7 +4,6 @@ import { UtilsHttpModule } from './../utils-http/utils-http.module';
 import { BehaviorSubject } from 'rxjs';
 import { OlsSettings } from './ols-settings';
 import { AppSettings } from '../../app-settings';
-import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Injectable()
 export class OlsService {

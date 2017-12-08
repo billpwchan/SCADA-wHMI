@@ -7,6 +7,7 @@ import { Card, Step, StepType } from '../../model/Scenario';
 import { AppSettings } from '../../app-settings';
 import { SelectionService } from '../../service/card/selection.service';
 import { DacSimService } from '../../service/scs/dac-sim.service';
+import { StepSettings } from './step-settings';
 
 @Component({
   selector: 'app-steps'
@@ -102,25 +103,25 @@ export class StepsComponent implements OnInit, OnDestroy {
     const f = 'getStateStr';
     console.log(this.c, f);
     console.log(this.c, f, state);
-    let ret: string = AppSettings.STR_STEP_UNKNOW;
+    let ret: string = StepSettings.STR_STEP_UNKNOW;
     switch ( state ) {
-      case StepType.start: {
-        ret = AppSettings.STR_STEP_START;
+      case StepType.START: {
+        ret = StepSettings.STR_STEP_START;
       } break;
-      case StepType.start_failed: {
-        ret = AppSettings.STR_STEP_START_FAILD;
+      case StepType.START_FAILED: {
+        ret = StepSettings.STR_STEP_START_FAILD;
       } break;
-      case StepType.start_running: {
-        ret = AppSettings.STR_STEP_START_RUNNING;
+      case StepType.START_RUNNING: {
+        ret = StepSettings.STR_STEP_START_RUNNING;
       } break;
-      case StepType.stop: {
-        ret = AppSettings.STR_STEP_STOP;
+      case StepType.STOP: {
+        ret = StepSettings.STR_STEP_STOP;
       } break;
-      case StepType.stop_failed: {
-        ret = AppSettings.STR_STEP_STOP_FAILD;
+      case StepType.STOP_FAILED: {
+        ret = StepSettings.STR_STEP_STOP_FAILD;
       } break;
-      case StepType.stop_running: {
-        ret = AppSettings.STR_STEP_STOP_RUNNING;
+      case StepType.STOP_RUNNING: {
+        ret = StepSettings.STR_STEP_STOP_RUNNING;
       } break;
     }
     return ret;
@@ -141,8 +142,8 @@ export class StepsComponent implements OnInit, OnDestroy {
         steps.forEach((item, index) => {
           const dtStep: DatatableStep = new DatatableStep(
             '' + item.step
-            , AppSettings.STR_GEO_PREFIX + item.equipment.geo
-            , AppSettings.STR_FUNC_PREFIX + item.equipment.func
+            , StepSettings.STR_GEO_PREFIX + item.equipment.geo
+            , StepSettings.STR_FUNC_PREFIX + item.equipment.func
             , item.equipment.eqplabel
             , item.equipment.pointlabel
             , '' + item.equipment.ev[0].value.start

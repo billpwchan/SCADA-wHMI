@@ -23,6 +23,7 @@ import { StepEditComponent } from './component/step-edit/step-edit.component';
 import { CardEditComponent } from './component/card-edit/card-edit.component';
 import { SelectionService } from './service/card/selection.service';
 import { StepControllerComponent } from './component/step-controller/step-controller.component';
+import { SettingService } from './service/setting.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -55,7 +56,8 @@ export function createTranslateLoader(http: HttpClient) {
     , UtilsHttpModule
   ],
   providers: [
-    OlsService
+    SettingService
+    , OlsService
     , DbmService
     , DacSimService
     , CardService

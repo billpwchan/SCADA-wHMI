@@ -6,6 +6,8 @@ import { OnInit, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { StepsComponent } from './component/steps/steps.component';
 import { StepEditComponent } from './component/step-edit/step-edit.component';
 import { SelectionService } from './service/card/selection.service';
+import { SettingService } from './service/setting.service';
+import { StepEditSettings } from './component/step-edit/step-edit-settings';
 
 @Component({
   selector: 'app-root'
@@ -28,12 +30,19 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private translate: TranslateService
     , private cardService: CardService
+    , private settingService: SettingService
   ) {
+    const f = 'constructor';
+    console.log(this.c, f);
+
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
 
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     translate.use('en');
+
+    // Loading the configuation
+    this.settingService.retriveSetting(StepEditSettings.STR_ENVS_JSON);
   }
 
   ngOnInit(): void {

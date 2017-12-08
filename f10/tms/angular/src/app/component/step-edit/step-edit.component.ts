@@ -14,7 +14,7 @@ import { DacSimSettings } from '../../service/scs/dac-sim-settings';
 import { Subscribable } from 'rxjs/Observable';
 import { SelectionService } from '../../service/card/selection.service';
 import { StepSettings } from '../steps/step-settings';
-import { SettingService } from '../../service/setting.service';
+import { SettingsService } from '../../service/settings.service';
 import { CardServiceType } from '../../service/card/card-settings';
 import { SelectionServiceType } from '../../service/card/selection-settings';
 
@@ -124,7 +124,7 @@ editEnableDelay = false;
 
   constructor(
     private translate: TranslateService
-    , private settingService: SettingService
+    , private settingService: SettingsService
     , private cardService: CardService
     , private selectionService: SelectionService
     , private olsService: OlsService
@@ -299,7 +299,7 @@ editEnableDelay = false;
       , ''
     ));
 
-    const appSettings: any = this.settingService.getSetting(AppSettings.STR_SETTINGS_URL);
+    const appSettings: any = this.settingService.getSetting(AppSettings.STR_URL_SETTINGS);
     console.log(this.c, f, 'settings', appSettings);
 
     const stepEditSettings = appSettings[StepEditSettings.STR_STEP_EDIT];

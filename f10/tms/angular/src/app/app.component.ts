@@ -6,7 +6,7 @@ import { OnInit, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { StepsComponent } from './component/steps/steps.component';
 import { StepEditComponent } from './component/step-edit/step-edit.component';
 import { SelectionService } from './service/card/selection.service';
-import { SettingService } from './service/setting.service';
+import { SettingsService } from './service/settings.service';
 import { StepEditSettings } from './component/step-edit/step-edit-settings';
 import { CardServiceType } from './service/card/card-settings';
 import { AppSettings } from './app-settings';
@@ -28,21 +28,14 @@ export class AppComponent implements OnInit, OnDestroy {
   stepEditUpdateValue: string;
 
   title = 'TMS';
-
+  
   constructor(
     private translate: TranslateService
     , private cardService: CardService
-    , private settingService: SettingService
+    , private settingService: SettingsService
   ) {
     const f = 'constructor';
     console.log(this.c, f);
-
-    // this.settingService.init();
-
-    // // Loading the configuation
-    // this.settingService.loadSetting(AppSettings.STR_SETTINGS_URL);
-
-    // this.settingService.retriveSetting();
 
     console.log(this.c, f, 'translate.getBrowserCultureLang()', translate.getBrowserCultureLang());
     console.log(this.c, f, 'translate.getBrowserLang()', translate.getBrowserLang());

@@ -1,14 +1,130 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Card } from '../model/Scenario';
+import { Card, Step, Equipment, EV, Value } from '../model/Scenario';
+import { TokenIndex } from './csv-to-card-settings';
 
+/**
+ * Pipe to transform the CSV to Cards
+ * 
+ * @export
+ * @class CsvToCardsPipe
+ * @implements {PipeTransform}
+ */
 @Pipe({
   name: 'csvToCards'
 })
 export class CsvToCardsPipe implements PipeTransform {
 
-  transform(value: string, args?: any): Card[] {
-    const cards: Card[] = new Array<Card>();
-    return cards;
+  private getEV(evs: EV[], id: string): EV {
+    for ( let i = 0 ; i < evs.length ; ++i ) {
+      if ( evs[i].name == id ) {
+        return evs[i];
+      }
+    }
+    return null;
   }
 
+  private getStep(steps: Step[], id: number): Step {
+    for ( let i = 0 ; i < steps.length ; ++i ) {
+      if ( steps[i].step == id ) {
+        return steps[i];
+      }
+    }
+    return null;
+  }
+
+  private getCard(cards: Card[], id: string): Card {
+    for ( let i = 0 ; i < cards.length ; ++i ) {
+      if ( cards[i].name == id ) {
+        return cards[i];
+      }
+    }
+    return null;
+  }
+
+  transform(csv: any, args: any[]): Card[] {
+
+    const STR_COMMA = args[0];
+    const STR_EOL   = args[1];
+
+    const cards: Card[] = new Array<Card>();
+    const lines = csv.split(STR_EOL);
+      lines.forEach( line => {
+        const token = line.split(STR_COMMA);
+
+        if ( token.length > TokenIndex.CARD_STEP ) {
+          // Card Session
+          const cName   = token[TokenIndex.CARD_NAME];
+          const cState  = Number.parseInt(token[TokenIndex.CARD_STATE]);
+          const cStep   = Number.parseInt(token[TokenIndex.CARD_STEP]);
+      
+          let card = this.getCard(cards, cName);
+          if ( null === card ) {
+            card = new Card(cName, cState, cStep);
+            cards.push(card);
+          } else {
+            // Card Exists
+          }
+
+          if ( token.length > TokenIndex.EQUIPMENT_POINTLABEL ) {
+            // Step Session
+            const sStep       = Number.parseInt(token[TokenIndex.STEP_STEP]);
+            const sState      = Number.parseInt(token[TokenIndex.STEP_STATE]);
+            const sDelay      = Number.parseInt(token[TokenIndex.STEP_DELAY]);
+  
+            // Equipment Session
+            const eConnAddr   = token[TokenIndex.EQUIPMENT_CONNADDR];
+            const eUnivname   = token[TokenIndex.EQUIPMENT_UNIVNAME];
+            const eClassId    = Number.parseInt(token[TokenIndex.EQUIPMENT_CLASSID]);
+            const eGeo        = Number.parseInt(token[TokenIndex.EQUIPMENT_GEO]);
+            const eFunc       = Number.parseInt(token[TokenIndex.EQUIPMENT_FUNC]);
+            const eEqplabel   = token[TokenIndex.EQUIPMENT_EQPLABEL];
+            const ePointlabel = token[TokenIndex.EQUIPMENT_POINTLABEL];
+  
+            let step = this.getStep(card.steps, sStep);
+
+            const equipment: Equipment = new Equipment(
+              eConnAddr
+              , eUnivname
+              , eClassId
+              , eGeo
+              , eFunc
+              , eEqplabel
+              , ePointlabel
+            );
+
+            if ( null === step ) {
+              step = new Step(sStep, sState, sDelay, equipment);
+              card.steps.push(step);
+            } else {
+              // Step Exists
+              step.state = sState;
+              step.delay = sDelay;
+              step.equipment = equipment;
+            }
+  
+            if ( token.length > TokenIndex.EV_START ) {
+              // EV Session
+              const evName  = token[TokenIndex.EV_NAME];
+              const evStop  = Number.parseFloat(token[TokenIndex.EV_STOP]);
+              const evStart = Number.parseFloat(token[TokenIndex.EV_START]);
+
+              const value: Value = new Value(evStop, evStart);
+              let ev: EV = this.getEV(step.equipment.ev, evName);
+              if ( null === ev ) {
+                ev = new EV(evName, value)
+                step.equipment.ev.push(ev);
+              } else {
+                // EV Exists
+
+              }
+
+              if (token.length > TokenIndex.EV_START + 1) {
+                // Handle multi evs here
+              }
+            }
+          }
+        }
+      });
+    return cards;
+  }  
 }

@@ -23,10 +23,11 @@ import { StepEditComponent } from './component/step-edit/step-edit.component';
 import { CardEditComponent } from './component/card-edit/card-edit.component';
 import { SelectionService } from './service/card/selection.service';
 import { StepControllerComponent } from './component/step-controller/step-controller.component';
-import { SettingService } from './service/setting.service';
+import { SettingsService } from './service/settings.service';
 import { CsvToCardsPipe } from './pipe/csv-to-cards.pipe';
 import { CardsToCsvPipe } from './pipe/cards-to-csv.pipe';
 import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -60,13 +61,18 @@ export function createTranslateLoader(http: HttpClient) {
       }
     })
     , UtilsHttpModule
+    , RouterModule.forRoot([{
+      path: '',
+      component: AppComponent
+      },
+    ])
   ],
   providers: [
-    SettingService
+    SettingsService
     , {
       provide: APP_INITIALIZER,
-      useFactory: (settingService: SettingService) => function() {return settingService.load()},
-      deps: [SettingService],
+      useFactory: (settingService: SettingsService) => function() {return settingService.load()},
+      deps: [SettingsService],
       multi: true
     }
     , OlsService

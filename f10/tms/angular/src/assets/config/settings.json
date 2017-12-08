@@ -6,4 +6,9 @@
       , {"label": "M002", "value": "http://127.0.0.1:8992"}
     ]
   }
+  , "CsvInterpretComponent": {
+      "FileName": "tms.csv"
+      , "Comma": ","
+      , "EOL": "\r\n"
+  }
 }

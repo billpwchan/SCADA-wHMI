@@ -1,0 +1,30 @@
+<div>
+  <form>
+    <div class="container">
+      <fieldset class="">
+        <legend class="">{{ '&tms_cards_title' | translate }}</legend>
+        <div>
+
+          <div>
+            <ngx-datatable
+              class="bootstrap"
+              [rows]="rows_card"
+              [loadingIndicator]="loadingIndicator"
+              [columns]="columns_card"
+              [columnMode]="'force'"
+              [headerHeight]="50"
+              [footerHeight]="50"
+              [rowHeight]="'auto'"
+              [reorderable]="reorderable"
+              
+              [selected]="selected_card"
+              [selectionType]="'single'"
+              (select)="onRowSelect('card', $event)">
+              >
+            </ngx-datatable>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </form>
+</div>

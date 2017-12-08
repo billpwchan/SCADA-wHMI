@@ -1,0 +1,35 @@
+<div>
+  <fieldset class="">
+    <legend class="">{{ '&tms_steps_lbl_scenario_step_list' | translate }}</legend>
+    <div>
+      <form>
+        <div class="input-group">
+          <span class="input-group-addon"
+          >{{ '&tms_steps_lbl_card_name' | translate }}</span>
+          <input type="text" class="form-control" name="txtCardName" 
+            [(ngModel)]="txtCardName" (ngModelChange)="onChange('txtCardName', $event)"
+            placeholder="{{ '&tms_steps_txt_select_card' | translate }}"
+            readonly>
+        </div>
+      </form>
+    </div>
+    <div>
+      <!-- class="material" -->
+      <ngx-datatable
+        class="bootstrap"
+        [rows]="rows_step"
+        [loadingIndicator]="loadingIndicator"
+        [columns]="columns_step"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="'auto'"
+        [reorderable]="reorderable"
+        
+        [selected]="selected_step"
+        [selectionType]="'single'"
+        (select)="onRowSelect('step', $event)">
+      </ngx-datatable>
+    </div>
+  </fieldset>
+</div>

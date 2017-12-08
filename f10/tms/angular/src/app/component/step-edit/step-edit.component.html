@@ -1,17 +1,17 @@
 <div>
   <div>
     <form>          
-      <label>{{ '&tms_steps_lbl_modify_step' | translate }}</label>
+      <label>{{ '&steps_lbl_modify_step' | translate }}</label>
       <button type="button" 
         class="btn btn-info tms-step-btn-newstep" 
         [disabled]="btnDisabledNewStep" (click)="btnClicked('newstep', $event)"
-        title="{{ '&tms_steps_btn_new_step_title' | translate }}"
-        >{{ '&tms_steps_btn_new_step' | translate }}</button>
+        title="{{ '&steps_btn_new_step_title' | translate }}"
+        >{{ '&steps_btn_new_step' | translate }}</button>
       <button type="button" 
         class="btn btn-info tms-step-btn-deletestep" 
         [disabled]="btnDisabledDeleteStep" (click)="btnClicked('deletestep', $event)"
-        title="{{ '&tms_steps_btn_delete_step_title' | translate }}"
-        >{{ '&tms_steps_btn_delete_step' | translate }}</button>
+        title="{{ '&steps_btn_delete_step_title' | translate }}"
+        >{{ '&steps_btn_delete_step' | translate }}</button>
     </form>
   </div>
 
@@ -19,7 +19,7 @@
     <form>
       <div>
         <div class="input-group">
-          <span class="input-group-addon">{{ '&tms_step_lbl_env' | translate }}</span>
+          <span class="input-group-addon">{{ '&step_lbl_env' | translate }}</span>
           <select class="form-control" name="selectEnv" id="selectEnv"
             [(ngModel)]="selEnv"  (change)="onLstChange('selEnv', $event)">
             <option *ngFor="let item of selOptEnv" [ngValue]="item.value"
@@ -28,7 +28,7 @@
         </div>
   
         <div class="input-group">
-          <span class="input-group-addon">{{ '&tms_step_lbl_geo' | translate }}</span>
+          <span class="input-group-addon">{{ '&step_lbl_geo' | translate }}</span>
           <select class="form-control" name="selectGeo" id="selectGeo"
             [(ngModel)]="selGeo" (change)="onLstChange('selGeo', $event)">
             <option *ngFor="let item of selOptGeo" [ngValue]="item.value"
@@ -37,7 +37,7 @@
         </div>
   
         <div class="input-group">
-          <span class="input-group-addon">{{ '&tms_step_lbl_func' | translate }}</span>
+          <span class="input-group-addon">{{ '&step_lbl_func' | translate }}</span>
           <select class="form-control" name="selectFunc" id="selectFunc" 
             [(ngModel)]="selFunc" (change)="onLstChange('selFunc', $event)">
             <option *ngFor="let item of selOptFunc" [ngValue]="item.value"
@@ -46,7 +46,7 @@
         </div>
   
         <div class="input-group">
-          <span class="input-group-addon">{{ '&tms_step_lbl_eqplabel' | translate }}</span>
+          <span class="input-group-addon">{{ '&step_lbl_eqplabel' | translate }}</span>
           <select class="form-control" name="selectEqpLabel" id="selectEqpLabel" 
             [(ngModel)]="selEqpLabel" (change)="onLstChange('selEqpLabel', $event)">
             <option *ngFor="let item of selOptEqpLabel" [ngValue]="item.value"
@@ -55,7 +55,7 @@
         </div>
   
         <div class="input-group">
-          <span class="input-group-addon">{{ '&tms_step_lbl_pointlabel' | translate }}</span>
+          <span class="input-group-addon">{{ '&step_lbl_pointlabel' | translate }}</span>
           <select class="form-control" name="selectPointLabel" id="selectPointLabel" 
             [(ngModel)]="selPointLabel" (change)="onLstChange('selPointLabel', $event)">
             <option *ngFor="let item of selOptPointLabel" [ngValue]="item.value"
@@ -64,7 +64,7 @@
         </div>
   
         <div class="input-group">
-          <span class="input-group-addon">{{ '&tms_step_lbl_delay' | translate }}</span>
+          <span class="input-group-addon">{{ '&step_lbl_delay' | translate }}</span>
           <select [(ngModel)]="selDelay" 
             class="form-control" name="selectDelay" id="selectDelay"
             (change)="onLstChange('selDelay', $event)">
@@ -75,25 +75,25 @@
   
         <span *ngIf="!hiddenClassId">
           <div class="input-group">
-            <span class="input-group-addon">{{ '&tms_step_lbl_classid' | translate }}</span>
+            <span class="input-group-addon">{{ '&step_lbl_classid' | translate }}</span>
             <input type="text" class="form-control" name="textClassId" 
-            [(ngModel)]="txtClassId" placeholder="{{ '&tms_step_txt_classid_placeholder' | translate }}">
+            [(ngModel)]="txtClassId" placeholder="{{ '&step_txt_classid_placeholder' | translate }}">
           </div>
         </span>
   
         <span *ngIf="!hiddenUnivname">
           <div class="input-group">
-            <span class="input-group-addon">{{ '&tms_step_lbl_univname' | translate }}</span>
+            <span class="input-group-addon">{{ '&step_lbl_univname' | translate }}</span>
             <input type="text" class="form-control" name="textUnivname" 
-            [(ngModel)]="txtUnivname" placeholder="{{ '&tms_step_txt_univname_placeholder' | translate }}">
+            [(ngModel)]="txtUnivname" placeholder="{{ '&step_txt_univname_placeholder' | translate }}">
           </div>
         </span>
   
         <span *ngIf="!hiddenEVName">
         <div class="input-group">
-            <span class="input-group-addon">{{ '&tms_step_lbl_evname' | translate }}</span>
+            <span class="input-group-addon">{{ '&step_lbl_evname' | translate }}</span>
             <input type="text" class="form-control" name="textEVName" 
-            [(ngModel)]="txtEVName" placeholder="{{ '&tms_step_txt_evname_placeholder' | translate }}">
+            [(ngModel)]="txtEVName" placeholder="{{ '&step_txt_evname_placeholder' | translate }}">
           </div>
         </span>
       </div>
@@ -102,38 +102,38 @@
       <div [hidden]="!editEnableAddAciStep">
         <span *ngIf="!hiddenAciInitValue">
           <div class="input-group">
-            <span class="input-group-addon">{{ '&tms_step_lbl_aciinitvalue' | translate }}</span>
+            <span class="input-group-addon">{{ '&step_lbl_aciinitvalue' | translate }}</span>
             <input type="text" class="form-control" name="aciInitValue" 
-            [(ngModel)]="aciInitValue" placeholder="{{ '&tms_step_lst_aciinitvalue_placeholder' | translate }}">
+            [(ngModel)]="aciInitValue" placeholder="{{ '&step_lst_aciinitvalue_placeholder' | translate }}">
           </div>
         </span>
         <div class="input-group">
-          <span class="input-group-addon">{{ '&tms_step_lbl_acivalue' | translate }}</span>
+          <span class="input-group-addon">{{ '&step_lbl_acivalue' | translate }}</span>
           <input type="text"  class="form-control" name="aciValue" (ngModelChange)="onChange('aciValue', $event)"
-          [(ngModel)]="aciValue" placeholder="{{ '&tms_step_lst_acivalue_placeholder' | translate }}">
+          [(ngModel)]="aciValue" placeholder="{{ '&step_txt_acivalue_placeholder' | translate }}">
         </div>
         <button 
           type="button" class="btn btn-info tms-card-btn-add" 
           [disabled]="btnDisabledAddAciStep" (click)="btnClicked('addacistep')"
           title="{{ 'tms_step_btn_add_acistep_title' | translate }}"
-          >{{ '&tms_step_btn_add_acistep' | translate }}</button>
+          >{{ '&step_btn_add_acistep' | translate }}</button>
         <button 
           type="button" class="btn btn-info tms-card-btn-add-cancel" 
           [disabled]="btnDisabledAddAciCancelStep" (click)="btnClicked('addacicancelstep')"
-          title="{{ '&tms_step_btn_add_acicancelstep_title' | translate }}"
-          >{{ '&tms_step_btn_add_acicancelstep' | translate }}</button>
+          title="{{ '&step_btn_add_acicancelstep_title' | translate }}"
+          >{{ '&step_btn_add_acicancelstep' | translate }}</button>
       </div>
   
       <div [hidden]="!editEnableAddDciStep">
         <span *ngIf="!hiddenDciInitValue">
           <div class="input-group">
-            <span class="input-group-addon">{{ '&tms_step_lbl_dciinitvalue' | translate }}</span>
+            <span class="input-group-addon">{{ '&step_lbl_dciinitvalue' | translate }}</span>
             <input type="text" class="form-control"name="dciInitValue" 
-            [(ngModel)]="dciInitValue" placeholder="{{ '&tms_step_lst_dciinitvalue_placeholder' | translate }}">
+            [(ngModel)]="dciInitValue" placeholder="{{ '&step_lst_dciinitvalue_placeholder' | translate }}">
           </div>
         </span>
         <div class="input-group">
-          <span class="input-group-addon">{{ '&tms_step_lbl_dcivalue' | translate }}</span>
+          <span class="input-group-addon">{{ '&step_lbl_dcivalue' | translate }}</span>
           <select class="form-control" name="selectDciValue" id="selectDciValue"
             [(ngModel)]="selDciValue" (change)="onLstChange('selDciValue', $event)">
             <option *ngFor="let item of selOptDciValue" 
@@ -144,13 +144,13 @@
         <button 
           type="button" class="btn btn-info tms-card-btn-add" 
           [disabled]="btnDisabledAddDciStep" (click)="btnClicked('adddcistep')"
-          title="{{ '&tms_step_btn_add_dcistep_title' | translate }}"
-          >{{ '&tms_step_btn_add_dcistep' | translate }}</button>
+          title="{{ '&step_btn_add_dcistep_title' | translate }}"
+          >{{ '&step_btn_add_dcistep' | translate }}</button>
         <button 
           type="button" class="btn btn-info tms-card-btn-add-cancel" 
           [disabled]="btnDisabledAddDciCancelStep" (click)="btnClicked('adddcicancelstep')"
-          title="{{ '&tms_step_btn_add_dcicancelstep_title' | translate }}"
-          >{{ '&tms_step_btn_add_dcicancelstep' | translate }}</button>
+          title="{{ '&step_btn_add_dcicancelstep_title' | translate }}"
+          >{{ '&step_btn_add_dcicancelstep' | translate }}</button>
       </div>
     </form>
   </div>

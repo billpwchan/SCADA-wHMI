@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { SelectionServiceType } from './selection-settings';
 
 @Injectable()
 export class SelectionService {
 
-  public static readonly STR_CARD_SELECTED = 'cardselected';
-  public static readonly STR_STEP_SELECTED = 'stepselected';
-
-  readonly c = 'SelectionService';
+  readonly c = SelectionService.name;
 
   // Observable source
-  private selectionSource = new BehaviorSubject<string>('');
+  private selectionSource = new BehaviorSubject<SelectionServiceType>(SelectionServiceType.UNKNOW);
 
   // Observable item stream
   selectionItem = this.selectionSource.asObservable();
@@ -21,23 +19,23 @@ export class SelectionService {
   constructor() {}
 
   // Service command
-  selectionChanged(str: string) {
+  selectionChanged(selectionServiceType: SelectionServiceType) {
     const f = 'selectionChanged';
-    console.log(this.c, f, str);
-    this.selectionSource.next(str);
+    console.log(this.c, f, selectionServiceType);
+    this.selectionSource.next(selectionServiceType);
   }
 
-  notifyUpdate(str: string): void {
+  notifyUpdate(selectionServiceType: SelectionServiceType): void {
     const f = 'notifyUpdate';
     console.log(this.c, f);
-    console.log(this.c, f, str);
+    console.log(this.c, f, selectionServiceType);
 
-    switch (str) {
-      case SelectionService.STR_CARD_SELECTED: {
-        this.selectionChanged(SelectionService.STR_CARD_SELECTED);
+    switch (selectionServiceType) {
+      case SelectionServiceType.CARD_SELECTED: {
+        this.selectionChanged(SelectionServiceType.CARD_SELECTED);
       } break;
-      case SelectionService.STR_STEP_SELECTED: {
-        this.selectionChanged(SelectionService.STR_STEP_SELECTED);
+      case SelectionServiceType.STEP_SELECTED: {
+        this.selectionChanged(SelectionServiceType.STEP_SELECTED);
       } break;
     }
   }
@@ -48,8 +46,8 @@ export class SelectionService {
     const f = 'setSelectedCardIdentifys';
     console.log(this.c, f, this.selectedCards);
     this.selectedCards = selectedCards;
-    console.log(this.c, f, 'SelectionService.STR_SET_SELECT_CARD', SelectionService.STR_CARD_SELECTED);
-    this.selectionChanged(SelectionService.STR_CARD_SELECTED);
+    console.log(this.c, f, 'SelectionServiceType.SET_SELECT_CARD', SelectionServiceType.CARD_SELECTED);
+    this.selectionChanged(SelectionServiceType.CARD_SELECTED);
   }
 
   getSelectedStepIds(): number[] { return this.selectedSteps; }
@@ -57,7 +55,7 @@ export class SelectionService {
   setSelectedStepIds(selectedSteps: number[]): void {
     console.log(this.c, 'setSelectedSteps', this.selectedCards);
     this.selectedSteps = selectedSteps;
-    this.selectionChanged(SelectionService.STR_STEP_SELECTED);
+    this.selectionChanged(SelectionServiceType.STEP_SELECTED);
   }
 
 }

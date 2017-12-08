@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { SelectionService } from '../../service/card/selection.service';
 import { AppComponent } from '../../app.component';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { CardServiceType } from '../../service/card/card-settings';
+import { SelectionServiceType } from '../../service/card/selection-settings';
 
 @Component({
   selector: 'app-cards'
@@ -40,8 +42,8 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChild('cardsDataTable') cardsDataTable: DatatableComponent;
   
   columns_card = [
-    { prop: 'name', name: this.translate.instant('&tms_cards_gd_header_name') }
-    , { prop: 'State', name: this.translate.instant('&tms_cards_gd_header_state') }
+    { prop: 'name', name: this.translate.instant('&cards_gd_header_name') }
+    , { prop: 'State', name: this.translate.instant('&cards_gd_header_state') }
   ];
   // columns_card = [
   //   { prop: 'name' }
@@ -71,10 +73,13 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     this.cardSubscription = this.cardService.cardItem
     .subscribe(item => {
       console.log(this.c, f, 'cardSubscription', item);
-      if ( CardService.STR_CARD_RELOADED == item ) {
-        this.btnClicked(CardsComponent.STR_RELOAD_CARD);
-      } else if ( CardService.STR_CARD_UPDATED == item ) {
-        this.reloadCard(true);
+      switch (item) {
+        case CardServiceType.CARD_RELOADED: {
+          this.btnClicked(CardsComponent.STR_RELOAD_CARD);
+        } break;
+        case CardServiceType.CARD_UPDATED: {
+          this.reloadCard(true);
+        } break;
       }
     });
 
@@ -109,11 +114,9 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'loadTranslations';
     console.log(this.c, f);
 
-    this.messages['emptyMessage'] = this.translate.instant('&tms_cards_dg_footer_emptymessage');
-
-    this.cardsDataTable.messages['emptyMessage'] = this.translate.instant('&tms_cards_dg_footer_emptymessage');
-    this.cardsDataTable.messages['selectedMessage'] = this.translate.instant('&tms_cards_dg_footer_selectedmessage');
-    this.cardsDataTable.messages['totalMessage'] = this.translate.instant('&tms_cards_dg_footer_totalmessage');
+    this.cardsDataTable.messages['emptyMessage'] = this.translate.instant('&cards_dg_footer_emptymessage');
+    this.cardsDataTable.messages['selectedMessage'] = this.translate.instant('&cards_dg_footer_selectedmessage');
+    this.cardsDataTable.messages['totalMessage'] = this.translate.instant('&cards_dg_footer_totalmessage');
   }
 
   private getCardTypeStr(cardType: CardType): string {
@@ -174,7 +177,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
         });
       });
       if ( selected ) {
-        this.selectionService.notifyUpdate(SelectionService.STR_CARD_SELECTED);
+        this.selectionService.notifyUpdate(SelectionServiceType.CARD_SELECTED);
       }
     } else {
       this.selected_card = [];
@@ -215,7 +218,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     this.selected_card = [];
     // this.selected_card = [...this.selected_card];
 
-    this.cardService.notifyUpdate(CardService.STR_CARD_RELOADED);
+    this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
   }
 
   private btnClicked(btnLabel: string, event?: Event) {

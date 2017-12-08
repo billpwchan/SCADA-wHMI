@@ -15,6 +15,8 @@ import { Subscribable } from 'rxjs/Observable';
 import { SelectionService } from '../../service/card/selection.service';
 import { StepSettings } from '../steps/step-settings';
 import { SettingService } from '../../service/setting.service';
+import { CardServiceType } from '../../service/card/card-settings';
+import { SelectionServiceType } from '../../service/card/selection-settings';
 
 class SelOptStr {
   constructor(
@@ -139,10 +141,10 @@ editEnableDelay = false;
       .subscribe(item => {
         console.log(this.c, f, 'cardSubscription', item);
         switch (item) {
-          case CardService.STR_CARD_RELOADED: {
+          case CardServiceType.CARD_RELOADED: {
             this.btnClicked(StepEditComponent.STR_CARD_RELOADED);
           } break;
-          case CardService.STR_STEP_RELOADED: {
+          case CardServiceType.STEP_RELOADED: {
             this.btnClicked(StepEditComponent.STR_STEP_RELOADED);
           } break;
         }
@@ -152,10 +154,13 @@ editEnableDelay = false;
     this.selectionSubscription = this.selectionService.selectionItem
       .subscribe(item => {
         console.log(this.c, f, 'selectionSubscription', item);
-        if ( SelectionService.STR_CARD_SELECTED == item ) {
-          this.btnClicked(StepEditComponent.STR_CARD_SELECTED);
-        } else if ( SelectionService.STR_STEP_SELECTED == item ) {
-          this.btnClicked(StepEditComponent.STR_STEP_SELECTED);
+        switch (item) {
+          case SelectionServiceType.CARD_SELECTED: {
+            this.btnClicked(StepEditComponent.STR_CARD_SELECTED);
+          } break;
+          case SelectionServiceType.STEP_SELECTED: {
+            this.btnClicked(StepEditComponent.STR_STEP_SELECTED);
+          } break;
         }
       }
     );
@@ -289,29 +294,22 @@ editEnableDelay = false;
     console.log(this.c, f);
 
     this.selOptEnv.length = 0;
-    // const json = {
-    //   'ENVS': [
-    //     {label: AppSettings.STR_M100, value: AppSettings.STR_CONN_M100}
-    //     , {label: AppSettings.STR_M001, value: AppSettings.STR_CONN_M001}
-    //     , {label: AppSettings.STR_M002, value: AppSettings.STR_CONN_M002}
-    //   ]
-    // };
-
     this.selOptEnv.push(new SelOptStr(
-      this.translate.instant('&tms_step_lst_env_default')
+      this.translate.instant('&step_lst_env_default')
       , ''
     ));
 
-    const settings: any = this.settingService.getSetting(
-      StepEditSettings.STR_ENVS_JSON);
+    const appSettings: any = this.settingService.getSetting(AppSettings.STR_SETTINGS_URL);
+    console.log(this.c, f, 'settings', appSettings);
 
-    console.log(this.c, f, 'settings', settings);
+    const stepEditSettings = appSettings[StepEditSettings.STR_STEP_EDIT];
+    console.log(this.c, f, 'stepEditSettings', stepEditSettings);
 
-    if ( undefined != settings && null != settings ) {
+    if ( undefined != stepEditSettings && null != stepEditSettings ) {
 
-      console.log('settings.envs', settings.ENVS);
+      console.log('settings.envs', stepEditSettings.ENVS);
 
-      settings[StepEditSettings.STR_ENVS].forEach((item, index) => {
+      stepEditSettings[StepEditSettings.STR_ENVS].forEach((item, index) => {
         this.selOptEnv.push(
           new SelOptStr(
             item[StepEditSettings.STR_LABEL]
@@ -327,7 +325,7 @@ editEnableDelay = false;
   private initSelOptGeo() {
     this.selOptGeo.length = 0;
     this.selOptGeo.push(new SelOptNum(
-      this.translate.instant('&tms_step_lst_geo_default')
+      this.translate.instant('&step_lst_geo_default')
       , -1
     ));
     this.selGeo = -1;
@@ -336,7 +334,7 @@ editEnableDelay = false;
   private initSelOptFunc() {
     this.selOptFunc.length = 0;
     this.selOptFunc.push(new SelOptNum(
-      this.translate.instant('&tms_step_lst_func_default')
+      this.translate.instant('&step_lst_func_default')
       , -1
     ));
     this.selFunc = -1;
@@ -345,7 +343,7 @@ editEnableDelay = false;
   private initSelOptEqpLabel() {
     this.selOptEqpLabel.length = 0;
     this.selOptEqpLabel.push(new SelOptStr(
-      this.translate.instant('&tms_step_lst_eqplabel_default')
+      this.translate.instant('&step_lst_eqplabel_default')
       , ''
     ));
     this.selEqpLabel = '';
@@ -354,7 +352,7 @@ editEnableDelay = false;
   private initSelOptPointLabel() {
     this.selOptPointLabel.length = 0;
     this.selOptPointLabel.push(new SelOptStr(
-      this.translate.instant('&tms_step_lst_pointlabel_default')
+      this.translate.instant('&step_lst_pointlabel_default')
       , ''
     ));
     this.selPointLabel = '';
@@ -364,7 +362,7 @@ editEnableDelay = false;
     this.selOptDelay.length = 0;
     this.selOptDelay.push(
       new SelOptNum(
-        this.translate.instant('&tms_step_lst_delay_placeholder')
+        this.translate.instant('&step_lst_delay_placeholder')
         , 0
       )
     );
@@ -386,7 +384,7 @@ editEnableDelay = false;
   private initSelOptDciValue(): void {
     this.selOptDciValue.length = 0;
     this.selOptDciValue.push(new SelOptNum(
-      this.translate.instant('&tms_step_lst_dcivalue_placeholder')
+      this.translate.instant('&step_lst_dcivalue_placeholder')
       , -1
     ));
     this.selDciValue = -1;
@@ -657,12 +655,12 @@ editEnableDelay = false;
       } break;
       case 'addacistep': {
         this.addStep();
-        this.cardService.notifyUpdate(CardService.STR_STEP_RELOADED);
+        this.cardService.notifyUpdate(CardServiceType.STEP_RELOADED);
         this.editEnableNewStep = false;
       } break;
       case 'adddcistep': {
         this.addStep();
-        this.cardService.notifyUpdate(CardService.STR_STEP_RELOADED);
+        this.cardService.notifyUpdate(CardServiceType.STEP_RELOADED);
         this.editEnableNewStep = true;
       } break;
       case 'addcancelstep': {
@@ -670,7 +668,7 @@ editEnableDelay = false;
       } break;
       case 'deletestep': {
         this.cardService.deleteStep(this.selectedCardIds, [this.selectedStepIds]);
-        this.cardService.notifyUpdate(CardService.STR_STEP_RELOADED);
+        this.cardService.notifyUpdate(CardServiceType.STEP_RELOADED);
       } break;
     }
     this.sendNotifyParent(btnLabel);

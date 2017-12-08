@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { NgModel, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -24,6 +24,9 @@ import { CardEditComponent } from './component/card-edit/card-edit.component';
 import { SelectionService } from './service/card/selection.service';
 import { StepControllerComponent } from './component/step-controller/step-controller.component';
 import { SettingService } from './service/setting.service';
+import { CsvToCardsPipe } from './pipe/csv-to-cards.pipe';
+import { CardsToCsvPipe } from './pipe/cards-to-csv.pipe';
+import { HttpModule } from '@angular/http';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -40,29 +43,39 @@ export function createTranslateLoader(http: HttpClient) {
     , StepEditComponent
     , CardEditComponent
     , StepControllerComponent
+    , CsvToCardsPipe
+    , CardsToCsvPipe
   ],
   imports: [
     BrowserModule
     , FormsModule
     , NgxDatatableModule
+    , HttpModule
     , HttpClientModule
     , TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: (createTranslateLoader),
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
       }
     })
     , UtilsHttpModule
   ],
   providers: [
     SettingService
+    , {
+      provide: APP_INITIALIZER,
+      useFactory: (settingService: SettingService) => function() {return settingService.load()},
+      deps: [SettingService],
+      multi: true
+    }
     , OlsService
     , DbmService
     , DacSimService
     , CardService
     , SelectionService
     , StorageService
+
   ],
   bootstrap: [AppComponent]
 })

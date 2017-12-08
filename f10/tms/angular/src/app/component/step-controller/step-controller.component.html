@@ -1,17 +1,17 @@
 <div>
     <form>
       <fieldset class="">
-      <legend class="">{{ '&tms_step_lbl_executeion_step' | translate }}</legend>
+      <legend class="">{{ '&step_lbl_executeion_step' | translate }}</legend>
         <div>
-          <label>{{ '&tms_step_lbl_executeion' | translate }}</label>
+          <label>{{ '&step_lbl_executeion' | translate }}</label>
           <button type="button" class="btn btn-info tms-step-btn-startstep" 
             [disabled]="btnDisabledStartStep" (click)="btnClicked('startstep', $event)"
-            title="{{ '&tms_step_btn_startstep_placeholder' | translate }}"
-            >{{ '&tms_step_btn_startstep' | translate }}</button>
+            title="{{ '&step_btn_startstep_placeholder' | translate }}"
+            >{{ '&step_btn_startstep' | translate }}</button>
           <button type="button" class="btn btn-info tms-step-btn-stopstep" 
             [disabled]="btnDisabledStopStep" (click)="btnClicked('stopstep', $event)"
-            title="{{ '&tms_step_btn_stopstep_placeholder' | translate }}"
-            >{{ '&tms_step_btn_stopstep' | translate }}</button>
+            title="{{ '&step_btn_stopstep_placeholder' | translate }}"
+            >{{ '&step_btn_stopstep' | translate }}</button>
         </div>
       </fieldset>
     </form>

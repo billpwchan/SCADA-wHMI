@@ -5,6 +5,8 @@ import { CardService } from '../../service/card/card.service';
 import { AppSettings } from '../../app-settings';
 import { Step, Card, StepType } from '../../model/Scenario';
 import { DacSimExecType } from '../../service/scs/dac-sim-settings';
+import { CardServiceType } from '../../service/card/card-settings';
+import { SelectionServiceType } from '../../service/card/selection-settings';
 
 @Component({
   selector: 'app-step-controller',
@@ -44,10 +46,10 @@ export class StepControllerComponent implements OnInit, OnDestroy {
     this.cardsSubscription = this.cardService.cardItem
     .subscribe( item => {
       switch ( item ) {
-        case CardService.STR_CARD_RELOADED: {
+        case CardServiceType.CARD_RELOADED: {
           this.btnClicked(StepControllerComponent.STR_INIT);
         } break;
-        case CardService.STR_STEP_RELOADED: {
+        case CardServiceType.STEP_RELOADED: {
           this.btnClicked(StepControllerComponent.STR_INIT);
         } break;
       }
@@ -56,8 +58,10 @@ export class StepControllerComponent implements OnInit, OnDestroy {
     this.selectionSubscription = this.selectionService.selectionItem
     .subscribe( item => {
       console.log(this.c, f, 'selectionSubscription', item);
-      if ( SelectionService.STR_STEP_SELECTED === item ) {
-        this.btnClicked(StepControllerComponent.STR_STEP_SELECTED);
+      switch (item) {
+        case SelectionServiceType.STEP_SELECTED: {
+          this.btnClicked(StepControllerComponent.STR_STEP_SELECTED);
+        } break;
       }
     });
   }

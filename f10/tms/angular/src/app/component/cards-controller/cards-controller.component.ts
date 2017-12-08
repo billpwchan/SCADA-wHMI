@@ -4,7 +4,8 @@ import { AppSettings } from '../../app-settings';
 import { Card, CardType } from '../../model/Scenario';
 import { SelectionService } from '../../service/card/selection.service';
 import { Subscription } from 'rxjs/Subscription';
-import { CardExecType } from '../../service/card/card-setting';
+import { CardExecType, CardServiceType } from '../../service/card/card-settings';
+import { SelectionServiceType } from '../../service/card/selection-settings';
 
 @Component({
   selector: 'app-cards-controller'
@@ -45,18 +46,23 @@ export class CardsControllerComponent implements OnInit, OnDestroy {
     this.cardSubscripion = this.cardService.cardItem
     .subscribe( item => {
       console.log(this.c, f, 'cardSubscripion', item);
-      if ( CardService.STR_CARD_RELOADED == item ) {
-        this.btnClicked(CardsControllerComponent.STR_INIT);
-      } else if ( CardService.STR_CARD_UPDATED == item ) {
+      switch (item) {
+        case CardServiceType.CARD_RELOADED: {
+          this.btnClicked(CardsControllerComponent.STR_INIT);
+        } break;
+        case CardServiceType.CARD_UPDATED: {
 
+        } break;        
       }
     });
 
     this.selectionSubscription = this.selectionService.selectionItem
     .subscribe( item => {
       console.log(this.c, f, 'selectionSubscription', item);
-      if ( item == SelectionService.STR_CARD_SELECTED ) {
-        this.btnClicked(CardsControllerComponent.STR_CARD_SELECTED);
+      switch (item) {
+        case SelectionServiceType.CARD_SELECTED: {
+          this.btnClicked(CardsControllerComponent.STR_CARD_SELECTED);
+        } break;
       }
     });
 

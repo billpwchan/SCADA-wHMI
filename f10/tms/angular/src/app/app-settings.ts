@@ -1,6 +1,8 @@
 
 export class AppSettings {
 
+    public static readonly STR_SETTINGS_URL = './assets/config/settings.json';
+
     public static readonly STR_RESPONSE = 'response';
 
     // Common event should be handle hy each widget

@@ -9,6 +9,8 @@ import { OnChanges, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks
 import { FormGroup, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { SelectionService } from '../../service/card/selection.service';
+import { CardServiceType } from '../../service/card/card-settings';
+import { SelectionServiceType } from '../../service/card/selection-settings';
 
 @Component({
   selector: 'app-card-edit',
@@ -80,11 +82,13 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     this.selectionSubscription = this.selectionService.selectionItem
     .subscribe(item => {
       console.log(this.c, f, 'selectionSubscription', item);
-      if ( SelectionService.STR_CARD_SELECTED == item ) {
-        this.btnClicked(CardEditComponent.STR_CARD_SELECTED);
+      switch (item) {
+        case SelectionServiceType.CARD_SELECTED: {
+          this.btnClicked(CardEditComponent.STR_CARD_SELECTED);
+        } break;
       }
     });
-    this.btnClicked('init');
+    this.btnClicked(CardEditComponent.STR_INIT);
   }
 
   ngOnDestroy(): void {
@@ -119,7 +123,7 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
         , CardType.STOP
         , 0
       ));
-    this.cardService.notifyUpdate(CardService.STR_CARD_RELOADED);
+    this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
   }
 
   /**
@@ -136,7 +140,7 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
       identitys.push(item.name);
     });
     this.cardService.deleteCards(identitys);
-    this.cardService.notifyUpdate(CardService.STR_CARD_RELOADED);
+    this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
   }
 
   /**
@@ -154,7 +158,7 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     const clonedCard = sourceCard.map(x => Object.assign({}, x));
     clonedCard[0].name = newCardName;
     this.cardService.addCards([clonedCard[0]]);
-    this.cardService.notifyUpdate(CardService.STR_CARD_RELOADED);
+    this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
   }
 
   /**
@@ -175,7 +179,7 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
 
   private setCurrentCardName(preName: string, curName: string): void {
     this.cardService.getCards([preName])[0].name = curName;
-    this.cardService.notifyUpdate(CardService.STR_CARD_RELOADED);
+    this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
   }
 
   private getSelectCardName(): string {

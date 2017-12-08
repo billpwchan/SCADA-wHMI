@@ -8,7 +8,7 @@ import { Card, Step, StepType, CardType } from '../../model/Scenario';
 import { DacSimExecution, EIV, DacSimExecType, ExecResult } from './../../service/scs/dac-sim-settings';
 import { AppSettings } from '../../app-settings';
 import { SelectionService } from './selection.service';
-import { StepExistsResult, CardExistsResult, CardExecType } from './card-setting';
+import { StepExistsResult, CardExistsResult, CardExecType, CardServiceType } from './card-settings';
 import { DacSimService } from '../scs/dac-sim.service';
 
 @Injectable()
@@ -23,7 +23,7 @@ export class CardService {
   readonly c = CardService.name;
 
   // Observable source
-  private cardSource = new BehaviorSubject<string>('');
+  private cardSource = new BehaviorSubject<CardServiceType>(CardServiceType.UNKNOW);
 
   // Observable cardItem stream
   cardItem = this.cardSource.asObservable();
@@ -85,7 +85,7 @@ export class CardService {
             }
           }
           console.log(this.c, f, 'step.state', step.state);
-          this.notifyUpdate(CardService.STR_STEP_UPDATED);
+          this.notifyUpdate(CardServiceType.STEP_UPDATED);
         } else {
           console.log(this.c, f, 'step IS NULL');
         }
@@ -94,30 +94,30 @@ export class CardService {
   }
 
   // Service command
-  cardChanged(str) {
+  cardChanged(serviceType: CardServiceType) {
     const f = 'cardChanged';
     console.log(this.c, f);
-    console.log(this.c, f, str);
-    this.cardSource.next(str);
+    console.log(this.c, f, serviceType);
+    this.cardSource.next(serviceType);
   }
 
-  notifyUpdate(str: string): void {
+  notifyUpdate(serviceType: CardServiceType): void {
     const f = 'notifyUpdate';
     console.log(this.c, f);
-    console.log(this.c, f, str);
+    console.log(this.c, f, serviceType);
 
-    switch (str) {
-      case CardService.STR_CARD_RELOADED: {
-        this.cardChanged(CardService.STR_CARD_RELOADED);
+    switch (serviceType) {
+      case CardServiceType.CARD_RELOADED: {
+        this.cardChanged(CardServiceType.CARD_RELOADED);
       } break;
-      case CardService.STR_CARD_UPDATED: {
-        this.cardChanged(CardService.STR_CARD_UPDATED);
+      case CardServiceType.CARD_UPDATED: {
+        this.cardChanged(CardServiceType.CARD_UPDATED);
       } break;
-      case CardService.STR_STEP_RELOADED: {
-        this.cardChanged(CardService.STR_STEP_RELOADED);
+      case CardServiceType.STEP_RELOADED: {
+        this.cardChanged(CardServiceType.STEP_RELOADED);
       } break;
-      case CardService.STR_STEP_UPDATED: {
-        this.cardChanged(CardService.STR_STEP_UPDATED);
+      case CardServiceType.STEP_UPDATED: {
+        this.cardChanged(CardServiceType.STEP_UPDATED);
       } break;
     }
   }
@@ -315,7 +315,7 @@ export class CardService {
         } break;
       }
 
-      this.notifyUpdate(CardService.STR_CARD_UPDATED);
+      this.notifyUpdate(CardServiceType.CARD_UPDATED);
 
     } else {
       console.log(this.c, f, 'card not found');
@@ -356,7 +356,7 @@ export class CardService {
 
       if ( execCard.step < execCard.steps.length ) {
 
-        this.notifyUpdate(CardService.STR_CARD_UPDATED);
+        this.notifyUpdate(CardServiceType.CARD_UPDATED);
 
         this.executeStep(
           execCard.name
@@ -377,7 +377,7 @@ export class CardService {
           execCard.timer.unsubscribe();
 
           console.log(this.c, f, 'reloadScenarioStep');
-          this.cardChanged('reloadSteps');
+          this.cardChanged(CardServiceType.STEP_UPDATED);
 
           console.log(this.c, f, 'executeCard');
           this.executeCard(execCard.name, execType);
@@ -394,7 +394,7 @@ export class CardService {
           } break;
         }
 
-        this.notifyUpdate(CardService.STR_CARD_UPDATED);
+        this.notifyUpdate(CardServiceType.CARD_UPDATED);
       }
     } else {
       console.log(this.c, f, 'CARD NOT FOUND');
@@ -419,7 +419,7 @@ export class CardService {
         } break;
       }
 
-      this.notifyUpdate(CardService.STR_CARD_UPDATED);
+      this.notifyUpdate(CardServiceType.CARD_UPDATED);
 
       this.executeCard(cardName, cardType);
     } else {

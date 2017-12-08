@@ -5,6 +5,7 @@ import { CardService } from './card.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { StorageSettings } from './storage-settings';
 import { Card } from '../../model/Scenario';
+import { CardServiceType } from './card-settings';
 
 @Injectable()
 export class StorageService {
@@ -55,7 +56,7 @@ export class StorageService {
       const strCards: string = localStorage.getItem(StorageService.STR_LOCAL_STORAGE_NAME);
       const cards: Card[] = JSON.parse(strCards);
       this.cardService.setCards(cards);
-      this.cardService.notifyUpdate(CardService.STR_CARD_RELOADED);
+      this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
     } else {
 
     }
@@ -221,29 +222,4 @@ export class StorageService {
       );
   }
 
-  loadFile(event) {
-    const func = 'loadFile';
-    console.log(func);
-    const files: File[] = event.target.files;
-    const file = files[0];
-
-    console.log(files.length);
-
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-
-//      console.log('csv name', e.target.name);
-//      console.log('csv size', e.target.size);
-      const result = e.target.result;
-
-      console.log(func, 'csv result', result);
-
-      this.postData(
-        StorageSettings.strUrlfsstorage + '/' + StorageSettings.strUrlUpstreamFile
-      , StorageSettings.STR_TMS_FILENAME
-      , result);
-    };
-
-    reader.readAsText(file);
-  }
 }

@@ -5,6 +5,7 @@ import { Card } from '../../model/Scenario';
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { AppSettings } from '../../app-settings';
+import { CardServiceType } from '../../service/card/card-settings';
 
 @Component({
   selector: 'app-storage',
@@ -53,12 +54,13 @@ export class StorageComponent implements OnInit, OnDestroy {
     this.cardSubscription = this.cardService.cardItem
     .subscribe( item => {
       console.log(this.c, f, 'storageSubscription', item);
-      if ( CardService.STR_CARD_RELOADED == item ) {
-        if ( !this.ignoreReload ) {
-          this.btnClicked(StorageComponent.STR_CARD_MODIFIED);
-        }
-        this.ignoreReload = false;
-        
+      switch (item) {
+        case CardServiceType.CARD_RELOADED: {
+          if ( !this.ignoreReload ) {
+            this.btnClicked(StorageComponent.STR_CARD_MODIFIED);
+          }
+          this.ignoreReload = false;          
+        } break;
       }
     });
 

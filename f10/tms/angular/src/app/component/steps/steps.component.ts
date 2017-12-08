@@ -9,6 +9,8 @@ import { SelectionService } from '../../service/card/selection.service';
 import { DacSimService } from '../../service/scs/dac-sim.service';
 import { StepSettings } from './step-settings';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { CardServiceType } from '../../service/card/card-settings';
+import { SelectionServiceType } from '../../service/card/selection-settings';
 
 @Component({
   selector: 'app-steps'
@@ -74,10 +76,10 @@ export class StepsComponent implements OnInit, OnDestroy {
     .subscribe(item => {
       console.log(this.c, f, 'cardSubscription', item);
       switch (item) {
-        case CardService.STR_STEP_RELOADED: {
+        case CardServiceType.STEP_RELOADED: {
           this.btnClicked(StepsComponent.STR_STEP_RELOADED);
         } break;
-        case CardService.STR_STEP_UPDATED: {
+        case CardServiceType.STEP_UPDATED: {
           this.btnClicked(StepsComponent.STR_STEP_UPDATED);
         } break;
       }
@@ -87,7 +89,7 @@ export class StepsComponent implements OnInit, OnDestroy {
     .subscribe(item => {
       console.log(this.c, f, 'selectionSubscription', item);
       switch (item) {
-        case SelectionService.STR_CARD_SELECTED: {
+        case SelectionServiceType.CARD_SELECTED: {
           this.btnClicked(StepsComponent.STR_CARD_SELECTED);
         } break;
       }
@@ -112,11 +114,9 @@ export class StepsComponent implements OnInit, OnDestroy {
     const f = 'loadTranslations';
     console.log(this.c, f);
 
-    this.messages['emptyMessage'] = this.translate.instant('&tms_steps_dg_footer_emptymessage');
-
-    this.stepsDataTable.messages['emptyMessage'] = this.translate.instant('&tms_steps_dg_footer_emptymessage');
-    this.stepsDataTable.messages['selectedMessage'] = this.translate.instant('&tms_steps_dg_footer_selectedmessage');
-    this.stepsDataTable.messages['totalMessage'] = this.translate.instant('&tms_steps_dg_footer_totalmessage');
+    this.stepsDataTable.messages['emptyMessage'] = this.translate.instant('&steps_dg_footer_emptymessage');
+    this.stepsDataTable.messages['selectedMessage'] = this.translate.instant('&steps_dg_footer_selectedmessage');
+    this.stepsDataTable.messages['totalMessage'] = this.translate.instant('&steps_dg_footer_totalmessage');
   }
 
   private getStateStr(state: StepType): string {
@@ -212,20 +212,20 @@ export class StepsComponent implements OnInit, OnDestroy {
       case StepsComponent.STR_INIT: {
         this.init();
       } break;
-      case CardService.STR_CARD_RELOADED: {
+      case StepsComponent.STR_CARD_RELOADED: {
         this.selectedCardName = '';
         this.txtCardName = this.selectedCardName;
         this.reloadSteps();
       } break;
-      case SelectionService.STR_CARD_SELECTED: {
+      case StepsComponent.STR_CARD_SELECTED: {
         this.selectedCardName = this.selectionService.getSelectedCardIds()[0];
         this.txtCardName = this.selectedCardName;
         this.reloadSteps();
       } break;
-      case CardService.STR_STEP_RELOADED: {
+      case StepsComponent.STR_STEP_RELOADED: {
         this.reloadSteps();
       } break;
-      case CardService.STR_STEP_UPDATED: {
+      case StepsComponent.STR_STEP_UPDATED: {
         this.reloadSteps(false);
       } break;
     }

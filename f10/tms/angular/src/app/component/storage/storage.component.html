@@ -1,54 +1,54 @@
 <div>
   <form>
     <fieldset class="">
-      <legend class="">{{ '&tms_storage_lbl_savereload' | translate }}</legend>
+      <legend class="">{{ '&storage_lbl_savereload' | translate }}</legend>
       <div>
-        <label>{{ '&tms_storage_lbl_savereload' | translate }}</label>
+        <label>{{ '&storage_lbl_savereload' | translate }}</label>
         <button type="button" class="btn btn-info tms-step-btn-savescenario" 
         [disabled]="btnDisabledSaveScenario" (click)="btnClicked('savescenario')"
-        title="{{ '&tms_storage_btn_save_title' | translate }}"
-        >{{ '&tms_storage_btn_save' | translate }}</button>
+        title="{{ '&storage_btn_save_title' | translate }}"
+        >{{ '&storage_btn_save' | translate }}</button>
         <button type="button" class="btn btn-info tms-step-btn-reloadscenario" 
         [disabled]="btnDisabledReloadScenario" (click)="btnClicked('reloadscenario')"
-        title="{{ '&tms_storage_btn_load_title' | translate }}"
-        >{{ '&tms_storage_btn_load' | translate }}</button>
+        title="{{ '&storage_btn_load_title' | translate }}"
+        >{{ '&storage_btn_load' | translate }}</button>
       </div>
 
       <div>
         <div>
           <div class='alert alert-info' [hidden]="disableSaveToStorageMsg">
-            <strong>{{ '&tms_storage_info_modifycardsnotsaved_title' | translate }}</strong>
+            <strong>{{ '&storage_info_modifycardsnotsaved_title' | translate }}</strong>
           </div>
           <div class='alert alert-info' [hidden]="disableSaveToStorageSuccessMsg">
-            <strong>{{ '&tms_storage_info_modifycardsnotsavedsuccess_title' | translate }}</strong>
+            <strong>{{ '&storage_info_modifycardsnotsavedsuccess_title' | translate }}</strong>
           </div>
           <div class='alert alert-warning' [hidden]="disableSaveToStorageFaildMsg">
-            <strong>{{ '&tms_storage_info_modifycardsnotsavedfailed_title' | translate }}</strong>
+            <strong>{{ '&storage_info_modifycardsnotsavedfailed_title' | translate }}</strong>
           </div>
         </div>
         <div>
           <div [hidden]="disableLoadFromStorageConfirmMsg">
             <div class='alert alert-info' [hidden]="disableReloadFromStorageMsg">
-              <strong>{{ '&tms_storage_info_confirmtosavecards_title' | translate }}</strong>            
+              <strong>{{ '&storage_info_confirmtosavecards_title' | translate }}</strong>            
             </div>
             <button 
               type="button" class="btn btn-info tms-card-btn-add" 
               [disabled]="btnDisabledSave" (click)="btnClicked('confirm')"
-              title="{{ '&tms_storage_btn_save_confirm_title' | translate }}"
-              >{{ '&tms_storage_btn_save_confirm' | translate }}</button>
+              title="{{ '&storage_btn_save_confirm_title' | translate }}"
+              >{{ '&storage_btn_save_confirm' | translate }}</button>
             <button 
               type="button" class="btn btn-info tms-card-btn-add" 
               [disabled]="btnDisabledCancel" (click)="btnClicked('cancel')"
-              title="{{ '&tms_storage_btn_save_cancel_title' | translate }}"
-              >{{ '&tms_storage_btn_save_cancel' | translate }}</button>
+              title="{{ '&storage_btn_save_cancel_title' | translate }}"
+              >{{ '&storage_btn_save_cancel' | translate }}</button>
           </div>
 
           <div>
             <div class='alert alert-info' [hidden]="disableReloadFromStorageSuccessMsg">
-              <strong>{{ '&tms_storage_info_confirmtosavecardssuccess_title' | translate }}</strong>
+              <strong>{{ '&storage_info_confirmtosavecardssuccess_title' | translate }}</strong>
             </div>
             <div class='alert alert-warning' [hidden]="disableReloadFromStorageFailedMsg">
-              <strong>{{ '&tms_storage_info_confirmtosavecardsfailed_title' | translate }}</strong>
+              <strong>{{ '&storage_info_confirmtosavecardsfailed_title' | translate }}</strong>
             </div>            
           </div>
         </div>

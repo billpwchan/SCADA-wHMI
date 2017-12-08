@@ -8,6 +8,8 @@ import { StepEditComponent } from './component/step-edit/step-edit.component';
 import { SelectionService } from './service/card/selection.service';
 import { SettingService } from './service/setting.service';
 import { StepEditSettings } from './component/step-edit/step-edit-settings';
+import { CardServiceType } from './service/card/card-settings';
+import { AppSettings } from './app-settings';
 
 @Component({
   selector: 'app-root'
@@ -18,7 +20,7 @@ import { StepEditSettings } from './component/step-edit/step-edit-settings';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  readonly c = 'AppComponent';
+  readonly c = AppComponent.name;
 
   cardSubscription: Subscription;
 
@@ -35,14 +37,23 @@ export class AppComponent implements OnInit, OnDestroy {
     const f = 'constructor';
     console.log(this.c, f);
 
+    // this.settingService.init();
+
+    // // Loading the configuation
+    // this.settingService.loadSetting(AppSettings.STR_SETTINGS_URL);
+
+    // this.settingService.retriveSetting();
+
+    console.log(this.c, f, 'translate.getBrowserCultureLang()', translate.getBrowserCultureLang());
+    console.log(this.c, f, 'translate.getBrowserLang()', translate.getBrowserLang());
+    console.log(this.c, f, 'translate.getDefaultLang()', translate.getDefaultLang());
+    console.log(this.c, f, 'translate.getLangs()', translate.getLangs());
+
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
 
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     translate.use('en');
-
-    // Loading the configuation
-    this.settingService.retriveSetting(StepEditSettings.STR_ENVS_JSON);
   }
 
   ngOnInit(): void {
@@ -60,9 +71,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.cardSubscription.unsubscribe();
   }
 
-  changeCard(str: string) {
+  changeCard(serviceType: CardServiceType) {
     const f = 'changeCard';
-    console.log(this.c, f, 'str', str);
+    console.log(this.c, f, 'serviceType', serviceType);
   }
 
   getNotification(evt) {
@@ -70,38 +81,4 @@ export class AppComponent implements OnInit, OnDestroy {
     // Do something with the notification (evt) sent by the child!
     console.log(this.c, f, 'evt', evt);
   }
-
-  // getLocations() {
-  //   return this.httpClient
-  //     .get('./assets/countries.json')
-  //     .flatMap((data: any) => Observable
-  //     .forkJoin(data.countries
-  //     .map((country: string) => this.httpClient
-  //     .get(`./assets/${country}.json`)
-  //     .map((locations: any) => {
-  //       return {country: country.toUpperCase(), cities: locations.cities};
-  //      })))
-  //     ).catch(e => Observable.of({failure: e}));
-  // }
-
-  // // reading from pages and fire the page
-  // private getRequest() {
-  //   this.httpClient.get('/api/pages/')
-  //   .map((res: any) => res.json())
-  //   .mergeMap((pages: any[]) => {
-  //     if (pages.length > 0) {
-  //       return Observable.forkJoin(
-  //         pages.map((page: any, i) => {
-  //           return this.httpClient.get('/api/sections/' + i)
-  //             .map((res: any) => {
-  //               const section: any = res.json();
-  //               // do your operation and return
-  //               return section;
-  //             });
-  //         })
-  //       );
-  //     }
-  //     return Observable.of([]);
-  //   });
-  // }
 }

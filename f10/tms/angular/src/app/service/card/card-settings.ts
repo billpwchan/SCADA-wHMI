@@ -21,3 +21,11 @@ export enum CardExecType {
   , PAUSE = 2
   , UNKNOW = 3
 }
+
+export enum CardServiceType {
+  CARD_RELOADED = 0
+  , CARD_UPDATED = 1
+  , STEP_RELOADED = 2
+  , STEP_UPDATED = 3
+  , UNKNOW = 4
+}

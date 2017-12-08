@@ -2,7 +2,7 @@
   <form>
     <div class="container">
       <fieldset class="">
-        <legend class="">{{ '&tms_cards_title' | translate }}</legend>
+        <legend class="">{{ '&cards_title' | translate }}</legend>
         <div>
 
           <div>
@@ -26,7 +26,7 @@
               >
               <ngx-datatable-column prop="name" name="Name" [sortable]='true'>
                 <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-                  <span (click)="sort()">{{ '&tms_cards_gd_header_name' | translate }}</span>
+                  <span (click)="sort()">{{ '&cards_gd_header_name' | translate }}</span>
                 </ng-template>
                 <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                   <strong>{{ value }}</strong>
@@ -34,7 +34,7 @@
               </ngx-datatable-column>
               <ngx-datatable-column prop="state" name="State" [sortable]='true'>
                 <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-                  <span (click)="sort()">{{ '&tms_cards_gd_header_state' | translate }}</span>
+                  <span (click)="sort()">{{ '&cards_gd_header_state' | translate }}</span>
                 </ng-template>
                 <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                   <strong>{{ value | translate }}</strong>
@@ -49,7 +49,7 @@
                   let-curPage="curPage"
                   let-offset="offset">
                   <div class="page-count">
-                    <div>{{selectedCount}}{{ '&tms_cards_dg_footer_selectedmessage' | translate }}{{ '&tms_cards_dg_footer_spliter' | translate }}{{rowCount}}{{ '&tms_cards_dg_footer_totalmessage' | translate }}</div>
+                    <div>{{selectedCount}}{{ '&cards_dg_footer_selectedmessage' | translate }}{{ '&cards_dg_footer_spliter' | translate }}{{rowCount}}{{ '&cards_dg_footer_totalmessage' | translate }}</div>
                   </div>
                 </ng-template>
               </ngx-datatable-footer>

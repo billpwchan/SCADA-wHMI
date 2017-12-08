@@ -27,6 +27,21 @@ export class SelectionService {
     this.selectionSource.next(str);
   }
 
+  notifyUpdate(str: string): void {
+    const f = 'notifyUpdate';
+    console.log(this.c, f);
+    console.log(this.c, f, str);
+
+    switch (str) {
+      case SelectionService.STR_CARD_SELECTED: {
+        this.selectionChanged(SelectionService.STR_CARD_SELECTED);
+      } break;
+      case SelectionService.STR_STEP_SELECTED: {
+        this.selectionChanged(SelectionService.STR_STEP_SELECTED);
+      } break;
+    }
+  }
+
   getSelectedCardIds(): string[] { return this.selectedCards; }
   getSelectedCardId(): string { return this.getSelectedCardIds()[0]; }
   setSelectedCardIds(selectedCards: string[]): void {

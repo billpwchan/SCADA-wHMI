@@ -15,7 +15,7 @@
     </div>
     <div>
       <!-- class="material" -->
-      <ngx-datatable
+      <ngx-datatable #stepsDataTable
         class="bootstrap"
         [rows]="rows_step"
         [loadingIndicator]="loadingIndicator"
@@ -25,10 +25,93 @@
         [footerHeight]="50"
         [rowHeight]="'auto'"
         [reorderable]="reorderable"
+
+        [messages]="messages"
         
         [selected]="selected_step"
         [selectionType]="'single'"
-        (select)="onRowSelect('step', $event)">
+        (select)="onRowSelect('step', $event)"
+        (activate)="onActivate('card', $event)"
+        >
+        <ngx-datatable-column prop="step" name="Step" [sortable]='true'>
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="sort()">{{ '&tms_steps_dg_header_step' | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <strong>{{ value | translate }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="location" name="Location" [sortable]='true'>
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="sort()">{{ '&tms_steps_dg_header_location' | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <strong>{{ value | translate }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="system" name="System" [sortable]='true'>
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="sort()">{{ '&tms_steps_dg_header_system' | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <strong>{{ value | translate }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="equipment" name="Equipment" [sortable]='true'>
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="sort()">{{ '&tms_steps_dg_header_equipment' | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <strong>{{ value | translate }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="point" name="Point" [sortable]='true'>
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="sort()">{{ '&tms_steps_dg_header_point' | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <strong>{{ value | translate }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="value" name="Value" [sortable]='true'>
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="sort()">{{ '&tms_steps_dg_header_value' | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <strong>{{ value | translate }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="delay" name="Delay" [sortable]='true'>
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="sort()">{{ '&tms_steps_dg_header_delay' | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <strong>{{ value | translate }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="status" name="Status" [sortable]='true'>
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="sort()">{{ '&tms_steps_dg_header_status' | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <strong>{{ value | translate }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-footer>
+          <ng-template 
+            ngx-datatable-footer-template 
+            let-rowCount="rowCount"
+            let-pageSize="pageSize"
+            let-selectedCount="selectedCount"
+            let-curPage="curPage"
+            let-offset="offset">
+            <div class="page-count">
+              <div>{{selectedCount}}{{ '&tms_steps_dg_footer_selectedmessage' | translate }}{{ '&tms_steps_dg_footer_spliter' | translate }}{{rowCount}}{{ '&tms_steps_dg_footer_totalmessage' | translate }}
+            </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-footer>
       </ngx-datatable>
     </div>
   </fieldset>

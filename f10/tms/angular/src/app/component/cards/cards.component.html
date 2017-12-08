@@ -6,7 +6,7 @@
         <div>
 
           <div>
-            <ngx-datatable
+            <ngx-datatable #cardsDataTable
               class="bootstrap"
               [rows]="rows_card"
               [loadingIndicator]="loadingIndicator"
@@ -16,11 +16,43 @@
               [footerHeight]="50"
               [rowHeight]="'auto'"
               [reorderable]="reorderable"
+
+              [messages]="messages"
               
               [selected]="selected_card"
               [selectionType]="'single'"
-              (select)="onRowSelect('card', $event)">
+              (select)="onRowSelect('card', $event)"
+              (activate)="onActivate('card', $event)"
               >
+              <ngx-datatable-column prop="name" name="Name" [sortable]='true'>
+                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                  <span (click)="sort()">{{ '&tms_cards_gd_header_name' | translate }}</span>
+                </ng-template>
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                  <strong>{{ value }}</strong>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column prop="state" name="State" [sortable]='true'>
+                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                  <span (click)="sort()">{{ '&tms_cards_gd_header_state' | translate }}</span>
+                </ng-template>
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                  <strong>{{ value | translate }}</strong>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-footer>
+                <ng-template 
+                  ngx-datatable-footer-template 
+                  let-rowCount="rowCount"
+                  let-pageSize="pageSize"
+                  let-selectedCount="selectedCount"
+                  let-curPage="curPage"
+                  let-offset="offset">
+                  <div class="page-count">
+                    <div>{{selectedCount}}{{ '&tms_cards_dg_footer_selectedmessage' | translate }}{{ '&tms_cards_dg_footer_spliter' | translate }}{{rowCount}}{{ '&tms_cards_dg_footer_totalmessage' | translate }}</div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-footer>
             </ngx-datatable>
           </div>
         </div>

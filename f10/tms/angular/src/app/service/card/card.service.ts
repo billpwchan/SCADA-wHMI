@@ -336,26 +336,25 @@ export class CardService {
         execCard.step = 0;
       }
 
+      let stepExecType: DacSimExecType = DacSimExecType.UNKNOW;
+      switch ( execType ) {
+        case CardExecType.START: {
+          execCard.state = CardType.START_RUNNING;
+          stepExecType = DacSimExecType.START;
+        } break;
+        case CardExecType.STOP: {
+          execCard.state = CardType.STOP_RUNNING;
+          stepExecType = DacSimExecType.STOP;
+        } break;
+      }
+
       console.log(this.c, f, 'execCard.name         [' + execCard.name + ']');
       console.log(this.c, f, 'execCard.state        [' + execCard.state + ']');
       console.log(this.c, f, 'execCard.step         [' + execCard.step + ']');
       console.log(this.c, f, 'execCard.steps.length [' + execCard.steps.length + ']');
       console.log(this.c, f, 'execCard.steps        [' + execCard.steps + ']');
-      console.log(this.c, f, 'execCard.type         [' + execCard.type + ']');
 
       if ( execCard.step < execCard.steps.length ) {
-
-        let stepExecType: DacSimExecType = DacSimExecType.UNKNOW;
-        switch ( execType ) {
-          case CardExecType.START: {
-            execCard.state = CardType.START_RUNNING;
-            stepExecType = DacSimExecType.START;
-          } break;
-          case CardExecType.STOP: {
-            execCard.state = CardType.STOP_RUNNING;
-            stepExecType = DacSimExecType.STOP;
-          } break;
-        }
 
         this.notifyUpdate(CardService.STR_CARD_UPDATED);
 

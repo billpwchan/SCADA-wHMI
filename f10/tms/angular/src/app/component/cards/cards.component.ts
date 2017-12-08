@@ -1,5 +1,5 @@
-import { Component, OnInit, EventEmitter, Output, SimpleChanges, Input } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, OnInit, EventEmitter, Output, SimpleChanges, Input, ViewChild } from '@angular/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { CardService } from '../../service/card/card.service';
 import { Card, CardType } from '../../model/Scenario';
 import { DatatableCard } from '../../model/DatatableScenario';
@@ -10,6 +10,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { SelectionService } from '../../service/card/selection.service';
 import { AppComponent } from '../../app.component';
+import { DatatableComponent } from '@swimlane/ngx-datatable';
 
 @Component({
   selector: 'app-cards'
@@ -36,18 +37,31 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
   selectionSubscription: Subscription;
 
   // Datatable
+  @ViewChild('cardsDataTable') cardsDataTable: DatatableComponent;
+  
   columns_card = [
-    { prop: 'name' }
-    , { name: 'State' }
+    { prop: 'name', name: this.translate.instant('&tms_cards_gd_header_name') }
+    , { prop: 'State', name: this.translate.instant('&tms_cards_gd_header_state') }
   ];
+  // columns_card = [
+  //   { prop: 'name' }
+  //   , { name: 'State' }
+  // ];
+
   rows_card = new Array<DatatableCard>();
   selected_card = new Array<DatatableCard>();
+
+  // properties for ngx-datatable
+  public messages = {};
 
   constructor(
     private translate: TranslateService
     , private cardService: CardService
     , private selectionService: SelectionService
   ) {
+    translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.loadTranslations();
+    });
   }
 
   ngOnInit() {
@@ -59,6 +73,8 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
       console.log(this.c, f, 'cardSubscription', item);
       if ( CardService.STR_CARD_RELOADED == item ) {
         this.btnClicked(CardsComponent.STR_RELOAD_CARD);
+      } else if ( CardService.STR_CARD_UPDATED == item ) {
+        this.reloadCard(true);
       }
     });
 
@@ -89,6 +105,17 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     this.notifyParent.emit(str);
   }
 
+  loadTranslations() {
+    const f = 'loadTranslations';
+    console.log(this.c, f);
+
+    this.messages['emptyMessage'] = this.translate.instant('&tms_cards_dg_footer_emptymessage');
+
+    this.cardsDataTable.messages['emptyMessage'] = this.translate.instant('&tms_cards_dg_footer_emptymessage');
+    this.cardsDataTable.messages['selectedMessage'] = this.translate.instant('&tms_cards_dg_footer_selectedmessage');
+    this.cardsDataTable.messages['totalMessage'] = this.translate.instant('&tms_cards_dg_footer_totalmessage');
+  }
+
   private getCardTypeStr(cardType: CardType): string {
     const f = 'getCardTypeStr';
     console.log(this.c, f, cardType);
@@ -114,9 +141,12 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     return ret;
   }
 
-  private reloadCard(): void {
+  private reloadCard(keepSelected: boolean = false): void {
     const f = 'reloadCard';
     console.log(this.c, f);
+    console.log(this.c, f, keepSelected);
+
+    const preSelected = this.selected_card;
 
     // Reset datatable
     this.rows_card = [];
@@ -133,7 +163,22 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
 
     // this.rows_card = [...this.rows_card];
 
-    this.selected_card = [];
+    if ( keepSelected ) {
+      let selected = false;
+      preSelected.forEach( item1 => {
+        this.rows_card.forEach( item2 => {
+          if ( item1.name === item2.name ) {
+            this.selected_card = [item2];
+            selected = true;
+          }
+        });
+      });
+      if ( selected ) {
+        this.selectionService.notifyUpdate(SelectionService.STR_CARD_SELECTED);
+      }
+    } else {
+      this.selected_card = [];
+    }
     // this.selected_card = [...this.selected_card];
   }
 
@@ -148,14 +193,23 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private onRowSelect(name: string, event: Event) {
+    const f = 'onRowSelect';
+    console.log(this.c, f);
     this.btnClicked(CardsComponent.STR_CARD_SELECTED, event);
   }
+
+  private onActivate(name: string, event: Event) {
+    const f = 'onActivate';
+    console.log(this.c, f);
+  }
+  
   private init(): void {
     const f = 'init';
     console.log(this.c, f);
     
     // Reset datatable
     this.rows_card = [];    
+    // Reload
     // this.rows_card = [...this.rows_card];
 
     this.selected_card = [];

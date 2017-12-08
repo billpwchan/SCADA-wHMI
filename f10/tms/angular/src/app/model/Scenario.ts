@@ -79,6 +79,5 @@ export class Card {
     public name: string
     , public state: CardType
     , public step: number
-    , public type: number
   ) {}
 }

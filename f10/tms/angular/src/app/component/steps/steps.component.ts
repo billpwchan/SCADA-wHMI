@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, ViewChild } from '@angular/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { CardService } from '../../service/card/card.service';
 import { Subscription } from 'rxjs/Subscription';
 import { DatatableStep } from '../../model/DatatableScenario';
@@ -8,6 +8,7 @@ import { AppSettings } from '../../app-settings';
 import { SelectionService } from '../../service/card/selection.service';
 import { DacSimService } from '../../service/scs/dac-sim.service';
 import { StepSettings } from './step-settings';
+import { DatatableComponent } from '@swimlane/ngx-datatable';
 
 @Component({
   selector: 'app-steps'
@@ -37,8 +38,10 @@ export class StepsComponent implements OnInit, OnDestroy {
   txtCardName: string;
 
   // Datatable
+  @ViewChild('stepsDataTable') stepsDataTable: DatatableComponent;
+
   columns_step = [
-    { prop: 'step' }
+    { prop: 'step'  }
     , { name: 'Location' }
     , { name: 'System' }
     , { name: 'Equipment' }
@@ -50,11 +53,17 @@ export class StepsComponent implements OnInit, OnDestroy {
   rows_step = new Array<DatatableStep>();
   selected_step = new Array<DatatableStep>();
 
+  // properties for ngx-datatable
+  public messages = {};
+
   constructor(
     private translate: TranslateService
     , private cardService: CardService
     , private selectionService: SelectionService
   ) {
+    translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.loadTranslations();
+    });
   }
 
   ngOnInit(): void {
@@ -99,6 +108,17 @@ export class StepsComponent implements OnInit, OnDestroy {
     this.notifyParent.emit(str);
   }
 
+  loadTranslations() {
+    const f = 'loadTranslations';
+    console.log(this.c, f);
+
+    this.messages['emptyMessage'] = this.translate.instant('&tms_steps_dg_footer_emptymessage');
+
+    this.stepsDataTable.messages['emptyMessage'] = this.translate.instant('&tms_steps_dg_footer_emptymessage');
+    this.stepsDataTable.messages['selectedMessage'] = this.translate.instant('&tms_steps_dg_footer_selectedmessage');
+    this.stepsDataTable.messages['totalMessage'] = this.translate.instant('&tms_steps_dg_footer_totalmessage');
+  }
+
   private getStateStr(state: StepType): string {
     const f = 'getStateStr';
     console.log(this.c, f);
@@ -141,13 +161,13 @@ export class StepsComponent implements OnInit, OnDestroy {
       if ( steps.length > 0 ) {
         steps.forEach((item, index) => {
           const dtStep: DatatableStep = new DatatableStep(
-            '' + item.step
+            StepSettings.STR_STEP_PREFIX + item.step
             , StepSettings.STR_GEO_PREFIX + item.equipment.geo
             , StepSettings.STR_FUNC_PREFIX + item.equipment.func
             , item.equipment.eqplabel
             , item.equipment.pointlabel
-            , '' + item.equipment.ev[0].value.start
-            , '' + item.delay
+            , StepSettings.STR_VALUE_PREFIX + item.equipment.ev[0].value.start
+            , StepSettings.STR_DELAY_PREFIX + item.delay
             , this.getStateStr(item.state)
           );
           this.rows_step.push(dtStep);
@@ -172,6 +192,11 @@ export class StepsComponent implements OnInit, OnDestroy {
       stepIds.push(+item.step);
     });
     this.selectionService.setSelectedStepIds(stepIds);
+  }
+
+  private onActivate(name: string, event: Event) {
+    const f = 'onActivate';
+    console.log(this.c, f, 'name', name, 'event', event);
   }
 
   private init(): void {

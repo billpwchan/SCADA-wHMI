@@ -1,33 +1,134 @@
 {
-    "HELLO": "hello world {{value}}"
+	"&tms_cards_title": "Scenario List"
 	
-	, "&ScenarioList": "Scenario List"
-	
-	, "&Modify": "Modify"
-	, "&New": "New"
-	, "&Modify": "Modify"
-	, "&Delete": "Delete"
-	, "&Copy": "Copy"
+	, "&tms_cards_lbl_modify": "Modify"
+	, "&tms_cards_btn_new": "New"
+	, "&tms_cards_btn_new_title": "Add a new scenario."
+	, "&tms_cards_btn_modify": "Modify"
+	, "&tms_cards_btn_modify_title": "Modify selected scenario name."
+	, "&tms_cards_btn_delete": "Delete"
+	, "&tms_cards_btn_delete_title": "Delete selected scenario."
+	, "&tms_cards_btn_copy": "Copy"
+	, "&tms_cards_btn_copy_title": "Make a copy of selected scrnario."
 
-	, "&Execute": "Execute"
-	, "&Start": "Start"
-	, "&Pause": "Pause"
-	, "&Resume": "Resume"
-	, "&Stop": "Stop"
-	, "&Reset": "Reset"
-	
-	, "&ScenarioStepList": "Scenario Step List"
-	, "&Modifystep": "Modify step"
-	, "&AddStep": "Add Step"
-	, "&DeleteStep": "Delete step"
-	, "&SaveScenario": "Save Scenario"
-	, "&ReloadScenario": "Reload Scenario"
+	, "&tms_cards_lbl_new_name": "New Name"
+	, "&tms_cards_txt_new_name": "type new name..."
 
-	, "&ExecuteSelectionStep": "Execute selection step"
-	, "&StartStep": "Start Step"
-	, "&StopStep": "Stop Step"
+	, "&tms_cards_btn_add": "Add"
+	, "&tms_cards_btn_add_title": "Add as a new scenario."
+	, "&tms_cards_btn_add_cancel": "Cancel"
+	, "&tms_cards_btn_add_cancel_title": "Cancel to add a new scenario."
 
-	, "&ImportExportScenario": "Import/Export Scenario"
-	, "&ExportCSV": "Export CSV"
-	, "&ImportCSV": "Import CSV"
+	, "&tms_cards_lbl_modify_name": "Edit Name"
+	, "&tms_cards_txt_modify_name": "type new name..."
+
+	, "&tms_cards_btn_modify_save": "Save"
+	, "&tms_cards_btn_modify_save_title": "Save"
+	, "&tms_cards_btn_modify_cancel": "Cancel"
+	, "&tms_cards_btn_modify_cancel_title": "Cancel"
+
+	, "&tms_cards_name_new_prefix": "Scenario # "
+	, "&tms_cards_name_copy_appendix": " - Copy"
+
+	, "&tms_cards_lbl_duplicated": "Name duplicated with exists name"
+	, "&tms_cards_lbl_length_too_short": "Name contain too less character"
+	, "&tms_cards_lbl_length_too_long": "Name containe too much character"
+
+	, "&tms_cards_controller_lbl_execute": "Execute"
+	, "&tms_cards_controller_btn_start": "Start"
+	, "&tms_cards_controller_btn_start_title": "Start selected scanerio execution."
+	, "&tms_cards_controller_btn_pause": "Pause"
+	, "&tms_cards_controller_btn_pause_title": "Pause selected scanerio execution."
+	, "&tms_cards_controller_btn_resume": "Resume"
+	, "&tms_cards_controller_btn_resume_title": "Resume selected scanerio execution."
+	, "&tms_cards_controller_btn_stop": "Stop"
+	, "&tms_cards_controller_btn_stop_title": "Stop selected scanerio execution."
+	, "&tms_cards_controller_btn_reset": "Reset"
+	, "&tms_cards_controller_btn_reset_title": "Reset selected scanerio execution."
+
+	, "&tms_steps_lbl_scenario_step_list": "Scenario Step"
+	, "&tms_steps_lbl_card_name": "Scenario Name"
+	, "&tms_steps_txt_select_card": "Select a scenario..."
+	, "&tms_steps_lbl_modify_step": "Modify"
+	, "&tms_steps_btn_new_step": "New Step"
+	, "&tms_steps_btn_new_step_title": "Add a new step to scenario"
+	, "&tms_steps_btn_delete_step": "Delete Step"
+	, "&tms_steps_btn_delete_step_title": "Delete a selected step from scenario"
+
+	, "&tms_step_lbl_env": "Environment"
+	, "&tms_step_lst_env_default": "Select env..."
+	, "&tms_step_lbl_geo": "Location"
+	, "&tms_step_lst_geo_default": "Select location..."
+	, "&tms_step_lst_geo_prefix": "&location_"
+	, "&tms_step_lbl_func": "System"
+	, "&tms_step_lst_func_default": "Select system..."
+	, "&tms_step_lst_func_prefix": "function_"
+	, "&tms_step_lbl_eqplabel": "Equipment"
+	, "&tms_step_lst_eqplabel_default": "Select equipment..."
+	, "&tms_step_lbl_pointlabel": "Point"
+	, "&tms_step_lst_pointlabel_default": "Select point..."
+
+	, "&tms_step_lbl_delay": "Delay (Seconds)"
+	, "&tms_step_lst_delay_placeholder": "Select delay..."
+
+	, "&tms_step_lbl_aciinitvalue": " Init value"
+	, "&tms_step_lst_aciinitvalue_placeholder": "Select target analog value..."
+
+	, "&tms_step_lbl_dciinitvalue": " Init value"
+	, "&tms_step_lst_dciinitvalue_placeholder": "Select target digital value..."
+
+	, "&tms_step_lbl_dcivalue": "Digital value"
+	, "&tms_step_lst_dcivalue_placeholder": "Select target value..."
+
+	, "&tms_step_lbl_acivalue": "Analog value"
+	, "&tms_step_txt_acivalue_placeholder": "Enter target value..."
+
+	, "&tms_step_lbl_classid": "Class ID"
+	, "&tms_step_txt_classid_placeholder": "Enter class id"
+
+	, "&tms_step_lbl_univname": "UnivName"
+	, "&tms_step_txt_univname_placeholder": "Enter UNVIName"
+
+	, "&tms_step_lbl_evname": "EVName"
+	, "&tms_step_txt_evname_placeholder": "Enter class id"
+
+	, "&tms_step_btn_add_acistep": "Add"
+	, "&tms_step_btn_add_acistep_title": "Add step to the card"
+	, "&tms_step_btn_add_acicancelstep": "Cancel"
+	, "&tms_step_btn_add_acicancelstep_title": "Cacnel the add a step to card"
+
+	, "&tms_step_btn_add_dcistep": "Add"
+	, "&tms_step_btn_add_dcistep_title": "Add step to the card"
+	, "&tms_step_btn_add_dcicancelstep": "Cancel"
+	, "&tms_step_btn_add_dcicancelstep_title": "Cacnel the add a step to card"
+
+	, "&tms_step_lbl_executeion_step": "Execute Step"
+	, "&tms_step_lbl_executeion": "Execute"
+
+	, "&tms_step_btn_startstep": "Start Step"
+	, "&tms_step_btn_startstep_placeholder": "Start a selected Step execution."
+	, "&tms_step_btn_stopstep": "Stop Step"
+	, "&tms_step_btn_stopstep_placeholder": "Stop a selected Step execution."
+
+	, "&tms_storage_lbl_savereload": "Scenario(s) Storage"
+	, "&tms_storage_btn_save": "Save"
+	, "&tms_storage_btn_save_title": "Save Scenario(s) into storage."
+	, "&tms_storage_btn_load": "Reload"
+	, "&tms_storage_btn_load_title": "Reload Scenario(s) from storage."
+
+	, "&tms_storage_info_modifycardsnotsaved_title": "Save the modified setting."
+	, "&tms_storage_info_modifycardsnotsaved": "Save the modified scenario(s) to storage before leave tms panel."
+
+	, "&tms_storage_btn_save_confirm": "Confirm"
+	, "&tms_storage_btn_save_confirm_title": "Confirm to save the file."
+	, "&tms_storage_btn_save_cancel": "Cancel"
+	, "&tms_storage_btn_save_cancel_title": "Cancel the save operation."
+
+	, "&tms_storage_info_modifycardsnotsavedsuccess_title": "Save the modified setting success."
+	, "&tms_storage_info_modifycardsnotsavedfailed_title": "Save the modified setting failed."
+
+	, "&tms_storage_info_confirmtosavecards_title": "Current setting will be overwrite by reload scenario(s):"
+	, "&tms_storage_info_confirmtosavecardssuccess_title": "Reload scenario from storage success."
+	, "&tms_storage_info_confirmtosavecardsfailed_title": "Reload scenario from storage failed."
+
 }

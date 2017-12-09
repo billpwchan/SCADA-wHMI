@@ -170,10 +170,13 @@
 	, "&storage_info_confirmtosavecardsfailed_title": "[EN]Reload scenario from storage failed."
 
 	, "&csvinterpret_lbl_importexport_csv": "[EN]Import/Export CSV"
+
 	, "&csvinterpret_btn_exportcsv": "[EN]Export"
 	, "&csvinterpret_btn_exportcsv_title": "[EN]Export current scenario(s) as CSV file."
+	, "&csvinterpret_import_message": "[EN]Exported scenario(s):"
 
 	, "&csvinterpret_btn_importcsv": "[EN]Import"
 	, "&csvinterpret_btn_importcsv_title": "[EN]Import CSV file as current scenario(s)."
+	, "&csvinterpret_export_message": "[EN]Imported scenario(s):"
 
 }

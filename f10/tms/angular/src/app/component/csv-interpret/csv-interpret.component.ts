@@ -32,6 +32,12 @@ export class CsvInterpretComponent implements OnInit {
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
+  disableImportMsg: boolean;
+  disableExportMsg: boolean;
+
+  importNumber: number;
+  exportNumber: number;
+
   constructor(
     private translate: TranslateService
     , private storageService: StorageService
@@ -62,6 +68,8 @@ export class CsvInterpretComponent implements OnInit {
       this.strEOL = setting[CsvInterpretComponent.STR_FILED_EOL];
       console.log(this.c, f, 'Overload setting', CsvInterpretComponent.STR_FILED_EOL, 'value', this.strEOL);
     }
+
+    this.btnClicked(CsvInterpretComponent.STR_INIT);
   }
 
   sendNotifyParent(str: string) {
@@ -95,6 +103,9 @@ export class CsvInterpretComponent implements OnInit {
 
     document.body.removeChild(a);
     URL.revokeObjectURL(objectUrl);
+
+    this.exportNumber = this.cardService.getCards().length;
+    this.disableExportMsg = false;
   }
 
   /**
@@ -112,6 +123,9 @@ export class CsvInterpretComponent implements OnInit {
     if ( null != cards ) {
       this.cardService.setCards(cards);
       this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
+
+      this.importNumber = this.cardService.getCards().length;
+      this.disableImportMsg = false;
     }
   }
 
@@ -133,6 +147,12 @@ export class CsvInterpretComponent implements OnInit {
     console.log(f, 'btnLabel[' + btnLabel + ']');
 
     switch (btnLabel) {
+      case CsvInterpretComponent.STR_INIT: {
+        this.disableImportMsg = true;
+        this.importNumber = 0;
+        this.disableExportMsg = true;
+        this.exportNumber = 0;
+      } break;
       case 'exportcsv': {
         this.exportCardsAsCsv();
       } break;

@@ -12,6 +12,14 @@
         [disabled]="btnDisabledImportCSV" (click)="btnClicked('importcsv')"
         title="{{ '&csvinterpret_btn_importcsv_title' | translate }}"
         >{{ '&csvinterpret_btn_importcsv' | translate }}</button>
+        <div class='alert alert-info' [hidden]="disableImportMsg">
+          <a class="close" data-dismiss="alert" href="#">X</a>
+          <strong>{{ '&csvinterpret_import_message' | translate }}{{importNumber}}</strong>
+        </div>
+        <div class='alert alert-info' [hidden]="disableExportMsg">
+          <a class="close" data-dismiss="alert" href="#">X</a>
+          <strong>{{ '&csvinterpret_export_message' | translate }}{{exportNumber}}</strong>
+        </div>
         <input type="file" id="upload" 
         style="display:none" id="loadfile" accept='.csv' 
         (change)="btnClicked('loadfile', $event)">

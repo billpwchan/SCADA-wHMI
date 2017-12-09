@@ -1,5 +1,12 @@
 {
-  "StepEdit": {
+  "i18n": {
+    "default_lang": "en"
+    , "resolve_by_browser_lang": true
+    , "use_culture_lang": true
+    , "resolve_by_browser_cookie": false
+    , "use_cookie_name": "iscs.webapp.Lang"
+  }
+  , "StepEditComponent": {
     "ENVS": [
       {"label": "M100", "value": "http://127.0.0.1:8990"}
       , {"label": "M001", "value": "http://127.0.0.1:8991"}

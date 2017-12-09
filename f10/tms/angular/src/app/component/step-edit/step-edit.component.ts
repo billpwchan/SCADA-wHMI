@@ -302,7 +302,7 @@ editEnableDelay = false;
     const appSettings: any = this.settingService.getSetting(AppSettings.STR_URL_SETTINGS);
     console.log(this.c, f, 'settings', appSettings);
 
-    const stepEditSettings = appSettings[StepEditSettings.STR_STEP_EDIT];
+    const stepEditSettings = appSettings[StepEditComponent.name];
     console.log(this.c, f, 'stepEditSettings', stepEditSettings);
 
     if ( undefined != stepEditSettings && null != stepEditSettings ) {

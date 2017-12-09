@@ -331,7 +331,7 @@ export class CardService {
     const execCard: Card = this.getCard([cardName]);
 
     if ( null != execCard ) {
-      // Start time and set it to disable
+      // Init
       if ( firstStep ) {
         execCard.step = 0;
       }

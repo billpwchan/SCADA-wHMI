@@ -152,12 +152,12 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
   private CopyCard() {
     const f = 'CopyCard';
     console.log(this.c, f);
-    const sourceCard: Card[] = this.cardService.getCards(this.selectionService.getSelectedCardIds());
-    const translatedStr = this.translate.instant(CardsSettings.STR_NEW_CARD_APPENDIX);
-    const newCardName = this.getNewName(sourceCard[0].name, translatedStr);
-    const clonedCard = sourceCard.map(x => Object.assign({}, x));
-    clonedCard[0].name = newCardName;
-    this.cardService.addCards([clonedCard[0]]);
+
+    const sourceCard: Card = this.cardService.getCard(this.selectionService.getSelectedCardIds());
+    const newCard: Card = JSON.parse(JSON.stringify(sourceCard));
+    newCard.name = this.getNewName(sourceCard.name, this.translate.instant(CardsSettings.STR_NEW_CARD_APPENDIX));
+    this.cardService.addCards([newCard]);
+
     this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
   }
 

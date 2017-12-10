@@ -429,7 +429,7 @@ editEnableDelay = false;
         eqps.get(this.selEnv).get(this.selGeo)
         .forEach((value, index) => {
           this.selOptFunc.push(new  SelOptNum(
-            this.translate.instant(StepSettings.STR_FUNC_PREFIX + value)
+            this.translate.instant(this.funcPrefix + value)
             , value
           ));
         });

@@ -1,6 +1,6 @@
 export class StepEditSettings {
 
-    public static readonly STR_ENVS     = 'ENVS';
+    public static readonly STR_ENVS     = 'envs';
     public static readonly STR_LABEL    = 'label';
     public static readonly STR_VALUE    = 'value';
 

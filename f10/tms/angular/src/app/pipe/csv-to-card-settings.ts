@@ -23,7 +23,9 @@ export enum TokenIndex {
   , EQUIPMENT_EQPLABEL
   , EQUIPMENT_POINTLABEL
 
-  , EV_NAME
-  , EV_STOP
-  , EV_START
+  , PHASE_TYPE
+  
+  , EXEC_TYPE
+  , EXEC_NAME
+  , EXEC_VALUE
 }

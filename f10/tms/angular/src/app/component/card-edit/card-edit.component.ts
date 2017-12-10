@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { SelectionService } from '../../service/card/selection.service';
 import { CardServiceType } from '../../service/card/card-settings';
 import { SelectionServiceType } from '../../service/card/selection-settings';
+import { SettingsService } from '../../service/settings.service';
+import { CardEditSettings } from './card-edit-settings';
 
 @Component({
   selector: 'app-card-edit',
@@ -63,8 +65,12 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
   txtModifyNameTooLongInvalid = false;
   txtModifyNameDuplicatedInvalid = false;
 
+  private cardNameMin: number = NaN;
+  private cardNameMax: number = NaN;
+
   constructor(
     private translate: TranslateService
+    , private settingsService: SettingsService
     , private cardService: CardService
     , private selectionService: SelectionService
   ) {
@@ -73,6 +79,8 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit() {
     const f = 'ngOnInit';
     console.log(f);
+
+    this.loadSettings();
 
     this.cardSubscription = this.cardService.cardItem
     .subscribe(item => {
@@ -114,7 +122,15 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     this.notifyParent.emit(str);
   }
 
-  private newCard(name: string) {
+  private loadSettings(): void {
+    const f = 'loadSettings';
+    console.log(this.c, f);
+    const component = CardEditComponent.name;
+    this.cardNameMin = this.settingsService.getSetting(this.c, f, component, CardEditSettings.STR_CARD_NAME_MIN);
+    this.cardNameMax = this.settingsService.getSetting(this.c, f, component, CardEditSettings.STR_CARD_NAME_MAX);
+  }
+
+  private newCard(name: string): void {
     const f = 'newCard';
     console.log(this.c, f);
     this.cardService.getCards().push(
@@ -154,7 +170,8 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
 
     const sourceCard: Card = this.cardService.getCard(this.selectionService.getSelectedCardIds());
-    const newCard: Card = JSON.parse(JSON.stringify(sourceCard));
+    const strNewCard: string = JSON.stringify(sourceCard);
+    const newCard: Card = JSON.parse(strNewCard);
     newCard.name = this.getNewName(sourceCard.name, this.translate.instant(CardsSettings.STR_NEW_CARD_APPENDIX));
     this.cardService.addCards([newCard]);
 
@@ -198,11 +215,11 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
       this.txtNewAddNameTooLongInvalid = false;
       this.txtNewAddNameDuplicatedInvalid = false;
 
-      if ( newName.length <= CardsSettings.INT_CARD_NAME_MIN ) {
+      if ( newName.length <= this.cardNameMin ) {
         this.btnAddDisable = true;
         this.txtNewAddNameTooShortInvalid = true;
 
-      } else if ( newName.length >= CardsSettings.INT_CARD_NAME_MAX ) {
+      } else if ( newName.length >= this.cardNameMax ) {
         this.btnAddDisable = true;
         this.txtNewAddNameTooLongInvalid = true;
 
@@ -221,11 +238,11 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
       this.txtModifyNameTooLongInvalid = false;
       this.txtModifyNameDuplicatedInvalid = false;
 
-      if ( newName.length <= CardsSettings.INT_CARD_NAME_MIN ) {
+      if ( newName.length <= this.cardNameMin ) {
         this.btnModifySaveDisable = true;
         this.txtModifyNameTooShortInvalid = true;
 
-      } else if ( newName.length >= CardsSettings.INT_CARD_NAME_MAX ) {
+      } else if ( newName.length >= this.cardNameMax ) {
         this.btnModifySaveDisable = true;
         this.txtModifyNameTooLongInvalid = true;
 

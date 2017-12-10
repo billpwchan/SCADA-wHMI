@@ -17,12 +17,7 @@ export class SettingsService {
   // Observable cardItem stream
   settingItem = this.settingSource.asObservable();
 
-  private settings: Map<string, any> = new Map<string, any>();
-  getSetting(url: string = AppSettings.STR_URL_SETTINGS): any {
-    const f = 'settingChanged';
-    console.log(this.c, f, 'url', url);
-    return this.settings.get(url);
-  }
+  private settings: Map<string, any> = new Map<string, any>(); 
 
   // Service command
   settingChanged(str: string) {
@@ -35,16 +30,23 @@ export class SettingsService {
     private http: Http
     , private httpClient: HttpClient
     , private utilsHttp: UtilsHttpModule
-    // , private activatedRoute: ActivatedRoute
   ) {
-    
-    // this.activatedRoute.params.subscribe(params => {
-    //   let date = params['startdate'];
-    //   console.log(date); // Print the parameter to the console. 
-    // });
-
   }
 
+  getSetting(c: string, f: string, component: string, key: string, url: string = AppSettings.STR_URL_SETTINGS): any {
+    console.log('Loading setting for', c, f, url, component, key);
+    const value = this.settings.get(url)[component][key];
+    console.log('Loading setting for', c, f, url, component, key, value);
+    return value;
+  }  
+
+  getSettings(url: string = AppSettings.STR_URL_SETTINGS): any {
+    const f = 'getSettings';
+    console.log(this.c, f, 'url', url);
+    return this.settings.get(url);
+  }  
+
+  // Aync Loading
   retriveSetting(url: string): void {
     const f = 'retriveSetting';
     console.log(this.c, f, 'url', url);
@@ -60,6 +62,7 @@ export class SettingsService {
     );
   }
 
+  // Sync Loading
   load(): Promise<any> {
     const f = 'load';
     console.log(this.c, f);

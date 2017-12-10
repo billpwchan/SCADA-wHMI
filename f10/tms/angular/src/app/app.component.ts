@@ -44,7 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
     console.log(this.c, f, 'translate.getDefaultLang()[' + translate.getDefaultLang() + ']');
     console.log(this.c, f, 'translate.getLangs()[' + translate.getLangs() + ']');
 
-    const setting = this.settingService.getSetting();
+    const setting = this.settingService.getSettings();
     const i18n = setting[I18nSettings.STR_I18N];
     const defaultLanguage = i18n[I18nSettings.STR_DEFAULT_LANG];
     const preferedLanguage = this.getPreferedLanguage();
@@ -91,7 +91,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private getPreferedLanguage(): string {
     const f = 'getPreferedLanguage';
-    const setting = this.settingService.getSetting();
+    const setting = this.settingService.getSettings();
     const i18n = setting[I18nSettings.STR_I18N];
     if (i18n[I18nSettings.STR_RESOLVE_BY_BROWSER_LANG]) {
         console.log(this.c, f, 'Resolve prefered language by browser\'s language');

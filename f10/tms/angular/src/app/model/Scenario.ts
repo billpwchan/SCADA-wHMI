@@ -1,30 +1,34 @@
 import { Subscription } from "rxjs/Subscription";
 
-/**
- * A model for an individual Value
- */
-export class Value {
-  constructor(
-    public stop: number
-    , public start: number
-  ) {}
+
+export enum ExecType {
+  DACSIM = 0
+  , UNKNOW
 }
 
 /**
  * A model for an individual EV
  */
-export class EV {
+export class Execution {
   constructor(
-    public name: string
-    , public value: Value
+    public execType: ExecType
+    , public name: string
+    , public value: number
   ) {}
+}
+
+export enum PhaseType {
+  START = 0
+  , STOP 
+  , UNKNOW
 }
 
 /**
  * A model for an individual Equipment
  */
 export class Equipment {
-  public ev: EV[] = new Array<EV>();
+  public phaseStop: Execution[] = new Array<Execution>(); 
+  public phaseStart: Execution[] = new Array<Execution>();
   constructor(
     public connAddr: string
     , public univname: string

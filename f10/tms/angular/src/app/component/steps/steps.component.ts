@@ -11,6 +11,7 @@ import { StepSettings } from './step-settings';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { CardServiceType } from '../../service/card/card-settings';
 import { SelectionServiceType } from '../../service/card/selection-settings';
+import { SettingsService } from '../../service/settings.service';
 
 @Component({
   selector: 'app-steps'
@@ -58,10 +59,19 @@ export class StepsComponent implements OnInit, OnDestroy {
   // properties for ngx-datatable
   public messages = {};
 
+  private geoPrefix = null;
+  private funcPrefix = null;
+  
+  private eqplabelPrefix = null;
+  private pointlabelPrefix = null;
+  private valuePrefix = null;
+  private delayPrefix = null;
+
   constructor(
     private translate: TranslateService
     , private cardService: CardService
     , private selectionService: SelectionService
+    , private settingsService: SettingsService
   ) {
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.loadTranslations();
@@ -71,6 +81,8 @@ export class StepsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const f = 'ngOnInit';
     console.log(this.c, f);
+
+    this.loadSettings();
 
     this.cardSubscription = this.cardService.cardItem
     .subscribe(item => {
@@ -110,7 +122,19 @@ export class StepsComponent implements OnInit, OnDestroy {
     this.notifyParent.emit(str);
   }
 
-  loadTranslations() {
+  private loadSettings(): void {
+    const f = 'loadSettings';
+    console.log(this.c, f);
+
+    const component: string = StepsComponent.name;
+    this.geoPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_GEO_PREFIX);
+    this.funcPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_FUNC_PREFIX);
+    this.eqplabelPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_EQPLABEL_PREFIX);
+    this.pointlabelPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_POINTLABEL_PREFIX);
+    this.valuePrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_VALUE_PREFIX);
+  }
+
+  private loadTranslations(): void {
     const f = 'loadTranslations';
     console.log(this.c, f);
 
@@ -162,12 +186,12 @@ export class StepsComponent implements OnInit, OnDestroy {
         steps.forEach((item, index) => {
           const dtStep: DatatableStep = new DatatableStep(
             StepSettings.STR_STEP_PREFIX + item.step
-            , StepSettings.STR_GEO_PREFIX + item.equipment.geo
-            , StepSettings.STR_FUNC_PREFIX + item.equipment.func
-            , item.equipment.eqplabel
-            , item.equipment.pointlabel
-            , StepSettings.STR_VALUE_PREFIX + item.equipment.ev[0].value.start
-            , StepSettings.STR_DELAY_PREFIX + item.delay
+            , this.geoPrefix + item.equipment.geo
+            , this.funcPrefix + item.equipment.func
+            , this.eqplabelPrefix + item.equipment.eqplabel
+            , this.pointlabelPrefix + item.equipment.pointlabel
+            , this.valuePrefix + item.equipment.phaseStart[0].value
+            , this.delayPrefix + item.delay
             , this.getStateStr(item.state)
           );
           this.rows_step.push(dtStep);

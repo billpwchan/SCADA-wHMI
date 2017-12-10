@@ -6,12 +6,34 @@
     , "resolve_by_browser_cookie": false
     , "use_cookie_name": "iscs.webapp.Lang"
   }
+  , "CardEditComponent": {
+      "card_name_min": 1
+      , "card_name_max": 40
+  }
+  , "StepsComponent": {
+      "geo_prefix": "&geo_"
+      , "func_prefix": "&func_"
+      , "eqplabel_prefix": ""
+      , "pointlabel_prefix": ""
+      , "value_prefix": ""
+      , "delay_prefix": ""
+  }
   , "StepEditComponent": {
-    "ENVS": [
-      {"label": "M100", "value": "http://127.0.0.1:8990"}
-      , {"label": "M001", "value": "http://127.0.0.1:8991"}
-      , {"label": "M002", "value": "http://127.0.0.1:8992"}
-    ]
+      "geo_prefix": "&geo_"
+      , "func_prefix": "&func_"
+      , "eqplabel_prefix": ""
+      , "pointlabel_prefix": ""
+      , "value_prefix": ""
+      , "delay_prefix": ""
+      , "delay_range_step": 1
+      , "delay_range_start": 1
+      , "delay_range_end": 60
+      , "delay_range_prefix": ""
+      , "envs": [
+        {"label": "M100", "value": "http://127.0.0.1:8990"}
+        , {"label": "M001", "value": "http://127.0.0.1:8991"}
+        , {"label": "M002", "value": "http://127.0.0.1:8992"}
+      ]
   }
   , "CsvInterpretComponent": {
       "FileName": "tms.csv"

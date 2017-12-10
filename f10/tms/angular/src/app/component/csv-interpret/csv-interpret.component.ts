@@ -54,20 +54,7 @@ export class CsvInterpretComponent implements OnInit {
     const f = 'ngOnInit';
     console.log(this.c, f);
 
-    const settings = this.settingsService.getSetting();
-    const setting = settings[CsvInterpretComponent.name];
-    if ( setting[CsvInterpretComponent.STR_FILED_FILENAME] ) {
-      this.strFileName = setting[CsvInterpretComponent.STR_FILED_FILENAME];
-      console.log(this.c, f, 'Overload setting', CsvInterpretComponent.STR_FILED_FILENAME, 'value', this.strEOL);
-    }
-    if ( setting[CsvInterpretComponent.STR_FILED_COMMA] ) {
-      this.strComma = setting[CsvInterpretComponent.STR_FILED_COMMA];
-      console.log(this.c, f, 'Overload setting', CsvInterpretComponent.STR_FILED_COMMA, 'value', this.strComma);
-    }
-    if ( setting[CsvInterpretComponent.STR_FILED_EOL] ) {
-      this.strEOL = setting[CsvInterpretComponent.STR_FILED_EOL];
-      console.log(this.c, f, 'Overload setting', CsvInterpretComponent.STR_FILED_EOL, 'value', this.strEOL);
-    }
+    this.loadSettings();
 
     this.btnClicked(CsvInterpretComponent.STR_INIT);
   }
@@ -78,6 +65,15 @@ export class CsvInterpretComponent implements OnInit {
     this.notifyParent.emit(str);
   }
 
+  private loadSettings() {
+    const f = 'loadSettings';
+    console.log(this.c, f);
+
+    const component = CsvInterpretComponent.name;
+    this.strFileName = this.settingsService.getSetting(this.c, f, component, CsvInterpretComponent.STR_FILED_FILENAME);
+    this.strComma = this.settingsService.getSetting(this.c, f, component, CsvInterpretComponent.STR_FILED_COMMA);
+    this.strEOL = this.settingsService.getSetting(this.c, f, component, CsvInterpretComponent.STR_FILED_EOL);
+  }
   /**
    * Export Cards as a CSV file
    * 

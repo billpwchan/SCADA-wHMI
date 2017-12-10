@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, OnChanges, Output, EventEmitter, SimpleCh
 import { TranslateService } from '@ngx-translate/core';
 import { CardService } from '../../service/card/card.service';
 import { DatatableStep } from '../../model/DatatableScenario';
-import { Card, Step, Equipment, Value, EV, StepType } from '../../model/Scenario';
+import { Card, Step, Equipment, Execution, StepType, ExecType } from '../../model/Scenario';
 import { AppSettings } from '../../app-settings';
 import { StepEditSettings } from './step-edit-settings';
 import { OlsSettings } from '../../service//scs/ols-settings';
@@ -122,9 +122,18 @@ editEnableDelay = false;
   selDelay: number;
   selOptDelay: Array<SelOptNum> = new Array<SelOptNum>();
 
+  private geoPrefix = null;
+  private funcPrefix = null;
+  private envs = null;
+
+  private delayRangeStart = NaN;
+  private delayRangeEnd = NaN;
+  private delayRangeStep = NaN;
+  private delayRangePrefix = null;
+
   constructor(
     private translate: TranslateService
-    , private settingService: SettingsService
+    , private settingsService: SettingsService
     , private cardService: CardService
     , private selectionService: SelectionService
     , private olsService: OlsService
@@ -136,6 +145,8 @@ editEnableDelay = false;
   ngOnInit(): void {
     const f = 'ngOnInit';
     console.log(this.c, f);
+
+    this.loadSettings();
 
     this.cardSubscription = this.cardService.cardItem
       .subscribe(item => {
@@ -175,7 +186,7 @@ editEnableDelay = false;
               .forEach((value: number[], key: number) => {
                 this.selOptGeo.push(
                   new SelOptNum(
-                    this.translate.instant(StepSettings.STR_GEO_PREFIX + key)
+                    this.translate.instant(this.geoPrefix + key)
                     , key
                   )
                 );
@@ -289,6 +300,21 @@ editEnableDelay = false;
     this.notifyParent.emit(str);
   }
 
+  private loadSettings(): void {
+    const f = 'loadSettings';
+    console.log(this.c, f);
+
+    const component = StepEditComponent.name;
+    this.geoPrefix = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_GEO_PREFIX);
+    this.funcPrefix = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_FUNC_PREFIX);
+    this.envs = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_ENVS);
+
+    this.delayRangeStep = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_RANGE_STEP);
+    this.delayRangeStart = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_RANGE_START);
+    this.delayRangeEnd = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_RANGE_END);
+    this.delayRangePrefix = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_RANGE_PREFIX);
+  }
+
   private initSelOptEnv(): void {
     const f = 'initSelOptEnv';
     console.log(this.c, f);
@@ -299,17 +325,9 @@ editEnableDelay = false;
       , ''
     ));
 
-    const appSettings: any = this.settingService.getSetting(AppSettings.STR_URL_SETTINGS);
-    console.log(this.c, f, 'settings', appSettings);
-
-    const stepEditSettings = appSettings[StepEditComponent.name];
-    console.log(this.c, f, 'stepEditSettings', stepEditSettings);
-
-    if ( undefined != stepEditSettings && null != stepEditSettings ) {
-
-      console.log('settings.envs', stepEditSettings.ENVS);
-
-      stepEditSettings[StepEditSettings.STR_ENVS].forEach((item, index) => {
+    console.log(this.c, f, 'this.envs', this.envs);    
+    if ( undefined != this.envs && null != this.envs ) {
+      this.envs.forEach((item, index) => {
         this.selOptEnv.push(
           new SelOptStr(
             item[StepEditSettings.STR_LABEL]
@@ -367,12 +385,12 @@ editEnableDelay = false;
       )
     );
 
-    for ( let i = StepEditSettings.INT_DELAY_START
-      ; i <= StepEditSettings.INT_DELAY_END
-      ; i += StepEditSettings.INT_DELAY_STEP ) {
+    for ( let i = this.delayRangeStart
+      ; i <= this.delayRangeEnd
+      ; i += this.delayRangeStep ) {
       this.selOptDelay.push(
         new SelOptNum(
-          this.translate.instant(StepEditSettings.STR_DELAY_PREFIX + i)
+          this.translate.instant(this.delayRangePrefix + i)
           , i
         )
       );
@@ -573,16 +591,20 @@ editEnableDelay = false;
       )
     );
 
-    step.equipment.ev.push(
-        new EV(
-          this.txtEVName
-        , new Value(
-          Number(initValue).valueOf()
-          , Number(value).valueOf()
-        )
-      )
-    );
+    const phaseStart: Execution[] = step.equipment.phaseStop;
+    phaseStart.push(new Execution(
+      ExecType.DACSIM
+      , this.txtEVName
+      , Number(initValue).valueOf()
+    ));
 
+    const phaseStop: Execution[] = step.equipment.phaseStart;
+    phaseStop.push(new Execution(
+      ExecType.DACSIM
+      , this.txtEVName
+      , Number(value).valueOf()
+    ));
+  
     this.newStep(step);
   }
 

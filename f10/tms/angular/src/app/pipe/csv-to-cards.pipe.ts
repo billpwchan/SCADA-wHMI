@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Card, Step, Equipment, EV, Value } from '../model/Scenario';
+import { Card, Step, Equipment, Execution, PhaseType } from '../model/Scenario';
 import { TokenIndex } from './csv-to-card-settings';
 
 /**
@@ -14,7 +14,7 @@ import { TokenIndex } from './csv-to-card-settings';
 })
 export class CsvToCardsPipe implements PipeTransform {
 
-  private getEV(evs: EV[], id: string): EV {
+  private getEV(evs: Execution[], id: string): Execution {
     for ( let i = 0 ; i < evs.length ; ++i ) {
       if ( evs[i].name == id ) {
         return evs[i];
@@ -101,26 +101,32 @@ export class CsvToCardsPipe implements PipeTransform {
               step.delay = sDelay;
               step.equipment = equipment;
             }
-  
-            if ( token.length > TokenIndex.EV_START ) {
-              // EV Session
-              const evName  = token[TokenIndex.EV_NAME];
-              const evStop  = Number.parseFloat(token[TokenIndex.EV_STOP]);
-              const evStart = Number.parseFloat(token[TokenIndex.EV_START]);
 
-              const value: Value = new Value(evStop, evStart);
-              let ev: EV = this.getEV(step.equipment.ev, evName);
-              if ( null === ev ) {
-                ev = new EV(evName, value)
-                step.equipment.ev.push(ev);
-              } else {
-                // EV Exists
+            if ( token.length > TokenIndex.EXEC_VALUE ) {
+              // Phase Session
+              const execPhase: PhaseType = Number.parseInt(token[TokenIndex.PHASE_TYPE]);
 
+              let phases: Execution[] = [];
+              switch (execPhase) {
+                case PhaseType.STOP: {
+                  phases = step.equipment.phaseStop;
+                } break;
+                case PhaseType.START: {
+                  phases = step.equipment.phaseStart;
+                } break;
               }
 
-              if (token.length > TokenIndex.EV_START + 1) {
-                // Handle multi evs here
-              }
+              // Execution Session
+              const execType  = Number.parseInt(token[TokenIndex.EXEC_TYPE]);
+              const execName  = token[TokenIndex.EXEC_NAME];
+              const execValue = Number.parseFloat(token[TokenIndex.EXEC_VALUE]);
+
+              const exec: Execution = new Execution(
+                                                    execType
+                                                  , execName
+                                                  , execValue);
+
+              phases.push(exec);
             }
           }
         }

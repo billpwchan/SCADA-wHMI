@@ -4,7 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
 import { UtilsHttpModule } from './../utils-http/utils-http.module';
-import { Card, Step, StepType, CardType } from '../../model/Scenario';
+import { Card, Step, StepType, CardType, PhaseType, Execution } from '../../model/Scenario';
 import { DacSimExecution, EIV, DacSimExecType, ExecResult } from './../../service/scs/dac-sim-settings';
 import { AppSettings } from '../../app-settings';
 import { SelectionService } from './selection.service';
@@ -180,6 +180,10 @@ export class CardService {
     });
   }
 
+  getStep(cardIdentity: string, stepIdentifys?: number[]): Step {
+    return this.getSteps(cardIdentity, stepIdentifys)[0];
+  }
+
   getSteps(cardIdentity: string, stepIdentifys?: number[]): Step[] {
     let steps: Step[] = null;
     const card: Card = this.getCard([cardIdentity]);
@@ -255,26 +259,25 @@ export class CardService {
     const f = 'executeStep';
     console.log(this.c, f);
 
-    const steps: Step[] = this.getSteps(cardName, [stepId]);
-    const step: Step = steps[0];
+    const step: Step = this.getStep(cardName, [stepId]);
+
+    let phase: Execution[] = [];
+    switch (stepType) {
+      case DacSimExecType.STOP: {
+        phase = step.equipment.phaseStop;
+      } break;
+      case DacSimExecType.START: {
+        phase = step.equipment.phaseStart
+      } break;
+    }
 
     const eivs: EIV[] = new Array<EIV>();
-    step.equipment.ev.forEach( item => {
 
-      let value: number = NaN;
-      switch (stepType) {
-        case DacSimExecType.START: {
-          value = item.value.start;
-        } break;
-        case DacSimExecType.STOP: {
-          value = item.value.stop;
-        } break;
-      }
-
+    phase.forEach(exec => {
       eivs.push(
         new EIV(
-          item.name
-          , value
+          exec.name
+          , exec.value
         )
       )
     });
@@ -370,7 +373,6 @@ export class CardService {
 
         }).subscribe((x) => {
           console.log(this.c, f, 'subscribe');
-          // execCard.steps[execCard.step].state = StepType.;
           execCard.step++;
 
           console.log(this.c, f, 'unsubscribe');

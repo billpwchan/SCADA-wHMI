@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Card, Equipment } from '../model/Scenario';
+import { Card, Equipment, PhaseType } from '../model/Scenario';
 import { CsvToCardSettings } from './csv-to-card-settings';
 
 /**
@@ -48,15 +48,29 @@ export class CardsToCsvPipe implements PipeTransform {
                + STR_COMMA + session2
                + STR_EOL;
 
-        equipment.ev.forEach(ev => {
+        equipment.phaseStop.forEach(exec => {
+
           let session3 = CsvToCardSettings.STR_EMPTY;
-          session3 += ev.name;
-          session3 += STR_COMMA + ev.value.stop;
-          session3 += STR_COMMA + ev.value.start;
+          session3 += PhaseType.STOP;
+          session3 += STR_COMMA + exec.execType;
+          session3 += STR_COMMA + exec.name;
+          session3 += STR_COMMA + exec.value;
           csv +=
-                 session1 + STR_COMMA
-               + session2 + STR_COMMA
-               + session3 + STR_EOL;
+                  session1 + STR_COMMA
+                + session2 + STR_COMMA
+                + session3 + STR_EOL;
+        });
+
+        equipment.phaseStart.forEach(exec => {
+          let session3 = CsvToCardSettings.STR_EMPTY;
+          session3 += PhaseType.START;
+          session3 += STR_COMMA + exec.execType
+          session3 += STR_COMMA + exec.name;
+          session3 += STR_COMMA + exec.value;
+          csv +=
+                  session1 + STR_COMMA
+                + session2 + STR_COMMA
+                + session3 + STR_EOL;
         });
       });
     });

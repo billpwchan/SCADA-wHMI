@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { UtilsHttpModule } from './../utils-http/utils-http.module';
 import { CardService } from './card.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -139,16 +139,16 @@ export class StorageService {
     // const bodydata = JSON.stringify({filepath: filePath, data: filedata});
     // console.log('bodydata[' +bodydata+']');
 
-//  let headers = new HttpHeaders().set('header1', 'hvalue1'); // create header object
-//  headers = headers.append('header2', hvalue2); // add a new header, creating a new object
+    // let headers = new HttpHeaders().set('header1', 'hvalue1'); // create header object
+    // headers = headers.append('header2', 'hvalue2'); // add a new header, creating a new object
 
-//  let params = new HttpParams().set('filepath', filePath); // create params object
-//  params = params.append('param2', value2); // add a new param, creating a new object
+    // let params = new HttpParams().set(StorageSettings.STR_FILEPATH, filePath); // create params object
+    // params = params.append(StorageSettings.STR_DATA, filedata); // add a new param, creating a new object
 
     this.httpClient.post(
       url
       , bodydata
-//    ,{headers: headers, params: params}
+      // , {headers: headers, params: params}
     )
       .subscribe(
         res => {

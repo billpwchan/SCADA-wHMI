@@ -1,0 +1,16 @@
+<div style="text-align:center">
+  <div style="display:inline">
+    <div>
+        <div>
+            <app-cards (notifyParent)="getNotification($event)" [cardUpdate]="cardUpdateValue" ></app-cards>
+            <app-cards-controller (notifyParent)="getNotification($event)"></app-cards-controller>
+        </div>
+      </div>
+      <div>
+        <div>
+            <app-steps (notifyParent)="getNotification($event)"></app-steps>
+            <app-step-controller (notifyParent)="getNotification($event)"></app-step-controller>
+        </div>
+      </div>
+  </div>
+</div>

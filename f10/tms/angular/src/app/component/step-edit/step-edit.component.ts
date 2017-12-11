@@ -390,7 +390,7 @@ editEnableDelay = false;
       ; i += this.delayRangeStep ) {
       this.selOptDelay.push(
         new SelOptNum(
-          this.translate.instant(this.delayRangePrefix + i)
+          this.delayRangePrefix + i
           , i
         )
       );
@@ -429,7 +429,7 @@ editEnableDelay = false;
         eqps.get(this.selEnv).get(this.selGeo)
         .forEach((value, index) => {
           this.selOptFunc.push(new  SelOptNum(
-            this.translate.instant(this.funcPrefix + value)
+            this.funcPrefix + value
             , value
           ));
         });

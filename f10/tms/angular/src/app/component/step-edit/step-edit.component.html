@@ -32,7 +32,7 @@
           <select class="form-control" name="selectGeo" id="selectGeo"
             [(ngModel)]="selGeo" (change)="onLstChange('selGeo', $event)">
             <option *ngFor="let item of selOptGeo" [ngValue]="item.value"
-              [disabled]="item.value==-1">{{item.label}}</option>
+              [disabled]="item.value==-1">{{ item.label | translate }}</option>
           </select>
         </div>
   
@@ -41,7 +41,7 @@
           <select class="form-control" name="selectFunc" id="selectFunc" 
             [(ngModel)]="selFunc" (change)="onLstChange('selFunc', $event)">
             <option *ngFor="let item of selOptFunc" [ngValue]="item.value"
-              [disabled]="item.value==-1">{{item.label}}</option>
+              [disabled]="item.value==-1">{{ item.label | translate }}</option>
           </select>
         </div>
   
@@ -50,7 +50,7 @@
           <select class="form-control" name="selectEqpLabel" id="selectEqpLabel" 
             [(ngModel)]="selEqpLabel" (change)="onLstChange('selEqpLabel', $event)">
             <option *ngFor="let item of selOptEqpLabel" [ngValue]="item.value"
-              [disabled]="item.value==''">{{item.label}}</option>
+              [disabled]="item.value==''">{{ item.label | translate }}</option>
           </select>
         </div>
   
@@ -59,7 +59,7 @@
           <select class="form-control" name="selectPointLabel" id="selectPointLabel" 
             [(ngModel)]="selPointLabel" (change)="onLstChange('selPointLabel', $event)">
             <option *ngFor="let item of selOptPointLabel" [ngValue]="item.value"
-              [disabled]="item.value==''">{{item.label}}</option>
+              [disabled]="item.value==''">{{ item.label | translate }}</option>
           </select>
         </div>
   
@@ -69,7 +69,7 @@
             class="form-control" name="selectDelay" id="selectDelay"
             (change)="onLstChange('selDelay', $event)">
             <option *ngFor="let item of selOptDelay"   [ngValue]="item.value"
-              [selected]="item.value==0">{{item.label}}</option>
+              [selected]="item.value==0">{{ item.label | translate }}</option>
           </select>
         </div>
   
@@ -138,7 +138,7 @@
             [(ngModel)]="selDciValue" (change)="onLstChange('selDciValue', $event)">
             <option *ngFor="let item of selOptDciValue" 
               [selected]="item.value==-1" [ngValue]="item.value"
-              >{{item.label}}</option>
+              >{{ item.label | translate }}</option>
           </select>
         </div>
         <button 

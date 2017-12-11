@@ -27,11 +27,38 @@ import { SettingsService } from './service/settings.service';
 import { CsvToCardsPipe } from './pipe/csv/csv-to-cards.pipe';
 import { CardsToCsvPipe } from './pipe/csv/cards-to-csv.pipe';
 import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { TrainerComponent } from './route/trainer/trainer.component';
+import { TrainerAdminComponent } from './route/trainer-admin/trainer-admin.component';
+import { TraineeComponent } from './route/trainee/trainee.component';
+import { PageNotFoundComponent } from './route/page-not-found/page-not-found.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+const appRoutes: Routes = [
+  { path: 'trainer', component: TrainerComponent }
+  , { path: 'traineradmin', component: TrainerAdminComponent }
+  , { path: 'trainee', component: TraineeComponent }
+  , { path: '', redirectTo: '/trainee', pathMatch: 'full' }
+  , { path: '**', component: PageNotFoundComponent }
+];
+
+// const appRoutes: Routes = [
+//   { path: 'crisis-center', component: CrisisListComponent },
+//   { path: 'hero/:id',      component: HeroDetailComponent },
+//   {
+//     path: 'heroes',
+//     component: HeroListComponent,
+//     data: { title: 'Heroes List' }
+//   },
+//   { path: '',
+//     redirectTo: '/heroes',
+//     pathMatch: 'full'
+//   },
+//   { path: '**', component: PageNotFoundComponent }
+// ];
 
 @NgModule({
   declarations: [
@@ -46,6 +73,10 @@ export function createTranslateLoader(http: HttpClient) {
     , StepControllerComponent
     , CsvToCardsPipe
     , CardsToCsvPipe
+    , TrainerAdminComponent   
+    , TrainerComponent
+    , TraineeComponent
+    , PageNotFoundComponent
   ],
   imports: [
     BrowserModule
@@ -61,11 +92,10 @@ export function createTranslateLoader(http: HttpClient) {
       }
     })
     , UtilsHttpModule
-    , RouterModule.forRoot([{
-      path: '',
-      component: AppComponent
-      },
-    ])
+    , RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    )
   ],
   providers: [
     SettingsService

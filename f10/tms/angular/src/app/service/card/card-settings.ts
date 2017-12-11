@@ -4,28 +4,29 @@ export class CardsSetting {
 
 export enum CardExistsResult {
   UNKNOW = 0
-  , CARD_NOT_FOUND = 1
-  , CARD_FOUND = 2
+  , CARD_NOT_FOUND
+  , CARD_FOUND
 }
 
 export enum StepExistsResult {
   UNKNOW = 0
-  , CARD_NOT_FOUND = 1
-  , STEP_NOT_FOUND = 2
-  , STEP_FOUND = 3
+  , CARD_NOT_FOUND
+  , STEP_NOT_FOUND
+  , STEP_FOUND
 }
 
 export enum CardExecType {
   START = 0
-  , STOP = 1 
-  , PAUSE = 2
-  , UNKNOW = 3
+  , STOP
+  , PAUSE
+  , RESUME
+  , UNKNOW
 }
 
 export enum CardServiceType {
   CARD_RELOADED = 0
-  , CARD_UPDATED = 1
-  , STEP_RELOADED = 2
-  , STEP_UPDATED = 3
-  , UNKNOW = 4
+  , CARD_UPDATED
+  , STEP_RELOADED
+  , STEP_UPDATED
+  , UNKNOW
 }

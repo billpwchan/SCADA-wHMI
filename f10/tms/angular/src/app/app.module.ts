@@ -24,8 +24,8 @@ import { CardEditComponent } from './component/card-edit/card-edit.component';
 import { SelectionService } from './service/card/selection.service';
 import { StepControllerComponent } from './component/step-controller/step-controller.component';
 import { SettingsService } from './service/settings.service';
-import { CsvToCardsPipe } from './pipe/csv-to-cards.pipe';
-import { CardsToCsvPipe } from './pipe/cards-to-csv.pipe';
+import { CsvToCardsPipe } from './pipe/csv/csv-to-cards.pipe';
+import { CardsToCsvPipe } from './pipe/csv/cards-to-csv.pipe';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 

@@ -171,6 +171,7 @@ export class CardService {
       return cards;
     }
   }
+  
   // Cards Setter
   setCards(cards: Card[]): void { this.cards = cards; }
 
@@ -207,9 +208,9 @@ export class CardService {
   }
 
   setSteps(cardIdentify: string, steps: Step[]): void {
-    const cards: Card[] = this.getCards([cardIdentify]);
-    if ( null != cards ) {
-      cards[0].steps = steps;
+    const card: Card = this.getCard([cardIdentify]);
+    if ( null != card ) {
+      card.steps = steps;
     }
   }
 
@@ -294,139 +295,126 @@ export class CardService {
     this.dacSimService.writeEv(dacSimExe);
   }
 
-  pauseCard(cardName: string): void {
-    const f = 'pauseCard';
-    console.log(this.c, f);
-    console.log(this.c, f, 'cardName[' + cardName + ']');
-
-    const execCard: Card = this.getCard([cardName]);
-
-    if ( null != execCard ) {
-
-      console.log(this.c, f, 'PAUSE');
-
-      // Stop the timer
-      execCard.timer.unsubscribe();
-
-      // Change the card status = pause
-      switch (execCard.state) {
-        case CardType.START_RUNNING: {
-          execCard.state = CardType.START_PAUSE;
-        } break;
-        case CardType.STOP_RUNNING: {
-          execCard.state = CardType.STOP_PAUSE;
-        } break;
-      }
-
-      this.notifyUpdate(CardServiceType.CARD_UPDATED);
-
-    } else {
-      console.log(this.c, f, 'card not found');
-    }
-  }
-
   executeCard(cardName: string, execType: CardExecType, firstStep: boolean = false): void {
     const f = 'executeCard';
     console.log(this.c, f);
-    console.log(this.c, f, 'cardName[' + cardName + ']');
-    console.log(this.c, f, 'firstStep[' + firstStep + ']');
+    console.log(this.c, f, 'cardName[' + cardName + '] execType[' + execType + '] firstStep[' + firstStep + ']');
 
     const execCard: Card = this.getCard([cardName]);
 
     if ( null != execCard ) {
-      // Init
-      if ( firstStep ) {
-        execCard.step = 0;
-      }
 
-      let stepExecType: DacSimExecType = DacSimExecType.UNKNOW;
-      switch ( execType ) {
-        case CardExecType.START: {
-          execCard.state = CardType.START_RUNNING;
-          stepExecType = DacSimExecType.START;
-        } break;
-        case CardExecType.STOP: {
-          execCard.state = CardType.STOP_RUNNING;
-          stepExecType = DacSimExecType.STOP;
-        } break;
-      }
+      let stop = false;
 
-      console.log(this.c, f, 'execCard.name         [' + execCard.name + ']');
-      console.log(this.c, f, 'execCard.state        [' + execCard.state + ']');
-      console.log(this.c, f, 'execCard.step         [' + execCard.step + ']');
-      console.log(this.c, f, 'execCard.steps.length [' + execCard.steps.length + ']');
-      console.log(this.c, f, 'execCard.steps        [' + execCard.steps + ']');
+      if ( execType === CardExecType.PAUSE ) {
+        // Pause 
 
-      if ( execCard.step < execCard.steps.length ) {
+        // Stop the timer
+        execCard.timer.unsubscribe();
 
-        this.notifyUpdate(CardServiceType.CARD_UPDATED);
-
-        this.executeStep(
-          execCard.name
-          , execCard.step
-          , stepExecType);
-
-        const timeout = execCard.steps[execCard.step].delay;
-        console.log(this.c, f, 'timeout[' + timeout + ']');
-        execCard.timer = Observable.interval(1000 * timeout).map((x) => {
-          console.log(this.c, f, 'map');
-
-        }).subscribe((x) => {
-          console.log(this.c, f, 'subscribe');
-          execCard.step++;
-
-          console.log(this.c, f, 'unsubscribe');
-          execCard.timer.unsubscribe();
-
-          console.log(this.c, f, 'reloadScenarioStep');
-          this.cardChanged(CardServiceType.STEP_UPDATED);
-
-          console.log(this.c, f, 'executeCard');
-          this.executeCard(execCard.name, execType);
-        });
-      } else {
-        console.log(this.c, f, 'end of the steps in the card');
-
-        switch ( execType ) {
-          case CardExecType.START: {
-            execCard.state = CardType.START;
+        // Change the card status = pause
+        switch (execCard.state) {
+          case CardType.START_RUNNING: {
+            execCard.state = CardType.START_PAUSE;
           } break;
-          case CardExecType.STOP: {
-            execCard.state = CardType.STOP;
+          case CardType.STOP_RUNNING: {
+            execCard.state = CardType.STOP_PAUSE;
           } break;
         }
 
         this.notifyUpdate(CardServiceType.CARD_UPDATED);
+
+        stop = true;
+
+      } else if ( execType === CardExecType.RESUME ) {
+        // Resume
+
+        let cardType: CardExecType = CardExecType.UNKNOW;
+        switch (execCard.state) {
+          case CardType.START_PAUSE: {
+            cardType = CardExecType.START;
+          } break;
+          case CardType.STOP_PAUSE: {
+            cardType = CardExecType.START;
+          } break;
+        }
+  
+        this.notifyUpdate(CardServiceType.CARD_UPDATED);
+  
+        this.executeCard(cardName, cardType);
+
+        stop = true;
+      }
+      
+      if ( !stop) {
+
+        // Init
+        if ( firstStep ) {
+          execCard.step = 0;
+        }
+
+        let stepExecType: DacSimExecType = DacSimExecType.UNKNOW;
+        switch ( execType ) {
+          case CardExecType.START: {
+            execCard.state = CardType.START_RUNNING;
+            stepExecType = DacSimExecType.START;
+          } break;
+          case CardExecType.STOP: {
+            execCard.state = CardType.STOP_RUNNING;
+            stepExecType = DacSimExecType.STOP;
+          } break;
+        }
+
+        console.log(this.c, f, 'execCard.name         [' + execCard.name + ']');
+        console.log(this.c, f, 'execCard.state        [' + execCard.state + ']');
+        console.log(this.c, f, 'execCard.step         [' + execCard.step + ']');
+        console.log(this.c, f, 'execCard.steps.length [' + execCard.steps.length + ']');
+        console.log(this.c, f, 'execCard.steps        [' + execCard.steps + ']');
+
+        if ( execCard.step < execCard.steps.length ) {
+
+          this.notifyUpdate(CardServiceType.CARD_UPDATED);
+
+          this.executeStep(
+            execCard.name
+            , execCard.step
+            , stepExecType);
+
+          const timeout = execCard.steps[execCard.step].delay;
+          console.log(this.c, f, 'timeout[' + timeout + ']');
+          execCard.timer = Observable.interval(1000 * timeout).map((x) => {
+            console.log(this.c, f, 'map');
+
+          }).subscribe((x) => {
+            console.log(this.c, f, 'subscribe');
+            execCard.step++;
+
+            console.log(this.c, f, 'unsubscribe');
+            execCard.timer.unsubscribe();
+
+            console.log(this.c, f, 'reloadScenarioStep');
+            this.cardChanged(CardServiceType.STEP_UPDATED);
+
+            console.log(this.c, f, 'executeCard');
+            this.executeCard(execCard.name, execType);
+          });
+        } else {
+          console.log(this.c, f, 'end of the steps in the card');
+
+          switch ( execType ) {
+            case CardExecType.START: {
+              execCard.state = CardType.START;
+            } break;
+            case CardExecType.STOP: {
+              execCard.state = CardType.STOP;
+            } break;
+          }
+
+          this.notifyUpdate(CardServiceType.CARD_UPDATED);
+        }
       }
     } else {
       console.log(this.c, f, 'CARD NOT FOUND');
     }
   }
-
-  resumeCard(cardName: string): void {
-    const f = 'resumeCard';
-    console.log(this.c, f);
-    console.log(this.c, f, 'cardName[' + cardName + ']');
-
-    const execCard: Card = this.getCard([cardName]);
-
-    if ( null != execCard ) {
-      let cardType: CardExecType = CardExecType.UNKNOW;
-      switch (execCard.state) {
-        case CardType.START_PAUSE: {
-          cardType = CardExecType.START;
-        } break;
-        case CardType.STOP_PAUSE: {
-          cardType = CardExecType.START;
-        } break;
-      }
-
-      this.notifyUpdate(CardServiceType.CARD_UPDATED);
-
-      this.executeCard(cardName, cardType);
-    } else {
-      console.log(this.c, f, 'CARD NOT FOUND');
-    }
-  }
-
 }

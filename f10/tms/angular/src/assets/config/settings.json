@@ -40,7 +40,7 @@
       , "Comma": ","
       , "EOL": "\r\n"
   }
-  , "StorageSettings": {
+  , "StorageService": {
       "use_local_storage": true
       , "local_storage_name": "tms_local_storage_name"
       , "remote_url": "http://127.0.0.1:8080"

@@ -110,17 +110,17 @@ export class CardsControllerComponent implements OnInit, OnDestroy {
     console.log(this.c, f);
 
     const card: Card = this.cardService.getCard( this.selectionService.getSelectedCardIds());
-    this.cardService.pauseCard(
-      card.name);
+    this.cardService.executeCard(
+      card.name
+      , CardExecType.PAUSE
+      , true);
   }
 
   private resumeCard(): void {
     const f = 'resumeCard';
     console.log(this.c, f);
 
-    const card: Card = this.cardService.getCard( this.selectionService.getSelectedCardIds());
-    this.cardService.resumeCard(
-      card.name);
+    this.cardService.executeCard(this.selectionService.getSelectedCardId(), CardExecType.RESUME);
   }
 
   private resetCard(): void {
@@ -202,8 +202,8 @@ export class CardsControllerComponent implements OnInit, OnDestroy {
       } break;
       case CardsControllerComponent.STR_CARD_SELECTED: {
         const ids: string[] = this.selectionService.getSelectedCardIds();
-        const cards: Card[] = this.cardService.getCards(ids);
-        this.widgetController(cards[0]);
+        const card: Card= this.cardService.getCard(ids);
+        this.widgetController(card);
       } break;
       case 'start': {
         this.startCard();

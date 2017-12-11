@@ -78,7 +78,7 @@ export class StepControllerComponent implements OnInit, OnDestroy {
     const f = 'widgetControl';
     console.log(this.c, f);
 
-    const step: Step = this.cardService.getSteps(this.cardSelected, [this.stepSelected])[0];
+    const step: Step = this.cardService.getStep(this.cardSelected, [this.stepSelected]);
     if ( null != step ) {
       if ( StepType.STOP == step.state ) {
         this.btnDisabledStartStep = false;
@@ -103,8 +103,8 @@ export class StepControllerComponent implements OnInit, OnDestroy {
         this.btnDisabledStopStep = true;
       } break;
       case StepControllerComponent.STR_STEP_SELECTED: {
-        this.cardSelected = this.selectionService.getSelectedCardIds()[0];
-        this.stepSelected = this.selectionService.getSelectedStepIds()[0];
+        this.cardSelected = this.selectionService.getSelectedCardId();
+        this.stepSelected = this.selectionService.getSelectedStepId();
         this.widgetControl();
       } break;
       case 'startstep': {

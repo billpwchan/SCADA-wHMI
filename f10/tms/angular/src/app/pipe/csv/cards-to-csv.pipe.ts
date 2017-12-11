@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Card, Equipment, PhaseType } from '../model/Scenario';
+import { Card, Equipment, PhaseType } from '../../model/Scenario';
 import { CsvToCardSettings } from './csv-to-card-settings';
 
 /**

@@ -3,13 +3,13 @@ import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from '../../service/card/storage.service';
 import { AppSettings } from '../../app-settings';
 import { CardService } from '../../service/card/card.service';
-import { CardsToCsvPipe } from '../../pipe/cards-to-csv.pipe';
+import { CardsToCsvPipe } from '../../pipe/csv/cards-to-csv.pipe';
 import { Card } from '../../model/Scenario';
-import { CsvToCardsPipe } from '../../pipe/csv-to-cards.pipe';
+import { CsvToCardsPipe } from '../../pipe/csv/csv-to-cards.pipe';
 import { CardServiceType } from '../../service/card/card-settings';
 import { SettingsService } from '../../service/settings.service';
 import { AppComponent } from '../../app.component';
-import { CsvToCardSettings } from '../../pipe/csv-to-card-settings';
+import { CsvToCardSettings } from '../../pipe/csv/csv-to-card-settings';
 
 @Component({
   selector: 'app-csv-interpret'

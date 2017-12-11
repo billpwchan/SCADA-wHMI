@@ -58,8 +58,8 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
   olsSubscription: Subscription;
   dbmSubscription: Subscription;
 
-  selectedCardIds: string;
-  selectedStepIds: number;
+  selectedCardId: string;
+  selectedStepId: number;
 
   // GUI Data Binding
   editEnableNewStep: boolean;
@@ -551,7 +551,7 @@ editEnableDelay = false;
   private newStep(step: Step): void {
     const func = 'newStep';
     console.log(func);
-    const card = this.cardService.getCards([this.selectedCardIds])[0];
+    const card = this.cardService.getCard([this.selectedCardId]);
     if ( null != card ) {
       console.log(func, 'card.name', card.name);
       const length = card.steps.length;
@@ -575,9 +575,9 @@ editEnableDelay = false;
       value = this.selDciValue;
     }
 
-    const cards = this.cardService.getCards(this.selectionService.getSelectedCardIds());
+    const card = this.cardService.getCard(this.selectionService.getSelectedCardIds());
     const step: Step = new Step(
-      cards[0].steps.length
+      card.steps.length
       , StepType.STOP
       , Number(this.selDelay).valueOf()
       , new Equipment(
@@ -659,7 +659,7 @@ editEnableDelay = false;
       } break;
       case StepEditComponent.STR_CARD_SELECTED: {
         this.init();
-        this.selectedCardIds = this.selectionService.getSelectedCardIds()[0];
+        this.selectedCardId = this.selectionService.getSelectedCardId();
         this.btnDisabledNewStep = false;
         this.btnDisabledDeleteStep = true;
       } break;
@@ -667,7 +667,7 @@ editEnableDelay = false;
         this.init();
       } break;      
       case StepEditComponent.STR_STEP_SELECTED: {
-        this.selectedStepIds = this.selectionService.getSelectedStepIds()[0];
+        this.selectedStepId = this.selectionService.getSelectedStepId();
         this.btnDisabledNewStep = false;
         this.btnDisabledDeleteStep = false;
       } break;
@@ -689,7 +689,7 @@ editEnableDelay = false;
         this.editEnableNewStep = false;
       } break;
       case 'deletestep': {
-        this.cardService.deleteStep(this.selectedCardIds, [this.selectedStepIds]);
+        this.cardService.deleteStep(this.selectedCardId, [this.selectedStepId]);
         this.cardService.notifyUpdate(CardServiceType.STEP_RELOADED);
       } break;
     }

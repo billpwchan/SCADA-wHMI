@@ -178,7 +178,7 @@ export class StepsComponent implements OnInit, OnDestroy {
     // Rset ScenarioStep
     this.rows_step = [];
 
-    const card: Card = this.cardService.getCards([this.selectedCardName])[0];
+    const card: Card = this.cardService.getCard([this.selectedCardName]);
 
     if ( null != card ) {
       const steps = card.steps;
@@ -242,7 +242,7 @@ export class StepsComponent implements OnInit, OnDestroy {
         this.reloadSteps();
       } break;
       case StepsComponent.STR_CARD_SELECTED: {
-        this.selectedCardName = this.selectionService.getSelectedCardIds()[0];
+        this.selectedCardName = this.selectionService.getSelectedCardId();
         this.txtCardName = this.selectedCardName;
         this.reloadSteps();
       } break;

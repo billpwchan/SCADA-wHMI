@@ -195,12 +195,12 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private setCurrentCardName(preName: string, curName: string): void {
-    this.cardService.getCards([preName])[0].name = curName;
+    this.cardService.getCard([preName]).name = curName;
     this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
   }
 
   private getSelectCardName(): string {
-    return this.selectionService.getSelectedCardIds()[0];
+    return this.selectionService.getSelectedCardId();
   }
 
   private onChange(name: string, event?: Event): void {

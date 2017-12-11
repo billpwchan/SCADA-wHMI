@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Card, Step, Equipment, Execution, PhaseType } from '../model/Scenario';
+import { Card, Step, Equipment, Execution, PhaseType } from '../../model/Scenario';
 import { TokenIndex } from './csv-to-card-settings';
 
 /**

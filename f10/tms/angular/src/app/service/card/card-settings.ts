@@ -16,17 +16,18 @@ export enum StepExistsResult {
 }
 
 export enum CardExecType {
-  START = 0
+  UNKNOW = 0
+  , START
   , STOP
   , PAUSE
   , RESUME
-  , UNKNOW
+  , TERMINATE
 }
 
 export enum CardServiceType {
-  CARD_RELOADED = 0
+  UNKNOW = 0
+  , CARD_RELOADED
   , CARD_UPDATED
   , STEP_RELOADED
   , STEP_UPDATED
-  , UNKNOW
 }

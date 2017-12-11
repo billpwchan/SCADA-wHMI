@@ -59,13 +59,13 @@ export class StepsComponent implements OnInit, OnDestroy {
   // properties for ngx-datatable
   public messages = {};
 
-  private geoPrefix = null;
-  private funcPrefix = null;
+  private geoPrefix: string;
+  private funcPrefix: string;
   
-  private eqplabelPrefix = null;
-  private pointlabelPrefix = null;
-  private valuePrefix = null;
-  private delayPrefix = null;
+  private eqplabelPrefix: string;
+  private pointlabelPrefix: string;
+  private valuePrefix: string;
+  private delayPrefix: string;
 
   constructor(
     private translate: TranslateService
@@ -131,6 +131,7 @@ export class StepsComponent implements OnInit, OnDestroy {
     this.funcPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_FUNC_PREFIX);
     this.eqplabelPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_EQPLABEL_PREFIX);
     this.pointlabelPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_POINTLABEL_PREFIX);
+    this.delayPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_DELAY_PREFIX);
     this.valuePrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_VALUE_PREFIX);
   }
 
@@ -146,7 +147,6 @@ export class StepsComponent implements OnInit, OnDestroy {
   private getStateStr(state: StepType): string {
     const f = 'getStateStr';
     console.log(this.c, f);
-    console.log(this.c, f, state);
     let ret: string = StepSettings.STR_STEP_UNKNOW;
     switch ( state ) {
       case StepType.START: {
@@ -190,7 +190,7 @@ export class StepsComponent implements OnInit, OnDestroy {
             , this.funcPrefix + item.equipment.func
             , this.eqplabelPrefix + item.equipment.eqplabel
             , this.pointlabelPrefix + item.equipment.pointlabel
-            , this.valuePrefix + item.equipment.phaseStart[0].value
+            , this.valuePrefix + item.equipment.valuelabel
             , this.delayPrefix + item.delay
             , this.getStateStr(item.state)
           );

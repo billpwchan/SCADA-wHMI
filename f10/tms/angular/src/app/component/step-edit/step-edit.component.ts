@@ -565,14 +565,22 @@ editEnableDelay = false;
     const f = 'addStep';
     console.log(this.c, f, 'addStep');
 
-    let initValue = 0;
-    let value = 0;
+    let initValue: number;
+    let value: number;
+    let valueLabel: string;
     if ( DbmSettings.INT_ACI_TYPE === this.txtClassId ) {
       initValue = this.aciInitValue;
       value = this.aciValue;
-    } else {
+      valueLabel = '' + value;
+    } else if (DbmSettings.INT_DCI_TYPE === this.txtClassId ) {
       initValue = this.dciInitValue;
       value = this.selDciValue;
+      for(let i = 0 ; i < this.selOptDciValue.length ; ++i ) {
+        if ( this.selOptDciValue[i].value === value ) {
+          valueLabel = this.selOptDciValue[i].label;
+          break;
+        }
+      }
     }
 
     const card = this.cardService.getCard(this.selectionService.getSelectedCardIds());
@@ -588,6 +596,7 @@ editEnableDelay = false;
         , Number(this.selFunc).valueOf()
         , this.selEqpLabel
         , this.selPointLabel
+        , valueLabel
       )
     );
 

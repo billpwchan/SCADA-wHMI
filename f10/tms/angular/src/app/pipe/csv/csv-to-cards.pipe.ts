@@ -79,6 +79,7 @@ export class CsvToCardsPipe implements PipeTransform {
             const eFunc       = Number.parseInt(token[TokenIndex.EQUIPMENT_FUNC]);
             const eEqplabel   = token[TokenIndex.EQUIPMENT_EQPLABEL];
             const ePointlabel = token[TokenIndex.EQUIPMENT_POINTLABEL];
+            const eValueLabel = token[TokenIndex.EQUIPMENT_VALUELABEL];
   
             let step = this.getStep(card.steps, sStep);
 
@@ -90,6 +91,7 @@ export class CsvToCardsPipe implements PipeTransform {
               , eFunc
               , eEqplabel
               , ePointlabel
+              , eValueLabel
             );
 
             if ( null === step ) {

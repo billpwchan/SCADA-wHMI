@@ -171,7 +171,7 @@ export class CardService {
       return cards;
     }
   }
-  
+
   // Cards Setter
   setCards(cards: Card[]): void { this.cards = cards; }
 
@@ -311,6 +311,7 @@ export class CardService {
 
         // Stop the timer
         execCard.timer.unsubscribe();
+        execCard.timer = null;
 
         // Change the card status = pause
         switch (execCard.state) {
@@ -344,9 +345,66 @@ export class CardService {
         this.executeCard(cardName, cardType);
 
         stop = true;
+      } else if ( execType === CardExecType.TERMINATE ) {
+
+        if ( null != execCard.timer ) {
+          // Stop the timer
+          execCard.timer.unsubscribe();
+          execCard.timer = null;
+        }
+
+        // Check card state
+        let cardType = CardType.UNKNOW;
+        let step = 0;
+        let stepType = StepType.UNKNOW;
+        if ( 
+          CardType.STOP_RUNNING == execCard.state
+          || CardType.STOP_PAUSE == execCard.state ) {
+            cardType = CardType.START;
+            stepType = StepType.START;
+        } else if (
+          CardType.START_RUNNING == execCard.state
+          || CardType.START_PAUSE == execCard.state
+        ) {
+          cardType = CardType.STOP;
+          stepType = StepType.STOP;
+        }
+
+        console.log(this.c, f, 'Target cardType[' + cardType + '] step[' + step + '] stepType[' + stepType + ']');
+
+        // Reset state
+        execCard.state = cardType;
+        execCard.step = step;
+        execCard.steps.forEach ( step => {
+          step.state = stepType
+        });
+
+        this.notifyUpdate(CardServiceType.CARD_UPDATED);
+
+        stop = true;
       }
       
       if ( !stop) {
+
+        if ( 
+          (
+            CardType.START_PAUSE == execCard.state
+          || CardType.START_RUNNING == execCard.state
+          )
+          && CardExecType.STOP == execType
+        ) {
+          // Terminate
+          this.executeCard(execCard.name, CardExecType.TERMINATE);
+        } else if (
+          (
+            CardType.STOP_PAUSE == execCard.state
+            || CardType.STOP_RUNNING ==  execCard.state
+          )
+          && CardExecType.START == execType 
+        ) {
+          // Terminate
+          this.executeCard(execCard.name, CardExecType.TERMINATE);
+        }
 
         // Init
         if ( firstStep ) {
@@ -391,6 +449,7 @@ export class CardService {
 
             console.log(this.c, f, 'unsubscribe');
             execCard.timer.unsubscribe();
+            execCard.timer = null;
 
             console.log(this.c, f, 'reloadScenarioStep');
             this.cardChanged(CardServiceType.STEP_UPDATED);

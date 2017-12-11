@@ -2,8 +2,8 @@ import { Subscription } from "rxjs/Subscription";
 
 
 export enum ExecType {
-  DACSIM = 0
-  , UNKNOW
+  UNKNOW = 0
+  , DACSIM
 }
 
 /**
@@ -18,9 +18,9 @@ export class Execution {
 }
 
 export enum PhaseType {
-  START = 0
+  UNKNOW = 0
+  , START
   , STOP 
-  , UNKNOW
 }
 
 /**
@@ -37,17 +37,18 @@ export class Equipment {
     , public func: number
     , public eqplabel: string
     , public pointlabel: string
+    , public valuelabel: string
   ) {}
 }
 
 export enum StepType {
-  STOP = 0
-  , START = 1
-  , STOP_RUNNING = 2
-  , START_RUNNING = 3
-  , STOP_FAILED = 4
-  , START_FAILED = 5
-  , UNKNOW = 6
+  UNKNOW = 0
+  , STOP
+  , START
+  , STOP_RUNNING
+  , START_RUNNING
+  , STOP_FAILED
+  , START_FAILED 
 }
 
 /**
@@ -63,13 +64,13 @@ export class Step {
 }
 
 export enum CardType {
-  STOP = 0
-  , START = 1
-  , STOP_RUNNING = 2
-  , START_RUNNING = 3
-  , START_PAUSE = 4
-  , STOP_PAUSE = 5
-  , UNKNOW = 6
+  UNKNOW = 0
+  , STOP
+  , START
+  , STOP_RUNNING
+  , START_RUNNING
+  , START_PAUSE
+  , STOP_PAUSE
 }
 
 /**

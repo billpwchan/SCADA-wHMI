@@ -6,13 +6,10 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { StorageSettings } from './storage-settings';
 import { Card } from '../../model/Scenario';
 import { CardServiceType } from './card-settings';
+import { SettingsService } from '../settings.service';
 
 @Injectable()
 export class StorageService {
-
-  public static readonly BOOLEAN_USE_LOCAL_STORAGE = true;
-
-  public static readonly STR_LOCAL_STORAGE_NAME = 'tms_local_storage_name';
 
   readonly c = StorageService.name;
 
@@ -24,25 +21,50 @@ export class StorageService {
 
   private utilsHttp: UtilsHttpModule = new UtilsHttpModule();
 
+  uesLocalStorage: boolean;
+  localStorageName: string;
+
+  remoteUrl: string;
+  uploadUrl: string;
+  downloadUrl: string;
+  downloadMethod: string;
+  remoteFileName: string;
+
   // Service command
   storageChanged(obj: any) {
-    const func = 'storageChanged';
-    console.log(func);
+    const f = 'storageChanged';
+    console.log(this.c, f);
     this.storageSource.next(obj);
   }
 
   constructor(
     private httpClient: HttpClient
+    , private settingsService: SettingsService
     , private cardService: CardService
   ) {}
+
+  loadSettings(): void {
+    const f = 'loadSettings';
+    console.log(this.c, f);
+
+    const service: string = StorageService.name;
+    this.uesLocalStorage = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_USE_LOCAL_STORAGE);
+    this.localStorageName = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_LOCAL_STORAGE_NAME)
+  
+    this.remoteUrl = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_REMOTE_URL);
+    this.uploadUrl = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_UPLOAD_URL);
+    this.downloadUrl = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_DOWNLOAD_URL);
+    this.downloadMethod = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_DOWNLOAD_METHOD);
+    this.remoteFileName = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_REMOTE_FILENAME);
+  }
 
   saveCard(cards: Card[]): void {
     const f = 'saveCard';
     console.log(this.c, f);
-    if ( StorageService.BOOLEAN_USE_LOCAL_STORAGE ) {
+    if ( this.uesLocalStorage ) {
       const strCards: string = JSON.stringify(cards);
       localStorage.setItem(
-      StorageService.STR_LOCAL_STORAGE_NAME
+        this.localStorageName
       , strCards);
     } else {
       this.uploadCard(cards);
@@ -52,21 +74,21 @@ export class StorageService {
   loadCard(): void {
     const f = 'loadCard';
     console.log(this.c, f);
-    if ( StorageService.BOOLEAN_USE_LOCAL_STORAGE ) {
-      const strCards: string = localStorage.getItem(StorageService.STR_LOCAL_STORAGE_NAME);
+    if ( this.uesLocalStorage ) {
+      const strCards: string = localStorage.getItem(this.localStorageName);
       const cards: Card[] = JSON.parse(strCards);
       this.cardService.setCards(cards);
       this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
     } else {
-
+      this.downloadCard();
     }
   }
 
   uploadCard(cards: Card[]): void {
     const f = 'uploadCard';
     console.log(this.c, f);
-    const url: string = StorageSettings.strUrlfsstorage + '/' + StorageSettings.strUrlUpstreamFile;
-    const filepath: string = StorageSettings.STR_TMS_FILENAME_JSON;
+    const url: string = this.remoteUrl + '/' + this.uploadUrl;
+    const filepath: string = this.remoteFileName;
     const strcards: string = JSON.stringify(cards);
     this.postData(url, filepath, strcards);
   }
@@ -78,9 +100,9 @@ export class StorageService {
     // Reset the cards
     this.cardService.setCards([]);
 
-    let url = StorageSettings.strUrlfsstorage + '/' + StorageSettings.strUrlDownstramFile;
-    url += '?' + StorageSettings.STR_FILEPATH + '=' + StorageSettings.STR_TMS_FILENAME_JSON;
-    url += '&' + StorageSettings.STR_METHOD + '=' + StorageSettings.STR_STREAM;
+    let url = this.remoteUrl + '/' + this.downloadUrl;
+    url += '?' + StorageSettings.STR_FILEPATH + '=' + this.downloadUrl;
+    url += '&' + StorageSettings.STR_METHOD + '=' + this.downloadMethod;
 
     // Handle the data recerived
     {
@@ -101,58 +123,58 @@ export class StorageService {
     }
   }
 
-  getData(url: string): string {
-    const func = 'getData';
-    console.log(func);
-    this.httpClient.get(
-        url
-      )
-        .subscribe(
-          res => {
-            console.log(res);
-            return res;
-          }
-          , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(func, err); }
-          , () => { this.utilsHttp.httpClientHandlerComplete(func, 'The GET observable is now completed.'); }
-        );
-    return null;
-  }
+  // getData(url: string): string {
+  //   const func = 'getData';
+  //   console.log(func);
+  //   this.httpClient.get(
+  //       url
+  //     )
+  //       .subscribe(
+  //         res => {
+  //           console.log(res);
+  //           return res;
+  //         }
+  //         , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(func, err); }
+  //         , () => { this.utilsHttp.httpClientHandlerComplete(func, 'The GET observable is now completed.'); }
+  //       );
+  //   return null;
+  // }
 
-  downloadData(): void {
-    const func = 'downloadData';
-    console.log(func);
-    const url = StorageSettings.strUrlfsstorage + '/' + StorageSettings.strUrlDownstramFile
-    + '?' + StorageSettings.STR_FILEPATH + '=' + StorageSettings.STR_TMS_FILENAME
-    + '&' + StorageSettings.STR_METHOD + '=' + StorageSettings.STR_DOWNLOAD;
-    const res = this.getData(url);
-  }
+  // downloadData(): void {
+  //   const func = 'downloadData';
+  //   console.log(func);
+  //   const url = this.remoteUrl + '/' +this.downloadUrl
+  //   + '?' + StorageSettings.STR_FILEPATH + '=' + this.remoteFilename
+  //   + '&' + StorageSettings.STR_METHOD + '=' + StorageSettings.STR_DOWNLOAD;
+  //   const res = this.getData(url);
+  // }
 
-  putData(url: string, filePath: string, filedata: File): void {
-    const func = 'putData';
-    console.log(func);
-    console.log(func, 'sturl[' + url + ']');
-    console.log(func, 'stSTR_FILEPATH[' + StorageSettings.STR_FILEPATH + '] filePath[' + filePath + ']');
-    console.log(func, 'stSTR_DATA[' + StorageSettings.STR_DATA + '] data[' + filedata + ']');
+  // putData(url: string, filePath: string, filedata: File): void {
+  //   const func = 'putData';
+  //   console.log(func);
+  //   console.log(func, 'sturl[' + url + ']');
+  //   console.log(func, 'stSTR_FILEPATH[' + StorageSettings.STR_FILEPATH + '] filePath[' + filePath + ']');
+  //   console.log(func, 'stSTR_DATA[' + StorageSettings.STR_DATA + '] data[' + filedata + ']');
 
-    const bodydata = {};
-    bodydata[StorageSettings.STR_FILEPATH] = filePath;
-    bodydata[StorageSettings.STR_DATA] = filedata;
+  //   const bodydata = {};
+  //   bodydata[StorageSettings.STR_FILEPATH] = filePath;
+  //   bodydata[StorageSettings.STR_DATA] = filedata;
 
-    // const bodydata = JSON.stringify({filepath: filePath, data: filedata});
-    // console.log('bodydata[' +bodydata+']');
+  //   // const bodydata = JSON.stringify({filepath: filePath, data: filedata});
+  //   // console.log('bodydata[' +bodydata+']');
 
-    this.httpClient.put(
-      url
-      , bodydata
-    )
-      .subscribe(
-          res => {
-            console.log(res);
-          }
-          , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(func, err); }
-          , () => { this.utilsHttp.httpClientHandlerComplete(func, 'The PUT observable is now completed.'); }
-      );
-  }
+  //   this.httpClient.put(
+  //     url
+  //     , bodydata
+  //   )
+  //     .subscribe(
+  //         res => {
+  //           console.log(res);
+  //         }
+  //         , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(func, err); }
+  //         , () => { this.utilsHttp.httpClientHandlerComplete(func, 'The PUT observable is now completed.'); }
+  //     );
+  // }
 
   postData(url: string, filePath: string, filedata: string) {
     const func = 'postData';
@@ -188,38 +210,38 @@ export class StorageService {
       );
   }
 
-  postFile(url: string, filePath: string, filedata: File) {
-    const func = 'postData';
-    console.log(func);
-    console.log(func, 'url[' + url + ']');
-    console.log(func, 'STR_FILEPATH[' + StorageSettings.STR_FILEPATH + '] filePath[' + filePath + ']');
-    console.log(func, 'STR_DATA[' + StorageSettings.STR_DATA + '] data[' + filedata + ']');
+//   postFile(url: string, filePath: string, filedata: File) {
+//     const func = 'postData';
+//     console.log(func);
+//     console.log(func, 'url[' + url + ']');
+//     console.log(func, 'STR_FILEPATH[' + StorageSettings.STR_FILEPATH + '] filePath[' + filePath + ']');
+//     console.log(func, 'STR_DATA[' + StorageSettings.STR_DATA + '] data[' + filedata + ']');
 
-    const bodydata = {};
-    bodydata[StorageSettings.STR_FILEPATH] = filePath;
-    bodydata[StorageSettings.STR_DATA] = filedata;
+//     const bodydata = {};
+//     bodydata[StorageSettings.STR_FILEPATH] = filePath;
+//     bodydata[StorageSettings.STR_DATA] = filedata;
 
-    // const bodydata = JSON.stringify({filepath: filePath, data: filedata});
-    // console.log('bodydata[' +bodydata+']');
+//     // const bodydata = JSON.stringify({filepath: filePath, data: filedata});
+//     // console.log('bodydata[' +bodydata+']');
 
-//  let headers = new HttpHeaders().set('header1', 'hvalue1'); // create header object
-//  headers = headers.append('header2', hvalue2); // add a new header, creating a new object
+// //  let headers = new HttpHeaders().set('header1', 'hvalue1'); // create header object
+// //  headers = headers.append('header2', hvalue2); // add a new header, creating a new object
 
-//  let params = new HttpParams().set('filepath', filePath); // create params object
-//  params = params.append('param2', value2); // add a new param, creating a new object
+// //  let params = new HttpParams().set('filepath', filePath); // create params object
+// //  params = params.append('param2', value2); // add a new param, creating a new object
 
-    this.httpClient.post(
-      url
-      , bodydata
-//    ,{headers: headers, params: params}
-    )
-      .subscribe(
-        res => {
-          console.log(res);
-        }
-        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(func, err); }
-        , () => { this.utilsHttp.httpClientHandlerComplete(func, 'The PUT observable is now completed.'); }
-      );
-  }
+//     this.httpClient.post(
+//       url
+//       , bodydata
+// //    ,{headers: headers, params: params}
+//     )
+//       .subscribe(
+//         res => {
+//           console.log(res);
+//         }
+//         , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(func, err); }
+//         , () => { this.utilsHttp.httpClientHandlerComplete(func, 'The PUT observable is now completed.'); }
+//       );
+//   }
 
 }

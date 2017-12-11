@@ -10,6 +10,7 @@ import { CardServiceType } from '../../service/card/card-settings';
 import { SettingsService } from '../../service/settings.service';
 import { AppComponent } from '../../app.component';
 import { CsvToCardSettings } from '../../pipe/csv/csv-to-card-settings';
+import { CsvInterpretSettings } from './csv-interpret-settings';
 
 @Component({
   selector: 'app-csv-interpret'
@@ -38,6 +39,8 @@ export class CsvInterpretComponent implements OnInit {
   importNumber: number;
   exportNumber: number;
 
+  initCardsBeforeExport: boolean;
+
   constructor(
     private translate: TranslateService
     , private storageService: StorageService
@@ -45,10 +48,6 @@ export class CsvInterpretComponent implements OnInit {
     , private settingsService: SettingsService
   ) {
   }
-
-  private static readonly STR_FILED_FILENAME = 'FileName';
-  private static readonly STR_FILED_COMMA = 'Comma';
-  private static readonly STR_FILED_EOL = 'EOL';
 
   ngOnInit() {
     const f = 'ngOnInit';
@@ -70,9 +69,10 @@ export class CsvInterpretComponent implements OnInit {
     console.log(this.c, f);
 
     const component = CsvInterpretComponent.name;
-    this.strFileName = this.settingsService.getSetting(this.c, f, component, CsvInterpretComponent.STR_FILED_FILENAME);
-    this.strComma = this.settingsService.getSetting(this.c, f, component, CsvInterpretComponent.STR_FILED_COMMA);
-    this.strEOL = this.settingsService.getSetting(this.c, f, component, CsvInterpretComponent.STR_FILED_EOL);
+    this.strFileName = this.settingsService.getSetting(this.c, f, component, CsvInterpretSettings.STR_FILED_FILENAME);
+    this.strComma = this.settingsService.getSetting(this.c, f, component, CsvInterpretSettings.STR_FILED_COMMA);
+    this.strEOL = this.settingsService.getSetting(this.c, f, component, CsvInterpretSettings.STR_FILED_EOL);
+    this.initCardsBeforeExport = this.settingsService.getSetting(this.c, f, component, CsvInterpretSettings.STR_INIT_CARDS_BEFORE_EXPORT);
   }
   /**
    * Export Cards as a CSV file
@@ -85,7 +85,12 @@ export class CsvInterpretComponent implements OnInit {
     console.log(this.c, f);
 
     const cards: Card[] = this.cardService.getCards();
-    const data: string = new CardsToCsvPipe().transform(cards, [this.strComma, this.strEOL]);
+    const strCards = JSON.stringify(cards);
+    let exportCards = JSON.parse(strCards);
+    if ( this.initCardsBeforeExport ) {
+      exportCards = this.cardService.initCard(exportCards);
+    }
+    const data: string = new CardsToCsvPipe().transform(exportCards, [this.strComma, this.strEOL]);
 
     const blob: Blob = new Blob([data], {type: 'text/csv'});
     const fileName: string = this.strFileName;

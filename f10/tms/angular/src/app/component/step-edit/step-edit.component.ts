@@ -600,15 +600,13 @@ editEnableDelay = false;
       )
     );
 
-    const phaseStart: Execution[] = step.equipment.phaseStop;
-    phaseStart.push(new Execution(
+    step.equipment.phaseStop.push(new Execution(
       ExecType.DACSIM
       , this.txtEVName
       , Number(initValue).valueOf()
     ));
-
-    const phaseStop: Execution[] = step.equipment.phaseStart;
-    phaseStop.push(new Execution(
+    
+    step.equipment.phaseStart.push(new Execution(
       ExecType.DACSIM
       , this.txtEVName
       , Number(value).valueOf()

@@ -36,9 +36,13 @@
       ]
   }
   , "CsvInterpretComponent": {
-      "FileName": "tms.csv"
-      , "Comma": ","
-      , "EOL": "\r\n"
+      "filename": "tms.csv"
+      , "comma": ","
+      , "eol": "\r\n"
+      , "init_cards_before_export": true
+  }
+  , "StorageComponent": {
+      "init_cards_before_storage": false
   }
   , "StorageService": {
       "use_local_storage": true
@@ -49,5 +53,6 @@
       , "upload_method": "stream"
       , "download_url": "downstreamFile_result"
       , "download_method": "stream"
+      , "init_cards_before_storage": false
   }
 }

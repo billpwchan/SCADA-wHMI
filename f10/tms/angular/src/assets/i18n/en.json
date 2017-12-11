@@ -1,5 +1,12 @@
 {
-	"&cards_title": "[EN]Scenario List"
+	"&available_pages": "Available pages"
+	, "&traineradmin": "Trainer Admin"
+	, "&trainer": "Trainer"
+	, "&trainee": "Trainee"
+
+	, "&trainee_page": "trainee page"
+	
+	, "&cards_title": "[EN]Scenario List"
 
 	, "&cards_gd_header_name": "[EN]Name"
 	, "&cards_gd_header_state": "[EN]State"

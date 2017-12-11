@@ -41,24 +41,10 @@ const appRoutes: Routes = [
   { path: 'trainer', component: TrainerComponent }
   , { path: 'traineradmin', component: TrainerAdminComponent }
   , { path: 'trainee', component: TraineeComponent }
-  , { path: '', redirectTo: '/trainee', pathMatch: 'full' }
+  , { path: 'pagenotfound', component: PageNotFoundComponent }
+  , { path: '', redirectTo: '/pagenotfound', pathMatch: 'full' }
   , { path: '**', component: PageNotFoundComponent }
 ];
-
-// const appRoutes: Routes = [
-//   { path: 'crisis-center', component: CrisisListComponent },
-//   { path: 'hero/:id',      component: HeroDetailComponent },
-//   {
-//     path: 'heroes',
-//     component: HeroListComponent,
-//     data: { title: 'Heroes List' }
-//   },
-//   { path: '',
-//     redirectTo: '/heroes',
-//     pathMatch: 'full'
-//   },
-//   { path: '**', component: PageNotFoundComponent }
-// ];
 
 @NgModule({
   declarations: [

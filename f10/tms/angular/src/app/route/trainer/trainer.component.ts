@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../../service/card/storage.service';
 
 @Component({
   selector: 'app-trainer',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TrainerComponent implements OnInit {
 
-  constructor() { }
+  c: string = TrainerComponent.name;
+
+  constructor(
+    private storageService: StorageService
+  ) { }
 
   ngOnInit() {
+    this.storageService.loadCard();
+  }
+
+  getNotification(evt) {
+    const f = 'getNotification';
+    // Do something with the notification (evt) sent by the child!
+    console.log(this.c, f, 'evt', evt);
   }
 
 }

@@ -256,6 +256,48 @@ export class CardService {
     }
   }
 
+  initCard(card: Card): Card {
+    const f = 'initCard';
+    console.log(this.c, f);
+
+    if ( null != card.timer ) {
+      // Stop the timer
+      card.timer.unsubscribe();
+      card.timer = null;
+    }
+
+    // Check card state
+    let cardType = CardType.UNKNOW;
+    let step = 0;
+    let stepType = StepType.UNKNOW;
+    if ( 
+      CardType.STOP_RUNNING == card.state
+      || CardType.STOP_PAUSE == card.state 
+      || CardType.START == card.state) 
+      {
+        cardType = CardType.START;
+        stepType = StepType.START;
+    } else if (
+      CardType.START_RUNNING == card.state
+      || CardType.START_PAUSE == card.state
+      || CardType.STOP == card.state) 
+      {
+      cardType = CardType.STOP;
+      stepType = StepType.STOP;
+    }
+
+    console.log(this.c, f, 'Target cardType[' + cardType + '] step[' + step + '] stepType[' + stepType + ']');
+
+    // Reset state
+    card.state = cardType;
+    card.step = step;
+    card.steps.forEach ( step => {
+      step.state = stepType
+    });
+
+    return card;
+  }
+
   executeStep(cardName: string, stepId: number, stepType: DacSimExecType): void {
     const f = 'executeStep';
     console.log(this.c, f);
@@ -347,37 +389,7 @@ export class CardService {
         stop = true;
       } else if ( execType === CardExecType.TERMINATE ) {
 
-        if ( null != execCard.timer ) {
-          // Stop the timer
-          execCard.timer.unsubscribe();
-          execCard.timer = null;
-        }
-
-        // Check card state
-        let cardType = CardType.UNKNOW;
-        let step = 0;
-        let stepType = StepType.UNKNOW;
-        if ( 
-          CardType.STOP_RUNNING == execCard.state
-          || CardType.STOP_PAUSE == execCard.state ) {
-            cardType = CardType.START;
-            stepType = StepType.START;
-        } else if (
-          CardType.START_RUNNING == execCard.state
-          || CardType.START_PAUSE == execCard.state
-        ) {
-          cardType = CardType.STOP;
-          stepType = StepType.STOP;
-        }
-
-        console.log(this.c, f, 'Target cardType[' + cardType + '] step[' + step + '] stepType[' + stepType + ']');
-
-        // Reset state
-        execCard.state = cardType;
-        execCard.step = step;
-        execCard.steps.forEach ( step => {
-          step.state = stepType
-        });
+        this.initCard(execCard);
 
         this.notifyUpdate(CardServiceType.CARD_UPDATED);
 

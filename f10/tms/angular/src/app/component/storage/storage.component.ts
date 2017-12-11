@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { AppSettings } from '../../app-settings';
 import { CardServiceType } from '../../service/card/card-settings';
+import { SettingsService } from '../../service/settings.service';
+import { StorageSettings } from './storage-settings';
 
 @Component({
   selector: 'app-storage',
@@ -42,14 +44,19 @@ export class StorageComponent implements OnInit, OnDestroy {
 
   ignoreReload: boolean = false;
 
+  initCardsBeforeSave: boolean;
+
   constructor(
-    private storageService: StorageService
+    private settingsService: SettingsService
     , private cardService: CardService
+    , private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
     const f = 'ngOnInit';
     console.log(this.c, f);
+
+    this.loadSettings();
 
     this.cardSubscription = this.cardService.cardItem
     .subscribe( item => {
@@ -85,6 +92,14 @@ export class StorageComponent implements OnInit, OnDestroy {
     this.notifyParent.emit(str);
   }
 
+  private loadSettings() {
+    const f = 'loadSettings';
+    console.log(this.c, f);
+
+    const component: string = StorageComponent.name;
+    this.initCardsBeforeSave = this.settingsService.getSetting(this.c, f, component, StorageSettings.STR_INIT_CARDS_BEFORE_STORAGE);
+  }
+
   private btnClicked(btnLabel: string, event?: Event) {
     const f = 'btnClicked';
     console.log(this.c, f, 'btnLabel[' + btnLabel +']');
@@ -117,7 +132,12 @@ export class StorageComponent implements OnInit, OnDestroy {
       } break;
       case 'savescenario': {
         const cards: Card[] = this.cardService.getCards();
-        this.storageService.saveCard(cards);
+        const strCards = JSON.stringify(cards);
+        let saveCards = JSON.parse(strCards);
+        if ( this.initCardsBeforeSave ) {
+          saveCards = this.cardService.initCard(saveCards);
+        }
+        this.storageService.saveCard(saveCards);
         this.disableSaveToStorageMsg = true;
         this.disableLoadFromStorageConfirmMsg = true;
         this.btnDisabledSaveScenario = true;

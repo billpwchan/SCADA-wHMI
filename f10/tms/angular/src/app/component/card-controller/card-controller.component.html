@@ -1,26 +1,24 @@
 <div class="div-cards-controller-root">
   <label class="lbl-card-controller"
-  >{{ '&card_controller_lbl_execute' | translate }}</label>
-  <div>
-    <button type="button" class="btn btn-info btn-card-controller-start" 
-    [disabled]="btnDisabledStart" (click)="btnClicked('start')"
-    title="{{ '&card_controller_btn_start_title' | translate }}"
-    >{{ '&card_controller_btn_start' | translate }}</button>
-    <button type="button" class="btn btn-info btn-card-controller-pause" 
-      [disabled]="btnDisabledPause" (click)="btnClicked('pause')"
-      title="{{ '&card_controller_btn_pause_title' | translate }}"
-      >{{ '&card_controller_btn_pause' | translate }}</button>
-    <button type="button" class="btn btn-info btn-card-controller-resume" 
-      [disabled]="btnDisabledResume" (click)="btnClicked('resume')"
-      title="{{ '&card_controller_btn_resume_title' | translate }}"
-      >{{ '&card_controller_btn_resume' | translate }}</button>
-    <button type="button" class="btn btn-info btn-card-controller-stop" 
-      [disabled]="btnDisabledStop" (click)="btnClicked('stop')"
-      title="{{ '&card_controller_btn_stop_title' | translate }}"
-      >{{ '&card_controller_btn_stop' | translate }}</button>
-    <button type="button" class="btn btn-info btn-card-controller-reset" 
-      [disabled]="btnDisabledReset" (click)="btnClicked('reset')"
-      title="{{ '&card_controller_btn_reset_title' | translate }}"
-      >{{ '&card_controller_btn_reset' | translate }}</button>
-  </div>
+    >{{ '&card_controller_lbl_execute' | translate }}</label>    
+  <button type="button" class="btn btn-info btn-card-controller-start" 
+  [disabled]="btnDisabledStart" (click)="btnClicked('start')"
+  title="{{ '&card_controller_btn_start_title' | translate }}"
+  >{{ '&card_controller_btn_start' | translate }}</button>
+  <button type="button" class="btn btn-info btn-card-controller-pause" 
+    [disabled]="btnDisabledPause" (click)="btnClicked('pause')"
+    title="{{ '&card_controller_btn_pause_title' | translate }}"
+    >{{ '&card_controller_btn_pause' | translate }}</button>
+  <button type="button" class="btn btn-info btn-card-controller-resume" 
+    [disabled]="btnDisabledResume" (click)="btnClicked('resume')"
+    title="{{ '&card_controller_btn_resume_title' | translate }}"
+    >{{ '&card_controller_btn_resume' | translate }}</button>
+  <button type="button" class="btn btn-info btn-card-controller-stop" 
+    [disabled]="btnDisabledStop" (click)="btnClicked('stop')"
+    title="{{ '&card_controller_btn_stop_title' | translate }}"
+    >{{ '&card_controller_btn_stop' | translate }}</button>
+  <!--<button type="button" class="btn btn-info btn-card-controller-reset" 
+    [disabled]="btnDisabledReset" (click)="btnClicked('reset')"
+    title="{{ '&card_controller_btn_reset_title' | translate }}"
+    >{{ '&card_controller_btn_reset' | translate }}</button>-->
 </div>

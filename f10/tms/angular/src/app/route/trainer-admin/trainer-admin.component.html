@@ -15,11 +15,11 @@
     <div class="div-trainer-admin-right-bottom">
       <div class="div-trainer-admin-right-bottom-left">
         <app-step-controller (notifyParent)="getNotification($event)"></app-step-controller>
-        <app-step-edit (notifyParent)="getNotification($event)" [stepEditUpdate]="stepEditUpdateValue"></app-step-edit>
+        <div class="div-trainer-admin-right-bottom-left-middle"><app-storage (notifyParent)="getNotification($event)"></app-storage></div>
+        <app-csv-interpret (notifyParent)="getNotification($event)"></app-csv-interpret>
       </div>
       <div class="div-trainer-admin-right-bottom-right">
-        <app-storage (notifyParent)="getNotification($event)"></app-storage>
-        <app-csv-interpret (notifyParent)="getNotification($event)"></app-csv-interpret>
+        <app-step-edit (notifyParent)="getNotification($event)" [stepEditUpdate]="stepEditUpdateValue"></app-step-edit>
       </div>
     </div>
   </div>

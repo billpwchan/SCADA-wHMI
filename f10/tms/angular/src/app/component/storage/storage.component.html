@@ -1,14 +1,14 @@
-<div>
+<div class="div-storage-root">
   <form>
-    <fieldset class="">
+    <fieldset>
       <!--<legend class="">{{ '&storage_lbl_savereload' | translate }}</legend>-->
       <div>
-        <label>{{ '&storage_lbl_savereload' | translate }}</label>
-        <button type="button" class="btn btn-info tms-step-btn-savescenario" 
+        <label class="lbl-storage-scenario">{{ '&storage_lbl_scenario' | translate }}</label>
+        <button type="button" class="btn btn-info btn-storage-savescenario" 
         [disabled]="btnDisabledSaveScenario" (click)="btnClicked('savescenario')"
         title="{{ '&storage_btn_save_title' | translate }}"
         >{{ '&storage_btn_save' | translate }}</button>
-        <button type="button" class="btn btn-info tms-step-btn-reloadscenario" 
+        <button type="button" class="btn btn-info btn-storage-reloadscenario" 
         [disabled]="btnDisabledReloadScenario" (click)="btnClicked('reloadscenario')"
         title="{{ '&storage_btn_load_title' | translate }}"
         >{{ '&storage_btn_load' | translate }}</button>
@@ -35,12 +35,12 @@
               <strong>{{ '&storage_info_confirmtosavecards_title' | translate }}</strong>            
             </div>
             <button 
-              type="button" class="btn btn-info tms-card-btn-add" 
+              type="button" class="btn btn-info btn-storage-confirm" 
               [disabled]="btnDisabledSave" (click)="btnClicked('confirm')"
               title="{{ '&storage_btn_save_confirm_title' | translate }}"
               >{{ '&storage_btn_save_confirm' | translate }}</button>
             <button 
-              type="button" class="btn btn-info tms-card-btn-add" 
+              type="button" class="btn btn-info btn-storage-cancel" 
               [disabled]="btnDisabledCancel" (click)="btnClicked('cancel')"
               title="{{ '&storage_btn_save_cancel_title' | translate }}"
               >{{ '&storage_btn_save_cancel' | translate }}</button>

@@ -3,8 +3,8 @@
     <legend class="">{{ '&steps_lbl_scenario_step_list' | translate }}</legend>
     <div>
       <form>
-        <div class="input-group">
-          <span class="input-group-addon"
+        <div class="input-group input-group-steps-cardname">
+          <span class="input-group-addon span-steps-cardname"
           >{{ '&steps_lbl_card_name' | translate }}</span>
           <input type="text" class="form-control" name="txtCardName" 
             [(ngModel)]="txtCardName" (ngModelChange)="onChange('txtCardName', $event)"
@@ -22,12 +22,13 @@
         [columns]="columns_step"
         [columnMode]="'force'"
         [headerHeight]="50"
-        [footerHeight]="50"
-        [rowHeight]="'auto'"
+        [footerHeight]="30"
+        [rowHeight]="40"
         [reorderable]="reorderable"
 
         [messages]="messages"
 
+        [scrollbarH]="true"
         [rowClass]="getRowClass"
         
         [selected]="selected_step"

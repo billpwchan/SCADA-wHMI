@@ -2,7 +2,7 @@
   <form>
     <fieldset>
       <legend>{{ '&cards_title' | translate }}</legend>
-      <div class="div-cards--datatable">
+      <div class="div-cards-datatable">
         <ngx-datatable #cardsDataTable
           class="bootstrap"
           [rows]="rows_card"
@@ -11,11 +11,12 @@
           [columnMode]="'force'"
           [headerHeight]="50"
           [footerHeight]="30"
-          [rowHeight]="50"
+          [rowHeight]="40"
           [reorderable]="reorderable"
 
           [messages]="messages"
 
+          [scrollbarH]="true"
           [rowClass]="getRowClass"
           
           [selected]="selected_card"
@@ -24,7 +25,7 @@
           (activate)="onActivate('card', $event)"
           >
           <ngx-datatable-column prop="name" name="Name" [sortable]='true'
-            headerClass="is-gender" [cellClass]="getCellClass"[width]="400">
+            headerClass="is-gender" [cellClass]="getCellClass" [width]="350">
             <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
               <span (click)="sort()">{{ '&cards_gd_header_name' | translate }}</span>
             </ng-template>
@@ -33,7 +34,7 @@
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column prop="state" name="State" [sortable]='true'
-            headerClass="is-gender" [cellClass]="getCellClass">
+            headerClass="is-gender" [cellClass]="getCellClass" [width]="150">
             <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
               <span (click)="sort()">{{ '&cards_gd_header_state' | translate }}</span>
             </ng-template>

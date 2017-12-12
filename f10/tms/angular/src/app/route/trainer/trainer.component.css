@@ -1,0 +1,36 @@
+.div-trainer-root {
+    text-align: center;
+    display: flex;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+}
+
+.div-trainer-left {
+    width: 35%;
+    height: 100%;
+    margin: 5px 5px 5px 5px;
+}
+
+.div-trainer-left-top {
+    height: 80%;
+}
+
+.div-trainer-left-bottom {
+    height: 20%;
+}
+
+.div-trainer-right {
+    width: 80%;
+    height: 100%;
+    margin: 5px 5px 5px 5px;
+}
+
+.div-trainer-right-top {
+    height: 90%;
+}
+
+.div-trainer-right-bottom {
+    height: 10%;
+    display: flex;
+    flex-direction: column;
+}

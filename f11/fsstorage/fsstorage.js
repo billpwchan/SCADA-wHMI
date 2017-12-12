@@ -74,7 +74,7 @@ function loadFile(pathname,res) {
 }
 
 function savefile(pathname,data,res) {
-  console.log("savefile pathname[",pathname,"] data[",data,"]");
+  console.log("savefile pathname[",pathname,"]");
 
   // Conver to fullpath
   let full_path = path.join(process.cwd(), STR_STORAGE_FOLDER, pathname);
@@ -85,12 +85,12 @@ function savefile(pathname,data,res) {
   console.log("absolutePath[",absolutePath,"]");
   console.log("storagePath[",storagePath,"]");
   if(absolutePath.startsWith(storagePath)){
-    fs.writeFile(full_path,data, function(err) {
+    fs.writeFile(full_path, data, function(err) {
       if(!err) {
         console.log("The file was saved!");
         res.writeHead(200, {"Content-Type": "application/json"});
         let json = {};
-        json['filepath'] = base_name;
+        json['filepath'] = pathname;
         json['data'] = 'done';
         res.write(JSON.stringify(json) + "\n");
         res.end();        
@@ -98,7 +98,7 @@ function savefile(pathname,data,res) {
         // Write File Error
         res.writeHead(500, {"Content-Type": "application/json"});
         let json = {};
-        json['filepath'] = base_name;
+        json['filepath'] = pathname;
         json['data'] = err;
         res.write(JSON.stringify(json) + "\n");
         res.end();     
@@ -109,7 +109,7 @@ function savefile(pathname,data,res) {
     //Outside storage path
     res.writeHead(500, {"Content-Type": "application/json"});
     let json = {};
-    json['filepath'] = base_name;
+    json['filepath'] = pathname;
     json['data'] = 'Outside storage path';
     res.write(JSON.stringify(json) + "\n");
     res.end(); 

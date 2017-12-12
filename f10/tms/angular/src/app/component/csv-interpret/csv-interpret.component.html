@@ -1,14 +1,14 @@
-<div>
-  <form>
+<form>
+  <div>
     <fieldset class="">
       <!--<legend class="">{{ '&csvinterpret_lbl_importexport_csv' | translate }}</legend>-->
       <div>
-        <label>{{ '&csvinterpret_lbl_backup' | translate }}</label>
-        <button type="button" class="btn btn-info tms-step-btn-exportcsv" 
+        <!--<label>{{ '&csvinterpret_lbl_backup' | translate }}</label>-->
+        <button type="button" class="btn btn-info btn-csv-interpret-exportcsv" 
         [disabled]="btnDisabledExportCSV" (click)="btnClicked('exportcsv')"
         title="{{ '&csvinterpret_btn_exportcsv_title' | translate }}"
         >{{ '&csvinterpret_btn_exportcsv' | translate }}</button>
-        <button type="button" class="btn btn-info tms-step-btn-importcv"  
+        <button type="button" class="btn btn-info btn-csv-interpret-importcv"  
         onclick="loadfile.click()" 
         [disabled]="btnDisabledImportCSV" (click)="btnClicked('importcsv')"
         title="{{ '&csvinterpret_btn_importcsv_title' | translate }}"
@@ -26,5 +26,5 @@
         (change)="btnClicked('loadfile', $event)">
       </div>
     </fieldset>
-  </form>
-</div>
+  </div>
+</form>

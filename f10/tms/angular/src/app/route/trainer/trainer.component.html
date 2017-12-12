@@ -1,16 +1,18 @@
-<div style="text-align:center">
-  <div style="display:inline">
-    <div>
-        <div>
-            <app-cards (notifyParent)="getNotification($event)" [cardUpdate]="cardUpdateValue" ></app-cards>
-            <app-card-controller (notifyParent)="getNotification($event)"></app-card-controller>
-        </div>
-      </div>
-      <div>
-        <div>
-            <app-steps (notifyParent)="getNotification($event)"></app-steps>
-            <app-step-controller (notifyParent)="getNotification($event)"></app-step-controller>
-        </div>
-      </div>
+<div class="div-trainer-root">
+  <div class="div-trainer-left">
+    <div class="div-trainer-left-top">
+      <app-cards (notifyParent)="getNotification($event)" [cardUpdate]="cardUpdateValue" ></app-cards>
+    </div>
+    <div class="div-trainer-left-bottom">
+      <app-card-controller (notifyParent)="getNotification($event)"></app-card-controller>
+    </div>
+  </div>
+  <div class="div-trainer-right">
+    <div class="div-trainer-right-top">
+      <app-steps (notifyParent)="getNotification($event)"></app-steps>
+    </div>
+    <div class="div-trainer-right-bottom">
+      <app-step-controller (notifyParent)="getNotification($event)"></app-step-controller>
+    </div>
   </div>
 </div>

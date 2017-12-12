@@ -11,5 +11,5 @@ export class StepEditSettings {
     public static readonly STR_DELAY_RANGE_START   = 'delay_range_start';
     public static readonly STR_DELAY_RANGE_END     = 'delay_range_end';
     public static readonly STR_DELAY_RANGE_PREFIX  = 'delay_range_prefix';
-
+    public static readonly STR_DELAY_DEFAULT_VALUE  = 'delay_default_value';
 }

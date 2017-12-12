@@ -256,6 +256,15 @@ export class CardService {
     }
   }
 
+  initCards(cards: Card[]): Card[] {
+    const f = 'initCards';
+    console.log(this.c, f);
+    cards.forEach( card => {
+      card = this.initCard(card);
+    } );
+    return cards;
+  }
+
   initCard(card: Card): Card {
     const f = 'initCard';
     console.log(this.c, f);
@@ -286,7 +295,7 @@ export class CardService {
       stepType = StepType.STOP;
     }
 
-    console.log(this.c, f, 'Target cardType[' + cardType + '] step[' + step + '] stepType[' + stepType + ']');
+    console.log(this.c, f, 'Target card.name[' + card.name + '] cardType[' + cardType + '] step[' + step + '] stepType[' + stepType + ']');
 
     // Reset state
     card.state = cardType;

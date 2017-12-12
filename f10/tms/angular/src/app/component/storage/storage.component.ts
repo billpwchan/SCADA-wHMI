@@ -133,11 +133,11 @@ export class StorageComponent implements OnInit, OnDestroy {
       case 'savescenario': {
         const cards: Card[] = this.cardService.getCards();
         const strCards = JSON.stringify(cards);
-        let saveCards = JSON.parse(strCards);
+        let clonedCards = JSON.parse(strCards);
         if ( this.initCardsBeforeSave ) {
-          saveCards = this.cardService.initCard(saveCards);
+          clonedCards = this.cardService.initCards(clonedCards);
         }
-        this.storageService.saveCard(saveCards);
+        this.storageService.saveCards(clonedCards);
         this.disableSaveToStorageMsg = true;
         this.disableLoadFromStorageConfirmMsg = true;
         this.btnDisabledSaveScenario = true;

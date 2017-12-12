@@ -74,6 +74,7 @@ export class CsvInterpretComponent implements OnInit {
     this.strEOL = this.settingsService.getSetting(this.c, f, component, CsvInterpretSettings.STR_FILED_EOL);
     this.initCardsBeforeExport = this.settingsService.getSetting(this.c, f, component, CsvInterpretSettings.STR_INIT_CARDS_BEFORE_EXPORT);
   }
+
   /**
    * Export Cards as a CSV file
    * 
@@ -88,7 +89,7 @@ export class CsvInterpretComponent implements OnInit {
     const strCards = JSON.stringify(cards);
     let exportCards = JSON.parse(strCards);
     if ( this.initCardsBeforeExport ) {
-      exportCards = this.cardService.initCard(exportCards);
+      exportCards = this.cardService.initCards(exportCards);
     }
     const data: string = new CardsToCsvPipe().transform(exportCards, [this.strComma, this.strEOL]);
 

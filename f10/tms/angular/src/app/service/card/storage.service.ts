@@ -60,7 +60,7 @@ export class StorageService {
     this.remoteFileName = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_REMOTE_FILENAME);
   }
 
-  saveCard(cards: Card[]): void {
+  saveCards(cards: Card[]): void {
     const f = 'saveCard';
     console.log(this.c, f);
     if ( this.uesLocalStorage ) {
@@ -125,32 +125,22 @@ export class StorageService {
     }
   }
 
-  postData(url: string, filePath: string, filedata: string) {
+  postData(url: string, filePath: string, data) {
     const func = 'postData';
     console.log(func);
     console.log(func, 'url[' + url + ']');
     console.log(func, 'STR_FILEPATH[' + StorageSettings.STR_FILEPATH + '] filePath[' + filePath + ']');
-    console.log(func, 'STR_DATA[' + StorageSettings.STR_DATA + '] data[' + filedata + ']');
+    console.log(func, 'STR_DATA[' + StorageSettings.STR_DATA + '] data[' + data + ']');
 
     const bodydata = {};
     bodydata[StorageSettings.STR_FILEPATH] = filePath;
-    bodydata[StorageSettings.STR_DATA] = filedata;
-
-    // const bodydata = JSON.stringify({filepath: filePath, data: filedata});
-    // console.log('bodydata[' +bodydata+']');
-
-    // let headers = new HttpHeaders().set('header1', 'hvalue1'); // create header object
-    // headers = headers.append('header2', 'hvalue2'); // add a new header, creating a new object
-
-    // let params = new HttpParams().set(StorageSettings.STR_FILEPATH, filePath); // create params object
-    // params = params.append(StorageSettings.STR_DATA, filedata); // add a new param, creating a new object
+    bodydata[StorageSettings.STR_DATA] = data;
 
     this.httpClient.post(
-      url
-      , bodydata
-      // , {headers: headers, params: params}
-    )
-      .subscribe(
+        url
+        , JSON.stringify(bodydata)
+        , {headers:{'Content-Type': 'application/json'}}
+      ).subscribe(
         res => {
           console.log(res);
         }
@@ -158,5 +148,5 @@ export class StorageService {
         , () => { this.utilsHttp.httpClientHandlerComplete(func, 'The POST observable is now completed.'); }
       );
   }
-
 }
+

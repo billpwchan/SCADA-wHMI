@@ -122,14 +122,15 @@ editEnableDelay = false;
   selDelay: number;
   selOptDelay: Array<SelOptNum> = new Array<SelOptNum>();
 
-  private geoPrefix = null;
-  private funcPrefix = null;
-  private envs = null;
+  private geoPrefix: string;
+  private funcPrefix: string;
+  private envs: any;
 
-  private delayRangeStart = NaN;
-  private delayRangeEnd = NaN;
-  private delayRangeStep = NaN;
-  private delayRangePrefix = null;
+  private delayRangeStart: number;
+  private delayRangeEnd: number;
+  private delayRangeStep: number;
+  private delayRangePrefix: string;
+  private delayDefaultValue: number;
 
   constructor(
     private translate: TranslateService
@@ -313,6 +314,8 @@ editEnableDelay = false;
     this.delayRangeStart = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_RANGE_START);
     this.delayRangeEnd = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_RANGE_END);
     this.delayRangePrefix = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_RANGE_PREFIX);
+  
+    this.delayDefaultValue = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_DEFAULT_VALUE);
   }
 
   private initSelOptEnv(): void {
@@ -396,7 +399,7 @@ editEnableDelay = false;
       );
     }
 
-    this.selDelay = 10;
+    this.selDelay = this.delayDefaultValue;
   }
 
   private initSelOptDciValue(): void {

@@ -96,33 +96,39 @@ export class StorageService {
   }
 
   downloadCard(): void {
-    const func = 'downloadCard';
-    console.log(func);
+    const f = 'downloadCard';
+    console.log(this.c, f);
 
     // Reset the cards
     this.cardService.setCards([]);
 
     let url = this.remoteUrl + '/' + this.downloadUrl;
-    url += '?' + StorageSettings.STR_FILEPATH + '=' + this.downloadUrl;
-    url += '&' + StorageSettings.STR_METHOD + '=' + this.downloadMethod;
+    url += '?' + StorageSettings.STR_FILEPATH + '=' + this.remoteFileName;
 
     // Handle the data recerived
-    {
-      this.httpClient.get(
-        url
-      )
-        .subscribe(
-          res => {
-            console.log(res);
+    this.httpClient.get(
+      url
+    )
+      .subscribe(
+        res => {
+          console.log(this.c, f, 'res[' + res + ']');
 
-            this.cardService.setCards(JSON.parse(res[StorageSettings.STR_DATA]));
-            const cards = this.cardService.getCards();
-            console.log(func, 'cards[', cards, ']');
-          }
-          , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(func, err); }
-          , () => { this.utilsHttp.httpClientHandlerComplete(func, 'The GET observable is now completed.'); }
-        );
-    }
+          const filepath = res[StorageSettings.STR_FILEPATH];
+          console.log(this.c, f, 'filepath[' + filepath + ']');
+          // const json = JSON.parse(res);
+
+          const data = res[StorageSettings.STR_DATA];
+          console.log(this.c, f, 'data[' + data + ']');
+
+          this.cardService.setCards(JSON.parse(data));
+          const cards = this.cardService.getCards();
+          console.log(this.c, f, 'cards[', cards, ']');
+          this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
+        }
+        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
+        , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
+      );
+ 
   }
 
   postData(url: string, filePath: string, data) {

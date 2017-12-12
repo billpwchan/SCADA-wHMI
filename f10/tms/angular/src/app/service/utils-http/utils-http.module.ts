@@ -15,7 +15,8 @@ export class UtilsHttpModule {
 
   httpClientHandlerError(func: string, err: HttpErrorResponse, mgs?: string): void {
     const f = 'httpClientHandlerError';
-    console.log(f, 'func', func, 'error', err.error);
+    console.log(f, 'func', func, 'error', err);
+    console.log(f, 'func', func, 'error.error', err.error);
     if (err.error instanceof Error) {
       console.log(func, 'Client-side error occured.');
     } else {

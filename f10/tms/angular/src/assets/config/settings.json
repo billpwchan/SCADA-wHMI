@@ -51,9 +51,7 @@
       , "remote_url": "http://127.0.0.1:8080"
       , "remote_filename": "tms.json"
       , "upload_url": "upstreamFile_result"
-      , "upload_method": "stream"
       , "download_url": "downstreamFile_result"
-      , "download_method": "stream"
       , "init_cards_before_storage": false
   }
 }

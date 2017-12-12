@@ -15,6 +15,5 @@ export class StorageSettings {
     // Const Variable
     public static readonly STR_FILEPATH = 'filepath';
     public static readonly STR_DATA = 'data';
-    public static readonly STR_METHOD = 'method';
 
 }

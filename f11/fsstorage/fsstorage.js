@@ -18,8 +18,8 @@ const storagePath=__dirname+path.sep+STR_STORAGE_FOLDER;
 const cmdPath=process.cwd();
 
 /* response file*/
-function loadFile(pathname,method,res) {
-  console.log("pathname[",pathname,"] method[",method,"]");
+function loadFile(pathname,res) {
+  console.log("loadFile pathname[",pathname,"]");
   
   // Conver to fullpath
   let full_path = path.join(process.cwd(), STR_STORAGE_FOLDER, pathname);
@@ -32,51 +32,36 @@ function loadFile(pathname,method,res) {
   if(absolutePath.startsWith(storagePath)){
     fs.exists(full_path, function (exists) {
       if (!exists) {
+        // File Not Found
         res.writeHeader(404, { "Content-Type": "text/plain" });
         res.write("404 Not Found\n");
         res.end();
       }
       else {
-        if ( method.toLowerCase() === STR_DOWNLOAD ) {
-          fs.readFile(full_path, "binary", function (err, file) {
-            if (err) {
-              res.writeHeader(500, { "Content-Type": "text/plain" });
-              res.write(err + "\n");
-              res.end();
-            }
-            else {
-              let base_name=path.basename(full_path);
-              let ext_name=path.extname(full_path);
-              console.log("base_name[",base_name,"] ext_name[",ext_name,"]");
+        fs.readFile(full_path, "binary", function (err, file) {
+          if (!err) {
+            // Response with data
+            let base_name=path.basename(full_path);
+            let ext_name=path.extname(full_path);
+            console.log("base_name[",base_name,"] ext_name[",ext_name,"]");
 
-              /* response as file */
-              res.setHeader('Content-disposition', 'attachment; filename='+base_name);
-              res.writeHeader(200, {'Content-Type': 'text/csv'});
-              res.write(file, "binary");
-              res.end();
-            }
-          });
-        }
-        else {
-          fs.readFile(full_path, "utf8", function (err, file) {
-            if (err) {
-              res.writeHeader(500, { "Content-Type": "text/plain" });
-              res.write(err + "\n");
-              res.end();
-            }
-            else {
-              let base_name=path.basename(full_path);
-              let ext_name=path.extname(full_path);
-              console.log("base_name[",base_name,"] ext_name[",ext_name,"]");
+            let json = {};
+            json['filepath'] = base_name;
+            json['data'] = file;
 
-              let json = {}
-              json[STR_FILEPATH]=base_name;
-              json[STR_DATA]=file.toString();
-              res.write(JSON.stringify(json));
-              res.end();
-            }
-          });
-        }
+            res.writeHead(200, {"Content-Type": "application/json"});
+            res.end(JSON.stringify(json));
+          }
+          else {
+            // Reading Error
+            res.writeHead(500, {"Content-Type": "application/json"});
+            let json = {};
+            json['filepath'] = base_name;
+            json['data'] = err;
+            res.write(JSON.stringify(json) + "\n");
+            res.end();
+          }
+        });
       }
     });
   } else {
@@ -87,8 +72,9 @@ function loadFile(pathname,method,res) {
     res.end();
   }
 }
+
 function savefile(pathname,data,res) {
-  console.log("pathname[",pathname,"] data[",data,"]");
+  console.log("savefile pathname[",pathname,"] data[",data,"]");
 
   // Conver to fullpath
   let full_path = path.join(process.cwd(), STR_STORAGE_FOLDER, pathname);
@@ -100,25 +86,36 @@ function savefile(pathname,data,res) {
   console.log("storagePath[",storagePath,"]");
   if(absolutePath.startsWith(storagePath)){
     fs.writeFile(full_path,data, function(err) {
-      if(err) {
-          console.log(err);
-          res.writeHeader(500, { "Content-Type": "text/plain" });
-          res.write(err + "\n");
-          res.end();
+      if(!err) {
+        console.log("The file was saved!");
+        res.writeHead(200, {"Content-Type": "application/json"});
+        let json = {};
+        json['filepath'] = base_name;
+        json['data'] = 'done';
+        res.write(JSON.stringify(json) + "\n");
+        res.end();        
+      } else {
+        // Write File Error
+        res.writeHead(500, {"Content-Type": "application/json"});
+        let json = {};
+        json['filepath'] = base_name;
+        json['data'] = err;
+        res.write(JSON.stringify(json) + "\n");
+        res.end();     
       }
-      console.log("The file was saved!");
-      res.writeHeader(200, { "Content-Type": "text/plain" });
-      res.write("done" + "\n");
-      res.end();
     }); 
   } else {
     console.log("Outside storage path");
     //Outside storage path
-    res.writeHeader(500, { "Content-Type": "text/plain" });
-    res.write("outside storage path\n");
-    res.end();
+    res.writeHead(500, {"Content-Type": "application/json"});
+    let json = {};
+    json['filepath'] = base_name;
+    json['data'] = 'Outside storage path';
+    res.write(JSON.stringify(json) + "\n");
+    res.end(); 
   }
 }
+
 function addAccessControlHeader(origin,res){
   // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', origin);
@@ -133,6 +130,7 @@ function addAccessControlHeader(origin,res){
   // to the API (e.g. in case you use sessions)
   res.setHeader('Access-Control-Allow-Credentials', true);
 }
+
 function resOptions(res){
   var headers = {};
   // IE8 does not allow domains to be specified, just the *
@@ -145,6 +143,8 @@ function resOptions(res){
   res.writeHead(200, headers);
   res.end();
 }
+
+// Entry Point
 http.createServer(function(req,res){
   addAccessControlHeader('*',res);
   let reqmethod=req.method;
@@ -155,41 +155,31 @@ http.createServer(function(req,res){
     resOptions(res);
   }
   else if(reqmethod==='POST' || reqmethod==='PUT' ) {
-    var body='';
-    req.on('data', function (data) {
-        body +=data;
-        // Too much POST data, kill the connection!
-        // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
-        if (body.length > 1e6) { 
-          req.connection.destroy();
-      }
-    });
-    req.on('end',function(){
-      var post = qs.parse(body);
-      console.log("post[",post,"]");
 
-      filepath=post[STR_FILEPATH];
-      data=post[STR_DATA];
-      console.log("filepath[",filepath,"] data[",data,"]");
-      if (null!=filepath&&null!=data){
-        savefile(filepath,data,res);
+    let data = "";
+    // req.on("readable", text => data += text);
+    req.on('data', text => {
+      // console.error("data data["+data+"]");
+      data += text
+    });
+    req.on("end", () => {
+      // console.error("end data["+data+"]");
+      try {
+        const json = JSON.parse(data);
+        // console.log("JSON["+json+"]");
+
+        filepath=json[STR_FILEPATH];
+        data=json[STR_DATA];
+        console.log("filepath[",filepath,"] data[",data,"]");
+
+        if (null!=filepath&&null!=data){
+          savefile(filepath,data,res);
+        }
+
       }
-      else {
-        let keys = Object.keys(post);
-        //console.log("keys[",keys,"]");
-        keys.forEach(function(key) {
-          //console.log("key[",key,"]");
-          if ( null!=key) {
-            let json = JSON.parse(key);
-            //console.log("json[",json,"]");
-            filepath=json[STR_FILEPATH];
-            data=json[STR_DATA];
-            console.log("filepath[",filepath,"] data[",data,"]");
-            if (null!=filepath&&null!=data){
-              savefile(filepath,data,res);
-            }
-          }
-        });
+      catch (err) {
+        console.error("request body was not JSON");
+        console.error("err["+err+"]");
       }
     });
   }
@@ -197,10 +187,9 @@ http.createServer(function(req,res){
     let query=url.parse(req.url, true).query;
     console.log("query[",query,"]");
     filepath=query[STR_FILEPATH];
-    method=query[STR_METHOD];
-    console.log("filepath[",filepath,"] method[",method,"]");
+    console.log("filepath[",filepath,"]");
     if(filepath!=null){
-        loadFile(filepath,method,res);
+      loadFile(filepath,res);
     }
   }
   else {

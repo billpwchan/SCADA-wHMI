@@ -56,17 +56,17 @@
 	, "&cards_lbl_length_too_short": "[EN]Name contain too less character"
 	, "&cards_lbl_length_too_long": "[EN]Name containe too much character"
 
-	, "&cards_controller_lbl_execute": "[EN]Execute"
-	, "&cards_controller_btn_start": "[EN]Start"
-	, "&cards_controller_btn_start_title": "[EN]Start selected scanerio execution."
-	, "&cards_controller_btn_pause": "[EN]Pause"
-	, "&cards_controller_btn_pause_title": "[EN]Pause selected scanerio execution."
-	, "&cards_controller_btn_resume": "[EN]Resume"
-	, "&cards_controller_btn_resume_title": "[EN]Resume selected scanerio execution."
-	, "&cards_controller_btn_stop": "[EN]Stop"
-	, "&cards_controller_btn_stop_title": "[EN]Stop selected scanerio execution."
-	, "&cards_controller_btn_reset": "[EN]Reset"
-	, "&cards_controller_btn_reset_title": "[EN]Reset selected scanerio execution."
+	, "&card_controller_lbl_execute": "[EN]Execute"
+	, "&card_controller_btn_start": "[EN]Start"
+	, "&card_controller_btn_start_title": "[EN]Start selected scanerio execution."
+	, "&card_controller_btn_pause": "[EN]Pause"
+	, "&card_controller_btn_pause_title": "[EN]Pause selected scanerio execution."
+	, "&card_controller_btn_resume": "[EN]Resume"
+	, "&card_controller_btn_resume_title": "[EN]Resume selected scanerio execution."
+	, "&card_controller_btn_stop": "[EN]Stop"
+	, "&card_controller_btn_stop_title": "[EN]Stop selected scanerio execution."
+	, "&card_controller_btn_reset": "[EN]Reset"
+	, "&card_controller_btn_reset_title": "[EN]Reset selected scanerio execution."
 
 	, "&steps_lbl_scenario_step_list": "[EN]Scenario Step"
 
@@ -177,6 +177,8 @@
 	, "&storage_info_confirmtosavecardsfailed_title": "[EN]Reload scenario from storage failed."
 
 	, "&csvinterpret_lbl_importexport_csv": "[EN]Import/Export CSV"
+
+	, "&csvinterpret_lbl_backup": "[EN] Scenario(s) Backup"
 
 	, "&csvinterpret_btn_exportcsv": "[EN]Export"
 	, "&csvinterpret_btn_exportcsv_title": "[EN]Export current scenario(s) as CSV file."

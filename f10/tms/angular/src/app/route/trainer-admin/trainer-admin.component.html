@@ -1,22 +1,26 @@
-<div style="text-align:center">
-  <div style="display:inline">
-    <div>
-        <div>
-            <app-cards (notifyParent)="getNotification($event)" [cardUpdate]="cardUpdateValue" ></app-cards>
-            <app-card-edit (notifyParent)="getNotification($event)" [cardEditUpdate]="cardEditUpdateValue"></app-card-edit>
-            <app-cards-controller (notifyParent)="getNotification($event)"></app-cards-controller>
-        </div>
+<div class="div-trainer-admin-root">
+  <div class="div-trainer-admin-left">
+    <div class="div-trainer-admin-left-top">
+      <app-cards (notifyParent)="getNotification($event)" [cardUpdate]="cardUpdateValue" ></app-cards>
+    </div>
+    <div class="div-trainer-admin-left-bottom">
+      <app-card-controller (notifyParent)="getNotification($event)"></app-card-controller>
+      <app-card-edit (notifyParent)="getNotification($event)" [cardEditUpdate]="cardEditUpdateValue"></app-card-edit>
+    </div>
+  </div>
+  <div class="div-trainer-admin-right">
+    <div class="div-trainer-admin-right-top">
+      <app-steps (notifyParent)="getNotification($event)"></app-steps>
+    </div>
+    <div class="div-trainer-admin-right-bottom">
+      <div class="div-trainer-admin-right-bottom-left">
+        <app-step-controller (notifyParent)="getNotification($event)"></app-step-controller>
+        <app-step-edit (notifyParent)="getNotification($event)" [stepEditUpdate]="stepEditUpdateValue"></app-step-edit>
       </div>
-      <div>
-        <div>
-            <app-steps (notifyParent)="getNotification($event)"></app-steps>
-            <app-step-controller (notifyParent)="getNotification($event)"></app-step-controller>
-            <app-step-edit (notifyParent)="getNotification($event)" [stepEditUpdate]="stepEditUpdateValue"></app-step-edit>
-        </div>
-        <div style="display: inline">
-          <app-storage (notifyParent)="getNotification($event)"></app-storage>
-          <app-csv-interpret (notifyParent)="getNotification($event)"></app-csv-interpret>
-        </div>
+      <div class="div-trainer-admin-right-bottom-right">
+        <app-storage (notifyParent)="getNotification($event)"></app-storage>
+        <app-csv-interpret (notifyParent)="getNotification($event)"></app-csv-interpret>
       </div>
+    </div>
   </div>
 </div>

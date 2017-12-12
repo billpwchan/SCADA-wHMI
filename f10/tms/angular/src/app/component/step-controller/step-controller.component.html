@@ -1,18 +1,18 @@
 <div>
-    <form>
-      <fieldset class="">
-      <legend class="">{{ '&step_lbl_executeion_step' | translate }}</legend>
-        <div>
-          <label>{{ '&step_lbl_executeion' | translate }}</label>
-          <button type="button" class="btn btn-info tms-step-btn-startstep" 
-            [disabled]="btnDisabledStartStep" (click)="btnClicked('startstep', $event)"
-            title="{{ '&step_btn_startstep_placeholder' | translate }}"
-            >{{ '&step_btn_startstep' | translate }}</button>
-          <button type="button" class="btn btn-info tms-step-btn-stopstep" 
-            [disabled]="btnDisabledStopStep" (click)="btnClicked('stopstep', $event)"
-            title="{{ '&step_btn_stopstep_placeholder' | translate }}"
-            >{{ '&step_btn_stopstep' | translate }}</button>
-        </div>
-      </fieldset>
-    </form>
-  </div>
+  <form>
+    <fieldset class="">
+    <!--<legend class="">{{ '&step_lbl_executeion_step' | translate }}</legend>-->
+      <div>
+        <label>{{ '&step_lbl_executeion' | translate }}</label>
+        <button type="button" class="btn btn-info tms-step-btn-startstep" 
+          [disabled]="btnDisabledStartStep" (click)="btnClicked('startstep', $event)"
+          title="{{ '&step_btn_startstep_placeholder' | translate }}"
+          >{{ '&step_btn_startstep' | translate }}</button>
+        <button type="button" class="btn btn-info tms-step-btn-stopstep" 
+          [disabled]="btnDisabledStopStep" (click)="btnClicked('stopstep', $event)"
+          title="{{ '&step_btn_stopstep_placeholder' | translate }}"
+          >{{ '&step_btn_stopstep' | translate }}</button>
+      </div>
+    </fieldset>
+  </form>
+</div>

@@ -40,10 +40,10 @@
       "filename": "tms.csv"
       , "comma": ","
       , "eol": "\r\n"
-      , "init_cards_before_export": true
+      , "init_cards_before_export": false
   }
   , "StorageComponent": {
-      "init_cards_before_storage": true
+      "init_cards_before_storage": false
   }
   , "StorageService": {
       "use_local_storage": false

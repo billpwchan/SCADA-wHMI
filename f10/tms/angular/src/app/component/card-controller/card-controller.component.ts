@@ -8,11 +8,11 @@ import { CardExecType, CardServiceType } from '../../service/card/card-settings'
 import { SelectionServiceType } from '../../service/card/selection-settings';
 
 @Component({
-  selector: 'app-cards-controller'
-  , templateUrl: './cards-controller.component.html'
-  , styleUrls: ['./cards-controller.component.css']
+  selector: 'app-card-controller'
+  , templateUrl: './card-controller.component.html'
+  , styleUrls: ['./card-controller.component.css']
 })
-export class CardsControllerComponent implements OnInit, OnDestroy {
+export class CardControllerComponent implements OnInit, OnDestroy {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
   public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
@@ -20,7 +20,7 @@ export class CardsControllerComponent implements OnInit, OnDestroy {
   public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
-  readonly c = CardsControllerComponent.name;
+  readonly c = CardControllerComponent.name;
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
@@ -48,7 +48,7 @@ export class CardsControllerComponent implements OnInit, OnDestroy {
       console.log(this.c, f, 'cardSubscripion', item);
       switch (item) {
         case CardServiceType.CARD_RELOADED: {
-          this.btnClicked(CardsControllerComponent.STR_INIT);
+          this.btnClicked(CardControllerComponent.STR_INIT);
         } break;
         case CardServiceType.CARD_UPDATED: {
 
@@ -61,7 +61,7 @@ export class CardsControllerComponent implements OnInit, OnDestroy {
       console.log(this.c, f, 'selectionSubscription', item);
       switch (item) {
         case SelectionServiceType.CARD_SELECTED: {
-          this.btnClicked(CardsControllerComponent.STR_CARD_SELECTED);
+          this.btnClicked(CardControllerComponent.STR_CARD_SELECTED);
         } break;
       }
     });
@@ -197,10 +197,10 @@ export class CardsControllerComponent implements OnInit, OnDestroy {
     console.log(this.c, f, 'btnLabel[' + btnLabel + ']');
 
     switch (btnLabel) {
-      case CardsControllerComponent.STR_INIT: {
+      case CardControllerComponent.STR_INIT: {
         this.init();
       } break;
-      case CardsControllerComponent.STR_CARD_SELECTED: {
+      case CardControllerComponent.STR_CARD_SELECTED: {
         const ids: string[] = this.selectionService.getSelectedCardIds();
         const card: Card= this.cardService.getCard(ids);
         this.widgetController(card);

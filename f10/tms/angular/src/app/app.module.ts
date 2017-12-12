@@ -18,7 +18,7 @@ import { OlsService } from './service/scs/ols.service';
 import { DbmService } from './service/scs/dbm.service';
 import { DacSimService } from './service/scs/dac-sim.service';
 import { StorageService } from './service/card/storage.service';
-import { CardsControllerComponent } from './component/cards-controller/cards-controller.component';
+import { CardControllerComponent } from './component/card-controller/card-controller.component';
 import { StepEditComponent } from './component/step-edit/step-edit.component';
 import { CardEditComponent } from './component/card-edit/card-edit.component';
 import { SelectionService } from './service/card/selection.service';
@@ -50,7 +50,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent
     , CardsComponent
-    , CardsControllerComponent
+    , CardControllerComponent
     , StepsComponent
     , CsvInterpretComponent
     , StorageComponent

@@ -119,6 +119,18 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     this.cardsDataTable.messages['totalMessage'] = this.translate.instant('&cards_dg_footer_totalmessage');
   }
 
+  getRowClass(row) {
+    return {
+      'age-is-ten': (row.age % 10) === 0
+    };
+  }
+
+  getCellClass({ row, column, value }): any {
+    return {
+      'is-female': value === 'female'
+    };
+  }
+
   private getCardTypeStr(cardType: CardType): string {
     const f = 'getCardTypeStr';
     console.log(this.c, f, cardType);

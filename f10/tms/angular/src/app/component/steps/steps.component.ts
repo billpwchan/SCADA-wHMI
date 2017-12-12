@@ -144,6 +144,18 @@ export class StepsComponent implements OnInit, OnDestroy {
     this.stepsDataTable.messages['totalMessage'] = this.translate.instant('&steps_dg_footer_totalmessage');
   }
 
+  getRowClass(row) {
+    return {
+      'age-is-ten': (row.age % 10) === 0
+    };
+  }
+
+  getCellClass({ row, column, value }): any {
+    return {
+      'is-female': value === 'female'
+    };
+  }
+
   private getStateStr(state: StepType): string {
     const f = 'getStateStr';
     console.log(this.c, f);

@@ -1,0 +1,18 @@
+.div-cards-controller-root {
+    text-align: left; 
+    display: flex; 
+    flex-direction: row;
+}
+
+.lbl-card-controller {
+    width: 80px;
+}
+
+.btn-card-controller-start
+, .btn-card-controller-pause
+, .btn-card-controller-resume
+, .btn-card-controller-stop
+, .btn-card-controller-reset {
+    width: 100px;
+    margin: 5px 2px 5px 2px;
+}

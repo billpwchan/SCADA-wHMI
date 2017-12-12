@@ -1,19 +1,18 @@
 <div>
-  <div>
-    <form>          
-      <label>{{ '&steps_lbl_modify_step' | translate }}</label>
-      <button type="button" 
-        class="btn btn-info tms-step-btn-newstep" 
-        [disabled]="btnDisabledNewStep" (click)="btnClicked('newstep', $event)"
-        title="{{ '&steps_btn_new_step_title' | translate }}"
-        >{{ '&steps_btn_new_step' | translate }}</button>
-      <button type="button" 
-        class="btn btn-info tms-step-btn-deletestep" 
-        [disabled]="btnDisabledDeleteStep" (click)="btnClicked('deletestep', $event)"
-        title="{{ '&steps_btn_delete_step_title' | translate }}"
-        >{{ '&steps_btn_delete_step' | translate }}</button>
-    </form>
-  </div>
+
+  <form>          
+    <label>{{ '&steps_lbl_modify_step' | translate }}</label>
+    <button type="button" 
+      class="btn btn-info tms-step-btn-newstep" 
+      [disabled]="btnDisabledNewStep" (click)="btnClicked('newstep', $event)"
+      title="{{ '&steps_btn_new_step_title' | translate }}"
+      >{{ '&steps_btn_new_step' | translate }}</button>
+    <button type="button" 
+      class="btn btn-info tms-step-btn-deletestep" 
+      [disabled]="btnDisabledDeleteStep" (click)="btnClicked('deletestep', $event)"
+      title="{{ '&steps_btn_delete_step_title' | translate }}"
+      >{{ '&steps_btn_delete_step' | translate }}</button>
+  </form>
 
   <div [hidden]="!editEnableNewStep">
     <form>

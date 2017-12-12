@@ -1,0 +1,41 @@
+.div-trainer-admin-root {
+    text-align: center;
+    display: flex;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+}
+
+.div-trainer-admin-left {
+    width: 35%;
+    height: 100%;
+    margin: 5px 5px 5px 5px;
+}
+
+.div-trainer-admin-left-top {
+    height: 60%;
+}
+
+.div-trainer-admin-left-bottom {
+    height: 40%;
+}
+
+.div-trainer-admin-right {
+    width: 65%;
+    height: 100%;
+    margin: 5px 5px 5px 5px;
+}
+
+.div-trainer-admin-right-bottom {
+    display: flex;
+    flex-direction: row;
+}
+
+.div-trainer-admin-right-bottom-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.div-trainer-admin-right-bottom-right {
+    display: flex;
+    flex-direction: column;
+}

@@ -66,9 +66,6 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
   // GUI Data Binding
   editEnableNewStep: boolean;
 
-  btnDisabledNewStep: boolean;
-  btnDisabledDeleteStep: boolean;
-
   btnDisabledAddAciStep: boolean;
   btnDisabledAddDciStep: boolean;
 
@@ -291,6 +288,9 @@ editEnableDelay = false;
     const f = 'ngOnChanges';
     if ( changes[StepEditComponent.STR_NORIFY_FROM_PARENT] ) {
       switch (changes[StepEditComponent.STR_NORIFY_FROM_PARENT].currentValue) {
+        case StepEditSettings.STR_STEP_EDIT_ENABLE: {
+          this.editEnableNewStep = true;
+        } break;
       }
     }
   }
@@ -624,9 +624,6 @@ editEnableDelay = false;
 
     this.editEnableNewStep = false;
 
-    this.btnDisabledNewStep = true;
-    this.btnDisabledDeleteStep = true;
-
     this.btnDisabledAddAciStep = true;
     this.btnDisabledAddDciStep = true;
     this.btnDisabledAddAciCancelStep = false;
@@ -671,20 +668,12 @@ editEnableDelay = false;
       case StepEditComponent.STR_CARD_SELECTED: {
         this.init();
         this.selectedCardId = this.selectionService.getSelectedCardId();
-        this.btnDisabledNewStep = false;
-        this.btnDisabledDeleteStep = true;
       } break;
       case StepEditComponent.STR_STEP_RELOADED: {
         this.init();
       } break;
       case StepEditComponent.STR_STEP_SELECTED: {
         this.selectedStepId = this.selectionService.getSelectedStepId();
-        this.btnDisabledNewStep = false;
-        this.btnDisabledDeleteStep = false;
-      } break;
-      case 'newstep': {
-        this.btnClicked(StepEditComponent.STR_INIT);
-        this.editEnableNewStep = true;
       } break;
       case 'addacistep': {
         this.addStep();
@@ -701,10 +690,6 @@ editEnableDelay = false;
       } break;
       case 'adddcicancelstep': {
         this.editEnableNewStep = false;
-      } break;
-      case 'deletestep': {
-        this.cardService.deleteStep(this.selectedCardId, [this.selectedStepId]);
-        this.cardService.notifyUpdate(CardServiceType.STEP_RELOADED);
       } break;
     }
     this.sendNotifyParent(btnLabel);

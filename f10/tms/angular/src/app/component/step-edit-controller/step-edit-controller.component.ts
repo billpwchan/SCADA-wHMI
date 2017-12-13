@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { CardServiceType } from '../../service/card/card-settings';
 import { SelectionServiceType } from '../../service/card/selection-settings';
 import { SelectionService } from '../../service/card/selection.service';
+import { StepEditControllerSettings } from './step-edit-controller-settings';
 
 @Component({
   selector: 'app-step-edit-controller',
@@ -19,8 +20,6 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
   public static readonly STR_CARD_SELECTED = AppSettings.STR_CARD_SELECTED;
   public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
-
-  // public static readonly STR_STEP_EDIT_ENABLE = 
 
   public static readonly STR_NEWSTEP = 'newstep';
 
@@ -39,10 +38,8 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
   selectedStepId: number;
 
   // GUI Data Binding
-  editEnableNewStep: boolean;
-
-    btnDisabledNewStep: boolean;
-    btnDisabledDeleteStep: boolean;
+  btnDisabledNewStep: boolean;
+  btnDisabledDeleteStep: boolean;
 
   constructor(
     private cardService: CardService
@@ -150,7 +147,7 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
       } break;
       case 'newstep': {
         this.btnClicked(StepEditControllerComponent.STR_INIT);
-        this.editEnableNewStep = true;
+        this.sendNotifyParent(StepEditControllerSettings.STR_STEP_EDIT_ENABLE);
       } break;
       case 'deletestep': {
         this.cardService.deleteStep(this.selectedCardId, [this.selectedStepId]);

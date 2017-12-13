@@ -100,6 +100,8 @@
 	, "&steps_btn_delete_step": "Delete"
 	, "&steps_btn_delete_step_title": "Delete a selected step from scenario"
 
+	,"&steps_edit_lbl_add_step": "Details of new step"
+
 	, "&step_lbl_env": "Environment"
 	, "&step_lst_env_default": "Select env..."
 	, "&step_lbl_geo": "Location"

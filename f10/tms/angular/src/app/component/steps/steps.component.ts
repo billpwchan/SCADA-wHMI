@@ -48,16 +48,6 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   // Datatable
   @ViewChild('stepsDataTable') stepsDataTable: DatatableComponent;
 
-  // columns_step = [
-  //   { prop: 'step'  }
-  //   , { name: 'Location' }
-  //   , { name: 'System' }
-  //   , { name: 'Equipment' }
-  //   , { name: 'Point' }
-  //   , { name: 'Value' }
-  //   , { name: 'Delay' }
-  //   , { name: 'Status' }
-  // ];
   rows_step = new Array<DatatableStep>();
   selected_step = new Array<DatatableStep>();
   loadingIndicator: boolean;
@@ -65,6 +55,9 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
 
   // properties for ngx-datatable
   public messages = {};
+
+  private stepPrefix: string;
+  private stepBase: number;
 
   private geoPrefix: string;
   private funcPrefix: string;
@@ -96,6 +89,9 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     .subscribe(item => {
       console.log(this.c, f, 'cardSubscription', item);
       switch (item) {
+        case CardServiceType.CARD_RELOADED: {
+          this.btnClicked(StepsComponent.STR_CARD_RELOADED);
+        } break;
         case CardServiceType.STEP_RELOADED: {
           this.btnClicked(StepsComponent.STR_STEP_RELOADED);
         } break;
@@ -145,6 +141,10 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
 
     const component: string = StepsComponent.name;
+
+    this.stepPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_STEP_PREFIX);
+    this.stepBase = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_STEP_BASE);
+
     this.geoPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_GEO_PREFIX);
     this.funcPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_FUNC_PREFIX);
     this.eqplabelPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_EQPLABEL_PREFIX);
@@ -224,7 +224,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
       if ( steps.length > 0 ) {
         steps.forEach((item, index) => {
           const dtStep: DatatableStep = new DatatableStep(
-            StepSettings.STR_STEP_PREFIX + item.step
+            '' + item.step
             , this.geoPrefix + item.equipment.geo
             , this.funcPrefix + item.equipment.func
             , this.eqplabelPrefix + item.equipment.eqplabel
@@ -232,6 +232,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
             , this.valuePrefix + item.equipment.valuelabel
             , this.delayPrefix + item.delay
             , this.getStateStr(item.state)
+            , this.stepPrefix + (+item.step + +this.stepBase)
           );
           this.rows_step.push(dtStep);
         });

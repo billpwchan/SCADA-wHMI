@@ -209,13 +209,13 @@ editEnableDelay = false;
             // Is acquired data equipment
             if ( DbmSettings.STR_FORMULAS_ACQ_SINGLE === formulas[0] ) {
               if ( DbmSettings.INT_ACI_TYPE == this.txtClassId) {
-                this.editEnableCancelStep = true;
+                this.editEnableCancelStep = false;
                 this.editEnableAddAciStep = true;
                 this.editEnableAddDciStep = false;
                 this.editEnableDelay = true;
                 this.dbmService.retriveAci(this.selEnv, this.txtUnivname);
               } else if ( DbmSettings.INT_DCI_TYPE == this.txtClassId ) {
-                this.editEnableCancelStep = true;
+                this.editEnableCancelStep = false;
                 this.editEnableAddAciStep = false;
                 this.editEnableAddDciStep = true;
                 this.editEnableDelay = true;
@@ -569,7 +569,6 @@ editEnableDelay = false;
     const card = this.cardService.getCard([this.selectedCardId]);
     if ( null != card ) {
       console.log(this.c, f, 'card.name', card.name);
-      const length = card.steps.length;
       card.steps.push(step);
     } else {
       console.log(this.c, f, 'card IS NULL');

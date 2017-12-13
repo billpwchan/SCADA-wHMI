@@ -189,9 +189,7 @@ export class CardEditControllerComponent implements OnInit , OnDestroy, OnChange
         this.init();
       } break;
       case CardEditControllerComponent.STR_CARD_RELOADED: {
-        this.btnModifyDisable = true;
-        this.btnCopyDisable = true;
-        this.btnDeleteDisable = true;
+        this.init();
       } break;
       case CardEditControllerComponent.STR_CARD_SELECTED: {
         this.btnModifyDisable = false;
@@ -200,11 +198,9 @@ export class CardEditControllerComponent implements OnInit , OnDestroy, OnChange
         this.selectedCardName = this.getSelectCardName();
       } break;
       case 'newdiv': {
-        this.sendNotifyParent(CardEditControllerSettings.STR_CARD_EDIT_CONTROLLER_EMPTY);
         this.sendNotifyParent(CardEditControllerSettings.STR_CARD_EDIT_CONTROLLER_ADD_ENABLE);
       } break;
       case 'modify': {
-        this.sendNotifyParent(CardEditControllerSettings.STR_CARD_EDIT_CONTROLLER_EMPTY);
         this.sendNotifyParent(CardEditControllerSettings.STR_CARD_EDIT_CONTROLLER_MODIFY_ENABLE);
       } break;
       case 'delete': {

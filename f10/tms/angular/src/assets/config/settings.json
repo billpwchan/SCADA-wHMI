@@ -11,7 +11,9 @@
       , "card_name_max": 40
   }
   , "StepsComponent": {
-      "geo_prefix": "&geo_"
+      "step_prefix": ""
+      , "step_base": "1"
+      , "geo_prefix": "&geo_"
       , "func_prefix": "&func_"
       , "eqplabel_prefix": ""
       , "pointlabel_prefix": ""

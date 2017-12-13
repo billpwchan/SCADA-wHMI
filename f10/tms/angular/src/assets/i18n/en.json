@@ -70,7 +70,7 @@
 
 	, "&steps_lbl_scenario_step_list": "Scenario Step"
 
-	, "&steps_dg_header_step": "Step"
+	, "&steps_dg_header_num": "#"
 	, "&steps_dg_header_location": "Location"
 	, "&steps_dg_header_system": "System"
 	, "&steps_dg_header_equipment": "Equipment"
@@ -138,6 +138,9 @@
 
 	, "&step_lbl_evname": "EVName"
 	, "&step_txt_evname_placeholder": "Enter class id"
+
+	, "&step_btn_add_cancelstep": "Cancel"
+	, "&step_btn_add_cancelstep_title": "Cacnel the add a step to card"
 
 	, "&step_btn_add_acistep": "Add"
 	, "&step_btn_add_acistep_title": "Add step to the card"

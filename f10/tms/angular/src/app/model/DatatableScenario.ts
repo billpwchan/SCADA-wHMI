@@ -21,5 +21,6 @@ export class DatatableStep {
     , public value: string
     , public delay: string
     , public status: string
+    , public num: string
   ) {}
 }

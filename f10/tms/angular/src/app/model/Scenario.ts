@@ -1,4 +1,4 @@
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from 'rxjs/Subscription';
 
 
 export enum ExecType {
@@ -20,14 +20,14 @@ export class Execution {
 export enum PhaseType {
   UNKNOW = 0
   , START
-  , STOP 
+  , STOP
 }
 
 /**
  * A model for an individual Equipment
  */
 export class Equipment {
-  public phaseStop: Execution[] = new Array<Execution>(); 
+  public phaseStop: Execution[] = new Array<Execution>();
   public phaseStart: Execution[] = new Array<Execution>();
   constructor(
     public connAddr: string
@@ -48,7 +48,7 @@ export enum StepType {
   , STOP_RUNNING
   , START_RUNNING
   , STOP_FAILED
-  , START_FAILED 
+  , START_FAILED
 }
 
 /**

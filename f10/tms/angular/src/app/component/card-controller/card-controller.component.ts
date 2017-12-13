@@ -52,7 +52,7 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
       console.log(this.c, f, 'cardSubscripion', item);
       switch (item) {
         case CardServiceType.CARD_RELOADED: {
-          this.btnClicked(CardControllerComponent.STR_INIT);
+          this.btnClicked(CardControllerComponent.STR_CARD_RELOADED);
         } break;
         case CardServiceType.CARD_UPDATED: {
         } break;
@@ -212,6 +212,9 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
 
     switch (btnLabel) {
       case CardControllerComponent.STR_INIT: {
+        this.init();
+      } break;
+      case CardControllerComponent.STR_CARD_RELOADED: {
         this.init();
       } break;
       case CardControllerComponent.STR_CARD_SELECTED: {

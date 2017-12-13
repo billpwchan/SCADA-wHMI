@@ -37,10 +37,10 @@
         (select)="onRowSelect('step', $event)"
         (activate)="onActivate('card', $event)"
         >
-        <ngx-datatable-column prop="step" name="Step" [sortable]='true'
+        <ngx-datatable-column prop="num" name="Num" [sortable]='true'
           [width]="5">
           <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-            <span (click)="sort()">{{ '&steps_dg_header_step' | translate }}</span>
+            <span (click)="sort()">{{ '&steps_dg_header_num' | translate }}</span>
           </ng-template>
           <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
             <strong>{{ value | translate }}</strong>

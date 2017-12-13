@@ -1,5 +1,7 @@
 export class StepEditSettings {
 
+    public static readonly STR_STEP_EDIT_EMPTY = '';
+
     public static readonly STR_STEP_EDIT_ENABLE = 'stepeditenable';
 
     public static readonly STR_ENVS     = 'envs';

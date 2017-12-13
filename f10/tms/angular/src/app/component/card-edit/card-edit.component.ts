@@ -31,7 +31,6 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
   readonly c: string = CardEditComponent.name;
 
   @Input() notifyFromParent: string;
-
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
   cardSubscription: Subscription;
@@ -40,12 +39,6 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
   selectedCardName = null;
 
   // UI Data Building
-  // New/Modify/Delete/Copy - Card
-  btnNewDisable = false;
-  btnModifyDisable = false;
-  btnDeleteDisable = false;
-  btnCopyDisable = false;
-
   //  New Card
   divNewCardEnable = false;
     txtNewAddName = '';
@@ -113,13 +106,29 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     this.selectionSubscription.unsubscribe();
   }
 
+  onParentChange(change: string): void {
+    const f = 'onParentChange';
+    console.log(this.c, f);
+    console.log(this.c, f, 'change', change);
+
+    if ( change ) {
+      switch (change) {
+        case CardEditSettings.STR_CARD_EDIT_ADD_ENABLE: {
+          this.btnClicked('newdiv');
+        } break;
+        case CardEditSettings.STR_CARD_EDIT_MODIFY_ENABLE: {
+          this.btnClicked('modify');
+        } break;
+      }
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     const f = 'ngOnChanges';
     console.log(this.c, f);
     console.log(this.c, f, 'changes', changes);
     if ( changes[CardEditComponent.STR_NORIFY_FROM_PARENT] ) {
-      switch (changes[CardEditComponent.STR_NORIFY_FROM_PARENT].currentValue) {
-      }
+      this.onParentChange(changes[CardEditComponent.STR_NORIFY_FROM_PARENT].currentValue);
     }
   }
 
@@ -179,7 +188,7 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     const sourceCard: Card = this.cardService.getCard(this.selectionService.getSelectedCardIds());
     const strNewCard: string = JSON.stringify(sourceCard);
     const newCard: Card = JSON.parse(strNewCard);
-    newCard.name = this.getNewName(sourceCard.name, this.translate.instant(CardsSettings.STR_NEW_CARD_APPENDIX));
+    newCard.name = this.getNewName(sourceCard.name, this.translate.instant(CardEditSettings.STR_NEW_CARD_APPENDIX));
     this.cardService.addCards([newCard]);
 
     this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
@@ -271,11 +280,6 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     this.cardNameMin = NaN;
     this.cardNameMax = NaN;
 
-    this.btnNewDisable = false;
-    this.btnModifyDisable = true;
-    this.btnDeleteDisable = true;
-    this.btnCopyDisable = true;
-
     //  New Card
     this.divNewCardEnable = false;
     this.txtNewAddName = '';
@@ -307,19 +311,13 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
         this.init();
       } break;
       case CardEditComponent.STR_CARD_RELOADED: {
-        this.btnModifyDisable = true;
-        this.btnCopyDisable = true;
-        this.btnDeleteDisable = true;
       } break;
       case CardEditComponent.STR_CARD_SELECTED: {
-        this.btnModifyDisable = false;
-        this.btnCopyDisable = false;
-        this.btnDeleteDisable = false;
         this.selectedCardName = this.getSelectCardName();
       } break;
       case 'newdiv': {
         this.divNewCardEnable = true;
-        const translatedStr = this.translate.instant(CardsSettings.STR_NEW_CARD_PREFIX);
+        const translatedStr = this.translate.instant(CardEditSettings.STR_NEW_CARD_PREFIX);
         this.txtNewAddName = this.getNewName(translatedStr);
       } break;
       case 'newadd': {

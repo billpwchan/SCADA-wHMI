@@ -1,0 +1,11 @@
+.lbl-card-edit-controller {
+    width: 90px;
+}
+
+.btn-card-edit-controller-new
+, .btn-card-edit-controller-modify
+, .btn-card-edit-controller-delete
+, .btn-card-edit-controller-copy {
+    width: 80px;
+    margin: 5px 2px 5px 2px;
+}

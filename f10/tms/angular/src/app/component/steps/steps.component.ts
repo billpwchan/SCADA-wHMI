@@ -164,7 +164,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
 
   getRowClass(row) {
     const f = 'getRowClass';
-    console.log(this.c, f);
+    // console.log(this.c, f);
     return {
       'age-is-ten': (row.age % 10) === 0
     };
@@ -172,7 +172,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
 
   getCellClass({ row, column, value }): any {
     const f = 'getCellClass';
-    console.log(this.c, f);
+    // console.log(this.c, f);
     return {
       'is-female': value === 'female'
     };

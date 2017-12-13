@@ -56,6 +56,8 @@ export class OlsService {
     )
       .subscribe(
         (res: any[]) => {
+          console.log(this.c, f, 'subscribe');
+
           const json = res;
 
           const parameter = json[OlsSettings.STR_ATTR_PARAMETERS];

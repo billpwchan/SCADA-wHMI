@@ -100,14 +100,16 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
   txtUnivname: string;
   txtEVName: string;
 
+editEnableCancelStep: boolean;
+
 // Step - Form Edit
-editEnableAddAciStep = false;
+editEnableAddAciStep: boolean;
 
   // data binding
   aciInitValue: number;
   aciValue: number;
 
-editEnableAddDciStep = false;
+editEnableAddDciStep: boolean;
 
   // data binding
   dciInitValue: number;
@@ -207,11 +209,13 @@ editEnableDelay = false;
             // Is acquired data equipment
             if ( DbmSettings.STR_FORMULAS_ACQ_SINGLE === formulas[0] ) {
               if ( DbmSettings.INT_ACI_TYPE == this.txtClassId) {
+                this.editEnableCancelStep = true;
                 this.editEnableAddAciStep = true;
                 this.editEnableAddDciStep = false;
                 this.editEnableDelay = true;
                 this.dbmService.retriveAci(this.selEnv, this.txtUnivname);
               } else if ( DbmSettings.INT_DCI_TYPE == this.txtClassId ) {
+                this.editEnableCancelStep = true;
                 this.editEnableAddAciStep = false;
                 this.editEnableAddDciStep = true;
                 this.editEnableDelay = true;
@@ -284,14 +288,22 @@ editEnableDelay = false;
     this.dbmSubscription.unsubscribe();
   }
 
+  onParentChange(change: string): void {
+    const f = 'onParentChange';
+    console.log(this.c, f);
+    console.log(this.c, f, 'change', change);
+
+    switch (change) {
+      case StepEditSettings.STR_STEP_EDIT_ENABLE: {
+        this.editEnableNewStep = true;
+      } break;
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     const f = 'ngOnChanges';
     if ( changes[StepEditComponent.STR_NORIFY_FROM_PARENT] ) {
-      switch (changes[StepEditComponent.STR_NORIFY_FROM_PARENT].currentValue) {
-        case StepEditSettings.STR_STEP_EDIT_ENABLE: {
-          this.editEnableNewStep = true;
-        } break;
-      }
+      this.onParentChange(changes[StepEditComponent.STR_NORIFY_FROM_PARENT].currentValue);
     }
   }
 
@@ -624,6 +636,8 @@ editEnableDelay = false;
 
     this.editEnableNewStep = false;
 
+    this.editEnableCancelStep = true;
+
     this.btnDisabledAddAciStep = true;
     this.btnDisabledAddDciStep = true;
     this.btnDisabledAddAciCancelStep = false;
@@ -674,6 +688,9 @@ editEnableDelay = false;
       } break;
       case StepEditComponent.STR_STEP_SELECTED: {
         this.selectedStepId = this.selectionService.getSelectedStepId();
+      } break;
+      case 'addcancelstep': {
+        this.editEnableNewStep = false;
       } break;
       case 'addacistep': {
         this.addStep();

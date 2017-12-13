@@ -1,38 +1,4 @@
 <div class="div-card-edit-root">
-  <div class="div-card-edit-top">
-    <label class="lbl-card-edit"
-    >{{ '&cards_lbl_modify' | translate }}</label>
-  
-    <button type="button" 
-      class="btn btn-info btn-card-edit-new" 
-      [disabled]="btnNewDisable" 
-      (click)="btnClicked('newdiv')"
-      title="{{ '&cards_btn_new_title' | translate }}"
-      >{{ '&cards_btn_new' | translate }}</button>
-    
-    <button type="button" 
-      class="btn btn-info btn-card-edit-modify" 
-      [disabled]="btnModifyDisable" 
-      (click)="btnClicked('modify')"
-      title="{{ '&cards_btn_modify_title' | translate }}"
-      >{{ '&cards_btn_modify' | translate }}</button>
-
-    <button type="button" 
-      class="btn btn-info btn-card-edit-delete"
-      [disabled]="btnDeleteDisable"
-      (click)="btnClicked('delete')"
-      title="{{ '&cards_btn_delete_title' | translate }}"
-      >{{ '&cards_btn_delete' | translate }}</button>
-
-    <button type="button" 
-      class="btn btn-info btn-card-edit-copy" 
-      [disabled]="btnCopyDisable" 
-      (click)="btnClicked('copy')"
-      title="{{ '&cards_btn_copy_title' | translate }}"
-      >{{ '&cards_btn_copy' | translate }}</button>
-  
-  </div>
-  
   <div>
     <form>
       <div class="div-card-edit-new-card"

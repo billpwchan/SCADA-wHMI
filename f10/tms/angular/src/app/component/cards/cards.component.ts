@@ -43,15 +43,6 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
   // Datatable
   @ViewChild('cardsDataTable') cardsDataTable: DatatableComponent;
 
-  // columns_card = [
-  //   { prop: 'name', name: this.translate.instant('&cards_gd_header_name') }
-  //   , { prop: 'State', name: this.translate.instant('&cards_gd_header_state') }
-  // ];
-  // // columns_card = [
-  // //   { prop: 'name' }
-  // //   , { name: 'State' }
-  // // ];
-
   rows_card = new Array<DatatableCard>();
   selected_card = new Array<DatatableCard>();
   loadingIndicator: boolean;
@@ -125,7 +116,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
 
   getRowClass(row) {
     const f = 'getRowClass';
-    console.log(this.c, f);
+    // console.log(this.c, f);
     return {
       'age-is-ten': (row.age % 10) === 0
     };
@@ -133,7 +124,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
 
   getCellClass({ row, column, value }): any {
     const f = 'getCellClass';
-    console.log(this.c, f);
+    // console.log(this.c, f);
     return {
       'is-female': value === 'female'
     };

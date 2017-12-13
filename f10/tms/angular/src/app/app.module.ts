@@ -33,6 +33,7 @@ import { TrainerAdminComponent } from './route/trainer-admin/trainer-admin.compo
 import { TraineeComponent } from './route/trainee/trainee.component';
 import { PageNotFoundComponent } from './route/page-not-found/page-not-found.component';
 import { StepEditControllerComponent } from './component/step-edit-controller/step-edit-controller.component';
+import { CardEditControllerComponent } from './component/card-edit-controller/card-edit-controller.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -60,11 +61,12 @@ const appRoutes: Routes = [
     , StepControllerComponent
     , CsvToCardsPipe
     , CardsToCsvPipe
-    , TrainerAdminComponent   
+    , TrainerAdminComponent
     , TrainerComponent
     , TraineeComponent
     , PageNotFoundComponent
     , StepEditControllerComponent
+    , CardEditControllerComponent
   ],
   imports: [
     BrowserModule

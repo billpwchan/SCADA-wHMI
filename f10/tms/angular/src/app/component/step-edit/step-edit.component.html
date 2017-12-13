@@ -76,14 +76,22 @@
         </span>
   
         <span *ngIf="!hiddenEVName">
-        <div class="input-group input-group-step-edit-evname">
+          <div class="input-group input-group-step-edit-evname">
             <span class="input-group-addon span-step-edit-evname">{{ '&step_lbl_evname' | translate }}</span>
             <input type="text" class="form-control" name="textEVName" 
             [(ngModel)]="txtEVName" placeholder="{{ '&step_txt_evname_placeholder' | translate }}">
           </div>
         </span>
       </div>
-  
+
+      <div class="div-step-edit-cancel"
+        [hidden]="!editEnableCancelStep">
+        <button 
+          type="button" class="btn btn-info btn-step-edit-add-cancel" 
+          [disabled]="btnDisabledAddCancelStep" (click)="btnClicked('addcancelstep')"
+          title="{{ '&step_btn_add_cancelstep_title' | translate }}"
+          >{{ '&step_btn_add_cancelstep' | translate }}</button>
+      </div>
   
       <div class="div-step-edit-aci"
         [hidden]="!editEnableAddAciStep">

@@ -1,6 +1,4 @@
 export class CardsSettings {
-    public static readonly STR_NEW_CARD_PREFIX = '&cards_name_new_prefix';
-    public static readonly STR_NEW_CARD_APPENDIX = '&cards_name_copy_appendix';
 
     public static readonly STR_CARD_UNKNOW = '&cards_dg_card_unknow';
     public static readonly STR_CARD_STOP = '&cards_dg_card_stop';
@@ -8,5 +6,4 @@ export class CardsSettings {
     public static readonly STR_CARD_PAUSE = '&cards_dg_card_pause';
     public static readonly STR_CARD_START = '&cards_dg_card_start';
     public static readonly STR_CARD_START_RUNNING = '&cards_dg_card_start_running';
-
 }

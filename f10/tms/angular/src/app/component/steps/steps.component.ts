@@ -48,16 +48,16 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   // Datatable
   @ViewChild('stepsDataTable') stepsDataTable: DatatableComponent;
 
-  columns_step = [
-    { prop: 'step'  }
-    , { name: 'Location' }
-    , { name: 'System' }
-    , { name: 'Equipment' }
-    , { name: 'Point' }
-    , { name: 'Value' }
-    , { name: 'Delay' }
-    , { name: 'Status' }
-  ];
+  // columns_step = [
+  //   { prop: 'step'  }
+  //   , { name: 'Location' }
+  //   , { name: 'System' }
+  //   , { name: 'Equipment' }
+  //   , { name: 'Point' }
+  //   , { name: 'Value' }
+  //   , { name: 'Delay' }
+  //   , { name: 'Status' }
+  // ];
   rows_step = new Array<DatatableStep>();
   selected_step = new Array<DatatableStep>();
   loadingIndicator: boolean;

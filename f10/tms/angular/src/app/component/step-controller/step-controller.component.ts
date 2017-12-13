@@ -73,7 +73,7 @@ export class StepControllerComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy(): void {
-    const f = 'ngOnDestory';
+    const f = 'ngOnDestroy';
     console.log(this.c, f);
     // prevent memory leak when component is destroyed
     this.cardsSubscription.unsubscribe();

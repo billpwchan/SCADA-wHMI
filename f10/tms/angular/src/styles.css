@@ -7,6 +7,10 @@ html, body {
 /* MOdify the form z-index */
 .input-group .form-control, .input-group-btn .btn { z-index: inherit !important; }
 
+.ngx-datatable .datatable-body .datatable-scroll {
+    display: block !important;
+}
+
 .ngx-datatable.bootstrap {
     box-shadow: none;
     font-size: 13px;

@@ -67,7 +67,7 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy(): void {
     const f = 'ngOnDestroy';
-    console.log(f);
+    console.log(this.c, f);
     // prevent memory leak when component is destroyed
   }
 

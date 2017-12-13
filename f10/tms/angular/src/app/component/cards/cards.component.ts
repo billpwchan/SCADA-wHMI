@@ -43,14 +43,14 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
   // Datatable
   @ViewChild('cardsDataTable') cardsDataTable: DatatableComponent;
 
-  columns_card = [
-    { prop: 'name', name: this.translate.instant('&cards_gd_header_name') }
-    , { prop: 'State', name: this.translate.instant('&cards_gd_header_state') }
-  ];
   // columns_card = [
-  //   { prop: 'name' }
-  //   , { name: 'State' }
+  //   { prop: 'name', name: this.translate.instant('&cards_gd_header_name') }
+  //   , { prop: 'State', name: this.translate.instant('&cards_gd_header_state') }
   // ];
+  // // columns_card = [
+  // //   { prop: 'name' }
+  // //   , { name: 'State' }
+  // // ];
 
   rows_card = new Array<DatatableCard>();
   selected_card = new Array<DatatableCard>();
@@ -93,7 +93,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy(): void {
     const f = 'ngOnDestroy';
-    console.log(f);
+    console.log(this.c, f);
     // prevent memory leak when component is destroyed
     this.cardSubscription.unsubscribe();
   }

@@ -47,11 +47,10 @@ export class AppComponent implements OnInit, OnDestroy {
     const i18n = setting[I18nSettings.STR_I18N];
     const defaultLanguage = i18n[I18nSettings.STR_DEFAULT_LANG];
     const preferedLanguage = this.getPreferedLanguage();
-    console.log(
-        this.c, f,
-        '[Language]',
-        'Default:', defaultLanguage,
-        'Prefered:', preferedLanguage
+    console.log(this.c, f,
+                          '[Language]',
+                          'Default:', defaultLanguage,
+                          'Prefered:', preferedLanguage
     );
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang(defaultLanguage);
@@ -71,7 +70,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    const f = 'ngOnDestory';
+    const f = 'ngOnDestroy';
     console.log(this.c, f);
     // prevent memory leak when component is destroyed
     this.cardSubscription.unsubscribe();

@@ -85,7 +85,7 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
   }
 
   ngOnDestroy(): void {
-    const f = 'ngOnDestory';
+    const f = 'ngOnDestroy';
     console.log(this.c, f);
 
   }

@@ -131,11 +131,11 @@ export class StorageService {
   }
 
   postData(url: string, filePath: string, data) {
-    const func = 'postData';
-    console.log(func);
-    console.log(func, 'url[' + url + ']');
-    console.log(func, 'STR_FILEPATH[' + StorageSettings.STR_FILEPATH + '] filePath[' + filePath + ']');
-    console.log(func, 'STR_DATA[' + StorageSettings.STR_DATA + '] data[' + data + ']');
+    const f = 'postData';
+    console.log(this.c, f);
+    console.log(this.c, f, 'url[' + url + ']');
+    console.log(this.c, f, 'STR_FILEPATH[' + StorageSettings.STR_FILEPATH + '] filePath[' + filePath + ']');
+    console.log(this.c, this.c, f, 'STR_DATA[' + StorageSettings.STR_DATA + '] data[' + data + ']');
 
     const bodydata = {};
     bodydata[StorageSettings.STR_FILEPATH] = filePath;
@@ -147,10 +147,10 @@ export class StorageService {
         , {headers: {'Content-Type': 'application/json'}}
       ).subscribe(
         res => {
-          console.log(res);
+          // console.log(this.c, f, res);
         }
-        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(func, err); }
-        , () => { this.utilsHttp.httpClientHandlerComplete(func, 'The POST observable is now completed.'); }
+        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
+        , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The POST observable is now completed.'); }
       );
   }
 }

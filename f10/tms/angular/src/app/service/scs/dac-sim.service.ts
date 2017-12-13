@@ -40,7 +40,7 @@ export class DacSimService {
     dacSimExec.ret = ExecResult.INIT;
     this.dacSimChanged(dacSimExec);
 
-    console.log(f, 'sturl[', url, ']');
+    console.log(this.c, f, 'url[', url, ']');
     // send to the dac sim
     this.httpClient.get(
       url

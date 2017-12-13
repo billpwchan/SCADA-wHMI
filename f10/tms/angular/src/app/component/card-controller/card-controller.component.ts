@@ -32,7 +32,7 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
   btnDisabledPause: boolean;
   btnDisabledResume: boolean;
   btnDisabledStop: boolean;
-  btnDisabledReset: boolean;
+  // btnDisabledReset: boolean;
 
   cardSubscripion: Subscription;
   selectionSubscription: Subscription;
@@ -145,7 +145,7 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
   private widgetController(card: Card) {
     const f = 'widgetController';
     console.log(this.c, f);
-    if ( undefined != card && null != card ) {
+    if ( card ) {
       console.log(this.c, f,  card.state);
       switch ( card.state ) {
         case CardType.STOP: {
@@ -153,42 +153,42 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
           this.btnDisabledPause = true;
           this.btnDisabledResume = true;
           this.btnDisabledStop = true;
-          this.btnDisabledReset = true;
+          // this.btnDisabledReset = true;
         } break;
         case CardType.STOP_RUNNING: {
           this.btnDisabledStart = true;
           this.btnDisabledPause = false;
           this.btnDisabledResume = true;
           this.btnDisabledStop = false;
-          this.btnDisabledReset = true;
+          // this.btnDisabledReset = true;
         } break;
         case CardType.START: {
           this.btnDisabledStart = false;
           this.btnDisabledPause = true;
           this.btnDisabledResume = false;
           this.btnDisabledStop = true;
-          this.btnDisabledReset = true;
+          // this.btnDisabledReset = true;
         } break;
         case CardType.START_RUNNING: {
           this.btnDisabledStart = true;
           this.btnDisabledPause = false;
           this.btnDisabledResume = true;
           this.btnDisabledStop = false;
-          this.btnDisabledReset = true;
+          // this.btnDisabledReset = true;
         } break;
         case CardType.START_PAUSE: {
           this.btnDisabledStart = true;
           this.btnDisabledPause = true;
           this.btnDisabledResume = false;
           this.btnDisabledStop = false;
-          this.btnDisabledReset = true;
+          // this.btnDisabledReset = true;
         } break;
         case CardType.UNKNOW: {
-          this.btnDisabledStart = false;
-          this.btnDisabledPause = false;
-          this.btnDisabledResume = false;
-          this.btnDisabledStop = false;
-          this.btnDisabledReset = false;
+          this.btnDisabledStart = true;
+          this.btnDisabledPause = true;
+          this.btnDisabledResume = true;
+          this.btnDisabledStop = true;
+          // this.btnDisabledReset = true;
         } break;
       }
     }
@@ -202,7 +202,7 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
     this.btnDisabledPause = true;
     this.btnDisabledResume = true;
     this.btnDisabledStop = true;
-    this.btnDisabledReset = true;
+    // this.btnDisabledReset = true;
   }
 
   btnClicked(btnLabel: string, event?: Event) {

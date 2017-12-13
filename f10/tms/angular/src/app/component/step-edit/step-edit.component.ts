@@ -220,12 +220,12 @@ editEnableDelay = false;
             } else {
               // Prompt the user this is not a single acquired data equipment
               const msg = 'Selected Equipment point is not a single acquired data equipment (Maybe a combine points)';
-              console.log(msg);
+              console.log(this.c, f, msg);
             }
           } else {
             // Prompt the user this is not a acquired data equipment
             const msg = 'Selected Equipment point is not an acquired data equipment (Without AAC/DAC)';
-            console.log(msg);
+            console.log(this.c, f, msg);
           }
         } else if ( 'retriveDci' == item ) {
           const dbvalue = this.dbmService.getRetriveDciData(this.selEnv, this.txtUnivname);
@@ -276,7 +276,7 @@ editEnableDelay = false;
   }
 
   ngOnDestroy(): void {
-    const f = 'ngOnDestory';
+    const f = 'ngOnDestroy';
     console.log(this.c, f);
     // prevent memory leak when component is destroyed
     this.cardSubscription.unsubscribe();
@@ -552,15 +552,15 @@ editEnableDelay = false;
   }
 
   private newStep(step: Step): void {
-    const func = 'newStep';
-    console.log(func);
+    const f = 'newStep';
+    console.log(this.c, f);
     const card = this.cardService.getCard([this.selectedCardId]);
     if ( null != card ) {
-      console.log(func, 'card.name', card.name);
+      console.log(this.c, f, 'card.name', card.name);
       const length = card.steps.length;
       card.steps.push(step);
     } else {
-      console.log(func, 'card IS NULL');
+      console.log(this.c, f, 'card IS NULL');
     }
   }
 

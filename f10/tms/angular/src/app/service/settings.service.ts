@@ -17,7 +17,7 @@ export class SettingsService {
   // Observable cardItem stream
   settingItem = this.settingSource.asObservable();
 
-  private settings: Map<string, any> = new Map<string, any>(); 
+  private settings: Map<string, any> = new Map<string, any>();
 
   // Service command
   settingChanged(str: string) {
@@ -33,18 +33,23 @@ export class SettingsService {
   ) {
   }
 
-  getSetting(c: string, f: string, component: string, key: string, url: string = AppSettings.STR_URL_SETTINGS): any {
-    console.log('Loading setting for', c, f, url, component, key);
-    const value = this.settings.get(url)[component][key];
-    console.log('Loading setting for', c, f, url, component, key, value);
+  getSetting(c: string, func: string, component: string, key: string, url: string = AppSettings.STR_URL_SETTINGS): any {
+    const f = 'getSetting';
+    let value;
+    try {
+      value = this.settings.get(url)[component][key];
+      console.log(this.c, f, 'Loading setting for', c, func, url, component, key, value);
+    } catch (err) {
+      console.log(this.c, f, 'Error when loading setting for', c, func, url, component, key, err);
+    }
     return value;
-  }  
+  }
 
   getSettings(url: string = AppSettings.STR_URL_SETTINGS): any {
     const f = 'getSettings';
     console.log(this.c, f, 'url', url);
     return this.settings.get(url);
-  }  
+  }
 
   // Aync Loading
   retriveSetting(url: string): void {
@@ -53,7 +58,7 @@ export class SettingsService {
     this.httpClient.get(
       url
     ).subscribe(
-        ( res: string )=> {
+        ( res: string ) => {
           this.settings.set(url, res);
           this.settingChanged(url);
         }

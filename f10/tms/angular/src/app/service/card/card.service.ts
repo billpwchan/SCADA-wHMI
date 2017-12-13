@@ -330,7 +330,7 @@ export class CardService {
           exec.name
           , exec.value
         )
-      )
+      );
     });
 
     const dacSimExe: DacSimExecution = new DacSimExecution(
@@ -453,19 +453,20 @@ export class CardService {
 
           this.notifyUpdate(CardServiceType.CARD_UPDATED);
 
-          this.executeStep(
-            execCard.name
-            , execCard.step
-            , stepExecType);
+          this.executeStep(execCard.name, execCard.step, stepExecType);
+
+          // Update Step index
+          execCard.step++;
 
           const timeout = execCard.steps[execCard.step].delay;
           console.log(this.c, f, 'timeout[' + timeout + ']');
           execCard.timer = Observable.interval(1000 * timeout).map((x) => {
             console.log(this.c, f, 'map');
 
+
           }).subscribe((x) => {
             console.log(this.c, f, 'subscribe');
-            execCard.step++;
+
 
             console.log(this.c, f, 'unsubscribe');
             execCard.timer.unsubscribe();

@@ -86,6 +86,11 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     this.cardSubscription = this.cardService.cardItem
     .subscribe(item => {
       console.log(this.c, f, 'cardSubscription', item);
+      switch (item) {
+        case CardServiceType.CARD_RELOADED: {
+          this.btnClicked(CardEditComponent.STR_CARD_RELOADED);
+        } break;
+      }
     });
 
     this.selectionSubscription = this.selectionService.selectionItem
@@ -267,9 +272,9 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     this.cardNameMax = NaN;
 
     this.btnNewDisable = false;
-    this.btnModifyDisable = false;
-    this.btnDeleteDisable = false;
-    this.btnCopyDisable = false;
+    this.btnModifyDisable = true;
+    this.btnDeleteDisable = true;
+    this.btnCopyDisable = true;
 
     //  New Card
     this.divNewCardEnable = false;
@@ -300,6 +305,11 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     switch (btnLabel) {
       case CardEditComponent.STR_INIT: {
         this.init();
+      } break;
+      case CardEditComponent.STR_CARD_RELOADED: {
+        this.btnModifyDisable = true;
+        this.btnCopyDisable = true;
+        this.btnDeleteDisable = true;
       } break;
       case CardEditComponent.STR_CARD_SELECTED: {
         this.btnModifyDisable = false;

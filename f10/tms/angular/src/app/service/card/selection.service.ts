@@ -51,9 +51,10 @@ export class SelectionService {
   }
 
   getSelectedStepIds(): number[] { return this.selectedSteps; }
-  getSelectedStepId(): number{ return this.getSelectedStepIds()[0]; }
+  getSelectedStepId(): number { return this.getSelectedStepIds()[0]; }
   setSelectedStepIds(selectedSteps: number[]): void {
-    console.log(this.c, 'setSelectedSteps', this.selectedCards);
+    const f = 'setSelectedStepIds';
+    console.log(this.c, f, 'setSelectedSteps', this.selectedCards);
     this.selectedSteps = selectedSteps;
     this.selectionChanged(SelectionServiceType.STEP_SELECTED);
   }

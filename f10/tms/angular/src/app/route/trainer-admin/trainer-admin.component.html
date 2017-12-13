@@ -9,8 +9,9 @@
     </div>
   </div>
   <div class="div-trainer-admin-right">
+    <app-step-edit (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepEdit"></app-step-edit>
     <div class="div-trainer-admin-right-top">
-      <app-steps (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepsEdit"></app-steps>
+      <app-steps (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"></app-steps>
     </div>
     <div class="div-trainer-admin-right-bottom">
       <div class="div-trainer-admin-right-bottom-left">
@@ -19,7 +20,7 @@
         <app-csv-interpret (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCsvInterpret"></app-csv-interpret>
       </div>
       <div class="div-trainer-admin-right-bottom-right">
-        <app-step-edit (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepEdit"></app-step-edit>
+        <app-step-edit-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepEdit"></app-step-edit-controller>
       </div>
     </div>
   </div>

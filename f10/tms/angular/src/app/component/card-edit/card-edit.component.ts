@@ -205,7 +205,7 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     return this.selectionService.getSelectedCardId();
   }
 
-  private onChange(name: string, event?: Event): void {
+  onChange(name: string, event?: Event): void {
     const f = 'onChange';
     console.log(this.c, f);
     if ( name === 'txtNewAddName' ) {
@@ -293,8 +293,9 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
 
   }
 
-  private btnClicked(btnLabel: string, event?: Event) {
+  btnClicked(btnLabel: string, event?: Event) {
     const f = 'btnClicked';
+    console.log(this.c, f);
     console.log(this.c, f, 'btnLabel[' + btnLabel + ']');
     switch (btnLabel) {
       case CardEditComponent.STR_INIT: {

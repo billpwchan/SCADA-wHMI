@@ -14,9 +14,9 @@ export class TrainerAdminComponent implements OnInit {
   notifyCardController: string;
   notifyCardEdit: string;
 
-  nodifySteps: string;
+  notifySteps: string;
   notifyStepController: string;
-  nodifyStepEdit: string;
+  notifyStepEdit: string;
 
   notifyStorage: string;
   notifyCsvInterpret: string;
@@ -26,6 +26,9 @@ export class TrainerAdminComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const f = 'ngOnInit';
+    console.log(this.c, f);
+
     this.storageService.loadCard();
   }
 

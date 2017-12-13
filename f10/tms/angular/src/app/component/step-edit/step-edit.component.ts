@@ -411,7 +411,7 @@ editEnableDelay = false;
     this.selDciValue = -1;
   }
 
-  private onLstChange(name: string, event) {
+  onLstChange(name: string, event) {
     const f = 'onLstChange';
     console.log(this.c, f, 'name[' + name + '] event[' + event + ']');
 
@@ -535,7 +535,7 @@ editEnableDelay = false;
     }
   }
 
-  private onChange(name: string, event?: Event): void {
+  onChange(name: string, event?: Event): void {
     const f = 'onChange';
     console.log(this.c, f);
     if ( name === 'aciValue' ) {
@@ -657,8 +657,9 @@ editEnableDelay = false;
     this.dciValue = DacSimSettings.STR_DCI_DEFAULT_VALUE;
   }
 
-  private btnClicked(btnLabel: string, event?: Event) {
+  btnClicked(btnLabel: string, event?: Event) {
     const f = 'btnClicked';
+    console.log(this.c, f);
     console.log(this.c, f, 'btnLabel[' + btnLabel + ']');
     switch (btnLabel) {
       case StepEditComponent.STR_INIT: {

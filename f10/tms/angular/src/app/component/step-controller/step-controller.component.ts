@@ -109,11 +109,12 @@ export class StepControllerComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  btnClicked(str: string): void {
+  btnClicked(btnLabel: string, event?: Event) {
     const f = 'btnClicked';
     console.log(this.c, f);
+    console.log(this.c, f, 'btnLabel[' + btnLabel + ']');
 
-    switch (str) {
+    switch (btnLabel) {
       case StepControllerComponent.STR_INIT: {
         this.btnDisabledStartStep = true;
         this.btnDisabledStopStep = true;

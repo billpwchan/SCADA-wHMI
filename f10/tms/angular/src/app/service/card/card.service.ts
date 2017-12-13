@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Rx';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/interval';
 import { Subscription } from 'rxjs/Subscription';
 import { UtilsHttpModule } from './../utils-http/utils-http.module';
 import { Card, Step, StepType, CardType, PhaseType, Execution } from '../../model/Scenario';
@@ -277,20 +278,18 @@ export class CardService {
 
     // Check card state
     let cardType = CardType.UNKNOW;
-    let step = 0;
+    const step = 0;
     let stepType = StepType.UNKNOW;
-    if ( 
+    if (
       CardType.STOP_RUNNING == card.state
-      || CardType.STOP_PAUSE == card.state 
-      || CardType.START == card.state) 
-      {
+      || CardType.STOP_PAUSE == card.state
+      || CardType.START == card.state) {
         cardType = CardType.START;
         stepType = StepType.START;
     } else if (
       CardType.START_RUNNING == card.state
       || CardType.START_PAUSE == card.state
-      || CardType.STOP == card.state) 
-      {
+      || CardType.STOP == card.state) {
       cardType = CardType.STOP;
       stepType = StepType.STOP;
     }
@@ -300,8 +299,8 @@ export class CardService {
     // Reset state
     card.state = cardType;
     card.step = step;
-    card.steps.forEach ( step => {
-      step.state = stepType
+    card.steps.forEach ( item => {
+      item.state = stepType;
     });
 
     return card;
@@ -319,7 +318,7 @@ export class CardService {
         phase = step.equipment.phaseStop;
       } break;
       case DacSimExecType.START: {
-        phase = step.equipment.phaseStart
+        phase = step.equipment.phaseStart;
       } break;
     }
 
@@ -358,7 +357,7 @@ export class CardService {
       let stop = false;
 
       if ( execType === CardExecType.PAUSE ) {
-        // Pause 
+        // Pause
 
         // Stop the timer
         execCard.timer.unsubscribe();
@@ -390,9 +389,9 @@ export class CardService {
             cardType = CardExecType.START;
           } break;
         }
-  
+
         this.notifyUpdate(CardServiceType.CARD_UPDATED);
-  
+
         this.executeCard(cardName, cardType);
 
         stop = true;
@@ -404,10 +403,10 @@ export class CardService {
 
         stop = true;
       }
-      
+
       if ( !stop) {
 
-        if ( 
+        if (
           (
             CardType.START_PAUSE == execCard.state
           || CardType.START_RUNNING == execCard.state
@@ -421,7 +420,7 @@ export class CardService {
             CardType.STOP_PAUSE == execCard.state
             || CardType.STOP_RUNNING ==  execCard.state
           )
-          && CardExecType.START == execType 
+          && CardExecType.START == execType
         ) {
           // Terminate
           this.executeCard(execCard.name, CardExecType.TERMINATE);

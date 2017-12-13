@@ -16,7 +16,8 @@
 
           [messages]="messages"
 
-          [scrollbarH]="true"
+          [scrollbarV]="true"
+          [scrollbarH]="false"
           [rowClass]="getRowClass"
           
           [selected]="selected_card"
@@ -25,7 +26,7 @@
           (activate)="onActivate('card', $event)"
           >
           <ngx-datatable-column prop="name" name="Name" [sortable]='true'
-            headerClass="is-gender" [cellClass]="getCellClass" [width]="350">
+            headerClass="is-gender" [cellClass]="getCellClass" [width]="330">
             <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
               <span (click)="sort()">{{ '&cards_gd_header_name' | translate }}</span>
             </ng-template>
@@ -34,7 +35,7 @@
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column prop="state" name="State" [sortable]='true'
-            headerClass="is-gender" [cellClass]="getCellClass" [width]="150">
+            headerClass="is-gender" [cellClass]="getCellClass" [width]="130">
             <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
               <span (click)="sort()">{{ '&cards_gd_header_state' | translate }}</span>
             </ng-template>

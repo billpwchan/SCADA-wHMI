@@ -12,6 +12,7 @@ import { AppComponent } from '../../app.component';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { CardServiceType } from '../../service/card/card-settings';
 import { SelectionServiceType } from '../../service/card/selection-settings';
+import { StorageService } from '../../service/card/storage.service';
 
 @Component({
   selector: 'app-cards'
@@ -53,6 +54,8 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
 
   rows_card = new Array<DatatableCard>();
   selected_card = new Array<DatatableCard>();
+  loadingIndicator: boolean;
+  reorderable: boolean;
 
   // properties for ngx-datatable
   public messages = {};
@@ -61,6 +64,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     private translate: TranslateService
     , private cardService: CardService
     , private selectionService: SelectionService
+    , private storageService: StorageService
   ) {
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.loadTranslations();
@@ -79,7 +83,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
           this.btnClicked(CardsComponent.STR_RELOAD_CARD);
         } break;
         case CardServiceType.CARD_UPDATED: {
-          this.reloadCard(true);
+          this.reloadCards(true);
         } break;
       }
     });
@@ -120,12 +124,16 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   getRowClass(row) {
+    const f = 'getRowClass';
+    console.log(this.c, f);
     return {
       'age-is-ten': (row.age % 10) === 0
     };
   }
 
   getCellClass({ row, column, value }): any {
+    const f = 'getCellClass';
+    console.log(this.c, f);
     return {
       'is-female': value === 'female'
     };
@@ -156,13 +164,11 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     return ret;
   }
 
-  private reloadCard(keepSelected: boolean = false): void {
-    const f = 'reloadCard';
+  private reloadingCards(keepSelected: boolean, cb): void {
+    const f = 'reloadingCard';
     console.log(this.c, f);
-    console.log(this.c, f, keepSelected);
 
     const preSelected = this.selected_card;
-
     // Reset datatable
     this.rows_card = [];
 
@@ -195,6 +201,18 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
       this.selected_card = [];
     }
     // this.selected_card = [...this.selected_card];
+
+    return;
+  }
+
+  private reloadCards(keepSelected: boolean = false): void {
+    const f = 'reloadCards';
+    console.log(this.c, f);
+    console.log(this.c, f, keepSelected);
+
+    this.reloadingCards( keepSelected, (data) => {
+      setTimeout(() => { this.loadingIndicator = false; }, 1500);
+    });
   }
 
   private setSelectedCards(): void {
@@ -207,13 +225,13 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     this.selectionService.setSelectedCardIds(selectedCards);
   }
 
-  private onRowSelect(name: string, event: Event) {
+  onRowSelect(name: string, event: Event) {
     const f = 'onRowSelect';
     console.log(this.c, f);
     this.btnClicked(CardsComponent.STR_CARD_SELECTED, event);
   }
 
-  private onActivate(name: string, event: Event) {
+  onActivate(name: string, event: Event) {
     const f = 'onActivate';
     console.log(this.c, f);
   }
@@ -233,15 +251,16 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
   }
 
-  private btnClicked(btnLabel: string, event?: Event) {
+  btnClicked(btnLabel: string, event?: Event) {
     const f = 'btnClicked';
+    console.log(this.c, f);
     console.log(this.c, f, 'btnLabel[' + btnLabel + ']');
     switch (btnLabel) {
       case CardsComponent.STR_INIT: {
         this.init();
       } break;
       case CardsComponent.STR_RELOAD_CARD: {
-        this.reloadCard();
+        this.reloadCards();
       } break;
       case CardsComponent.STR_CARD_SELECTED: {
         this.setSelectedCards();

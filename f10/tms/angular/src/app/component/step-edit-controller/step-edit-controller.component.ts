@@ -1,6 +1,11 @@
 import { Component, OnInit, OnDestroy, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { AppSettings } from '../../app-settings';
 import { SettingsService } from '../../service/settings.service';
+import { CardService } from '../../service/card/card.service';
+import { Subscription } from 'rxjs/Subscription';
+import { CardServiceType } from '../../service/card/card-settings';
+import { SelectionServiceType } from '../../service/card/selection-settings';
+import { SelectionService } from '../../service/card/selection.service';
 
 @Component({
   selector: 'app-step-edit-controller',
@@ -15,6 +20,8 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
   public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
+  // public static readonly STR_STEP_EDIT_ENABLE = 
+
   public static readonly STR_NEWSTEP = 'newstep';
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
@@ -25,6 +32,12 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
+  cardSubscription: Subscription;
+  selectionSubscription: Subscription;
+
+  selectedCardId: string;
+  selectedStepId: number;
+
   // GUI Data Binding
   editEnableNewStep: boolean;
 
@@ -32,7 +45,9 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
     btnDisabledDeleteStep: boolean;
 
   constructor(
-    private settingsService: SettingsService
+    private cardService: CardService
+    , private selectionService: SelectionService
+    , private settingsService: SettingsService
   ) { }
 
   ngOnInit() {
@@ -40,6 +55,34 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
     console.log(this.c, f);
 
     this.loadSettings();
+
+    this.cardSubscription = this.cardService.cardItem
+    .subscribe(item => {
+      console.log(this.c, f, 'cardSubscription', item);
+      switch (item) {
+        case CardServiceType.CARD_RELOADED: {
+          this.btnClicked(StepEditControllerComponent.STR_CARD_RELOADED);
+        } break;
+        case CardServiceType.STEP_RELOADED: {
+          this.btnClicked(StepEditControllerComponent.STR_STEP_RELOADED);
+        } break;
+      }
+    }
+  );
+
+  this.selectionSubscription = this.selectionService.selectionItem
+    .subscribe(item => {
+      console.log(this.c, f, 'selectionSubscription', item);
+      switch (item) {
+        case SelectionServiceType.CARD_SELECTED: {
+          this.btnClicked(StepEditControllerComponent.STR_CARD_SELECTED);
+        } break;
+        case SelectionServiceType.STEP_SELECTED: {
+          this.btnClicked(StepEditControllerComponent.STR_STEP_SELECTED);
+        } break;
+      }
+    }
+  );
 
     this.btnClicked('init');
   }
@@ -80,8 +123,9 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
 
   }
 
-  private btnClicked(btnLabel: string, event?: Event) {
+  btnClicked(btnLabel: string, event?: Event) {
     const f = 'btnClicked';
+    console.log(this.c, f);
     console.log(this.c, f, 'btnLabel[' + btnLabel + ']');
     switch (btnLabel) {
       case StepEditControllerComponent.STR_INIT: {
@@ -92,7 +136,7 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
       } break;
       case StepEditControllerComponent.STR_CARD_SELECTED: {
         this.init();
-        // this.selectedCardId = this.selectionService.getSelectedCardId();
+        this.selectedCardId = this.selectionService.getSelectedCardId();
         this.btnDisabledNewStep = false;
         this.btnDisabledDeleteStep = true;
       } break;
@@ -100,13 +144,17 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
         this.init();
       } break;
       case StepEditControllerComponent.STR_STEP_SELECTED: {
-        // this.selectedStepId = this.selectionService.getSelectedStepId();
+        this.selectedStepId = this.selectionService.getSelectedStepId();
         this.btnDisabledNewStep = false;
         this.btnDisabledDeleteStep = false;
       } break;
       case 'newstep': {
         this.btnClicked(StepEditControllerComponent.STR_INIT);
         this.editEnableNewStep = true;
+      } break;
+      case 'deletestep': {
+        this.cardService.deleteStep(this.selectedCardId, [this.selectedStepId]);
+        this.cardService.notifyUpdate(CardServiceType.STEP_RELOADED);
       } break;
     }
 

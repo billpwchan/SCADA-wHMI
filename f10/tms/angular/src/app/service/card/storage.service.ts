@@ -51,8 +51,8 @@ export class StorageService {
 
     const service: string = StorageService.name;
     this.uesLocalStorage = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_USE_LOCAL_STORAGE);
-    this.localStorageName = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_LOCAL_STORAGE_NAME)
-  
+    this.localStorageName = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_LOCAL_STORAGE_NAME);
+
     this.remoteUrl = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_REMOTE_URL);
     this.uploadUrl = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_UPLOAD_URL);
     this.downloadUrl = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_DOWNLOAD_URL);
@@ -128,7 +128,6 @@ export class StorageService {
         , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
         , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
       );
- 
   }
 
   postData(url: string, filePath: string, data) {
@@ -145,7 +144,7 @@ export class StorageService {
     this.httpClient.post(
         url
         , JSON.stringify(bodydata)
-        , {headers:{'Content-Type': 'application/json'}}
+        , {headers: {'Content-Type': 'application/json'}}
       ).subscribe(
         res => {
           console.log(res);

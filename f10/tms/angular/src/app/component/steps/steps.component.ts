@@ -12,6 +12,7 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { CardServiceType } from '../../service/card/card-settings';
 import { SelectionServiceType } from '../../service/card/selection-settings';
 import { SettingsService } from '../../service/settings.service';
+import { StorageService } from '../../service/card/storage.service';
 
 @Component({
   selector: 'app-steps'
@@ -59,6 +60,8 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   ];
   rows_step = new Array<DatatableStep>();
   selected_step = new Array<DatatableStep>();
+  loadingIndicator: boolean;
+  reorderable: boolean;
 
   // properties for ngx-datatable
   public messages = {};
@@ -75,6 +78,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     private translate: TranslateService
     , private cardService: CardService
     , private selectionService: SelectionService
+    , private storageService: StorageService
     , private settingsService: SettingsService
   ) {
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -159,12 +163,16 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   getRowClass(row) {
+    const f = 'getRowClass';
+    console.log(this.c, f);
     return {
       'age-is-ten': (row.age % 10) === 0
     };
   }
 
   getCellClass({ row, column, value }): any {
+    const f = 'getCellClass';
+    console.log(this.c, f);
     return {
       'is-female': value === 'female'
     };
@@ -197,8 +205,13 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     return ret;
   }
 
-  private reloadSteps(updateSelection: boolean = true): void {
-    const f = 'reloadSteps';
+  onChange(name: string, event?: Event): void {
+    const f = 'onChange';
+    console.log(this.c, f);
+  }
+
+  private reloadingSteps(updateSelection: boolean, cb): void {
+    const f = 'reloadingSteps';
     console.log(this.c, f);
 
     // Rset ScenarioStep
@@ -231,9 +244,21 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     this.selected_step = [];
 
     this.selectedCardStep = null;
+
+    return;
   }
 
-  private onRowSelect(name: string, event: Event) {
+  private reloadSteps(updateSelection: boolean = true): void {
+    const f = 'reloadSteps';
+    console.log(this.c, f);
+    console.log(this.c, f, updateSelection);
+
+    this.reloadingSteps( updateSelection, (data) => {
+      setTimeout(() => { this.loadingIndicator = false; }, 1500);
+    });
+  }
+
+  onRowSelect(name: string, event: Event) {
     const f = 'onRowSelect';
     console.log(this.c, f, 'name', name, 'event', event);
 
@@ -244,7 +269,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     this.selectionService.setSelectedStepIds(stepIds);
   }
 
-  private onActivate(name: string, event: Event) {
+  onActivate(name: string, event: Event) {
     const f = 'onActivate';
     console.log(this.c, f, 'name', name, 'event', event);
   }
@@ -255,8 +280,9 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     this.txtCardName = this.selectedCardName = '';
   }
 
-  private btnClicked(btnLabel: string, event?: Event) {
+  btnClicked(btnLabel: string, event?: Event) {
     const f = 'btnClicked';
+    console.log(this.c, f);
     console.log(this.c, f, 'btnLabel[' + btnLabel + ']');
     switch (btnLabel) {
       case StepsComponent.STR_INIT: {

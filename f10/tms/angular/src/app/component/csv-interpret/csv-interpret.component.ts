@@ -37,6 +37,9 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
+  btnDisabledExportCSV: boolean;
+  btnDisabledImportCSV: boolean;
+
   disableImportMsg: boolean;
   disableExportMsg: boolean;
 
@@ -163,17 +166,28 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
     reader.readAsText(file);
   }
 
+  private init(): void {
+    const f = 'init';
+    console.log(this.c, f);
+
+    this.btnDisabledExportCSV = false;
+    this.btnDisabledImportCSV = false;
+
+    this.disableImportMsg = true;
+    this.importNumber = 0;
+    this.disableExportMsg = true;
+    this.exportNumber = 0;
+  }
+
   // Button Handler
-  private btnClicked(btnLabel: string, event?: Event) {
+  btnClicked(btnLabel: string, event?: Event) {
     const f = 'btnClicked';
-    console.log(f, 'btnLabel[' + btnLabel + ']');
+    console.log(this.c, f);
+    console.log(this.c, f, 'btnLabel[' + btnLabel + ']');
 
     switch (btnLabel) {
       case CsvInterpretComponent.STR_INIT: {
-        this.disableImportMsg = true;
-        this.importNumber = 0;
-        this.disableExportMsg = true;
-        this.exportNumber = 0;
+        this.init();
       } break;
       case 'exportcsv': {
         this.exportCardsAsCsv();

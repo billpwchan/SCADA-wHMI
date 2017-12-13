@@ -34,12 +34,17 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
   cardSubscription: Subscription;
   storageSubscription: Subscription;
 
+  btnDisabledSave: boolean;
+  btnDisabledCancel: boolean;
+
   btnDisabledSaveScenario: boolean;
   btnDisabledReloadScenario: boolean;
 
   disableSaveToStorageMsg: boolean;
   disableSaveToStorageSuccessMsg: boolean;
   disableSaveToStorageFaildMsg: boolean;
+
+  disableReloadFromStorageMsg: boolean;
 
   disableLoadFromStorageConfirmMsg: boolean;
   disableReloadFromStorageSuccessMsg: boolean;
@@ -119,6 +124,9 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
 
     this.ignoreReload  = false;
 
+    this.btnDisabledSave = false;
+    this.btnDisabledCancel = false;
+
     // Reload avaiable only
     this.btnDisabledSaveScenario = true;
     this.btnDisabledReloadScenario = false;
@@ -127,13 +135,16 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
     this.disableSaveToStorageSuccessMsg = true;
     this.disableSaveToStorageFaildMsg = true;
 
+    this.disableReloadFromStorageMsg = true;
+
     this.disableLoadFromStorageConfirmMsg = true;
     this.disableReloadFromStorageSuccessMsg = true;
     this.disableReloadFromStorageFailedMsg = true;
   }
 
-  private btnClicked(btnLabel: string, event?: Event) {
+  btnClicked(btnLabel: string, event?: Event) {
     const f = 'btnClicked';
+    console.log(this.c, f);
     console.log(this.c, f, 'btnLabel[' + btnLabel + ']');
     switch (btnLabel) {
       case StorageComponent.STR_INIT: {

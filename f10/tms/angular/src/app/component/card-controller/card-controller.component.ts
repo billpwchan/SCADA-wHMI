@@ -95,7 +95,6 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
     this.notifyParent.emit(str);
   }
 
-
   private startCard(): void {
     const f = 'startCard';
     console.log(this.c, f);
@@ -206,7 +205,7 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
     this.btnDisabledReset = true;
   }
 
-  private btnClicked(btnLabel: string, event?: Event) {
+  btnClicked(btnLabel: string, event?: Event) {
     const f = 'btnClicked';
     console.log(this.c, f);
     console.log(this.c, f, 'btnLabel[' + btnLabel + ']');

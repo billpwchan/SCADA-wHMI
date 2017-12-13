@@ -13,7 +13,7 @@ export class TrainerComponent implements OnInit {
   notifyCards: string;
   notifyCardController: string;
 
-  nodifySteps: string;
+  notifySteps: string;
   notifyStepController: string;
 
   constructor(

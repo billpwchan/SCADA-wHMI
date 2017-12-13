@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from '../../service/card/storage.service';
 import { AppSettings } from '../../app-settings';
@@ -17,7 +17,7 @@ import { CsvInterpretSettings } from './csv-interpret-settings';
   , templateUrl: './csv-interpret.component.html'
   , styleUrls: ['./csv-interpret.component.css']
 })
-export class CsvInterpretComponent implements OnInit {
+export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
   public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
@@ -28,8 +28,12 @@ export class CsvInterpretComponent implements OnInit {
   private strFileName: string = CsvToCardSettings.STR_FILENAME;
   private strComma: string = CsvToCardSettings.STR_COMMA;
   private strEOL: string = CsvToCardSettings.STR_EOL;
+  
+  public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
   readonly c = CsvInterpretComponent.name;
+
+  @Input() notifyFromParent: string;
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
@@ -56,6 +60,24 @@ export class CsvInterpretComponent implements OnInit {
     this.loadSettings();
 
     this.btnClicked(CsvInterpretComponent.STR_INIT);
+  }
+  
+  ngOnDestroy(): void {
+    const f = 'ngOnDestroy';
+    console.log(f);
+    // prevent memory leak when component is destroyed
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const f = 'ngOnChanges';
+    console.log(this.c, f);
+    console.log(this.c, f, 'changes', changes);
+    if ( changes[CsvInterpretComponent.STR_NORIFY_FROM_PARENT] ) {
+      switch (changes[CsvInterpretComponent.STR_NORIFY_FROM_PARENT].currentValue) {
+        //case StepEditControllerComponent.STR_NEWSTEP: {
+        //} break;
+      }
+    }
   }
 
   sendNotifyParent(str: string) {

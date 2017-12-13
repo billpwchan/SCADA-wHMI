@@ -14,7 +14,8 @@
       >{{ '&steps_btn_delete_step' | translate }}</button>
   </form>
 
-  <div [hidden]="!editEnableNewStep">
+  <div class="div-step-edit-new-step"
+    [hidden]="!editEnableNewStep">
     <form>
       <div>
         <div class="input-group input-group-step-edit-selectenv">
@@ -115,7 +116,7 @@
         <button 
           type="button" class="btn btn-info btn-step-edit-add-aci" 
           [disabled]="btnDisabledAddAciStep" (click)="btnClicked('addacistep')"
-          title="{{ 'tms_step_btn_add_acistep_title' | translate }}"
+          title="{{ 'step_btn_add_acistep_title' | translate }}"
           >{{ '&step_btn_add_acistep' | translate }}</button>
         <button 
           type="button" class="btn btn-info btn-step-edit-add-aci-cancel" 

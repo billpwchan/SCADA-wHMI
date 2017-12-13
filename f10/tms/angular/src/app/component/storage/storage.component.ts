@@ -23,9 +23,13 @@ export class StorageComponent implements OnInit, OnDestroy {
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
   public static readonly STR_CARD_MODIFIED = 'cardmodified';
+  
+  public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
   readonly c = StorageComponent.name;
 
+  @Input() notifyFromParent: string;
+  
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
   cardSubscription: Subscription;
@@ -84,6 +88,16 @@ export class StorageComponent implements OnInit, OnDestroy {
     console.log(this.c, f);
     this.cardSubscription.unsubscribe();
     this.storageSubscription.unsubscribe();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const f = 'ngOnChanges';
+    if ( changes[StorageComponent.STR_NORIFY_FROM_PARENT] ) {
+      switch (changes[StorageComponent.STR_NORIFY_FROM_PARENT].currentValue) {
+        // case StorageComponent.STR_NEWSTEP: {
+        // } break;
+      }
+    }
   }
 
   sendNotifyParent(str: string) {

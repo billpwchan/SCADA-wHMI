@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, ViewChild, SimpleChanges, Input } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { CardService } from '../../service/card/card.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -27,8 +27,12 @@ export class StepsComponent implements OnInit, OnDestroy {
   public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
   public static readonly STR_STEP_UPDATED  = AppSettings.STR_STEP_UPDATED;
+  
+  public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
   readonly c = StepsComponent.name;
+
+  @Input() notifyFromParent: string;
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
@@ -114,6 +118,16 @@ export class StepsComponent implements OnInit, OnDestroy {
 
     this.selectionSubscription.unsubscribe();
     this.cardSubscription.unsubscribe();
+  }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    const f = 'ngOnChanges';
+    if ( changes[StepsComponent.STR_NORIFY_FROM_PARENT] ) {
+      switch (changes[StepsComponent.STR_NORIFY_FROM_PARENT].currentValue) {
+        // case StepsComponent.STR_NEWSTEP: {
+        // } break;
+      }
+    }
   }
 
   sendNotifyParent(str: string) {

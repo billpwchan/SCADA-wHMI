@@ -10,6 +10,12 @@ export class TrainerComponent implements OnInit {
 
   c: string = TrainerComponent.name;
 
+  notifyCards: string;
+  notifyCardController: string;
+
+  nodifySteps: string;
+  notifyStepController: string;
+
   constructor(
     private storageService: StorageService
   ) { }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { SelectionService } from '../../service/card/selection.service';
 import { Subscription } from 'rxjs/Subscription';
 import { CardService } from '../../service/card/card.service';
@@ -13,7 +13,7 @@ import { SelectionServiceType } from '../../service/card/selection-settings';
   templateUrl: './step-controller.component.html',
   styleUrls: ['./step-controller.component.css']
 })
-export class StepControllerComponent implements OnInit, OnDestroy {
+export class StepControllerComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
   public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
@@ -23,7 +23,13 @@ export class StepControllerComponent implements OnInit, OnDestroy {
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
   public static readonly STR_STEP_UPDATED = AppSettings.STR_STEP_UPDATED;
 
+  public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
+
   readonly c = StepControllerComponent.name;
+  
+  @Input() notifyFromParent: string;
+
+  @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
   selectionSubscription: Subscription;
   cardsSubscription: Subscription;
@@ -67,11 +73,23 @@ export class StepControllerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    const f = 'ngOnDestroy';
+    const f = 'ngOnDestory';
     console.log(this.c, f);
-
+    // prevent memory leak when component is destroyed
     this.cardsSubscription.unsubscribe();
     this.selectionSubscription.unsubscribe();
+  }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    const f = 'ngOnChanges';
+    console.log(this.c, f);
+    console.log(this.c, f, 'changes', changes);
+    if ( changes[StepControllerComponent.STR_NORIFY_FROM_PARENT] ) {
+      switch (changes[StepControllerComponent.STR_NORIFY_FROM_PARENT].currentValue) {
+        //case StepEditControllerComponent.STR_NEWSTEP: {
+        //} break;
+      }
+    }
   }
 
   private widgetControl(): void {

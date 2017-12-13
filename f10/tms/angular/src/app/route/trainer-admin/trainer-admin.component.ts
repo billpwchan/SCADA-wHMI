@@ -10,6 +10,17 @@ export class TrainerAdminComponent implements OnInit {
 
   c: string = TrainerAdminComponent.name;
 
+  notifyCards: string;
+  notifyCardController: string;
+  notifyCardEdit: string;
+
+  nodifySteps: string;
+  notifyStepController: string;
+  nodifyStepEdit: string;
+
+  notifyStorage: string;
+  notifyCsvInterpret: string;
+
   constructor(
     private storageService: StorageService
   ) { }

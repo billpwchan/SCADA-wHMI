@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, SimpleChanges, Input } from '@angular/core';
 import { CardService } from '../../service/card/card.service';
 import { AppSettings } from '../../app-settings';
 import { Card, CardType } from '../../model/Scenario';
@@ -20,7 +20,12 @@ export class CardControllerComponent implements OnInit, OnDestroy {
   public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
+
+  public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
+
   readonly c = CardControllerComponent.name;
+  
+  @Input() notifyFromParent: string;
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
@@ -71,8 +76,21 @@ export class CardControllerComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     const f = 'ngOnDestroy';
     console.log(this.c, f);
+    // prevent memory leak when component is destroyed
     this.cardSubscripion.unsubscribe();
     this.selectionSubscription.unsubscribe();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const f = 'ngOnChanges';
+    console.log(this.c, f);
+    console.log(this.c, f, 'changes', changes);
+    if ( changes[CardControllerComponent.STR_NORIFY_FROM_PARENT] ) {
+      switch (changes[CardControllerComponent.STR_NORIFY_FROM_PARENT].currentValue) {
+        //case StepEditControllerComponent.STR_NEWSTEP: {
+        //} break;
+      }
+    }
   }
 
   sendNotifyParent(str: string) {
@@ -80,6 +98,7 @@ export class CardControllerComponent implements OnInit, OnDestroy {
     console.log(this.c, f, str);
     this.notifyParent.emit(str);
   }
+
 
   private startCard(): void {
     const f = 'startCard';

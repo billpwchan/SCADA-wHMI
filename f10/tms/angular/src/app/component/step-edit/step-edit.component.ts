@@ -46,10 +46,12 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
   public static readonly STR_NEWSTEP = 'newstep';
+  
+  public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
   readonly c = StepEditComponent.name;
 
-  @Input() stepEditUpdate: string;
+  @Input() notifyFromParent: string;
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
@@ -287,10 +289,10 @@ editEnableDelay = false;
 
   ngOnChanges(changes: SimpleChanges): void {
     const f = 'ngOnChanges';
-    if ( changes['stepEditUpdate'] ) {
-      switch (changes['stepEditUpdate'].currentValue) {
-        case StepEditComponent.STR_NEWSTEP: {
-        } break;
+    if ( changes[StepEditComponent.STR_NORIFY_FROM_PARENT] ) {
+      switch (changes[StepEditComponent.STR_NORIFY_FROM_PARENT].currentValue) {
+        //case StepEditControllerComponent.STR_NEWSTEP: {
+        //} break;
       }
     }
   }
@@ -693,9 +695,12 @@ editEnableDelay = false;
       case 'adddcistep': {
         this.addStep();
         this.cardService.notifyUpdate(CardServiceType.STEP_RELOADED);
-        this.editEnableNewStep = true;
+        this.editEnableNewStep = false;
       } break;
-      case 'addcancelstep': {
+      case 'addacicancelstep': {
+        this.editEnableNewStep = false;
+      } break;
+      case 'adddcicancelstep': {
         this.editEnableNewStep = false;
       } break;
       case 'deletestep': {

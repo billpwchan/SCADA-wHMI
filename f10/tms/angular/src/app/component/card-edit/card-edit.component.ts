@@ -27,9 +27,11 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
   public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
-  readonly c: string = CardEditComponent.name;
+  public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
-  @Input() cardEditUpdate: string;
+  readonly c: string = CardEditComponent.name;
+  
+  @Input() notifyFromParent: string;
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
@@ -76,9 +78,9 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const f = 'ngOnInit';
-    console.log(f);
+    console.log(this.c, f);
 
     this.loadSettings();
 
@@ -100,7 +102,7 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy(): void {
-    const f = 'ngOnDestory';
+    const f = 'ngOnDestroy';
     console.log(this.c, f);
     // prevent memory leak when component is destroyed
     this.cardSubscription.unsubscribe();
@@ -110,9 +112,12 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const f = 'ngOnChanges';
     console.log(this.c, f);
-    if ( changes['cardEditUpdate'] ) {
-      // Loading
-      console.log(this.c, f, 'changes', changes);
+    console.log(this.c, f, 'changes', changes);
+    if ( changes[CardEditComponent.STR_NORIFY_FROM_PARENT] ) {
+      switch (changes[CardEditComponent.STR_NORIFY_FROM_PARENT].currentValue) {
+        //case StepEditControllerComponent.STR_NEWSTEP: {
+        //} break;
+      }
     }
   }
 

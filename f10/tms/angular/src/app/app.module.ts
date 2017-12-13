@@ -32,6 +32,7 @@ import { TrainerComponent } from './route/trainer/trainer.component';
 import { TrainerAdminComponent } from './route/trainer-admin/trainer-admin.component';
 import { TraineeComponent } from './route/trainee/trainee.component';
 import { PageNotFoundComponent } from './route/page-not-found/page-not-found.component';
+import { StepEditControllerComponent } from './component/step-edit-controller/step-edit-controller.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -63,6 +64,7 @@ const appRoutes: Routes = [
     , TrainerComponent
     , TraineeComponent
     , PageNotFoundComponent
+    , StepEditControllerComponent
   ],
   imports: [
     BrowserModule

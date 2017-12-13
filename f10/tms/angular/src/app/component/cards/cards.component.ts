@@ -1,11 +1,10 @@
-import { Component, OnInit, EventEmitter, Output, SimpleChanges, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, EventEmitter, Output, SimpleChanges, Input, ViewChild } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { CardService } from '../../service/card/card.service';
 import { Card, CardType } from '../../model/Scenario';
 import { DatatableCard } from '../../model/DatatableScenario';
 import { AppSettings } from '../../app-settings';
 import { CardsSettings } from './cards-settings';
-import { OnChanges, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { SelectionService } from '../../service/card/selection.service';
@@ -42,7 +41,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
 
   // Datatable
   @ViewChild('cardsDataTable') cardsDataTable: DatatableComponent;
-  
+
   columns_card = [
     { prop: 'name', name: this.translate.instant('&cards_gd_header_name') }
     , { prop: 'State', name: this.translate.instant('&cards_gd_header_state') }
@@ -71,7 +70,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit() {
     const f = 'ngOnInit';
     console.log(this.c, f);
-    
+
     this.cardSubscription = this.cardService.cardItem
     .subscribe(item => {
       console.log(this.c, f, 'cardSubscription', item);
@@ -101,8 +100,6 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f, 'changes', changes);
     if ( changes[CardsComponent.STR_NORIFY_FROM_PARENT] ) {
       switch (changes[CardsComponent.STR_NORIFY_FROM_PARENT].currentValue) {
-        //case StepEditControllerComponent.STR_NEWSTEP: {
-        //} break;
       }
     }
   }
@@ -220,13 +217,13 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'onActivate';
     console.log(this.c, f);
   }
-  
+
   private init(): void {
     const f = 'init';
     console.log(this.c, f);
-    
+
     // Reset datatable
-    this.rows_card = [];    
+    this.rows_card = [];
     // Reload
     // this.rows_card = [...this.rows_card];
 

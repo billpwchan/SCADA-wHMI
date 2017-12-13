@@ -25,7 +25,7 @@ export enum TokenIndex {
   , EQUIPMENT_VALUELABEL
 
   , PHASE_TYPE
-  
+
   , EXEC_TYPE
   , EXEC_NAME
   , EXEC_VALUE

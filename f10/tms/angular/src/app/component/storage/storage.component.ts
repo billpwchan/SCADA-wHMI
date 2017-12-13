@@ -1,9 +1,8 @@
-import { Component, OnInit, Output, EventEmitter, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, Output, EventEmitter, SimpleChanges, Input } from '@angular/core';
 import { StorageService } from '../../service/card/storage.service';
 import { CardService } from '../../service/card/card.service';
 import { Card } from '../../model/Scenario';
 import { Subscription } from 'rxjs/Subscription';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { AppSettings } from '../../app-settings';
 import { CardServiceType } from '../../service/card/card-settings';
 import { SettingsService } from '../../service/settings.service';
@@ -14,7 +13,7 @@ import { StorageSettings } from './storage-settings';
   templateUrl: './storage.component.html',
   styleUrls: ['./storage.component.css']
 })
-export class StorageComponent implements OnInit, OnDestroy {
+export class StorageComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
   public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
@@ -23,13 +22,13 @@ export class StorageComponent implements OnInit, OnDestroy {
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
   public static readonly STR_CARD_MODIFIED = 'cardmodified';
-  
+
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
   readonly c = StorageComponent.name;
 
   @Input() notifyFromParent: string;
-  
+
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
   cardSubscription: Subscription;
@@ -46,7 +45,7 @@ export class StorageComponent implements OnInit, OnDestroy {
   disableReloadFromStorageSuccessMsg: boolean;
   disableReloadFromStorageFailedMsg: boolean;
 
-  ignoreReload: boolean = false;
+  ignoreReload: boolean;
 
   initCardsBeforeSave: boolean;
 
@@ -70,7 +69,7 @@ export class StorageComponent implements OnInit, OnDestroy {
           if ( !this.ignoreReload ) {
             this.btnClicked(StorageComponent.STR_CARD_MODIFIED);
           }
-          this.ignoreReload = false;          
+          this.ignoreReload = false;
         } break;
       }
     });
@@ -114,32 +113,41 @@ export class StorageComponent implements OnInit, OnDestroy {
     this.initCardsBeforeSave = this.settingsService.getSetting(this.c, f, component, StorageSettings.STR_INIT_CARDS_BEFORE_STORAGE);
   }
 
+  private init(): void {
+    const f = 'loadSettings';
+    console.log(this.c, f);
+
+    this.ignoreReload  = false;
+
+    // Reload avaiable only
+    this.btnDisabledSaveScenario = true;
+    this.btnDisabledReloadScenario = false;
+
+    this.disableSaveToStorageMsg = true;
+    this.disableSaveToStorageSuccessMsg = true;
+    this.disableSaveToStorageFaildMsg = true;
+
+    this.disableLoadFromStorageConfirmMsg = true;
+    this.disableReloadFromStorageSuccessMsg = true;
+    this.disableReloadFromStorageFailedMsg = true;
+  }
+
   private btnClicked(btnLabel: string, event?: Event) {
     const f = 'btnClicked';
-    console.log(this.c, f, 'btnLabel[' + btnLabel +']');
+    console.log(this.c, f, 'btnLabel[' + btnLabel + ']');
     switch (btnLabel) {
       case StorageComponent.STR_INIT: {
-        // Reload avaiable only
-        this.btnDisabledSaveScenario = true;
-        this.btnDisabledReloadScenario = false;
-      
-        this.disableSaveToStorageMsg = true;
-        this.disableSaveToStorageSuccessMsg = true;
-        this.disableSaveToStorageFaildMsg = true;
-      
-        this.disableLoadFromStorageConfirmMsg = true;
-        this.disableReloadFromStorageSuccessMsg = true;
-        this.disableReloadFromStorageFailedMsg = true;
+        this.init();
       } break;
       case StorageComponent.STR_CARD_MODIFIED: {
         // Save avaiable
         this.btnDisabledSaveScenario = false;
         this.btnDisabledReloadScenario = false;
-      
+
         this.disableSaveToStorageMsg = true;
         this.disableSaveToStorageSuccessMsg = true;
         this.disableSaveToStorageFaildMsg = true;
-      
+
         this.disableLoadFromStorageConfirmMsg = true;
         this.disableReloadFromStorageSuccessMsg = true;
         this.disableReloadFromStorageFailedMsg = true;

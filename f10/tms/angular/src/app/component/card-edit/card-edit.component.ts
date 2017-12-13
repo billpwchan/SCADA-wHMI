@@ -1,11 +1,10 @@
-import { Component, OnInit, EventEmitter, Output, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, EventEmitter, Output, SimpleChanges, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { CardService } from '../../service/card/card.service';
 import { Card, CardType } from '../../model/Scenario';
 import { DatatableCard } from '../../model/DatatableScenario';
 import { AppSettings } from '../../app-settings';
 import { CardsSettings } from './../cards/cards-settings';
-import { OnChanges, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { SelectionService } from '../../service/card/selection.service';
@@ -30,7 +29,7 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
   readonly c: string = CardEditComponent.name;
-  
+
   @Input() notifyFromParent: string;
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
@@ -67,8 +66,8 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
   txtModifyNameTooLongInvalid = false;
   txtModifyNameDuplicatedInvalid = false;
 
-  private cardNameMin: number = NaN;
-  private cardNameMax: number = NaN;
+  private cardNameMin: number;
+  private cardNameMax: number;
 
   constructor(
     private translate: TranslateService
@@ -115,8 +114,6 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f, 'changes', changes);
     if ( changes[CardEditComponent.STR_NORIFY_FROM_PARENT] ) {
       switch (changes[CardEditComponent.STR_NORIFY_FROM_PARENT].currentValue) {
-        //case StepEditControllerComponent.STR_NEWSTEP: {
-        //} break;
       }
     }
   }
@@ -266,11 +263,34 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'init';
     console.log(this.c, f);
 
-    this.btnModifyDisable = true;
-    this.btnCopyDisable = true;
-    this.btnDeleteDisable = true;
+    this.cardNameMin = NaN;
+    this.cardNameMax = NaN;
+
+    this.btnNewDisable = false;
+    this.btnModifyDisable = false;
+    this.btnDeleteDisable = false;
+    this.btnCopyDisable = false;
+
+    //  New Card
     this.divNewCardEnable = false;
+    this.txtNewAddName = '';
+      this.btnAddDisable = false;
+      this.btnAddCancelDisable = false;
+
+    // Modify Card
     this.divModifyCardEnable = false;
+      this.txtModifyName = '';
+      this.btnModifySaveDisable = false;
+      this.btnModifyCancelDisable = false;
+
+    this.txtNewAddNameTooShortInvalid = false;
+    this.txtNewAddNameTooLongInvalid = false;
+    this.txtNewAddNameDuplicatedInvalid = false;
+
+    this.txtModifyNameTooShortInvalid = false;
+    this.txtModifyNameTooLongInvalid = false;
+    this.txtModifyNameDuplicatedInvalid = false;
+
   }
 
   private btnClicked(btnLabel: string, event?: Event) {

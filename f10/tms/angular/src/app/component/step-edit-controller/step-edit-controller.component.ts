@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { AppSettings } from '../../app-settings';
 import { SettingsService } from '../../service/settings.service';
-import { OnDestroy, OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-step-edit-controller',
@@ -21,14 +20,14 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
   readonly c = StepEditControllerComponent.name;
-  
+
   @Input() notifyFromParent: string;
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
   // GUI Data Binding
   editEnableNewStep: boolean;
-  
+
     btnDisabledNewStep: boolean;
     btnDisabledDeleteStep: boolean;
 
@@ -99,7 +98,7 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
       } break;
       case StepEditControllerComponent.STR_STEP_RELOADED: {
         this.init();
-      } break;      
+      } break;
       case StepEditControllerComponent.STR_STEP_SELECTED: {
         // this.selectedStepId = this.selectionService.getSelectedStepId();
         this.btnDisabledNewStep = false;
@@ -113,5 +112,4 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
 
     this.sendNotifyParent(btnLabel);
   }
-
 }

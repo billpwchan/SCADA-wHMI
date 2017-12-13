@@ -26,7 +26,7 @@ export class StepControllerComponent implements OnInit, OnDestroy, OnChanges {
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
   readonly c = StepControllerComponent.name;
-  
+
   @Input() notifyFromParent: string;
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
@@ -79,15 +79,13 @@ export class StepControllerComponent implements OnInit, OnDestroy, OnChanges {
     this.cardsSubscription.unsubscribe();
     this.selectionSubscription.unsubscribe();
   }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
     const f = 'ngOnChanges';
     console.log(this.c, f);
     console.log(this.c, f, 'changes', changes);
     if ( changes[StepControllerComponent.STR_NORIFY_FROM_PARENT] ) {
       switch (changes[StepControllerComponent.STR_NORIFY_FROM_PARENT].currentValue) {
-        //case StepEditControllerComponent.STR_NEWSTEP: {
-        //} break;
       }
     }
   }

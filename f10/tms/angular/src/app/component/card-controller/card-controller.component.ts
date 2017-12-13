@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, Output, EventEmitter, SimpleChanges, Input } from '@angular/core';
 import { CardService } from '../../service/card/card.service';
 import { AppSettings } from '../../app-settings';
 import { Card, CardType } from '../../model/Scenario';
@@ -12,7 +12,7 @@ import { SelectionServiceType } from '../../service/card/selection-settings';
   , templateUrl: './card-controller.component.html'
   , styleUrls: ['./card-controller.component.css']
 })
-export class CardControllerComponent implements OnInit, OnDestroy {
+export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
   public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
@@ -20,11 +20,10 @@ export class CardControllerComponent implements OnInit, OnDestroy {
   public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
-
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
   readonly c = CardControllerComponent.name;
-  
+
   @Input() notifyFromParent: string;
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
@@ -56,8 +55,7 @@ export class CardControllerComponent implements OnInit, OnDestroy {
           this.btnClicked(CardControllerComponent.STR_INIT);
         } break;
         case CardServiceType.CARD_UPDATED: {
-
-        } break;        
+        } break;
       }
     });
 
@@ -87,8 +85,6 @@ export class CardControllerComponent implements OnInit, OnDestroy {
     console.log(this.c, f, 'changes', changes);
     if ( changes[CardControllerComponent.STR_NORIFY_FROM_PARENT] ) {
       switch (changes[CardControllerComponent.STR_NORIFY_FROM_PARENT].currentValue) {
-        //case StepEditControllerComponent.STR_NEWSTEP: {
-        //} break;
       }
     }
   }
@@ -103,7 +99,7 @@ export class CardControllerComponent implements OnInit, OnDestroy {
   private startCard(): void {
     const f = 'startCard';
     console.log(this.c, f);
-    const card: Card = this.cardService.getCard( 
+    const card: Card = this.cardService.getCard(
       this.selectionService.getSelectedCardIds()
     );
     if ( null != card ) {
@@ -221,7 +217,7 @@ export class CardControllerComponent implements OnInit, OnDestroy {
       } break;
       case CardControllerComponent.STR_CARD_SELECTED: {
         const ids: string[] = this.selectionService.getSelectedCardIds();
-        const card: Card= this.cardService.getCard(ids);
+        const card: Card = this.cardService.getCard(ids);
         this.widgetController(card);
       } break;
       case 'start': {

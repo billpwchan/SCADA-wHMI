@@ -25,11 +25,11 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
   public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
+  public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
+
   private strFileName: string = CsvToCardSettings.STR_FILENAME;
   private strComma: string = CsvToCardSettings.STR_COMMA;
   private strEOL: string = CsvToCardSettings.STR_EOL;
-  
-  public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
   readonly c = CsvInterpretComponent.name;
 
@@ -61,7 +61,7 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
 
     this.btnClicked(CsvInterpretComponent.STR_INIT);
   }
-  
+
   ngOnDestroy(): void {
     const f = 'ngOnDestroy';
     console.log(f);
@@ -74,8 +74,6 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f, 'changes', changes);
     if ( changes[CsvInterpretComponent.STR_NORIFY_FROM_PARENT] ) {
       switch (changes[CsvInterpretComponent.STR_NORIFY_FROM_PARENT].currentValue) {
-        //case StepEditControllerComponent.STR_NEWSTEP: {
-        //} break;
       }
     }
   }
@@ -99,7 +97,7 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
 
   /**
    * Export Cards as a CSV file
-   * 
+   *
    * @private
    * @memberof CsvInterpretComponent
    */
@@ -123,7 +121,7 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
     a.href = objectUrl;
     a.download = fileName;
     document.body.appendChild(a);
-    a.click();        
+    a.click();
 
     document.body.removeChild(a);
     URL.revokeObjectURL(objectUrl);
@@ -136,14 +134,14 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
    * Import CSV file as a Cards
    *
    * @private
-   * @param {string} csv 
+   * @param {string} csv
    * @memberof CsvInterpretComponent
    */
   private importCsvAsCards(csv: string): void {
     const f = 'importCsvAsCards';
     console.log(this.c, f);
 
-    let cards: Card[] = new CsvToCardsPipe().transform(csv, [this.strComma, this.strEOL]);
+    const cards: Card[] = new CsvToCardsPipe().transform(csv, [this.strComma, this.strEOL]);
     if ( null != cards ) {
       this.cardService.setCards(cards);
       this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);

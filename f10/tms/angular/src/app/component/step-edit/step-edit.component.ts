@@ -46,7 +46,7 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
   public static readonly STR_NEWSTEP = 'newstep';
-  
+
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
   readonly c = StepEditComponent.name;
@@ -291,8 +291,6 @@ editEnableDelay = false;
     const f = 'ngOnChanges';
     if ( changes[StepEditComponent.STR_NORIFY_FROM_PARENT] ) {
       switch (changes[StepEditComponent.STR_NORIFY_FROM_PARENT].currentValue) {
-        //case StepEditControllerComponent.STR_NEWSTEP: {
-        //} break;
       }
     }
   }
@@ -316,7 +314,7 @@ editEnableDelay = false;
     this.delayRangeStart = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_RANGE_START);
     this.delayRangeEnd = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_RANGE_END);
     this.delayRangePrefix = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_RANGE_PREFIX);
-  
+
     this.delayDefaultValue = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_DEFAULT_VALUE);
   }
 
@@ -330,7 +328,7 @@ editEnableDelay = false;
       , ''
     ));
 
-    console.log(this.c, f, 'this.envs', this.envs);    
+    console.log(this.c, f, 'this.envs', this.envs);
     if ( undefined != this.envs && null != this.envs ) {
       this.envs.forEach((item, index) => {
         this.selOptEnv.push(
@@ -580,7 +578,7 @@ editEnableDelay = false;
     } else if (DbmSettings.INT_DCI_TYPE === this.txtClassId ) {
       initValue = this.dciInitValue;
       value = this.selDciValue;
-      for(let i = 0 ; i < this.selOptDciValue.length ; ++i ) {
+      for ( let i = 0 ; i < this.selOptDciValue.length ; ++i ) {
         if ( this.selOptDciValue[i].value === value ) {
           valueLabel = this.selOptDciValue[i].label;
           break;
@@ -610,13 +608,13 @@ editEnableDelay = false;
       , this.txtEVName
       , Number(initValue).valueOf()
     ));
-    
+
     step.equipment.phaseStart.push(new Execution(
       ExecType.DACSIM
       , this.txtEVName
       , Number(value).valueOf()
     ));
-  
+
     this.newStep(step);
   }
 
@@ -677,7 +675,7 @@ editEnableDelay = false;
       } break;
       case StepEditComponent.STR_STEP_RELOADED: {
         this.init();
-      } break;      
+      } break;
       case StepEditComponent.STR_STEP_SELECTED: {
         this.selectedStepId = this.selectionService.getSelectedStepId();
         this.btnDisabledNewStep = false;

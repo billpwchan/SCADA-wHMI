@@ -4,7 +4,7 @@ import { CsvToCardSettings } from './csv-to-card-settings';
 
 /**
  * Pipe to transform Cards to Csv
- * 
+ *
  * @export
  * @class CardsToCsvPipe
  * @implements {PipeTransform}
@@ -15,7 +15,7 @@ import { CsvToCardSettings } from './csv-to-card-settings';
 export class CardsToCsvPipe implements PipeTransform {
 
   transform(cards: Card[], args?: any[]): string {
-    
+
     const STR_COMMA = args[0];
     const STR_EOL   = args[1];
 
@@ -43,8 +43,8 @@ export class CardsToCsvPipe implements PipeTransform {
         session2 += STR_COMMA + equipment.eqplabel;
         session2 += STR_COMMA + equipment.pointlabel;
         session2 += STR_COMMA + equipment.valuelabel;
-        
-        csv += 
+
+        csv +=
               session1
                + STR_COMMA + session2
                + STR_EOL;
@@ -65,7 +65,7 @@ export class CardsToCsvPipe implements PipeTransform {
         equipment.phaseStart.forEach(exec => {
           let session3 = CsvToCardSettings.STR_EMPTY;
           session3 += PhaseType.START;
-          session3 += STR_COMMA + exec.execType
+          session3 += STR_COMMA + exec.execType;
           session3 += STR_COMMA + exec.name;
           session3 += STR_COMMA + exec.value;
           csv +=

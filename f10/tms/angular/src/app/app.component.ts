@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CardService } from './service/card/card.service';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
-import { OnInit, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { StepsComponent } from './component/steps/steps.component';
 import { StepEditComponent } from './component/step-edit/step-edit.component';
 import { SelectionService } from './service/card/selection.service';
@@ -30,7 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
   stepEditUpdateValue: string;
 
   title = 'TMS';
-  
+
   constructor(
     private translate: TranslateService
     , private cardService: CardService
@@ -57,7 +56,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang(defaultLanguage);
     if (preferedLanguage) {
-	// the lang to use, if the lang isn't available, it will use the current loader to get them
+        // the lang to use, if the lang isn't available, it will use the current loader to get them
         translate.use(preferedLanguage);
         console.log(this.c, f, 'use preferred language ', preferedLanguage);
     }

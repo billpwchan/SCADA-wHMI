@@ -4,7 +4,7 @@ import { TokenIndex } from './csv-to-card-settings';
 
 /**
  * Pipe to transform the CSV to Cards
- * 
+ *
  * @export
  * @class CsvToCardsPipe
  * @implements {PipeTransform}
@@ -56,7 +56,7 @@ export class CsvToCardsPipe implements PipeTransform {
           const cName   = token[TokenIndex.CARD_NAME];
           const cState  = Number.parseInt(token[TokenIndex.CARD_STATE]);
           const cStep   = Number.parseInt(token[TokenIndex.CARD_STEP]);
-      
+
           let card = this.getCard(cards, cName);
           if ( null === card ) {
             card = new Card(cName, cState, cStep);
@@ -70,7 +70,7 @@ export class CsvToCardsPipe implements PipeTransform {
             const sStep       = Number.parseInt(token[TokenIndex.STEP_STEP]);
             const sState      = Number.parseInt(token[TokenIndex.STEP_STATE]);
             const sDelay      = Number.parseInt(token[TokenIndex.STEP_DELAY]);
-  
+
             // Equipment Session
             const eConnAddr   = token[TokenIndex.EQUIPMENT_CONNADDR];
             const eUnivname   = token[TokenIndex.EQUIPMENT_UNIVNAME];
@@ -80,7 +80,7 @@ export class CsvToCardsPipe implements PipeTransform {
             const eEqplabel   = token[TokenIndex.EQUIPMENT_EQPLABEL];
             const ePointlabel = token[TokenIndex.EQUIPMENT_POINTLABEL];
             const eValueLabel = token[TokenIndex.EQUIPMENT_VALUELABEL];
-  
+
             let step = this.getStep(card.steps, sStep);
 
             const equipment: Equipment = new Equipment(
@@ -134,5 +134,5 @@ export class CsvToCardsPipe implements PipeTransform {
         }
       });
     return cards;
-  }  
+  }
 }

@@ -1,22 +1,22 @@
 import { Component, OnInit, OnDestroy, OnChanges, Output, EventEmitter, SimpleChanges, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { CardService } from '../../service/card/card.service';
-import { DatatableStep } from '../../model/DatatableScenario';
-import { Card, Step, Equipment, Execution, StepType, ExecType } from '../../model/Scenario';
-import { AppSettings } from '../../app-settings';
+import { CardService } from '../../../service/card/card.service';
+import { DatatableStep } from '../../../model/DatatableScenario';
+import { Card, Step, Equipment, Execution, StepType, ExecType } from '../../../model/Scenario';
+import { AppSettings } from '../../../app-settings';
 import { StepEditSettings } from './step-edit-settings';
-import { OlsSettings } from '../../service//scs/ols-settings';
-import { DbmSettings } from '../../service/scs/dbm-settings';
-import { OlsService } from '../../service/scs/ols.service';
-import { DbmService } from '../../service/scs/dbm.service';
+import { OlsSettings } from '../../../service//scs/ols-settings';
+import { DbmSettings } from '../../../service/scs/dbm-settings';
+import { OlsService } from '../../../service/scs/ols.service';
+import { DbmService } from '../../../service/scs/dbm.service';
 import { Subscription } from 'rxjs/Subscription';
-import { DacSimSettings } from '../../service/scs/dac-sim-settings';
+import { DacSimSettings } from '../../../service/scs/dac-sim-settings';
 import { Subscribable } from 'rxjs/Observable';
-import { SelectionService } from '../../service/card/selection.service';
+import { SelectionService } from '../../../service/card/selection.service';
 import { StepSettings } from '../steps/step-settings';
-import { SettingsService } from '../../service/settings.service';
-import { CardServiceType } from '../../service/card/card-settings';
-import { SelectionServiceType } from '../../service/card/selection-settings';
+import { SettingsService } from '../../../service/settings.service';
+import { CardServiceType } from '../../../service/card/card-settings';
+import { SelectionServiceType } from '../../../service/card/selection-settings';
 
 class SelOptStr {
   constructor(

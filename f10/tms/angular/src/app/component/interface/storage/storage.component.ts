@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy, OnChanges, Output, EventEmitter, SimpleChanges, Input } from '@angular/core';
-import { StorageService } from '../../service/card/storage.service';
-import { CardService } from '../../service/card/card.service';
-import { Card } from '../../model/Scenario';
+import { StorageService } from '../../../service/card/storage.service';
+import { CardService } from '../../../service/card/card.service';
+import { Card } from '../../../model/Scenario';
 import { Subscription } from 'rxjs/Subscription';
-import { AppSettings } from '../../app-settings';
-import { CardServiceType } from '../../service/card/card-settings';
-import { SettingsService } from '../../service/settings.service';
+import { AppSettings } from '../../../app-settings';
+import { CardServiceType } from '../../../service/card/card-settings';
+import { SettingsService } from '../../../service/settings.service';
 import { StorageSettings } from './storage-settings';
 
 @Component({

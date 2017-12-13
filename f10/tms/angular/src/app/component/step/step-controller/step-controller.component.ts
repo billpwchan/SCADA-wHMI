@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
-import { SelectionService } from '../../service/card/selection.service';
+import { SelectionService } from '../../../service/card/selection.service';
 import { Subscription } from 'rxjs/Subscription';
-import { CardService } from '../../service/card/card.service';
-import { AppSettings } from '../../app-settings';
-import { Step, Card, StepType } from '../../model/Scenario';
-import { DacSimExecType } from '../../service/scs/dac-sim-settings';
-import { CardServiceType } from '../../service/card/card-settings';
-import { SelectionServiceType } from '../../service/card/selection-settings';
+import { CardService } from '../../../service/card/card.service';
+import { AppSettings } from '../../../app-settings';
+import { Step, Card, StepType } from '../../../model/Scenario';
+import { DacSimExecType } from '../../../service/scs/dac-sim-settings';
+import { CardServiceType } from '../../../service/card/card-settings';
+import { SelectionServiceType } from '../../../service/card/selection-settings';
 
 @Component({
   selector: 'app-step-controller',
@@ -55,7 +55,13 @@ export class StepControllerComponent implements OnInit, OnDestroy, OnChanges {
         case CardServiceType.CARD_RELOADED: {
           this.btnClicked(StepControllerComponent.STR_INIT);
         } break;
+        case CardServiceType.CARD_UPDATED: {
+          this.btnClicked(StepControllerComponent.STR_INIT);
+        } break;
         case CardServiceType.STEP_RELOADED: {
+          this.btnClicked(StepControllerComponent.STR_INIT);
+        } break;
+        case CardServiceType.STEP_UPDATED: {
           this.btnClicked(StepControllerComponent.STR_INIT);
         } break;
       }
@@ -109,6 +115,14 @@ export class StepControllerComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
+  private init(): void {
+    const f = 'init';
+    console.log(this.c, f);
+
+    this.btnDisabledStartStep = true;
+    this.btnDisabledStopStep = true;
+  }
+
   btnClicked(btnLabel: string, event?: Event) {
     const f = 'btnClicked';
     console.log(this.c, f);
@@ -116,8 +130,13 @@ export class StepControllerComponent implements OnInit, OnDestroy, OnChanges {
 
     switch (btnLabel) {
       case StepControllerComponent.STR_INIT: {
-        this.btnDisabledStartStep = true;
-        this.btnDisabledStopStep = true;
+        this.init();
+      } break;
+      case StepControllerComponent.STR_STEP_RELOADED: {
+        this.init();
+      } break;
+      case StepControllerComponent.STR_STEP_UPDATED: {
+        this.init();
       } break;
       case StepControllerComponent.STR_STEP_SELECTED: {
         this.cardSelected = this.selectionService.getSelectedCardId();

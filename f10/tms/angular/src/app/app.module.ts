@@ -10,19 +10,19 @@ import { AppComponent } from './app.component';
 import { UtilsHttpModule } from './service/utils-http/utils-http.module';
 
 import { CardService } from './service/card/card.service';
-import { CardsComponent } from './component/cards/cards.component';
-import { StepsComponent } from './component/steps/steps.component';
-import { StorageComponent } from './component/storage/storage.component';
-import { CsvInterpretComponent } from './component/csv-interpret/csv-interpret.component';
+import { CardsComponent } from './component/card/cards/cards.component';
+import { StepsComponent } from './component/step/steps/steps.component';
+import { StorageComponent } from './component/interface/storage/storage.component';
+import { CsvInterpretComponent } from './component/interface/csv-interpret/csv-interpret.component';
 import { OlsService } from './service/scs/ols.service';
 import { DbmService } from './service/scs/dbm.service';
 import { DacSimService } from './service/scs/dac-sim.service';
 import { StorageService } from './service/card/storage.service';
-import { CardControllerComponent } from './component/card-controller/card-controller.component';
-import { StepEditComponent } from './component/step-edit/step-edit.component';
-import { CardEditComponent } from './component/card-edit/card-edit.component';
+import { CardControllerComponent } from './component/card/card-controller/card-controller.component';
+import { StepEditComponent } from './component/step/step-edit/step-edit.component';
+import { CardEditComponent } from './component/card/card-edit/card-edit.component';
 import { SelectionService } from './service/card/selection.service';
-import { StepControllerComponent } from './component/step-controller/step-controller.component';
+import { StepControllerComponent } from './component/step/step-controller/step-controller.component';
 import { SettingsService } from './service/settings.service';
 import { CsvToCardsPipe } from './pipe/csv/csv-to-cards.pipe';
 import { CardsToCsvPipe } from './pipe/csv/cards-to-csv.pipe';
@@ -32,8 +32,8 @@ import { TrainerComponent } from './route/trainer/trainer.component';
 import { TrainerAdminComponent } from './route/trainer-admin/trainer-admin.component';
 import { TraineeComponent } from './route/trainee/trainee.component';
 import { PageNotFoundComponent } from './route/page-not-found/page-not-found.component';
-import { StepEditControllerComponent } from './component/step-edit-controller/step-edit-controller.component';
-import { CardEditControllerComponent } from './component/card-edit-controller/card-edit-controller.component';
+import { StepEditControllerComponent } from './component/step/step-edit-controller/step-edit-controller.component';
+import { CardEditControllerComponent } from './component/card/card-edit-controller/card-edit-controller.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -91,7 +91,7 @@ const appRoutes: Routes = [
     SettingsService
     , {
       provide: APP_INITIALIZER,
-      useFactory: (settingService: SettingsService) => function() {return settingService.load()},
+      useFactory: (settingService: SettingsService) => function() { return settingService.load(); },
       deps: [SettingsService],
       multi: true
     }

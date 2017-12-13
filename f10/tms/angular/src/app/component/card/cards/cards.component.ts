@@ -1,18 +1,18 @@
 import { Component, OnInit, OnDestroy, OnChanges, EventEmitter, Output, SimpleChanges, Input, ViewChild } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { CardService } from '../../service/card/card.service';
-import { Card, CardType } from '../../model/Scenario';
-import { DatatableCard } from '../../model/DatatableScenario';
-import { AppSettings } from '../../app-settings';
+import { CardService } from '../../../service/card/card.service';
+import { Card, CardType } from '../../../model/Scenario';
+import { DatatableCard } from '../../../model/DatatableScenario';
+import { AppSettings } from '../../../app-settings';
 import { CardsSettings } from './cards-settings';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-import { SelectionService } from '../../service/card/selection.service';
-import { AppComponent } from '../../app.component';
+import { SelectionService } from '../../../service/card/selection.service';
+import { AppComponent } from '../../../app.component';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
-import { CardServiceType } from '../../service/card/card-settings';
-import { SelectionServiceType } from '../../service/card/selection-settings';
-import { StorageService } from '../../service/card/storage.service';
+import { CardServiceType } from '../../../service/card/card-settings';
+import { SelectionServiceType } from '../../../service/card/selection-settings';
+import { StorageService } from '../../../service/card/storage.service';
 
 @Component({
   selector: 'app-cards'

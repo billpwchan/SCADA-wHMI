@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy, OnChanges, Output, EventEmitter, SimpleChanges, Input } from '@angular/core';
-import { CardService } from '../../service/card/card.service';
-import { AppSettings } from '../../app-settings';
-import { Card, CardType } from '../../model/Scenario';
-import { SelectionService } from '../../service/card/selection.service';
+import { CardService } from '../../../service/card/card.service';
+import { AppSettings } from '../../../app-settings';
+import { Card, CardType } from '../../../model/Scenario';
+import { SelectionService } from '../../../service/card/selection.service';
 import { Subscription } from 'rxjs/Subscription';
-import { CardExecType, CardServiceType } from '../../service/card/card-settings';
-import { SelectionServiceType } from '../../service/card/selection-settings';
+import { CardExecType, CardServiceType } from '../../../service/card/card-settings';
+import { SelectionServiceType } from '../../../service/card/selection-settings';
 
 @Component({
   selector: 'app-card-controller'

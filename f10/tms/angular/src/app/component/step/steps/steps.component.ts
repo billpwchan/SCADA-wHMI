@@ -1,18 +1,18 @@
 import { Component, OnInit, OnDestroy, OnChanges, Output, EventEmitter, ViewChild, SimpleChanges, Input } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { CardService } from '../../service/card/card.service';
+import { CardService } from '../../../service/card/card.service';
 import { Subscription } from 'rxjs/Subscription';
-import { DatatableStep } from '../../model/DatatableScenario';
-import { Card, Step, StepType } from '../../model/Scenario';
-import { AppSettings } from '../../app-settings';
-import { SelectionService } from '../../service/card/selection.service';
-import { DacSimService } from '../../service/scs/dac-sim.service';
+import { DatatableStep } from '../../../model/DatatableScenario';
+import { Card, Step, StepType } from '../../../model/Scenario';
+import { AppSettings } from '../../../app-settings';
+import { SelectionService } from '../../../service/card/selection.service';
+import { DacSimService } from '../../../service/scs/dac-sim.service';
 import { StepSettings } from './step-settings';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
-import { CardServiceType } from '../../service/card/card-settings';
-import { SelectionServiceType } from '../../service/card/selection-settings';
-import { SettingsService } from '../../service/settings.service';
-import { StorageService } from '../../service/card/storage.service';
+import { CardServiceType } from '../../../service/card/card-settings';
+import { SelectionServiceType } from '../../../service/card/selection-settings';
+import { SettingsService } from '../../../service/settings.service';
+import { StorageService } from '../../../service/card/storage.service';
 
 @Component({
   selector: 'app-steps'

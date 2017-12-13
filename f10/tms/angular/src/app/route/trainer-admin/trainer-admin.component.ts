@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { StorageService } from '../../service/card/storage.service';
-import { StepEditControllerSettings } from '../../component/step-edit-controller/step-edit-controller-settings';
-import { StepEditSettings } from '../../component/step-edit/step-edit-settings';
-import { CardEditControllerSettings } from '../../component/card-edit-controller/card-edit-controller-settings';
-import { CardEditSettings } from '../../component/card-edit/card-edit-settings';
-import { CardEditComponent } from '../../component/card-edit/card-edit.component';
-import { StepEditComponent } from '../../component/step-edit/step-edit.component';
+import { StepEditControllerSettings } from '../../component/step/step-edit-controller/step-edit-controller-settings';
+import { StepEditSettings } from '../../component/step/step-edit/step-edit-settings';
+import { CardEditControllerSettings } from '../../component/card/card-edit-controller/card-edit-controller-settings';
+import { CardEditSettings } from '../../component/card/card-edit/card-edit-settings';
+import { CardEditComponent } from '../../component/card/card-edit/card-edit.component';
+import { StepEditComponent } from '../../component/step/step-edit/step-edit.component';
 
 @Component({
   selector: 'app-trainer-admin',

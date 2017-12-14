@@ -10,14 +10,15 @@ import { CardServiceType } from '../../../service/card/card-settings';
 import { SettingsService } from '../../../service/settings.service';
 import { AppComponent } from '../../../app.component';
 import { CsvToCardSettings } from '../../../pipe/csv/csv-to-card-settings';
-import { CsvInterpretSettings } from './csv-interpret-settings';
+import { ImportExportSettings, ImportFileType, ExportFileType } from './import-export-settings';
+import { importType } from '@angular/compiler/src/output/output_ast';
 
 @Component({
-  selector: 'app-csv-interpret'
-  , templateUrl: './csv-interpret.component.html'
-  , styleUrls: ['./csv-interpret.component.css']
+  selector: 'app-import-export'
+  , templateUrl: './import-export.component.html'
+  , styleUrls: ['./import-export.component.css']
 })
-export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
+export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
   public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
@@ -31,7 +32,7 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
   private strComma: string = CsvToCardSettings.STR_COMMA;
   private strEOL: string = CsvToCardSettings.STR_EOL;
 
-  readonly c = CsvInterpretComponent.name;
+  readonly c = ImportExportComponent.name;
 
   @Input() notifyFromParent: string;
 
@@ -48,6 +49,11 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
 
   initCardsBeforeExport: boolean;
 
+  importType: ImportFileType;
+  importAccept: string;
+  exportType: ExportFileType;
+  exportTypeOpt: string;
+
   constructor(
     private translate: TranslateService
     , private storageService: StorageService
@@ -62,7 +68,7 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
 
     this.loadSettings();
 
-    this.btnClicked(CsvInterpretComponent.STR_INIT);
+    this.btnClicked(ImportExportComponent.STR_INIT);
   }
 
   ngOnDestroy(): void {
@@ -75,8 +81,8 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'ngOnChanges';
     console.log(this.c, f);
     console.log(this.c, f, 'changes', changes);
-    if ( changes[CsvInterpretComponent.STR_NORIFY_FROM_PARENT] ) {
-      switch (changes[CsvInterpretComponent.STR_NORIFY_FROM_PARENT].currentValue) {
+    if ( changes[ImportExportComponent.STR_NORIFY_FROM_PARENT] ) {
+      switch (changes[ImportExportComponent.STR_NORIFY_FROM_PARENT].currentValue) {
       }
     }
   }
@@ -91,21 +97,27 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'loadSettings';
     console.log(this.c, f);
 
-    const component = CsvInterpretComponent.name;
-    this.strFileName = this.settingsService.getSetting(this.c, f, component, CsvInterpretSettings.STR_FILED_FILENAME);
-    this.strComma = this.settingsService.getSetting(this.c, f, component, CsvInterpretSettings.STR_FILED_COMMA);
-    this.strEOL = this.settingsService.getSetting(this.c, f, component, CsvInterpretSettings.STR_FILED_EOL);
-    this.initCardsBeforeExport = this.settingsService.getSetting(this.c, f, component, CsvInterpretSettings.STR_INIT_CARDS_BEFORE_EXPORT);
+    const component = ImportExportComponent.name;
+
+    this.importType = Number.parseInt(this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_IMPORT_TYPE));
+    this.importAccept = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_IMPORT_ACCEPT);
+    this.exportType = Number.parseInt(this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_EXPORT_TYPE));
+    this.exportTypeOpt = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_EXPORT_TYPE_OPT);
+
+    this.strFileName = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_EXPORT_FILENAME);
+    this.strComma = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_CSV_COMMA);
+    this.strEOL = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_CSV_EOL);
+    this.initCardsBeforeExport = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_INIT_CARDS_BEFORE_EXPORT);
   }
 
   /**
-   * Export Cards as a CSV file
+   * Export Cards as a file
    *
    * @private
-   * @memberof CsvInterpretComponent
+   * @memberof ImportExportComponent
    */
-  private exportCardsAsCsv(): void {
-    const f = 'exportCardsAsCsv';
+  private exportCards(type: ExportFileType): void {
+    const f = 'exportCards';
     console.log(this.c, f);
 
     const cards: Card[] = this.cardService.getCards();
@@ -114,9 +126,20 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
     if ( this.initCardsBeforeExport ) {
       exportCards = this.cardService.initCards(exportCards);
     }
-    const data: string = new CardsToCsvPipe().transform(exportCards, [this.strComma, this.strEOL]);
 
-    const blob: Blob = new Blob([data], {type: 'text/csv'});
+    console.log(this.c, f, 'type', type);
+    let data: string;
+    switch ( type ) {
+      case ExportFileType.CSV: {
+        data = new CardsToCsvPipe().transform(exportCards, [this.strComma, this.strEOL]);
+      } break;
+      case ExportFileType.JSON: {
+        data = JSON.stringify(exportCards);
+      } break;
+    }
+
+    console.log(this.c, f, 'this.exportTypeOpt', this.exportTypeOpt);
+    const blob: Blob = new Blob([data], {type: this.exportTypeOpt});
     const fileName: string = this.strFileName;
     const objectUrl: string = URL.createObjectURL(blob);
     const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
@@ -134,23 +157,36 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   /**
-   * Import CSV file as a Cards
+   * Import file as a Cards
    *
    * @private
-   * @param {string} csv
-   * @memberof CsvInterpretComponent
+   * @param {string} str
+   * @memberof ImportExportComponent
    */
-  private importCsvAsCards(csv: string): void {
-    const f = 'importCsvAsCards';
+  private importCards(str: string, type: ImportFileType): void {
+    const f = 'importCards';
     console.log(this.c, f);
 
-    const cards: Card[] = new CsvToCardsPipe().transform(csv, [this.strComma, this.strEOL]);
+    let cards: Card[];
+
+    console.log(this.c, f, 'type', type);
+    switch ( type ) {
+      case ImportFileType.CSV: {
+        cards = new CsvToCardsPipe().transform(str, [this.strComma, this.strEOL]);
+      } break;
+      case ImportFileType.JSON: {
+        cards = JSON.parse(str);
+      } break;
+    }
+
     if ( null != cards ) {
       this.cardService.setCards(cards);
       this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
 
       this.importNumber = this.cardService.getCards().length;
       this.disableImportMsg = false;
+    } else {
+      console.warn(this.c, f, 'cards is null');
     }
   }
 
@@ -161,7 +197,7 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
     const reader = new FileReader();
     reader.onload = (e: any) => {
 //    console.log('name', e.target.name, 'size', e.target.size, 'result', e.target.result);
-      this.importCsvAsCards(e.target.result);
+      this.importCards(e.target.result, this.importType);
     };
     reader.readAsText(file);
   }
@@ -186,11 +222,11 @@ export class CsvInterpretComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f, 'btnLabel[' + btnLabel + ']');
 
     switch (btnLabel) {
-      case CsvInterpretComponent.STR_INIT: {
+      case ImportExportComponent.STR_INIT: {
         this.init();
       } break;
       case 'exportcsv': {
-        this.exportCardsAsCsv();
+        this.exportCards(this.exportType);
       } break;
       case 'importcsv': {
       } break;

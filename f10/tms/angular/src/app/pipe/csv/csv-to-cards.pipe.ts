@@ -14,6 +14,8 @@ import { TokenIndex } from './csv-to-card-settings';
 })
 export class CsvToCardsPipe implements PipeTransform {
 
+  c: string = CsvToCardsPipe.name;
+
   private getEV(evs: Execution[], id: string): Execution {
     for ( let i = 0 ; i < evs.length ; ++i ) {
       if ( evs[i].name == id ) {
@@ -42,6 +44,11 @@ export class CsvToCardsPipe implements PipeTransform {
   }
 
   transform(csv: any, args: any[]): Card[] {
+
+    const f = 'transform';
+
+    console.log(this.c, f);
+    // console.log(this.c, f, 'csv', csv);
 
     const STR_COMMA = args[0];
     const STR_EOL   = args[1];

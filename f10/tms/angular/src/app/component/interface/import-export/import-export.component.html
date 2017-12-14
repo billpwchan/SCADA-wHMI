@@ -1,0 +1,30 @@
+<form>
+  <div>
+    <fieldset class="">
+      <!--<legend class="">{{ '&importexport_lbl_importexport_csv' | translate }}</legend>-->
+      <div>
+        <!--<label>{{ '&importexport_lbl_backup' | translate }}</label>-->
+        <button type="button" class="btn btn-info btn-import-export-exportcsv" 
+        [disabled]="btnDisabledExportCSV" (click)="btnClicked('exportcsv')"
+        title="{{ '&importexport_btn_exportcsv_title' | translate }}"
+        >{{ '&importexport_btn_exportcsv' | translate }}</button>
+        <button type="button" class="btn btn-info btn-import-export-importcv"  
+        onclick="loadfile.click()" 
+        [disabled]="btnDisabledImportCSV" (click)="btnClicked('importcsv')"
+        title="{{ '&importexport_btn_importcsv_title' | translate }}"
+        >{{ '&importexport_btn_importcsv' | translate }}</button>
+        <div class='alert alert-info' [hidden]="disableImportMsg">
+          <a class="close" data-dismiss="alert" href="#">X</a>
+          <strong>{{ '&importexport_import_message' | translate }}{{importNumber}}</strong>
+        </div>
+        <div class='alert alert-info' [hidden]="disableExportMsg">
+          <a class="close" data-dismiss="alert" href="#">X</a>
+          <strong>{{ '&importexport_export_message' | translate }}{{exportNumber}}</strong>
+        </div>
+        <input type="file" id="upload" 
+        style="display:none" id="loadfile" accept='{{importAccept}}' 
+        (change)="btnClicked('loadfile', $event)">
+      </div>
+    </fieldset>
+  </div>
+</form>

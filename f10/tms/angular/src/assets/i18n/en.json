@@ -184,12 +184,12 @@
 	, "&storage_info_confirmtosavecardssuccess_title": "Reload scenario from storage success."
 	, "&storage_info_confirmtosavecardsfailed_title": "Reload scenario from storage failed."
 
-	, "&csvinterpret_btn_exportcsv": "Export"
-	, "&csvinterpret_btn_exportcsv_title": "Export current scenario(s) as CSV file."
-	, "&csvinterpret_export_message": "Exported scenario(s):"
+	, "&importexport_btn_exportcsv": "Export"
+	, "&importexport_btn_exportcsv_title": "Export current scenario(s) as CSV file."
+	, "&importexport_export_message": "Exported scenario(s):"
 
-	, "&csvinterpret_btn_importcsv": "Import"
-	, "&csvinterpret_btn_importcsv_title": "Import CSV file as current scenario(s)."
-	, "&csvinterpret_import_message": "Imported scenario(s):"
+	, "&importexport_btn_importcsv": "Import"
+	, "&importexport_btn_importcsv_title": "Import CSV file as current scenario(s)."
+	, "&importexport_import_message": "Imported scenario(s):"
 
 }

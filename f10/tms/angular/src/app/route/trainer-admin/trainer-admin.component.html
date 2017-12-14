@@ -7,6 +7,10 @@
     <div class="div-trainer-admin-left-bottom">
       <app-card-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardController"></app-card-controller>
       <app-card-edit-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-edit-controller>
+      <div class="div-trainer-admin-left-bottom-middle">
+        <div class="div-trainer-admin-left-bottom-middle-middle"><app-storage (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStorage"></app-storage></div>
+        <app-import-export (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCsvInterpret"></app-import-export>
+      </div>
     </div>
   </div>
   <div class="div-trainer-admin-right">
@@ -15,14 +19,12 @@
       <app-steps (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"></app-steps>
     </div>
     <div class="div-trainer-admin-right-bottom">
-      <div class="div-trainer-admin-right-bottom-left">
+      <div class="div-trainer-admin-right-bottom-outlet">
         <app-step-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepController"></app-step-controller>
-        <div class="div-trainer-admin-right-bottom-left-middle"><app-storage (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStorage"></app-storage></div>
-        <app-csv-interpret (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCsvInterpret"></app-csv-interpret>
-      </div>
-      <div class="div-trainer-admin-right-bottom-right">
-        <app-step-edit-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepEdit"></app-step-edit-controller>
-      </div>
+        <div class="div-trainer-admin-right-bottom-inter">
+          <app-step-edit-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepEdit"></app-step-edit-controller>
+        </div>
+      </div> 
     </div>
   </div>
 </div>

@@ -38,10 +38,18 @@
         , {"label": "M002", "value": "http://127.0.0.1:8992"}
       ]
   }
-  , "CsvInterpretComponent": {
-      "filename": "tms.csv"
-      , "comma": ","
-      , "eol": "\r\n"
+  , "ImportExportComponent": {
+
+      "import_type": "1"
+      , "import_accept": ".csv"
+
+      , "export_type": "1"
+      , "export_type_opt": "text/csv"
+      , "export_filename": "tms.csv"
+
+      , "csv_comma": ","
+      , "csv_eol": "\r\n"
+
       , "init_cards_before_export": false
   }
   , "StorageComponent": {

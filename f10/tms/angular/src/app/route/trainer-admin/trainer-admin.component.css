@@ -23,6 +23,15 @@
     margin: 20px 0px 0px 0px;
 }
 
+.div-trainer-admin-left-bottom-middle {
+    display: flex;
+    flex-direction: row;
+}
+
+.div-trainer-admin-left-bottom-middle-middle {
+    margin: 0px 4px 0px 0px;
+}
+
 .div-trainer-admin-right {
     width: 65%;
     height: 100%;
@@ -41,18 +50,15 @@
     margin: 20px 0px 0px 0px;
 }
 
-.div-trainer-admin-right-bottom-left {
+.div-trainer-admin-right-bottom-outlet {
     display: flex;
     flex-direction: row;
     text-align: left;
 }
 
-.div-trainer-admin-right-bottom-left-middle {
-    margin: 0px 5px 0px 15px;
-}
-
-.div-trainer-admin-right-bottom-right {
+.div-trainer-admin-right-bottom-inter {
     display: flex;
     flex-direction: row;
     text-align: left;
+    margin: 0px 0px 0px 40px;
 }

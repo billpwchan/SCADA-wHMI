@@ -14,7 +14,14 @@ import { CsvToCardSettings } from './csv-to-card-settings';
 })
 export class CardsToCsvPipe implements PipeTransform {
 
+  c: string = CardsToCsvPipe.name;
+
   transform(cards: Card[], args?: any[]): string {
+
+    const f = 'transform';
+
+    console.log(this.c, f);
+    // console.log(this.c, f, 'cards', cards);
 
     const STR_COMMA = args[0];
     const STR_EOL   = args[1];

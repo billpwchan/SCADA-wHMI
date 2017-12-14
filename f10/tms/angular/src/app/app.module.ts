@@ -13,7 +13,7 @@ import { CardService } from './service/card/card.service';
 import { CardsComponent } from './component/card/cards/cards.component';
 import { StepsComponent } from './component/step/steps/steps.component';
 import { StorageComponent } from './component/interface/storage/storage.component';
-import { CsvInterpretComponent } from './component/interface/csv-interpret/csv-interpret.component';
+import { ImportExportComponent } from './component/interface/import-export/import-export.component';
 import { OlsService } from './service/scs/ols.service';
 import { DbmService } from './service/scs/dbm.service';
 import { DacSimService } from './service/scs/dac-sim.service';
@@ -54,7 +54,7 @@ const appRoutes: Routes = [
     , CardsComponent
     , CardControllerComponent
     , StepsComponent
-    , CsvInterpretComponent
+    , ImportExportComponent
     , StorageComponent
     , StepEditComponent
     , CardEditComponent

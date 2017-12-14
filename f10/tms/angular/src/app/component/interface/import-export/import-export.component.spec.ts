@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CsvInterpretComponent } from './csv-interpret.component';
+import { ImportExportComponent } from './import-export.component';
 
-describe('CsvInterpretComponent', () => {
-  let component: CsvInterpretComponent;
-  let fixture: ComponentFixture<CsvInterpretComponent>;
+describe('ImportExportComponent', () => {
+  let component: ImportExportComponent;
+  let fixture: ComponentFixture<ImportExportComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CsvInterpretComponent ]
+      declarations: [ ImportExportComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CsvInterpretComponent);
+    fixture = TestBed.createComponent(ImportExportComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

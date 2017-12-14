@@ -15,10 +15,12 @@ import { SelectionServiceType } from '../../../service/card/selection-settings';
 export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
-  public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
-  public static readonly STR_CARD_SELECTED = AppSettings.STR_CARD_SELECTED;
-  public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
-  public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
+  public static readonly STR_CARD_RELOADED  = AppSettings.STR_CARD_RELOADED;
+  public static readonly STR_CARD_SELECTED  = AppSettings.STR_CARD_SELECTED;
+  public static readonly STR_STEP_RELOADED  = AppSettings.STR_STEP_RELOADED;
+  public static readonly STR_STEP_SELECTED  = AppSettings.STR_STEP_SELECTED;
+
+  public static readonly STR_CARD_UPDATED   = AppSettings.STR_CARD_UPDATED;
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
@@ -55,6 +57,7 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
           this.btnClicked(CardControllerComponent.STR_CARD_RELOADED);
         } break;
         case CardServiceType.CARD_UPDATED: {
+          this.btnClicked(CardControllerComponent.STR_CARD_UPDATED);
         } break;
       }
     });
@@ -102,9 +105,13 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
       this.selectionService.getSelectedCardIds()
     );
     if ( null != card ) {
+      let cardExecType: CardExecType = CardExecType.START;
+      if ( CardType.STARTED === card.state ) {
+        cardExecType = CardExecType.STOP;
+      }
       this.cardService.executeCard(
         card.name
-        , CardExecType.START
+        , cardExecType
         , true);
     }
   }
@@ -115,7 +122,7 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
     const card: Card = this.cardService.getCard( this.selectionService.getSelectedCardIds());
     this.cardService.executeCard(
       card.name
-      , CardExecType.STOP
+      , CardExecType.TERMINATE
       , true);
   }
 
@@ -134,7 +141,9 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'resumeCard';
     console.log(this.c, f);
 
-    this.cardService.executeCard(this.selectionService.getSelectedCardId(), CardExecType.RESUME);
+    this.cardService.executeCard(
+      this.selectionService.getSelectedCardId()
+      , CardExecType.RESUME);
   }
 
   private resetCard(): void {
@@ -165,7 +174,7 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
         case CardType.STARTED: {
           this.btnDisabledStart = false;
           this.btnDisabledPause = true;
-          this.btnDisabledResume = false;
+          this.btnDisabledResume = true;
           this.btnDisabledStop = true;
           // this.btnDisabledReset = true;
         } break;
@@ -183,11 +192,11 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
           this.btnDisabledStop = false;
           // this.btnDisabledReset = true;
         } break;
-        case CardType.UNKNOW: {
-          this.btnDisabledStart = true;
-          this.btnDisabledPause = true;
-          this.btnDisabledResume = true;
-          this.btnDisabledStop = true;
+        default: {
+          this.btnDisabledStart = false;
+          this.btnDisabledPause = false;
+          this.btnDisabledResume = false;
+          this.btnDisabledStop = false;
           // this.btnDisabledReset = true;
         } break;
       }
@@ -217,6 +226,11 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
       case CardControllerComponent.STR_CARD_RELOADED: {
         this.init();
       } break;
+      case CardControllerComponent.STR_CARD_UPDATED: {
+        const ids: string[] = this.selectionService.getSelectedCardIds();
+        const card: Card = this.cardService.getCard(ids);
+        this.widgetController(card);
+      } break;
       case CardControllerComponent.STR_CARD_SELECTED: {
         const ids: string[] = this.selectionService.getSelectedCardIds();
         const card: Card = this.cardService.getCard(ids);
@@ -239,6 +253,6 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
       } break;
     }
 
-    this.sendNotifyParent(btnLabel);
+    // this.sendNotifyParent(btnLabel);
   }
 }

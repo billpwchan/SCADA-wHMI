@@ -40,27 +40,27 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
 
   // UI Data Building
   //  New Card
-  divNewCardEnable = false;
-    txtNewAddName = '';
-    btnAddDisable = false;
-    btnAddCancelDisable = false;
+  divNewCardEnable: boolean;
+    txtNewAddName: string;
+    btnAddDisable: boolean;
+    btnAddCancelDisable: boolean;
 
   // Modify Card
-  divModifyCardEnable = false;
-    txtModifyName = '';
-    btnModifySaveDisable = false;
-    btnModifyCancelDisable = false;
+  divModifyCardEnable: boolean;
+    txtModifyName: string;
+    btnModifySaveDisable: boolean;
+    btnModifyCancelDisable: boolean;
 
-  txtNewAddNameTooShortInvalid = false;
-  txtNewAddNameTooLongInvalid = false;
-  txtNewAddNameDuplicatedInvalid = false;
+  txtNewAddNameTooShortInvalid: boolean;
+  txtNewAddNameTooLongInvalid: boolean;
+  txtNewAddNameDuplicatedInvalid: boolean;
 
-  txtModifyNameTooShortInvalid = false;
-  txtModifyNameTooLongInvalid = false;
-  txtModifyNameDuplicatedInvalid = false;
+  txtModifyNameTooShortInvalid: boolean;
+  txtModifyNameTooLongInvalid: boolean;
+  txtModifyNameDuplicatedInvalid: boolean;
 
-  private cardNameMin: number;
-  private cardNameMax: number;
+  private cardNameMin = NaN;
+  private cardNameMax = NaN;
 
   constructor(
     private translate: TranslateService
@@ -142,8 +142,8 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'loadSettings';
     console.log(this.c, f);
     const component = CardEditComponent.name;
-    this.cardNameMin = this.settingsService.getSetting(this.c, f, component, CardEditSettings.STR_CARD_NAME_MIN);
-    this.cardNameMax = this.settingsService.getSetting(this.c, f, component, CardEditSettings.STR_CARD_NAME_MAX);
+    this.cardNameMin = Number.parseInt(this.settingsService.getSetting(this.c, f, component, CardEditSettings.STR_CARD_NAME_MIN));
+    this.cardNameMax = Number.parseInt(this.settingsService.getSetting(this.c, f, component, CardEditSettings.STR_CARD_NAME_MAX));
   }
 
   private newCard(name: string): void {
@@ -222,8 +222,11 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
   onChange(name: string, event?: Event): void {
     const f = 'onChange';
     console.log(this.c, f);
-    if ( name === 'txtNewAddName' ) {
+    console.log(this.c, f, 'name[' + name + ']');
+
+    if ( 'txtNewAddName' === name ) {
       const newName = this.txtNewAddName;
+      console.log(this.c, f, 'newName[' + newName + ']');
 
       this.btnAddDisable = false;
 
@@ -244,7 +247,8 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
         this.txtNewAddNameDuplicatedInvalid = true;
 
       }
-    } else if ( name === 'txtModifyName' ) {
+
+    } else if ( 'txtModifyName' === name ) {
       const newName = this.txtModifyName;
       const curName = this.selectedCardName;
 
@@ -270,15 +274,13 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
         this.txtModifyNameDuplicatedInvalid = true;
 
       }
+
     }
   }
 
   private init(): void {
     const f = 'init';
     console.log(this.c, f);
-
-    this.cardNameMin = NaN;
-    this.cardNameMax = NaN;
 
     //  New Card
     this.divNewCardEnable = false;

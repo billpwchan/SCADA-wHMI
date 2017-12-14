@@ -186,6 +186,7 @@ export class CardService {
     return this.getSteps(cardIdentity, stepIdentifys)[0];
   }
 
+  // Return by Value
   getSteps(cardIdentity: string, stepIdentifys?: number[]): Step[] {
     let steps: Step[] = null;
     const card: Card = this.getCard([cardIdentity]);

@@ -99,7 +99,7 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
 
   // data binding
 
-  txtClassId: number;
+  txtClassId: string;
   txtUnivname: string;
   txtEVName: string;
 
@@ -109,14 +109,14 @@ editEnableCancelStep: boolean;
 editEnableAddAciStep: boolean;
 
   // data binding
-  aciInitValue: number;
-  aciValue: number;
+  aciInitValue: string;
+  aciValue: string;
 
 editEnableAddDciStep: boolean;
 
   // data binding
-  dciInitValue: number;
-  dciValue: number;
+  dciInitValue: string;
+  dciValue: string;
 
   selDciValue: number;
   selOptDciValue: Array<SelOptNum> = new Array<SelOptNum>();
@@ -213,10 +213,10 @@ btnDisabledAddCancelStep: boolean;
           if ( null != formulas && formulas.length > 0 ) {
             // Is acquired data equipment
             if ( DbmSettings.STR_FORMULAS_ACQ_SINGLE === formulas[0] ) {
-              if ( DbmSettings.INT_ACI_TYPE === this.txtClassId) {
+              if ( DbmSettings.INT_ACI_TYPE === Number.parseInt(this.txtClassId) ) {
 
                 this.btnClicked(StepEditComponent.STR_ACI_SELECTED);
-              } else if ( DbmSettings.INT_DCI_TYPE === this.txtClassId ) {
+              } else if ( DbmSettings.INT_DCI_TYPE === Number.parseInt(this.txtClassId) ) {
 
                 this.btnClicked(StepEditComponent.STR_DCI_SELECTED);
               }
@@ -258,7 +258,7 @@ btnDisabledAddCancelStep: boolean;
           }
 
           if ( null != initValue ) {
-            this.dciInitValue = initValue;
+            this.dciInitValue = '' + initValue;
           }
         } else if ( 'retriveAci' === item ) {
           const dbvalue = this.dbmService.getRetriveAciData(this.selEnv, this.txtUnivname);
@@ -269,8 +269,8 @@ btnDisabledAddCancelStep: boolean;
 
           const initValue: number = dbvalue[1];
           if ( null != initValue ) {
-            this.aciInitValue = initValue;
-            this.aciValue = 0;
+            this.aciInitValue = '' + initValue;
+            this.aciValue = '' + StepEditSettings.INT_ACI_DEFAULT_VALUE;
           }
         }
       });
@@ -549,15 +549,14 @@ btnDisabledAddCancelStep: boolean;
   onChange(name: string, event?: Event): void {
     const f = 'onChange';
     console.log(this.c, f);
+    console.log(this.c, f, 'name[' + name + ']');
     if ( name === 'aciValue' ) {
-      try {
-        if ( +this.aciValue !== NaN ) {
-          this.btnDisabledAddAciStep = false;
-        } else {
-          this.btnDisabledAddAciStep = true;
-        }
-      } catch (e) {
-        console.log(this.c, f, e);
+      const aciValue = Number.parseFloat(this.aciValue);
+      console.log(this.c, f, 'aciValue[' + aciValue + ']');
+      if ( !isNaN(aciValue) ) {
+        this.btnDisabledAddAciStep = false;
+      } else {
+        this.btnDisabledAddAciStep = true;
       }
     }
   }
@@ -581,12 +580,12 @@ btnDisabledAddCancelStep: boolean;
     let initValue: number;
     let value: number;
     let valueLabel: string;
-    if ( DbmSettings.INT_ACI_TYPE === this.txtClassId ) {
+    if ( DbmSettings.INT_ACI_TYPE === Number.parseInt(this.txtClassId) ) {
       initValue = this.aciInitValue;
       value = this.aciValue;
       valueLabel = '' + value;
-    } else if (DbmSettings.INT_DCI_TYPE === this.txtClassId ) {
-      initValue = this.dciInitValue;
+    } else if (DbmSettings.INT_DCI_TYPE === Number.parseInt(this.txtClassId) ) {
+      initValue = Number.parseInt(this.dciInitValue);
       value = this.selDciValue;
       for ( let i = 0 ; i < this.selOptDciValue.length ; ++i ) {
         if ( this.selOptDciValue[i].value === value ) {
@@ -659,14 +658,14 @@ btnDisabledAddCancelStep: boolean;
     this.initSelOptDelay();
     this.initSelOptDciValue();
 
-    this.txtClassId = 0;
+    this.txtClassId = '';
     this.txtUnivname = '';
     this.txtEVName = '';
 
-    this.aciInitValue = DacSimSettings.STR_ACI_DEFAULT_VALUE;
-    this.aciValue = DacSimSettings.STR_ACI_DEFAULT_VALUE;
-    this.dciInitValue = DacSimSettings.STR_DCI_DEFAULT_VALUE;
-    this.dciValue = DacSimSettings.STR_DCI_DEFAULT_VALUE;
+    this.aciInitValue = DacSimSettings.INT_ACI_DEFAULT_VALUE;
+    this.aciValue = DacSimSettings.INT_ACI_DEFAULT_VALUE;
+    this.dciInitValue = '' + DacSimSettings.INT_DCI_DEFAULT_VALUE;
+    this.dciValue = '' + DacSimSettings.INT_DCI_DEFAULT_VALUE;
   }
 
   btnClicked(btnLabel: string, event?: Event) {

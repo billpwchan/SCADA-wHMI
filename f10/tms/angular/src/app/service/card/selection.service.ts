@@ -13,8 +13,8 @@ export class SelectionService {
   // Observable item stream
   selectionItem = this.selectionSource.asObservable();
 
-  private selectedCards: string[];
-  private selectedSteps: number[];
+  private selectedCards: string[] = new Array<string>();
+  private selectedSteps: number[] = new Array<number>();
 
   constructor() {}
 
@@ -40,8 +40,18 @@ export class SelectionService {
     }
   }
 
-  getSelectedCardIds(): string[] { return this.selectedCards; }
-  getSelectedCardId(): string { return this.getSelectedCardIds()[0]; }
+  // Return by Value
+  getSelectedCardIds(): string[] {
+    let cloned: string[] = new Array<string>();
+    if ( this.selectedCards ) {
+      cloned = JSON.parse(JSON.stringify(this.selectedCards));
+    }
+    return cloned;
+  }
+  getSelectedCardId(): string {
+    const f = 'getSelectedStepId';
+    return this.getSelectedCardIds()[0] ? this.getSelectedCardIds()[0] : null;
+  }
   setSelectedCardIds(selectedCards: string[]): void {
     const f = 'setSelectedCardIdentifys';
     console.log(this.c, f, this.selectedCards);
@@ -50,8 +60,24 @@ export class SelectionService {
     this.selectionChanged(SelectionServiceType.CARD_SELECTED);
   }
 
-  getSelectedStepIds(): number[] { return this.selectedSteps; }
-  getSelectedStepId(): number { return this.getSelectedStepIds()[0]; }
+  // Return by Value
+  getSelectedStepIds(): number[] {
+    let cloned: number[] = new Array<number>();
+    if ( this.selectedSteps ) {
+      cloned = JSON.parse(JSON.stringify(this.selectedSteps));
+    }
+    return cloned;
+  }
+  getSelectedStepId(): number {
+    const f = 'getSelectedStepId';
+    let id = NaN;
+    try {
+      id = this.getSelectedStepIds()[0];
+    } catch ( err ) {
+      console.warn(this.c, f, 'invalid value of this.getSelectedStepIds()[0]');
+    }
+    return id;
+  }
   setSelectedStepIds(selectedSteps: number[]): void {
     const f = 'setSelectedStepIds';
     console.log(this.c, f, 'setSelectedSteps', this.selectedCards);

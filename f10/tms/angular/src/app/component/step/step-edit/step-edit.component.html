@@ -104,8 +104,9 @@
         </span>
         <div class="input-group input-group-step-edit-acivalue">
           <span class="input-group-addon span-step-edit-acivalue">{{ '&step_lbl_acivalue' | translate }}</span>
-          <input type="text"  class="form-control" name="aciValue" (ngModelChange)="onChange('aciValue', $event)"
-          [(ngModel)]="aciValue" placeholder="{{ '&step_txt_acivalue_placeholder' | translate }}">
+          <input type="text"  class="form-control" name="aciValue" [(ngModel)]="aciValue"
+          (ngModelChange)="onChange('aciValue', $event)"
+           placeholder="{{ '&step_txt_acivalue_placeholder' | translate }}">
         </div>
         <button 
           type="button" class="btn btn-info btn-step-edit-add-aci" 

@@ -5,7 +5,7 @@ import { CardService } from '../../../service/card/card.service';
 import { AppSettings } from '../../../app-settings';
 import { Step, Card, StepType } from '../../../model/Scenario';
 import { DacSimExecType } from '../../../service/scs/dac-sim-settings';
-import { CardServiceType } from '../../../service/card/card-settings';
+import { CardServiceType, StepExistsResult } from '../../../service/card/card-settings';
 import { SelectionServiceType } from '../../../service/card/selection-settings';
 
 @Component({
@@ -96,22 +96,31 @@ export class StepControllerComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
+  private updateSelection() {
+    const f = 'updateSelection';
+    console.log(this.c, f);
+
+    this.cardSelected = this.selectionService.getSelectedCardId();
+    this.stepSelected = this.selectionService.getSelectedStepId();
+  }
+
   private widgetControl(): void {
     const f = 'widgetControl';
     console.log(this.c, f);
 
-    const step: Step = this.cardService.getStep(this.cardSelected, [this.stepSelected]);
-    if ( null != step ) {
-      if ( StepType.STOPPED === step.state ) {
-        this.btnDisabledStartStep = false;
-        this.btnDisabledStopStep = true;
-      } else if ( StepType.START === step.state ) {
-        this.btnDisabledStartStep = true;
-        this.btnDisabledStopStep = false;
+    this.btnDisabledStartStep = true;
+    this.btnDisabledStopStep = true;
+    const stepExists = this.cardService.stepExists(this.cardSelected, this.stepSelected);
+    if ( StepExistsResult.STEP_FOUND === stepExists) {
+      const step: Step = this.cardService.getStep(this.cardSelected, [this.stepSelected]);
+
+      if ( null != step ) {
+        if ( StepType.STOPPED === step.state ) {
+          this.btnDisabledStartStep = false;
+        } else if ( StepType.START === step.state ) {
+          this.btnDisabledStopStep = false;
+        }
       }
-    } else {
-      this.btnDisabledStartStep = true;
-      this.btnDisabledStopStep = true;
     }
   }
 
@@ -133,14 +142,14 @@ export class StepControllerComponent implements OnInit, OnDestroy, OnChanges {
         this.init();
       } break;
       case StepControllerComponent.STR_STEP_RELOADED: {
-        this.init();
+        this.updateSelection();
+        this.widgetControl();
       } break;
       case StepControllerComponent.STR_STEP_UPDATED: {
         this.init();
       } break;
       case StepControllerComponent.STR_STEP_SELECTED: {
-        this.cardSelected = this.selectionService.getSelectedCardId();
-        this.stepSelected = this.selectionService.getSelectedStepId();
+        this.updateSelection();
         this.widgetControl();
       } break;
       case 'startstep': {

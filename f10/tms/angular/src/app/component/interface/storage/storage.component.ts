@@ -179,6 +179,8 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
       case 'reloadscenario': {
         this.disableSaveToStorageMsg = true;
         this.disableLoadFromStorageConfirmMsg = false;
+
+        this.disableReloadFromStorageMsg = false;
       } break;
       case 'confirm': {
         this.disableSaveToStorageMsg = true;
@@ -191,6 +193,21 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
       case 'cancel': {
         this.disableSaveToStorageMsg = true;
         this.disableLoadFromStorageConfirmMsg = true;
+      } break;
+      case 'disableSaveToStorageMsg': {
+        this.disableSaveToStorageMsg = true;
+      } break;
+      case 'disableSaveToStorageSuccessMsg': {
+        this.disableSaveToStorageSuccessMsg = true;
+      } break;
+      case 'disableSaveToStorageFaildMsg': {
+        this.disableSaveToStorageFaildMsg = true;
+      } break;
+      case 'disableReloadFromStorageSuccessMsg': {
+        this.disableReloadFromStorageSuccessMsg = true;
+      } break;
+      case 'disableReloadFromStorageFailedMsg': {
+        this.disableReloadFromStorageFailedMsg = true;
       } break;
     }
     // this.sendNotifyParent(btnLabel);

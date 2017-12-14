@@ -173,6 +173,7 @@
 
 	, "&storage_info_modifycardsnotsaved_title": "Save the modified setting."
 	, "&storage_info_modifycardsnotsaved": "Save the modified scenario(s) to storage before leave tms panel."
+	, "&storage_info_modifycardsnotsaved_close": " x "
 
 	, "&storage_btn_save_confirm": "Confirm"
 	, "&storage_btn_save_confirm_title": "Confirm to save the file."
@@ -180,19 +181,27 @@
 	, "&storage_btn_save_cancel_title": "Cancel the save operation."
 
 	, "&storage_info_modifycardsnotsavedsuccess_title": "Save the modified setting success."
+	, "&storage_info_modifycardsnotsavedsuccess_close": " x "
 	, "&storage_info_modifycardsnotsavedfailed_title": "Save the modified setting failed."
+	, "&storage_info_modifycardsnotsavedfailed_close": " x "
 
-	, "&storage_info_confirmtosavecards_title": "Current setting will be overwrite by reload scenario(s):"
+	, "&storage_info_confirmtosavecards_title": "Current setting will be overwrite."
+
 	, "&storage_info_confirmtosavecardssuccess_title": "Reload scenario from storage success."
+	, "&storage_info_confirmtosavecardssuccess_close": " x "
+
 	, "&storage_info_confirmtosavecardsfailed_title": "Reload scenario from storage failed."
+	, "&storage_info_confirmtosavecardsfailed_close": " x "
 
 	, "&importexport_btn_exportcsv": "Export"
 	, "&importexport_btn_exportcsv_title": "Export current scenario(s) as CSV file."
-	, "&importexport_export_message": "Exported scenario(s):"
+	, "&importexport_export_message": "Exported scenario(s): "
+	, "&importexport_export_message_close": " x "
 
 	, "&importexport_btn_importcsv": "Import"
 	, "&importexport_btn_importcsv_title": "Import CSV file as current scenario(s)."
-	, "&importexport_import_message": "Imported scenario(s):"
+	, "&importexport_import_message": "Imported scenario(s): "
+	, "&importexport_import_message_close": " x "
 
 	, "location_": "UNKNOW"
 	, "location_1": "M000001"

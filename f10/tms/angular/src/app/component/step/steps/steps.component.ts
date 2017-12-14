@@ -243,6 +243,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
 
     // this.rows_step = [...this.rows_step];
     this.selected_step = [];
+    this.setSelectedRow();
 
     this.selectedCardStep = null;
 
@@ -259,8 +260,8 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
-  onRowSelect(name: string, event: Event) {
-    const f = 'onRowSelect';
+  private setSelectedRow() {
+    const f = 'setSelectedRow';
     console.log(this.c, f, 'name', name, 'event', event);
 
     const stepIds: number [] = new Array<number>();
@@ -268,6 +269,13 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
       stepIds.push(+item.step);
     });
     this.selectionService.setSelectedStepIds(stepIds);
+  }
+
+  onRowSelect(name: string, event: Event) {
+    const f = 'onRowSelect';
+    console.log(this.c, f, 'name', name, 'event', event);
+
+    this.setSelectedRow();
   }
 
   onActivate(name: string, event: Event) {

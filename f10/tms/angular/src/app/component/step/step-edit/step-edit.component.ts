@@ -581,8 +581,8 @@ btnDisabledAddCancelStep: boolean;
     let value: number;
     let valueLabel: string;
     if ( DbmSettings.INT_ACI_TYPE === Number.parseInt(this.txtClassId) ) {
-      initValue = this.aciInitValue;
-      value = this.aciValue;
+      initValue = Number.parseFloat(this.aciInitValue);
+      value = Number.parseFloat(this.aciValue);
       valueLabel = '' + value;
     } else if (DbmSettings.INT_DCI_TYPE === Number.parseInt(this.txtClassId) ) {
       initValue = Number.parseInt(this.dciInitValue);
@@ -662,10 +662,10 @@ btnDisabledAddCancelStep: boolean;
     this.txtUnivname = '';
     this.txtEVName = '';
 
-    this.aciInitValue = DacSimSettings.INT_ACI_DEFAULT_VALUE;
-    this.aciValue = DacSimSettings.INT_ACI_DEFAULT_VALUE;
-    this.dciInitValue = '' + DacSimSettings.INT_DCI_DEFAULT_VALUE;
-    this.dciValue = '' + DacSimSettings.INT_DCI_DEFAULT_VALUE;
+    this.aciInitValue = '' + StepEditSettings.INT_ACI_DEFAULT_VALUE;
+    this.aciValue = '' + StepEditSettings.INT_ACI_DEFAULT_VALUE;
+    this.dciInitValue = '' + StepEditSettings.INT_DCI_DEFAULT_VALUE;
+    this.dciValue = '' + StepEditSettings.INT_DCI_DEFAULT_VALUE;
   }
 
   btnClicked(btnLabel: string, event?: Event) {

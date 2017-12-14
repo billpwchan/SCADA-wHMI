@@ -233,6 +233,12 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
       case 'loadfile': {
         this.loadFile(event);
       } break;
+      case 'disableImportMsg': {
+        this.disableImportMsg = true;
+      } break;
+      case 'disableExportMsg': {
+        this.disableExportMsg = true;
+      } break;
     }
 
     // this.sendNotifyParent(btnLabel);

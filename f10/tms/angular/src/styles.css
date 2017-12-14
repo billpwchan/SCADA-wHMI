@@ -39,7 +39,7 @@ html, body {
     background-color: rgba(0, 0, 0, 0.05);
  }
  .ngx-datatable.bootstrap .datatable-body .datatable-body-row .datatable-body-cell {
-    text-align: left;
+    text-align: center;
     vertical-align: top;
  }
  .ngx-datatable.bootstrap .datatable-body .datatable-body-row.active {

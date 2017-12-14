@@ -43,11 +43,11 @@ export class Equipment {
 
 export enum StepType {
   UNKNOW = 0
-  , STOP
+  , STOPPED
   , START
   , STOP_RUNNING
   , START_RUNNING
-  , STOP_FAILED
+  , STOPPED_FAILED
   , START_FAILED
 }
 
@@ -65,12 +65,12 @@ export class Step {
 
 export enum CardType {
   UNKNOW = 0
-  , STOP
-  , START
+  , STOPPED
+  , STARTED
   , STOP_RUNNING
   , START_RUNNING
-  , START_PAUSE
-  , STOP_PAUSE
+  , START_PAUSED
+  , STOP_PAUSED
 }
 
 /**

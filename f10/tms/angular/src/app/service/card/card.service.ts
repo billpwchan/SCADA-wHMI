@@ -54,7 +54,7 @@ export class CardService {
         const step: Step = this.getCard([item.cardId]).steps[item.stepId];
         if ( null != step ) {
           console.log(this.c, f, 'item.execType', item.execType);
-          if ( DacSimExecType.START == item.execType ) {
+          if ( DacSimExecType.START === item.execType ) {
             switch (item.ret) {
               case ExecResult.INIT: {
                 step.state = StepType.START_RUNNING;
@@ -69,7 +69,7 @@ export class CardService {
                 step.state = StepType.START_FAILED;
               } break;
             }
-          } else if ( DacSimExecType.STOP == item.execType ) {
+          } else if ( DacSimExecType.STOP === item.execType ) {
             switch (item.ret) {
               case ExecResult.INIT: {
                 step.state = StepType.STOP_RUNNING;
@@ -78,10 +78,10 @@ export class CardService {
                 step.state = StepType.STOP_RUNNING;
               } break;
               case ExecResult.FINISH: {
-                step.state = StepType.STOP;
+                step.state = StepType.STOPPED;
               } break;
               case ExecResult.FAILED: {
-                step.state = StepType.STOP_FAILED;
+                step.state = StepType.STOPPED_FAILED;
               } break;
             }
           }
@@ -127,7 +127,7 @@ export class CardService {
   cardExists(cardId: string, stepId: number): CardExistsResult {
     let ret = CardExistsResult.UNKNOW;
     const card: Card = this.getCard([cardId]);
-    if ( undefined != card && null != card ) {
+    if ( card ) {
       ret = CardExistsResult.CARD_FOUND;
     } else {
       ret = CardExistsResult.CARD_NOT_FOUND;
@@ -281,17 +281,17 @@ export class CardService {
     const step = 0;
     let stepType = StepType.UNKNOW;
     if (
-      CardType.STOP_RUNNING == card.state
-      || CardType.STOP_PAUSE == card.state
-      || CardType.START == card.state) {
-        cardType = CardType.START;
+      CardType.STOP_RUNNING === card.state
+      || CardType.STOP_PAUSED === card.state
+      || CardType.STARTED === card.state) {
+        cardType = CardType.STARTED;
         stepType = StepType.START;
     } else if (
-      CardType.START_RUNNING == card.state
-      || CardType.START_PAUSE == card.state
-      || CardType.STOP == card.state) {
-      cardType = CardType.STOP;
-      stepType = StepType.STOP;
+      CardType.START_RUNNING === card.state
+      || CardType.START_PAUSED === card.state
+      || CardType.STOPPED === card.state) {
+      cardType = CardType.STOPPED;
+      stepType = StepType.STOPPED;
     }
 
     console.log(this.c, f, 'Target card.name[' + card.name + '] cardType[' + cardType + '] step[' + step + '] stepType[' + stepType + ']');
@@ -333,14 +333,15 @@ export class CardService {
       );
     });
 
-    const dacSimExe: DacSimExecution = new DacSimExecution(
-      stepType
-      , cardName
-      , stepId
-      , step.equipment.connAddr
-      , eivs
-      , ExecResult.INIT
-    );
+    const dacSimExe: DacSimExecution
+     = new DacSimExecution(
+                            stepType
+                            , cardName
+                            , stepId
+                            , step.equipment.connAddr
+                            , eivs
+                            , ExecResult.INIT
+                          );
 
     this.dacSimService.writeEv(dacSimExe);
   }
@@ -366,10 +367,10 @@ export class CardService {
         // Change the card status = pause
         switch (execCard.state) {
           case CardType.START_RUNNING: {
-            execCard.state = CardType.START_PAUSE;
+            execCard.state = CardType.START_PAUSED;
           } break;
           case CardType.STOP_RUNNING: {
-            execCard.state = CardType.STOP_PAUSE;
+            execCard.state = CardType.STOP_PAUSED;
           } break;
         }
 
@@ -382,10 +383,10 @@ export class CardService {
 
         let cardType: CardExecType = CardExecType.UNKNOW;
         switch (execCard.state) {
-          case CardType.START_PAUSE: {
+          case CardType.START_PAUSED: {
             cardType = CardExecType.START;
           } break;
-          case CardType.STOP_PAUSE: {
+          case CardType.STOP_PAUSED: {
             cardType = CardExecType.START;
           } break;
         }
@@ -408,19 +409,19 @@ export class CardService {
 
         if (
           (
-            CardType.START_PAUSE == execCard.state
-          || CardType.START_RUNNING == execCard.state
+            CardType.START_PAUSED === execCard.state
+          || CardType.START_RUNNING === execCard.state
           )
-          && CardExecType.STOP == execType
+          && CardExecType.STOP === execType
         ) {
           // Terminate
           this.executeCard(execCard.name, CardExecType.TERMINATE);
         } else if (
           (
-            CardType.STOP_PAUSE == execCard.state
-            || CardType.STOP_RUNNING ==  execCard.state
+            CardType.STOP_PAUSED === execCard.state
+            || CardType.STOP_RUNNING === execCard.state
           )
-          && CardExecType.START == execType
+          && CardExecType.START === execType
         ) {
           // Terminate
           this.executeCard(execCard.name, CardExecType.TERMINATE);
@@ -453,40 +454,45 @@ export class CardService {
 
           this.notifyUpdate(CardServiceType.CARD_UPDATED);
 
+          console.log(this.c, f, 'executeStep'
+                                , 'execCard.name', execCard.name
+                                , 'execCard.step', execCard.step
+                                , 'stepExecType', stepExecType);
           this.executeStep(execCard.name, execCard.step, stepExecType);
+
+          // Reading the delay
+          const timeout = execCard.steps[execCard.step].delay;
+          console.log(this.c, f, 'timeout[' + timeout + ']');
 
           // Update Step index
           execCard.step++;
 
-          const timeout = execCard.steps[execCard.step].delay;
-          console.log(this.c, f, 'timeout[' + timeout + ']');
           execCard.timer = Observable.interval(1000 * timeout).map((x) => {
-            console.log(this.c, f, 'map');
+            console.log(this.c, f, 'interval map');
 
 
           }).subscribe((x) => {
-            console.log(this.c, f, 'subscribe');
+            console.log(this.c, f, 'interval subscribe');
 
 
-            console.log(this.c, f, 'unsubscribe');
+            console.log(this.c, f, 'interval unsubscribe timer');
             execCard.timer.unsubscribe();
             execCard.timer = null;
 
-            console.log(this.c, f, 'reloadScenarioStep');
             this.cardChanged(CardServiceType.STEP_UPDATED);
 
-            console.log(this.c, f, 'executeCard');
+            console.log(this.c, f, 'executeCard', 'execCard.name', execCard.name, 'execType', execType);
             this.executeCard(execCard.name, execType);
           });
         } else {
-          console.log(this.c, f, 'end of the steps in the card');
+          console.log(this.c, f, 'end of steps', 'execCard.name', execCard.name, 'execType', execType);
 
           switch ( execType ) {
             case CardExecType.START: {
-              execCard.state = CardType.START;
+              execCard.state = CardType.STARTED;
             } break;
             case CardExecType.STOP: {
-              execCard.state = CardType.STOP;
+              execCard.state = CardType.STOPPED;
             } break;
           }
 

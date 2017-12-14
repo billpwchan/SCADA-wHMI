@@ -11,12 +11,12 @@ export class StepSettings {
     public static readonly STR_VALUE_PREFIX = 'value_prefix';
     public static readonly STR_DELAY_PREFIX = 'delay_prefix';
 
-    public static readonly STR_STEP_UNKNOW = '&steps_dg_step_unknow';
-    public static readonly STR_STEP_STOP = '&steps_dg_step_stop';
-    public static readonly STR_STEP_STOP_RUNNING = '&steps_dg_step_stop_running';
-    public static readonly STR_STEP_STOP_FAILD = '&steps_dg_step_stop_failed';
-    public static readonly STR_STEP_START = '&steps_dg_step_start';
-    public static readonly STR_STEP_START_RUNNING = '&steps_dg_step_start_running';
-    public static readonly STR_STEP_START_FAILD = '&steps_dg_step_start_failed';
+    public static readonly STR_STEP_GD_STATE_UNKNOW = '&steps_dg_status_unknow';
+    public static readonly STR_STEP_GD_STATE_STOPPED = '&steps_dg_status_stopped';
+    public static readonly STR_STEP_GD_STATE_STOP_RUNNING = '&steps_dg_status_stop_running';
+    public static readonly STR_STEP_GD_STATE_STOPPED_FAILDED = '&steps_dg_status_stopped_failed';
+    public static readonly STR_STEP_GD_STATE_STARTED = '&steps_dg_status_started';
+    public static readonly STR_STEP_GD_STATE_START_RUNNING = '&steps_dg_status_start_running';
+    public static readonly STR_STEP_GD_STATE_STARTED_FAILDED = '&steps_dg_status_started_failed';
 
 }

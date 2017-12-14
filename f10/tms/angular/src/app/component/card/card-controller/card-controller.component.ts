@@ -148,7 +148,7 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
     if ( card ) {
       console.log(this.c, f,  card.state);
       switch ( card.state ) {
-        case CardType.STOP: {
+        case CardType.STOPPED: {
           this.btnDisabledStart = false;
           this.btnDisabledPause = true;
           this.btnDisabledResume = true;
@@ -162,7 +162,7 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
           this.btnDisabledStop = false;
           // this.btnDisabledReset = true;
         } break;
-        case CardType.START: {
+        case CardType.STARTED: {
           this.btnDisabledStart = false;
           this.btnDisabledPause = true;
           this.btnDisabledResume = false;
@@ -176,7 +176,7 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
           this.btnDisabledStop = false;
           // this.btnDisabledReset = true;
         } break;
-        case CardType.START_PAUSE: {
+        case CardType.START_PAUSED: {
           this.btnDisabledStart = true;
           this.btnDisabledPause = true;
           this.btnDisabledResume = false;

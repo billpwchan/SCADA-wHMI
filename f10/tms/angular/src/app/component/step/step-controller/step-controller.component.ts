@@ -102,7 +102,7 @@ export class StepControllerComponent implements OnInit, OnDestroy, OnChanges {
 
     const step: Step = this.cardService.getStep(this.cardSelected, [this.stepSelected]);
     if ( null != step ) {
-      if ( StepType.STOP === step.state ) {
+      if ( StepType.STOPPED === step.state ) {
         this.btnDisabledStartStep = false;
         this.btnDisabledStopStep = true;
       } else if ( StepType.START === step.state ) {

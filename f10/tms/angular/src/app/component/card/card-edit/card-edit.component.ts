@@ -152,7 +152,7 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     this.cardService.getCards().push(
       new Card(
         name
-        , CardType.STOP
+        , CardType.STOPPED
         , 0
       ));
     this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);

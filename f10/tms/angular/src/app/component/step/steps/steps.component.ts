@@ -181,25 +181,25 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   private getStateStr(state: StepType): string {
     const f = 'getStateStr';
     console.log(this.c, f);
-    let ret: string = StepSettings.STR_STEP_UNKNOW;
+    let ret: string = StepSettings.STR_STEP_GD_STATE_UNKNOW;
     switch ( state ) {
       case StepType.START: {
-        ret = StepSettings.STR_STEP_START;
+        ret = StepSettings.STR_STEP_GD_STATE_STARTED;
       } break;
       case StepType.START_FAILED: {
-        ret = StepSettings.STR_STEP_START_FAILD;
+        ret = StepSettings.STR_STEP_GD_STATE_STARTED_FAILDED;
       } break;
       case StepType.START_RUNNING: {
-        ret = StepSettings.STR_STEP_START_RUNNING;
+        ret = StepSettings.STR_STEP_GD_STATE_START_RUNNING;
       } break;
-      case StepType.STOP: {
-        ret = StepSettings.STR_STEP_STOP;
+      case StepType.STOPPED: {
+        ret = StepSettings.STR_STEP_GD_STATE_STOPPED;
       } break;
-      case StepType.STOP_FAILED: {
-        ret = StepSettings.STR_STEP_STOP_FAILD;
+      case StepType.STOPPED_FAILED: {
+        ret = StepSettings.STR_STEP_GD_STATE_STOPPED_FAILDED;
       } break;
       case StepType.STOP_RUNNING: {
-        ret = StepSettings.STR_STEP_STOP_RUNNING;
+        ret = StepSettings.STR_STEP_GD_STATE_STOP_RUNNING;
       } break;
     }
     return ret;

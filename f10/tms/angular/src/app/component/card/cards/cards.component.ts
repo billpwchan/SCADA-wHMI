@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, OnChanges, EventEmitter, Output, SimpleChanges, Input, ViewChild } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { CardService } from '../../../service/card/card.service';
-import { Card, CardType } from '../../../model/Scenario';
+import { Card, CardType, StepType } from '../../../model/Scenario';
 import { DatatableCard } from '../../../model/DatatableScenario';
 import { AppSettings } from '../../../app-settings';
 import { CardsSettings } from './cards-settings';
@@ -24,10 +24,9 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
   public static readonly STR_INIT = AppSettings.STR_INIT;
   public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
   public static readonly STR_CARD_SELECTED = AppSettings.STR_CARD_SELECTED;
+  public static readonly STR_CARD_UPDATED  = AppSettings.STR_CARD_UPDATED;
   public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
-
-  public static readonly STR_RELOAD_CARD = 'reloadcard';
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
@@ -71,10 +70,16 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
       console.log(this.c, f, 'cardSubscription', item);
       switch (item) {
         case CardServiceType.CARD_RELOADED: {
-          this.btnClicked(CardsComponent.STR_RELOAD_CARD);
+          this.btnClicked(CardsComponent.STR_CARD_RELOADED);
         } break;
         case CardServiceType.CARD_UPDATED: {
-          this.reloadCards(true);
+          this.btnClicked(CardsComponent.STR_CARD_UPDATED);
+        } break;
+        case CardServiceType.STEP_UPDATED: {
+          this.btnClicked(CardsComponent.STR_CARD_UPDATED);
+        } break;
+        case CardServiceType.STEP_RELOADED: {
+          this.btnClicked(CardsComponent.STR_CARD_UPDATED);
         } break;
       }
     });
@@ -130,26 +135,57 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     };
   }
 
-  private getCardTypeStr(cardType: CardType): string {
-    const f = 'getCardTypeStr';
-    console.log(this.c, f, cardType);
+  private isStoppedPartial ( card: Card ): boolean {
+    let ret = false;
+    card.steps.forEach(item => {
+      if (
+        StepType.START === item.state
+        || StepType.START_FAILED === item.state
+      ) {
+        ret = true;
+      }
+    });
+    return ret;
+  }
+  private isStartedPartial ( card: Card ): boolean {
+    let ret = false;
+    card.steps.forEach(item => {
+      if (
+        StepType.STOPPED === item.state
+        || StepType.STOPPED_FAILED === item.state
+      ) {
+        ret = true;
+      }
+    });
+    return ret;
+  }
 
-    let ret = CardsSettings.STR_CARD_UNKNOW;
-    switch (cardType) {
-      case CardType.STOP: {
-        ret = CardsSettings.STR_CARD_STOP;
+  private getCardTypeStr(card: Card): string {
+    const f = 'getCardTypeStr';
+    console.log(this.c, f, card.state);
+
+    let ret = CardsSettings.STR_CARD_DG_STATE_UNKNOW;
+    switch (card.state) {
+      case CardType.STOPPED: {
+        ret = CardsSettings.STR_CARD_DG_STATE_STOPPED;
+        if ( this.isStoppedPartial(card) ) {
+          ret = CardsSettings.STR_CARD_DG_STATE_STOPPED_PARTIAL;
+        }
       } break;
       case CardType.STOP_RUNNING: {
-        ret = CardsSettings.STR_CARD_STOP_RUNNING;
+        ret = CardsSettings.STR_CARD_DG_STATE_STOP_RUNNING;
       } break;
-      case CardType.START: {
-        ret = CardsSettings.STR_CARD_START;
+      case CardType.STARTED: {
+        ret = CardsSettings.STR_CARD_DG_STATE_STARTED;
+        if ( this.isStartedPartial(card) ) {
+          ret = CardsSettings.STR_CARD_DG_STATE_STOPPED_PARTIAL;
+        }
       } break;
       case CardType.START_RUNNING: {
-        ret = CardsSettings.STR_CARD_START_RUNNING;
+        ret = CardsSettings.STR_CARD_DG_STATE_START_RUNNING;
       } break;
-      case CardType.START_PAUSE: {
-        ret = CardsSettings.STR_CARD_PAUSE;
+      case CardType.START_PAUSED: {
+        ret = CardsSettings.STR_CARD_DG_STATE_PAUSE;
       } break;
     }
     return ret;
@@ -168,7 +204,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
       this.rows_card.push(
         new DatatableCard(
           item.name
-          , this.getCardTypeStr(item.state)
+          , this.getCardTypeStr(item)
         )
       );
     });
@@ -250,11 +286,14 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
       case CardsComponent.STR_INIT: {
         this.init();
       } break;
-      case CardsComponent.STR_RELOAD_CARD: {
+      case CardsComponent.STR_CARD_RELOADED: {
         this.reloadCards();
       } break;
       case CardsComponent.STR_CARD_SELECTED: {
         this.setSelectedCards();
+      } break;
+      case CardsComponent.STR_CARD_UPDATED: {
+        this.reloadCards(true);
       } break;
     }
     this.sendNotifyParent(btnLabel);

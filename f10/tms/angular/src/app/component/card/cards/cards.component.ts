@@ -296,6 +296,6 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
         this.reloadCards(true);
       } break;
     }
-    this.sendNotifyParent(btnLabel);
+    // this.sendNotifyParent(btnLabel);
   }
 }

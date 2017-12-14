@@ -194,4 +194,16 @@
 	, "&importexport_btn_importcsv_title": "Import CSV file as current scenario(s)."
 	, "&importexport_import_message": "Imported scenario(s):"
 
+	, "location_": "UNKNOW"
+	, "location_1": "M000001"
+	, "location_2": "M000002"
+	, "location_100000": "M100000"
+
+	, "function_": "UNKNOW"
+	, "function_1": "TPS"
+	, "function_2": "PSD"
+	, "function_3": "TVS"
+	, "function_4": "SIG"
+	, "function_8": "ECT"
+	, "function_99": "MCS"
 }

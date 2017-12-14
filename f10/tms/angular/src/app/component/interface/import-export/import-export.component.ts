@@ -235,7 +235,7 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
       } break;
     }
 
-    this.sendNotifyParent(btnLabel);
+    // this.sendNotifyParent(btnLabel);
   }
 }
 

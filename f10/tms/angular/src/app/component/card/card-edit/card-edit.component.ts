@@ -350,6 +350,6 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
       } break;
     }
 
-    this.sendNotifyParent(btnLabel);
+    // this.sendNotifyParent(btnLabel);
   }
 }

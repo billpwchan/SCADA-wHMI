@@ -174,6 +174,6 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
       } break;
     }
 
-    this.sendNotifyParent(btnLabel);
+    // this.sendNotifyParent(btnLabel);
   }
 }

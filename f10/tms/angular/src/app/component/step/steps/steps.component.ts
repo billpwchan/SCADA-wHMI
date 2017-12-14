@@ -306,6 +306,6 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
         this.reloadSteps(false);
       } break;
     }
-    this.sendNotifyParent(btnLabel);
+    // this.sendNotifyParent(btnLabel);
   }
 }

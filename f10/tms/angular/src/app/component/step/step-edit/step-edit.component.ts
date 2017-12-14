@@ -724,6 +724,6 @@ btnDisabledAddCancelStep: boolean;
         this.init();
       } break;
     }
-    this.sendNotifyParent(btnLabel);
+    // this.sendNotifyParent(btnLabel);
   }
 }

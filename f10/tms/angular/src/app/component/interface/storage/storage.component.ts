@@ -193,6 +193,6 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
         this.disableLoadFromStorageConfirmMsg = true;
       } break;
     }
-    this.sendNotifyParent(btnLabel);
+    // this.sendNotifyParent(btnLabel);
   }
 }

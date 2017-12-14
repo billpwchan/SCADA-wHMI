@@ -474,7 +474,6 @@ export class CardService {
           }).subscribe((x) => {
             console.log(this.c, f, 'interval subscribe');
 
-
             console.log(this.c, f, 'interval unsubscribe timer');
             execCard.timer.unsubscribe();
             execCard.timer = null;

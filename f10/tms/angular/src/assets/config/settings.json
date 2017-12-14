@@ -13,16 +13,16 @@
   , "StepsComponent": {
       "step_prefix": ""
       , "step_base": "1"
-      , "geo_prefix": "&geo_"
-      , "func_prefix": "&func_"
+      , "geo_prefix": "location_"
+      , "func_prefix": "function_"
       , "eqplabel_prefix": ""
       , "pointlabel_prefix": ""
       , "value_prefix": ""
       , "delay_prefix": ""
   }
   , "StepEditComponent": {
-      "geo_prefix": "&geo_"
-      , "func_prefix": "&func_"
+      "geo_prefix": "location_"
+      , "func_prefix": "function_"
       , "eqplabel_prefix": ""
       , "pointlabel_prefix": ""
       , "value_prefix": ""

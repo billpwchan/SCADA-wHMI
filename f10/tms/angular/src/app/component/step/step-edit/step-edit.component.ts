@@ -45,6 +45,9 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
   public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
+  public static readonly STR_ACI_SELECTED   = 'aciselected';
+  public static readonly STR_DCI_SELECTED   = 'dciselected';
+
   public static readonly STR_NEWSTEP = 'newstep';
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
@@ -122,6 +125,8 @@ editEnableDelay = false;
 
   selDelay: number;
   selOptDelay: Array<SelOptNum> = new Array<SelOptNum>();
+
+btnDisabledAddCancelStep: boolean;
 
   private geoPrefix: string;
   private funcPrefix: string;
@@ -201,25 +206,19 @@ editEnableDelay = false;
       .subscribe(item => {
         console.log(this.c, f, 'dbmSubscription', item);
 
-        if ( 'retriveClassId' == item ) {
+        if ( 'retriveClassId' === item ) {
           this.txtClassId = this.dbmService.getRetriveClassIdData(this.selEnv, this.txtUnivname);
-        } else if ( 'retriveAcquiredDataAttributeFormulas' == item ) {
+        } else if ( 'retriveAcquiredDataAttributeFormulas' === item ) {
           const formulas: string = this.dbmService.getRetriveAcquiredDataAttributeFormulasData(this.selEnv, this.txtUnivname);
           if ( null != formulas && formulas.length > 0 ) {
             // Is acquired data equipment
             if ( DbmSettings.STR_FORMULAS_ACQ_SINGLE === formulas[0] ) {
-              if ( DbmSettings.INT_ACI_TYPE == this.txtClassId) {
-                this.editEnableCancelStep = false;
-                this.editEnableAddAciStep = true;
-                this.editEnableAddDciStep = false;
-                this.editEnableDelay = true;
-                this.dbmService.retriveAci(this.selEnv, this.txtUnivname);
-              } else if ( DbmSettings.INT_DCI_TYPE == this.txtClassId ) {
-                this.editEnableCancelStep = false;
-                this.editEnableAddAciStep = false;
-                this.editEnableAddDciStep = true;
-                this.editEnableDelay = true;
-                this.dbmService.retriveDci(this.selEnv, this.txtUnivname);
+              if ( DbmSettings.INT_ACI_TYPE === this.txtClassId) {
+
+                this.btnClicked(StepEditComponent.STR_ACI_SELECTED);
+              } else if ( DbmSettings.INT_DCI_TYPE === this.txtClassId ) {
+
+                this.btnClicked(StepEditComponent.STR_DCI_SELECTED);
               }
             } else {
               // Prompt the user this is not a single acquired data equipment
@@ -231,7 +230,7 @@ editEnableDelay = false;
             const msg = 'Selected Equipment point is not an acquired data equipment (Without AAC/DAC)';
             console.log(this.c, f, msg);
           }
-        } else if ( 'retriveDci' == item ) {
+        } else if ( 'retriveDci' === item ) {
           const dbvalue = this.dbmService.getRetriveDciData(this.selEnv, this.txtUnivname);
           const evname: string = dbvalue[0][0];
           const initValue: number = dbvalue[1];
@@ -261,7 +260,7 @@ editEnableDelay = false;
           if ( null != initValue ) {
             this.dciInitValue = initValue;
           }
-        } else if ( 'retriveAci' == item ) {
+        } else if ( 'retriveAci' === item ) {
           const dbvalue = this.dbmService.getRetriveAciData(this.selEnv, this.txtUnivname);
           const evname: string = dbvalue[0][0];
           if ( null != evname ) {
@@ -341,7 +340,7 @@ editEnableDelay = false;
     ));
 
     console.log(this.c, f, 'this.envs', this.envs);
-    if ( undefined != this.envs && null != this.envs ) {
+    if (  this.envs ) {
       this.envs.forEach((item, index) => {
         this.selOptEnv.push(
           new SelOptStr(
@@ -457,15 +456,15 @@ editEnableDelay = false;
         // console.log(this.c, f, 'item', item);
 
           if (
-              item1[OlsSettings.STR_ATTR_GEO] == this.selGeo
-              && item1[OlsSettings.STR_ATTR_FUNC] == this.selFunc ) {
+              item1[OlsSettings.STR_ATTR_GEO] === this.selGeo
+              && item1[OlsSettings.STR_ATTR_FUNC] === this.selFunc ) {
 
             const eqplabel = item1[OlsSettings.STR_ATTR_EQPLABEL];
             // console.log(this.c, f, 'Added', eqplabel);
 
             let found = false;
             this.selOptEqpLabel.forEach( item2 => {
-              if ( item2.value == eqplabel ) {
+              if ( item2.value === eqplabel ) {
                 found = true;
                 return;
               }
@@ -490,15 +489,15 @@ editEnableDelay = false;
         pointData.get(this.selEnv).forEach((item1, index) => {
 
           if (
-            item1[OlsSettings.STR_ATTR_GEO] == this.selGeo
-            && item1[OlsSettings.STR_ATTR_FUNC] == this.selFunc
-            && item1[OlsSettings.STR_ATTR_EQPLABEL] == this.selEqpLabel ) {
+            item1[OlsSettings.STR_ATTR_GEO] === this.selGeo
+            && item1[OlsSettings.STR_ATTR_FUNC] === this.selFunc
+            && item1[OlsSettings.STR_ATTR_EQPLABEL] === this.selEqpLabel ) {
 
             const pointlabel = item1[OlsSettings.STR_ATTR_POINTLABEL];
 
             let found = false;
             this.selOptPointLabel.forEach( item2 => {
-              if ( item2.value == pointlabel ) {
+              if ( item2.value === pointlabel ) {
                 found = true;
                 return;
               }
@@ -522,10 +521,10 @@ editEnableDelay = false;
         pointData.get(this.selEnv).forEach((item, index) => {
 
           if (
-            item[OlsSettings.STR_ATTR_GEO] == this.selGeo
-            && item[OlsSettings.STR_ATTR_FUNC] == this.selFunc
-            && item[OlsSettings.STR_ATTR_EQPLABEL] == this.selEqpLabel
-            && item[OlsSettings.STR_ATTR_POINTLABEL] == this.selPointLabel
+            item[OlsSettings.STR_ATTR_GEO] === this.selGeo
+            && item[OlsSettings.STR_ATTR_FUNC] === this.selFunc
+            && item[OlsSettings.STR_ATTR_EQPLABEL] === this.selEqpLabel
+            && item[OlsSettings.STR_ATTR_POINTLABEL] === this.selPointLabel
             ) {
 
             this.txtUnivname = item[OlsSettings.STR_ATTR_UNIVNAME];
@@ -537,7 +536,7 @@ editEnableDelay = false;
       break;
 
       case 'selDciValue': {
-        if ( this.selDciValue != -1 ) {
+        if ( this.selDciValue !== -1 ) {
           this.btnDisabledAddDciStep = false;
         } else {
           this.btnDisabledAddDciStep = true;
@@ -552,7 +551,7 @@ editEnableDelay = false;
     console.log(this.c, f);
     if ( name === 'aciValue' ) {
       try {
-        if ( +this.aciValue != NaN ) {
+        if ( +this.aciValue !== NaN ) {
           this.btnDisabledAddAciStep = false;
         } else {
           this.btnDisabledAddAciStep = true;
@@ -637,6 +636,9 @@ editEnableDelay = false;
 
     this.editEnableCancelStep = true;
 
+    this.editEnableAddAciStep = false;
+    this.editEnableAddDciStep = false;
+
     this.btnDisabledAddAciStep = true;
     this.btnDisabledAddDciStep = true;
     this.btnDisabledAddAciCancelStep = false;
@@ -688,24 +690,38 @@ editEnableDelay = false;
       case StepEditComponent.STR_STEP_SELECTED: {
         this.selectedStepId = this.selectionService.getSelectedStepId();
       } break;
+      case StepEditComponent.STR_ACI_SELECTED: {
+        this.editEnableCancelStep = false;
+        this.editEnableAddAciStep = true;
+        this.editEnableAddDciStep = false;
+        this.editEnableDelay = true;
+        this.dbmService.retriveAci(this.selEnv, this.txtUnivname);
+      } break;
+      case StepEditComponent.STR_DCI_SELECTED: {
+        this.editEnableCancelStep = false;
+        this.editEnableAddAciStep = false;
+        this.editEnableAddDciStep = true;
+        this.editEnableDelay = true;
+        this.dbmService.retriveDci(this.selEnv, this.txtUnivname);
+      } break;
       case 'addcancelstep': {
-        this.editEnableNewStep = false;
+        this.init();
       } break;
       case 'addacistep': {
         this.addStep();
         this.cardService.notifyUpdate(CardServiceType.STEP_RELOADED);
-        this.editEnableNewStep = false;
+        this.init();
       } break;
       case 'adddcistep': {
         this.addStep();
         this.cardService.notifyUpdate(CardServiceType.STEP_RELOADED);
-        this.editEnableNewStep = false;
+        this.init();
       } break;
       case 'addacicancelstep': {
-        this.editEnableNewStep = false;
+        this.init();
       } break;
       case 'adddcicancelstep': {
-        this.editEnableNewStep = false;
+        this.init();
       } break;
     }
     this.sendNotifyParent(btnLabel);

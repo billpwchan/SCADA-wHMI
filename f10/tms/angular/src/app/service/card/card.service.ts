@@ -51,7 +51,7 @@ export class CardService {
       console.log(this.c, f, 'item.ret', item.ret);
 
       if ( this.stepExists(item.cardId, item.stepId) === StepExistsResult.STEP_FOUND ) {
-        const step: Step = this.getCard([item.cardId]).steps[item.stepId]
+        const step: Step = this.getCard([item.cardId]).steps[item.stepId];
         if ( null != step ) {
           console.log(this.c, f, 'item.execType', item.execType);
           if ( DacSimExecType.START == item.execType ) {

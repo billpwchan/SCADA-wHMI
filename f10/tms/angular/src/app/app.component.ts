@@ -10,7 +10,7 @@ import { StepEditSettings } from './component/step/step-edit/step-edit-settings'
 import { CardServiceType } from './service/card/card-settings';
 import { AppSettings } from './app-settings';
 import { Cookie } from 'ng2-cookies';
-import { I18nSettings } from './i18n-settings';
+import { I18nSettings } from './service/i18n-settings';
 
 @Component({
   selector: 'app-root'

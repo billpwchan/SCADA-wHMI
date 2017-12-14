@@ -18,7 +18,7 @@ export class CsvToCardsPipe implements PipeTransform {
 
   private getEV(evs: Execution[], id: string): Execution {
     for ( let i = 0 ; i < evs.length ; ++i ) {
-      if ( evs[i].name == id ) {
+      if ( evs[i].name === id ) {
         return evs[i];
       }
     }
@@ -27,7 +27,7 @@ export class CsvToCardsPipe implements PipeTransform {
 
   private getStep(steps: Step[], id: number): Step {
     for ( let i = 0 ; i < steps.length ; ++i ) {
-      if ( steps[i].step == id ) {
+      if ( steps[i].step === id ) {
         return steps[i];
       }
     }
@@ -36,7 +36,7 @@ export class CsvToCardsPipe implements PipeTransform {
 
   private getCard(cards: Card[], id: string): Card {
     for ( let i = 0 ; i < cards.length ; ++i ) {
-      if ( cards[i].name == id ) {
+      if ( cards[i].name === id ) {
         return cards[i];
       }
     }

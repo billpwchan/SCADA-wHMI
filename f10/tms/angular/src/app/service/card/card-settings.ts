@@ -1,5 +1,5 @@
-export class CardsSetting {
-    
+export class CardServiceSetting {
+
 }
 
 export enum CardExistsResult {

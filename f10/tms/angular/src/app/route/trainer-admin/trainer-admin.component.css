@@ -9,6 +9,10 @@
     width: 35%;
     height: 100%;
     margin: 5px 5px 5px 5px;
+
+    border-radius: 10px;
+    border: 1px solid rgba(229,229,229,229);
+    padding: 20px;
 }
 
 .div-trainer-admin-left-top {
@@ -35,6 +39,10 @@
     width: 65%;
     height: 100%;
     margin: 5px 5px 5px 5px;
+
+    border-radius: 10px;
+    border: 1px solid rgba(229,229,229,229);
+    padding: 20px;
 }
 
 .div-trainer-admin-right-top {

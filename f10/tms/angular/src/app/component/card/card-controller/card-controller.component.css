@@ -3,7 +3,7 @@
 }
 
 .lbl-card-controller {
-    width: 90px;
+    width: 60px;
 }
 
 .btn-card-controller-start
@@ -11,6 +11,6 @@
 , .btn-card-controller-resume
 , .btn-card-controller-stop
 , .btn-card-controller-reset {
-    width: 80px;
+    width: 75px;
     margin: 5px 2px 5px 2px;
 }

@@ -7,11 +7,11 @@
 }
 
 .lbl-step-controller-execution {
-    width: 90px;
+    width: 160px;
 }
 
 .btn-step-contoller-startstep
 , .btn-step-contoller-stopstep {
-    width: 80px;
+    width: 75px;
     margin: 5px 2px 5px 2px;
 }

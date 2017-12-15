@@ -1,11 +1,11 @@
 .lbl-storage-scenario {
-    width: 90px;
+    width: 60px;
 }
 
 .btn-storage-savescenario
 , .btn-storage-reloadscenario
 , .btn-storage-confirm
 , .btn-storage-cancel {
-    width: 80px;
+    width: 75px;
     margin: 5px 2px 5px 2px;
 }

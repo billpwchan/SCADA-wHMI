@@ -6,7 +6,7 @@
 
 	, "&trainee_page": "trainee page"
 	
-	, "&cards_title": "Scenario Card"
+	, "&cards_title": "Scenario List"
 
 	, "&cards_gd_header_name": "Name"
 	, "&cards_gd_header_state": "State"
@@ -25,7 +25,7 @@
 	, "&cards_dg_footer_spliter": " / "
 	, "&cards_dg_footer_totalmessage": " total"
 	
-	, "&cards_lbl_modify": "Modify Card"
+	, "&cards_lbl_modify": "Modify"
 	, "&cards_btn_new": "New"
 	, "&cards_btn_new_title": "Add a new scenario."
 	, "&cards_btn_modify": "Modify"
@@ -58,7 +58,7 @@
 	, "&cards_lbl_length_too_short": "Name contain too less character"
 	, "&cards_lbl_length_too_long": "Name containe too much character"
 
-	, "&card_controller_lbl_execute": "Execute Card"
+	, "&card_controller_lbl_execute": "Execute"
 	, "&card_controller_btn_start": "Start"
 	, "&card_controller_btn_start_title": "Start selected scanerio execution."
 	, "&card_controller_btn_pause": "Pause"
@@ -155,7 +155,7 @@
 	, "&step_btn_add_dcicancelstep_title": "Cacnel the add a step to card"
 
 	, "&step_lbl_executeion_step": "Execute Step"
-	, "&step_lbl_executeion": "Execute Step"
+	, "&step_lbl_executeion": "Execute Selection Step"
 
 	, "&scenario": "Scenario(s)"
 
@@ -164,7 +164,7 @@
 	, "&step_btn_stopstep": "Stop"
 	, "&step_btn_stopstep_placeholder": "Stop a selected Step execution."
 
-	, "&storage_lbl_scenario": "Scenario(s)"
+	, "&storage_lbl_scenario": "Storage"
 
 	, "&storage_btn_save": "Save"
 	, "&storage_btn_save_title": "Save Scenario(s) into storage."
@@ -185,7 +185,7 @@
 	, "&storage_info_modifycardsnotsavedfailed_title": "Save the modified setting failed."
 	, "&storage_info_modifycardsnotsavedfailed_close": " x "
 
-	, "&storage_info_confirmtosavecards_title": "Current setting will be overwrite."
+	, "&storage_info_confirmtosavecards_title": "Overwrite current setting(s)."
 
 	, "&storage_info_confirmtosavecardssuccess_title": "Reload scenario from storage success."
 	, "&storage_info_confirmtosavecardssuccess_close": " x "

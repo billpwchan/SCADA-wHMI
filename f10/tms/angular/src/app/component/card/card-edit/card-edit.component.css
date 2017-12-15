@@ -16,7 +16,7 @@
 , .btn-card-edit-modify
 , .btn-card-edit-delete
 , .btn-card-edit-copy {
-    width: 80px;
+    width: 75px;
     margin: 5px 2px 5px 2px;
 }
 
@@ -30,6 +30,6 @@
 , .btn-card-edit-newaddcancel
 , .btn-card-edit-save
 , .btn-card-edit-cancel {
-    width: 80px;
+    width: 75px;
     margin: 2px 1px 2px 1px;
 }

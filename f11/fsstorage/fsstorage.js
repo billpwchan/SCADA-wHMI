@@ -14,11 +14,14 @@ STR_FILEPATH="filepath"
 ,STR_DATA="data"
 ,STR_STORAGE_FOLDER="storage";
 
+const STR_CONTENT_TYPE = 'Content-Type';
+const STR_CONTENT_TYPE_DATA = 'application/json; charset=utf-8';
+
 const storagePath=__dirname+path.sep+STR_STORAGE_FOLDER;
 const cmdPath=process.cwd();
 
 /* response file*/
-function loadFile(pathname,res) {
+function readFile(pathname,res) {
   console.log("loadFile pathname[",pathname,"]");
   
   // Conver to fullpath
@@ -33,12 +36,17 @@ function loadFile(pathname,res) {
     fs.exists(full_path, function (exists) {
       if (!exists) {
         // File Not Found
-        res.writeHeader(404, { "Content-Type": "text/plain" });
-        res.write("404 Not Found\n");
-        res.end();
+        res.writeHeader(404, { STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA });
+        let json = {};
+        json['filepath'] = pathname;
+        json['data'] = '404 Not Found';
+        res.write(JSON.stringify(json) + "\n");
+        res.end(); 
       }
       else {
-        fs.readFile(full_path, "binary", function (err, file) {
+        fs.readFile(full_path, 'utf8', function (err, data) {
+          // console.log('data[',data,']');
+
           if (!err) {
             // Response with data
             let base_name=path.basename(full_path);
@@ -47,14 +55,14 @@ function loadFile(pathname,res) {
 
             let json = {};
             json['filepath'] = base_name;
-            json['data'] = file;
+            json['data'] = data;
 
-            res.writeHead(200, {"Content-Type": "application/json"});
+            res.writeHead(200, {STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA});
             res.end(JSON.stringify(json));
           }
           else {
             // Reading Error
-            res.writeHead(500, {"Content-Type": "application/json"});
+            res.writeHead(500, {STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA});
             let json = {};
             json['filepath'] = base_name;
             json['data'] = err;
@@ -67,9 +75,12 @@ function loadFile(pathname,res) {
   } else {
     console.log("Outside storage path");
     //Outside storage path
-    res.writeHeader(500, { "Content-Type": "text/plain" });
-    res.write("outside storage path\n");
-    res.end();
+    res.writeHeader(500, { STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA });
+    let json = {};
+    json['filepath'] = pathname;
+    json['data'] = 'Outside storage path';
+    res.write(JSON.stringify(json) + "\n");
+    res.end(); 
   }
 }
 
@@ -88,7 +99,7 @@ function savefile(pathname,data,res) {
     fs.writeFile(full_path, data, function(err) {
       if(!err) {
         console.log("The file was saved!");
-        res.writeHead(200, {"Content-Type": "application/json"});
+        res.writeHead(200, {STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA});
         let json = {};
         json['filepath'] = pathname;
         json['data'] = 'done';
@@ -96,7 +107,7 @@ function savefile(pathname,data,res) {
         res.end();        
       } else {
         // Write File Error
-        res.writeHead(500, {"Content-Type": "application/json"});
+        res.writeHead(500, {STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA});
         let json = {};
         json['filepath'] = pathname;
         json['data'] = err;
@@ -107,7 +118,7 @@ function savefile(pathname,data,res) {
   } else {
     console.log("Outside storage path");
     //Outside storage path
-    res.writeHead(500, {"Content-Type": "application/json"});
+    res.writeHead(500, {STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA});
     let json = {};
     json['filepath'] = pathname;
     json['data'] = 'Outside storage path';
@@ -170,7 +181,7 @@ http.createServer(function(req,res){
 
         filepath=json[STR_FILEPATH];
         data=json[STR_DATA];
-        console.log("filepath[",filepath,"] data[",data,"]");
+        // console.log("filepath[",filepath,"] data[",data,"]");
 
         if (null!=filepath&&null!=data){
           savefile(filepath,data,res);
@@ -189,7 +200,7 @@ http.createServer(function(req,res){
     filepath=query[STR_FILEPATH];
     console.log("filepath[",filepath,"]");
     if(filepath!=null){
-      loadFile(filepath,res);
+      readFile(filepath,res);
     }
   }
   else {

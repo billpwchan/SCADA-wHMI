@@ -144,7 +144,7 @@ export class StorageService {
     this.httpClient.post(
         url
         , JSON.stringify(bodydata)
-        , {headers: {'Content-Type': 'application/json'}}
+        , {headers: {'Content-Type': 'application/json; charset=utf-8'}}
       ).subscribe(
         res => {
           // console.log(this.c, f, res);

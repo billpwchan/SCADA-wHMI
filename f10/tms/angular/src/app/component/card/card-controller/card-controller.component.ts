@@ -106,13 +106,16 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
     );
     if ( null != card ) {
       let cardExecType: CardExecType = CardExecType.START;
+      let byPassTimer = false;
       if ( CardType.STARTED === card.state ) {
         cardExecType = CardExecType.STOP;
+        byPassTimer = true;
       }
       this.cardService.executeCard(
         card.name
         , cardExecType
-        , true);
+        , true
+        , byPassTimer);
     }
   }
 
@@ -123,7 +126,8 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
     this.cardService.executeCard(
       card.name
       , CardExecType.TERMINATE
-      , true);
+      , true
+      , false);
   }
 
   private pauseCard(): void {
@@ -134,7 +138,8 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
     this.cardService.executeCard(
       card.name
       , CardExecType.PAUSE
-      , true);
+      , true
+      , false);
   }
 
   private resumeCard(): void {
@@ -143,7 +148,9 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
 
     this.cardService.executeCard(
       this.selectionService.getSelectedCardId()
-      , CardExecType.RESUME);
+      , CardExecType.RESUME
+      , false
+      , false);
   }
 
   private resetCard(): void {

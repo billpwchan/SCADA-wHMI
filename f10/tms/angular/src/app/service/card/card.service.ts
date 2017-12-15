@@ -347,7 +347,7 @@ export class CardService {
     this.dacSimService.writeEv(dacSimExe);
   }
 
-  executeCard(cardName: string, execType: CardExecType, firstStep: boolean = false): void {
+  executeCard(cardName: string, execType: CardExecType, firstStep: boolean, byPassTimer: boolean): void {
     const f = 'executeCard';
     console.log(this.c, f);
     console.log(this.c, f, 'cardName[' + cardName + '] execType[' + execType + '] firstStep[' + firstStep + ']');
@@ -394,7 +394,7 @@ export class CardService {
 
         this.notifyUpdate(CardServiceType.CARD_UPDATED);
 
-        this.executeCard(cardName, cardType);
+        this.executeCard(cardName, cardType, firstStep, byPassTimer);
 
         stop = true;
       } else if ( execType === CardExecType.TERMINATE ) {
@@ -416,7 +416,7 @@ export class CardService {
           && CardExecType.STOP === execType
         ) {
           // Terminate
-          this.executeCard(execCard.name, CardExecType.TERMINATE);
+          this.executeCard(execCard.name, CardExecType.TERMINATE, firstStep, byPassTimer);
         } else if (
           (
             CardType.STOP_PAUSED === execCard.state
@@ -425,12 +425,13 @@ export class CardService {
           && CardExecType.START === execType
         ) {
           // Terminate
-          this.executeCard(execCard.name, CardExecType.TERMINATE);
+          this.executeCard(execCard.name, CardExecType.TERMINATE, firstStep, byPassTimer);
         }
 
         // Init
         if ( firstStep ) {
           execCard.step = 0;
+          firstStep = false;
         }
 
         let stepExecType: DacSimExecType = DacSimExecType.UNKNOW;
@@ -468,22 +469,31 @@ export class CardService {
           // Update Step index
           execCard.step++;
 
-          execCard.timer = Observable.interval(1000 * timeout).map((x) => {
-            console.log(this.c, f, 'interval map');
-
-
-          }).subscribe((x) => {
-            console.log(this.c, f, 'interval subscribe');
-
-            console.log(this.c, f, 'interval unsubscribe timer');
-            execCard.timer.unsubscribe();
-            execCard.timer = null;
+          if ( byPassTimer ) {
 
             this.cardChanged(CardServiceType.STEP_UPDATED);
 
             console.log(this.c, f, 'executeCard', 'execCard.name', execCard.name, 'execType', execType);
-            this.executeCard(execCard.name, execType);
-          });
+            this.executeCard(execCard.name, execType, firstStep, byPassTimer);
+          } else {
+
+            execCard.timer = Observable.interval(1000 * timeout).map((x) => {
+              console.log(this.c, f, 'interval map');
+
+            }).subscribe((x) => {
+              console.log(this.c, f, 'interval subscribe');
+
+              console.log(this.c, f, 'interval unsubscribe timer');
+              execCard.timer.unsubscribe();
+              execCard.timer = null;
+
+              this.cardChanged(CardServiceType.STEP_UPDATED);
+
+              console.log(this.c, f, 'executeCard', 'execCard.name', execCard.name, 'execType', execType);
+              this.executeCard(execCard.name, execType, firstStep, byPassTimer);
+            });
+          }
+
         } else {
           console.log(this.c, f, 'end of steps', 'execCard.name', execCard.name, 'execType', execType);
 

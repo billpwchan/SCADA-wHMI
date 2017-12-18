@@ -18,6 +18,7 @@
       </includes>
       <excludes>
         <exclude>scadagen-bps*.jar</exclude>
+		<exclude>scadagen-ba-comp*.jar</exclude>
         <exclude>scsapi*.jar</exclude>
         <exclude>scsba*.jar</exclude>
         <exclude>scsgenjsonapi*.jar</exclude>
@@ -31,6 +32,7 @@
       <outputDirectory>./ba_lib</outputDirectory>
       <includes>
         <include>scadagen-bps*.jar</include>
+		<include>scadagen-ba-comp*.jar</include>
         <include>scsapi*.jar</include>
         <include>scsba*.jar</include>
         <include>scsgenjsonapi*.jar</include>

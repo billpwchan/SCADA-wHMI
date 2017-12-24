@@ -39,6 +39,7 @@ export class CardsToCsvPipe implements PipeTransform {
         session2 += step.step;
         session2 += STR_COMMA + step.state;
         session2 += STR_COMMA + step.delay;
+        session2 += STR_COMMA + step.execute;
 
         const equipment: Equipment = step.equipment;
 

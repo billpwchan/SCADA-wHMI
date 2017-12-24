@@ -14,6 +14,7 @@ export enum TokenIndex {
   , STEP_STEP
   , STEP_STATE
   , STEP_DELAY
+  , STEP_EXECUTE
 
   , EQUIPMENT_CONNADDR
   , EQUIPMENT_UNIVNAME

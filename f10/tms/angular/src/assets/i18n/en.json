@@ -79,6 +79,7 @@
 	, "&steps_dg_header_point": "Point"
 	, "&steps_dg_header_value": "Value"
 	, "&steps_dg_header_delay": "Delay"
+	, "&steps_dg_header_execute": "Execute"
 	, "&steps_dg_header_status": "Status"
 
 	, "&steps_dg_status_unknow": "Unknow"

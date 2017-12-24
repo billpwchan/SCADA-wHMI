@@ -456,11 +456,17 @@ export class CardService {
 
           this.notifyUpdate(CardServiceType.CARD_UPDATED);
 
-          console.log(this.c, f, 'executeStep'
-                                , 'execCard.name', execCard.name
-                                , 'execCard.step', execCard.step
-                                , 'stepExecType', stepExecType);
-          this.executeStep(execCard.name, execCard.step, stepExecType);
+          if ( execCard.steps[execCard.step].execute ) {
+
+            console.log(this.c, f, 'executeStep'
+                                  , 'execCard.name', execCard.name
+                                  , 'execCard.step', execCard.step
+                                  , 'stepExecType', stepExecType);
+            this.executeStep(execCard.name, execCard.step, stepExecType);
+
+          } else {
+            console.log(this.c, f, 'executeCard', 'execCard.name', execCard.name, 'execType', execType, 'Step Skipped', execCard.step);
+          }
 
           // Reading the delay
           const timeout = execCard.steps[execCard.step].delay;
@@ -469,30 +475,23 @@ export class CardService {
           // Update Step index
           execCard.step++;
 
-          if ( byPassTimer ) {
+          const  interval = (byPassTimer ? 100 : 1000) * timeout;
+
+          execCard.timer = Observable.interval().map((x) => {
+            console.log(this.c, f, 'interval map');
+
+          }).subscribe((x) => {
+            console.log(this.c, f, 'interval subscribe');
+
+            console.log(this.c, f, 'interval unsubscribe timer');
+            execCard.timer.unsubscribe();
+            execCard.timer = null;
 
             this.cardChanged(CardServiceType.STEP_UPDATED);
 
             console.log(this.c, f, 'executeCard', 'execCard.name', execCard.name, 'execType', execType);
             this.executeCard(execCard.name, execType, firstStep, byPassTimer);
-          } else {
-
-            execCard.timer = Observable.interval(1000 * timeout).map((x) => {
-              console.log(this.c, f, 'interval map');
-
-            }).subscribe((x) => {
-              console.log(this.c, f, 'interval subscribe');
-
-              console.log(this.c, f, 'interval unsubscribe timer');
-              execCard.timer.unsubscribe();
-              execCard.timer = null;
-
-              this.cardChanged(CardServiceType.STEP_UPDATED);
-
-              console.log(this.c, f, 'executeCard', 'execCard.name', execCard.name, 'execType', execType);
-              this.executeCard(execCard.name, execType, firstStep, byPassTimer);
-            });
-          }
+          });
 
         } else {
           console.log(this.c, f, 'end of steps', 'execCard.name', execCard.name, 'execType', execType);

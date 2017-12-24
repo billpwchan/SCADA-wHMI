@@ -600,6 +600,7 @@ btnDisabledAddCancelStep: boolean;
       card.steps.length
       , StepType.STOPPED
       , Number(this.selDelay).valueOf()
+      , true
       , new Equipment(
         this.selEnv
         , this.txtUnivname

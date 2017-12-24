@@ -36,7 +36,7 @@
         (select)="onRowSelect('step', $event)"
         (activate)="onActivate('card', $event)"
         >
-        <ngx-datatable-column prop="num" name="Num" [sortable]='true'
+        <ngx-datatable-column prop="num" name="Num" [sortable]='false' [canAutoResize]="false"
           headerClass="is-gender" [cellClass]="getCellClass" [width]="25">
           <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
             <span (click)="sort()">{{ '&steps_dg_header_num' | translate }}</span>
@@ -45,7 +45,7 @@
             <strong>{{ value | translate }}</strong>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="location" name="Location" [sortable]='true'
+        <ngx-datatable-column prop="location" name="Location" [sortable]='false' [canAutoResize]="false"
           headerClass="is-gender" [cellClass]="getCellClass" [width]="80">
           <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
             <span (click)="sort()">{{ '&steps_dg_header_location' | translate }}</span>
@@ -54,7 +54,7 @@
             <strong>{{ value | translate }}</strong>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="system" name="System" [sortable]='true'
+        <ngx-datatable-column prop="system" name="System" [sortable]='false' [canAutoResize]="false"
           headerClass="is-gender" [cellClass]="getCellClass" [width]="80">
           <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
             <span (click)="sort()">{{ '&steps_dg_header_system' | translate }}</span>
@@ -63,8 +63,8 @@
             <strong>{{ value | translate }}</strong>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="equipment" name="Equipment" [sortable]='true'
-          headerClass="is-gender" [cellClass]="getCellClass" [width]="100">
+        <ngx-datatable-column prop="equipment" name="Equipment" [sortable]='false' [canAutoResize]="false"
+          headerClass="is-gender" [cellClass]="getCellClass" [width]="150">
           <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
             <span (click)="sort()">{{ '&steps_dg_header_equipment' | translate }}</span>
           </ng-template>
@@ -72,8 +72,8 @@
             <strong>{{ value | translate }}</strong>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="point" name="Point" [sortable]='true'
-          headerClass="is-gender" [cellClass]="getCellClass" [width]="100">
+        <ngx-datatable-column prop="point" name="Point" [sortable]='false' [canAutoResize]="false"
+          headerClass="is-gender" [cellClass]="getCellClass" [width]="150">
           <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
             <span (click)="sort()">{{ '&steps_dg_header_point' | translate }}</span>
           </ng-template>
@@ -81,8 +81,8 @@
             <strong>{{ value | translate }}</strong>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="value" name="Value" [sortable]='true'
-          headerClass="is-gender" [cellClass]="getCellClass" [width]="80">
+        <ngx-datatable-column prop="value" name="Value" [sortable]='false' [canAutoResize]="false"
+          headerClass="is-gender" [cellClass]="getCellClass" [width]="150">
           <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
             <span (click)="sort()">{{ '&steps_dg_header_value' | translate }}</span>
           </ng-template>
@@ -90,8 +90,8 @@
             <strong>{{ value | translate }}</strong>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="delay" name="Delay" [sortable]='true'
-          headerClass="is-gender" [cellClass]="getCellClass" [width]="80">
+        <ngx-datatable-column prop="delay" name="Delay" [sortable]='false' [canAutoResize]="false"
+          headerClass="is-gender" [cellClass]="getCellClass" [width]="50">
           <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
             <span (click)="sort()">{{ '&steps_dg_header_delay' | translate }}</span>
           </ng-template>
@@ -99,8 +99,21 @@
             <strong>{{ value | translate }}</strong>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="status" name="Status" [sortable]='true'
-          headerClass="is-gender" [cellClass]="getCellClass" [width]="80">
+        <ngx-datatable-column prop="execute" name="Execute" [sortable]="false" [canAutoResize]="false"
+          [draggable]="false" [resizeable]="false" [width]="80">
+          <!--let-allRowsSelected="allRowsSelected" let-selectFn="selectFn" -->
+          <ng-template let-value="value" ngx-datatable-header-template>
+            <span (click)="onColumnClick('execute')">{{ '&steps_dg_header_execute' | translate }}</span>
+            <!--<input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"/>-->
+          </ng-template>
+          <!-- let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn"-->
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <input type="checkbox" [checked]="value" (change)="onCheckboxChangeFn($event)" />
+            <!--<md-checkbox (change)="changed()"></md-checkbox>-->
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="status" name="Status" [sortable]='false' [canAutoResize]="false"
+          [draggable]="false" [resizeable]="false" [width]="80">
           <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
             <span (click)="sort()">{{ '&steps_dg_header_status' | translate }}</span>
           </ng-template>

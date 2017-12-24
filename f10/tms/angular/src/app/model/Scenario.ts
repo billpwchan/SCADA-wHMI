@@ -59,6 +59,7 @@ export class Step {
     public step: number
     , public state: StepType
     , public delay: number
+    , public execute: boolean
     , public equipment: Equipment
   ) {}
 }

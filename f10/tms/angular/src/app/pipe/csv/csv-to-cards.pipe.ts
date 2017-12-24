@@ -77,6 +77,7 @@ export class CsvToCardsPipe implements PipeTransform {
             const sStep       = Number.parseInt(token[TokenIndex.STEP_STEP]);
             const sState      = Number.parseInt(token[TokenIndex.STEP_STATE]);
             const sDelay      = Number.parseInt(token[TokenIndex.STEP_DELAY]);
+            const sExecute    = (token[TokenIndex.STEP_EXECUTE] === 'true');
 
             // Equipment Session
             const eConnAddr   = token[TokenIndex.EQUIPMENT_CONNADDR];
@@ -102,7 +103,7 @@ export class CsvToCardsPipe implements PipeTransform {
             );
 
             if ( null === step ) {
-              step = new Step(sStep, sState, sDelay, equipment);
+              step = new Step(sStep, sState, sDelay, sExecute, equipment);
               card.steps.push(step);
             } else {
               // Step Exists

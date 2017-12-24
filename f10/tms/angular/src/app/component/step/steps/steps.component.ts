@@ -215,7 +215,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
 
     // Rset ScenarioStep
-    this.rows_step = [];
+    const rowsStep = [];
 
     const card: Card = this.cardService.getCard([this.selectedCardName]);
 
@@ -231,21 +231,29 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
             , this.pointlabelPrefix + item.equipment.pointlabel
             , this.valuePrefix + item.equipment.valuelabel
             , this.delayPrefix + item.delay
+            , item.execute
             , this.getStateStr(item.state)
             , this.stepPrefix + (+item.step + +this.stepBase)
           );
-          this.rows_step.push(dtStep);
+          rowsStep.push(dtStep);
         });
       } else {
         console.log(this.c, f, 'card IS NULL');
       }
     }
 
-    // this.rows_step = [...this.rows_step];
-    this.selected_step = [];
-    this.setSelectedRow();
+    this.rows_step = [];
+    this.rows_step = [...this.rows_step];
 
-    this.selectedCardStep = null;
+    this.rows_step = rowsStep;
+    this.rows_step = [...this.rows_step];
+
+    if ( updateSelection ) {
+      this.selected_step = [];
+      this.setSelectedRow();
+
+      this.selectedCardStep = null;
+    }
 
     return;
   }
@@ -260,15 +268,44 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
+  selectFn() {
+    const f = 'selectFn';
+    console.log(this.c, f);
+  }
+
+  onColumnClick(name: string) {
+    const f = 'onColumnClick';
+    console.log(this.c, f);
+    console.log(this.c, f, 'name', name);
+
+    // if ( 'execute' ==  name ) {
+    //   const card = this.cardService.getCard([this.selectedCardName]);
+    //   card.steps.forEach(element => {
+    //     element.execute = true;
+    //   });
+    //   this.cardService.cardChanged(CardServiceType.STEP_UPDATED);
+    // }
+
+  }
+
+  onCheckboxChangeFn(event) {
+    const f = 'onCheckboxChangeFn';
+    console.log(this.c, f);
+
+    console.log(this.c, f, 'event', event);
+
+    this.cardService.getStep(this.selectedCardName, this.selectedCardStep).execute = event.target.checked;
+  }
+
   private setSelectedRow() {
     const f = 'setSelectedRow';
     console.log(this.c, f, 'name', name, 'event', event);
 
-    const stepIds: number [] = new Array<number>();
+    this.selectedCardStep = new Array<number>();
     this.selected_step.forEach( item => {
-      stepIds.push(+item.step);
+      this.selectedCardStep.push(+item.step);
     });
-    this.selectionService.setSelectedStepIds(stepIds);
+    this.selectionService.setSelectedStepIds(this.selectedCardStep);
   }
 
   onRowSelect(name: string, event: Event) {
@@ -278,9 +315,19 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     this.setSelectedRow();
   }
 
-  onActivate(name: string, event: Event) {
+  onActivate(name: string, event ) {
     const f = 'onActivate';
     console.log(this.c, f, 'name', name, 'event', event);
+
+    const checkboxCellIndex = 1;
+    if (event.type == 'checkbox') {
+      // Stop event propagation and let onSelect() work
+      console.log('Checkbox Selected', event);
+      event.event.stopPropagation();
+    } else if (event.type == 'click' && event.cellIndex != checkboxCellIndex) {
+      // Do somethings when you click on row cell other than checkbox
+      console.log('Row Clicked', event.row); /// <--- object is in the event row variable
+    }
   }
 
   private init(): void {

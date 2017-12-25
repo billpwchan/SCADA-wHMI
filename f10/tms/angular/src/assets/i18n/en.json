@@ -123,16 +123,16 @@
 	, "&step_lbl_delay": "Delay (Seconds)"
 	, "&step_lst_delay_placeholder": "Select delay..."
 
-	, "&step_lbl_aciinitvalue": " Init value"
-	, "&step_lst_aciinitvalue_placeholder": "Select target analog value..."
+	, "&step_lbl_aciinitvalue": " Reset Value"
+	, "&step_lst_aciinitvalue_placeholder": "Enter reset value..."
 
-	, "&step_lbl_dciinitvalue": " Init value"
-	, "&step_lst_dciinitvalue_placeholder": "Select target digital value..."
+	, "&step_lbl_dciinitvalue": " Reset Value"
+	, "&step_lst_dciinitvalue_placeholder": "Enter reset value..."
 
-	, "&step_lbl_dcivalue": "Digital value"
+	, "&step_lbl_dcivalue": "Target Value"
 	, "&step_lst_dcivalue_placeholder": "Select target digital value..."
 
-	, "&step_lbl_acivalue": "Analog value"
+	, "&step_lbl_acivalue": "Target Value"
 	, "&step_txt_acivalue_placeholder": "Enter target analog value..."
 
 	, "&step_lbl_classid": "Class ID"

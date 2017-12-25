@@ -648,8 +648,8 @@ btnDisabledAddCancelStep: boolean;
     this.hiddenUnivname = true;
     this.hiddenEVName = true;
 
-    this.hiddenAciInitValue = true;
-    this.hiddenDciInitValue = true;
+    this.hiddenAciInitValue = false;
+    this.hiddenDciInitValue = false;
 
     this.initSelOptEnv();
     this.initSelOptGeo();

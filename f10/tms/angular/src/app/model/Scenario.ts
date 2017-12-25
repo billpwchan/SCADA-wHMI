@@ -47,6 +47,8 @@ export enum StepType {
   , START
   , STOP_RUNNING
   , START_RUNNING
+  , STOP_SKIPPED
+  , START_SKIPPED
   , STOPPED_FAILED
   , START_FAILED
 }

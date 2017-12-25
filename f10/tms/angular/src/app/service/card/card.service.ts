@@ -456,15 +456,25 @@ export class CardService {
 
           this.notifyUpdate(CardServiceType.CARD_UPDATED);
 
+          console.log(this.c, f, 'executeStep'
+          , 'execCard.name', execCard.name
+          , 'execCard.step', execCard.step
+          , 'stepExecType', stepExecType
+          , 'execCard.steps[execCard.step]', execCard.steps[execCard.step]);
+
           if ( execCard.steps[execCard.step].execute ) {
 
-            console.log(this.c, f, 'executeStep'
-                                  , 'execCard.name', execCard.name
-                                  , 'execCard.step', execCard.step
-                                  , 'stepExecType', stepExecType);
             this.executeStep(execCard.name, execCard.step, stepExecType);
 
           } else {
+            switch ( execType ) {
+              case CardExecType.START: {
+                execCard.steps[execCard.step].state = StepType.START_SKIPPED;
+              } break;
+              case CardExecType.STOP: {
+                execCard.steps[execCard.step].state = StepType.STOP_SKIPPED;
+              } break;
+            }
             console.log(this.c, f, 'executeCard', 'execCard.name', execCard.name, 'execType', execType, 'Step Skipped', execCard.step);
           }
 

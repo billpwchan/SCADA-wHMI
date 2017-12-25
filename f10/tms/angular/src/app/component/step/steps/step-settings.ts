@@ -14,9 +14,11 @@ export class StepSettings {
     public static readonly STR_STEP_GD_STATE_UNKNOW = '&steps_dg_status_unknow';
     public static readonly STR_STEP_GD_STATE_STOPPED = '&steps_dg_status_stopped';
     public static readonly STR_STEP_GD_STATE_STOP_RUNNING = '&steps_dg_status_stop_running';
+    public static readonly STR_STEP_GD_STATE_STOP_SKIPPED = '&steps_dg_status_stop_skipped';
     public static readonly STR_STEP_GD_STATE_STOPPED_FAILDED = '&steps_dg_status_stopped_failed';
     public static readonly STR_STEP_GD_STATE_STARTED = '&steps_dg_status_started';
     public static readonly STR_STEP_GD_STATE_START_RUNNING = '&steps_dg_status_start_running';
+    public static readonly STR_STEP_GD_STATE_START_SKIPPED = '&steps_dg_status_start_skipped';
     public static readonly STR_STEP_GD_STATE_STARTED_FAILDED = '&steps_dg_status_started_failed';
 
 }

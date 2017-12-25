@@ -192,6 +192,12 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
       case StepType.START_RUNNING: {
         ret = StepSettings.STR_STEP_GD_STATE_START_RUNNING;
       } break;
+      case StepType.START_SKIPPED: {
+        ret = StepSettings.STR_STEP_GD_STATE_START_SKIPPED;
+      } break;
+      case StepType.STOP_SKIPPED: {
+        ret = StepSettings.STR_STEP_GD_STATE_STOP_SKIPPED;
+      } break;
       case StepType.STOPPED: {
         ret = StepSettings.STR_STEP_GD_STATE_STOPPED;
       } break;
@@ -320,11 +326,11 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f, 'name', name, 'event', event);
 
     const checkboxCellIndex = 1;
-    if (event.type == 'checkbox') {
+    if ( 'checkbox' == event.type ) {
       // Stop event propagation and let onSelect() work
       console.log('Checkbox Selected', event);
       event.event.stopPropagation();
-    } else if (event.type == 'click' && event.cellIndex != checkboxCellIndex) {
+    } else if ( 'click' == event.type  && event.cellIndex != checkboxCellIndex) {
       // Do somethings when you click on row cell other than checkbox
       console.log('Row Clicked', event.row); /// <--- object is in the event row variable
     }

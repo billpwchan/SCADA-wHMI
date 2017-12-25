@@ -123,6 +123,25 @@ export class CardService {
     }
   }
 
+  isRunning(): boolean {
+    const f = 'isRunning';
+    console.log(this.c, f);
+
+    let ret = false;
+    this.getCards().forEach( item => {
+      if (
+         CardType.START_RUNNING === item.state
+      || CardType.START_PAUSED === item.state
+      || CardType.STOP_RUNNING === item.state
+      || CardType.STOP_PAUSED === item.state
+    ) {
+        ret = true;
+      }
+    });
+    console.log(this.c, f, 'ret', ret);
+    return ret;
+  }
+
   // Validite
   cardExists(cardId: string, stepId: number): CardExistsResult {
     let ret = CardExistsResult.UNKNOW;
@@ -277,31 +296,19 @@ export class CardService {
       card.timer = null;
     }
 
-    // Check card state
-    let cardType = CardType.UNKNOW;
+    // Init card state
+    const cardType = CardType.STOPPED;
     const step = 0;
-    let stepType = StepType.UNKNOW;
-    if (
-      CardType.STOP_RUNNING === card.state
-      || CardType.STOP_PAUSED === card.state
-      || CardType.STARTED === card.state) {
-        cardType = CardType.STARTED;
-        stepType = StepType.START;
-    } else if (
-      CardType.START_RUNNING === card.state
-      || CardType.START_PAUSED === card.state
-      || CardType.STOPPED === card.state) {
-      cardType = CardType.STOPPED;
-      stepType = StepType.STOPPED;
-    }
+    const stepType = StepType.STOPPED;
 
     console.log(this.c, f, 'Target card.name[' + card.name + '] cardType[' + cardType + '] step[' + step + '] stepType[' + stepType + ']');
 
-    // Reset state
+    // Reset state and execute
     card.state = cardType;
     card.step = step;
     card.steps.forEach ( item => {
       item.state = stepType;
+      item.execute = true;
     });
 
     return card;

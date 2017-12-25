@@ -141,10 +141,12 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
 
     this.btnDisabledNewStep = true;
     this.btnDisabledDeleteStep = true;
-    if ( null != this.selectedCardId ) {
-      this.btnDisabledNewStep = false;
-      if ( null != this.selectedStepId ) {
-        this.btnDisabledDeleteStep = false;
+    if ( ! this.cardService.isRunning() ) {
+      if ( null != this.selectedCardId ) {
+        this.btnDisabledNewStep = false;
+        if ( null != this.selectedStepId ) {
+          this.btnDisabledDeleteStep = false;
+        }
       }
     }
 

@@ -13,14 +13,14 @@
 
 	, "&cards_dg_state_unknow": "Unknow"
 
-	, "&cards_dg_state_stopped": "Stopped"
-	, "&cards_dg_state_stopped_partial": "Stopped (Partial)"
+	, "&cards_dg_state_stopped": "Stop"
+	, "&cards_dg_state_stopped_partial": "Stop (Partial)"
 	, "&cards_dg_state_stop_running": "Restting"
 	, "&cards_dg_state_stop_terminated": "Terminated"
 
 	, "&cards_dg_state_start": "Started"
 	, "&cards_dg_state_started_partial": "Started (Partial)"
-	, "&cards_dg_state_started_running": "Starting"
+	, "&cards_dg_state_started_running": "Running"
 	, "&cards_dg_state_start_paused": "Paused"
 	, "&cards_dg_state_start_terminated": "Terminated"
 

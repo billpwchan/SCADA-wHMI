@@ -213,6 +213,13 @@ export class CardEditControllerComponent implements OnInit , OnDestroy, OnChange
       } break;
     }
 
+    if ( this.cardService.isRunning() ) {
+      this.btnNewDisable = true;
+      this.btnModifyDisable = true;
+      this.btnDeleteDisable = true;
+      this.btnCopyDisable = true;
+    }
+
     // this.sendNotifyParent(btnLabel);
   }
 }

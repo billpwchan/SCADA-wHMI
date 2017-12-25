@@ -3,7 +3,7 @@ import { SelectionService } from '../../../service/card/selection.service';
 import { Subscription } from 'rxjs/Subscription';
 import { CardService } from '../../../service/card/card.service';
 import { AppSettings } from '../../../app-settings';
-import { Step, Card, StepType } from '../../../model/Scenario';
+import { Step, Card, StepType, CardType } from '../../../model/Scenario';
 import { DacSimExecType } from '../../../service/scs/dac-sim-settings';
 import { CardServiceType, StepExistsResult } from '../../../service/card/card-settings';
 import { SelectionServiceType } from '../../../service/card/selection-settings';
@@ -115,10 +115,16 @@ export class StepControllerComponent implements OnInit, OnDestroy, OnChanges {
       const step: Step = this.cardService.getStep(this.cardSelected, [this.stepSelected]);
 
       if ( null != step ) {
-        if ( StepType.STOPPED === step.state ) {
-          this.btnDisabledStartStep = false;
-        } else if ( StepType.START === step.state ) {
-          this.btnDisabledStopStep = false;
+
+        if ( this.cardService.isRunning() ) {
+          this.btnDisabledStartStep = true;
+          this.btnDisabledStopStep = true;
+        } else {
+          if ( StepType.STOPPED === step.state ) {
+            this.btnDisabledStartStep = false;
+          } else if ( StepType.START === step.state ) {
+            this.btnDisabledStopStep = false;
+          }
         }
       }
     }
@@ -153,12 +159,14 @@ export class StepControllerComponent implements OnInit, OnDestroy, OnChanges {
         this.widgetControl();
       } break;
       case 'startstep': {
+        this.cardService.getCard([this.cardSelected]).state = CardType.STARTED;
         this.cardService.executeStep(
           this.cardSelected
           , this.stepSelected
           , DacSimExecType.START);
       } break;
       case 'stopstep': {
+        this.cardService.getCard([this.cardSelected]).state = CardType.STOPPED;
         this.cardService.executeStep(
           this.cardSelected
           , this.stepSelected

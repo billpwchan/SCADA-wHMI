@@ -18,6 +18,7 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
   public static readonly STR_INIT = AppSettings.STR_INIT;
   public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
   public static readonly STR_CARD_SELECTED = AppSettings.STR_CARD_SELECTED;
+  public static readonly STR_CARD_UPDATED = AppSettings.STR_CARD_UPDATED;
   public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
@@ -76,6 +77,9 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
           }
           this.ignoreReload = false;
         } break;
+        case CardServiceType.CARD_UPDATED: {
+          this.btnClicked(StorageComponent.STR_CARD_UPDATED);
+        } break;
       }
     });
 
@@ -90,6 +94,7 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
   ngOnDestroy(): void {
     const f = 'ngOnDestroy';
     console.log(this.c, f);
+    // prevent memory leak when component is destroyed
     this.cardSubscription.unsubscribe();
     this.storageSubscription.unsubscribe();
   }
@@ -210,6 +215,15 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
         this.disableReloadFromStorageFailedMsg = true;
       } break;
     }
+
+    if ( this.cardService.isRunning() ) {
+      this.btnDisabledSaveScenario = true;
+      this.btnDisabledReloadScenario = true;
+    } else {
+      this.btnDisabledSaveScenario = false;
+      this.btnDisabledReloadScenario = false;
+    }
+
     // this.sendNotifyParent(btnLabel);
   }
 }

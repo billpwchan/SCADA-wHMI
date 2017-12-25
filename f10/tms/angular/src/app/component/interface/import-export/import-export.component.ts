@@ -12,6 +12,7 @@ import { AppComponent } from '../../../app.component';
 import { CsvToCardSettings } from '../../../pipe/csv/csv-to-card-settings';
 import { ImportExportSettings, ImportFileType, ExportFileType } from './import-export-settings';
 import { importType } from '@angular/compiler/src/output/output_ast';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-import-export'
@@ -23,6 +24,7 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
   public static readonly STR_INIT = AppSettings.STR_INIT;
   public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
   public static readonly STR_CARD_SELECTED = AppSettings.STR_CARD_SELECTED;
+  public static readonly STR_CARD_UPDATED = AppSettings.STR_CARD_UPDATED;
   public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
@@ -37,6 +39,8 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
   @Input() notifyFromParent: string;
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
+
+  cardSubscription: Subscription;
 
   btnDisabledExportCSV: boolean;
   btnDisabledImportCSV: boolean;
@@ -68,6 +72,16 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
 
     this.loadSettings();
 
+    this.cardSubscription = this.cardService.cardItem
+    .subscribe( item => {
+      console.log(this.c, f, 'storageSubscription', item);
+      switch (item) {
+        case CardServiceType.CARD_UPDATED: {
+          this.btnClicked(ImportExportComponent.STR_CARD_UPDATED);
+        } break;
+      }
+    });
+
     this.btnClicked(ImportExportComponent.STR_INIT);
   }
 
@@ -75,6 +89,7 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'ngOnDestroy';
     console.log(this.c, f);
     // prevent memory leak when component is destroyed
+    this.cardSubscription.unsubscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -239,6 +254,14 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
       case 'disableExportMsg': {
         this.disableExportMsg = true;
       } break;
+    }
+
+    if ( this.cardService.isRunning() ) {
+      this.btnDisabledExportCSV = true;
+      this.btnDisabledImportCSV = true;
+    } else {
+      this.btnDisabledExportCSV = false;
+      this.btnDisabledImportCSV = false;
     }
 
     // this.sendNotifyParent(btnLabel);

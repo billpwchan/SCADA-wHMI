@@ -74,6 +74,8 @@ export enum CardType {
   , START_RUNNING
   , START_PAUSED
   , STOP_PAUSED
+  , START_TERMINATED
+  , STOP_TERMINATED
 }
 
 /**

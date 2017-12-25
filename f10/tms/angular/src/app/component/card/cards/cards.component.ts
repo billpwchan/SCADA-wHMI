@@ -175,6 +175,9 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
       case CardType.STOP_RUNNING: {
         ret = CardsSettings.STR_CARD_DG_STATE_STOP_RUNNING;
       } break;
+      case CardType.STOP_TERMINATED: {
+        ret = CardsSettings.STR_CARD_DG_STATE_STOP_TERMINATED;
+      } break;
       case CardType.STARTED: {
         ret = CardsSettings.STR_CARD_DG_STATE_STARTED;
         if ( this.isStartedPartial(card) ) {
@@ -185,7 +188,10 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
         ret = CardsSettings.STR_CARD_DG_STATE_START_RUNNING;
       } break;
       case CardType.START_PAUSED: {
-        ret = CardsSettings.STR_CARD_DG_STATE_PAUSE;
+        ret = CardsSettings.STR_CARD_DG_STATE_START_PAUSE;
+      } break;
+      case CardType.START_TERMINATED: {
+        ret = CardsSettings.STR_CARD_DG_STATE_START_TERMINATED;
       } break;
     }
     return ret;

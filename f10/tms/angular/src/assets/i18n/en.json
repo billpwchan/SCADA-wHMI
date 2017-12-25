@@ -12,13 +12,17 @@
 	, "&cards_gd_header_state": "State"
 
 	, "&cards_dg_state_unknow": "Unknow"
+
 	, "&cards_dg_state_stopped": "Stopped"
 	, "&cards_dg_state_stopped_partial": "Stopped (Partial)"
-	, "&cards_dg_state_stop_running": "Running"
-	, "&cards_dg_state_paused": "Paused"
+	, "&cards_dg_state_stop_running": "Restting"
+	, "&cards_dg_state_stop_terminated": "Terminated"
+
 	, "&cards_dg_state_start": "Started"
 	, "&cards_dg_state_started_partial": "Started (Partial)"
-	, "&cards_dg_state_started_running": "Running"
+	, "&cards_dg_state_started_running": "Starting"
+	, "&cards_dg_state_start_paused": "Paused"
+	, "&cards_dg_state_start_terminated": "Terminated"
 
 	, "&cards_dg_footer_emptymessage": "No item to display"
 	, "&cards_dg_footer_selectedmessage": " selected"
@@ -83,7 +87,7 @@
 	, "&steps_dg_header_status": "Status"
 
 	, "&steps_dg_status_unknow": "Unknow"
-	, "&steps_dg_status_stopped": "Stopped"
+	, "&steps_dg_status_stopped": "Reset"
 	, "&steps_dg_status_stop_running": "Executing"
 	, "&steps_dg_status_stop_skipped": "Skipped"
 	, "&steps_dg_status_stopped_failed": "Comm. failed"
@@ -158,7 +162,7 @@
 	, "&step_btn_add_dcicancelstep_title": "Cacnel the add a step to card"
 
 	, "&step_lbl_executeion_step": "Execute Step"
-	, "&step_lbl_executeion": "Execute Selection Step"
+	, "&step_lbl_executeion": "Execut Highlight Step"
 
 	, "&scenario": "Scenario(s)"
 

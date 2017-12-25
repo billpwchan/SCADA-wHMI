@@ -361,11 +361,11 @@ export class CardService {
       if ( execType === CardExecType.PAUSE ) {
         // Pause
 
-        // Stop the timer
+        // Stop timer
         execCard.timer.unsubscribe();
         execCard.timer = null;
 
-        // Change the card status = pause
+        // Change card status = pause
         switch (execCard.state) {
           case CardType.START_RUNNING: {
             execCard.state = CardType.START_PAUSED;
@@ -399,7 +399,18 @@ export class CardService {
         stop = true;
       } else if ( execType === CardExecType.TERMINATE ) {
 
-        this.initCard(execCard);
+        // Stop timer
+        execCard.timer.unsubscribe();
+        execCard.timer = null;
+
+        switch (execCard.state) {
+          case CardType.START_RUNNING: {
+            execCard.state = CardType.START_TERMINATED;
+          } break;
+          case CardType.STOP_RUNNING: {
+            execCard.state = CardType.STOP_TERMINATED;
+          } break;
+        }
 
         this.notifyUpdate(CardServiceType.CARD_UPDATED);
 
@@ -485,9 +496,10 @@ export class CardService {
           // Update Step index
           execCard.step++;
 
-          const  interval = (byPassTimer ? 100 : 1000) * timeout;
+          const interval = (byPassTimer ? 100 : 1000) * timeout;
+          console.log(this.c, f, 'interval', interval);
 
-          execCard.timer = Observable.interval().map((x) => {
+          execCard.timer = Observable.interval(interval).map((x) => {
             console.log(this.c, f, 'interval map');
 
           }).subscribe((x) => {

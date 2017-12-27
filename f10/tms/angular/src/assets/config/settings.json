@@ -6,6 +6,9 @@
     , "resolve_by_browser_cookie": false
     , "use_cookie_name": "iscs.webapp.Lang"
   }
+  , "AppComponent": {
+      "title": "TMS"
+  }
   , "CardEditComponent": {
       "card_name_min": 1
       , "card_name_max": 40

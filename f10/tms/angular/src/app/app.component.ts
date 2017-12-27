@@ -11,6 +11,7 @@ import { CardServiceType } from './service/card/card-settings';
 import { AppSettings } from './app-settings';
 import { Cookie } from 'ng2-cookies';
 import { I18nSettings } from './service/i18n-settings';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root'
@@ -28,12 +29,13 @@ export class AppComponent implements OnInit, OnDestroy {
   cardUpdateValue: string;
   stepEditUpdateValue: string;
 
-  title = 'TMS';
+  title: string;
 
   constructor(
     private translate: TranslateService
     , private cardService: CardService
-    , private settingService: SettingsService
+    , private settingsService: SettingsService
+    , private titleService: Title
   ) {
     const f = 'constructor';
     console.log(this.c, f);
@@ -43,7 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
     console.log(this.c, f, 'translate.getDefaultLang()[' + translate.getDefaultLang() + ']');
     console.log(this.c, f, 'translate.getLangs()[' + translate.getLangs() + ']');
 
-    const setting = this.settingService.getSettings();
+    const setting = this.settingsService.getSettings();
     const i18n = setting[I18nSettings.STR_I18N];
     const defaultLanguage = i18n[I18nSettings.STR_DEFAULT_LANG];
     const preferedLanguage = this.getPreferedLanguage();
@@ -59,6 +61,10 @@ export class AppComponent implements OnInit, OnDestroy {
         translate.use(preferedLanguage);
         console.log(this.c, f, 'use preferred language ', preferedLanguage);
     }
+
+    this.loadSettings();
+
+    this.titleService.setTitle(this.title);
   }
 
   ngOnInit(): void {
@@ -89,7 +95,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private getPreferedLanguage(): string {
     const f = 'getPreferedLanguage';
-    const setting = this.settingService.getSettings();
+    const setting = this.settingsService.getSettings();
     const i18n = setting[I18nSettings.STR_I18N];
     if (i18n[I18nSettings.STR_RESOLVE_BY_BROWSER_LANG]) {
         console.log(this.c, f, 'Resolve prefered language by browser\'s language');
@@ -106,5 +112,14 @@ export class AppComponent implements OnInit, OnDestroy {
         console.log(this.c, f, 'No defined way to obtain prefered language');
     }
     return undefined;
+  }
+
+  private loadSettings() {
+    const f = 'loadSettings';
+    console.log(this.c, f);
+
+    const component: string = AppComponent.name;
+
+    this.title = this.settingsService.getSetting(this.c, f, component, AppSettings.STR_TITLE);
   }
 }

@@ -14,4 +14,6 @@ export class AppSettings {
     public static readonly STR_STEP_UPDATED = 'stepupdated'; // Handle the Step updated
     public static readonly STR_STEP_SELECTED = 'stepselected'; // Handle the Step selected
 
+    public static readonly STR_TITLE = 'title';
+
 }

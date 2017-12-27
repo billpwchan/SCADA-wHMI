@@ -7,6 +7,7 @@ import { AppSettings } from '../../../app-settings';
 import { CardServiceType } from '../../../service/card/card-settings';
 import { SettingsService } from '../../../service/settings.service';
 import { StorageSettings } from './storage-settings';
+import { StorageResponse } from '../../../service/card/storage-settings';
 
 @Component({
   selector: 'app-storage',
@@ -23,6 +24,7 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
   public static readonly STR_CARD_MODIFIED = 'cardmodified';
+  public static readonly STR_STEP_MODIFIED = 'stepmodified';
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
@@ -55,6 +57,8 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
 
   initCardsBeforeSave: boolean;
 
+  private firstLoaded = false;
+
   constructor(
     private settingsService: SettingsService
     , private cardService: CardService
@@ -71,9 +75,15 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
     .subscribe( item => {
       console.log(this.c, f, 'storageSubscription', item);
       switch (item) {
-        case CardServiceType.CARD_RELOADED: {
+        case CardServiceType.CARD_EDITED: {
           if ( !this.ignoreReload ) {
             this.btnClicked(StorageComponent.STR_CARD_MODIFIED);
+          }
+          this.ignoreReload = false;
+        } break;
+        case CardServiceType.STEP_EDITED: {
+          if ( !this.ignoreReload ) {
+            this.btnClicked(StorageComponent.STR_STEP_MODIFIED);
           }
           this.ignoreReload = false;
         } break;
@@ -86,6 +96,35 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
     this.storageSubscription = this.storageService.storageItem
     .subscribe( item => {
       console.log(this.c, f, 'storageSubscription', item);
+      switch ( item ) {
+        case StorageResponse.LOAD_SUCCESS: {
+          if ( this.firstLoaded ) {
+            this.disableSaveToStorageSuccessMsg = true;
+            this.disableSaveToStorageFaildMsg = true;
+            this.disableReloadFromStorageSuccessMsg = false;
+            this.disableReloadFromStorageFailedMsg = true;
+          }
+          this.firstLoaded = true;
+        } break;
+        case StorageResponse.LOAD_FAILED: {
+          this.disableSaveToStorageSuccessMsg = true;
+          this.disableSaveToStorageFaildMsg = true;
+          this.disableReloadFromStorageSuccessMsg = true;
+          this.disableReloadFromStorageFailedMsg = false;
+        } break;
+        case StorageResponse.SAVE_SUCCESS: {
+          this.disableSaveToStorageSuccessMsg = false;
+          this.disableSaveToStorageFaildMsg = true;
+          this.disableReloadFromStorageSuccessMsg = true;
+          this.disableReloadFromStorageFailedMsg = true;
+        } break;
+        case StorageResponse.SAVE_FAILED: {
+          this.disableSaveToStorageSuccessMsg = true;
+          this.disableSaveToStorageFaildMsg = false;
+          this.disableReloadFromStorageSuccessMsg = true;
+          this.disableReloadFromStorageFailedMsg = true;
+        } break;
+      }
     });
 
     this.btnClicked(StorageComponent.STR_INIT);
@@ -156,11 +195,24 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
         this.init();
       } break;
       case StorageComponent.STR_CARD_MODIFIED: {
-        // Save avaiable
+
         this.btnDisabledSaveScenario = false;
         this.btnDisabledReloadScenario = false;
 
-        this.disableSaveToStorageMsg = true;
+        this.disableSaveToStorageMsg = false;
+        this.disableSaveToStorageSuccessMsg = true;
+        this.disableSaveToStorageFaildMsg = true;
+
+        this.disableLoadFromStorageConfirmMsg = true;
+        this.disableReloadFromStorageSuccessMsg = true;
+        this.disableReloadFromStorageFailedMsg = true;
+      } break;
+      case StorageComponent.STR_STEP_MODIFIED: {
+
+        this.btnDisabledSaveScenario = false;
+        this.btnDisabledReloadScenario = false;
+
+        this.disableSaveToStorageMsg = false;
         this.disableSaveToStorageSuccessMsg = true;
         this.disableSaveToStorageFaildMsg = true;
 

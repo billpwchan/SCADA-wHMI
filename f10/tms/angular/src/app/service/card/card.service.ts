@@ -111,11 +111,17 @@ export class CardService {
       case CardServiceType.CARD_RELOADED: {
         this.cardChanged(CardServiceType.CARD_RELOADED);
       } break;
+      case CardServiceType.CARD_EDITED: {
+        this.cardChanged(CardServiceType.CARD_EDITED);
+      } break;
       case CardServiceType.CARD_UPDATED: {
         this.cardChanged(CardServiceType.CARD_UPDATED);
       } break;
       case CardServiceType.STEP_RELOADED: {
         this.cardChanged(CardServiceType.STEP_RELOADED);
+      } break;
+      case CardServiceType.STEP_EDITED: {
+        this.cardChanged(CardServiceType.STEP_EDITED);
       } break;
       case CardServiceType.STEP_UPDATED: {
         this.cardChanged(CardServiceType.STEP_UPDATED);

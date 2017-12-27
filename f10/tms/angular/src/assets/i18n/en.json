@@ -171,7 +171,7 @@
 	, "&step_btn_stopstep": "Stop"
 	, "&step_btn_stopstep_placeholder": "Stop a selected Step execution."
 
-	, "&storage_lbl_scenario": "Storage"
+	, "&storage_lbl_scenario": "Scenario"
 
 	, "&storage_btn_save": "Save"
 	, "&storage_btn_save_title": "Save Scenario(s) into storage."
@@ -187,18 +187,18 @@
 	, "&storage_btn_save_cancel": "Cancel"
 	, "&storage_btn_save_cancel_title": "Cancel the save operation."
 
-	, "&storage_info_modifycardsnotsavedsuccess_title": "Save the modified setting success."
+	, "&storage_info_modifycardsnotsavedsuccess_title": "Save success."
 	, "&storage_info_modifycardsnotsavedsuccess_close": " x "
-	, "&storage_info_modifycardsnotsavedfailed_title": "Save the modified setting failed."
+	, "&storage_info_modifycardsnotsavedfailed_title": "Save failed."
 	, "&storage_info_modifycardsnotsavedfailed_close": " x "
 
 	, "&storage_info_confirmtosavecards_title": "Overwrite current setting(s)."
 
-	, "&storage_info_confirmtosavecardssuccess_title": "Reload scenario from storage success."
-	, "&storage_info_confirmtosavecardssuccess_close": " x "
+	, "&storage_info_reload_card_success_title": "Reload success."
+	, "&storage_info_reload_card_success_close": " x "
 
-	, "&storage_info_confirmtosavecardsfailed_title": "Reload scenario from storage failed."
-	, "&storage_info_confirmtosavecardsfailed_close": " x "
+	, "&storage_info_reload_card_failed_title": "Reload failed."
+	, "&storage_info_reload_card_failed_close": " x "
 
 	, "&importexport_btn_exportcsv": "Export"
 	, "&importexport_btn_exportcsv_title": "Export current scenario(s) as CSV file."

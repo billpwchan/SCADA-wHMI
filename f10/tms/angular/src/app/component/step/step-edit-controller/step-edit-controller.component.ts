@@ -210,6 +210,7 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
       case 'deletestep': {
         this.cardService.deleteStep(this.selectedCardId, [this.selectedStepId]);
         this.cardService.notifyUpdate(CardServiceType.STEP_RELOADED);
+        this.cardService.notifyUpdate(CardServiceType.STEP_EDITED);
       } break;
       default: {
         console.log(this.c, f, 'default btnLabel[' + btnLabel + ']');

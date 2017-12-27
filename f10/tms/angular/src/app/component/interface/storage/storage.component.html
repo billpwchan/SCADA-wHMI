@@ -18,7 +18,7 @@
       <div>
         <div>
           <div class='alert alert-info' [hidden]="disableSaveToStorageMsg">
-            <a class="close" (click)="btnClicked('disableSaveToStorageMsg')">{{ '&storage_info_modifycardsnotsaved_closee' | translate }}</a>
+            <a class="close" (click)="btnClicked('disableSaveToStorageMsg')">{{ '&storage_info_modifycardsnotsaved_close' | translate }}</a>
             <strong>{{ '&storage_info_modifycardsnotsaved_title' | translate }}</strong>
           </div>
           <div class='alert alert-info' [hidden]="disableSaveToStorageSuccessMsg">
@@ -49,12 +49,12 @@
 
           <div>
             <div class='alert alert-info' [hidden]="disableReloadFromStorageSuccessMsg">
-              <a class="close" (click)="btnClicked('disableImportMsg')">{{ '&storage_info_confirmtosavecardssuccess_close' | translate }}</a>
-              <strong>{{ '&storage_info_confirmtosavecardssuccess_title' | translate }}</strong>
+              <a class="close" (click)="btnClicked('disableReloadFromStorageSuccessMsg')">{{ '&storage_info_reload_card_success_close' | translate }}</a>
+              <strong>{{ '&storage_info_reload_card_success_title' | translate }}</strong>
             </div>
             <div class='alert alert-warning' [hidden]="disableReloadFromStorageFailedMsg">
-              <a class="close" (click)="btnClicked('disableReloadFromStorageFailedMsg')">{{ '&storage_info_confirmtosavecardsfailed_close' | translate }}</a>
-              <strong>{{ '&storage_info_confirmtosavecardsfailed_title' | translate }}</strong>
+              <a class="close" (click)="btnClicked('disableReloadFromStorageFailedMsg')">{{ '&storage_info_reload_card_failed_close' | translate }}</a>
+              <strong>{{ '&storage_info_reload_card_failed_title' | translate }}</strong>
             </div>            
           </div>
         </div>

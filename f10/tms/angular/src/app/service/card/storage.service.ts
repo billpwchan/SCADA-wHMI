@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { UtilsHttpModule } from './../utils-http/utils-http.module';
 import { CardService } from './card.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { StorageSettings } from './storage-settings';
+import { StorageSettings, StorageResponse } from './storage-settings';
 import { Card } from '../../model/Scenario';
 import { CardServiceType } from './card-settings';
 import { SettingsService } from '../settings.service';
@@ -14,7 +14,7 @@ export class StorageService {
   readonly c = StorageService.name;
 
   // Observable source
-  private storageSource = new BehaviorSubject<any>({});
+  private storageSource = new BehaviorSubject<StorageResponse>(0);
 
   // Observable cardStorageItem stream
   storageItem = this.storageSource.asObservable();
@@ -31,10 +31,10 @@ export class StorageService {
   remoteFileName: string;
 
   // Service command
-  storageChanged(obj: any) {
+  storageChanged(storageResponse: StorageResponse) {
     const f = 'storageChanged';
     console.log(this.c, f);
-    this.storageSource.next(obj);
+    this.storageSource.next(storageResponse);
   }
 
   constructor(
@@ -68,6 +68,7 @@ export class StorageService {
       localStorage.setItem(
         this.localStorageName
       , strCards);
+      this.storageChanged(StorageResponse.SAVE_SUCCESS);
     } else {
       this.uploadCard(cards);
     }
@@ -81,6 +82,7 @@ export class StorageService {
       const cards: Card[] = JSON.parse(strCards);
       this.cardService.setCards(cards);
       this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
+      this.storageChanged(StorageResponse.LOAD_SUCCESS);
     } else {
       this.downloadCard();
     }
@@ -124,8 +126,12 @@ export class StorageService {
           const cards = this.cardService.getCards();
           console.log(this.c, f, 'cards[', cards, ']');
           this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
+          this.storageChanged(StorageResponse.LOAD_SUCCESS);
         }
-        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
+        , (err: HttpErrorResponse) => {
+          this.storageChanged(StorageResponse.LOAD_FAILED);
+          this.utilsHttp.httpClientHandlerError(f, err);
+        }
         , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
       );
   }
@@ -148,8 +154,12 @@ export class StorageService {
       ).subscribe(
         res => {
           // console.log(this.c, f, res);
+          this.storageChanged(StorageResponse.SAVE_SUCCESS);
         }
-        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
+        , (err: HttpErrorResponse) => {
+          this.storageChanged(StorageResponse.SAVE_FAILED);
+          this.utilsHttp.httpClientHandlerError(f, err);
+        }
         , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The POST observable is now completed.'); }
       );
   }

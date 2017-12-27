@@ -722,11 +722,13 @@ btnDisabledAddCancelStep: boolean;
       case 'addacistep': {
         this.addStep();
         this.cardService.notifyUpdate(CardServiceType.STEP_RELOADED);
+        this.cardService.notifyUpdate(CardServiceType.STEP_EDITED);
         this.init();
       } break;
       case 'adddcistep': {
         this.addStep();
         this.cardService.notifyUpdate(CardServiceType.STEP_RELOADED);
+        this.cardService.notifyUpdate(CardServiceType.STEP_EDITED);
         this.init();
       } break;
       case 'addacicancelstep': {

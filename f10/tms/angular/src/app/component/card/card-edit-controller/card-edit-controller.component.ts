@@ -124,6 +124,7 @@ export class CardEditControllerComponent implements OnInit , OnDestroy, OnChange
     });
     this.cardService.deleteCards(identitys);
     this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
+    this.cardService.notifyUpdate(CardServiceType.CARD_EDITED);
   }
 
   /**
@@ -143,6 +144,7 @@ export class CardEditControllerComponent implements OnInit , OnDestroy, OnChange
     this.cardService.addCards([newCard]);
 
     this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
+    this.cardService.notifyUpdate(CardServiceType.CARD_EDITED);
   }
 
   /**

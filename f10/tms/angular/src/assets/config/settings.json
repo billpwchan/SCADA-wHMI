@@ -50,10 +50,10 @@
       , "csv_comma": ","
       , "csv_eol": "\r\n"
 
-      , "init_cards_before_export": false
+      , "init_cards_before_export": true
   }
   , "StorageComponent": {
-      "init_cards_before_storage": false
+      "init_cards_before_storage": true
   }
   , "StorageService": {
       "use_local_storage": false
@@ -62,6 +62,5 @@
       , "remote_filename": "tms.json"
       , "upload_url": "upstreamFile_result"
       , "download_url": "downstreamFile_result"
-      , "init_cards_before_storage": false
   }
 }

@@ -197,6 +197,7 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
     if ( null != cards ) {
       this.cardService.setCards(cards);
       this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
+      this.cardService.notifyUpdate(CardServiceType.CARD_EDITED);
 
       this.importNumber = this.cardService.getCards().length;
       this.disableImportMsg = false;

@@ -27,7 +27,9 @@ export enum CardExecType {
 export enum CardServiceType {
   UNKNOW = 0
   , CARD_RELOADED
+  , CARD_EDITED
   , CARD_UPDATED
   , STEP_RELOADED
+  , STEP_EDITED
   , STEP_UPDATED
 }

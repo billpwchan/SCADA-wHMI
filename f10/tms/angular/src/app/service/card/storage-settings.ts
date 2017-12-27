@@ -17,3 +17,10 @@ export class StorageSettings {
     public static readonly STR_DATA = 'data';
 
 }
+
+export enum StorageResponse {
+  SAVE_SUCCESS = 0
+  , SAVE_FAILED
+  , LOAD_SUCCESS
+  , LOAD_FAILED
+}

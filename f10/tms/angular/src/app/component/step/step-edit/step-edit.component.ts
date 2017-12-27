@@ -272,6 +272,7 @@ btnDisabledAddCancelStep: boolean;
             this.aciInitValue = '' + initValue;
             this.aciValue = '' + StepEditSettings.INT_ACI_DEFAULT_VALUE;
           }
+          this.validate('aci');
         }
       });
 
@@ -536,13 +537,27 @@ btnDisabledAddCancelStep: boolean;
       break;
 
       case 'selDciValue': {
-        if ( this.selDciValue !== -1 ) {
-          this.btnDisabledAddDciStep = false;
-        } else {
-          this.btnDisabledAddDciStep = true;
-        }
+        this.validate('dci');
       } break;
 
+    }
+  }
+
+  private validate(name: string) {
+    if ( 'aci' === name ) {
+      if ( !isNaN(Number.parseFloat(this.aciInitValue))
+      && !isNaN(Number.parseFloat(this.aciValue)) ) {
+        this.btnDisabledAddAciStep = false;
+      } else {
+        this.btnDisabledAddAciStep = true;
+      }
+    } else if ( 'dci' === name ) {
+      if ( !isNaN(Number.parseFloat(this.dciInitValue))
+      && this.selDciValue !== -1 ) {
+        this.btnDisabledAddDciStep = false;
+      } else {
+        this.btnDisabledAddDciStep = true;
+      }
     }
   }
 
@@ -550,14 +565,11 @@ btnDisabledAddCancelStep: boolean;
     const f = 'onChange';
     console.log(this.c, f);
     console.log(this.c, f, 'name[' + name + ']');
-    if ( name === 'aciValue' ) {
-      const aciValue = Number.parseFloat(this.aciValue);
-      console.log(this.c, f, 'aciValue[' + aciValue + ']');
-      if ( !isNaN(aciValue) ) {
-        this.btnDisabledAddAciStep = false;
-      } else {
-        this.btnDisabledAddAciStep = true;
-      }
+
+    if ( name === 'aciInitValue' || name === 'aciValue' ) {
+      this.validate('aci');
+    } else if ( name === 'dciInitValue') {
+      this.validate('dci');
     }
   }
 

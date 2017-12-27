@@ -99,13 +99,14 @@
           <div class="input-group input-group-step-edit-aciinitvalue">
             <span class="input-group-addon span-step-edit-aciinitvalue">{{ '&step_lbl_aciinitvalue' | translate }}</span>
             <input type="text" class="form-control" name="aciInitValue" 
-            [(ngModel)]="aciInitValue" placeholder="{{ '&step_lst_aciinitvalue_placeholder' | translate }}">
+            [(ngModel)]="aciInitValue" (ngModelChange)="onChange('aciInitValue', $event)"
+            placeholder="{{ '&step_lst_aciinitvalue_placeholder' | translate }}">
           </div>
         </span>
         <div class="input-group input-group-step-edit-acivalue">
           <span class="input-group-addon span-step-edit-acivalue">{{ '&step_lbl_acivalue' | translate }}</span>
-          <input type="text"  class="form-control" name="aciValue" [(ngModel)]="aciValue"
-          (ngModelChange)="onChange('aciValue', $event)"
+          <input type="text"  class="form-control" name="aciValue" 
+          [(ngModel)]="aciValue" (ngModelChange)="onChange('aciValue', $event)"
            placeholder="{{ '&step_txt_acivalue_placeholder' | translate }}">
         </div>
         <button 
@@ -126,7 +127,8 @@
           <div class="input-group input-group-step-edit-dciinitvalue">
             <span class="input-group-addon span-step-edit-dciinitvalue">{{ '&step_lbl_dciinitvalue' | translate }}</span>
             <input type="text" class="form-control"name="dciInitValue" 
-            [(ngModel)]="dciInitValue" placeholder="{{ '&step_lst_dciinitvalue_placeholder' | translate }}">
+            [(ngModel)]="dciInitValue" (ngModelChange)="onChange('dciInitValue', $event)"
+            placeholder="{{ '&step_lst_dciinitvalue_placeholder' | translate }}">
           </div>
         </span>
         <div class="input-group input-group-step-edit-selectdci">

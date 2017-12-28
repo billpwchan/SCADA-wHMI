@@ -211,6 +211,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
         new DatatableCard(
           item.name
           , this.getCardTypeStr(item)
+          , new Date()
         )
       );
     });

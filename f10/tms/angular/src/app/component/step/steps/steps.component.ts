@@ -13,6 +13,8 @@ import { CardServiceType } from '../../../service/card/card-settings';
 import { SelectionServiceType } from '../../../service/card/selection-settings';
 import { SettingsService } from '../../../service/settings.service';
 import { StorageService } from '../../../service/card/storage.service';
+import { RowHeightCache } from '@swimlane/ngx-datatable/release/utils';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-steps'
@@ -24,10 +26,10 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   public static readonly STR_INIT = AppSettings.STR_INIT;
   public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
   public static readonly STR_CARD_SELECTED = AppSettings.STR_CARD_SELECTED;
-  public static readonly STR_CARD_UPDATED  = AppSettings.STR_CARD_UPDATED;
+  public static readonly STR_CARD_UPDATED = AppSettings.STR_CARD_UPDATED;
   public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
-  public static readonly STR_STEP_UPDATED  = AppSettings.STR_STEP_UPDATED;
+  public static readonly STR_STEP_UPDATED = AppSettings.STR_STEP_UPDATED;
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
@@ -86,30 +88,30 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     this.loadSettings();
 
     this.cardSubscription = this.cardService.cardItem
-    .subscribe(item => {
-      console.log(this.c, f, 'cardSubscription', item);
-      switch (item) {
-        case CardServiceType.CARD_RELOADED: {
-          this.btnClicked(StepsComponent.STR_CARD_RELOADED);
-        } break;
-        case CardServiceType.STEP_RELOADED: {
-          this.btnClicked(StepsComponent.STR_STEP_RELOADED);
-        } break;
-        case CardServiceType.STEP_UPDATED: {
-          this.btnClicked(StepsComponent.STR_STEP_UPDATED);
-        } break;
-      }
-    });
+      .subscribe(item => {
+        console.log(this.c, f, 'cardSubscription', item);
+        switch (item) {
+          case CardServiceType.CARD_RELOADED: {
+            this.btnClicked(StepsComponent.STR_CARD_RELOADED);
+          } break;
+          case CardServiceType.STEP_RELOADED: {
+            this.btnClicked(StepsComponent.STR_STEP_RELOADED);
+          } break;
+          case CardServiceType.STEP_UPDATED: {
+            this.btnClicked(StepsComponent.STR_STEP_UPDATED);
+          } break;
+        }
+      });
 
     this.selectionSubscription = this.selectionService.selectionItem
-    .subscribe(item => {
-      console.log(this.c, f, 'selectionSubscription', item);
-      switch (item) {
-        case SelectionServiceType.CARD_SELECTED: {
-          this.btnClicked(StepsComponent.STR_CARD_SELECTED);
-        } break;
-      }
-    });
+      .subscribe(item => {
+        console.log(this.c, f, 'selectionSubscription', item);
+        switch (item) {
+          case SelectionServiceType.CARD_SELECTED: {
+            this.btnClicked(StepsComponent.STR_CARD_SELECTED);
+          } break;
+        }
+      });
   }
 
   ngOnDestroy(): void {
@@ -122,7 +124,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     const f = 'ngOnChanges';
-    if ( changes[StepsComponent.STR_NORIFY_FROM_PARENT] ) {
+    if (changes[StepsComponent.STR_NORIFY_FROM_PARENT]) {
       switch (changes[StepsComponent.STR_NORIFY_FROM_PARENT].currentValue) {
         // case StepsComponent.STR_NEWSTEP: {
         // } break;
@@ -182,7 +184,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'getStateStr';
     console.log(this.c, f);
     let ret: string = StepSettings.STR_STEP_GD_STATE_UNKNOW;
-    switch ( state ) {
+    switch (state) {
       case StepType.START: {
         ret = StepSettings.STR_STEP_GD_STATE_STARTED;
       } break;
@@ -221,13 +223,13 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
 
     // Rset ScenarioStep
-    const rowsStep = [];
+    this.rows_step = [];
 
     const card: Card = this.cardService.getCard([this.selectedCardName]);
 
-    if ( null != card ) {
+    if (null != card) {
       const steps = card.steps;
-      if ( steps.length > 0 ) {
+      if (steps.length > 0) {
         steps.forEach((item, index) => {
           const dtStep: DatatableStep = new DatatableStep(
             '' + item.step
@@ -240,21 +242,17 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
             , item.execute
             , this.getStateStr(item.state)
             , this.stepPrefix + (+item.step + +this.stepBase)
+            , new Date()
           );
-          rowsStep.push(dtStep);
+          this.rows_step.push(dtStep);
         });
       } else {
         console.log(this.c, f, 'card IS NULL');
       }
     }
-
-    this.rows_step = [];
     this.rows_step = [...this.rows_step];
 
-    this.rows_step = rowsStep;
-    this.rows_step = [...this.rows_step];
-
-    if ( updateSelection ) {
+    if (updateSelection) {
       this.selected_step = [];
       this.setSelectedRow();
 
@@ -269,7 +267,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
     console.log(this.c, f, updateSelection);
 
-    this.reloadingSteps( updateSelection, (data) => {
+    this.reloadingSteps(updateSelection, (data) => {
       setTimeout(() => { this.loadingIndicator = false; }, 1500);
     });
   }
@@ -279,28 +277,63 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
   }
 
+  private emptySteps() {
+    const f = 'emptySteps';
+    console.log(this.c, f);
+    this.rows_step = [];
+    this.rows_step = [...this.rows_step];
+  }
+
+  private setCheckboxs(value: boolean) {
+    const f = 'selectAllCheckbox';
+    console.log(this.c, f);
+
+    const card = this.cardService.getCard([this.selectedCardName]);
+    card.steps.forEach(step => {
+      step.execute = value;
+    });
+
+    this.emptySteps();
+
+    const timer = Observable.interval(10).map((x) => {
+      console.log(this.c, f, 'interval map');
+
+    }).subscribe((x) => {
+      console.log(this.c, f, 'interval subscribe');
+      this.reloadSteps(value);
+      timer.unsubscribe();
+    });
+
+    this.cardService.cardChanged(CardServiceType.STEP_RELOADED);
+  }
+
   onColumnClick(name: string) {
     const f = 'onColumnClick';
     console.log(this.c, f);
     console.log(this.c, f, 'name', name);
-
-    // if ( 'execute' ==  name ) {
-    //   const card = this.cardService.getCard([this.selectedCardName]);
-    //   card.steps.forEach(element => {
-    //     element.execute = true;
-    //   });
-    //   this.cardService.cardChanged(CardServiceType.STEP_UPDATED);
-    // }
-
   }
 
-  onCheckboxChangeFn(event) {
-    const f = 'onCheckboxChangeFn';
-    console.log(this.c, f);
+  allRowsSelected(): boolean {
+    const steps: Step[] = this.cardService.getSteps(this.selectedCardName);
+    let counter = 0;
+    steps.forEach(step => {
+      if (step.execute) {
+        counter++;
+      }
+    });
+    return (steps.length === counter);
+  }
 
+  onCheckboxChange(name: string, event) {
+    const f = 'onCheckboxChange';
+    console.log(this.c, f);
     console.log(this.c, f, 'event', event);
 
-    this.cardService.getStep(this.selectedCardName, this.selectedCardStep).execute = event.target.checked;
+    if ('cell' === name) {
+      this.cardService.getStep(this.selectedCardName, this.selectedCardStep).execute = event.target.checked;
+    } else if ('header' === name) {
+      this.setCheckboxs(event.target.checked);
+    }
   }
 
   private setSelectedRow() {
@@ -308,7 +341,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f, 'name', name, 'event', event);
 
     this.selectedCardStep = new Array<number>();
-    this.selected_step.forEach( item => {
+    this.selected_step.forEach(item => {
       this.selectedCardStep.push(+item.step);
     });
     this.selectionService.setSelectedStepIds(this.selectedCardStep);
@@ -321,16 +354,16 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     this.setSelectedRow();
   }
 
-  onActivate(name: string, event ) {
+  onActivate(name: string, event) {
     const f = 'onActivate';
     console.log(this.c, f, 'name', name, 'event', event);
 
     const checkboxCellIndex = 1;
-    if ( 'checkbox' == event.type ) {
+    if ('checkbox' == event.type) {
       // Stop event propagation and let onSelect() work
       console.log('Checkbox Selected', event);
       event.event.stopPropagation();
-    } else if ( 'click' == event.type  && event.cellIndex != checkboxCellIndex) {
+    } else if ('click' == event.type && event.cellIndex != checkboxCellIndex) {
       // Do somethings when you click on row cell other than checkbox
       console.log('Row Clicked', event.row); /// <--- object is in the event row variable
     }

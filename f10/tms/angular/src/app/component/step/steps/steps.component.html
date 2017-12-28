@@ -14,6 +14,7 @@
       </form>
     <!--</div>-->
     <div>
+      <button (click)="onCheckboxChange()">Check all executes</button>
       <!-- class="material" -->
       <ngx-datatable #stepsDataTable
         class="bootstrap"
@@ -24,6 +25,7 @@
         [footerHeight]="30"
         [rowHeight]="40"
         [reorderable]="reorderable"
+        [trackByProp]="'updated'"
 
         [messages]="messages"
 
@@ -101,15 +103,12 @@
         </ngx-datatable-column>
         <ngx-datatable-column prop="execute" name="Execute" [sortable]="false" [canAutoResize]="false"
           [draggable]="false" [resizeable]="false" [width]="80">
-          <!--let-allRowsSelected="allRowsSelected" let-selectFn="selectFn" -->
           <ng-template let-value="value" ngx-datatable-header-template>
-            <span (click)="onColumnClick('execute')">{{ '&steps_dg_header_execute' | translate }}</span>
-            <!--<input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"/>-->
+            <!--<span (click)="onColumnClick('execute')">{{ '&steps_dg_header_execute' | translate }}</span>-->
+            <input type="checkbox" [checked]="allRowsSelected()" (change)="onCheckboxChange('header', $event)"/>
           </ng-template>
-          <!-- let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn"-->
           <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-            <input type="checkbox" [checked]="value" (change)="onCheckboxChangeFn($event)" />
-            <!--<md-checkbox (change)="changed()"></md-checkbox>-->
+            <input type="checkbox" [checked]="value" (change)="onCheckboxChange('cell', $event)" />
           </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column prop="status" name="Status" [sortable]='false' [canAutoResize]="false"

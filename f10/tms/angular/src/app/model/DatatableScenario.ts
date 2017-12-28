@@ -5,6 +5,7 @@ export class DatatableCard {
   constructor(
     public name: string
     , public state: string
+    , public updated: Date
   ) {}
 }
 
@@ -23,5 +24,6 @@ export class DatatableStep {
     , public execute: boolean
     , public status: string
     , public num: string
+    , public updated: Date
   ) {}
 }

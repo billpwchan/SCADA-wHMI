@@ -38,6 +38,7 @@ export class Equipment {
     , public eqplabel: string
     , public pointlabel: string
     , public valuelabel: string
+    , public reallabel: string
   ) {}
 }
 

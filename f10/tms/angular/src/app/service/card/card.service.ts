@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import { Subscription } from 'rxjs/Subscription';
 import { UtilsHttpModule } from './../utils-http/utils-http.module';
@@ -11,6 +11,7 @@ import { AppSettings } from '../../app-settings';
 import { SelectionService } from './selection.service';
 import { StepExistsResult, CardExistsResult, CardExecType, CardServiceType } from './card-settings';
 import { DacSimService } from '../scs/dac-sim.service';
+import { DbmPollingService } from '../scs/dbm-polling.service';
 
 @Injectable()
 export class CardService {
@@ -31,11 +32,11 @@ export class CardService {
 
   cards: Card[] = new Array<Card>();
 
-  timerSubscription: Subscription;
   dacSimSubscription: Subscription;
 
   constructor(
     private dacSimService: DacSimService
+    , private dbmPollingService: DbmPollingService
   ) {
     const f = 'constructor';
     console.log(this.c, f);
@@ -432,6 +433,8 @@ export class CardService {
 
       if ( !stop) {
 
+        this.dbmPollingService.subscribe(execCard);
+
         if (
           (
             CardType.START_PAUSED === execCard.state
@@ -540,8 +543,12 @@ export class CardService {
             } break;
           }
 
+          this.dbmPollingService.unsubscribe(execCard);
+
           this.notifyUpdate(CardServiceType.CARD_UPDATED);
         }
+      } else {
+        this.dbmPollingService.unsubscribe(execCard);
       }
     } else {
       console.log(this.c, f, 'CARD NOT FOUND');

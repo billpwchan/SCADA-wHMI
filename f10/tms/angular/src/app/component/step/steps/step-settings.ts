@@ -10,6 +10,8 @@ export class StepSettings {
     public static readonly STR_POINTLABEL_PREFIX = 'pointlabel_prefix';
     public static readonly STR_VALUE_PREFIX = 'value_prefix';
     public static readonly STR_DELAY_PREFIX = 'delay_prefix';
+    public static readonly STR_REAL_PREFIX = 'real_prefix';
+    public static readonly STR_REAL_DEFAULT = 'real_default';
 
     public static readonly STR_STEP_GD_STATE_UNKNOW = '&steps_dg_status_unknow';
     public static readonly STR_STEP_GD_STATE_STOPPED = '&steps_dg_status_stopped';

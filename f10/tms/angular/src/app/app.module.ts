@@ -34,6 +34,7 @@ import { TraineeComponent } from './route/trainee/trainee.component';
 import { PageNotFoundComponent } from './route/page-not-found/page-not-found.component';
 import { StepEditControllerComponent } from './component/step/step-edit-controller/step-edit-controller.component';
 import { CardEditControllerComponent } from './component/card/card-edit-controller/card-edit-controller.component';
+import { DbmPollingService } from './service/scs/dbm-polling.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -101,6 +102,7 @@ const appRoutes: Routes = [
     , CardService
     , SelectionService
     , StorageService
+    , DbmPollingService
 
   ],
   bootstrap: [AppComponent]

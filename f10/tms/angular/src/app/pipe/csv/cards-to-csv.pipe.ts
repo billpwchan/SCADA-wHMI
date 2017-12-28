@@ -51,6 +51,7 @@ export class CardsToCsvPipe implements PipeTransform {
         session2 += STR_COMMA + equipment.eqplabel;
         session2 += STR_COMMA + equipment.pointlabel;
         session2 += STR_COMMA + equipment.valuelabel;
+        session2 += STR_COMMA + equipment.reallabel;
 
         csv +=
               session1

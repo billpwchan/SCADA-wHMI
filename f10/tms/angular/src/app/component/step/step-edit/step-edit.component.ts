@@ -622,6 +622,7 @@ btnDisabledAddCancelStep: boolean;
         , this.selEqpLabel
         , this.selPointLabel
         , valueLabel
+        , undefined
       )
     );
 

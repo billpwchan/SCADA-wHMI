@@ -21,7 +21,7 @@ export class StorageService {
 
   private utilsHttp: UtilsHttpModule = new UtilsHttpModule();
 
-  uesLocalStorage: boolean;
+  useLocalStorage: boolean;
   localStorageName: string;
 
   remoteUrl: string;
@@ -50,7 +50,7 @@ export class StorageService {
     console.log(this.c, f);
 
     const service: string = StorageService.name;
-    this.uesLocalStorage = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_USE_LOCAL_STORAGE);
+    this.useLocalStorage = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_USE_LOCAL_STORAGE);
     this.localStorageName = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_LOCAL_STORAGE_NAME);
 
     this.remoteUrl = this.settingsService.getSetting(this.c, f, service, StorageSettings.STR_REMOTE_URL);
@@ -63,7 +63,7 @@ export class StorageService {
   saveCards(cards: Card[]): void {
     const f = 'saveCard';
     console.log(this.c, f);
-    if ( this.uesLocalStorage ) {
+    if ( this.useLocalStorage ) {
       const strCards: string = JSON.stringify(cards);
       localStorage.setItem(
         this.localStorageName
@@ -77,7 +77,7 @@ export class StorageService {
   loadCard(): void {
     const f = 'loadCard';
     console.log(this.c, f);
-    if ( this.uesLocalStorage ) {
+    if ( this.useLocalStorage ) {
       const strCards: string = localStorage.getItem(this.localStorageName);
       const cards: Card[] = JSON.parse(strCards);
       this.cardService.setCards(cards);

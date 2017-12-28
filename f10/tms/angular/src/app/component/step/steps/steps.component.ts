@@ -15,6 +15,8 @@ import { SettingsService } from '../../../service/settings.service';
 import { StorageService } from '../../../service/card/storage.service';
 import { RowHeightCache } from '@swimlane/ngx-datatable/release/utils';
 import { Observable } from 'rxjs/Observable';
+import { DbmPollingService } from '../../../service/scs/dbm-polling.service';
+import { Subscribable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-steps'
@@ -41,6 +43,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
 
   cardSubscription: Subscription;
   selectionSubscription: Subscription;
+  dbmPollingSubscription: Subscription;
 
   selectedCardName: string;
   selectedCardStep: number[];
@@ -68,6 +71,8 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   private pointlabelPrefix: string;
   private valuePrefix: string;
   private delayPrefix: string;
+  private realPrefix: string;
+  private realDefault: string;
 
   constructor(
     private translate: TranslateService
@@ -75,6 +80,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     , private selectionService: SelectionService
     , private storageService: StorageService
     , private settingsService: SettingsService
+    , private dbmPollingService: DbmPollingService
   ) {
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.loadTranslations();
@@ -112,14 +118,25 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
           } break;
         }
       });
+
+      this.dbmPollingSubscription = this.dbmPollingService.dbmPollingItem
+      .subscribe(item => {
+        console.log(this.c, f, 'dbmPollingSubscription', item);
+
+        if ( item === this.selectedCardName ) {
+          this.reloadSteps();
+        }
+      });
   }
 
   ngOnDestroy(): void {
     const f = 'ngOnInit';
     console.log(this.c, f);
 
+    // prevent memory leak when component is destroyed
     this.selectionSubscription.unsubscribe();
     this.cardSubscription.unsubscribe();
+    this.dbmPollingSubscription.unsubscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -153,6 +170,8 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     this.pointlabelPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_POINTLABEL_PREFIX);
     this.delayPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_DELAY_PREFIX);
     this.valuePrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_VALUE_PREFIX);
+    this.realPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_REAL_PREFIX);
+    this.realDefault = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_REAL_DEFAULT);
   }
 
   private loadTranslations(): void {
@@ -218,7 +237,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
   }
 
-  private reloadingSteps(updateSelection: boolean, cb): void {
+  private reloadingSteps(keepSelection: boolean, cb): void {
     const f = 'reloadingSteps';
     console.log(this.c, f);
 
@@ -242,6 +261,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
             , item.execute
             , this.getStateStr(item.state)
             , this.stepPrefix + (+item.step + +this.stepBase)
+            , this.realPrefix + (item.equipment.reallabel !== undefined ? item.equipment.reallabel : this.realDefault)
             , new Date()
           );
           this.rows_step.push(dtStep);
@@ -252,7 +272,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     }
     this.rows_step = [...this.rows_step];
 
-    if (updateSelection) {
+    if (keepSelection) {
       this.selected_step = [];
       this.setSelectedRow();
 
@@ -262,12 +282,12 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     return;
   }
 
-  private reloadSteps(updateSelection: boolean = true): void {
+  private reloadSteps(keepSelection: boolean = true): void {
     const f = 'reloadSteps';
     console.log(this.c, f);
-    console.log(this.c, f, updateSelection);
+    console.log(this.c, f, keepSelection);
 
-    this.reloadingSteps(updateSelection, (data) => {
+    this.reloadingSteps(keepSelection, (data) => {
       setTimeout(() => { this.loadingIndicator = false; }, 1500);
     });
   }
@@ -300,7 +320,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
 
     }).subscribe((x) => {
       console.log(this.c, f, 'interval subscribe');
-      this.reloadSteps(value);
+      this.reloadSteps();
       timer.unsubscribe();
     });
 

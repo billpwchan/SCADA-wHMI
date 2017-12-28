@@ -119,6 +119,15 @@
             <strong>{{ value | translate }}</strong>
           </ng-template>
         </ngx-datatable-column>
+        <ngx-datatable-column prop="real" name="Real" [sortable]='false' [canAutoResize]="false"
+          [draggable]="false" [resizeable]="false" [width]="80">
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="sort()">{{ '&steps_dg_header_real' | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <strong>{{ value | translate }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
 
         <ngx-datatable-footer>
           <ng-template 

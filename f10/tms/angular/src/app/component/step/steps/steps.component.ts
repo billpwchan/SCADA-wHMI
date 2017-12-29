@@ -297,6 +297,10 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
   }
 
+  isCheckedDisabled() {
+    return this.cardService.isRunning();
+  }
+
   private emptySteps() {
     const f = 'emptySteps';
     console.log(this.c, f);

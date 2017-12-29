@@ -69,7 +69,7 @@
       , "download_url": "downstreamFile_result"
   }
   , "DbmPollingService": {
-      "interval": 500
-      , "use_computed_message": true
+      "interval": 750
+      , "use_computed_message": false
   }
 }

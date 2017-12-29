@@ -1,0 +1,226 @@
+{
+	"&available_pages": "[AR]Available pages"
+	, "&traineradmin": "[AR]Trainer Admin"
+	, "&trainer": "[AR]Trainer"
+	, "&trainee": "[AR]Trainee"
+
+	, "&trainee_page": "[AR]trainee page"
+	
+	, "&cards_title": "[AR]Scenario List"
+
+	, "&cards_gd_header_name": "[AR]Name"
+	, "&cards_gd_header_state": "[AR]State"
+
+	, "&cards_dg_state_unknow": "[AR]Unknow"
+
+	, "&cards_dg_state_stopped": "[AR]Stop"
+	, "&cards_dg_state_stopped_partial": "[AR]Stop (Partial)"
+	, "&cards_dg_state_stop_running": "[AR]Restting"
+	, "&cards_dg_state_stop_terminated": "[AR]Terminated"
+
+	, "&cards_dg_state_start": "[AR]Started"
+	, "&cards_dg_state_started_partial": "[AR]Started (Partial)"
+	, "&cards_dg_state_started_running": "[AR]Running"
+	, "&cards_dg_state_start_paused": "[AR]Paused"
+	, "&cards_dg_state_start_terminated": "[AR]Terminated"
+
+	, "&cards_dg_footer_emptymessage": "[AR]No item to display"
+	, "&cards_dg_footer_selectedmessage": "[AR] selected"
+	, "&cards_dg_footer_spliter": "[AR] / "
+	, "&cards_dg_footer_totalmessage": "[AR] total"
+	
+	, "&cards_lbl_modify": "[AR]Modify"
+	, "&cards_btn_new": "[AR]New"
+	, "&cards_btn_new_title": "[AR]Add a new scenario."
+	, "&cards_btn_modify": "[AR]Modify"
+	, "&cards_btn_modify_title": "[AR]Modify selected scenario name."
+	, "&cards_btn_delete": "[AR]Delete"
+	, "&cards_btn_delete_title": "[AR]Delete selected scenario."
+	, "&cards_btn_copy": "[AR]Copy"
+	, "&cards_btn_copy_title": "[AR]Make a copy of selected scrnario."
+
+	, "&cards_lbl_new_name": "[AR]New Name"
+	, "&cards_txt_new_name": "[AR]type new name..."
+
+	, "&cards_btn_add": "[AR]Add"
+	, "&cards_btn_add_title": "[AR]Add as a new scenario."
+	, "&cards_btn_add_cancel": "[AR]Cancel"
+	, "&cards_btn_add_cancel_title": "[AR]Cancel to add a new scenario."
+
+	, "&cards_lbl_modify_name": "[AR]Edit Name"
+	, "&cards_txt_modify_name": "[AR]type new name..."
+
+	, "&cards_btn_modify_save": "[AR]Save"
+	, "&cards_btn_modify_save_title": "[AR]Save"
+	, "&cards_btn_modify_cancel": "[AR]Cancel"
+	, "&cards_btn_modify_cancel_title": "[AR]Cancel"
+
+	, "&cards_name_new_prefix": "[AR]Scenario # "
+	, "&cards_name_copy_appendix": "[AR] - Copy"
+
+	, "&cards_lbl_duplicated": "[AR]Name duplicated with exists name"
+	, "&cards_lbl_length_too_short": "[AR]Name contain too less character"
+	, "&cards_lbl_length_too_long": "[AR]Name containe too much character"
+
+	, "&card_controller_lbl_execute": "[AR]Execute"
+	, "&card_controller_btn_start": "[AR]Start"
+	, "&card_controller_btn_start_title": "[AR]Start selected scanerio execution."
+	, "&card_controller_btn_pause": "[AR]Pause"
+	, "&card_controller_btn_pause_title": "[AR]Pause selected scanerio execution."
+	, "&card_controller_btn_resume": "[AR]Resume"
+	, "&card_controller_btn_resume_title": "[AR]Resume selected scanerio execution."
+	, "&card_controller_btn_stop": "[AR]Stop"
+	, "&card_controller_btn_stop_title": "[AR]Stop selected scanerio execution."
+	, "&card_controller_btn_reset": "[AR]Reset"
+	, "&card_controller_btn_reset_title": "[AR]Reset selected scanerio execution."
+
+	, "&steps_lbl_scenario_step_list": "[AR]Scenario Step"
+
+	, "&steps_dg_header_num": "[AR]#"
+	, "&steps_dg_header_location": "[AR]Location"
+	, "&steps_dg_header_system": "[AR]System"
+	, "&steps_dg_header_equipment": "[AR]Equipment"
+	, "&steps_dg_header_point": "[AR]Point"
+	, "&steps_dg_header_value": "[AR]Value"
+	, "&steps_dg_header_delay": "[AR]Delay(s)"
+	, "&steps_dg_header_execute": "[AR]Selected"
+	, "&steps_dg_header_status": "[AR]Status"
+	, "&steps_dg_header_real": "[AR]Real"
+
+	, "&steps_dg_status_unknow": "[AR]Unknow"
+	, "&steps_dg_status_stopped": "[AR]Reset"
+	, "&steps_dg_status_stop_running": "[AR]Executing"
+	, "&steps_dg_status_stop_skipped": "[AR]Skipped"
+	, "&steps_dg_status_stopped_failed": "[AR]Comm. failed"
+	, "&steps_dg_status_started": "[AR]Executed"
+	, "&steps_dg_status_start_running": "[AR]Executing"
+	, "&steps_dg_status_start_skipped": "[AR]Skipped"
+	, "&steps_dg_status_started_failed": "[AR]Comm. failded"
+
+	, "&steps_dg_footer_emptymessage": "[AR]No item to display"
+	, "&steps_dg_footer_spliter": "[AR] / "
+	, "&steps_dg_footer_selectedmessage": "[AR] selected"
+	, "&steps_dg_footer_totalmessage": "[AR] total"
+
+	, "&steps_lbl_card_name": "[AR]Scenario Name"
+	, "&steps_txt_select_card": "[AR]Select a scenario..."
+	, "&steps_lbl_modify_step": "[AR]Modify Step"
+	, "&steps_btn_new_step": "[AR]New"
+	, "&steps_btn_new_step_title": "[AR]Add a new step to scenario"
+	, "&steps_btn_delete_step": "[AR]Delete"
+	, "&steps_btn_delete_step_title": "[AR]Delete a selected step from scenario"
+
+	,"&steps_edit_lbl_add_step": "[AR]Details of new step"
+
+	, "&step_lbl_env": "[AR]Environment"
+	, "&step_lst_env_default": "[AR]Select env..."
+	, "&step_lbl_geo": "[AR]Location"
+	, "&step_lst_geo_default": "[AR]Select location..."
+	, "&step_lst_geo_prefix": "[AR]&location_"
+	, "&step_lbl_func": "[AR]System"
+	, "&step_lst_func_default": "[AR]Select system..."
+	, "&step_lst_func_prefix": "[AR]function_"
+	, "&step_lbl_eqplabel": "[AR]Equipment"
+	, "&step_lst_eqplabel_default": "[AR]Select equipment..."
+	, "&step_lbl_pointlabel": "[AR]Point"
+	, "&step_lst_pointlabel_default": "[AR]Select point..."
+
+	, "&step_lbl_delay": "[AR]Delay (Seconds)"
+	, "&step_lst_delay_placeholder": "[AR]Select delay..."
+
+	, "&step_lbl_aciinitvalue": "[AR] Reset Value"
+	, "&step_lst_aciinitvalue_placeholder": "[AR]Enter reset value..."
+
+	, "&step_lbl_dciinitvalue": "[AR] Reset Value"
+	, "&step_lst_dciinitvalue_placeholder": "[AR]Enter reset value..."
+
+	, "&step_lbl_dcivalue": "[AR]Target Value"
+	, "&step_lst_dcivalue_placeholder": "[AR]Select target digital value..."
+
+	, "&step_lbl_acivalue": "[AR]Target Value"
+	, "&step_txt_acivalue_placeholder": "[AR]Enter target analog value..."
+
+	, "&step_lbl_classid": "[AR]Class ID"
+	, "&step_txt_classid_placeholder": "[AR]Enter class id"
+
+	, "&step_lbl_univname": "[AR]UnivName"
+	, "&step_txt_univname_placeholder": "[AR]Enter UNVIName"
+
+	, "&step_lbl_evname": "[AR]EVName"
+	, "&step_txt_evname_placeholder": "[AR]Enter class id"
+
+	, "&step_btn_add_cancelstep": "[AR]Cancel"
+	, "&step_btn_add_cancelstep_title": "[AR]Cacnel the add a step to card"
+
+	, "&step_btn_add_acistep": "[AR]Add"
+	, "&step_btn_add_acistep_title": "[AR]Add step to the card"
+	, "&step_btn_add_acicancelstep": "[AR]Cancel"
+	, "&step_btn_add_acicancelstep_title": "[AR]Cacnel the add a step to card"
+
+	, "&step_btn_add_dcistep": "[AR]Add"
+	, "&step_btn_add_dcistep_title": "[AR]Add step to the card"
+	, "&step_btn_add_dcicancelstep": "[AR]Cancel"
+	, "&step_btn_add_dcicancelstep_title": "[AR]Cacnel the add a step to card"
+
+	, "&step_lbl_executeion_step": "[AR]Execute Step"
+	, "&step_lbl_executeion": "[AR]Execut Highlight Step"
+
+	, "&scenario": "[AR]Scenario(s)"
+
+	, "&step_btn_startstep": "[AR]Start"
+	, "&step_btn_startstep_placeholder": "[AR]Start a selected Step execution."
+	, "&step_btn_stopstep": "[AR]Stop"
+	, "&step_btn_stopstep_placeholder": "[AR]Stop a selected Step execution."
+
+	, "&storage_lbl_scenario": "[AR]Scenario"
+
+	, "&storage_btn_save": "[AR]Save"
+	, "&storage_btn_save_title": "[AR]Save Scenario(s) into storage."
+	, "&storage_btn_load": "[AR]Reload"
+	, "&storage_btn_load_title": "[AR]Reload Scenario(s) from storage."
+
+	, "&storage_info_modifycardsnotsaved_title": "[AR]Save the modified setting."
+	, "&storage_info_modifycardsnotsaved": "[AR]Save the modified scenario(s) to storage before leave tms panel."
+	, "&storage_info_modifycardsnotsaved_close": "[AR] x "
+
+	, "&storage_btn_save_confirm": "[AR]Confirm"
+	, "&storage_btn_save_confirm_title": "[AR]Confirm to save the file."
+	, "&storage_btn_save_cancel": "[AR]Cancel"
+	, "&storage_btn_save_cancel_title": "[AR]Cancel the save operation."
+
+	, "&storage_info_modifycardsnotsavedsuccess_title": "[AR]Save success."
+	, "&storage_info_modifycardsnotsavedsuccess_close": "[AR] x "
+	, "&storage_info_modifycardsnotsavedfailed_title": "[AR]Save failed."
+	, "&storage_info_modifycardsnotsavedfailed_close": "[AR] x "
+
+	, "&storage_info_confirmtosavecards_title": "[AR]Overwrite current setting(s)."
+
+	, "&storage_info_reload_card_success_title": "[AR]Reload success."
+	, "&storage_info_reload_card_success_close": "[AR] x "
+
+	, "&storage_info_reload_card_failed_title": "[AR]Reload failed."
+	, "&storage_info_reload_card_failed_close": "[AR] x "
+
+	, "&importexport_btn_exportcsv": "[AR]Export"
+	, "&importexport_btn_exportcsv_title": "[AR]Export current scenario(s) as CSV file."
+	, "&importexport_export_message": "[AR]Exported scenario(s): "
+	, "&importexport_export_message_close": "[AR] x "
+
+	, "&importexport_btn_importcsv": "[AR]Import"
+	, "&importexport_btn_importcsv_title": "[AR]Import CSV file as current scenario(s)."
+	, "&importexport_import_message": "[AR]Imported scenario(s): "
+	, "&importexport_import_message_close": "[AR] x "
+
+	, "location_": "[AR]UNKNOW"
+	, "location_1": "[AR]M000001"
+	, "location_2": "[AR]M000002"
+	, "location_100000": "[AR]M100000"
+
+	, "function_": "[AR]UNKNOW"
+	, "function_1": "[AR]TPS"
+	, "function_2": "[AR]PSD"
+	, "function_3": "[AR]TVS"
+	, "function_4": "[AR]SIG"
+	, "function_8": "[AR]ECT"
+	, "function_99": "[AR]MCS"
+}

@@ -334,14 +334,18 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   allRowsSelected(): boolean {
+    let ret = false;
     const steps: Step[] = this.cardService.getSteps(this.selectedCardName);
     let counter = 0;
-    steps.forEach(step => {
-      if (step.execute) {
-        counter++;
-      }
-    });
-    return (steps.length === counter);
+    if ( steps ) {
+      steps.forEach(step => {
+        if (step.execute) {
+          counter++;
+        }
+      });
+      ret = (steps.length === counter);
+    }
+    return ret;
   }
 
   onCheckboxChange(name: string, event) {

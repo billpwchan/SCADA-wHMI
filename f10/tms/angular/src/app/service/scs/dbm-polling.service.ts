@@ -18,7 +18,8 @@ export class DbmPollingService {
 
   private subscriptions: Map<string, Subscription> = new Map<string, Subscription>();
 
-  private computedMessage: Map<string, Map<string, any>> = new Map<string, Map<string, any>>();
+  private computedMessages: Map<string, Map<string, any>> = new Map<string, Map<string, any>>();
+  private values: Map<string, Map<string, any>> = new Map<string, Map<string, any>>();
 
   readonly c = DbmPollingService.name;
 
@@ -42,7 +43,7 @@ export class DbmPollingService {
 
     const service: string = DbmPollingService.name;
     this.interval = this.settingsService.getSetting(this.c, f, service, DbmPollingSettings.STR_INTERVAL);
-    this.useComputedMessage = this.settingsService.getSetting(this.c, f, service, DbmPollingSettings.STR_INTERVAL);
+    this.useComputedMessage = this.settingsService.getSetting(this.c, f, service, DbmPollingSettings.STR_USE_COMPUTED_MESSAGE);
   }
 
   // Service command
@@ -86,18 +87,27 @@ export class DbmPollingService {
 
         if ( this.useComputedMessage ) {
           this.readComputedMessage(card);
+        } else {
+          this.readValue(card);
         }
       })
     );
   }
 
-  readComputedMessage(card: Card) {
-    const f = 'readComputedMessage';
+  readValue(card: Card) {
+    const f = 'readValue';
     console.log(this.c, f);
 
     card.steps.forEach( item => {
       const urls: string [] = [];
-      urls.push(DbmSettings.STR_ALIAS + item.equipment.univname + DbmSettings.STR_COMPUTED_MESSAGE);
+      urls.push(DbmSettings.STR_ALIAS + item.equipment.univname + DbmSettings.STR_ATTR_VALUE);
+
+      if ( DbmSettings.INT_DCI_TYPE === item.equipment.classId ) {
+        urls.push(DbmSettings.STR_ALIAS + item.equipment.univname + DbmSettings.STR_VALUETABLE_LABEL);
+        urls.push(DbmSettings.STR_ALIAS + item.equipment.univname + DbmSettings.STR_VALUETABLE_VALUE);
+      } else {
+        urls.push(DbmSettings.STR_ALIAS + item.equipment.univname + DbmSettings.STR_ATTR_UNIT);
+      }
 
       const url = item.equipment.connAddr + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
 
@@ -114,7 +124,64 @@ export class DbmPollingService {
               const dbvalue = json[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
               console.log(this.c, f, 'card.name', card.name, 'dbvalue', dbvalue);
 
-              this.computedMessage.set(item.equipment.connAddr, new Map<string, any>().set(item.equipment.univname, dbvalue));
+              this.values.set(item.equipment.connAddr, new Map<string, any>().set(item.equipment.univname, dbvalue));
+
+              let changed = false;
+              card.steps.forEach( item2 => {
+                if ( item2.equipment.univname === item.equipment.univname ) {
+                  if ( item2.equipment.reallabel != dbvalue[0] ) {
+                    if ( DbmSettings.INT_DCI_TYPE === item2.equipment.classId ) {
+                      const labels: string[] = dbvalue[1] as string[];
+                      const values: number[] = dbvalue[2] as number[];
+                      for ( let i = 0 ; i < values.length ; ++i ) {
+                        if ( dbvalue[0] === values[i]) {
+                          item2.equipment.reallabel = labels[i];
+                          break;
+                        }
+                      }
+                    } else {
+                      item2.equipment.reallabel = dbvalue[0] + dbvalue[1];
+                    }
+                    changed = true;
+                  }
+                }
+              });
+
+              if ( changed ) {
+                console.log(this.c, f, 'card.name', card.name, 'changed');
+                this.dbmPollingChanged(card.name);
+              }
+            }
+            , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
+            , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
+        );
+    });
+  }
+
+  readComputedMessage(card: Card) {
+    const f = 'readComputedMessage';
+    console.log(this.c, f);
+
+    card.steps.forEach( item => {
+      const urls: string [] = [];
+      urls.push(DbmSettings.STR_ALIAS + item.equipment.univname + DbmSettings.STR_ATTR_COMPUTED_MESSAGE);
+
+      const url = item.equipment.connAddr + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
+
+      console.log(this.c, f, 'url', url);
+
+        // Get Label and Value
+        this.httpClient.get(
+          url
+        )
+          .subscribe(
+            (res: any[]) => {
+              console.log(this.c, f, res);
+              const json = res;
+              const dbvalue = json[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
+              console.log(this.c, f, 'card.name', card.name, 'dbvalue', dbvalue);
+
+              this.computedMessages.set(item.equipment.connAddr, new Map<string, any>().set(item.equipment.univname, dbvalue));
 
               let changed = false;
               card.steps.forEach( item2 => {

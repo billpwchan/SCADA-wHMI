@@ -104,10 +104,20 @@
           [draggable]="false" [resizeable]="false" [width]="80">
           <ng-template let-value="value" ngx-datatable-header-template>
             <!--<span (click)="onColumnClick('execute')">{{ '&steps_dg_header_execute' | translate }}</span>-->
-            <input type="checkbox" [disabled]="isCheckedDisabled()" [checked]="allRowsSelected()" (change)="onCheckboxChange('header', $event)"/>
+            <label class="checkbox-inline">
+              <input type="checkbox" class="regular-checkbox big-checkbox"
+              [disabled]="isCheckedDisabled()" 
+              [checked]="allRowsSelected()" (change)="onCheckboxChange('header', $event)"
+              />
+          </label>
           </ng-template>
           <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-            <input type="checkbox" [disabled]="isCheckedDisabled()" [checked]="value" (change)="onCheckboxChange('cell', $event)" />
+            <label class="checkbox-inline">
+              <input type="checkbox" class="regular-checkbox big-checkbox"
+              [disabled]="isCheckedDisabled()" 
+              [checked]="value" (change)="onCheckboxChange('cell', $event)"
+              />
+            </label>
           </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column prop="status" name="Status" [sortable]='false' [canAutoResize]="false"

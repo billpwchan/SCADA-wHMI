@@ -121,12 +121,12 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
         }
       });
 
-      this.dbmPollingSubscription = this.dbmPollingService.dbmPollingItem
+    this.dbmPollingSubscription = this.dbmPollingService.dbmPollingItem
       .subscribe(item => {
         console.log(this.c, f, 'dbmPollingSubscription', item);
 
-        if ( item === this.selectedCardName ) {
-          this.reloadSteps(true);
+        if (item === this.selectedCardName) {
+          this.btnClicked(StepsComponent.STR_STEP_UPDATED);
         }
       });
   }
@@ -239,7 +239,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
   }
 
-  private reloadingSteps(updateOnly: boolean, cb): void {
+  private reloadingSteps(updateOnly: boolean, keepSelection: boolean, cb): void {
     const f = 'reloadingSteps';
     console.log(this.c, f);
 
@@ -301,33 +301,38 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
             this.rows_step[index].real = real;
             this.rows_step[index].updated = updated;
           }
-
-          console.log('DatatableStep[' + index + ']' + this.rows_step[index].toString());
-
         });
       } else {
         console.log(this.c, f, 'step IS ZERO LENGTH');
       }
-
     } else {
       console.log(this.c, f, 'card IS NULL');
     }
     this.rows_step = [...this.rows_step];
 
-    if ( ! updateOnly ) {
+    if ( ! keepSelection ) {
       this.selected_step = [];
       this.setSelectedRow();
-
       this.selectedCardStep = null;
+    } else {
+      if ( this.selectedCardStep && this.rows_step ) {
+        this.selectedCardStep.forEach ( item1 => {
+          this.rows_step.forEach ( item2 => {
+            if ( '' + item1 == item2.step ) {
+              this.selected_step.push(item2);
+            }
+          });
+        });
+      }
     }
   }
 
-  private reloadSteps(updateOnly: boolean = false): void {
+  private reloadSteps(updateOnly: boolean = false, keepSelection: boolean = false): void {
     const f = 'reloadSteps';
     console.log(this.c, f);
     console.log(this.c, f, updateOnly);
 
-    this.reloadingSteps(updateOnly, (data) => {
+    this.reloadingSteps(updateOnly, keepSelection, (data) => {
       setTimeout(() => { this.loadingIndicator = false; }, 1500);
     });
   }
@@ -364,7 +369,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
 
     }).subscribe((x) => {
       console.log(this.c, f, 'interval subscribe');
-      this.reloadSteps();
+      this.reloadSteps(true);
       timer.unsubscribe();
     });
 
@@ -454,15 +459,15 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
       case StepsComponent.STR_CARD_RELOADED: {
         this.selectedCardName = '';
         this.txtCardName = this.selectedCardName;
-        this.reloadSteps();
+        this.reloadSteps(false, true);
       } break;
       case StepsComponent.STR_CARD_SELECTED: {
         this.selectedCardName = this.selectionService.getSelectedCardId();
         this.txtCardName = this.selectedCardName;
-        this.reloadSteps();
+        this.reloadSteps(false, true);
       } break;
       case StepsComponent.STR_STEP_RELOADED: {
-        this.reloadSteps();
+        this.reloadSteps(false, true);
       } break;
       case StepsComponent.STR_STEP_UPDATED: {
         this.reloadSteps(true);

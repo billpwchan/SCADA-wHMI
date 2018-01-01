@@ -45,7 +45,9 @@
   }
   , "ImportExportComponent": {
 
-      "import_type": "1"
+    "export_selection_only": true
+
+      , "import_type": "1"
       , "import_accept": ".csv"
 
       , "export_type": "1"

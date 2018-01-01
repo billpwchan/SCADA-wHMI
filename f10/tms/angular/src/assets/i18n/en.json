@@ -201,6 +201,8 @@
 	, "&storage_info_reload_card_failed_title": "Reload failed."
 	, "&storage_info_reload_card_failed_close": " x "
 
+	, "&importexport_lbl_backup": "Import / Export"
+
 	, "&importexport_btn_exportcsv": "Export"
 	, "&importexport_btn_exportcsv_title": "Export current scenario(s) as CSV file."
 	, "&importexport_export_message": "Exported scenario(s): "

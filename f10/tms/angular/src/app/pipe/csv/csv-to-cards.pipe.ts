@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Card, Step, Equipment, Execution, PhaseType } from '../../model/Scenario';
+import { Card, Step, Equipment, Execution } from '../../model/Scenario';
 import { TokenIndex } from './csv-to-card-settings';
+import { DacSimExecType } from '../../service/scs/dac-sim-settings';
 
 /**
  * Pipe to transform the CSV to Cards
@@ -92,53 +93,58 @@ export class CsvToCardsPipe implements PipeTransform {
 
             let step = this.getStep(card.steps, sStep);
 
-            const equipment: Equipment = new Equipment(
-              eConnAddr
-              , eUnivname
-              , eClassId
-              , eGeo
-              , eFunc
-              , eEqplabel
-              , ePointlabel
-              , eValueLabel
-              , eRealLabel
-            );
 
             if ( null === step ) {
-              step = new Step(sStep, sState, sDelay, sExecute, equipment);
+              step = new Step(sStep, sState, sDelay, sExecute);
               card.steps.push(step);
             } else {
               // Step Exists
               step.state = sState;
               step.delay = sDelay;
-              step.equipment = equipment;
             }
 
-            if ( token.length > TokenIndex.EXEC_VALUE ) {
-              // Phase Session
-              const execPhase: PhaseType = Number.parseInt(token[TokenIndex.PHASE_TYPE]);
+            if ( ! step.equipment ) {
+              step.equipment = new Equipment(
+                eConnAddr
+                , eUnivname
+                , eClassId
+                , eGeo
+                , eFunc
+                , eEqplabel
+                , ePointlabel
+                , eValueLabel
+                , eRealLabel
+              );
+            }
 
-              let phases: Execution[] = [];
-              switch (execPhase) {
-                case PhaseType.STOP: {
-                  phases = step.equipment.phaseStop;
-                } break;
-                case PhaseType.START: {
-                  phases = step.equipment.phaseStart;
-                } break;
+            if ( token.length > TokenIndex.PHASE_TYPE ) {
+
+              if ( ! step.equipment.phases) {
+                step.equipment.phases = [];
               }
 
-              // Execution Session
-              const execType  = Number.parseInt(token[TokenIndex.EXEC_TYPE]);
-              const execName  = token[TokenIndex.EXEC_NAME];
-              const execValue = Number.parseFloat(token[TokenIndex.EXEC_VALUE]);
+              // Phase Session
+              const execPhase: DacSimExecType = Number.parseInt(token[TokenIndex.PHASE_TYPE]);
 
-              const exec: Execution = new Execution(
-                                                    execType
-                                                  , execName
-                                                  , execValue);
+              if ( ! isNaN(execPhase) ) {
+                // Execution Session
+                const execType  = Number.parseInt(token[TokenIndex.EXEC_TYPE]);
+                const execName  = token[TokenIndex.EXEC_NAME];
+                const execValue = Number.parseFloat(token[TokenIndex.EXEC_VALUE]);
 
-              phases.push(exec);
+                const exec: Execution = new Execution(
+                                                      execType
+                                                    , execName
+                                                    , execValue);
+
+                if ( ! step.equipment.phases[execPhase] ) {
+                  step.equipment.phases[execPhase] = [];
+                }
+                step.equipment.phases[execPhase].push(exec);
+
+              } else {
+                console.log(this.c, f, 'execPhase IS NaN');
+              }
             }
           }
         }

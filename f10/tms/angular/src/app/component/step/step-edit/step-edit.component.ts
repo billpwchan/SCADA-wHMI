@@ -10,7 +10,7 @@ import { DbmSettings } from '../../../service/scs/dbm-settings';
 import { OlsService } from '../../../service/scs/ols.service';
 import { DbmService } from '../../../service/scs/dbm.service';
 import { Subscription } from 'rxjs/Subscription';
-import { DacSimSettings } from '../../../service/scs/dac-sim-settings';
+import { DacSimSettings, DacSimExecType } from '../../../service/scs/dac-sim-settings';
 import { Subscribable } from 'rxjs/Observable';
 import { SelectionService } from '../../../service/card/selection.service';
 import { StepSettings } from '../steps/step-settings';
@@ -613,29 +613,37 @@ btnDisabledAddCancelStep: boolean;
       , StepType.STOPPED
       , Number(this.selDelay).valueOf()
       , true
-      , new Equipment(
-        this.selEnv
-        , this.txtUnivname
-        , Number(this.txtClassId).valueOf()
-        , Number(this.selGeo).valueOf()
-        , Number(this.selFunc).valueOf()
-        , this.selEqpLabel
-        , this.selPointLabel
-        , valueLabel
-        , undefined
-      )
     );
 
-    step.equipment.phaseStop.push(new Execution(
-      ExecType.DACSIM
-      , this.txtEVName
-      , Number(initValue).valueOf()
-    ));
+    step.equipment = new Equipment(
+      this.selEnv
+      , this.txtUnivname
+      , Number(this.txtClassId).valueOf()
+      , Number(this.selGeo).valueOf()
+      , Number(this.selFunc).valueOf()
+      , this.selEqpLabel
+      , this.selPointLabel
+      , valueLabel
+      , undefined
+    );
 
-    step.equipment.phaseStart.push(new Execution(
+    if ( ! step.equipment.phases ) {
+      step.equipment.phases = new Array<Array<Execution>>();
+      for ( let i = 0 ; i < DacSimExecType.LENGTH ; ++i ) {
+        step.equipment.phases[i] = new Array<Execution>();
+      }
+    }
+
+    step.equipment.phases[DacSimExecType.START].push(new Execution(
       ExecType.DACSIM
       , this.txtEVName
       , Number(value).valueOf()
+    ));
+
+    step.equipment.phases[DacSimExecType.STOP].push(new Execution(
+      ExecType.DACSIM
+      , this.txtEVName
+      , Number(initValue).valueOf()
     ));
 
     this.newStep(step);

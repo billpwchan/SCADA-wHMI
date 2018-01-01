@@ -17,18 +17,17 @@ export class Execution {
   ) {}
 }
 
-export enum PhaseType {
-  UNKNOW = 0
-  , START
-  , STOP
-}
+// export enum PhaseType {
+//   START = 0
+//   , STOP
+//   , LENGTH
+// }
 
 /**
  * A model for an individual Equipment
  */
 export class Equipment {
-  public phaseStop: Execution[] = new Array<Execution>();
-  public phaseStart: Execution[] = new Array<Execution>();
+  public phases: Execution[][];
   constructor(
     public connAddr: string
     , public univname: string
@@ -58,12 +57,12 @@ export enum StepType {
  * A model for an individual Step
  */
 export class Step {
+  public equipment: Equipment;
   constructor(
     public step: number
     , public state: StepType
     , public delay: number
     , public execute: boolean
-    , public equipment: Equipment
   ) {}
 }
 

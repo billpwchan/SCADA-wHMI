@@ -8,8 +8,9 @@
       <app-card-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardController"></app-card-controller>
       <app-card-edit-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-edit-controller>
       <div class="div-trainer-admin-left-bottom-middle">
-        <div class="div-trainer-admin-left-bottom-middle-middle"><app-storage (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStorage"></app-storage></div>
-        <app-import-export (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCsvInterpret"></app-import-export>
+        <div class="div-trainer-admin-left-bottom-middle-middle">
+          <app-storage (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStorage"></app-storage>
+        </div>
       </div>
     </div>
   </div>
@@ -24,7 +25,8 @@
         <div class="div-trainer-admin-right-bottom-inter">
           <app-step-edit-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepEdit"></app-step-edit-controller>
         </div>
-      </div> 
+      </div>
+      <app-import-export (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCsvInterpret"></app-import-export>
     </div>
   </div>
 </div>

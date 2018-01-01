@@ -5,8 +5,8 @@ export class DacSimSettings {
 
 export enum DacSimExecType {
     START = 0
-    , STOP = 1
-    , UNKNOW = 2
+    , STOP
+    , LENGTH
 }
 
 export class EIV {

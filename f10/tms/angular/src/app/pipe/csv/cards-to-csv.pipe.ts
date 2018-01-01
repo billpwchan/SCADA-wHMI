@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Card, Equipment, PhaseType } from '../../model/Scenario';
+import { Card, Equipment } from '../../model/Scenario';
 import { CsvToCardSettings } from './csv-to-card-settings';
+import { DacSimExecType } from '../../service/scs/dac-sim-settings';
 
 /**
  * Pipe to transform Cards to Csv
@@ -58,10 +59,9 @@ export class CardsToCsvPipe implements PipeTransform {
                + STR_COMMA + session2
                + STR_EOL;
 
-        equipment.phaseStop.forEach(exec => {
-
+        equipment.phases[DacSimExecType.START].forEach(exec => {
           let session3 = CsvToCardSettings.STR_EMPTY;
-          session3 += PhaseType.STOP;
+          session3 += DacSimExecType.START;
           session3 += STR_COMMA + exec.execType;
           session3 += STR_COMMA + exec.name;
           session3 += STR_COMMA + exec.value;
@@ -71,9 +71,9 @@ export class CardsToCsvPipe implements PipeTransform {
                 + session3 + STR_EOL;
         });
 
-        equipment.phaseStart.forEach(exec => {
+        equipment.phases[DacSimExecType.STOP].forEach(exec => {
           let session3 = CsvToCardSettings.STR_EMPTY;
-          session3 += PhaseType.START;
+          session3 += DacSimExecType.STOP;
           session3 += STR_COMMA + exec.execType;
           session3 += STR_COMMA + exec.name;
           session3 += STR_COMMA + exec.value;
@@ -82,6 +82,7 @@ export class CardsToCsvPipe implements PipeTransform {
                 + session2 + STR_COMMA
                 + session3 + STR_EOL;
         });
+
       });
     });
     return csv;

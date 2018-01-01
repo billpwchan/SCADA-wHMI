@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import { Subscription } from 'rxjs/Subscription';
 import { UtilsHttpModule } from './../utils-http/utils-http.module';
-import { Card, Step, StepType, CardType, PhaseType, Execution } from '../../model/Scenario';
+import { Card, Step, StepType, CardType, Execution } from '../../model/Scenario';
 import { DacSimExecution, EIV, DacSimExecType, ExecResult } from './../../service/scs/dac-sim-settings';
 import { AppSettings } from '../../app-settings';
 import { SelectionService } from './selection.service';
@@ -327,15 +327,7 @@ export class CardService {
 
     const step: Step = this.getStep(cardName, [stepId]);
 
-    let phase: Execution[] = [];
-    switch (stepType) {
-      case DacSimExecType.STOP: {
-        phase = step.equipment.phaseStop;
-      } break;
-      case DacSimExecType.START: {
-        phase = step.equipment.phaseStart;
-      } break;
-    }
+    const phase: Execution[] = step.equipment.phases[stepType];
 
     const eivs: EIV[] = new Array<EIV>();
 
@@ -461,7 +453,7 @@ export class CardService {
           firstStep = false;
         }
 
-        let stepExecType: DacSimExecType = DacSimExecType.UNKNOW;
+        let stepExecType: DacSimExecType;
         switch ( execType ) {
           case CardExecType.START: {
             execCard.state = CardType.START_RUNNING;

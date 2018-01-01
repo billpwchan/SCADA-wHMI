@@ -75,6 +75,12 @@ export class DbmPollingService {
 
     this.unsubscribe(card);
 
+    if ( this.useComputedMessage ) {
+      this.readComputedMessage(card);
+    } else {
+      this.readValue(card);
+    }
+
     console.log(this.c, f, 'interval', this.interval, 'card.name', card.name);
 
     this.subscriptions.set(

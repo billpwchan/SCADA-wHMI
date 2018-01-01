@@ -1,0 +1,8 @@
+.lbl-import-export-backup {
+    width: 160px;
+}
+.btn-import-export-exportcsv
+, .btn-import-export-importcv {
+    width: 75px;
+    margin: 5px 2px 5px 2px;
+}

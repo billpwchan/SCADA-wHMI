@@ -27,4 +27,20 @@ export class DatatableStep {
     , public real: string
     , public updated: Date
   ) {}
+
+  toString(): string {
+    return  'step[' + this.step
+            + '] location[' + this.location
+            + '] system[' + this.system
+            + '] equipment[' + this.equipment
+            + '] point[' + this.point
+            + '] value[' + this.value
+            + '] delay[' + this.delay
+            + '] execute[' + this.execute
+            + '] status[' + this.status
+            + '] num[' + this.num
+            + '] real[' + this.real
+            + '] updated[' + this.updated
+            + ']';
+  }
 }

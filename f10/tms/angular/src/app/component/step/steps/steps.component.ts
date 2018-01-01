@@ -74,6 +74,8 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   private realPrefix: string;
   private realDefault: string;
 
+  private subscriptionCard: Card;
+
   constructor(
     private translate: TranslateService
     , private cardService: CardService
@@ -124,7 +126,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
         console.log(this.c, f, 'dbmPollingSubscription', item);
 
         if ( item === this.selectedCardName ) {
-          this.reloadSteps();
+          this.reloadSteps(true);
         }
       });
   }
@@ -237,12 +239,14 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
   }
 
-  private reloadingSteps(keepSelection: boolean, cb): void {
+  private reloadingSteps(updateOnly: boolean, cb): void {
     const f = 'reloadingSteps';
     console.log(this.c, f);
 
-    // Rset ScenarioStep
-    this.rows_step = [];
+    if ( ! updateOnly ) {
+      // Reset ScenarioStep
+      this.rows_step = [];
+    }
 
     const card: Card = this.cardService.getCard([this.selectedCardName]);
 
@@ -250,44 +254,80 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
       const steps = card.steps;
       if (steps.length > 0) {
         steps.forEach((item, index) => {
-          const dtStep: DatatableStep = new DatatableStep(
-            '' + item.step
-            , this.geoPrefix + item.equipment.geo
-            , this.funcPrefix + item.equipment.func
-            , this.eqplabelPrefix + item.equipment.eqplabel
-            , this.pointlabelPrefix + item.equipment.pointlabel
-            , this.valuePrefix + item.equipment.valuelabel
-            , this.delayPrefix + item.delay
-            , item.execute
-            , this.getStateStr(item.state)
-            , this.stepPrefix + (+item.step + +this.stepBase)
-            , this.realPrefix + (item.equipment.reallabel !== undefined ? item.equipment.reallabel : this.realDefault)
-            , new Date()
-          );
-          this.rows_step.push(dtStep);
+
+          const step = '' + item.step;
+          const location = this.geoPrefix + item.equipment.geo;
+          const system = this.funcPrefix + item.equipment.func;
+          const equipment = this.eqplabelPrefix + item.equipment.eqplabel;
+          const point = this.pointlabelPrefix + item.equipment.pointlabel;
+          const value = this.valuePrefix + item.equipment.valuelabel;
+          const delay = this.delayPrefix + item.delay;
+          const execute = item.execute;
+          const status = this.getStateStr(item.state);
+          const num = this.stepPrefix + (+item.step + +this.stepBase);
+          let real = this.realPrefix + item.equipment.reallabel;
+          const updated = new Date();
+          if ( real === undefined || real === 'undefined' ) {
+            real = this.realDefault;
+          }
+
+          if ( ! updateOnly ) {
+            const dtStep: DatatableStep = new DatatableStep(
+              step
+              , location
+              , system
+              , equipment
+              , point
+              , value
+              , delay
+              , execute
+              , status
+              , num
+              , real
+              , updated
+            );
+            this.rows_step.push(dtStep);
+          } else {
+            this.rows_step[index].step = step;
+            this.rows_step[index].location = location;
+            this.rows_step[index].system = system;
+            this.rows_step[index].equipment = equipment;
+            this.rows_step[index].point = point;
+            this.rows_step[index].value = value;
+            this.rows_step[index].delay = delay;
+            this.rows_step[index].execute = execute;
+            this.rows_step[index].status = status;
+            this.rows_step[index].num = num;
+            this.rows_step[index].real = real;
+            this.rows_step[index].updated = updated;
+          }
+
+          console.log('DatatableStep[' + index + ']' + this.rows_step[index].toString());
+
         });
       } else {
-        console.log(this.c, f, 'card IS NULL');
+        console.log(this.c, f, 'step IS ZERO LENGTH');
       }
+
+    } else {
+      console.log(this.c, f, 'card IS NULL');
     }
     this.rows_step = [...this.rows_step];
 
-    if (keepSelection) {
+    if ( ! updateOnly ) {
       this.selected_step = [];
       this.setSelectedRow();
 
       this.selectedCardStep = null;
     }
-
-    return;
   }
 
-  private reloadSteps(keepSelection: boolean = true): void {
+  private reloadSteps(updateOnly: boolean = false): void {
     const f = 'reloadSteps';
     console.log(this.c, f);
-    console.log(this.c, f, keepSelection);
+    console.log(this.c, f, updateOnly);
 
-    this.reloadingSteps(keepSelection, (data) => {
+    this.reloadingSteps(updateOnly, (data) => {
       setTimeout(() => { this.loadingIndicator = false; }, 1500);
     });
   }
@@ -425,7 +465,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
         this.reloadSteps();
       } break;
       case StepsComponent.STR_STEP_UPDATED: {
-        this.reloadSteps(false);
+        this.reloadSteps(true);
       } break;
     }
     // this.sendNotifyParent(btnLabel);

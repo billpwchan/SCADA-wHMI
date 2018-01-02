@@ -6,20 +6,27 @@ const http = require("http")
 
 const port=8080;
 
-const 
-STR_FILEPATH="filepath"
+const
+STR_OPERATION="operation"
+,STR_GET_FILE="getfile"
+,STR_GET_FILELIST="getfilelist"
+,STR_DELETE_FILE="deletefile"
+,STR_PATH="path"
 ,STR_METHOD="method"
 ,STR_DOWNLOAD="download"
 ,STR_STREAM="stream"
 ,STR_DATA="data"
 ,STR_STORAGE_FOLDER="storage";
 
+const STR_CONTENT_TYPE = 'Content-Type';
+const STR_CONTENT_TYPE_DATA = 'application/json; charset=utf-8';
+
 const storagePath=__dirname+path.sep+STR_STORAGE_FOLDER;
 const cmdPath=process.cwd();
 
 /* response file*/
-function loadFile(pathname,method,res) {
-  console.log("pathname[",pathname,"] method[",method,"]");
+function getFileList(pathname,res) {
+  console.log("getFileList pathname[",pathname,"]");
   
   // Conver to fullpath
   let full_path = path.join(process.cwd(), STR_STORAGE_FOLDER, pathname);
@@ -32,63 +39,185 @@ function loadFile(pathname,method,res) {
   if(absolutePath.startsWith(storagePath)){
     fs.exists(full_path, function (exists) {
       if (!exists) {
-        res.writeHeader(404, { "Content-Type": "text/plain" });
-        res.write("404 Not Found\n");
-        res.end();
+        // File Not Found
+        res.writeHeader(404, { STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA });
+        let json = {};
+        json['path'] = pathname;
+        json['data'] = '404 Not Found';
+        res.write(JSON.stringify(json) + "\n");
+        res.end(); 
       }
       else {
-        if ( method.toLowerCase() === STR_DOWNLOAD ) {
-          fs.readFile(full_path, "binary", function (err, file) {
-            if (err) {
-              res.writeHeader(500, { "Content-Type": "text/plain" });
-              res.write(err + "\n");
-              res.end();
-            }
-            else {
-              let base_name=path.basename(full_path);
-              let ext_name=path.extname(full_path);
-              console.log("base_name[",base_name,"] ext_name[",ext_name,"]");
+        fs.readdir(full_path, function (err, items) {
+          // console.log('data[',data,']');
 
-              /* response as file */
-              res.setHeader('Content-disposition', 'attachment; filename='+base_name);
-              res.writeHeader(200, {'Content-Type': 'text/csv'});
-              res.write(file, "binary");
-              res.end();
-            }
-          });
-        }
-        else {
-          fs.readFile(full_path, "utf8", function (err, file) {
-            if (err) {
-              res.writeHeader(500, { "Content-Type": "text/plain" });
-              res.write(err + "\n");
-              res.end();
-            }
-            else {
-              let base_name=path.basename(full_path);
-              let ext_name=path.extname(full_path);
-              console.log("base_name[",base_name,"] ext_name[",ext_name,"]");
+          if (!err) {
+            // Response with data
+            console.log("pathname[",pathname,"]");
 
-              let json = {}
-              json[STR_FILEPATH]=base_name;
-              json[STR_DATA]=file.toString();
-              res.write(JSON.stringify(json));
-              res.end();
+            let json = {};
+            json['path'] = pathname;
+            console.log(items);
+            json['data'] = [];
+            for (var i=0; i<items.length; i++) {
+              console.log(items[i]);
+              json['data'].push(items[i]);
             }
-          });
-        }
+
+            res.writeHead(200, {STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA});
+            res.end(JSON.stringify(json));
+          }
+          else {
+            // Reading Error
+            res.writeHead(500, {STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA});
+            let json = {};
+            json['path'] = pathname;
+            json['data'] = err;
+            res.write(JSON.stringify(json) + "\n");
+            res.end();
+          }
+        });
       }
     });
   } else {
     console.log("Outside storage path");
     //Outside storage path
-    res.writeHeader(500, { "Content-Type": "text/plain" });
-    res.write("outside storage path\n");
-    res.end();
+    res.writeHeader(500, { STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA });
+    let json = {};
+    json['path'] = pathname;
+    json['data'] = 'Outside storage path';
+    res.write(JSON.stringify(json) + "\n");
+    res.end(); 
   }
 }
+
+function deleteFile(pathname,res) {
+  console.log("deleteFile pathname[",pathname,"]");
+  
+  // Conver to fullpath
+  let full_path = path.join(process.cwd(), STR_STORAGE_FOLDER, pathname);
+  console.log("full_path[",full_path,"]");
+  
+  // Protect the access within the storage path
+  let absolutePath=path.resolve(full_path);
+  console.log("absolutePath[",absolutePath,"]");
+  console.log("storagePath[",storagePath,"]");
+  if(absolutePath.startsWith(storagePath)){
+    fs.exists(full_path, function (exists) {
+      if (!exists) {
+        // File Not Found
+        res.writeHeader(404, { STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA });
+        let json = {};
+        json['path'] = pathname;
+        json['data'] = '404 Not Found';
+        res.write(JSON.stringify(json) + "\n");
+        res.end(); 
+      }
+      else {
+        fs.unlink(full_path, function (err) {
+          // console.log('data[',data,']');
+
+          if (!err) {
+            // Response with data
+            console.log("pathname[",pathname,"]");
+
+            let json = {};
+            json['path'] = pathname;
+            json['data'] = 'OK';
+
+            res.writeHead(200, {STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA});
+            res.end(JSON.stringify(json));
+          }
+          else {
+            // Reading Error
+            res.writeHead(500, {STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA});
+            let json = {};
+            json['path'] = pathname;
+            json['data'] = err;
+            res.write(JSON.stringify(json) + "\n");
+            res.end();
+          }
+        });
+      }
+    });
+  } else {
+    console.log("Outside storage path");
+    //Outside storage path
+    res.writeHeader(500, { STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA });
+    let json = {};
+    json['path'] = pathname;
+    json['data'] = 'Outside storage path';
+    res.write(JSON.stringify(json) + "\n");
+    res.end(); 
+  }
+}
+
+/* response file*/
+function readFile(pathname,res) {
+  console.log("loadFile pathname[",pathname,"]");
+  
+  // Conver to fullpath
+  let full_path = path.join(process.cwd(), STR_STORAGE_FOLDER, pathname);
+  console.log("full_path[",full_path,"]");
+  
+  // Protect the access within the storage path
+  let absolutePath=path.resolve(full_path);
+  console.log("absolutePath[",absolutePath,"]");
+  console.log("storagePath[",storagePath,"]");
+  if(absolutePath.startsWith(storagePath)){
+    fs.exists(full_path, function (exists) {
+      if (!exists) {
+        // File Not Found
+        res.writeHeader(404, { STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA });
+        let json = {};
+        json['path'] = pathname;
+        json['data'] = '404 Not Found';
+        res.write(JSON.stringify(json) + "\n");
+        res.end(); 
+      }
+      else {
+        fs.readFile(full_path, 'utf8', function (err, data) {
+          // console.log('data[',data,']');
+
+          if (!err) {
+            // Response with data
+            let base_name=path.basename(full_path);
+            let ext_name=path.extname(full_path);
+            console.log("base_name[",base_name,"] ext_name[",ext_name,"]");
+
+            let json = {};
+            json['path'] = base_name;
+            json['data'] = data;
+
+            res.writeHead(200, {STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA});
+            res.end(JSON.stringify(json));
+          }
+          else {
+            // Reading Error
+            res.writeHead(500, {STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA});
+            let json = {};
+            json['path'] = base_name;
+            json['data'] = err;
+            res.write(JSON.stringify(json) + "\n");
+            res.end();
+          }
+        });
+      }
+    });
+  } else {
+    console.log("Outside storage path");
+    //Outside storage path
+    res.writeHeader(500, { STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA });
+    let json = {};
+    json['path'] = pathname;
+    json['data'] = 'Outside storage path';
+    res.write(JSON.stringify(json) + "\n");
+    res.end(); 
+  }
+}
+
 function savefile(pathname,data,res) {
-  console.log("pathname[",pathname,"] data[",data,"]");
+  console.log("savefile pathname[",pathname,"]");
 
   // Conver to fullpath
   let full_path = path.join(process.cwd(), STR_STORAGE_FOLDER, pathname);
@@ -99,26 +228,37 @@ function savefile(pathname,data,res) {
   console.log("absolutePath[",absolutePath,"]");
   console.log("storagePath[",storagePath,"]");
   if(absolutePath.startsWith(storagePath)){
-    fs.writeFile(full_path,data, function(err) {
-      if(err) {
-          console.log(err);
-          res.writeHeader(500, { "Content-Type": "text/plain" });
-          res.write(err + "\n");
-          res.end();
+    fs.writeFile(full_path, data, function(err) {
+      if(!err) {
+        console.log("The file was saved!");
+        res.writeHead(200, {STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA});
+        let json = {};
+        json['path'] = pathname;
+        json['data'] = 'done';
+        res.write(JSON.stringify(json) + "\n");
+        res.end();        
+      } else {
+        // Write File Error
+        res.writeHead(500, {STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA});
+        let json = {};
+        json['path'] = pathname;
+        json['data'] = err;
+        res.write(JSON.stringify(json) + "\n");
+        res.end();     
       }
-      console.log("The file was saved!");
-      res.writeHeader(200, { "Content-Type": "text/plain" });
-      res.write("done" + "\n");
-      res.end();
     }); 
   } else {
     console.log("Outside storage path");
     //Outside storage path
-    res.writeHeader(500, { "Content-Type": "text/plain" });
-    res.write("outside storage path\n");
-    res.end();
+    res.writeHead(500, {STR_CONTENT_TYPE: STR_CONTENT_TYPE_DATA});
+    let json = {};
+    json['path'] = pathname;
+    json['data'] = 'Outside storage path';
+    res.write(JSON.stringify(json) + "\n");
+    res.end(); 
   }
 }
+
 function addAccessControlHeader(origin,res){
   // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', origin);
@@ -133,6 +273,7 @@ function addAccessControlHeader(origin,res){
   // to the API (e.g. in case you use sessions)
   res.setHeader('Access-Control-Allow-Credentials', true);
 }
+
 function resOptions(res){
   var headers = {};
   // IE8 does not allow domains to be specified, just the *
@@ -145,62 +286,62 @@ function resOptions(res){
   res.writeHead(200, headers);
   res.end();
 }
+
+// Entry Point
 http.createServer(function(req,res){
   addAccessControlHeader('*',res);
   let reqmethod=req.method;
   console.log("reqmethod[",reqmethod,"]");
-  let filepath, method;
+  let path, method;
   
   if(reqmethod==='OPTIONS') {
     resOptions(res);
   }
   else if(reqmethod==='POST' || reqmethod==='PUT' ) {
-    var body='';
-    req.on('data', function (data) {
-        body +=data;
-        // Too much POST data, kill the connection!
-        // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
-        if (body.length > 1e6) { 
-          req.connection.destroy();
-      }
-    });
-    req.on('end',function(){
-      var post = qs.parse(body);
-      console.log("post[",post,"]");
 
-      filepath=post[STR_FILEPATH];
-      data=post[STR_DATA];
-      console.log("filepath[",filepath,"] data[",data,"]");
-      if (null!=filepath&&null!=data){
-        savefile(filepath,data,res);
+    let data = "";
+    // req.on("readable", text => data += text);
+    req.on('data', text => {
+      // console.error("data data["+data+"]");
+      data += text
+    });
+    req.on("end", () => {
+      // console.error("end data["+data+"]");
+      try {
+        const json = JSON.parse(data);
+        // console.log("JSON["+json+"]");
+
+        path=json[STR_PATH];
+        data=json[STR_DATA];
+        // console.log("path[",path,"] data[",data,"]");
+
+        if (null!=path&&null!=data){
+          savefile(path,data,res);
+        }
+
       }
-      else {
-        let keys = Object.keys(post);
-        //console.log("keys[",keys,"]");
-        keys.forEach(function(key) {
-          //console.log("key[",key,"]");
-          if ( null!=key) {
-            let json = JSON.parse(key);
-            //console.log("json[",json,"]");
-            filepath=json[STR_FILEPATH];
-            data=json[STR_DATA];
-            console.log("filepath[",filepath,"] data[",data,"]");
-            if (null!=filepath&&null!=data){
-              savefile(filepath,data,res);
-            }
-          }
-        });
+      catch (err) {
+        console.error("request body was not JSON");
+        console.error("err["+err+"]");
       }
     });
   }
   else if(reqmethod==='GET') {
     let query=url.parse(req.url, true).query;
     console.log("query[",query,"]");
-    filepath=query[STR_FILEPATH];
-    method=query[STR_METHOD];
-    console.log("filepath[",filepath,"] method[",method,"]");
-    if(filepath!=null){
-        loadFile(filepath,method,res);
+    operation=query[STR_OPERATION];
+    path=query[STR_PATH];
+    console.log("path[",path,"]");
+    if (null!=operation) {
+      if ( STR_GET_FILELIST == operation ) {
+        getFileList(path,res);
+      }
+      else if ( STR_DELETE_FILE == operation ) {
+        deleteFile(path,res);
+      }
+      else if ( STR_GET_FILE == operation ) {
+        readFile(path,res);
+      }
     }
   }
   else {

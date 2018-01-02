@@ -1,0 +1,16 @@
+.div-cards-controller-root {
+
+}
+
+.lbl-card-controller {
+    width: 60px;
+}
+
+.btn-card-controller-start
+, .btn-card-controller-pause
+, .btn-card-controller-resume
+, .btn-card-controller-stop
+, .btn-card-controller-reset {
+    width: 75px;
+    margin: 5px 2px 5px 2px;
+}

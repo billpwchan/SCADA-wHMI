@@ -1,30 +1,33 @@
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from 'rxjs/Subscription';
 
-/**
- * A model for an individual Value
- */
-export class Value {
-  constructor(
-    public stop: number
-    , public start: number
-  ) {}
+
+export enum ExecType {
+  UNKNOW = 0
+  , DACSIM
 }
 
 /**
  * A model for an individual EV
  */
-export class EV {
+export class Execution {
   constructor(
-    public name: string
-    , public value: Value
+    public execType: ExecType
+    , public name: string
+    , public value: number
   ) {}
 }
+
+// export enum PhaseType {
+//   START = 0
+//   , STOP
+//   , LENGTH
+// }
 
 /**
  * A model for an individual Equipment
  */
 export class Equipment {
-  public ev: EV[] = new Array<EV>();
+  public phases: Execution[][];
   constructor(
     public connAddr: string
     , public univname: string
@@ -33,28 +36,46 @@ export class Equipment {
     , public func: number
     , public eqplabel: string
     , public pointlabel: string
+    , public valuelabel: string
+    , public reallabel: string
   ) {}
 }
 
 export enum StepType {
-  stop = 0
-  , start = 1
-  , stop_running = 2
-  , start_running = 3
-  , stop_failed = 4
-  , start_failed = 5
+  UNKNOW = 0
+  , STOPPED
+  , START
+  , STOP_RUNNING
+  , START_RUNNING
+  , STOP_SKIPPED
+  , START_SKIPPED
+  , STOPPED_FAILED
+  , START_FAILED
 }
 
 /**
  * A model for an individual Step
  */
 export class Step {
+  public equipment: Equipment;
   constructor(
     public step: number
     , public state: StepType
     , public delay: number
-    , public equipment: Equipment
+    , public execute: boolean
   ) {}
+}
+
+export enum CardType {
+  UNKNOW = 0
+  , STOPPED
+  , STARTED
+  , STOP_RUNNING
+  , START_RUNNING
+  , START_PAUSED
+  , STOP_PAUSED
+  , START_TERMINATED
+  , STOP_TERMINATED
 }
 
 /**
@@ -66,8 +87,7 @@ export class Card {
   public timer: Subscription = null;
   constructor(
     public name: string
-    , public state: number
+    , public state: CardType
     , public step: number
-    , public type: number
   ) {}
 }

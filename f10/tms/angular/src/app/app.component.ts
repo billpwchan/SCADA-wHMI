@@ -1,11 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CardService } from './service/card/card.service';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
-import { OnInit, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { StepsComponent } from './component/steps/steps.component';
-import { StepEditComponent } from './component/step-edit/step-edit.component';
+import { StepsComponent } from './component/step/steps/steps.component';
+import { StepEditComponent } from './component/step/step-edit/step-edit.component';
 import { SelectionService } from './service/card/selection.service';
+import { SettingsService } from './service/settings.service';
+import { StepEditSettings } from './component/step/step-edit/step-edit-settings';
+import { CardServiceType } from './service/card/card-settings';
+import { AppSettings } from './app-settings';
+import { Cookie } from 'ng2-cookies';
+import { I18nSettings } from './service/i18n-settings';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root'
@@ -23,17 +29,42 @@ export class AppComponent implements OnInit, OnDestroy {
   cardUpdateValue: string;
   stepEditUpdateValue: string;
 
-  title = 'TMS';
+  title: string;
 
   constructor(
     private translate: TranslateService
     , private cardService: CardService
+    , private settingsService: SettingsService
+    , private titleService: Title
   ) {
-    // this language will be used as a fallback when a translation isn't found in the current language
-    translate.setDefaultLang('en');
+    const f = 'constructor';
+    console.log(this.c, f);
 
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
-    translate.use('en');
+    console.log(this.c, f, 'translate.getBrowserCultureLang()[' + translate.getBrowserCultureLang() + ']');
+    console.log(this.c, f, 'translate.getBrowserLang()[' + translate.getBrowserLang() + ']');
+    console.log(this.c, f, 'translate.getDefaultLang()[' + translate.getDefaultLang() + ']');
+    console.log(this.c, f, 'translate.getLangs()[' + translate.getLangs() + ']');
+
+    const setting = this.settingsService.getSettings();
+    const i18n = setting[I18nSettings.STR_I18N];
+    const defaultLanguage = i18n[I18nSettings.STR_DEFAULT_LANG];
+    const preferedLanguage = this.getPreferedLanguage();
+    console.log(this.c, f,
+                          '[Language]',
+                          'Default:', defaultLanguage,
+                          'Prefered:', preferedLanguage
+    );
+    // this language will be used as a fallback when a translation isn't found in the current language
+    translate.setDefaultLang(defaultLanguage);
+    if (preferedLanguage) {
+        // the lang to use, if the lang isn't available, it will use the current loader to get them
+        translate.use(preferedLanguage);
+        console.log(this.c, f, 'use preferred language ', preferedLanguage);
+    }
+
+    this.loadSettings();
+
+    this.titleService.setTitle(this.title);
   }
 
   ngOnInit(): void {
@@ -45,15 +76,15 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    const f = 'ngOnDestory';
+    const f = 'ngOnDestroy';
     console.log(this.c, f);
     // prevent memory leak when component is destroyed
     this.cardSubscription.unsubscribe();
   }
 
-  changeCard(str: string) {
+  changeCard(serviceType: CardServiceType) {
     const f = 'changeCard';
-    console.log(this.c, f, 'str', str);
+    console.log(this.c, f, 'serviceType', serviceType);
   }
 
   getNotification(evt) {
@@ -62,37 +93,31 @@ export class AppComponent implements OnInit, OnDestroy {
     console.log(this.c, f, 'evt', evt);
   }
 
-  // getLocations() {
-  //   return this.httpClient
-  //     .get('./assets/countries.json')
-  //     .flatMap((data: any) => Observable
-  //     .forkJoin(data.countries
-  //     .map((country: string) => this.httpClient
-  //     .get(`./assets/${country}.json`)
-  //     .map((locations: any) => {
-  //       return {country: country.toUpperCase(), cities: locations.cities};
-  //      })))
-  //     ).catch(e => Observable.of({failure: e}));
-  // }
+  private getPreferedLanguage(): string {
+    const f = 'getPreferedLanguage';
+    const setting = this.settingsService.getSettings();
+    const i18n = setting[I18nSettings.STR_I18N];
+    if (i18n[I18nSettings.STR_RESOLVE_BY_BROWSER_LANG]) {
+        console.log(this.c, f, 'Resolve prefered language by browser\'s language');
+        let browserLanguage = this.translate.getBrowserCultureLang();
+        if (!i18n[I18nSettings.STR_USE_CULTURE_LANG]) {
+            browserLanguage = this.translate.getBrowserLang();
+        }
+        return browserLanguage;
+    } else if (i18n[I18nSettings.STR_RESOLVE_BY_BROWSER_COOKIE]) {
+        const cookieName = i18n[I18nSettings.STR_USE_COOKIE_NAME];
+        console.log(this.c, f, 'Resolve prefered language by browser\'s cookie:', cookieName);
+        return Cookie.get(cookieName);
+    } else {
+        console.log(this.c, f, 'No defined way to obtain prefered language');
+    }
+    return undefined;
+  }
 
-  // // reading from pages and fire the page
-  // private getRequest() {
-  //   this.httpClient.get('/api/pages/')
-  //   .map((res: any) => res.json())
-  //   .mergeMap((pages: any[]) => {
-  //     if (pages.length > 0) {
-  //       return Observable.forkJoin(
-  //         pages.map((page: any, i) => {
-  //           return this.httpClient.get('/api/sections/' + i)
-  //             .map((res: any) => {
-  //               const section: any = res.json();
-  //               // do your operation and return
-  //               return section;
-  //             });
-  //         })
-  //       );
-  //     }
-  //     return Observable.of([]);
-  //   });
-  // }
+  private loadSettings() {
+    const f = 'loadSettings';
+    console.log(this.c, f);
+
+    this.title = this.settingsService.getSetting(this.c, f, this.c, AppSettings.STR_TITLE);
+  }
 }

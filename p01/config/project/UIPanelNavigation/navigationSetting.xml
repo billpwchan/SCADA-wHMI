@@ -2313,4 +2313,32 @@
 		<tooltips>Verify UILogger</tooltips>
 	</option>
 	
+	<option key="430">
+		<type>M</type>
+		<name>TMS</name>
+		<title>TMS</title>
+	</option>
+	
+	<option key="431">
+		<type>P</type>
+		<name>Trainer Admin</name>
+		<title>Trainer Admin</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>TMS/TrainerAdmin/EntryPoint.view.xml</uiView>
+		<tooltips>TMS Trainer Admin</tooltips>
+	</option>
+	
+	<option key="432">
+		<type>P</type>
+		<name>Trainer</name>
+		<title>Trainer</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>TMS/Trainer/EntryPoint.view.xml</uiView>
+		<tooltips>TMS Trainer</tooltips>
+	</option>
+	
 </data-set>

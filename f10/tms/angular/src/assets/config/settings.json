@@ -1,0 +1,80 @@
+{
+  "i18n": {
+    "default_lang": "en"
+    , "resolve_by_browser_lang": true
+    , "use_culture_lang": true
+    , "resolve_by_browser_cookie": false
+    , "use_cookie_name": "iscs.webapp.Lang"
+  }
+  , "AppComponent": {
+      "title": "TMS"
+  }
+  , "CardEditComponent": {
+      "card_name_min": 1
+      , "card_name_max": 40
+  }
+  , "StepsComponent": {
+      "step_prefix": ""
+      , "step_base": "1"
+      , "geo_prefix": "location_"
+      , "func_prefix": "function_"
+      , "eqplabel_prefix": ""
+      , "pointlabel_prefix": ""
+      , "value_prefix": ""
+      , "delay_prefix": ""
+      , "real_prefix": ""
+      , "real_default": "-"
+  }
+  , "StepEditComponent": {
+      "geo_prefix": "location_"
+      , "func_prefix": "function_"
+      , "eqplabel_prefix": ""
+      , "pointlabel_prefix": ""
+      , "value_prefix": ""
+      , "delay_prefix": ""
+      , "delay_range_step": 1
+      , "delay_range_start": 1
+      , "delay_range_end": 60
+      , "delay_default_value": 5
+      , "delay_range_prefix": ""
+      , "envs": [
+        {"label": "M100", "value": "http://127.0.0.1:8990"}
+        , {"label": "M001", "value": "http://127.0.0.1:8991"}
+        , {"label": "M002", "value": "http://127.0.0.1:8992"}
+      ]
+  }
+  , "ImportExportComponent": {
+      "import_type": "1"
+      , "import_accept": ".csv"
+
+      , "export_selection_only": true
+
+      , "export_filename_by_first_card_name": true
+      , "export_filename_prefix": "tms_"
+      , "export_filename_extension": ".csv"
+
+      , "export_type": "1"
+      , "export_type_opt": "text/csv"
+      , "export_filename": "tms.csv"
+
+      , "csv_comma": ","
+      , "csv_eol": "\r\n"
+
+      , "init_cards_before_export": true
+  }
+  , "StorageComponent": {
+      "init_cards_before_storage": true
+  }
+  , "StorageService": {
+      "use_local_storage": false
+      , "local_storage_name": "tms_local_storage_name"
+      , "remote_url": "http://127.0.0.1:8080"
+      , "remote_filename": "tms.json"
+      , "upload_url": "upstreamFile_result"
+      , "download_url": "downstreamFile_result"
+  }
+  , "DbmPollingService": {
+      "interval": 500
+      , "use_computed_message": false
+  }
+}

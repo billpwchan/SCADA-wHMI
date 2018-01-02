@@ -1,0 +1,17 @@
+.div-card-controller-left {
+
+}
+
+.div-card-controller-right {
+
+}
+
+.lbl-step-controller-execution {
+    width: 160px;
+}
+
+.btn-step-contoller-startstep
+, .btn-step-contoller-stopstep {
+    width: 75px;
+    margin: 5px 2px 5px 2px;
+}

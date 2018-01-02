@@ -1,0 +1,55 @@
+.lbl-step-edit-addstep {
+    width: 180px;
+}
+
+.div-step-edit-new-step { 
+}
+
+.btn-step-edit-newstep 
+, .btn-step-edit-deletestep
+, .btn-step-edit-add-aci
+, .btn-step-edit-add-aci-cancel
+, .btn-step-edit-add-dci
+, .btn-step-edit-add-dci-cancel {
+    width: 75px;
+    margin: 5px 2px 5px 2px;
+}
+
+.input-group-step-edit-selectenv
+, .input-group-step-edit-selectgeo
+, .input-group-step-edit-selectfunc
+, .input-group-step-edit-eqplabel
+, .input-group-step-edit-pointlabel
+, .input-group-step-edit-selectdelay
+, .input-group-step-edit-classid
+, .input-group-step-edit-univname
+, .input-group-step-edit-evname
+, .input-group-step-edit-aciinitvalue
+, .input-group-step-edit-acivalue
+, .input-group-step-edit-dciinitvalue
+, .input-group-step-edit-selectdci {
+    margin: 5px 2px 5px 2px;
+}
+
+.span-step-edit-selectenv
+, .span-step-edit-selectgeo
+, .span-step-edit-selectfunc
+, .span-step-edit-eqplabel
+, .span-step-edit-pointlabel
+, .span-step-edit-selectdelay
+, .span-step-edit-classid
+, .span-step-edit-univname
+, .span-step-edit-evname
+, .span-step-edit-aciinitvalue
+, .span-step-edit-acivalue
+, .span-step-edit-dciinitvalue
+, .span-step-edit-selectdci {
+    min-width: 150px;
+    text-align: left;
+}
+
+.div-step-edit-aci
+, .div-step-edit-dci {
+    width: 100%;
+    text-align: center;
+}

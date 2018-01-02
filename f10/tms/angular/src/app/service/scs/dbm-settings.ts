@@ -24,4 +24,8 @@ export class DbmSettings {
     public static readonly STR_FORMULAS = 'formulas';
     public static readonly STR_FORMULAS_ACQ_SINGLE = '[.veTable(0,value)]';
     public static readonly STR_URL_GETATTRIBUTEFORMULAS  = '/scs/service/DbmComponent/GetAttributeFormulas?dbaddress=';
+
+    public static readonly STR_ATTR_VALUE = '.value';
+    public static readonly STR_ATTR_UNIT = '.unit';
+    public static readonly STR_ATTR_COMPUTED_MESSAGE = '.computedMessage';
 }

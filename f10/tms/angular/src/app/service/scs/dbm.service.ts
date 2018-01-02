@@ -8,7 +8,7 @@ import { DbmSettings } from './dbm-settings';
 @Injectable()
 export class DbmService {
 
-  static readonly c = DbmService.name;
+  readonly c = 'DbmService';
 
   // Observable source
   private dbmSource = new BehaviorSubject<string>('');
@@ -39,9 +39,9 @@ export class DbmService {
     return this.retriveAciData.get(connAddr).get(univname);
   }
   retriveAci(connAddr: string, univname: string): void {
-    const func = 'retriveAci';
-    console.log(func);
-    console.log(func, 'connAddr', connAddr, 'univname', univname);
+    const f = 'retriveAci';
+    console.log(this.c, f);
+    console.log(this.c, f, 'connAddr', connAddr, 'univname', univname);
 
     const urls: string [] = [];
     urls.push(DbmSettings.STR_ALIAS + univname + DbmSettings.STR_AAC + DbmSettings.STR_VETABLE_VENAME);
@@ -49,7 +49,7 @@ export class DbmService {
 
     const url = connAddr + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
 
-    console.log(func, 'url', url);
+    console.log(this.c, f, 'url', url);
 
     // Get Label and Value
     this.httpClient.get(
@@ -57,17 +57,17 @@ export class DbmService {
     )
       .subscribe(
         (res: any[]) => {
-          console.log(func, res);
+          console.log(this.c, f, res);
           const json = res;
           const dbvalue = json[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
-          console.log(func, 'dbvalue', dbvalue);
+          console.log(this.c, f, 'dbvalue', dbvalue);
 
           this.retriveAciData.set(connAddr, new Map<string, any>().set(univname, dbvalue));
 
           this.dbmChanged('retriveAci');
         }
-        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(func, err); }
-        , () => { this.utilsHttp.httpClientHandlerComplete(func, 'The GET observable is now completed.'); }
+        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
+        , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
     );
   }
 
@@ -76,10 +76,10 @@ export class DbmService {
     return this.retriveDciData.get(connAddr).get(univname);
   }
   retriveDci(connAddr: string, univname: string): void {
-    const func = 'retriveDci';
-    console.log(func);
-    console.log(func, 'stconnAddr', connAddr);
-    console.log(func, 'stunivname', univname);
+    const f = 'retriveDci';
+    console.log(this.c, f);
+    console.log(this.c, f, 'connAddr', connAddr);
+    console.log(this.c, f, 'univname', univname);
 
     const urls: string [] = [];
     urls.push(DbmSettings.STR_ALIAS + univname + DbmSettings.STR_DAC + DbmSettings.STR_VETABLE_VENAME);
@@ -89,7 +89,7 @@ export class DbmService {
 
     const url = connAddr + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
 
-    console.log(func, 'sturl', url);
+    console.log(this.c, f, 'url', url);
 
     // Get Label and Value
     this.httpClient.get(
@@ -97,10 +97,10 @@ export class DbmService {
     )
       .subscribe(
         (res: any[]) => {
-          console.log(func, res);
+          console.log(this.c, f, res);
 
           const dbvalue = res[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
-          console.log(func, 'dbvalue', dbvalue);
+          console.log(this.c, f, 'dbvalue', dbvalue);
           if ( null != dbvalue ) {
 
             this.retriveDciData.set(connAddr, new Map<string, any>().set(univname, dbvalue));
@@ -108,8 +108,8 @@ export class DbmService {
             this.dbmChanged('retriveDci');
           }
         }
-        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(func, err); }
-        , () => { this.utilsHttp.httpClientHandlerComplete(func, 'The GET observable is now completed.'); }
+        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
+        , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
     );
   }
 
@@ -117,8 +117,8 @@ export class DbmService {
     return this.retriveAcquiredDataAttributeFormulasData.get(connAddr).get(univname);
   }
   private retriveAcquiredDataAttributeFormulas(connAddr: string, univname: string, classId: number ): void {
-    const func = 'retriveAcquiredDataAttributeFormulas';
-    console.log(func);
+    const f = 'retriveAcquiredDataAttributeFormulas';
+    console.log(this.c, f);
 
     let url = connAddr;
     url += DbmSettings.STR_URL_GETATTRIBUTEFORMULAS;
@@ -130,7 +130,7 @@ export class DbmService {
       url += DbmSettings.STR_DAC_ACQVALUE;
     }
 
-    console.log(func, 'url', url);
+    console.log(this.c, f, 'url', url);
 
     // Get Class ID
     this.httpClient.get(
@@ -138,7 +138,7 @@ export class DbmService {
     )
       .subscribe(
         (res: any[]) => {
-          console.log(func, res);
+          console.log(this.c, f, res);
 
           const formulas: string[] = res[AppSettings.STR_RESPONSE][DbmSettings.STR_FORMULAS];
 
@@ -146,8 +146,8 @@ export class DbmService {
 
           this.dbmChanged('retriveAcquiredDataAttributeFormulas');
         }
-        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(func, err); }
-        , () => { this.utilsHttp.httpClientHandlerComplete(func, 'The GET observable is now completed.'); }
+        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
+        , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
     );
 
   }
@@ -156,10 +156,10 @@ export class DbmService {
     return this.retriveClassIdData.get(connAddr).get(univname);
   }
   retriveClassId(connAddr: string, univname: string): void {
-    const func = 'retriveClassId';
-    console.log(func);
-    console.log(func, 'connAddr' , connAddr);
-    console.log(func, 'univname' , univname);
+    const f = 'retriveClassId';
+    console.log(this.c, f);
+    console.log(this.c, f, 'connAddr' , connAddr);
+    console.log(this.c, f, 'univname' , univname);
 
     const url = connAddr + DbmSettings.STR_URL_GETCLASSID + DbmSettings.STR_ALIAS + univname;
 
@@ -169,9 +169,9 @@ export class DbmService {
     )
       .subscribe(
         (res: any[]) => {
-          console.log(func, res);
+          console.log(this.c, f, res);
           const classId = res[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_CLASSID];
-          console.log(func, 'classId', classId);
+          console.log(this.c, f, 'classId', classId);
 
           this.retriveClassIdData.set(connAddr, new Map<string, any>().set(univname, classId));
 
@@ -180,8 +180,8 @@ export class DbmService {
           this.retriveAcquiredDataAttributeFormulas(connAddr, univname, classId);
 
         }
-        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(func, err); }
-        , () => { this.utilsHttp.httpClientHandlerComplete(func, 'The GET observable is now completed.'); }
+        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
+        , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
     );
   }
 }

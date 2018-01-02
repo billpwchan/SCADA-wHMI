@@ -1,0 +1,18 @@
+<form>
+  <div>
+    <!--<fieldset>-->
+    <!--<legend class="">{{ '&step_lbl_executeion_step' | translate }}</legend>-->
+      <!--<div>-->
+        <label class="lbl-step-controller-execution">{{ '&step_lbl_executeion' | translate }}</label>
+        <button type="button" class="btn btn-info btn-step-contoller-startstep" 
+          [disabled]="btnDisabledStartStep" (click)="btnClicked('startstep', $event)"
+          title="{{ '&step_btn_startstep_placeholder' | translate }}"
+          >{{ '&step_btn_startstep' | translate }}</button>
+        <button type="button" class="btn btn-info btn-step-contoller-stopstep" 
+          [disabled]="btnDisabledStopStep" (click)="btnClicked('stopstep', $event)"
+          title="{{ '&step_btn_stopstep_placeholder' | translate }}"
+          >{{ '&step_btn_stopstep' | translate }}</button>
+      <!--</div>-->
+    <!--</fieldset>-->
+  </div>    
+</form>

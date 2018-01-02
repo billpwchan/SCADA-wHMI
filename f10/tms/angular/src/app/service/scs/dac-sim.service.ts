@@ -2,42 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UtilsHttpModule } from './../utils-http/utils-http.module';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { DacSimSettings } from './dac-sim-settings';
+import { DacSimSettings, ExecResult, DacSimExecution } from './dac-sim-settings';
 
-export enum ExecType {
-  start = 0
-  , stop = 1  
-}
-
-export class EIV {
-  constructor(
-      public name: string
-      , public value: number
-  ) {}
-}
-
-export enum ExecResult {
-  init = 0
-  , sent = 1
-  , finish = 2
-  , faild = 3
-}
-
-export class DacSimExecution {
-  constructor(
-    public execType: ExecType
-    , public cardId: string
-    , public stepId: number
-    , public connAddr: string
-    , public eivs: EIV[]
-    , public ret: ExecResult
-  ) {}
-}
 
 @Injectable()
 export class DacSimService {
 
-  readonly c = DacSimService.name;
+  readonly c = 'DacSimService';
 
   // Observable source
   private dacSimSource = new BehaviorSubject<DacSimExecution>(
@@ -66,10 +37,10 @@ export class DacSimService {
     url += DacSimSettings.STR_URL_DACSIM_WRITEEXTVAR + JSON.stringify(dacSimExec.eivs);
 
     // Init Message
-    dacSimExec.ret = ExecResult.init;
+    dacSimExec.ret = ExecResult.INIT;
     this.dacSimChanged(dacSimExec);
 
-    console.log(f, 'sturl[', url, ']');
+    console.log(this.c, f, 'url[', url, ']');
     // send to the dac sim
     this.httpClient.get(
       url
@@ -79,12 +50,12 @@ export class DacSimService {
           console.log(this.c, f, 'res', JSON.stringify(res));
 
           // Asnyc Return
-          dacSimExec.ret = ExecResult.finish;
+          dacSimExec.ret = ExecResult.FINISH;
           this.dacSimChanged(dacSimExec);
         }
         , (err: HttpErrorResponse) => {
           // Error Message
-          dacSimExec.ret = ExecResult.faild;
+          dacSimExec.ret = ExecResult.FAILED;
           this.dacSimChanged(dacSimExec);
           this.utilsHttp.httpClientHandlerError(f, err);
         }
@@ -92,7 +63,7 @@ export class DacSimService {
     );
 
     // Sent Message
-    dacSimExec.ret = ExecResult.sent;
+    dacSimExec.ret = ExecResult.SENT;
     this.dacSimChanged(dacSimExec);
   }
 }

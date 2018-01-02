@@ -22,7 +22,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  readonly c = AppComponent.name;
+  readonly c = 'AppComponent';
 
   cardSubscription: Subscription;
 
@@ -118,8 +118,6 @@ export class AppComponent implements OnInit, OnDestroy {
     const f = 'loadSettings';
     console.log(this.c, f);
 
-    const component: string = AppComponent.name;
-
-    this.title = this.settingsService.getSetting(this.c, f, component, AppSettings.STR_TITLE);
+    this.title = this.settingsService.getSetting(this.c, f, this.c, AppSettings.STR_TITLE);
   }
 }

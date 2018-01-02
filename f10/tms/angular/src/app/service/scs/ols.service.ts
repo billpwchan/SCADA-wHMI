@@ -8,7 +8,7 @@ import { AppSettings } from '../../app-settings';
 @Injectable()
 export class OlsService {
 
-  readonly c = OlsService.name;
+  readonly c = 'OlsService';
 
   // Observable source
   private olsSource = new BehaviorSubject<string>('');

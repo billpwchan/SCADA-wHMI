@@ -84,8 +84,9 @@ const appRoutes: Routes = [
     })
     , UtilsHttpModule
     , RouterModule.forRoot(
-      appRoutes,
-      // { enableTracing: true } // <-- debugging purposes only
+      appRoutes
+      , { useHash: true }
+      // ,{ enableTracing: true } // <-- debugging purposes only
     )
   ],
   providers: [
@@ -103,7 +104,6 @@ const appRoutes: Routes = [
     , SelectionService
     , StorageService
     , DbmPollingService
-
   ],
   bootstrap: [AppComponent]
 })

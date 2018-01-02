@@ -28,7 +28,7 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
-  readonly c = StorageComponent.name;
+  readonly c = 'StorageComponent';
 
   @Input() notifyFromParent: string;
 
@@ -158,8 +158,7 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'loadSettings';
     console.log(this.c, f);
 
-    const component: string = StorageComponent.name;
-    this.initCardsBeforeSave = this.settingsService.getSetting(this.c, f, component, StorageSettings.STR_INIT_CARDS_BEFORE_STORAGE);
+    this.initCardsBeforeSave = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_INIT_CARDS_BEFORE_STORAGE);
   }
 
   private init(): void {

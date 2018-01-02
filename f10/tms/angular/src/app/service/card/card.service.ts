@@ -22,7 +22,7 @@ export class CardService {
   public static readonly STR_STEP_RELOADED  = AppSettings.STR_STEP_RELOADED;
   public static readonly STR_STEP_UPDATED   = AppSettings.STR_STEP_UPDATED;
 
-  readonly c = CardService.name;
+  readonly c = 'CardService';
 
   // Observable source
   private cardSource = new BehaviorSubject<CardServiceType>(CardServiceType.UNKNOW);

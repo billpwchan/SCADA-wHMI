@@ -36,7 +36,7 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
   private strComma: string = CsvToCardSettings.STR_COMMA;
   private strEOL: string = CsvToCardSettings.STR_EOL;
 
-  readonly c = ImportExportComponent.name;
+  readonly c = 'ImportExportComponent';
 
   @Input() notifyFromParent: string;
 
@@ -135,21 +135,20 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'loadSettings';
     console.log(this.c, f);
 
-    const component = ImportExportComponent.name;
+    this.exportSelectionOnly = this.settingsService.getSetting(this.c, f, this.c, ImportExportSettings.STR_EXPORT_SELECTION_ONLY);
 
-    this.exportSelectionOnly = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_EXPORT_SELECTION_ONLY);
+    this.importType = Number.parseInt(this.settingsService.getSetting(this.c, f, this.c, ImportExportSettings.STR_IMPORT_TYPE));
+    this.importAccept = this.settingsService.getSetting(this.c, f, this.c, ImportExportSettings.STR_IMPORT_ACCEPT);
+    this.exportType = Number.parseInt(this.settingsService.getSetting(this.c, f, this.c, ImportExportSettings.STR_EXPORT_TYPE));
+    this.exportTypeOpt = this.settingsService.getSetting(this.c, f, this.c, ImportExportSettings.STR_EXPORT_TYPE_OPT);
 
-    this.importType = Number.parseInt(this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_IMPORT_TYPE));
-    this.importAccept = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_IMPORT_ACCEPT);
-    this.exportType = Number.parseInt(this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_EXPORT_TYPE));
-    this.exportTypeOpt = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_EXPORT_TYPE_OPT);
+    this.strExportCardName = this.settingsService.getSetting(this.c, f, this.c, ImportExportSettings.STR_EXPORT_CARD_NAME);
+    this.strFileNamePrefix = this.settingsService.getSetting(this.c, f, this.c, ImportExportSettings.STR_EXPORT_FILENAME_PREFIX);
+    this.strFileNameExtension = this.settingsService.getSetting(this.c, f, this.c, ImportExportSettings.STR_EXPORT_FILENAME_EXTENSION);
 
-    this.strExportCardName = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_EXPORT_CARD_NAME);
-    this.strFileNamePrefix = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_EXPORT_FILENAME_PREFIX);
-    this.strFileName = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_EXPORT_FILENAME);
-    this.strComma = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_CSV_COMMA);
-    this.strEOL = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_CSV_EOL);
-    this.initCardsBeforeExport = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_INIT_CARDS_BEFORE_EXPORT);
+    this.strComma = this.settingsService.getSetting(this.c, f, this.c, ImportExportSettings.STR_CSV_COMMA);
+    this.strEOL = this.settingsService.getSetting(this.c, f, this.c, ImportExportSettings.STR_CSV_EOL);
+    this.initCardsBeforeExport = this.settingsService.getSetting(this.c, f, this.c, ImportExportSettings.STR_INIT_CARDS_BEFORE_EXPORT);
   }
 
   /**

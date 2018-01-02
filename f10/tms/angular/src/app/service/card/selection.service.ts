@@ -5,7 +5,7 @@ import { SelectionServiceType } from './selection-settings';
 @Injectable()
 export class SelectionService {
 
-  readonly c = SelectionService.name;
+  readonly c = 'SelectionService';
 
   // Observable source
   private selectionSource = new BehaviorSubject<SelectionServiceType>(SelectionServiceType.UNKNOW);

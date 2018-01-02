@@ -52,7 +52,7 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
-  readonly c = StepEditComponent.name;
+  readonly c = 'StepEditComponent';
 
   @Input() notifyFromParent: string;
 
@@ -317,17 +317,16 @@ btnDisabledAddCancelStep: boolean;
     const f = 'loadSettings';
     console.log(this.c, f);
 
-    const component = StepEditComponent.name;
-    this.geoPrefix = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_GEO_PREFIX);
-    this.funcPrefix = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_FUNC_PREFIX);
-    this.envs = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_ENVS);
+    this.geoPrefix = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_GEO_PREFIX);
+    this.funcPrefix = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_FUNC_PREFIX);
+    this.envs = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_ENVS);
 
-    this.delayRangeStep = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_RANGE_STEP);
-    this.delayRangeStart = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_RANGE_START);
-    this.delayRangeEnd = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_RANGE_END);
-    this.delayRangePrefix = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_RANGE_PREFIX);
+    this.delayRangeStep = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_DELAY_RANGE_STEP);
+    this.delayRangeStart = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_DELAY_RANGE_START);
+    this.delayRangeEnd = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_DELAY_RANGE_END);
+    this.delayRangePrefix = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_DELAY_RANGE_PREFIX);
 
-    this.delayDefaultValue = this.settingsService.getSetting(this.c, f, component, StepEditSettings.STR_DELAY_DEFAULT_VALUE);
+    this.delayDefaultValue = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_DELAY_DEFAULT_VALUE);
   }
 
   private initSelOptEnv(): void {

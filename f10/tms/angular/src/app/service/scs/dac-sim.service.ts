@@ -8,7 +8,7 @@ import { DacSimSettings, ExecResult, DacSimExecution } from './dac-sim-settings'
 @Injectable()
 export class DacSimService {
 
-  readonly c = DacSimService.name;
+  readonly c = 'DacSimService';
 
   // Observable source
   private dacSimSource = new BehaviorSubject<DacSimExecution>(

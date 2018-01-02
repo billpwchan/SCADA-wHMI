@@ -35,7 +35,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
-  readonly c = StepsComponent.name;
+  readonly c = 'StepsComponent';
 
   @Input() notifyFromParent: string;
 
@@ -161,19 +161,17 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'loadSettings';
     console.log(this.c, f);
 
-    const component: string = StepsComponent.name;
+    this.stepPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_STEP_PREFIX);
+    this.stepBase = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_STEP_BASE);
 
-    this.stepPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_STEP_PREFIX);
-    this.stepBase = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_STEP_BASE);
-
-    this.geoPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_GEO_PREFIX);
-    this.funcPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_FUNC_PREFIX);
-    this.eqplabelPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_EQPLABEL_PREFIX);
-    this.pointlabelPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_POINTLABEL_PREFIX);
-    this.delayPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_DELAY_PREFIX);
-    this.valuePrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_VALUE_PREFIX);
-    this.realPrefix = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_REAL_PREFIX);
-    this.realDefault = this.settingsService.getSetting(this.c, f, component, StepSettings.STR_REAL_DEFAULT);
+    this.geoPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_GEO_PREFIX);
+    this.funcPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_FUNC_PREFIX);
+    this.eqplabelPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_EQPLABEL_PREFIX);
+    this.pointlabelPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_POINTLABEL_PREFIX);
+    this.delayPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_DELAY_PREFIX);
+    this.valuePrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_VALUE_PREFIX);
+    this.realPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_REAL_PREFIX);
+    this.realDefault = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_REAL_DEFAULT);
   }
 
   private loadTranslations(): void {

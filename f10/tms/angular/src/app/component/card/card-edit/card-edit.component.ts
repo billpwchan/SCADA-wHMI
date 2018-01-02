@@ -28,7 +28,7 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
-  readonly c: string = CardEditComponent.name;
+  readonly c: string = 'CardEditComponent';
 
   @Input() notifyFromParent: string;
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
@@ -141,9 +141,8 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
   private loadSettings(): void {
     const f = 'loadSettings';
     console.log(this.c, f);
-    const component = CardEditComponent.name;
-    this.cardNameMin = Number.parseInt(this.settingsService.getSetting(this.c, f, component, CardEditSettings.STR_CARD_NAME_MIN));
-    this.cardNameMax = Number.parseInt(this.settingsService.getSetting(this.c, f, component, CardEditSettings.STR_CARD_NAME_MAX));
+    this.cardNameMin = Number.parseInt(this.settingsService.getSetting(this.c, f, this.c, CardEditSettings.STR_CARD_NAME_MIN));
+    this.cardNameMax = Number.parseInt(this.settingsService.getSetting(this.c, f, this.c, CardEditSettings.STR_CARD_NAME_MAX));
   }
 
   private newCard(name: string): void {

@@ -28,7 +28,7 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
-  readonly c = StepEditControllerComponent.name;
+  readonly c = 'StepEditControllerComponent';
 
   @Input() notifyFromParent: string;
 

@@ -8,7 +8,7 @@ import { DbmSettings } from './dbm-settings';
 @Injectable()
 export class DbmService {
 
-  readonly c = DbmService.name;
+  readonly c = 'DbmService';
 
   // Observable source
   private dbmSource = new BehaviorSubject<string>('');

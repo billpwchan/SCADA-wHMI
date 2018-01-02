@@ -9,7 +9,7 @@ import { UtilsHttpModule } from './utils-http/utils-http.module';
 @Injectable()
 export class SettingsService {
 
-  readonly c = SettingsService.name;
+  readonly c = 'SettingsService';
 
   // Observable source
   private settingSource = new BehaviorSubject<string>('');
@@ -35,14 +35,15 @@ export class SettingsService {
 
   getSetting(c: string, func: string, component: string, key: string, url: string = AppSettings.STR_URL_SETTINGS): any {
     const f = 'getSetting';
-    let value;
+    let ret;
     try {
-      value = this.settings.get(url)[component][key];
-      console.log(this.c, f, 'Loading setting for', c, func, url, component, key, value);
+      ret = this.settings.get(url)[component][key];
+      console.log(this.c, f, 'Loading setting for', c, func, url, component, key, ret);
     } catch (err) {
       console.log(this.c, f, 'Error when loading setting for', c, func, url, component, key, err);
     }
-    return value;
+    console.info(this.c, f, 'Loading component[' + component + '] key[' + key + '] => ret[' + ret + ']');
+    return ret;
   }
 
   getSettings(url: string = AppSettings.STR_URL_SETTINGS): any {
@@ -51,32 +52,18 @@ export class SettingsService {
     return this.settings.get(url);
   }
 
-  // Aync Loading
-  retriveSetting(url: string): void {
-    const f = 'retriveSetting';
-    console.log(this.c, f, 'url', url);
-    this.httpClient.get(
-      url
-    ).subscribe(
-        ( res: string ) => {
-          this.settings.set(url, res);
-          this.settingChanged(url);
-        }
-        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
-        , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
-    );
-  }
-
   // Sync Loading
   load(): Promise<any> {
     const f = 'load';
     console.log(this.c, f);
+    console.info(this.c, f, 'loading config...');
     return this.http.get(AppSettings.STR_URL_SETTINGS)
     .toPromise()
     .then(
       data => {
-        console.log(this.c, f, 'success');
+        console.info(this.c, f, 'loading config success');
         this.settings.set(AppSettings.STR_URL_SETTINGS, data.json());
+        console.info(this.c, f, 'loading config success', data.json());
       }
     ).catch((err: HttpErrorResponse) => {
       if (err.error instanceof Error) {

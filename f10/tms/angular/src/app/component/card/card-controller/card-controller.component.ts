@@ -24,7 +24,7 @@ export class CardControllerComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
-  readonly c = CardControllerComponent.name;
+  readonly c = 'CardControllerComponent';
 
   @Input() notifyFromParent: string;
 

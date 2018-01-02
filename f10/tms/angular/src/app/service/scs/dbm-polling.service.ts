@@ -21,7 +21,7 @@ export class DbmPollingService {
   private computedMessages: Map<string, Map<string, any>> = new Map<string, Map<string, any>>();
   private values: Map<string, Map<string, any>> = new Map<string, Map<string, any>>();
 
-  readonly c = DbmPollingService.name;
+  readonly c = 'DbmPollingService';
 
   // Observable source
   private dbmPollingSource = new BehaviorSubject<string>('');
@@ -41,9 +41,8 @@ export class DbmPollingService {
     const f = 'loadSettings';
     console.log(this.c, f);
 
-    const service: string = DbmPollingService.name;
-    this.interval = this.settingsService.getSetting(this.c, f, service, DbmPollingSettings.STR_INTERVAL);
-    this.useComputedMessage = this.settingsService.getSetting(this.c, f, service, DbmPollingSettings.STR_USE_COMPUTED_MESSAGE);
+    this.interval = this.settingsService.getSetting(this.c, f, this.c, DbmPollingSettings.STR_INTERVAL);
+    this.useComputedMessage = this.settingsService.getSetting(this.c, f, this.c, DbmPollingSettings.STR_USE_COMPUTED_MESSAGE);
   }
 
   // Service command

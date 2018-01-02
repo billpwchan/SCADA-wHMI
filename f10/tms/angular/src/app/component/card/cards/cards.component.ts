@@ -30,7 +30,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
-  readonly c = CardsComponent.name;
+  readonly c = 'CardsComponent';
 
   @Input() notifyFromParent: string;
 

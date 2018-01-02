@@ -11,7 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export class UtilsHttpModule {
 
-  readonly c = UtilsHttpModule.name;
+  readonly c = 'UtilsHttpModule';
 
   httpClientHandlerError(func: string, err: HttpErrorResponse, mgs?: string): void {
     const f = 'httpClientHandlerError';

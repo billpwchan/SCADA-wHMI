@@ -187,7 +187,7 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
     document.body.removeChild(a);
     URL.revokeObjectURL(objectUrl);
 
-    this.exportNumber = this.cardService.getCards().length;
+    this.exportNumber = cards.length;
     this.disableExportMsg = false;
   }
 
@@ -226,7 +226,7 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
       this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
       this.cardService.notifyUpdate(CardServiceType.CARD_EDITED);
 
-      this.importNumber = this.cardService.getCards().length;
+      this.importNumber = cards.length;
       this.disableImportMsg = false;
     } else {
       console.warn(this.c, f, 'cards is null');

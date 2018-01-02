@@ -64,6 +64,10 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
   private exportSelectionOnly: boolean;
   private selectedCardIds: string[];
 
+  private strExportCardName: boolean;
+  private strFileNamePrefix: string;
+  private strFileNameExtension: string;
+
   constructor(
     private translate: TranslateService
     , private storageService: StorageService
@@ -140,6 +144,8 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
     this.exportType = Number.parseInt(this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_EXPORT_TYPE));
     this.exportTypeOpt = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_EXPORT_TYPE_OPT);
 
+    this.strExportCardName = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_EXPORT_CARD_NAME);
+    this.strFileNamePrefix = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_EXPORT_FILENAME_PREFIX);
     this.strFileName = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_EXPORT_FILENAME);
     this.strComma = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_CSV_COMMA);
     this.strEOL = this.settingsService.getSetting(this.c, f, component, ImportExportSettings.STR_CSV_EOL);
@@ -175,7 +181,10 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
 
     console.log(this.c, f, 'this.exportTypeOpt', this.exportTypeOpt);
     const blob: Blob = new Blob([data], {type: this.exportTypeOpt});
-    const fileName: string = this.strFileName;
+    let fileName: string = this.strFileName;
+    if ( this.exportSelectionOnly && this.strExportCardName ) {
+      fileName = this.strFileNamePrefix + cards[0].name + this.strFileNameExtension;
+    }
     const objectUrl: string = URL.createObjectURL(blob);
     const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
 

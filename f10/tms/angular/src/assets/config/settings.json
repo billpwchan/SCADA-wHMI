@@ -44,11 +44,14 @@
       ]
   }
   , "ImportExportComponent": {
-
-    "export_selection_only": true
-
-      , "import_type": "1"
+      "import_type": "1"
       , "import_accept": ".csv"
+
+      , "export_selection_only": true
+
+      , "export_filename_by_first_card_name": true
+      , "export_filename_prefix": "tms_"
+      , "export_filename_extension": ".csv"
 
       , "export_type": "1"
       , "export_type_opt": "text/csv"

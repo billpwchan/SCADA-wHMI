@@ -10,6 +10,10 @@ export class ImportExportSettings {
 
     public static readonly STR_EXPORT_FILENAME = 'export_filename';
 
+    public static readonly STR_EXPORT_CARD_NAME = 'export_filename_by_first_card_name';
+    public static readonly STR_EXPORT_FILENAME_PREFIX = 'export_filename_prefix';
+    public static readonly STR_EXPORT_FILENAME_EXTENSION = 'export_filename_extension';
+
     public static readonly STR_CSV_COMMA = 'csv_comma';
     public static readonly STR_CSV_EOL = 'csv_eol';
 

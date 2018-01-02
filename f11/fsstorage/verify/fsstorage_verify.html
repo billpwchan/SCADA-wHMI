@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <!--<script src=”xxx.js”></script>-->
-  <script type="text/javascript">
+    <!--<script src=”xxx.js”></script>-->
+    <script type="text/javascript">
     function downloadFile(url) {
-    var xhttp = new XMLHttpRequest();
+      var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
             //document.getElementById("demo").innerHTML = this.responseText;
@@ -13,7 +13,8 @@
         xhttp.open("GET", url, true);
         xhttp.send();
       }
-      function downstreamFile(url,elmid) {
+      function get(url,elmid) {
+        document.getElementById(elmid).innerHTML = '';
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
@@ -23,7 +24,8 @@
         xhttp.open("GET", url, true);
         xhttp.send();
       }
-      function upstreamFile(url,elmid,body) {
+      function post(url,elmid,body) {
+        document.getElementById(elmid).innerHTML = '';
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
@@ -39,45 +41,78 @@
   <body>
     <div id="container">
 	  
-      <div id="demo1">
+      <div id="postfile">
         <h2>Post File</h2>
         <form>
-          <input type="text" id="demo1_filepath" name="demo1_filepath" value="HelloWorld2.txt"/>
-          <input type="text" id="demo1_data" name="demo1_data" value="HelloWorld"/>
+          <input type="text" id="postfile_operation" name="postfile_operation" value="getfile"/>
+          <input type="text" id="postfile_path" name="postfile_path" value="fsstorage.json"/>
+          <input type="text" id="postfile_data" name="postfile_data" value='{"path":"tms.json","data":"[{\"name\":\"Scenario # 0\",\"state\":1,\"step\":0,\"steps\":[],\"timer\":null},{\"name\":\"Scenario # 1\",\"state\":1,\"step\":0,\"steps\":[],\"timer\":null}]"}'/>
           <button type="button" onclick="
-          var filepath=document.getElementById('demo1_filepath').value;
-          var data=document.getElementById('demo1_data').value;
-          upstreamFile(
+          var operation=document.getElementById('postfile_operation').value;
+          var path=document.getElementById('postfile_path').value;
+          var data=document.getElementById('postfile_data').value;
+          var obj={};
+          obj['operation']=operation;
+          obj['path']=path;
+          obj['data']=data;
+          var strobj=JSON.stringify(obj);
+          console.log(strobj);
+          post(
             'http://127.0.0.1:8080/'
-            ,'upstreamFile_result'
-            ,'filepath='+filepath+'&data='+data);
+            ,'postfile_result'
+            ,strobj);
           ">POST</button>
         </form>
-        <div id="upstreamFile_result"></div>
+        <div id="postfile_result"></div>
       </div>
-
-      <div id="demo2">
-        <h2>Get File</h2>
+  
+      <div id="getfilelist">
+        <h2>Get File List</h2>
           <form>
-		        <input type="text" id="demo2_filepath" name="demo2_filepath" value="helloWorld2.txt"/>
-            <input type="text" id="demo2_method" name="demo2_method" value="stream"/>
+            <input type="text" id="getfilelist_operation" name="getfilelist_operation" value="getfilelist"/>
+            <input type="text" id="getfilelist_path" name="getfilelist_path" value=""/>
             <button type="button" onclick="
-            var filepath=document.getElementById('demo2_filepath').value;
-            var method=document.getElementById('demo2_method').value;
-            downstreamFile(
-              'http://127.0.0.1:8080/?filepath='+filepath+'&method='+method
-              ,'downstreamFile_result');
+            var operation=document.getElementById('getfilelist_operation').value;
+            var path=document.getElementById('getfilelist_path').value;
+            get(
+              'http://127.0.0.1:8080/?operation='+operation+'&path='+path
+              ,'getfilelist_result');
             ">GET</button>
           </form>
-        <div id="downstreamFile_result"></div>
+        <div id="getfilelist_result"></div>
       </div>
-	  
-      <!--
-      <div id="demo3">
-        <h2>Download File</h2>
-        <button type="button" onclick="downloadFile('http://127.0.0.1:8080/?filepath=helloworld.txt&method=download')">Download</button>
+
+      <div id="getfile">
+        <h2>Get File</h2>
+          <form>
+            <input type="text" id="getfile_operation" name="getfile_operation" value="getfile"/>
+            <input type="text" id="getfile_path" name="getfile_path" value="fsstorage.json"/>
+            <button type="button" onclick="
+            var operation=document.getElementById('getfile_operation').value;
+            var path=document.getElementById('getfile_path').value;
+            get(
+              'http://127.0.0.1:8080/?operation='+operation+'&path='+path
+              ,'getfile_result');
+            ">GET</button>
+          </form>
+        <div id="getfile_result"></div>
       </div>
-      -->
+
+      <div id="deletefile">
+        <h2>Delete File</h2>
+          <form>
+            <input type="text" id="deletefile_operation" name="deletefile_operation" value="deletefile"/>
+            <input type="text" id="deletefile_path" name="deletefile_path" value="fsstorage.json"/>
+            <button type="button" onclick="
+            var operation=document.getElementById('deletefile_operation').value;
+            var path=document.getElementById('deletefile_path').value;
+            get(
+              'http://127.0.0.1:8080/?operation='+operation+'&path='+path
+              ,'deletefile_result');
+            ">GET</button>
+          </form>
+        <div id="deletefile_result"></div>
+      </div>
 
     </div>
   </body>

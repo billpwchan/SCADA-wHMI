@@ -39,10 +39,14 @@ export class SettingsService {
     try {
       ret = this.settings.get(url)[component][key];
       console.log(this.c, f, 'Loading setting for', c, func, url, component, key, ret);
+
+      if ( undefined === ret ) {
+        console.warn(this.c, f, 'Loading setting for', c, func, url, component, key, ret, 'failed!');
+      }
     } catch (err) {
-      console.log(this.c, f, 'Error when loading setting for', c, func, url, component, key, err);
+      console.warn(this.c, f, 'Error when loading setting for', c, func, url, component, key, err);
     }
-    console.info(this.c, f, 'Loading component[' + component + '] key[' + key + '] => ret[' + ret + ']');
+    console.log(this.c, f, 'Loading component[' + component + '] key[' + key + '] => ret[' + ret + ']');
     return ret;
   }
 
@@ -56,14 +60,13 @@ export class SettingsService {
   load(): Promise<any> {
     const f = 'load';
     console.log(this.c, f);
-    console.info(this.c, f, 'loading config...');
+    console.log(this.c, f, 'loading config...');
     return this.http.get(AppSettings.STR_URL_SETTINGS)
     .toPromise()
     .then(
       data => {
-        console.info(this.c, f, 'loading config success');
+        console.log(this.c, f, 'loading config success');
         this.settings.set(AppSettings.STR_URL_SETTINGS, data.json());
-        console.info(this.c, f, 'loading config success', data.json());
       }
     ).catch((err: HttpErrorResponse) => {
       if (err.error instanceof Error) {

@@ -22,8 +22,8 @@
       , "pointlabel_prefix": ""
       , "value_prefix": ""
       , "delay_prefix": ""
-      , "real_prefix": ""
-      , "real_default": "-"
+      , "current_prefix": ""
+      , "current_default": "-"
   }
   , "StepEditComponent": {
       "geo_prefix": "location_"

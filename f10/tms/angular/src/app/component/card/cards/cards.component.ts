@@ -153,6 +153,31 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
+  private sortingCards(cards: Card[], columnsSorting: SortingDirection[] ): Card[] {
+    const f = 'sortingCards';
+    console.log(this.c, f);
+    let ret: Card[] = cards;
+    // Sorting
+    if ( SortingDirection.ASC_ORDING === columnsSorting[CardColumnIndex.STATE] ) {
+      this.strSortingOrderName = CardsSettings.STR_CARD_DG_HEADER_SORTING_NON;
+      this.strSortingOrderState = CardsSettings.STR_CARD_DG_HEADER_SORTING_ASC;
+      ret = cards.sort((n1, n2) => ( n1.state > n2.state ? 1 : (n1.state < n2.state ) ? -1 : 0 ));
+    } else if ( SortingDirection.DES_ORDING === columnsSorting[CardColumnIndex.STATE] ) {
+      this.strSortingOrderName = CardsSettings.STR_CARD_DG_HEADER_SORTING_NON;
+      this.strSortingOrderState = CardsSettings.STR_CARD_DG_HEADER_SORTING_DES;
+      ret = cards.sort((n1, n2) => ( n1.state < n2.state ? 1 : (n1.state > n2.state ) ? -1 : 0 ));
+    } else if ( SortingDirection.ASC_ORDING === columnsSorting[CardColumnIndex.NAME] ) {
+      this.strSortingOrderName = CardsSettings.STR_CARD_DG_HEADER_SORTING_ASC;
+      this.strSortingOrderState = CardsSettings.STR_CARD_DG_HEADER_SORTING_NON;
+      ret = cards.sort((n1, n2) => ( n1.name > n2.name ? 1 : (n1.name < n2.name ) ? -1 : 0 ));
+    } else if ( SortingDirection.DES_ORDING === columnsSorting[CardColumnIndex.NAME] ) {
+      this.strSortingOrderName = CardsSettings.STR_CARD_DG_HEADER_SORTING_DES;
+      this.strSortingOrderState = CardsSettings.STR_CARD_DG_HEADER_SORTING_NON;
+      ret = cards.sort((n1, n2) => ( n1.name < n2.name ? 1 : (n1.name > n2.name ) ? -1 : 0 ));
+    }
+    return ret;
+  }
+
   private isStoppedPartial ( card: Card ): boolean {
     let ret = false;
     card.steps.forEach(item => {
@@ -221,25 +246,9 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
 
     const cards: Card[] = this.cardService.getCards();
 
-    let sortedCards: Card[] = cards;
-    // Sorting
-    if ( SortingDirection.ASC_ORDING === this.columnsSorting[CardColumnIndex.STATE] ) {
-      this.strSortingOrderName = CardsSettings.STR_CARD_DG_HEADER_SORTING_NON;
-      this.strSortingOrderState = CardsSettings.STR_CARD_DG_HEADER_SORTING_ASC;
-      sortedCards = cards.sort((n1, n2) => ( n1.state > n2.state ? 1 : (n1.state < n2.state ) ? -1 : 0 ));
-    } else if ( SortingDirection.DES_ORDING === this.columnsSorting[CardColumnIndex.STATE] ) {
-      this.strSortingOrderName = CardsSettings.STR_CARD_DG_HEADER_SORTING_NON;
-      this.strSortingOrderState = CardsSettings.STR_CARD_DG_HEADER_SORTING_DES;
-      sortedCards = cards.sort((n1, n2) => ( n1.state < n2.state ? 1 : (n1.state > n2.state ) ? -1 : 0 ));
-    } else if ( SortingDirection.ASC_ORDING === this.columnsSorting[CardColumnIndex.NAME] ) {
-      this.strSortingOrderName = CardsSettings.STR_CARD_DG_HEADER_SORTING_ASC;
-      this.strSortingOrderState = CardsSettings.STR_CARD_DG_HEADER_SORTING_NON;
-      sortedCards = cards.sort((n1, n2) => ( n1.name > n2.name ? 1 : (n1.name < n2.name ) ? -1 : 0 ));
-    } else if ( SortingDirection.DES_ORDING === this.columnsSorting[CardColumnIndex.NAME] ) {
-      this.strSortingOrderName = CardsSettings.STR_CARD_DG_HEADER_SORTING_DES;
-      this.strSortingOrderState = CardsSettings.STR_CARD_DG_HEADER_SORTING_NON;
-      sortedCards = cards.sort((n1, n2) => ( n1.name < n2.name ? 1 : (n1.name > n2.name ) ? -1 : 0 ));
-    }
+    // Avoid the sorting modify the original cards order
+    const clonedCards: Card[] = this.cardService.cloneCards(cards);
+    const sortedCards: Card[] = this.sortingCards(clonedCards, this.columnsSorting);
 
     const preSelected = this.selected_card;
     // Reset datatable

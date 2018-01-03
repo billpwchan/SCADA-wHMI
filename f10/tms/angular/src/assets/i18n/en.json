@@ -89,7 +89,7 @@
 	, "&steps_dg_header_delay": "Delay(s)"
 	, "&steps_dg_header_execute": "Selected"
 	, "&steps_dg_header_status": "Status"
-	, "&steps_dg_header_real": "Real"
+	, "&steps_dg_header_current": "Current"
 
 	, "&steps_dg_status_unknow": "Unknow"
 	, "&steps_dg_status_stopped": "Reset"

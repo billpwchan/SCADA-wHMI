@@ -240,15 +240,16 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     return ret;
   }
 
-  private reloadingCards(keepSelected: boolean, cb): void {
+  private reloadingCards(keepSelected: boolean, cb ? ): void {
     const f = 'reloadingCard';
     console.log(this.c, f);
 
-    const cards: Card[] = this.cardService.getCards();
-
-    // Avoid the sorting modify the original cards order
-    const clonedCards: Card[] = this.cardService.cloneCards(cards);
-    const sortedCards: Card[] = this.sortingCards(clonedCards, this.columnsSorting);
+    // Avoid the sorting modify the internal cards order
+    const clonedCards: Card[] = new Array<Card>();
+    this.cardService.getCards().forEach ( item => {
+      clonedCards.push(new Card(item.name, item.state, 0));
+    });
+    const sortedCards: Card[] = this.sortingCards(this.cardService.getCards(), this.columnsSorting);
 
     const preSelected = this.selected_card;
     // Reset datatable
@@ -284,7 +285,9 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     }
     this.selected_card = [...this.selected_card];
 
-    return;
+    if ( cb ) {
+      cb();
+    }
   }
 
   private reloadCards(keepSelected: boolean = false): void {
@@ -292,6 +295,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
     console.log(this.c, f, keepSelected);
 
+    this.loadingIndicator = true;
     this.reloadingCards( keepSelected, (data) => {
       setTimeout(() => { this.loadingIndicator = false; }, 1500);
     });

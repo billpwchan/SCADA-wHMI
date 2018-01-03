@@ -24,7 +24,7 @@ export class DatatableStep {
     , public execute: boolean
     , public status: string
     , public num: string
-    , public real: string
+    , public current: string
     , public updated: Date
   ) {}
 }

@@ -71,8 +71,8 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   private pointlabelPrefix: string;
   private valuePrefix: string;
   private delayPrefix: string;
-  private realPrefix: string;
-  private realDefault: string;
+  private currentPrefix: string;
+  private currentDefault: string;
 
   private subscriptionCard: Card;
 
@@ -170,8 +170,8 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     this.pointlabelPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_POINTLABEL_PREFIX);
     this.delayPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_DELAY_PREFIX);
     this.valuePrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_VALUE_PREFIX);
-    this.realPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_REAL_PREFIX);
-    this.realDefault = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_REAL_DEFAULT);
+    this.currentPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_CURRENT_PREFIX);
+    this.currentDefault = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_CURRENT_DEFAULT);
   }
 
   private loadTranslations(): void {
@@ -263,10 +263,10 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
           const execute = item.execute;
           const status = this.getStateStr(item.state);
           const num = this.stepPrefix + (+item.step + +this.stepBase);
-          let real = this.realPrefix + item.equipment.reallabel;
+          let current = this.currentPrefix + item.equipment.currentlabel;
           const updated = new Date();
-          if ( real === undefined || real === 'undefined' ) {
-            real = this.realDefault;
+          if ( current === undefined || current === 'undefined' ) {
+            current = this.currentDefault;
           }
 
           if ( ! updateOnly ) {
@@ -281,7 +281,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
               , execute
               , status
               , num
-              , real
+              , current
               , updated
             );
             this.rows_step.push(dtStep);
@@ -296,7 +296,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
             this.rows_step[index].execute = execute;
             this.rows_step[index].status = status;
             this.rows_step[index].num = num;
-            this.rows_step[index].real = real;
+            this.rows_step[index].current = current;
             this.rows_step[index].updated = updated;
           }
         });

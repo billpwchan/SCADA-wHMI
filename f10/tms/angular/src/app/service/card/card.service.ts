@@ -179,17 +179,6 @@ export class CardService {
   }
 
   /**
-   * Return cloned card objects
-   *
-   * @param {Card[]} cards Identity of the cards
-   * @returns {Card[]} Cloned card objects
-   * @memberof CardService
-   */
-  cloneCards(cards: Card[]): Card[] {
-    return JSON.parse(JSON.stringify(cards));
-  }
-
-  /**
    * Return Ref of card object
    *
    * @param {string[]} [cardIds] Identity of the card

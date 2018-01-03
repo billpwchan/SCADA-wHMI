@@ -178,11 +178,35 @@ export class CardService {
     return ret;
   }
 
+  /**
+   * Return cloned card objects
+   *
+   * @param {Card[]} cards Identity of the cards
+   * @returns {Card[]} Cloned card objects
+   * @memberof CardService
+   */
+  cloneCards(cards: Card[]): Card[] {
+    return JSON.parse(JSON.stringify(cards));
+  }
+
+  /**
+   * Return Ref of card object
+   *
+   * @param {string[]} [cardIds] Identity of the card
+   * @returns {Card} Ref of card object
+   * @memberof CardService
+   */
   getCard(cardIds?: string[]): Card {
     return this.getCards(cardIds)[0];
   }
 
-  // Cards Getter
+  /**
+   * Return Ref of card objects
+   *
+   * @param {string[]} [identitys] Identity of the cards
+   * @returns {Card[]} Ref of card objects
+   * @memberof CardService
+   */
   getCards(identitys?: string[]): Card[] {
     if ( null == identitys ) {
       return this.cards;
@@ -199,12 +223,44 @@ export class CardService {
     }
   }
 
-  // Cards Setter
+  /**
+   * Set a Ref of card objects (Replace existing cards ref)
+   *
+   * @param {Card[]} cards New Ref of the card objects
+   * @memberof CardService
+   */
   setCards(cards: Card[]): void { this.cards = cards; }
 
+  /**
+   * Add an Ref of card objects (Push at end of cards list)
+   *
+   * @param {Card[]} cards Ref of the card objects to insert
+   * @memberof CardService
+   */
   addCards(cards: Card[]): void {
     cards.forEach(card => {
       this.cards.push(card);
+    });
+  }
+
+  /**
+   * Remove the cards by the identitys
+   *
+   * @param {string[]} identitys List of identity to remove
+   * @memberof CardService
+   */
+  deleteCards(identitys: string[]) {
+    const f = 'deleteCard';
+    console.log(this.c, f);
+
+    identitys.forEach(element => {
+      for ( let i = 0 ; i < this.cards.length ; ++i ) {
+        console.log(this.c, f, 'cards[i].name', this.cards[i].name);
+        if ( this.cards[i].name === element ) {
+          console.log(this.c, f, 'remove', 'name', element);
+          this.cards.splice(i, 1);
+        }
+      }
     });
   }
 
@@ -240,27 +296,6 @@ export class CardService {
     if ( null != card ) {
       card.steps = steps;
     }
-  }
-
-  /**
-   * Remote the cards by the identitys mapping
-   *
-   * @param {string[]} cardIds List of identity to remove
-   * @memberof CardService
-   */
-  deleteCards(cardIds: string[]) {
-    const f = 'deleteCard';
-    console.log(this.c, f);
-
-    cardIds.forEach(element => {
-      for ( let i = 0 ; i < this.cards.length ; ++i ) {
-        console.log(this.c, f, 'cards[i].name', this.cards[i].name);
-        if ( this.cards[i].name === element ) {
-          console.log(this.c, f, 'remove', 'name', element);
-          this.cards.splice(i, 1);
-        }
-      }
-    });
   }
 
   deleteStep(cardId: string, stepIds: number[]): void {

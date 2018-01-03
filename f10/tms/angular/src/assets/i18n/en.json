@@ -11,6 +11,10 @@
 	, "&cards_gd_header_name": "Name"
 	, "&cards_gd_header_state": "State"
 
+	, "&cards_dg_header_sorting_non": ""
+	, "&cards_dg_header_sorting_asc": "▲"
+	, "&cards_dg_header_sorting_des": "▼"
+
 	, "&cards_dg_state_unknow": "Unknow"
 
 	, "&cards_dg_state_stopped": "Stop"

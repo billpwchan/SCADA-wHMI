@@ -4,7 +4,7 @@ import { CardService } from '../../../service/card/card.service';
 import { Card, CardType, StepType } from '../../../model/Scenario';
 import { DatatableCard } from '../../../model/DatatableScenario';
 import { AppSettings } from '../../../app-settings';
-import { CardsSettings } from './cards-settings';
+import { CardsSettings, SortingDirection, CardColumnIndex } from './cards-settings';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { SelectionService } from '../../../service/card/selection.service';
@@ -49,6 +49,11 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
 
   // properties for ngx-datatable
   public messages = {};
+
+  // Init the Card Datatable Sorting Order
+  private columnsSorting: SortingDirection[] = [SortingDirection.NON_ORDING , SortingDirection.NON_ORDING];
+  private strSortingOrderName = CardsSettings.STR_CARD_DG_HEADER_SORTING_NON;
+  private strSortingOrderState = CardsSettings.STR_CARD_DG_HEADER_SORTING_NON;
 
   constructor(
     private translate: TranslateService
@@ -119,20 +124,33 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     this.cardsDataTable.messages['totalMessage'] = this.translate.instant('&cards_dg_footer_totalmessage');
   }
 
-  getRowClass(row) {
-    const f = 'getRowClass';
-    // console.log(this.c, f);
-    return {
-      'age-is-ten': (row.age % 10) === 0
-    };
-  }
+  onHeaderClick(elementName: string, columnName: string): void {
+    const f = 'sort';
+    console.log(this.c, f);
+    console.log(this.c, f, 'elementName[' + elementName + '] columnName[' + columnName + ']');
 
-  getCellClass({ row, column, value }): any {
-    const f = 'getCellClass';
-    // console.log(this.c, f);
-    return {
-      'is-female': value === 'female'
-    };
+    let columnIndex: CardColumnIndex = CardColumnIndex.OUTOFRANGE;
+    if ( 'name' === columnName ) {
+      columnIndex = CardColumnIndex.NAME;
+      this.columnsSorting[CardColumnIndex.STATE] = SortingDirection.NON_ORDING;
+    } else if ( 'state' === columnName ) {
+      columnIndex = CardColumnIndex.STATE;
+      this.columnsSorting[CardColumnIndex.NAME] = SortingDirection.NON_ORDING;
+    }
+    if ( CardColumnIndex.OUTOFRANGE !== columnIndex ) {
+      switch ( this.columnsSorting[columnIndex] ) {
+        case SortingDirection.NON_ORDING: {
+          this.columnsSorting[columnIndex] = SortingDirection.DES_ORDING;
+        } break;
+        case SortingDirection.ASC_ORDING: {
+          this.columnsSorting[columnIndex] = SortingDirection.DES_ORDING;
+        } break;
+        case SortingDirection.DES_ORDING: {
+          this.columnsSorting[columnIndex] = SortingDirection.ASC_ORDING;
+        } break;
+      }
+      this.reloadCards(true);
+    }
   }
 
   private isStoppedPartial ( card: Card ): boolean {
@@ -201,12 +219,34 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'reloadingCard';
     console.log(this.c, f);
 
+    const cards: Card[] = this.cardService.getCards();
+
+    let sortedCards: Card[] = cards;
+    // Sorting
+    if ( SortingDirection.ASC_ORDING === this.columnsSorting[CardColumnIndex.STATE] ) {
+      this.strSortingOrderName = CardsSettings.STR_CARD_DG_HEADER_SORTING_NON;
+      this.strSortingOrderState = CardsSettings.STR_CARD_DG_HEADER_SORTING_ASC;
+      sortedCards = cards.sort((n1, n2) => ( n1.state > n2.state ? 1 : (n1.state < n2.state ) ? -1 : 0 ));
+    } else if ( SortingDirection.DES_ORDING === this.columnsSorting[CardColumnIndex.STATE] ) {
+      this.strSortingOrderName = CardsSettings.STR_CARD_DG_HEADER_SORTING_NON;
+      this.strSortingOrderState = CardsSettings.STR_CARD_DG_HEADER_SORTING_DES;
+      sortedCards = cards.sort((n1, n2) => ( n1.state < n2.state ? 1 : (n1.state > n2.state ) ? -1 : 0 ));
+    } else if ( SortingDirection.ASC_ORDING === this.columnsSorting[CardColumnIndex.NAME] ) {
+      this.strSortingOrderName = CardsSettings.STR_CARD_DG_HEADER_SORTING_ASC;
+      this.strSortingOrderState = CardsSettings.STR_CARD_DG_HEADER_SORTING_NON;
+      sortedCards = cards.sort((n1, n2) => ( n1.name > n2.name ? 1 : (n1.name < n2.name ) ? -1 : 0 ));
+    } else if ( SortingDirection.DES_ORDING === this.columnsSorting[CardColumnIndex.NAME] ) {
+      this.strSortingOrderName = CardsSettings.STR_CARD_DG_HEADER_SORTING_DES;
+      this.strSortingOrderState = CardsSettings.STR_CARD_DG_HEADER_SORTING_NON;
+      sortedCards = cards.sort((n1, n2) => ( n1.name < n2.name ? 1 : (n1.name > n2.name ) ? -1 : 0 ));
+    }
+
     const preSelected = this.selected_card;
     // Reset datatable
     this.rows_card = [];
 
     // Renew datatable from card service
-    this.cardService.getCards().forEach((item, index) => {
+    sortedCards.forEach((item, index) => {
       this.rows_card.push(
         new DatatableCard(
           item.name
@@ -215,8 +255,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
         )
       );
     });
-
-    // this.rows_card = [...this.rows_card];
+    this.rows_card = [...this.rows_card];
 
     if ( keepSelected ) {
       let selected = false;
@@ -234,7 +273,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     } else {
       this.selected_card = [];
     }
-    // this.selected_card = [...this.selected_card];
+    this.selected_card = [...this.selected_card];
 
     return;
   }
@@ -262,10 +301,14 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
   onRowSelect(name: string, event: Event) {
     const f = 'onRowSelect';
     console.log(this.c, f);
+
     this.btnClicked(CardsComponent.STR_CARD_SELECTED, event);
+
+    // Quick Fix for the ngx-datatable view update
+    window.dispatchEvent(new Event('resize'));
   }
 
-  onActivate(name: string, event: Event) {
+  onActivate(name: string, event) {
     const f = 'onActivate';
     console.log(this.c, f);
   }

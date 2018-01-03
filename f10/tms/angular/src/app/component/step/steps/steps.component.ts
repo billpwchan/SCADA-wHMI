@@ -423,6 +423,9 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f, 'name', name, 'event', event);
 
     this.setSelectedRow();
+
+    // Quick Fix for the ngx-datatable view update
+    window.dispatchEvent(new Event('resize'));
   }
 
   onActivate(name: string, event) {

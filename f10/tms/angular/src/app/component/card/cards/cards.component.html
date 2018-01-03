@@ -17,26 +17,25 @@
 
           [scrollbarV]="true"
           [scrollbarH]="false"
-          [rowClass]="getRowClass"
           
           [selected]="selected_card"
           [selectionType]="'single'"
           (select)="onRowSelect('card', $event)"
           (activate)="onActivate('card', $event)"
           >
-          <ngx-datatable-column prop="name" name="Name" [sortable]='true'
-            headerClass="is-gender" [cellClass]="getCellClass" [width]="200">
+          <ngx-datatable-column prop="name" name="Name" [sortable]='false' [canAutoResize]="false"
+            [width]="280">
             <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-              <span (click)="sort()">{{ '&cards_gd_header_name' | translate }}</span>
+              <span (click)="onHeaderClick('cards', 'name')">{{ '&cards_gd_header_name' | translate }}{{ strSortingOrderName | translate }}</span>
             </ng-template>
             <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
               <strong>{{ value }}</strong>
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column prop="state" name="State" [sortable]='true'
-            headerClass="is-gender" [cellClass]="getCellClass" [width]="80">
+          <ngx-datatable-column prop="state" name="State" [sortable]='false' [canAutoResize]="false"
+            [width]="100">
             <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-              <span (click)="sort()">{{ '&cards_gd_header_state' | translate }}</span>
+              <span (click)="onHeaderClick('cards', 'state')">{{ '&cards_gd_header_state' | translate }}{{ strSortingOrderState | translate }}</span>
             </ng-template>
             <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
               <strong>{{ value | translate }}</strong>

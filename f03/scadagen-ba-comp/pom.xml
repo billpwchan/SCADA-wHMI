@@ -6,20 +6,20 @@
     <parent>
         <groupId>com.thalesgroup.scadasoft</groupId>
         <artifactId>scadasoft</artifactId>
-        <version>6.3.1_P06</version>
+        <version>6.3.1_P07</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
     <artifactId>scadagen-ba-comp</artifactId>
-    <version>1.5.4</version>
+    <version>1.6.0</version>
     <packaging>jar</packaging>
     <name>SCADAgen BA Component</name>
     <description>SCADAgen BA Executor and JSComponent library</description>
 	
     <properties>
-        <scadasoft.version>6.3.1_P06</scadasoft.version>
-        <scadasoft.hv.version>6.3.1_P06-HV960</scadasoft.hv.version>
+        <scadasoft.version>6.3.1_P07</scadasoft.version>
+        <scadasoft.hv.version>6.3.1_P07-HV960</scadasoft.hv.version>
     </properties>
 
     <dependencies>

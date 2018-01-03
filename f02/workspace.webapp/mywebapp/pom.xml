@@ -12,16 +12,12 @@
         <!-- Version of the SCADAgen WHMI -->
         <scadagen.whmi.version>1.5.4</scadagen.whmi.version>
 	
-        <scadasoft.mwt.version>6.3.1_P06-HV960P01</scadasoft.mwt.version>
+        <scadasoft.mwt.version>6.3.1_P07-HV960P01</scadasoft.mwt.version>
         <jackson.version>2.8.8</jackson.version>
          
         <mwt.version>3.8.0</mwt.version>
         <hv.connector.sdk.version>2.12.0</hv.connector.sdk.version>
         <hv.common.integ.version>1.11.0</hv.common.integ.version>
-        
-        <scadasoft.model.version>6.3.1_P04-HV960</scadasoft.model.version>
-        <scadasoft.hv.version>6.3.1_P06-HV960P01</scadasoft.hv.version>
-        <scadasoft.version>6.3.1_P06</scadasoft.version>
 
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<selenium.version>2.53.1</selenium.version> 

@@ -6,14 +6,14 @@
 	<groupId>com.thalesgroup.scadagen.scadagenba</groupId>
 	<artifactId>scadagen-bps</artifactId>
 	<packaging>jar</packaging>
-    <version>1.5.4</version>
+    <version>1.6.0</version>
 	<name>BPS Library</name>
 	
 	<properties>
         <hv.connector.sdk.version>2.12.0</hv.connector.sdk.version>
         <slf4j.version>1.6.1</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
-        <scadasoft.version>6.3.1_P06</scadasoft.version>
+        <scadasoft.version>6.3.1_P07</scadasoft.version>
         <scadasoft.model.version>6.3.1_P04-HV960</scadasoft.model.version>
 	</properties>
 	

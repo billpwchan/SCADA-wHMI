@@ -1,0 +1,50 @@
+<div class="container-fluid">
+  <div class="avalanche-box" id="avalanche-cond">
+    <div id="avalanche-cond-title">{{ 'Avalanche Conditions' | translate }}</div>
+    <div id="avalanche-cond-content">
+      <div id="avalanche-cond-table">
+        <ngx-datatable
+          class="bootstrap"
+          [columnMode]="'force'"
+          [rows]="avaConds"
+          [headerHeight]="50"
+          [footerHeight]="0"
+          [selectionType]="'single'"
+          [sorts]="defaultSorts"
+          (activate)="onActivate($event)"
+          (select)='onSelect($event)'
+          (page)='onPage($event)'
+          (sort)='onSort($event)'>
+          <ngx-datatable-column prop="name" name="ConditionName" [sortable]='true'>
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                  <span (click)="sort()">{{ 'Condition Name' | translate }}</span>
+              </ng-template>
+              <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                  <strong>{{ conditionNameTranslationPrefix + value | translate }}</strong>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column prop="isEnabled" name="EnableStatus" [sortable]='true'>
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                  <span (click)="sort()">{{ 'Enable Status' | translate }}</span>
+              </ng-template>
+              <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                  <strong>{{ enableStatusTranslationPrefix + value | translate }}</strong>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column prop="isTriggered" name="TriggerStatus" [sortable]='false'>
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                  <span (click)="sort()">{{ 'Trigger Status' | translate }}</span>
+              </ng-template>
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <strong>{{ triggerStatusTranslationPrefix + value | translate }}</strong>
+              </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+    </div>
+    <app-ava-cond-action></app-ava-cond-action>
+  </div>
+</div>
+
+ 
+<app-ava-cond-detail [avaCond]="selectedAvaCond"></app-ava-cond-detail>

@@ -15,12 +15,12 @@ export class UtilsHttpModule {
 
   httpClientHandlerError(func: string, err: HttpErrorResponse, mgs?: string): void {
     const f = 'httpClientHandlerError';
-    console.log(this.c, f, 'call from', func, 'error', err);
-    console.log(this.c, f, 'call from', func, 'error.error', err.error);
+    console.warn(this.c, f, 'call from', func, 'error', err);
+    console.warn(this.c, f, 'call from', func, 'error.error', err.error);
     if (err.error instanceof Error) {
-      console.log(this.c, f, 'call from', func, 'Client-side error occured.');
+      console.warn(this.c, f, 'call from', func, 'Client-side error occured.');
     } else {
-      console.log(this.c, f, 'call from', func, 'Server-side error occured.');
+      console.warn(this.c, f, 'call from', func, 'Server-side error occured.');
     }
   }
 

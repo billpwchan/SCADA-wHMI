@@ -143,7 +143,7 @@ export class CsvToCardsPipe implements PipeTransform {
                 step.equipment.phases[execPhase].push(exec);
 
               } else {
-                console.log(this.c, f, 'execPhase IS NaN');
+                console.warn(this.c, f, 'execPhase IS NaN');
               }
             }
           }

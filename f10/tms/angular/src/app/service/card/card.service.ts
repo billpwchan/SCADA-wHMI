@@ -89,7 +89,7 @@ export class CardService {
           console.log(this.c, f, 'step.state', step.state);
           this.notifyUpdate(CardServiceType.STEP_UPDATED);
         } else {
-          console.log(this.c, f, 'step IS NULL');
+          console.warn(this.c, f, 'step IS NULL');
         }
       }
     });
@@ -304,7 +304,7 @@ export class CardService {
         }
       }
     } else {
-      console.log(this.c, f, 'card IS NULL');
+      console.warn(this.c, f, 'card IS NULL');
     }
   }
 
@@ -567,7 +567,7 @@ export class CardService {
         this.dbmPollingService.unsubscribe(execCard);
       }
     } else {
-      console.log(this.c, f, 'CARD NOT FOUND');
+      console.warn(this.c, f, 'CARD NOT FOUND');
     }
   }
 }

@@ -109,7 +109,7 @@ export class AppComponent implements OnInit, OnDestroy {
         console.log(this.c, f, 'Resolve prefered language by browser\'s cookie:', cookieName);
         return Cookie.get(cookieName);
     } else {
-        console.log(this.c, f, 'No defined way to obtain prefered language');
+        console.warn(this.c, f, 'No defined way to obtain prefered language');
     }
     return undefined;
   }

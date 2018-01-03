@@ -301,10 +301,10 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
           }
         });
       } else {
-        console.log(this.c, f, 'step IS ZERO LENGTH');
+        console.warn(this.c, f, 'step IS ZERO LENGTH');
       }
     } else {
-      console.log(this.c, f, 'card IS NULL');
+      console.warn(this.c, f, 'card IS NULL');
     }
     this.rows_step = [...this.rows_step];
 

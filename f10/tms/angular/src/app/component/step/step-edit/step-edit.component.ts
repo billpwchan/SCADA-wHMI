@@ -223,12 +223,12 @@ btnDisabledAddCancelStep: boolean;
             } else {
               // Prompt the user this is not a single acquired data equipment
               const msg = 'Selected Equipment point is not a single acquired data equipment (Maybe a combine points)';
-              console.log(this.c, f, msg);
+              console.warn(this.c, f, msg);
             }
           } else {
             // Prompt the user this is not a acquired data equipment
             const msg = 'Selected Equipment point is not an acquired data equipment (Without AAC/DAC)';
-            console.log(this.c, f, msg);
+            console.warn(this.c, f, msg);
           }
         } else if ( 'retriveDci' === item ) {
           const dbvalue = this.dbmService.getRetriveDciData(this.selEnv, this.txtUnivname);
@@ -580,7 +580,7 @@ btnDisabledAddCancelStep: boolean;
       console.log(this.c, f, 'card.name', card.name);
       card.steps.push(step);
     } else {
-      console.log(this.c, f, 'card IS NULL');
+      console.warn(this.c, f, 'card IS NULL');
     }
   }
 

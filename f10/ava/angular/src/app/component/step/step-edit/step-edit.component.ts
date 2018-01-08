@@ -566,7 +566,6 @@ btnDisabledAddCancelStep: boolean;
     const card = this.cardService.getCard(this.selectionService.getSelectedCardIds());
     const step: Step = new Step(
       card.steps.length
-      , 0
     );
 
     step.equipment = new Equipment(

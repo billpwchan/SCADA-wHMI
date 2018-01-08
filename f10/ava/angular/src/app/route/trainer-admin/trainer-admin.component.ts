@@ -38,7 +38,7 @@ export class TrainerAdminComponent implements OnInit {
     const f = 'ngOnInit';
     console.log(this.c, f);
 
-    this.storageService.loadCard();
+    this.storageService.loadCards();
   }
 
   getNotification(evt: string): void {

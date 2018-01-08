@@ -5,7 +5,8 @@ export class StorageSettings {
     public static readonly STR_LOCAL_STORAGE_NAME = 'local_storage_name';
 
     public static readonly STR_REMOTE_URL = 'remote_url';
-    public static readonly STR_REMOTE_FILENAME = 'remote_filename';
+    public static readonly STR_REMOTE_FILENAME_PREFIX = 'remote_filename_prefix';
+    public static readonly STR_REMOTE_FILENAME_EXTENSION = 'remote_filename_extension';
 
     public static readonly STR_UPLOAD_URL = 'upload_url';
     public static readonly STR_DOWNLOAD_URL = 'download_url';

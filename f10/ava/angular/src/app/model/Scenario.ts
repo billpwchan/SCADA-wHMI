@@ -47,7 +47,6 @@ export class Step {
   public equipment: Equipment;
   constructor(
     public step: number
-    , public alarms: number
   ) {}
 }
 
@@ -57,9 +56,17 @@ export class Step {
 export class Card {
   // Equipment Variable
   public steps: Step[] = new Array<Step>();
+  public alarms: number[][];
   constructor(
     public name: string
     , public state: boolean
     , public status: boolean
   ) {}
+}
+
+export class AlarmServerity {
+  index: number;
+  label: string;
+  shortlabel: string;
+  title: string;
 }

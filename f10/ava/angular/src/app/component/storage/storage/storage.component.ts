@@ -244,7 +244,7 @@ export class StorageComponent implements OnInit, OnDestroy, OnChanges {
         this.btnDisabledSaveScenario = true;
         this.btnDisabledReloadScenario = true;
         this.ignoreReload = true;
-        this.storageService.loadCard();
+        this.storageService.loadCards();
       } break;
       case 'cancel': {
         this.disableSaveToStorageMsg = true;

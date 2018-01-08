@@ -14,13 +14,6 @@ export class AlarmsSettings {
     public static readonly STR_ALARM_SERVERITYS         = 'alarm_serveritys';
 }
 
-export class AlarmServerity {
-    index: number;
-    label: string;
-    shortlabel: string;
-    title: string;
-}
-
 export class AlarmServeritySelection {
     x: number;
     x2: number;

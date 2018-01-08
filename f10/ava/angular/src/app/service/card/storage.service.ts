@@ -28,7 +28,8 @@ export class StorageService {
   uploadUrl: string;
   downloadUrl: string;
   downloadMethod: string;
-  remoteFileName: string;
+  remotePrefix: string;
+  remoteExtension: string;
 
   // Service command
   storageChanged(storageResponse: StorageResponse) {
@@ -56,11 +57,12 @@ export class StorageService {
     this.uploadUrl = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_UPLOAD_URL);
     this.downloadUrl = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_DOWNLOAD_URL);
     this.downloadMethod = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_DOWNLOAD_METHOD);
-    this.remoteFileName = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_REMOTE_FILENAME);
+    this.remotePrefix = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_REMOTE_FILENAME_PREFIX);
+    this.remoteExtension = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_REMOTE_FILENAME_EXTENSION);
   }
 
   saveCards(cards: Card[]): void {
-    const f = 'saveCard';
+    const f = 'saveCards';
     console.log(this.c, f);
     if ( this.useLocalStorage ) {
       const strCards: string = JSON.stringify(cards);
@@ -69,12 +71,12 @@ export class StorageService {
       , strCards);
       this.storageChanged(StorageResponse.SAVE_SUCCESS);
     } else {
-      this.uploadCard(cards);
+      this.uploadCards(cards);
     }
   }
 
-  loadCard(): void {
-    const f = 'loadCard';
+  loadCards(): void {
+    const f = 'loadCards';
     console.log(this.c, f);
     if ( this.useLocalStorage ) {
       const strCards: string = localStorage.getItem(this.localStorageName);
@@ -83,21 +85,38 @@ export class StorageService {
       this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
       this.storageChanged(StorageResponse.LOAD_SUCCESS);
     } else {
-      this.downloadCard();
+      this.downloadCards(this.processCards);
     }
   }
 
-  uploadCard(cards: Card[]): void {
+  uploadCards(cards: Card[]): void {
     const f = 'uploadCard';
     console.log(this.c, f);
     const url: string = this.remoteUrl + '/' + this.uploadUrl;
-    const path: string = this.remoteFileName;
+    const path: string = this.remotePrefix + this.remoteExtension;
     const strcards: string = JSON.stringify(cards);
-    this.postData(url, path, strcards);
+    this.postData(url
+      , path
+      , strcards
+      , this.storageChanged(StorageResponse.SAVE_SUCCESS)
+    );
   }
 
-  downloadCard(): void {
-    const f = 'downloadCard';
+  // Callback
+  processCards(c: string, f: string, cardService: CardService, data: string, cb): void {
+    f = 'processCards ' + f;
+    console.log(c, f);
+    cardService.setCards(JSON.parse(data));
+    const cards = cardService.getCards();
+    console.log(c, f, 'cards[', cards, ']');
+    cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
+    if ( null != cb ) {
+      cb(StorageResponse.LOAD_SUCCESS);
+    }
+  }
+
+  downloadCards(cb): void {
+    const f = 'downloadCards';
     console.log(this.c, f);
 
     // Reset the cards
@@ -105,7 +124,7 @@ export class StorageService {
 
     let url = this.remoteUrl + '/' + this.downloadUrl;
     url += '?' + StorageSettings.STR_OPERATION + '=' + StorageSettings.STR_GETFILE;
-    url += '&' + StorageSettings.STR_PATH + '=' + this.remoteFileName;
+    url += '&' + StorageSettings.STR_PATH + '=' + this.remotePrefix + this.remoteExtension;
 
     // Handle the data recerived
     this.httpClient.get(
@@ -117,16 +136,18 @@ export class StorageService {
 
           const path = res[StorageSettings.STR_PATH];
           console.log(this.c, f, 'path[' + path + ']');
-          // const json = JSON.parse(res);
 
           const data = res[StorageSettings.STR_DATA];
           console.log(this.c, f, 'data[' + data + ']');
 
-          this.cardService.setCards(JSON.parse(data));
-          const cards = this.cardService.getCards();
-          console.log(this.c, f, 'cards[', cards, ']');
-          this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
-          this.storageChanged(StorageResponse.LOAD_SUCCESS);
+          if ( null != cb ) {
+            cb(this.c
+              , f
+              , this.cardService
+              , data
+              , this.storageChanged(StorageResponse.LOAD_SUCCESS)
+            );
+          }
         }
         , (err: HttpErrorResponse) => {
           this.storageChanged(StorageResponse.LOAD_FAILED);
@@ -136,7 +157,7 @@ export class StorageService {
       );
   }
 
-  postData(url: string, path: string, data) {
+  postData(url: string, path: string, data: string, cb) {
     const f = 'postData';
     console.log(this.c, f);
     console.log(this.c, f, 'url[' + url + ']');
@@ -154,8 +175,9 @@ export class StorageService {
         , {headers: {'Content-Type': 'application/json; charset=utf-8'}}
       ).subscribe(
         res => {
-          // console.log(this.c, f, res);
-          this.storageChanged(StorageResponse.SAVE_SUCCESS);
+          if ( null != cb ) {
+            cb();
+          }
         }
         , (err: HttpErrorResponse) => {
           this.storageChanged(StorageResponse.SAVE_FAILED);

@@ -1,8 +1,14 @@
 import { Component, OnInit, OnDestroy, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { AppSettings } from '../../../app-settings';
 import { SettingsService } from '../../../service/settings.service';
-import { AlarmsSettings, AlarmServerity, AlarmServeritySelection } from './alarms-settings';
+import { AlarmsSettings, AlarmServeritySelection } from './alarms-settings';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { CardService } from '../../../service/card/card.service';
+import { SelectionService } from '../../../service/card/selection.service';
+import { Subscription } from 'rxjs/Subscription';
+import { CardServiceType } from '../../../service/card/card-settings';
+import { SelectionServiceType } from '../../../service/card/selection-settings';
+import { AlarmServerity, Card } from '../../../model/Scenario';
 
 @Component({
   selector: 'app-alarms',
@@ -14,8 +20,10 @@ export class AlarmsComponent implements OnInit, OnDestroy, OnChanges {
   public static readonly STR_INIT = AppSettings.STR_INIT;
   public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
   public static readonly STR_CARD_SELECTED = AppSettings.STR_CARD_SELECTED;
+  public static readonly STR_CARD_UPDATED = AppSettings.STR_CARD_UPDATED;
   public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
+  public static readonly STR_STEP_UPDATED = AppSettings.STR_STEP_UPDATED;
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
@@ -25,6 +33,11 @@ export class AlarmsComponent implements OnInit, OnDestroy, OnChanges {
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
+  cardSubscription: Subscription;
+  selectionSubscription: Subscription;
+
+  selectedCardName: string;
+
   private rowHeaderPrefix: string;
   private rowHeaderIds: number[];
   private rowHeaderWidth: number;
@@ -33,7 +46,7 @@ export class AlarmsComponent implements OnInit, OnDestroy, OnChanges {
   private colHeaderIds: number[];
   private colWidths: number;
 
-  private data: number[][];
+  // private data: number[][];
 
   private cellSel: AlarmServeritySelection;
 
@@ -48,6 +61,8 @@ export class AlarmsComponent implements OnInit, OnDestroy, OnChanges {
   constructor(
     private translate: TranslateService
     , private settingsService: SettingsService
+    , private cardService: CardService
+    , private selectionService: SelectionService
   ) {
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.loadTranslations();
@@ -60,9 +75,37 @@ export class AlarmsComponent implements OnInit, OnDestroy, OnChanges {
 
     this.loadSettings();
 
-    this.data = this.buildTestingData(this.rowHeaderIds, this.colHeaderIds);
+    this.cardSubscription = this.cardService.cardItem
+      .subscribe(item => {
+        console.log(this.c, f, 'cardSubscription', item);
+        switch (item) {
+          case CardServiceType.CARD_RELOADED: {
+            this.btnClicked(AlarmsComponent.STR_CARD_RELOADED);
+          } break;
+          case CardServiceType.STEP_RELOADED: {
+            this.btnClicked(AlarmsComponent.STR_STEP_RELOADED);
+          } break;
+          case CardServiceType.STEP_UPDATED: {
+            this.btnClicked(AlarmsComponent.STR_STEP_UPDATED);
+          } break;
+        }
+      });
 
-    this.reloadData();
+    this.selectionSubscription = this.selectionService.selectionItem
+      .subscribe(item => {
+        console.log(this.c, f, 'selectionSubscription', item);
+        switch (item) {
+          case SelectionServiceType.CARD_SELECTED: {
+            this.btnClicked(AlarmsComponent.STR_CARD_SELECTED);
+          } break;
+        }
+      });
+
+    // Create tesing data
+    const card: Card = this.cardService.getCard([this.selectedCardName]);
+    if (null != card) {
+      card.alarms = this.buildTestingData(this.rowHeaderIds, this.colHeaderIds);
+    }
 
     this.btnClicked(AlarmsComponent.STR_INIT);
   }
@@ -71,7 +114,8 @@ export class AlarmsComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'ngOnDestroy';
     console.log(this.c, f);
     // prevent memory leak when component is destroyed
-
+    this.selectionSubscription.unsubscribe();
+    this.cardSubscription.unsubscribe();
   }
 
   onParentChange(change: string): void {
@@ -157,16 +201,21 @@ export class AlarmsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
     let selected = 0;
     let checked = 0;
-    if ( undefined !== this.cellSel ) {
-      for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
-        for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
-          selected++;
-          if ( this.isFlagOn(this.data[x][y], index) ) {
-            checked++;
+    const card: Card = this.cardService.getCard([this.selectedCardName]);
+    if (null != card) {
+      const alarms: number[][] = card.alarms;
+      if ( undefined !== this.cellSel ) {
+        for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
+          for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
+            selected++;
+            if ( this.isFlagOn(alarms[x][y], index) ) {
+              checked++;
+            }
           }
         }
       }
     }
+
     return (checked > 0 && (selected !== checked));
   }
 
@@ -174,15 +223,20 @@ export class AlarmsComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'isChecked';
     console.log(this.c, f);
     let checked = 0;
-    if ( undefined !== this.cellSel ) {
-      for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
-        for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
-          if ( this.isFlagOn(this.data[x][y], index) ) {
-            checked++;
+    const card: Card = this.cardService.getCard([this.selectedCardName]);
+    if (null != card) {
+      const alarms: number[][] = card.alarms;
+      if ( undefined !== this.cellSel ) {
+        for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
+          for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
+            if ( this.isFlagOn(alarms[x][y], index) ) {
+              checked++;
+            }
           }
         }
       }
     }
+
     return (0 !== checked);
   }
 
@@ -194,17 +248,24 @@ export class AlarmsComponent implements OnInit, OnDestroy, OnChanges {
 
     const val = Number.parseInt(event.target.value);
 
-    if ( undefined !== this.cellSel ) {
-      for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
-        for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
-          if (event.target.checked) {
-            this.data[x][y] = this.setFlagOn(this.data[x][y], val);
-          } else {
-            this.data[x][y] = this.setFlagOff(this.data[x][y], val);
+    const card: Card = this.cardService.getCard([this.selectedCardName]);
+
+    if (null != card) {
+      const alarms: number[][] = card.alarms;
+      if ( undefined !== this.cellSel ) {
+        for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
+          for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
+            if (event.target.checked) {
+              alarms[x][y] = this.setFlagOn(alarms[x][y], val);
+            } else {
+              alarms[x][y] = this.setFlagOff(alarms[x][y], val);
+            }
           }
         }
       }
     }
+
+
 
     this.reloadData();
   }
@@ -265,17 +326,24 @@ export class AlarmsComponent implements OnInit, OnDestroy, OnChanges {
       this.col_widths.push(this.colWidths);
     });
 
-    this.spreadsheet_data = new Array<Array<string>>();
-    for (let i = 0; i < this.rows_header.length ; ++i) {
-      this.spreadsheet_data[i] = new Array<string>();
-      for (let j = 0 ; j < this.cols_header.length ; ++ j ) {
-        this.spreadsheet_data[i][j] = this.getCellStr(this.data, i, j);
+    const card: Card = this.cardService.getCard([this.selectedCardName]);
+
+    if (null != card) {
+      const alarms: number[][] = card.alarms;
+      this.spreadsheet_data = new Array<Array<string>>();
+      for (let i = 0; i < this.rows_header.length ; ++i) {
+        this.spreadsheet_data[i] = new Array<string>();
+        for (let j = 0 ; j < this.cols_header.length ; ++ j ) {
+          this.spreadsheet_data[i][j] = this.getCellStr(alarms, i, j);
+        }
       }
     }
   }
 
   private init(): void {
-
+    const f = 'init';
+    console.log(this.c, f);
+    this.selectedCardName = '';
   }
 
   btnClicked(btnLabel: string, event?: Event): void {
@@ -285,6 +353,17 @@ export class AlarmsComponent implements OnInit, OnDestroy, OnChanges {
     switch (btnLabel) {
       case AlarmsComponent.STR_INIT: {
         this.init();
+        this.reloadData();
+      } break;
+      case AlarmsComponent.STR_CARD_RELOADED: {
+        this.selectedCardName = '';
+      } break;
+      case AlarmsComponent.STR_CARD_SELECTED: {
+        this.selectedCardName = this.selectionService.getSelectedCardId();
+      } break;
+      case AlarmsComponent.STR_STEP_RELOADED: {
+      } break;
+      case AlarmsComponent.STR_STEP_UPDATED: {
       } break;
     }
   }

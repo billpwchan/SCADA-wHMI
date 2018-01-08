@@ -55,7 +55,9 @@
       "use_local_storage": false
       , "local_storage_name": "ava_local_storage_name"
       , "remote_url": "http://127.0.0.1:8080"
-      , "remote_filename": "ava.json"
+      , "remote_filename_prefix": "ava"
+      , "remote_filename_extension": ".json"
+
       , "upload_url": "upstreamFile_result"
       , "download_url": "downstreamFile_result"
   }

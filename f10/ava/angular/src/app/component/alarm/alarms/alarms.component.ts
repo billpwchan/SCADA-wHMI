@@ -161,7 +161,7 @@ export class AlarmsComponent implements OnInit, OnDestroy, OnChanges {
       for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
         for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
           selected++;
-          if ( this.isFlagOn(this.data[ x ][ y ], index) ) {
+          if ( this.isFlagOn(this.data[x][y], index) ) {
             checked++;
           }
         }
@@ -177,7 +177,7 @@ export class AlarmsComponent implements OnInit, OnDestroy, OnChanges {
     if ( undefined !== this.cellSel ) {
       for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
         for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
-          if ( this.isFlagOn(this.data[ x ][ y ], index) ) {
+          if ( this.isFlagOn(this.data[x][y], index) ) {
             checked++;
           }
         }
@@ -198,9 +198,9 @@ export class AlarmsComponent implements OnInit, OnDestroy, OnChanges {
       for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
         for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
           if (event.target.checked) {
-            this.data[ x ][ y ] = this.setFlagOn(this.data[ x ][ y ], val);
+            this.data[x][y] = this.setFlagOn(this.data[x][y], val);
           } else {
-            this.data[ x ][ y ] = this.setFlagOff(this.data[ x ][ y ], val);
+            this.data[x][y] = this.setFlagOff(this.data[x][y], val);
           }
         }
       }

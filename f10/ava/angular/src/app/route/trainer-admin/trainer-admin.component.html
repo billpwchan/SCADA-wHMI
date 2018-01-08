@@ -16,6 +16,7 @@
   <div class="div-trainer-admin-right">
     <app-step-edit (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepEdit"></app-step-edit>
     <div class="div-trainer-admin-right-top">
+      <app-card-title (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"></app-card-title>
       <app-steps (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"></app-steps>
     </div>
     <div class="div-trainer-admin-right-bottom">

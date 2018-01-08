@@ -28,6 +28,7 @@ import { CardEditControllerComponent } from './component/card/card-edit-controll
 import { DbmPollingService } from './service/scs/dbm-polling.service';
 import { HotTableModule } from 'angular-handsontable';
 import { AlarmsComponent } from './component/alarm/alarms/alarms.component';
+import { CardTitleComponent } from './component/card/card-title/card-title.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -51,7 +52,9 @@ const appRoutes: Routes = [
     , TrainerAdminComponent
     , PageNotFoundComponent
     , StepEditControllerComponent
-    , CardEditControllerComponent, AlarmsComponent
+    , CardEditControllerComponent
+    , AlarmsComponent
+    , CardTitleComponent
   ],
   imports: [
     BrowserModule

@@ -1,0 +1,16 @@
+
+<form>
+  <div>
+    <label class="lbl-step-edit-controller-modify">{{ '&steps_lbl_modify_step' | translate }}</label>
+    <button type="button" 
+      class="btn btn-info btn-step-edit-controller-newstep" 
+      [disabled]="btnDisabledNewStep" (click)="btnClicked('newstep', $event)"
+      title="{{ '&steps_btn_new_step_title' | translate }}"
+      >{{ '&steps_btn_new_step' | translate }}</button>
+    <button type="button" 
+      class="btn btn-info btn-step-edit-controller-deletestep" 
+      [disabled]="btnDisabledDeleteStep" (click)="btnClicked('deletestep', $event)"
+      title="{{ '&steps_btn_delete_step_title' | translate }}"
+      >{{ '&steps_btn_delete_step' | translate }}</button>
+  </div>
+</form>

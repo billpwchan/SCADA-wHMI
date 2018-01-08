@@ -1,0 +1,195 @@
+{
+	"&available_pages": "Available pages"
+	, "&traineradmin": "Trainer Admin"
+	, "&trainer": "Trainer"
+	, "&trainee": "Trainee"
+
+	, "&trainee_page": "trainee page"
+	
+	, "&cards_title": "Scenario List"
+
+	, "&cards_gd_header_name": "Name"
+	, "&cards_gd_header_state": "State"
+	, "&cards_gd_header_status": "Status"
+
+	, "&cards_dg_header_sorting_non": ""
+	, "&cards_dg_header_sorting_asc": "▲"
+	, "&cards_dg_header_sorting_des": "▼"
+
+	, "&cards_dg_state_unknow": "Unknow"
+
+	, "&cards_dg_state_disabled": "Disabled"
+	, "&cards_dg_state_enabled": "Enabled"
+	, "&cards_dg_status_not_triggered": "Not-Triggered"
+	, "&cards_dg_status_triggered": "Triggered"
+
+	, "&cards_dg_footer_emptymessage": "No item to display"
+	, "&cards_dg_footer_selectedmessage": " selected"
+	, "&cards_dg_footer_spliter": " / "
+	, "&cards_dg_footer_totalmessage": " total"
+	
+	, "&cards_lbl_modify": "Modify"
+	, "&cards_btn_new": "New"
+	, "&cards_btn_new_title": "Add a new scenario."
+	, "&cards_btn_modify": "Modify"
+	, "&cards_btn_modify_title": "Modify selected scenario name."
+	, "&cards_btn_delete": "Delete"
+	, "&cards_btn_delete_title": "Delete selected scenario."
+	, "&cards_btn_copy": "Copy"
+	, "&cards_btn_copy_title": "Make a copy of selected scrnario."
+
+	, "&cards_lbl_new_name": "New Name"
+	, "&cards_txt_new_name": "type new name..."
+
+	, "&cards_btn_add": "Add"
+	, "&cards_btn_add_title": "Add as a new scenario."
+	, "&cards_btn_add_cancel": "Cancel"
+	, "&cards_btn_add_cancel_title": "Cancel to add a new scenario."
+
+	, "&cards_lbl_modify_name": "Edit Name"
+	, "&cards_txt_modify_name": "type new name..."
+
+	, "&cards_btn_modify_save": "Save"
+	, "&cards_btn_modify_save_title": "Save"
+	, "&cards_btn_modify_cancel": "Cancel"
+	, "&cards_btn_modify_cancel_title": "Cancel"
+
+	, "&cards_name_new_prefix": "Scenario # "
+	, "&cards_name_copy_appendix": " - Copy"
+
+	, "&cards_lbl_duplicated": "Name duplicated with exists name"
+	, "&cards_lbl_length_too_short": "Name contain too less character"
+	, "&cards_lbl_length_too_long": "Name containe too much character"
+
+	, "&steps_lbl_scenario_step_list": "Scenario Step"
+
+	, "&steps_dg_header_num": "#"
+	, "&steps_dg_header_location": "Location"
+	, "&steps_dg_header_system": "System"
+	, "&steps_dg_header_equipment": "Equipment"
+	, "&steps_dg_header_point": "Point"
+	, "&steps_dg_header_value": "Value"
+
+	, "&steps_dg_footer_emptymessage": "No item to display"
+	, "&steps_dg_footer_spliter": " / "
+	, "&steps_dg_footer_selectedmessage": " selected"
+	, "&steps_dg_footer_totalmessage": " total"
+
+	, "&steps_lbl_card_name": "Scenario Name"
+	, "&steps_txt_select_card": "Select a scenario..."
+	, "&steps_lbl_modify_step": "Modify Step"
+	, "&steps_btn_new_step": "New"
+	, "&steps_btn_new_step_title": "Add a new step to scenario"
+	, "&steps_btn_delete_step": "Delete"
+	, "&steps_btn_delete_step_title": "Delete a selected step from scenario"
+
+	,"&steps_edit_lbl_add_step": "Details of new step"
+
+	, "&step_lbl_env": "Environment"
+	, "&step_lst_env_default": "Select env..."
+	, "&step_lbl_geo": "Location"
+	, "&step_lst_geo_default": "Select location..."
+	, "&step_lst_geo_prefix": "&location_"
+	, "&step_lbl_func": "System"
+	, "&step_lst_func_default": "Select system..."
+	, "&step_lst_func_prefix": "function_"
+	, "&step_lbl_eqplabel": "Equipment"
+	, "&step_lst_eqplabel_default": "Select equipment..."
+	, "&step_lbl_pointlabel": "Point"
+	, "&step_lst_pointlabel_default": "Select point..."
+
+	, "&step_lbl_aciinitvalue": " Reset Value"
+	, "&step_lst_aciinitvalue_placeholder": "Enter reset value..."
+
+	, "&step_lbl_dciinitvalue": " Reset Value"
+	, "&step_lst_dciinitvalue_placeholder": "Enter reset value..."
+
+	, "&step_lbl_dcivalue": "Target Value"
+	, "&step_lst_dcivalue_placeholder": "Select target digital value..."
+
+	, "&step_lbl_acivalue": "Target Value"
+	, "&step_txt_acivalue_placeholder": "Enter target analog value..."
+
+	, "&step_lbl_classid": "Class ID"
+	, "&step_txt_classid_placeholder": "Enter class id"
+
+	, "&step_lbl_univname": "UnivName"
+	, "&step_txt_univname_placeholder": "Enter UNVIName"
+
+	, "&step_lbl_evname": "EVName"
+	, "&step_txt_evname_placeholder": "Enter class id"
+
+	, "&step_btn_add_cancelstep": "Cancel"
+	, "&step_btn_add_cancelstep_title": "Cacnel the add a step to card"
+
+	, "&step_btn_add_acistep": "Add"
+	, "&step_btn_add_acistep_title": "Add step to the card"
+	, "&step_btn_add_acicancelstep": "Cancel"
+	, "&step_btn_add_acicancelstep_title": "Cacnel the add a step to card"
+
+	, "&step_btn_add_dcistep": "Add"
+	, "&step_btn_add_dcistep_title": "Add step to the card"
+	, "&step_btn_add_dcicancelstep": "Cancel"
+	, "&step_btn_add_dcicancelstep_title": "Cacnel the add a step to card"
+
+	, "&scenario": "Scenario(s)"
+
+	, "&storage_lbl_scenario": "Scenario"
+
+	, "&storage_btn_save": "Save"
+	, "&storage_btn_save_title": "Save Scenario(s) into storage."
+	, "&storage_btn_load": "Reload"
+	, "&storage_btn_load_title": "Reload Scenario(s) from storage."
+
+	, "&storage_info_modifycardsnotsaved_title": "Save the modified setting."
+	, "&storage_info_modifycardsnotsaved": "Save the modified scenario(s) to storage before leave ava panel."
+	, "&storage_info_modifycardsnotsaved_close": " x "
+
+	, "&storage_btn_save_confirm": "Confirm"
+	, "&storage_btn_save_confirm_title": "Confirm to save the file."
+	, "&storage_btn_save_cancel": "Cancel"
+	, "&storage_btn_save_cancel_title": "Cancel the save operation."
+
+	, "&storage_info_modifycardsnotsavedsuccess_title": "Save success."
+	, "&storage_info_modifycardsnotsavedsuccess_close": " x "
+	, "&storage_info_modifycardsnotsavedfailed_title": "Save failed."
+	, "&storage_info_modifycardsnotsavedfailed_close": " x "
+
+	, "&storage_info_confirmtosavecards_title": "Overwrite current setting(s)."
+
+	, "&storage_info_reload_card_success_title": "Reload success."
+	, "&storage_info_reload_card_success_close": " x "
+
+	, "&storage_info_reload_card_failed_title": "Reload failed."
+	, "&storage_info_reload_card_failed_close": " x "
+
+	, "&alarms_default_cell_empty_str": " - "
+	, "&alarms_default_cell_comma": ","
+	, "&alarms_default_cell_incorrect_str": " INCORRECT "
+
+	, "&alarms_serverity_label_0": "Lowest Serverity"
+	, "&alarms_serverity_shortlabel_0": "L"
+	, "&alarms_serverity_title_0": "SET / DISPLAY [Lowest Serverity] filer in selected cell state"
+	, "&alarms_serverity_label_1": "Less Critical"
+	, "&alarms_serverity_shortlabel_1": "LC"
+	, "&alarms_serverity_title_1": "SET / DISPLAY [Less Critical] filer in selected cell state"
+	, "&alarms_serverity_label_2": "Critical"
+	, "&alarms_serverity_shortlabel_2": "C"
+	, "&alarms_serverity_title_2": "SET / DISPLAY [Critical] filer in selected cell state"
+	, "&alarms_serverity_label_3": "Super Critical"
+	, "&alarms_serverity_shortlabel_3": "SC"
+	, "&alarms_serverity_title_3": "SET / DISPLAY [Super Critical] filer in selected cell state"
+
+	, "location_": "UNKNOW"
+	, "location_1": "M000001"
+	, "location_2": "M000002"
+	, "location_100000": "M100000"
+
+	, "function_": "UNKNOW"
+	, "function_1": "TPS"
+	, "function_2": "PSD"
+	, "function_3": "TVS"
+	, "function_4": "SIG"
+	, "function_8": "ECT"
+	, "function_99": "MCS"
+}

@@ -1,0 +1,23 @@
+<div>
+  <hot-table
+    [rowHeaders]="rows_header"
+    [rowHeaderWidth]="rows_header_width"
+    [colHeaders]="cols_header"
+    [colWidths]="col_widths"
+    [data]="spreadsheet_data"
+    readOnly=true
+    [outsideClickDeselects]=false
+    (afterSelection)="onSelection($event)"
+    >
+  </hot-table>
+  <div>
+    <label class="checkbox-inline" 
+      *ngFor="let alarmServerity of alarmServeritys;let index = index;trackBy:trackByIndex"
+      title="{{ alarmServerity.title | translate }}">
+    <input type="checkbox" [ngModel]="alarmserveritychecked"
+      [value]="index" [checked]="isChecked(index)" [indeterminate]="isIndeterminate(index)"
+      (change)="onChange('', alarmServerity.index, $event)"
+      title="{{ alarmServerity.title | translate }}"
+      >{{ alarmServerity.label | translate }} ({{ alarmServerity.shortlabel | translate }})</label>
+  </div>
+</div>

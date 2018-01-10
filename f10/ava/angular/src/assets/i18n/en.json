@@ -1,12 +1,12 @@
 {
 	"&available_pages": "Available pages"
-	, "&traineradmin": "Trainer Admin"
+	, "&traineradmin": "Avalanche Admin"
 	, "&trainer": "Trainer"
 	, "&trainee": "Trainee"
 
 	, "&trainee_page": "trainee page"
 	
-	, "&cards_title": "Scenario List"
+	, "&cards_title": "Avalanche Conditions"
 
 	, "&cards_gd_header_name": "Name"
 	, "&cards_gd_header_state": "State"
@@ -27,24 +27,31 @@
 	, "&cards_dg_footer_selectedmessage": " selected"
 	, "&cards_dg_footer_spliter": " / "
 	, "&cards_dg_footer_totalmessage": " total"
+
+	, "&cards_state_btn_enable": "Enable"
+	, "&cards_state_btn_enable_title": "Enable the selected condidition"
+	, "&cards_state_btn_disable": "Disable"
+	, "&cards_state_btn_disable_title": "Disable the selected condidition"
 	
 	, "&cards_lbl_modify": "Modify"
 	, "&cards_btn_new": "New"
-	, "&cards_btn_new_title": "Add a new scenario."
-	, "&cards_btn_modify": "Modify"
-	, "&cards_btn_modify_title": "Modify selected scenario name."
+	, "&cards_btn_new_title": "Add a new condition."
 	, "&cards_btn_delete": "Delete"
-	, "&cards_btn_delete_title": "Delete selected scenario."
+	, "&cards_btn_delete_title": "Delete selected condition."
 	, "&cards_btn_copy": "Copy"
-	, "&cards_btn_copy_title": "Make a copy of selected scrnario."
+	, "&cards_btn_copy_title": "Make a copy of selected condition."
+	, "&cards_btn_rename": "Rename"
+	, "&cards_btn_rename_title": "Rename title of selected condition."
+	, "&cards_btn_modify": "Modify"
+	, "&cards_btn_modify_title": "Modify selected condition name."
 
 	, "&cards_lbl_new_name": "New Name"
 	, "&cards_txt_new_name": "type new name..."
 
 	, "&cards_btn_add": "Add"
-	, "&cards_btn_add_title": "Add as a new scenario."
+	, "&cards_btn_add_title": "Add as a new condition."
 	, "&cards_btn_add_cancel": "Cancel"
-	, "&cards_btn_add_cancel_title": "Cancel to add a new scenario."
+	, "&cards_btn_add_cancel_title": "Cancel to add a new condition."
 
 	, "&cards_lbl_modify_name": "Edit Name"
 	, "&cards_txt_modify_name": "type new name..."
@@ -54,14 +61,14 @@
 	, "&cards_btn_modify_cancel": "Cancel"
 	, "&cards_btn_modify_cancel_title": "Cancel"
 
-	, "&cards_name_new_prefix": "Scenario # "
+	, "&cards_name_new_prefix": "Condition # "
 	, "&cards_name_copy_appendix": " - Copy"
 
 	, "&cards_lbl_duplicated": "Name duplicated with exists name"
 	, "&cards_lbl_length_too_short": "Name contain too less character"
 	, "&cards_lbl_length_too_long": "Name containe too much character"
 
-	, "&steps_lbl_scenario_step_list": "Scenario Step"
+	, "&steps_lbl_scenario_step_list": "Trigger Condition"
 
 	, "&steps_dg_header_num": "#"
 	, "&steps_dg_header_location": "Location"
@@ -75,15 +82,15 @@
 	, "&steps_dg_footer_selectedmessage": " selected"
 	, "&steps_dg_footer_totalmessage": " total"
 
-	, "&steps_lbl_card_name": "Scenario Name"
-	, "&steps_txt_select_card": "Select a scenario..."
-	, "&steps_lbl_modify_step": "Modify Step"
+	, "&steps_lbl_card_name": "Condition Name"
+	, "&steps_txt_select_card": "Select a condition..."
+	, "&steps_lbl_modify_step": "Modify Trigger"
 	, "&steps_btn_new_step": "New"
-	, "&steps_btn_new_step_title": "Add a new step to scenario"
+	, "&steps_btn_new_step_title": "Add a new trigger to condition"
 	, "&steps_btn_delete_step": "Delete"
-	, "&steps_btn_delete_step_title": "Delete a selected step from scenario"
+	, "&steps_btn_delete_step_title": "Delete a selected Trigger from condition"
 
-	,"&steps_edit_lbl_add_step": "Details of new step"
+	,"&steps_edit_lbl_add_step": "Details of new trigger"
 
 	, "&step_lbl_env": "Environment"
 	, "&step_lst_env_default": "Select env..."
@@ -132,17 +139,17 @@
 	, "&step_btn_add_dcicancelstep": "Cancel"
 	, "&step_btn_add_dcicancelstep_title": "Cacnel the add a step to card"
 
-	, "&scenario": "Scenario(s)"
+	, "&scenario": "Condition(s)"
 
-	, "&storage_lbl_scenario": "Scenario"
+	, "&storage_lbl_scenario": "Condition"
 
 	, "&storage_btn_save": "Save"
-	, "&storage_btn_save_title": "Save Scenario(s) into storage."
+	, "&storage_btn_save_title": "Save condition(s) into storage."
 	, "&storage_btn_load": "Reload"
-	, "&storage_btn_load_title": "Reload Scenario(s) from storage."
+	, "&storage_btn_load_title": "Reload condition(s) from storage."
 
 	, "&storage_info_modifycardsnotsaved_title": "Save the modified setting."
-	, "&storage_info_modifycardsnotsaved": "Save the modified scenario(s) to storage before leave ava panel."
+	, "&storage_info_modifycardsnotsaved": "Save the modified condition(s) to storage before leave ava panel."
 	, "&storage_info_modifycardsnotsaved_close": " x "
 
 	, "&storage_btn_save_confirm": "Confirm"
@@ -163,22 +170,32 @@
 	, "&storage_info_reload_card_failed_title": "Reload failed."
 	, "&storage_info_reload_card_failed_close": " x "
 
-	, "&alarms_default_cell_empty_str": " - "
-	, "&alarms_default_cell_comma": ","
-	, "&alarms_default_cell_incorrect_str": " INCORRECT "
+	, "&matrix_default_cell_empty": " - "
+	, "&matrix_default_cell_comma": ","
+	, "&matrix_default_cell_incorrect": " INCORRECT "
 
-	, "&alarms_serverity_label_0": "Lowest Serverity"
-	, "&alarms_serverity_shortlabel_0": "L"
-	, "&alarms_serverity_title_0": "SET / DISPLAY [Lowest Serverity] filer in selected cell state"
-	, "&alarms_serverity_label_1": "Less Critical"
-	, "&alarms_serverity_shortlabel_1": "LC"
-	, "&alarms_serverity_title_1": "SET / DISPLAY [Less Critical] filer in selected cell state"
-	, "&alarms_serverity_label_2": "Critical"
-	, "&alarms_serverity_shortlabel_2": "C"
-	, "&alarms_serverity_title_2": "SET / DISPLAY [Critical] filer in selected cell state"
-	, "&alarms_serverity_label_3": "Super Critical"
-	, "&alarms_serverity_shortlabel_3": "SC"
-	, "&alarms_serverity_title_3": "SET / DISPLAY [Super Critical] filer in selected cell state"
+	, "&matrix_flag_label_0": "Lowest Serverity"
+	, "&matrix_flag_shortlabel_0": "L"
+	, "&matrix_flag_title_0": "SET / DISPLAY [Lowest Serverity] filer in selected cell state"
+	, "&matrix_flag_label_1": "Less Critical"
+	, "&matrix_flag_shortlabel_1": "LC"
+	, "&matrix_flag_title_1": "SET / DISPLAY [Less Critical] filer in selected cell state"
+	, "&matrix_flag_label_2": "Critical"
+	, "&matrix_flag_shortlabel_2": "C"
+	, "&matrix_flag_title_2": "SET / DISPLAY [Critical] filer in selected cell state"
+	, "&matrix_flag_label_3": "Super Critical"
+	, "&matrix_flag_shortlabel_3": "SC"
+	, "&matrix_flag_title_3": "SET / DISPLAY [Super Critical] filer in selected cell state"
+
+	, "&matrix_cfg_row_header_width_is_negavite": "Configuration header width is negavite."
+	, "&matrix_cfg_row_header_id_is_null_or_invalid": "Configuration header is is null or invalid."
+	, "&matrix_cfg_col_width_is_negavite": "Configuration column width is negvaite."
+	, "&matrix_cfg_col_header_id_is_null_or_invalid": "Configuration column header is id null or invalid."
+
+	, "&matrix_data_is_null": "Date index is null."
+	, "&matrix_data_index_length_is_zero": "Date index length is 0."
+	, "&matrix_data_index_zero_length_is_null": "Date index 0 length is null."
+	, "&matrix_data_index_zero_length_is_zero": "Date index 0 length is 0."
 
 	, "location_": "UNKNOW"
 	, "location_1": "M000001"

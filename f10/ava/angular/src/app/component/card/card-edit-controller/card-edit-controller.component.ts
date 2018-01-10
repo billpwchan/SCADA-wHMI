@@ -27,7 +27,7 @@ export class CardEditControllerComponent implements OnInit , OnDestroy, OnChange
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
-  readonly c: string = CardEditControllerComponent.name;
+  readonly c: string = 'CardEditControllerComponent';
 
   @Input() notifyFromParent: string;
 
@@ -36,12 +36,11 @@ export class CardEditControllerComponent implements OnInit , OnDestroy, OnChange
   cardSubscription: Subscription;
   selectionSubscription: Subscription;
 
-  selectedCardName: string;
-
   btnNewDisable: boolean;
-  btnModifyDisable: boolean;
   btnDeleteDisable: boolean;
   btnCopyDisable: boolean;
+  btnRenameDisable: boolean;
+  btnModifyDisable: boolean;
 
   constructor(
     private translate: TranslateService
@@ -168,18 +167,15 @@ export class CardEditControllerComponent implements OnInit , OnDestroy, OnChange
     this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
   }
 
-  private getSelectCardName(): string {
-    return this.selectionService.getSelectedCardId();
-  }
-
   private init(): void {
     const f = 'init';
     console.log(this.c, f);
 
-    this.btnNewDisable = false;
-    this.btnModifyDisable = true;
+    this.btnNewDisable    = false;
     this.btnDeleteDisable = true;
-    this.btnCopyDisable = true;
+    this.btnCopyDisable   = true;
+    this.btnRenameDisable = true;
+    this.btnModifyDisable = true;
   }
 
   btnClicked(btnLabel: string, event?: Event) {
@@ -194,16 +190,13 @@ export class CardEditControllerComponent implements OnInit , OnDestroy, OnChange
         this.init();
       } break;
       case CardEditControllerComponent.STR_CARD_SELECTED: {
-        this.btnModifyDisable = false;
-        this.btnCopyDisable = false;
         this.btnDeleteDisable = false;
-        this.selectedCardName = this.getSelectCardName();
+        this.btnCopyDisable   = false;
+        this.btnRenameDisable = false;
+        this.btnModifyDisable = false;
       } break;
       case 'newdiv': {
         this.sendNotifyParent(CardEditControllerSettings.STR_CARD_EDIT_CONTROLLER_ADD_ENABLE);
-      } break;
-      case 'modify': {
-        this.sendNotifyParent(CardEditControllerSettings.STR_CARD_EDIT_CONTROLLER_MODIFY_ENABLE);
       } break;
       case 'delete': {
         this.deleteCard();
@@ -212,6 +205,12 @@ export class CardEditControllerComponent implements OnInit , OnDestroy, OnChange
       case 'copy': {
         this.CopyCard();
         this.init();
+      } break;
+      case 'rename': {
+        this.sendNotifyParent(CardEditControllerSettings.STR_CARD_EDIT_CONTROLLER_RENAME_ENABLE);
+      } break;
+      case 'modify': {
+        this.sendNotifyParent(CardEditControllerSettings.STR_CARD_EDIT_CONTROLLER_MODIFY_ENABLE);
       } break;
     }
 

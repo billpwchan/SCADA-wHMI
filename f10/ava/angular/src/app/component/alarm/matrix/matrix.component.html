@@ -1,0 +1,27 @@
+<div>
+  <hot-table
+    [height]="spreadsheet_height"
+    [width]="spreedsheet_width"
+    [visibleRows]="spreedsheet_visible_rows"
+    [rowHeaders]="rows_header"
+    [rowHeaderWidth]="rows_header_width"
+    [colHeaders]="cols_header"
+    [colWidths]="col_widths"
+    [data]="spreadsheet_data"
+    [readOnly]=true
+    [outsideClickDeselects]=false
+    (beforeOnCellMouseDown)="beforeOnCellMouseDown($event)"
+    (afterSelection)="onSelection($event)"
+    >
+  </hot-table>
+  <div>
+    <label class="checkbox-inline" 
+      *ngFor="let matrix of matrixes;let index = index;trackBy:trackByIndex"
+      title="{{ matrix.title | translate }}">
+    <input type="checkbox" [ngModel]="matrixChecked"
+      [value]="index" [checked]="isChecked(index)" [indeterminate]="isIndeterminate(index)"
+      (change)="onChange('', matrix.index, $event)" [disabled]="!enableCheckbox"
+      title="{{ matrix.title | translate }}"
+      >{{ matrix.label | translate }} ({{ matrix.shortlabel | translate }})</label>
+  </div>
+</div>

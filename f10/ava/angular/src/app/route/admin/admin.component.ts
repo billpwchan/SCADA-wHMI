@@ -6,18 +6,20 @@ import { CardEditControllerSettings } from '../../component/card/card-edit-contr
 import { CardEditSettings } from '../../component/card/card-edit/card-edit-settings';
 import { CardEditComponent } from '../../component/card/card-edit/card-edit.component';
 import { StepEditComponent } from '../../component/step/step-edit/step-edit.component';
+import { StepEditControllerComponent } from '../../component/step/step-edit-controller/step-edit-controller.component';
 
 @Component({
-  selector: 'app-trainer-admin',
-  templateUrl: './trainer-admin.component.html',
-  styleUrls: ['./trainer-admin.component.css']
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.css']
 })
-export class TrainerAdminComponent implements OnInit {
+export class AdminComponent implements OnInit {
 
   @ViewChild(CardEditComponent) cardEditChildView: CardEditComponent;
   @ViewChild(StepEditComponent) stepEditChildView: StepEditComponent;
+  @ViewChild(StepEditControllerComponent) stepEditControllerChildView: StepEditComponent;
 
-  c: string = TrainerAdminComponent.name;
+  readonly c: string = 'AdminComponent';
 
   notifyCards: string;
   notifyCardController: string;
@@ -53,8 +55,11 @@ export class TrainerAdminComponent implements OnInit {
       case CardEditControllerSettings.STR_CARD_EDIT_CONTROLLER_ADD_ENABLE: {
         this.cardEditChildView.onParentChange(CardEditSettings.STR_CARD_EDIT_ADD_ENABLE);
       } break;
-      case CardEditControllerSettings.STR_CARD_EDIT_CONTROLLER_MODIFY_ENABLE: {
+      case CardEditControllerSettings.STR_CARD_EDIT_CONTROLLER_RENAME_ENABLE: {
         this.cardEditChildView.onParentChange(CardEditSettings.STR_CARD_EDIT_MODIFY_ENABLE);
+      } break;
+      case CardEditControllerSettings.STR_CARD_EDIT_CONTROLLER_MODIFY_ENABLE: {
+        this.stepEditControllerChildView.onParentChange(StepEditControllerSettings.STR_STEP_EDIT_ENABLE);
       } break;
     }
   }

@@ -25,6 +25,8 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
   public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
   public static readonly STR_NEWSTEP = 'newstep';
+  public static readonly STR_EDITENABLE = 'editenable';
+  public static readonly STR_EDITDISABLE = 'editdisable';
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
@@ -41,8 +43,10 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
   selectedStepId: number;
 
   // GUI Data Binding
-  btnDisabledNewStep: boolean;
-  btnDisabledDeleteStep: boolean;
+  btnEnableNewStep: boolean;
+  btnENableDeleteStep: boolean;
+
+  private editEnable: boolean;
 
   constructor(
     private cardService: CardService
@@ -109,6 +113,14 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
       switch (changes[StepEditControllerComponent.STR_NORIFY_FROM_PARENT].currentValue) {
         case StepEditControllerComponent.STR_NEWSTEP: {
         } break;
+        case StepEditControllerComponent.STR_EDITENABLE: {
+          this.btnEnableNewStep = true;
+          this.btnENableDeleteStep = true;
+        } break;
+        case StepEditControllerComponent.STR_EDITDISABLE: {
+          this.btnEnableNewStep = false;
+          this.btnENableDeleteStep = false;
+        } break;
       }
     }
   }
@@ -158,8 +170,8 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
     const f = 'init';
     console.log(this.c, f);
 
-    this.btnDisabledNewStep = true;
-    this.btnDisabledDeleteStep = true;
+    this.btnEnableNewStep = true;
+    this.btnENableDeleteStep = true;
   }
 
   btnClicked(btnLabel: string, event?: Event) {

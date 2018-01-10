@@ -1,70 +1,67 @@
 <div class="div-cards-root">
   <form>
-    <fieldset>
-      <legend>{{ '&cards_title' | translate }}</legend>
-      <div class="div-cards-datatable">
-        <ngx-datatable #cardsDataTable
-          class="bootstrap"
-          [rows]="rows_card"
-          [loadingIndicator]="loadingIndicator"
-          [columnMode]="'force'"
-          [headerHeight]="50"
-          [footerHeight]="30"
-          [rowHeight]="40"
-          [reorderable]="reorderable"
+    <div class="div-cards-datatable">
+      <ngx-datatable #cardsDataTable
+        class="bootstrap"
+        [rows]="rows_card"
+        [loadingIndicator]="loadingIndicator"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="30"
+        [rowHeight]="40"
+        [reorderable]="reorderable"
 
-          [messages]="messages"
+        [messages]="messages"
 
-          [scrollbarV]="true"
-          [scrollbarH]="false"
-          
-          [selected]="selected_card"
-          [selectionType]="'single'"
-          (select)="onRowSelect('card', $event)"
-          (activate)="onActivate('card', $event)"
-          >
-          <ngx-datatable-column prop="name" name="Name" [sortable]='false' [canAutoResize]="false"
-            [width]="280">
-            <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-              <span (click)="onHeaderClick('cards', 'name')">{{ '&cards_gd_header_name' | translate }}{{ strSortingOrderName | translate }}</span>
-            </ng-template>
-            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-              <strong>{{ value }}</strong>
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column prop="state" name="State" [sortable]='false' [canAutoResize]="false"
-            [width]="100">
-            <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-              <span (click)="onHeaderClick('cards', 'state')">{{ '&cards_gd_header_state' | translate }}{{ strSortingOrderState | translate }}</span>
-            </ng-template>
-            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-              <strong>{{ value | translate }}</strong>
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column prop="status" name="Status" [sortable]='false' [canAutoResize]="false"
-            [width]="100">
-            <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-              <span (click)="onHeaderClick('cards', 'status')">{{ '&cards_gd_header_status' | translate }}{{ strSortingOrderStatus | translate }}</span>
-            </ng-template>
-            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-              <strong>{{ value | translate }}</strong>
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-footer>
-            <ng-template 
-              ngx-datatable-footer-template 
-              let-rowCount="rowCount"
-              let-pageSize="pageSize"
-              let-selectedCount="selectedCount"
-              let-curPage="curPage"
-              let-offset="offset">
-              <div class="page-count">
-                <div><!--{{selectedCount}}{{ '&cards_dg_footer_selectedmessage' | translate }}{{ '&cards_dg_footer_spliter' | translate }}-->{{rowCount}}{{ '&cards_dg_footer_totalmessage' | translate }}</div>
-              </div>
-            </ng-template>
-          </ngx-datatable-footer>
-        </ngx-datatable>
-      </div>
-    </fieldset>
+        [scrollbarV]="true"
+        [scrollbarH]="false"
+        
+        [selected]="selected_card"
+        [selectionType]="'single'"
+        (select)="onRowSelect('card', $event)"
+        (activate)="onActivate('card', $event)"
+        >
+        <ngx-datatable-column prop="name" name="Name" [sortable]='false' [canAutoResize]="false"
+          [width]="280">
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="onHeaderClick('cards', 'name')">{{ '&cards_gd_header_name' | translate }}{{ strSortingOrderName | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <strong>{{ value }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="state" name="State" [sortable]='false' [canAutoResize]="false"
+          [width]="100">
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="onHeaderClick('cards', 'state')">{{ '&cards_gd_header_state' | translate }}{{ strSortingOrderState | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <strong>{{ value | translate }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="status" name="Status" [sortable]='false' [canAutoResize]="false"
+          [width]="100">
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="onHeaderClick('cards', 'status')">{{ '&cards_gd_header_status' | translate }}{{ strSortingOrderStatus | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <strong>{{ value | translate }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-footer>
+          <ng-template 
+            ngx-datatable-footer-template 
+            let-rowCount="rowCount"
+            let-pageSize="pageSize"
+            let-selectedCount="selectedCount"
+            let-curPage="curPage"
+            let-offset="offset">
+            <div class="page-count">
+              <div><!--{{selectedCount}}{{ '&cards_dg_footer_selectedmessage' | translate }}{{ '&cards_dg_footer_spliter' | translate }}-->{{rowCount}}{{ '&cards_dg_footer_totalmessage' | translate }}</div>
+            </div>
+          </ng-template>
+        </ngx-datatable-footer>
+      </ngx-datatable>
+    </div>
   </form>
 </div>

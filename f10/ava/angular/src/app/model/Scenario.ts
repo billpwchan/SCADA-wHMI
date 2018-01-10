@@ -63,10 +63,3 @@ export class Card {
     , public status: boolean
   ) {}
 }
-
-export class AlarmServerity {
-  index: number;
-  label: string;
-  shortlabel: string;
-  title: string;
-}

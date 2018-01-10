@@ -31,7 +31,7 @@ html, body {
  }
  .ngx-datatable.bootstrap .datatable-body {
      /* Set the Datatable body Height */
-     height: 400px !important;
+     height: 130px !important;
  }
  .ngx-datatable.bootstrap .datatable-body .datatable-body-row {
     padding: 0.75rem;
@@ -50,7 +50,8 @@ html, body {
     color: #FFF;
  }
  .ngx-datatable.bootstrap .datatable-footer {
-    background: #424242;
+     /* Footer Color */
+    background: #afafaf;
     color: #ededed;
     margin-top: -1px;
  }

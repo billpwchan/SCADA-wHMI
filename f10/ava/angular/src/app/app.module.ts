@@ -21,21 +21,22 @@ import { StepEditComponent } from './component/step/step-edit/step-edit.componen
 import { CardEditComponent } from './component/card/card-edit/card-edit.component';
 import { SelectionService } from './service/card/selection.service';
 import { SettingsService } from './service/settings.service';
-import { TrainerAdminComponent } from './route/trainer-admin/trainer-admin.component';
+import { AdminComponent } from './route/admin/admin.component';
 import { PageNotFoundComponent } from './route/page-not-found/page-not-found.component';
 import { StepEditControllerComponent } from './component/step/step-edit-controller/step-edit-controller.component';
 import { CardEditControllerComponent } from './component/card/card-edit-controller/card-edit-controller.component';
 import { DbmPollingService } from './service/scs/dbm-polling.service';
 import { HotTableModule } from 'angular-handsontable';
-import { AlarmsComponent } from './component/alarm/alarms/alarms.component';
+import { MatrixComponent } from './component/alarm/Matrix/matrix.component';
 import { CardTitleComponent } from './component/card/card-title/card-title.component';
+import { CardStateControllerComponent } from './component/card/card-state-controller/card-state-controller.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 const appRoutes: Routes = [
-  { path: 'traineradmin', component: TrainerAdminComponent }
+  { path: 'admin', component: AdminComponent }
   , { path: 'pagenotfound', component: PageNotFoundComponent }
   , { path: '', redirectTo: '/pagenotfound', pathMatch: 'full' }
   , { path: '**', component: PageNotFoundComponent }
@@ -49,12 +50,13 @@ const appRoutes: Routes = [
     , StorageComponent
     , StepEditComponent
     , CardEditComponent
-    , TrainerAdminComponent
+    , AdminComponent
     , PageNotFoundComponent
     , StepEditControllerComponent
     , CardEditControllerComponent
-    , AlarmsComponent
+    , MatrixComponent
     , CardTitleComponent
+    , CardStateControllerComponent
   ],
   imports: [
     BrowserModule

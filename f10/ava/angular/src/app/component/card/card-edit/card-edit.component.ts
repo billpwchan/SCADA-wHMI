@@ -36,7 +36,7 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
   cardSubscription: Subscription;
   selectionSubscription: Subscription;
 
-  selectedCardName = null;
+  selCardId: string;
 
   // UI Data Building
   //  New Card
@@ -217,10 +217,6 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
   }
 
-  private getSelectCardName(): string {
-    return this.selectionService.getSelectedCardId();
-  }
-
   onChange(name: string, event?: Event): void {
     const f = 'onChange';
     console.log(this.c, f);
@@ -252,7 +248,7 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
 
     } else if ( 'txtModifyName' === name ) {
       const newName = this.txtModifyName;
-      const curName = this.selectedCardName;
+      const curName = this.selCardId;
 
       this.btnModifySaveDisable = false;
 
@@ -317,7 +313,7 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
       case CardEditComponent.STR_CARD_RELOADED: {
       } break;
       case CardEditComponent.STR_CARD_SELECTED: {
-        this.selectedCardName = this.getSelectCardName();
+        this.selCardId = this.selectionService.getSelectedCardId();
       } break;
       case 'newdiv': {
         this.divNewCardEnable = true;
@@ -333,12 +329,12 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
         this.divNewCardEnable = false;
       } break;
       case 'modify': {
-        this.txtModifyName = this.selectedCardName;
+        this.txtModifyName = this.selCardId;
         this.divModifyCardEnable = true;
         this.btnModifySaveDisable = true;
       } break;
       case 'modifysave': {
-        this.setCurrentCardName(this.selectedCardName, this.txtModifyName);
+        this.setCurrentCardName(this.selCardId, this.txtModifyName);
         this.init();
       } break;
       case 'modifysavecancel': {

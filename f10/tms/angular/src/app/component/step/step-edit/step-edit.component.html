@@ -4,6 +4,7 @@
     <app-point-select
       [enable]="editEnableNewStep"
       [envArray]="envs"
+      [showSelectDelay]=true
       (notifyParent)="getNotification($event)"
       (notifyPointSelection)="getPointSelection($event)"
     >

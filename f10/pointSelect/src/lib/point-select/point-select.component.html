@@ -49,17 +49,15 @@
           </select>
         </div>
 
-        <span *ngIf="!hiddenSelectDelay">
-          <div class="input-group input-group-step-edit-selectdelay">
-            <span class="input-group-addon span-step-edit-selectdelay">{{ '&step_lbl_delay' | translate }}</span>
-            <select [(ngModel)]="selDelay" 
-              class="form-control" name="selectDelay" id="selectDelay"
-              (change)="onLstChange('selDelay', $event)">
-              <option *ngFor="let item of selOptDelay"   [ngValue]="item.value"
-                [selected]="item.value==0">{{ item.label | translate }}</option>
-            </select>
-          </div>
-        </span>
+        <div class="input-group input-group-step-edit-selectdelay" [hidden]="!editEnableDelay">
+          <span class="input-group-addon span-step-edit-selectdelay">{{ '&step_lbl_delay' | translate }}</span>
+          <select [(ngModel)]="selDelay" 
+            class="form-control" name="selectDelay" id="selectDelay"
+            (change)="onLstChange('selDelay', $event)">
+            <option *ngFor="let item of selOptDelay"   [ngValue]="item.value"
+              [selected]="item.value==0">{{ item.label | translate }}</option>
+          </select>
+        </div>
   
         <span *ngIf="!hiddenClassId">
           <div class="input-group input-group-step-edit-classid">

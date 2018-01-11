@@ -181,6 +181,11 @@ export class PointSelectComponent implements OnInit, OnDestroy {
     this.envs = [
       {'label': 'M100', 'value': 'http://127.0.0.1:8990'}
     ];
+
+    this.hiddenSelectDelay = true;
+    this.hiddenClassId = true;
+    this.hiddenUnivname = true;
+    this.hiddenEVName = true;
   }
 
   ngOnInit(): void {
@@ -304,9 +309,26 @@ export class PointSelectComponent implements OnInit, OnDestroy {
     this.notifyParent.emit(str);
   }
 
-  sendNotifyPointSelection(sel: IPointSelection) {
+  sendNotifyPointSelection(initValue: number, value: number, valueLabel: string) {
     const f = 'sendNotifySelection';
+
+    const sel: IPointSelection = <any>{};
+    sel.connAddr = this.selEnv;
+    sel.univname = this.txtUnivname;
+    sel.classId = Number(this.txtClassId).valueOf();
+    sel.geo = Number(this.selGeo).valueOf();
+    sel.func = Number(this.selFunc).valueOf();
+    sel.eqplabel = this.selEqpLabel;
+    sel.pointlabel = this.selPointLabel;
+    sel.valuelabel = valueLabel;
+    sel.currentlabel = undefined;
+    sel.evname = this.txtEVName;
+    sel.delay = Number(this.selDelay).valueOf();
+    sel.value = Number(value).valueOf();
+    sel.initvalue = Number(initValue).valueOf();
+
     console.log(this.c, f, sel);
+
     this.notifyPointSelection.emit(sel);
   }
 
@@ -569,6 +591,7 @@ export class PointSelectComponent implements OnInit, OnDestroy {
       initValue = Number.parseFloat(this.aciInitValue);
       value = Number.parseFloat(this.aciValue);
       valueLabel = '' + value;
+      this.sendNotifyPointSelection(initValue, value, valueLabel);
     } else if (DbmSettings.INT_DCI_TYPE === Number.parseInt(this.txtClassId)) {
       initValue = this.selDciInitValue;
       value = this.selDciValue;
@@ -578,21 +601,7 @@ export class PointSelectComponent implements OnInit, OnDestroy {
           break;
         }
       }
-      const sel: IPointSelection = <any>{};
-      sel.connAddr = this.selEnv;
-      sel.univname = this.txtUnivname;
-      sel.classId = Number(this.txtClassId).valueOf();
-      sel.geo = Number(this.selGeo).valueOf();
-      sel.func = Number(this.selFunc).valueOf();
-      sel.eqplabel = this.selEqpLabel;
-      sel.pointlabel = this.selPointLabel;
-      sel.valuelabel = valueLabel;
-      sel.currentlabel = undefined;
-      sel.evname = this.txtEVName;
-      sel.delay = Number(this.selDelay).valueOf();
-      sel.value = Number(value).valueOf();
-      sel.initvalue = Number(initValue).valueOf();
-      this.sendNotifyPointSelection(sel);
+      this.sendNotifyPointSelection(initValue, value, valueLabel);
     }
   }
 
@@ -602,16 +611,12 @@ export class PointSelectComponent implements OnInit, OnDestroy {
 
     this.editEnableAddAciStep = false;
     this.editEnableAddDciStep = false;
+    this.editEnableDelay = false;
 
     this.btnDisabledAddAciStep = true;
     this.btnDisabledAddDciStep = true;
     this.btnDisabledAddAciCancelStep = false;
     this.btnDisabledAddDciCancelStep = false;
-
-    this.hiddenSelectDelay = true;
-    this.hiddenClassId = true;
-    this.hiddenUnivname = true;
-    this.hiddenEVName = true;
 
     this.hiddenAciInitValue = false;
     this.hiddenDciInitValue = false;
@@ -646,14 +651,18 @@ export class PointSelectComponent implements OnInit, OnDestroy {
       case PointSelectComponent.STR_ACI_SELECTED: {
         this.editEnableAddAciStep = true;
         this.editEnableAddDciStep = false;
-        this.editEnableDelay = true;
+        if (!this.hiddenSelectDelay) {
+          this.editEnableDelay = true;
+        }
         this.dbmService.retriveAci(this.selEnv, this.txtUnivname);
         this.sendNotifyParent(PointSelectComponent.STR_ACI_SELECTED);
       } break;
       case PointSelectComponent.STR_DCI_SELECTED: {
         this.editEnableAddAciStep = false;
         this.editEnableAddDciStep = true;
-        this.editEnableDelay = true;
+        if (!this.hiddenSelectDelay) {
+          this.editEnableDelay = true;
+        }
         this.dbmService.retriveDci(this.selEnv, this.txtUnivname);
         this.sendNotifyParent(PointSelectComponent.STR_DCI_SELECTED);
       } break;

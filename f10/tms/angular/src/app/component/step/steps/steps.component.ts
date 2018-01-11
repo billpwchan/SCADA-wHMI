@@ -48,8 +48,6 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   selectedCardName: string;
   selectedCardStep: number[];
 
-  txtCardName: string;
-
   // Datatable
   @ViewChild('stepsDataTable') stepsDataTable: DatatableComponent;
 
@@ -132,7 +130,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy(): void {
-    const f = 'ngOnInit';
+    const f = 'ngOnDestroy';
     console.log(this.c, f);
 
     // prevent memory leak when component is destroyed
@@ -446,7 +444,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   private init(): void {
     const f = 'init';
     console.log(this.c, f);
-    this.txtCardName = this.selectedCardName = '';
+    this.selectedCardName = '';
   }
 
   btnClicked(btnLabel: string, event?: Event) {
@@ -459,12 +457,10 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
       } break;
       case StepsComponent.STR_CARD_RELOADED: {
         this.selectedCardName = '';
-        this.txtCardName = this.selectedCardName;
         this.reloadSteps(false, true);
       } break;
       case StepsComponent.STR_CARD_SELECTED: {
         this.selectedCardName = this.selectionService.getSelectedCardId();
-        this.txtCardName = this.selectedCardName;
         this.reloadSteps(false, true);
       } break;
       case StepsComponent.STR_STEP_RELOADED: {

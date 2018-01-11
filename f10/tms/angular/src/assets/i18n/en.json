@@ -78,6 +78,9 @@
 	, "&card_controller_btn_reset": "Reset"
 	, "&card_controller_btn_reset_title": "Reset selected scanerio execution."
 
+	, "&card_title_lbl_card_name": "Scenario Name"
+	, "&card_title_txt_select_card": "Select a scenario..."
+
 	, "&steps_lbl_scenario_step_list": "Scenario Step"
 
 	, "&steps_dg_header_num": "#"
@@ -106,8 +109,6 @@
 	, "&steps_dg_footer_selectedmessage": " selected"
 	, "&steps_dg_footer_totalmessage": " total"
 
-	, "&steps_lbl_card_name": "Scenario Name"
-	, "&steps_txt_select_card": "Select a scenario..."
 	, "&steps_lbl_modify_step": "Modify Step"
 	, "&steps_btn_new_step": "New"
 	, "&steps_btn_new_step_title": "Add a new step to scenario"

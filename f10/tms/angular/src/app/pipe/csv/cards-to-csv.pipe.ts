@@ -18,9 +18,7 @@ export class CardsToCsvPipe implements PipeTransform {
   c: string = CardsToCsvPipe.name;
 
   transform(cards: Card[], args?: any[]): string {
-
     const f = 'transform';
-
     console.log(this.c, f);
     // console.log(this.c, f, 'cards', cards);
 
@@ -33,7 +31,7 @@ export class CardsToCsvPipe implements PipeTransform {
       session1 += card.name;
       session1 += STR_COMMA + card.state;
       session1 += STR_COMMA + card.step;
-      csv += session1 + STR_EOL;
+      // csv += session1 + STR_EOL;
 
       card.steps.forEach(step => {
         let session2 = CsvToCardSettings.STR_EMPTY;
@@ -54,10 +52,10 @@ export class CardsToCsvPipe implements PipeTransform {
         session2 += STR_COMMA + equipment.valuelabel;
         session2 += STR_COMMA + equipment.currentlabel;
 
-        csv +=
-              session1
-               + STR_COMMA + session2
-               + STR_EOL;
+        // csv +=
+        //       session1
+        //        + STR_COMMA + session2
+        //        + STR_EOL;
 
         equipment.phases[DacSimExecType.START].forEach(exec => {
           let session3 = CsvToCardSettings.STR_EMPTY;

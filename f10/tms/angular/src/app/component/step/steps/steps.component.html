@@ -92,8 +92,7 @@
           <input type="checkbox" class="regular-checkbox big-checkbox"
           [disabled]="isCheckedDisabled()" 
           [checked]="allRowsSelected()" (change)="onCheckboxChange('header', $event)"
-          />
-      </label>
+          />{{ '&steps_dg_header_execute' | translate }}</label>
       </ng-template>
       <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
         <label class="checkbox-inline">

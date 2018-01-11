@@ -136,7 +136,7 @@
 	, "&step_lst_aciinitvalue_placeholder": "Enter reset value..."
 
 	, "&step_lbl_dciinitvalue": " Reset Value"
-	, "&step_lst_dciinitvalue_placeholder": "Enter reset value..."
+	, "&step_lst_dciinitvalue_placeholder": "Select reset value..."
 
 	, "&step_lbl_dcivalue": "Target Value"
 	, "&step_lst_dcivalue_placeholder": "Select target digital value..."

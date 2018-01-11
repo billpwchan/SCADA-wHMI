@@ -35,6 +35,7 @@ import { PageNotFoundComponent } from './route/page-not-found/page-not-found.com
 import { StepEditControllerComponent } from './component/step/step-edit-controller/step-edit-controller.component';
 import { CardEditControllerComponent } from './component/card/card-edit-controller/card-edit-controller.component';
 import { DbmPollingService } from './service/scs/dbm-polling.service';
+import { PointSelectModule } from 'point-select';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -88,6 +89,7 @@ const appRoutes: Routes = [
       , { useHash: true }
       // ,{ enableTracing: true } // <-- debugging purposes only
     )
+    , PointSelectModule
   ],
   providers: [
     SettingsService

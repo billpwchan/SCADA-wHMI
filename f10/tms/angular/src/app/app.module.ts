@@ -27,9 +27,8 @@ import { StepControllerComponent } from './component/step/step-controller/step-c
 import { SettingsService } from './service/settings.service';
 import { CsvToCardsPipe } from './pipe/csv/csv-to-cards.pipe';
 import { CardsToCsvPipe } from './pipe/csv/cards-to-csv.pipe';
-import { TrainerComponent } from './route/trainer/trainer.component';
-import { TrainerAdminComponent } from './route/trainer-admin/trainer-admin.component';
-import { TraineeComponent } from './route/trainee/trainee.component';
+import { OperatorComponent } from './route/operator/operator.component';
+import { AdminComponent } from './route/admin/admin.component';
 import { PageNotFoundComponent } from './route/page-not-found/page-not-found.component';
 import { StepEditControllerComponent } from './component/step/step-edit-controller/step-edit-controller.component';
 import { CardEditControllerComponent } from './component/card/card-edit-controller/card-edit-controller.component';
@@ -42,9 +41,8 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 const appRoutes: Routes = [
-  { path: 'trainer', component: TrainerComponent }
-  , { path: 'traineradmin', component: TrainerAdminComponent }
-  , { path: 'trainee', component: TraineeComponent }
+  { path: 'admin', component: AdminComponent }
+  , { path: 'operator', component: OperatorComponent }
   , { path: 'pagenotfound', component: PageNotFoundComponent }
   , { path: '', redirectTo: '/pagenotfound', pathMatch: 'full' }
   , { path: '**', component: PageNotFoundComponent }
@@ -63,9 +61,8 @@ const appRoutes: Routes = [
     , StepControllerComponent
     , CsvToCardsPipe
     , CardsToCsvPipe
-    , TrainerAdminComponent
-    , TrainerComponent
-    , TraineeComponent
+    , AdminComponent
+    , OperatorComponent
     , PageNotFoundComponent
     , StepEditControllerComponent
     , CardEditControllerComponent

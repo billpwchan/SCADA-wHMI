@@ -1,11 +1,11 @@
-.div-trainer-root {
+.div-operator-root {
     text-align: center;
     display: flex;
     width: calc(100% - 10px);
     height: calc(100% - 10px);
 }
 
-.div-trainer-left {
+.div-operator-left {
     width: 35%;
     height: 100%;
     margin: 5px 5px 5px 5px;
@@ -15,15 +15,15 @@
     padding: 20px;
 }
 
-.div-trainer-left-top {
+.div-operator-left-top {
     height: 70%;
 }
 
-.div-trainer-left-bottom {
+.div-operator-left-bottom {
 
 }
 
-.div-trainer-right {
+.div-operator-right {
     width: 75%;
     height: 100%;
     margin: 5px 5px 5px 5px;
@@ -33,11 +33,11 @@
     padding: 20px;
 }
 
-.div-trainer-right-top {
+.div-operator-right-top {
     height: 70%;
 }
 
-.div-trainer-right-bottom {
+.div-operator-right-bottom {
     display: flex;
     flex-direction: column;
 }

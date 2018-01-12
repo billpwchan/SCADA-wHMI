@@ -1,10 +1,7 @@
 {
 	"&available_pages": "Available pages"
-	, "&traineradmin": "Trainer Admin"
-	, "&trainer": "Trainer"
-	, "&trainee": "Trainee"
-
-	, "&trainee_page": "trainee page"
+	, "&admin": "Trainer Admin"
+	, "&operator": "Trainer"
 	
 	, "&cards_title": "Scenario List"
 

@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../service/card/storage.service';
 
 @Component({
-  selector: 'app-trainer',
-  templateUrl: './trainer.component.html',
-  styleUrls: ['./trainer.component.css']
+  selector: 'app-operator',
+  templateUrl: './operator.component.html',
+  styleUrls: ['./operator.component.css']
 })
-export class TrainerComponent implements OnInit {
+export class OperatorComponent implements OnInit {
 
-  c: string = TrainerComponent.name;
+  c: string = OperatorComponent.name;
 
   notifyCards: string;
   notifyCardController: string;

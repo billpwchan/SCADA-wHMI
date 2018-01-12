@@ -180,14 +180,14 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
 
     step.equipment = new Equipment(
       ptSel.connAddr
-      , ''                // Env Label
+      , ptSel.envlabel
       , ptSel.univname
       , ptSel.classId
       , ptSel.geo
       , ptSel.func
       , ptSel.eqplabel
       , ptSel.pointlabel
-      , ''                // Init Label
+      , ptSel.initlabel
       , ptSel.valuelabel
       , ptSel.currentlabel
     );

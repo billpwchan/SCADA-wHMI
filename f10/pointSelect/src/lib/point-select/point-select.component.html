@@ -8,7 +8,7 @@
           <span class="input-group-addon span-step-edit-selectenv">{{ '&step_lbl_env' | translate }}</span>
           <select class="form-control" name="selectEnv" id="selectEnv"
             [(ngModel)]="selEnv"  (change)="onLstChange('selEnv', $event)">
-            <option *ngFor="let item of selOptEnv" [ngValue]="item.value"
+            <option *ngFor="let item of selOptEnv" [ngValue]="item"
             [disabled]="item.value==''">{{item.label}}</option>
           </select>
         </div>

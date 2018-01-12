@@ -36,8 +36,8 @@
 	, "&cards_lbl_modify": "Modify"
 	, "&cards_btn_new": "New"
 	, "&cards_btn_new_title": "Add a new scenario."
-	, "&cards_btn_modify": "Modify"
-	, "&cards_btn_modify_title": "Modify selected scenario name."
+	, "&cards_btn_modify": "Rename"
+	, "&cards_btn_modify_title": "Rename selected scenario name."
 	, "&cards_btn_delete": "Delete"
 	, "&cards_btn_delete_title": "Delete selected scenario."
 	, "&cards_btn_copy": "Copy"
@@ -78,21 +78,26 @@
 	, "&card_controller_btn_reset": "Reset"
 	, "&card_controller_btn_reset_title": "Reset selected scanerio execution."
 
+	, "&card_title_lbl_card_name": "Scenario Name"
+	, "&card_title_txt_select_card": "Select a scenario..."
+
 	, "&steps_lbl_scenario_step_list": "Scenario Step"
 
 	, "&steps_dg_header_num": "#"
+	, "&steps_dg_header_env": "Env"
 	, "&steps_dg_header_location": "Location"
 	, "&steps_dg_header_system": "System"
 	, "&steps_dg_header_equipment": "Equipment"
 	, "&steps_dg_header_point": "Point"
-	, "&steps_dg_header_value": "Value"
+	, "&steps_dg_header_init": "Init"
+	, "&steps_dg_header_value": "Target"
 	, "&steps_dg_header_delay": "Delay(s)"
-	, "&steps_dg_header_execute": "Selected"
+	, "&steps_dg_header_execute": "Active"
 	, "&steps_dg_header_status": "Status"
 	, "&steps_dg_header_current": "Current"
 
 	, "&steps_dg_status_unknow": "Unknow"
-	, "&steps_dg_status_stopped": "Reset"
+	, "&steps_dg_status_stopped": "Not execute"
 	, "&steps_dg_status_stop_running": "Executing"
 	, "&steps_dg_status_stop_skipped": "Skipped"
 	, "&steps_dg_status_stopped_failed": "Comm. failed"
@@ -106,8 +111,6 @@
 	, "&steps_dg_footer_selectedmessage": " selected"
 	, "&steps_dg_footer_totalmessage": " total"
 
-	, "&steps_lbl_card_name": "Scenario Name"
-	, "&steps_txt_select_card": "Select a scenario..."
 	, "&steps_lbl_modify_step": "Modify Step"
 	, "&steps_btn_new_step": "New"
 	, "&steps_btn_new_step_title": "Add a new step to scenario"
@@ -167,14 +170,14 @@
 	, "&step_btn_add_dcicancelstep_title": "Cacnel the add a step to card"
 
 	, "&step_lbl_executeion_step": "Execute Step"
-	, "&step_lbl_executeion": "Execut Highlight Step"
+	, "&step_lbl_executeion": "Run selected step"
 
 	, "&scenario": "Scenario(s)"
 
-	, "&step_btn_startstep": "Start"
-	, "&step_btn_startstep_placeholder": "Start a selected Step execution."
-	, "&step_btn_stopstep": "Stop"
-	, "&step_btn_stopstep_placeholder": "Stop a selected Step execution."
+	, "&step_btn_startstep": "Run"
+	, "&step_btn_startstep_placeholder": "Run a selected Step."
+	, "&step_btn_stopstep": "Reset"
+	, "&step_btn_stopstep_placeholder": "Reset a selected Step."
 
 	, "&storage_lbl_scenario": "Scenario"
 

@@ -30,12 +30,14 @@ export class Equipment {
   public phases: Execution[][];
   constructor(
     public connAddr: string
+    , public envlabel: string
     , public univname: string
     , public classId: number
     , public geo: number
     , public func: number
     , public eqplabel: string
     , public pointlabel: string
+    , public initlabel: string
     , public valuelabel: string
     , public currentlabel: string
   ) {}

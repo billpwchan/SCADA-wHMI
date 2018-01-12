@@ -6,8 +6,13 @@
 
 }
 
+.step-cell-span {
+    font-weight: bold;
+}
+
 .big-checkbox {
     position: relative !important;
     width: 17px;
     height: 17px;
+    float: left;
 }

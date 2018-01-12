@@ -29,7 +29,7 @@
               <span (click)="onHeaderClick('cards', 'name')">{{ '&cards_gd_header_name' | translate }}{{ strSortingOrderName | translate }}</span>
             </ng-template>
             <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-              <strong>{{ value }}</strong>
+              <span class="cards-cell-span" title="{{ value | translate }}">{{ value | translate }}</span>
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column prop="state" name="State" [sortable]='false' [canAutoResize]="false"
@@ -38,7 +38,7 @@
               <span (click)="onHeaderClick('cards', 'state')">{{ '&cards_gd_header_state' | translate }}{{ strSortingOrderState | translate }}</span>
             </ng-template>
             <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-              <strong>{{ value | translate }}</strong>
+              <span class="cards-cell-span" title="{{ value | translate }}">{{ value | translate }}</span>
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-footer>

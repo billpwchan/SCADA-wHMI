@@ -15,10 +15,12 @@ export class DatatableCard {
 export class DatatableStep {
   constructor(
     public step: string
+    , public env: string
     , public location: string
     , public system: string
     , public equipment: string
     , public point: string
+    , public init: string
     , public value: string
     , public delay: string
     , public execute: boolean

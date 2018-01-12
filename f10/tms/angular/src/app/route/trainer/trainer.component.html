@@ -9,6 +9,7 @@
   </div>
   <div class="div-trainer-right">
     <div class="div-trainer-right-top">
+      <app-card-title (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"></app-card-title>
       <app-steps (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"></app-steps>
     </div>
     <div class="div-trainer-right-bottom">

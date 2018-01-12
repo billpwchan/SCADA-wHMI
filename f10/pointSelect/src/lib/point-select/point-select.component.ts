@@ -23,12 +23,14 @@ export class SelOptNum {
 
 export interface IPointSelection {
     connAddr: string;
+    envlabel: string;
     univname: string;
     classId: number;
     geo: number;
     func: number;
     eqplabel: string;
     pointlabel: string;
+    initlabel: string;
     valuelabel: string;
     currentlabel: string;
     evname: string;
@@ -117,7 +119,7 @@ export class PointSelectComponent implements OnInit, OnDestroy {
   hiddenDciInitValue: boolean;
 
   envs: Array<SelOptStr>;
-  selEnv: string;
+  selEnv: SelOptStr;
   public selOptEnv: Array<SelOptStr> = new Array<SelOptStr>();
 
   selGeo: number;
@@ -198,7 +200,7 @@ export class PointSelectComponent implements OnInit, OnDestroy {
         const eqps: Map<string, Map<number, number[]>> = this.olsService.getEqps();
         if (undefined !== eqps && null != eqps) {
           if (eqps.size > 0) {
-            this.olsService.getEqps().get(this.selEnv)
+            this.olsService.getEqps().get(this.selEnv.value)
               .forEach((value: number[], key: number) => {
                 this.selOptGeo.push(
                   new SelOptNum(
@@ -216,9 +218,9 @@ export class PointSelectComponent implements OnInit, OnDestroy {
         console.log(this.c, f, 'dbmSubscription', item);
 
         if ('retriveClassId' === item) {
-          this.txtClassId = this.dbmService.getRetriveClassIdData(this.selEnv, this.txtUnivname);
+          this.txtClassId = this.dbmService.getRetriveClassIdData(this.selEnv.value, this.txtUnivname);
         } else if ('retriveAcquiredDataAttributeFormulas' === item) {
-          const formulas: string = this.dbmService.getRetriveAcquiredDataAttributeFormulasData(this.selEnv, this.txtUnivname);
+          const formulas: string = this.dbmService.getRetriveAcquiredDataAttributeFormulasData(this.selEnv.value, this.txtUnivname);
           if (null != formulas && formulas.length > 0) {
             // Is acquired data equipment
             if (DbmSettings.STR_FORMULAS_ACQ_SINGLE === formulas[0]) {
@@ -240,7 +242,7 @@ export class PointSelectComponent implements OnInit, OnDestroy {
             console.warn(this.c, f, msg);
           }
         } else if ('retriveDci' === item) {
-          const dbvalue = this.dbmService.getRetriveDciData(this.selEnv, this.txtUnivname);
+          const dbvalue = this.dbmService.getRetriveDciData(this.selEnv.value, this.txtUnivname);
           const evname: string = dbvalue[0][0];
           const initValue: number = dbvalue[1];
           const labels: Array<string> = dbvalue[2];
@@ -277,7 +279,7 @@ export class PointSelectComponent implements OnInit, OnDestroy {
             this.dciInitValue = '' + initValue;
           }
         } else if ('retriveAci' === item) {
-          const dbvalue = this.dbmService.getRetriveAciData(this.selEnv, this.txtUnivname);
+          const dbvalue = this.dbmService.getRetriveAciData(this.selEnv.value, this.txtUnivname);
           const evname: string = dbvalue[0][0];
           if (null != evname) {
             this.txtEVName = evname;
@@ -309,17 +311,19 @@ export class PointSelectComponent implements OnInit, OnDestroy {
     this.notifyParent.emit(str);
   }
 
-  sendNotifyPointSelection(initValue: number, value: number, valueLabel: string) {
+  sendNotifyPointSelection(initValue: number, initLabel: string, value: number, valueLabel: string) {
     const f = 'sendNotifySelection';
 
     const sel: IPointSelection = <any>{};
-    sel.connAddr = this.selEnv;
+    sel.connAddr = this.selEnv.value;
+    sel.envlabel = this.selEnv.label;
     sel.univname = this.txtUnivname;
     sel.classId = Number(this.txtClassId).valueOf();
     sel.geo = Number(this.selGeo).valueOf();
     sel.func = Number(this.selFunc).valueOf();
     sel.eqplabel = this.selEqpLabel;
     sel.pointlabel = this.selPointLabel;
+    sel.initlabel = initLabel;
     sel.valuelabel = valueLabel;
     sel.currentlabel = undefined;
     sel.evname = this.txtEVName;
@@ -354,7 +358,7 @@ export class PointSelectComponent implements OnInit, OnDestroy {
       });
     }
 
-    this.selEnv = '';
+    this.selEnv = this.selOptEnv[0];
   }
 
   private initSelOptGeo() {
@@ -440,17 +444,17 @@ export class PointSelectComponent implements OnInit, OnDestroy {
 
     switch (name) {
       case 'selEnv': {
-        console.log(this.c, f, 'selEnv this.selEnv[' + this.selEnv + ']');
+        console.log(this.c, f, 'selEnv this.selEnv[' + this.selEnv.value + ']');
         this.initSelOptGeo();
         this.initSelOptFunc();
-        this.olsService.retriveEquipments(this.selEnv);
+        this.olsService.retriveEquipments(this.selEnv.value);
       } break;
       case 'selGeo': {
 
         this.initSelOptFunc();
-        console.log(this.c, f, 'this.selEnv[' + this.selEnv + '] this.selGeo[' + this.selGeo + ']');
+        console.log(this.c, f, 'this.selEnv[' + this.selEnv.value + '] this.selGeo[' + this.selGeo + ']');
         const eqps: Map<string, Map<number, number[]>> = this.olsService.getEqps();
-        eqps.get(this.selEnv).get(this.selGeo)
+        eqps.get(this.selEnv.value).get(this.selGeo)
           .forEach((value, index) => {
             this.selOptFunc.push(new SelOptNum(
               this.funcPrefix + value
@@ -462,7 +466,7 @@ export class PointSelectComponent implements OnInit, OnDestroy {
 
         this.initSelOptEqpLabel();
         const pointData = this.olsService.getPointData();
-        pointData.get(this.selEnv).forEach((item1, index) => {
+        pointData.get(this.selEnv.value).forEach((item1, index) => {
           // console.log(this.c, f, 'item', item);
 
           if (
@@ -496,7 +500,7 @@ export class PointSelectComponent implements OnInit, OnDestroy {
         // console.log(this.c, f, 'item',item);
         this.initSelOptPointLabel();
         const pointData = this.olsService.getPointData();
-        pointData.get(this.selEnv).forEach((item1, index) => {
+        pointData.get(this.selEnv.value).forEach((item1, index) => {
 
           if (
             item1[OlsSettings.STR_ATTR_GEO] === this.selGeo
@@ -525,10 +529,10 @@ export class PointSelectComponent implements OnInit, OnDestroy {
         });
       } break;
       case 'selPointLabel': {
-        console.log(this.c, f, 'this.selEnv[' + this.selEnv + '] this.selGeo[' + this.selGeo + '] this.selFunc[' + this.selFunc + ']');
+        console.log(this.c, f, 'this.selEnv[' + this.selEnv.value + '] this.selGeo[' + this.selGeo + '] this.selFunc[' + this.selFunc + ']');
         console.log('this.selEqpLabel[' + this.selEqpLabel + '] this.selPointLabel[' + this.selPointLabel + ']');
         const pointData = this.olsService.getPointData();
-        pointData.get(this.selEnv).forEach((item, index) => {
+        pointData.get(this.selEnv.value).forEach((item, index) => {
 
           if (
             item[OlsSettings.STR_ATTR_GEO] === this.selGeo
@@ -539,7 +543,7 @@ export class PointSelectComponent implements OnInit, OnDestroy {
 
             this.txtUnivname = item[OlsSettings.STR_ATTR_UNIVNAME];
 
-            this.dbmService.retriveClassId(this.selEnv, this.txtUnivname);
+            this.dbmService.retriveClassId(this.selEnv.value, this.txtUnivname);
           }
         });
       }
@@ -585,23 +589,29 @@ export class PointSelectComponent implements OnInit, OnDestroy {
     console.log(this.c, f, 'addStep');
 
     let initValue: number;
+    let initLabel: string;
     let value: number;
     let valueLabel: string;
     if (DbmSettings.INT_ACI_TYPE === Number.parseInt(this.txtClassId)) {
       initValue = Number.parseFloat(this.aciInitValue);
+      initLabel = '' + initValue;
       value = Number.parseFloat(this.aciValue);
       valueLabel = '' + value;
-      this.sendNotifyPointSelection(initValue, value, valueLabel);
+      this.sendNotifyPointSelection(initValue, initLabel, value, valueLabel);
     } else if (DbmSettings.INT_DCI_TYPE === Number.parseInt(this.txtClassId)) {
       initValue = this.selDciInitValue;
+      initLabel = '';
       value = this.selDciValue;
+      valueLabel = '';
       for (let i = 0; i < this.selOptDciValue.length; ++i) {
+        if (this.selOptDciValue[i].value === initValue) {
+          initLabel = this.selOptDciValue[i].label;
+        }
         if (this.selOptDciValue[i].value === value) {
           valueLabel = this.selOptDciValue[i].label;
-          break;
         }
       }
-      this.sendNotifyPointSelection(initValue, value, valueLabel);
+      this.sendNotifyPointSelection(initValue, initLabel, value, valueLabel);
     }
   }
 
@@ -654,7 +664,7 @@ export class PointSelectComponent implements OnInit, OnDestroy {
         if (!this.hiddenSelectDelay) {
           this.editEnableDelay = true;
         }
-        this.dbmService.retriveAci(this.selEnv, this.txtUnivname);
+        this.dbmService.retriveAci(this.selEnv.value, this.txtUnivname);
         this.sendNotifyParent(PointSelectComponent.STR_ACI_SELECTED);
       } break;
       case PointSelectComponent.STR_DCI_SELECTED: {
@@ -663,7 +673,7 @@ export class PointSelectComponent implements OnInit, OnDestroy {
         if (!this.hiddenSelectDelay) {
           this.editEnableDelay = true;
         }
-        this.dbmService.retriveDci(this.selEnv, this.txtUnivname);
+        this.dbmService.retriveDci(this.selEnv.value, this.txtUnivname);
         this.sendNotifyParent(PointSelectComponent.STR_DCI_SELECTED);
       } break;
       case 'addcancelstep': {

@@ -8,16 +8,16 @@ import { CardEditComponent } from '../../component/card/card-edit/card-edit.comp
 import { StepEditComponent } from '../../component/step/step-edit/step-edit.component';
 
 @Component({
-  selector: 'app-trainer-admin',
-  templateUrl: './trainer-admin.component.html',
-  styleUrls: ['./trainer-admin.component.css']
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.css']
 })
-export class TrainerAdminComponent implements OnInit {
+export class AdminComponent implements OnInit {
 
   @ViewChild(CardEditComponent) cardEditChildView: CardEditComponent;
   @ViewChild(StepEditComponent) stepEditChildView: StepEditComponent;
 
-  c: string = TrainerAdminComponent.name;
+  c: string = AdminComponent.name;
 
   notifyCards: string;
   notifyCardController: string;

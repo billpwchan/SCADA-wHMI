@@ -1,29 +1,29 @@
-<div class="div-trainer-admin-root">
-  <div class="div-trainer-admin-left">
+<div class="div-admin-root">
+  <div class="div-admin-left">
     <app-card-edit (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-edit>
-    <div class="div-trainer-admin-left-top">
+    <div class="div-admin-left-top">
       <app-cards (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCards" ></app-cards>
     </div>
-    <div class="div-trainer-admin-left-bottom">
+    <div class="div-admin-left-bottom">
       <app-card-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardController"></app-card-controller>
       <app-card-edit-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-edit-controller>
-      <div class="div-trainer-admin-left-bottom-middle">
-        <div class="div-trainer-admin-left-bottom-middle-middle">
+      <div class="div-admin-left-bottom-middle">
+        <div class="div-admin-left-bottom-middle-middle">
           <app-storage (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStorage"></app-storage>
         </div>
       </div>
     </div>
   </div>
-  <div class="div-trainer-admin-right">
+  <div class="div-admin-right">
     <app-step-edit (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepEdit"></app-step-edit>
-    <div class="div-trainer-admin-right-top">
+    <div class="div-admin-right-top">
       <app-card-title (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"></app-card-title>
       <app-steps (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"></app-steps>
     </div>
-    <div class="div-trainer-admin-right-bottom">
-      <div class="div-trainer-admin-right-bottom-outlet">
+    <div class="div-admin-right-bottom">
+      <div class="div-admin-right-bottom-outlet">
         <app-step-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepController"></app-step-controller>
-        <div class="div-trainer-admin-right-bottom-inter">
+        <div class="div-admin-right-bottom-inter">
           <app-step-edit-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepEdit"></app-step-edit-controller>
         </div>
       </div>

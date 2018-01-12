@@ -1,11 +1,11 @@
-.div-trainer-admin-root {
+.div-admin-root {
     text-align: center;
     display: flex;
     width: calc(100% - 10px);
     height: calc(100% - 10px);
 }
 
-.div-trainer-admin-left {
+.div-admin-left {
     width: 35%;
     height: 100%;
     margin: 5px 5px 5px 5px;
@@ -15,27 +15,27 @@
     padding: 20px;
 }
 
-.div-trainer-admin-left-top {
+.div-admin-left-top {
     height: 65%;
 }
 
-.div-trainer-admin-left-bottom {
+.div-admin-left-bottom {
     text-align: left; 
     display: flex; 
     flex-direction: column;
     margin: 20px 0px 0px 0px;
 }
 
-.div-trainer-admin-left-bottom-middle {
+.div-admin-left-bottom-middle {
     display: flex;
     flex-direction: row;
 }
 
-.div-trainer-admin-left-bottom-middle-middle {
+.div-admin-left-bottom-middle-middle {
     margin: 0px 4px 0px 0px;
 }
 
-.div-trainer-admin-right {
+.div-admin-right {
     width: 65%;
     height: 100%;
     margin: 5px 5px 5px 5px;
@@ -45,24 +45,24 @@
     padding: 20px;
 }
 
-.div-trainer-admin-right-top {
+.div-admin-right-top {
     height: 64%;
 }
 
-.div-trainer-admin-right-bottom {
+.div-admin-right-bottom {
     display: flex;
     flex-direction: column;
     text-align: left;
     margin: 20px 0px 0px 0px;
 }
 
-.div-trainer-admin-right-bottom-outlet {
+.div-admin-right-bottom-outlet {
     display: flex;
     flex-direction: row;
     text-align: left;
 }
 
-.div-trainer-admin-right-bottom-inter {
+.div-trair-admin-right-bottom-inter {
     display: flex;
     flex-direction: row;
     text-align: left;

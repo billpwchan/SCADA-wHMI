@@ -194,8 +194,11 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
 
     if ( ! step.equipment.phases ) {
       step.equipment.phases = new Array<Array<Execution>>();
-      for ( let i = 0 ; i < DacSimExecType.LENGTH ; ++i ) {
-        step.equipment.phases[i] = new Array<Execution>();
+      for ( const dacSimExecType in DacSimExecType ) {
+        if ( ! isNaN(Number(dacSimExecType) ) ) {
+          const nDacSimExecType: number = Number(DacSimExecType);
+          step.equipment.phases[nDacSimExecType] = new Array<Execution>();
+        }
       }
     }
 

@@ -84,10 +84,12 @@
 	, "&steps_lbl_scenario_step_list": "Scenario Step"
 
 	, "&steps_dg_header_num": "#"
+	, "&steps_dg_header_env": "Env"
 	, "&steps_dg_header_location": "Location"
 	, "&steps_dg_header_system": "System"
 	, "&steps_dg_header_equipment": "Equipment"
 	, "&steps_dg_header_point": "Point"
+	, "&steps_dg_header_init": "Init"
 	, "&steps_dg_header_value": "Target"
 	, "&steps_dg_header_delay": "Delay(s)"
 	, "&steps_dg_header_execute": "Active"

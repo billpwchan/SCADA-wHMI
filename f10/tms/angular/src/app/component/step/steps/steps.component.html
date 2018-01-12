@@ -31,7 +31,7 @@
       </ng-template>
     </ngx-datatable-column>
     <ngx-datatable-column prop="env" name="Env" [sortable]='false' [canAutoResize]="false"
-      headerClass="is-gender" [cellClass]="getCellClass" [width]="150">
+      headerClass="is-gender" [cellClass]="getCellClass" [width]="80">
       <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
         <span (click)="sort()">{{ '&steps_dg_header_env' | translate }}</span>
       </ng-template>
@@ -76,7 +76,7 @@
       </ng-template>
     </ngx-datatable-column>
     <ngx-datatable-column prop="init" name="Init" [sortable]='false' [canAutoResize]="false"
-      headerClass="is-gender" [cellClass]="getCellClass" [width]="150">
+      headerClass="is-gender" [cellClass]="getCellClass" [width]="80">
       <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
         <span (click)="sort()">{{ '&steps_dg_header_init' | translate }}</span>
       </ng-template>
@@ -85,7 +85,7 @@
       </ng-template>
     </ngx-datatable-column>
     <ngx-datatable-column prop="value" name="Value" [sortable]='false' [canAutoResize]="false"
-      headerClass="is-gender" [cellClass]="getCellClass" [width]="150">
+      headerClass="is-gender" [cellClass]="getCellClass" [width]="80">
       <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
         <span (click)="sort()">{{ '&steps_dg_header_value' | translate }}</span>
       </ng-template>
@@ -106,11 +106,11 @@
       [draggable]="false" [resizeable]="false" [width]="80">
       <ng-template let-value="value" ngx-datatable-header-template>
         <!--<span (click)="onColumnClick('execute')">{{ '&steps_dg_header_execute' | translate }}</span>-->
-        <label class="checkbox-inline">
-          <input type="checkbox" class="regular-checkbox big-checkbox"
+        <input type="checkbox" class="regular-checkbox big-checkbox "
           [disabled]="isCheckedDisabled()" 
           [checked]="allRowsSelected()" (change)="onCheckboxChange('header', $event)"
-          />{{ '&steps_dg_header_execute' | translate }}</label>
+          />
+        <span>{{ '&steps_dg_header_execute' | translate }}</span>
       </ng-template>
       <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
         <label class="checkbox-inline">

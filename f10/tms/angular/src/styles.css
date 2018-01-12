@@ -42,6 +42,11 @@ html, body {
     text-align: center;
     vertical-align: top;
  }
+ .datatable-body-cell-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+ }
  .ngx-datatable.bootstrap .datatable-body .datatable-body-row.active {
     background-color: #1483ff;
     color: #FFF;

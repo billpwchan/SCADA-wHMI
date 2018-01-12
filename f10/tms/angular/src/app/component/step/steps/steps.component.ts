@@ -252,10 +252,12 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
         steps.forEach((item, index) => {
 
           const step = '' + item.step;
+          const env = item.equipment.envlabel;
           const location = this.geoPrefix + item.equipment.geo;
           const system = this.funcPrefix + item.equipment.func;
           const equipment = this.eqplabelPrefix + item.equipment.eqplabel;
           const point = this.pointlabelPrefix + item.equipment.pointlabel;
+          const init = this.pointlabelPrefix + item.equipment.initlabel;
           const value = this.valuePrefix + item.equipment.valuelabel;
           const delay = this.delayPrefix + item.delay;
           const execute = item.execute;
@@ -270,10 +272,12 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
           if ( ! updateOnly ) {
             const dtStep: DatatableStep = new DatatableStep(
               step
+              , env
               , location
               , system
               , equipment
               , point
+              , init
               , value
               , delay
               , execute
@@ -285,10 +289,12 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
             this.rows_step.push(dtStep);
           } else {
             this.rows_step[index].step = step;
+            this.rows_step[index].env = env;
             this.rows_step[index].location = location;
             this.rows_step[index].system = system;
             this.rows_step[index].equipment = equipment;
             this.rows_step[index].point = point;
+            this.rows_step[index].init = init;
             this.rows_step[index].value = value;
             this.rows_step[index].delay = delay;
             this.rows_step[index].execute = execute;

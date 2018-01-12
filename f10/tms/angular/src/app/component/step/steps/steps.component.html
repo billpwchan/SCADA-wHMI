@@ -30,6 +30,15 @@
         <strong>{{ value | translate }}</strong>
       </ng-template>
     </ngx-datatable-column>
+    <ngx-datatable-column prop="env" name="Env" [sortable]='false' [canAutoResize]="false"
+      headerClass="is-gender" [cellClass]="getCellClass" [width]="150">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        <span (click)="sort()">{{ '&steps_dg_header_env' | translate }}</span>
+      </ng-template>
+      <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+        <strong>{{ value | translate }}</strong>
+      </ng-template>
+    </ngx-datatable-column>
     <ngx-datatable-column prop="location" name="Location" [sortable]='false' [canAutoResize]="false"
       headerClass="is-gender" [cellClass]="getCellClass" [width]="80">
       <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
@@ -61,6 +70,15 @@
       headerClass="is-gender" [cellClass]="getCellClass" [width]="150">
       <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
         <span (click)="sort()">{{ '&steps_dg_header_point' | translate }}</span>
+      </ng-template>
+      <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+        <strong>{{ value | translate }}</strong>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column prop="init" name="Init" [sortable]='false' [canAutoResize]="false"
+      headerClass="is-gender" [cellClass]="getCellClass" [width]="150">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        <span (click)="sort()">{{ '&steps_dg_header_init' | translate }}</span>
       </ng-template>
       <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
         <strong>{{ value | translate }}</strong>

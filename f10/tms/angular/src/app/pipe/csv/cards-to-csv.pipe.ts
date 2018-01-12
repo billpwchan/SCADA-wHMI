@@ -43,12 +43,14 @@ export class CardsToCsvPipe implements PipeTransform {
         const equipment: Equipment = step.equipment;
 
         session2 += STR_COMMA + equipment.connAddr;
+        session2 += STR_COMMA + equipment.envlabel;
         session2 += STR_COMMA + equipment.univname;
         session2 += STR_COMMA + equipment.classId;
         session2 += STR_COMMA + equipment.geo;
         session2 += STR_COMMA + equipment.func;
         session2 += STR_COMMA + equipment.eqplabel;
         session2 += STR_COMMA + equipment.pointlabel;
+        session2 += STR_COMMA + equipment.initlabel;
         session2 += STR_COMMA + equipment.valuelabel;
         session2 += STR_COMMA + equipment.currentlabel;
 

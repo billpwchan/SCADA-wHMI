@@ -82,12 +82,14 @@ export class CsvToCardsPipe implements PipeTransform {
 
             // Equipment Session
             const eConnAddr   = token[TokenIndex.EQUIPMENT_CONNADDR];
+            const eEnvLabel   = token[TokenIndex.EQUIPMENT_ENVLABEL];
             const eUnivname   = token[TokenIndex.EQUIPMENT_UNIVNAME];
             const eClassId    = Number.parseInt(token[TokenIndex.EQUIPMENT_CLASSID]);
             const eGeo        = Number.parseInt(token[TokenIndex.EQUIPMENT_GEO]);
             const eFunc       = Number.parseInt(token[TokenIndex.EQUIPMENT_FUNC]);
             const eEqplabel   = token[TokenIndex.EQUIPMENT_EQPLABEL];
             const ePointlabel = token[TokenIndex.EQUIPMENT_POINTLABEL];
+            const eInitLabel  = token[TokenIndex.EQUIPMENT_INITLABEL];
             const eValueLabel = token[TokenIndex.EQUIPMENT_VALUELABEL];
             const eCurrentLabel = token[TokenIndex.EQUIPMENT_CURRENTLABEL];
 
@@ -106,12 +108,14 @@ export class CsvToCardsPipe implements PipeTransform {
             if ( ! step.equipment ) {
               step.equipment = new Equipment(
                 eConnAddr
+                , eEnvLabel
                 , eUnivname
                 , eClassId
                 , eGeo
                 , eFunc
                 , eEqplabel
                 , ePointlabel
+                , eInitLabel
                 , eValueLabel
                 , eCurrentLabel
               );

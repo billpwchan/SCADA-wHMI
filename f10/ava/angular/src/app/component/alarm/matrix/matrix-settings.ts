@@ -1,7 +1,17 @@
+import { AppSettings } from '../../../app-settings';
+
 export class MatrixSettings {
+
+  public static readonly STR_INIT = AppSettings.STR_INIT;
+
+  public static readonly STR_NORIFY_FROM_PARENT         = 'notifyFromParent';
+  public static readonly STR_MATRIX_CFG                 = 'matrixCfg';
+
+  public static readonly STR_ON_UPDATED_MATRIX          = 'onUpdateMatrix';
+
   public static readonly STR_SPREADSHEET_HEIGHT         = 'spreadsheet_height';
-  public static readonly STR_SPREEDSHEET_WIDTH          = 'spreedsheet_width';
-  public static readonly STR_SPREEDSHEET_VISIBLE_ROW    = 'spreedsheet_visible_rows';
+  public static readonly STR_SPREADSHEET_WIDTH          = 'spreadsheet_width';
+  public static readonly STR_SPREADSHEET_VISIBLE_ROW    = 'spreadsheet_visible_rows';
 
   public static readonly STR_COL_HEADER_PREFIX          = 'col_header_prefix';
   public static readonly STR_COL_HEADER_IDS             = 'col_header_ids';
@@ -30,6 +40,13 @@ export class MatrixSettings {
   public static readonly STR_DATA_INDEX_ZERO_LENGTH_IS_ZERO   = '&matrix_data_index_zero_length_is_zero';
 }
 
+export class Selection {
+  x: number;
+  x2: number;
+  y: number;
+  y2: number;
+}
+
 export class Matrix {
   index: number;
   label: string;
@@ -37,9 +54,16 @@ export class Matrix {
   title: string;
 }
 
-export class Selection {
-  x: number;
-  x2: number;
-  y: number;
-  y2: number;
+export class MatrixConfig {
+  public spreadsheet_height: number;
+  public spreadsheet_width: number;
+  public spreadsheet_visible_rows: number;
+  public col_header_prefix: string;
+  public col_header_ids: number[];
+  public col_width: number;
+  public row_header_prefix: string;
+  public row_header_ids: number[];
+  public row_header_width: number;
+  public default_value: number;
+  public matrixes: Matrix[];
 }

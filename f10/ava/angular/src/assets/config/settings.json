@@ -36,7 +36,8 @@
   }
   , "MatrixComponent": {
       "spreadsheet_height": 150
-      , "spreedsheet_visible_rows": 6
+      , "spreadsheet_width": 80
+      , "spreadsheet_visible_rows": 6
       , "col_header_prefix": "function_"
       , "col_header_ids": [1,2,3,4,8,99]
       , "col_width": 80
@@ -60,7 +61,6 @@
       , "remote_url": "http://127.0.0.1:8080"
       , "remote_filename_prefix": "ava"
       , "remote_filename_extension": ".json"
-
       , "upload_url": "upstreamFile_result"
       , "download_url": "downstreamFile_result"
   }

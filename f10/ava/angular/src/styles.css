@@ -3,7 +3,7 @@
 @import '~handsontable/dist/handsontable.full.css';
 
 html, body {
-    height: 100%;
+    height: CALC(100% - 10px);
     margin:0; padding:0;
 }
 

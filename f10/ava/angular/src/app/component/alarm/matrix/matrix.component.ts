@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { AppSettings } from '../../../app-settings';
 import { SettingsService } from '../../../service/settings.service';
-import { MatrixSettings, Selection, Matrix } from './matrix-settings';
+import { MatrixSettings, Selection, Matrix, MatrixConfig } from './matrix-settings';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { CardService } from '../../../service/card/card.service';
 import { SelectionService } from '../../../service/card/selection.service';
@@ -18,17 +18,27 @@ import { DataScenarioHelper } from '../../../model/DataScenarioHelper';
 })
 export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
 
-  public static readonly STR_INIT = AppSettings.STR_INIT;
-
-  public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
-
   readonly c = 'MatrixComponent';
 
   @Input() notifyFromParent: string;
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
-  @Input() data: number[][];
+  @Input() matrixCfg: MatrixConfig;
+
+  private preview: number[][];
+  private updated: number[][];
+  @Input()
+  set updateMatrix(data: number[][]) {
+    if ( null != data ) {
+      this.preview = JSON.parse(JSON.stringify(data));
+      this.updated = JSON.parse(JSON.stringify(data));
+    } else {
+      this.updated = this.preview = data;
+    }
+    this.reloadData();
+  }
+  @Output() onUpdatedMatrix = new EventEmitter<number[][]>();
 
   private rowHeaderPrefix: string;
   private rowHeaderIds: number[];
@@ -45,8 +55,8 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
   private defVal: number;
 
   spreadsheet_height: number;
-  spreedsheet_width: number;
-  spreedsheet_visible_rows: number;
+  spreadsheet_width: number;
+  spreadsheet_visible_rows: number;
 
   rows_header: string[];
   rows_header_width: number[];
@@ -59,20 +69,17 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(
     private translate: TranslateService
-    , private settingsService: SettingsService
   ) {
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.loadTranslations();
     });
-   }
+  }
 
   ngOnInit() {
     const f = 'ngOnInit';
     console.log(this.c, f);
 
-    this.loadSettings();
-
-    this.btnClicked(MatrixComponent.STR_INIT);
+    this.btnClicked(MatrixSettings.STR_INIT);
   }
 
   ngOnDestroy(): void {
@@ -93,11 +100,21 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
+  onConfigChange(matrixConfig: MatrixConfig): void {
+    const f = 'onConfigChange';
+    console.log(this.c, f);
+
+    this.loadConfigs(matrixConfig);
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     const f = 'ngOnChanges';
-    // if ( changes[StepEditComponent.STR_NORIFY_FROM_PARENT] ) {
-    //   this.onParentChange(changes[StepEditComponent.STR_NORIFY_FROM_PARENT].currentValue);
-    // }
+    console.log(this.c, f);
+    if ( changes[MatrixSettings.STR_NORIFY_FROM_PARENT] ) {
+      this.onParentChange(changes[MatrixSettings.STR_NORIFY_FROM_PARENT].currentValue);
+    } else if ( changes[MatrixSettings.STR_MATRIX_CFG] ) {
+      this.onConfigChange(changes[MatrixSettings.STR_MATRIX_CFG].currentValue);
+    }
   }
 
   sendNotifyParent(str: string) {
@@ -113,25 +130,31 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     this.reloadData();
   }
 
-  private loadSettings(): void {
-    const f = 'loadSettings';
+  private loadConfigs(matrixConfig: MatrixConfig): void {
+    const f = 'loadConfigs';
     console.log(this.c, f);
+    this.spreadsheet_height = matrixConfig.spreadsheet_height;
+    this.spreadsheet_width = matrixConfig.spreadsheet_width;
+    this.spreadsheet_visible_rows = matrixConfig.spreadsheet_visible_rows;
 
-    this.spreadsheet_height = this.settingsService.getSetting(this.c, f, this.c, MatrixSettings.STR_SPREADSHEET_HEIGHT);
-    this.spreedsheet_width = this.settingsService.getSetting(this.c, f, this.c, MatrixSettings.STR_SPREEDSHEET_WIDTH);
-    this.spreedsheet_visible_rows = this.settingsService.getSetting(this.c, f, this.c, MatrixSettings.STR_SPREEDSHEET_VISIBLE_ROW);
+    this.rowHeaderPrefix = matrixConfig.row_header_prefix;
+    this.rowHeaderIds = matrixConfig.row_header_ids;
+    this.rowHeaderWidth = matrixConfig.row_header_width;
 
-    this.rowHeaderPrefix = this.settingsService.getSetting(this.c, f, this.c, MatrixSettings.STR_ROW_HEADER_PREFIX);
-    this.rowHeaderIds = this.settingsService.getSetting(this.c, f, this.c, MatrixSettings.STR_ROW_HEADER_IDS);
-    this.rowHeaderWidth = this.settingsService.getSetting(this.c, f, this.c, MatrixSettings.STR_ROW_HEADER_WIDTH);
+    this.colHeaderPrefix = matrixConfig.col_header_prefix;
+    this.colHeaderIds = matrixConfig.col_header_ids;
+    this.colWidths = matrixConfig.col_width;
 
-    this.colHeaderPrefix = this.settingsService.getSetting(this.c, f, this.c, MatrixSettings.STR_COL_HEADER_PREFIX);
-    this.colHeaderIds = this.settingsService.getSetting(this.c, f, this.c, MatrixSettings.STR_COL_HEADER_IDS);
-    this.colWidths = this.settingsService.getSetting(this.c, f, this.c, MatrixSettings.STR_COL_WIDTH);
+    this.defVal = matrixConfig.default_value;
 
-    this.matrixes = this.settingsService.getSetting(this.c, f, this.c, MatrixSettings.STR_MATRIXES) as Matrix[];
+    this.matrixes = matrixConfig.matrixes;
+  }
 
-    this.defVal = this.settingsService.getSetting(this.c, f, this.c, MatrixSettings.STR_DEFAULT_VALUE);
+  sendNotifyOnUpdated(data: number[][]) {
+    const f = 'sendNotifyOnUpdated';
+    console.log(this.c, f);
+    console.log(this.c, f, data);
+    this.onUpdatedMatrix.emit(data);
   }
 
   /**
@@ -172,13 +195,13 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
     let selected = 0;
     let checked = 0;
-    if ( null != this.data ) {
-      if ( this.data.length > 0 && null != this.data[0] && this.data[0].length > 0  ) {
+    if ( null != this.updated ) {
+      if ( this.updated.length > 0 && null != this.updated[0] && this.updated[0].length > 0  ) {
         if ( undefined !== this.cellSel ) {
           for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
             for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
               selected++;
-              if ( DataScenarioHelper.isFlagOn(this.data[x][y], index) ) {
+              if ( DataScenarioHelper.isFlagOn(this.updated[x][y], index) ) {
                 checked++;
               }
             }
@@ -194,10 +217,12 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
     let checked = 0;
     if ( undefined !== this.cellSel ) {
-      for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
-        for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
-          if ( DataScenarioHelper.isFlagOn(this.data[x][y], index) ) {
-            checked++;
+      if ( 0 === this.isValidData() ) {
+        for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
+          for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
+            if ( DataScenarioHelper.isFlagOn(this.updated[x][y], index) ) {
+              checked++;
+            }
           }
         }
       }
@@ -217,14 +242,15 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
       for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
         for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
           if (event.target.checked) {
-            this.data[x][y] = DataScenarioHelper.setFlagOn(this.data[x][y], val);
+            this.updated[x][y] = DataScenarioHelper.setFlagOn(this.updated[x][y], val);
           } else {
-            this.data[x][y] = DataScenarioHelper.setFlagOff(this.data[x][y], val);
+            this.updated[x][y] = DataScenarioHelper.setFlagOff(this.updated[x][y], val);
           }
         }
       }
     }
     this.reloadData();
+    this.sendNotifyOnUpdated(this.updated);
   }
 
   private getCellStr(data: number[][], x: number, y: number): string {
@@ -317,16 +343,16 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'isValidData';
     console.log(this.c, f);
     let ret = 0;
-    if ( null == this.data ) {
+    if ( null == this.updated ) {
       ret++;
     } else {
-      if ( this.data.length === 0 ) {
+      if ( this.updated.length === 0 ) {
         ret++;
       } else {
-        if ( null == this.data[0] ) {
+        if ( null == this.updated[0] ) {
           ret++;
         } else {
-          if ( this.data[0].length === 0 ) {
+          if ( this.updated[0].length === 0 ) {
             ret++;
           }
         }
@@ -363,16 +389,15 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
 
     const isValidDataId = this.isValidData();
     if ( 0 !== isValidDataId ) {
-      this.data = this.createEmptyData(this.defVal);
-    } else {
       console.warn(this.c, f, this.getIsValidDataStr(isvalidConfigurationId) );
+      this.updated = this.createEmptyData(this.defVal);
     }
 
     // Refresh Data
     for (let i = 0; i < this.rows_header.length ; ++i) {
       this.spreadsheet_data[i] = new Array<string>();
       for (let j = 0 ; j < this.cols_header.length ; ++ j) {
-        this.spreadsheet_data[i][j] = this.getCellStr(this.data, i, j);
+        this.spreadsheet_data[i][j] = this.getCellStr(this.updated, i, j);
       }
     }
   }
@@ -403,7 +428,7 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
     console.log(this.c, f, 'btnLabel[' + btnLabel + ']');
     switch (btnLabel) {
-      case MatrixComponent.STR_INIT: {
+      case MatrixSettings.STR_INIT: {
         this.init();
         this.reloadData();
       } break;

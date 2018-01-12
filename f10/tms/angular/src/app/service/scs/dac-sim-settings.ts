@@ -6,7 +6,6 @@ export class DacSimSettings {
 export enum DacSimExecType {
     START = 0
     , STOP
-    , LENGTH
 }
 
 export class EIV {

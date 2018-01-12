@@ -26,13 +26,18 @@ export class CardsToCsvPipe implements PipeTransform {
     const STR_EOL   = args[1];
 
     let csv = CsvToCardSettings.STR_EMPTY;
+
+    // Card Session
     cards.forEach( card => {
       let session1 = CsvToCardSettings.STR_EMPTY;
       session1 += card.name;
       session1 += STR_COMMA + card.state;
       session1 += STR_COMMA + card.step;
+
+      // Disable the Card Line
       // csv += session1 + STR_EOL;
 
+      // Step Session
       card.steps.forEach(step => {
         let session2 = CsvToCardSettings.STR_EMPTY;
         session2 += step.step;
@@ -54,34 +59,30 @@ export class CardsToCsvPipe implements PipeTransform {
         session2 += STR_COMMA + equipment.valuelabel;
         session2 += STR_COMMA + equipment.currentlabel;
 
+        // Disable the Step Line
         // csv +=
         //       session1
         //        + STR_COMMA + session2
         //        + STR_EOL;
 
-        equipment.phases[DacSimExecType.START].forEach(exec => {
-          let session3 = CsvToCardSettings.STR_EMPTY;
-          session3 += DacSimExecType.START;
-          session3 += STR_COMMA + exec.execType;
-          session3 += STR_COMMA + exec.name;
-          session3 += STR_COMMA + exec.value;
-          csv +=
-                  session1 + STR_COMMA
-                + session2 + STR_COMMA
-                + session3 + STR_EOL;
-        });
+        // Controls Session
+        csv +=  session1
+              + STR_COMMA + session2;
 
-        equipment.phases[DacSimExecType.STOP].forEach(exec => {
-          let session3 = CsvToCardSettings.STR_EMPTY;
-          session3 += DacSimExecType.STOP;
-          session3 += STR_COMMA + exec.execType;
-          session3 += STR_COMMA + exec.name;
-          session3 += STR_COMMA + exec.value;
-          csv +=
-                  session1 + STR_COMMA
-                + session2 + STR_COMMA
-                + session3 + STR_EOL;
-        });
+        for ( const dacSimExecType in DacSimExecType ) {
+          if ( ! isNaN(Number(dacSimExecType)) ) {
+            const nDacSimExecType: number = Number(dacSimExecType);
+            equipment.phases[nDacSimExecType].forEach(exec => {
+              let session3 = CsvToCardSettings.STR_EMPTY;
+              session3 += nDacSimExecType;
+              session3 += STR_COMMA + exec.execType;
+              session3 += STR_COMMA + exec.name;
+              session3 += STR_COMMA + exec.value;
+              csv += STR_COMMA + session3;
+            });
+          }
+        }
+        csv += STR_EOL;
 
       });
     });

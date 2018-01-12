@@ -1,5 +1,0 @@
-spring:
-  application:
-    name: avalanche
-server:
-  port: 8776

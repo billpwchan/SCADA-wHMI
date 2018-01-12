@@ -1,0 +1,71 @@
+.div-admin-root {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+}
+
+.div-admin-left {
+    width: 100%;
+    height: 35%;
+    margin: 5px 5px 5px 5px;
+
+    border-radius: 10px;
+    border: 1px solid rgba(229,229,229,229);
+    padding: 20px;
+}
+
+.div-admin-left-top {
+    height: 65%;
+}
+
+.div-admin-left-bottom {
+    text-align: left; 
+    display: flex; 
+    flex-direction: column;
+    margin: 20px 0px 0px 0px;
+}
+
+.div-admin-left-bottom-middle {
+    display: flex;
+    flex-direction: row;
+}
+
+.div-admin-left-bottom-middle-middle {
+    margin: 0px 4px 0px 0px;
+}
+
+.div-admin-right {
+    width: 65%;
+    height: 100%;
+    margin: 5px 5px 5px 5px;
+
+    border-radius: 10px;
+    border: 1px solid rgba(229,229,229,229);
+    padding: 20px;
+}
+
+.div-admin-right-top {
+    height: 64%;
+}
+
+.div-admin-right-bottom {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 20px 0px 0px 0px;
+}
+
+.div-admin-right-bottom-outlet {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+}
+
+.div-admin-right-bottom-inter {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    margin: 0px 0px 0px 40px;
+}

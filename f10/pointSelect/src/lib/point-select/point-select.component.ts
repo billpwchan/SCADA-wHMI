@@ -529,8 +529,9 @@ export class PointSelectComponent implements OnInit, OnDestroy {
         });
       } break;
       case 'selPointLabel': {
-        console.log(this.c, f, 'this.selEnv[' + this.selEnv.value + '] this.selGeo[' + this.selGeo + '] this.selFunc[' + this.selFunc + ']');
-        console.log('this.selEqpLabel[' + this.selEqpLabel + '] this.selPointLabel[' + this.selPointLabel + ']');
+        console.log(this.c, f, 'this.selEnv[' + this.selEnv.value + ']');
+        console.log(this.c, f, 'this.selGeo[' + this.selGeo + '] this.selFunc[' + this.selFunc + ']');
+        console.log(this.c, f, 'this.selEqpLabel[' + this.selEqpLabel + '] this.selPointLabel[' + this.selPointLabel + ']');
         const pointData = this.olsService.getPointData();
         pointData.get(this.selEnv.value).forEach((item, index) => {
 

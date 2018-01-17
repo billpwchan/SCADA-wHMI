@@ -267,7 +267,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
       if ( this.selectedCardStep && this.rows_step ) {
         this.selectedCardStep.forEach ( item1 => {
           this.rows_step.forEach ( item2 => {
-            if ( '' + item1 == item2.step ) {
+            if ( '' + item1 === item2.step ) {
               this.selected_step.push(item2);
             }
           });
@@ -330,11 +330,11 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f, 'name', name, 'event', event);
 
     const checkboxCellIndex = 1;
-    if ('checkbox' == event.type) {
+    if ('checkbox' === event.type) {
       // Stop event propagation and let onSelect() work
       console.log('Checkbox Selected', event);
       event.event.stopPropagation();
-    } else if ('click' == event.type && event.cellIndex != checkboxCellIndex) {
+    } else if ('click' === event.type && event.cellIndex !== checkboxCellIndex) {
       // Do somethings when you click on row cell other than checkbox
       console.log('Row Clicked', event.row); /// <--- object is in the event row variable
     }

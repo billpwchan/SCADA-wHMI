@@ -8,6 +8,7 @@
 	
 	, "&cards_title": "Avalanche Conditions"
 
+	, "&cards_gd_header_index": "Condition"
 	, "&cards_gd_header_name": "Name"
 	, "&cards_gd_header_state": "State"
 	, "&cards_gd_header_status": "Status"
@@ -196,6 +197,11 @@
 	, "&matrix_data_index_length_is_zero": "Date index length is 0."
 	, "&matrix_data_index_zero_length_is_null": "Date index 0 length is null."
 	, "&matrix_data_index_zero_length_is_zero": "Date index 0 length is 0."
+
+	, "&alarm_summary_btn_apply": "Apply"
+	, "&alarm_summary_btn_apply_title": "Apply the change"
+	, "&alarm_summary_btn_cancel": "Cancel"
+	, "&alarm_summary_btn_cancel_title": "Cancel the change"
 
 	, "location_": "UNKNOW"
 	, "location_1": "M000001"

@@ -220,8 +220,8 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
 
     // Avoid the sorting modify the internal cards order
     const clonedCards: Card[] = new Array<Card>();
-    this.cardService.getCards().forEach ( item => {
-      clonedCards.push(new Card(item.name, item.state, item.status));
+    this.cardService.getCards().forEach ( (card: Card, key: number) => {
+      clonedCards.push(new Card(key, card.name, card.state, card.status));
     });
     const sortedCards: Card[] = this.sortingCards(this.cardService.getCards(), this.columnsSorting);
 
@@ -230,12 +230,13 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     this.rows_card = [];
 
     // Renew datatable from card service
-    sortedCards.forEach((item, index) => {
+    sortedCards.forEach((card, key) => {
       this.rows_card.push(
         new DatatableCard(
-          item.name
-          , this.getStateStr(item.state)
-          , this.getStatusStr(item.status)
+          String(key)
+          , card.name
+          , this.getStateStr(card.state)
+          , this.getStatusStr(card.status)
           , new Date()
         )
       );

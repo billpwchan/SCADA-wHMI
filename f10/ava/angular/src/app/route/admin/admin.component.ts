@@ -16,6 +16,10 @@ import { SelectionService } from '../../service/card/selection.service';
 import { CardServiceType } from '../../service/card/card-settings';
 import { SelectionServiceType } from '../../service/card/selection-settings';
 import { MatrixSettings, Matrix, MatrixConfig } from '../../component/alarm/Matrix/matrix-settings';
+import { Step, Card } from '../../model/Scenario';
+import { StepsComponent } from '../../component/step/steps/steps.component';
+import { AlarmSummaryConfig, Env, AlarmSummarySettings } from '../../component/alarm/alarm-summary/alarm-summary-settings';
+import { AlarmSummaryComponent } from '../../component/alarm/alarm-summary/alarm-summary.component';
 
 @Component({
   selector: 'app-admin',
@@ -27,7 +31,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   @ViewChild(CardEditComponent) cardEditChildView: CardEditComponent;
   @ViewChild(StepEditComponent) stepEditChildView: StepEditComponent;
   @ViewChild(StepEditControllerComponent) stepEditControllerChildView: StepEditComponent;
-  @ViewChild(MatrixComponent) matrixComponent: MatrixComponent;
+
+  @ViewChild(StepsComponent) stepsComponent: StepsComponent;
+  @ViewChild(AlarmSummaryComponent) alarmSummaryComponent: AlarmSummaryComponent;
 
   readonly c: string = 'AdminComponent';
 
@@ -45,8 +51,11 @@ export class AdminComponent implements OnInit, OnDestroy {
   notifyStorage: string;
   notifyCsvInterpret: string;
 
+  alarmSummaryCfg: AlarmSummaryConfig;
+  updateAlarmSummary: number;
+
   matrixCfg: MatrixConfig;
-  updateMatrix: number[][];
+  updateMatrix: number;
 
   constructor(
     private translate: TranslateService
@@ -55,11 +64,19 @@ export class AdminComponent implements OnInit, OnDestroy {
     , private selectionService: SelectionService
     , private storageService: StorageService
   ) {
+    const f = 'constructor';
+    console.log(this.c, f);
+
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.loadTranslations();
     });
 
-    this.matrixCfg = this.loadMatrixCfgs();
+    const almConfig: AlarmSummaryConfig = this.loadAlarmSummaryCfgs();
+    if ( null != almConfig ) {
+      this.alarmSummaryCfg = almConfig;
+    } else {
+      console.warn(this.c, f, 'loadAlarmSummaryCfgs IS INVALID');
+    }
   }
 
   ngOnInit(): void {
@@ -71,8 +88,21 @@ export class AdminComponent implements OnInit, OnDestroy {
         console.log(this.c, f, 'cardSubscription', item);
         switch (item) {
           case CardServiceType.CARD_RELOADED: {
-            // this.btnClicked(StepsComponent.STR_CARD_RELOADED);
-            this.matrixComponent.updateMatrix = null;
+            this.alarmSummaryComponent.updateAlarmSummary = null;
+          } break;
+          case CardServiceType.STEP_RELOADED: {
+            // const selCardId: string = this.selectionService.getSelectedCardId();
+            // if ( null != selCardId ) {
+            //   const card = this.cardService.getCard([selCardId]);
+            //   this.alarmSummaryComponent.updateAlarmSummary = card.index;
+            // }
+          } break;
+          case CardServiceType.STEP_UPDATED: {
+            // const selCardId: string = this.selectionService.getSelectedCardId();
+            // if ( null != selCardId ) {
+            //   const card = this.cardService.getCard([selCardId]);
+            //   this.alarmSummaryComponent.updateAlarmSummary = card.index;
+            // }
           } break;
         }
       });
@@ -82,11 +112,14 @@ export class AdminComponent implements OnInit, OnDestroy {
         console.log(this.c, f, 'selectionSubscription', item);
         switch (item) {
           case SelectionServiceType.CARD_SELECTED: {
-            // this.btnClicked(StepsComponent.STR_CARD_SELECTED);
             const selCardId: string = this.selectionService.getSelectedCardId();
             if ( null != selCardId ) {
-              const card = this.cardService.getCard([selCardId]);
-              this.updateMatrix = card.alarms;
+              const card: Card = this.cardService.getCard([selCardId]);
+              if ( null != card ) {
+                this.updateAlarmSummary = card.index;
+              } else {
+                console.warn(this.c, f, 'card IS NULL');
+              }
             }
           } break;
         }
@@ -103,8 +136,22 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.cardSubscription.unsubscribe();
   }
 
-  onUpdatedMatrix(data: number[][]): void {
-    const f = 'onUpdatedMatrix';
+  onUpdatedSteps(data: Step[]): void {
+    const f = 'onUpdatedSteps';
+    console.log(this.c, f);
+    const selCardId: string = this.selectionService.getSelectedCardId();
+    if ( null != selCardId ) {
+      const card = this.cardService.getCard([selCardId]);
+      if ( null != card ) {
+        card.steps = JSON.parse(JSON.stringify(data));
+      } else {
+        card.steps = null;
+      }
+    }
+  }
+
+  onUpdatedAlarmSummary(data: number[][]): void {
+    const f = 'onUpdatedAlarmSummary';
     console.log(this.c, f);
     const selCardId: string = this.selectionService.getSelectedCardId();
     if ( null != selCardId ) {
@@ -117,28 +164,14 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  private loadMatrixCfgs(): MatrixConfig {
-    const f = 'loadMatrixCfgs';
+  private loadAlarmSummaryCfgs(): AlarmSummaryConfig {
+    const f = 'loadAlarmSummaryCfgs';
     console.log(this.c, f);
 
-    const c = 'MatrixComponent';
-    const cfg: MatrixConfig = new MatrixConfig();
+    const c = 'AlarmSummaryComponent';
+    const cfg: AlarmSummaryConfig = new AlarmSummaryConfig();
 
-    cfg.spreadsheet_height   = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_SPREADSHEET_HEIGHT);
-    cfg.spreadsheet_width    = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_SPREADSHEET_WIDTH);
-    cfg.spreadsheet_visible_rows = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_SPREADSHEET_VISIBLE_ROW);
-
-    cfg.row_header_prefix  = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_ROW_HEADER_PREFIX);
-    cfg.row_header_ids     = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_ROW_HEADER_IDS);
-    cfg.row_header_width   = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_ROW_HEADER_WIDTH);
-
-    cfg.col_header_prefix  = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_COL_HEADER_PREFIX);
-    cfg.col_header_ids     = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_COL_HEADER_IDS);
-    cfg.col_width          = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_COL_WIDTH);
-
-    cfg.default_value      = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_DEFAULT_VALUE);
-
-    cfg.matrixes           = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_MATRIXES) as Matrix[];
+    cfg.envs = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_ENVS) as Env[];
 
     return cfg;
   }
@@ -147,7 +180,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'loadTranslations';
     console.log(this.c, f);
 
-    this.updateMatrix = null;
+    this.updateAlarmSummary = null;
   }
 
   getNotification(evt: string): void {

@@ -58,7 +58,8 @@ export class Card {
   public steps: Step[] = new Array<Step>();
   public alarms: number[][];
   constructor(
-    public name: string
+    public index: number
+    , public name: string
     , public state: boolean
     , public status: boolean
   ) {}

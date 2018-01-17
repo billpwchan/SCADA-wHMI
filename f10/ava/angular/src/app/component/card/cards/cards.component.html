@@ -21,6 +21,15 @@
         (select)="onRowSelect('card', $event)"
         (activate)="onActivate('card', $event)"
         >
+        <ngx-datatable-column prop="index" name="Index" [sortable]='false' [canAutoResize]="false"
+          [width]="150">
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="onHeaderClick('cards', 'index')">{{ '&cards_gd_header_index' | translate }}{{ strSortingOrderIndex | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <strong>{{ value }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
         <ngx-datatable-column prop="name" name="Name" [sortable]='false' [canAutoResize]="false"
           [width]="280">
           <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>

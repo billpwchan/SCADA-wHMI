@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE StateList SYSTEM "Dtd/lststatelist.dtd">
+<!-- StateList SCADAgenWkstMgn XML save file -->
+<StateList multi="YES" mode="MANDATORY" name="SCADAgenAvaSup" creatorId="0" description="SCADAgenAvaSup" comment="" activate="YES">
+	<Column>
+		<Name value="univname"></Name>
+
+		<Name value="geo"></Name>
+		<Name value="func"></Name>
+		
+		<!--<Name value="level"></Name>
+		<<Attribute level datatype is not supported, ABORT LstStateList SCADAgenAvaSup creation>>-->
+	</Column>
+	<List>
+		<Attribute name="AVASUPPRESSION!UNIVNAME"></Attribute>
+
+		<Attribute name="BasicEquipment!^.geographicalCat"></Attribute>
+		<Attribute name="BasicEquipment!^.functionalCat"></Attribute>
+
+		<!--<Attribute name="AVASUPPRESSION!level"></Attribute>-->
+		<Condition value='STATIC (AVASUPPRESSION!nom_instance == "AVASUPPRESSION")'></Condition>
+	</List>
+</StateList>

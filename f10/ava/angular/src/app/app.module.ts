@@ -30,6 +30,11 @@ import { HotTableModule } from 'angular-handsontable';
 import { MatrixComponent } from './component/alarm/Matrix/matrix.component';
 import { CardTitleComponent } from './component/card/card-title/card-title.component';
 import { CardStateControllerComponent } from './component/card/card-state-controller/card-state-controller.component';
+import { OlsAvaSupService } from './service/scs/ava/ols-ava-sup.service';
+import { DbmReadAvaSupService } from './service/scs/ava/dbm-read-ava-sup.service';
+import { DbmWriteAvaSupService } from './service/scs/ava/dbm-write-ava-sup.service';
+import { AlarmSummaryComponent } from './component/alarm/alarm-summary/alarm-summary.component';
+import { DbmCacheAvaSupService } from './service/scs/ava/dbm-cache-ava-sup.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -57,6 +62,7 @@ const appRoutes: Routes = [
     , MatrixComponent
     , CardTitleComponent
     , CardStateControllerComponent
+    , AlarmSummaryComponent
   ],
   imports: [
     BrowserModule
@@ -93,6 +99,10 @@ const appRoutes: Routes = [
     , SelectionService
     , StorageService
     , DbmPollingService
+    , OlsAvaSupService
+    , DbmCacheAvaSupService
+    , DbmReadAvaSupService
+    , DbmWriteAvaSupService
   ],
   bootstrap: [AppComponent]
 })

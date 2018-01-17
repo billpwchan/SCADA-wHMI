@@ -2,6 +2,8 @@ export class DbmSettings {
 
     public static readonly INT_ACI_TYPE = 106;
     public static readonly INT_DCI_TYPE = 104;
+    public static readonly STR_OPEN_PARENTHESIS = '(';
+    public static readonly STR_CLOSE_PARENTHESIS = ')';
     public static readonly STR_ALIAS = '%3Calias%3E';
     public static readonly STR_AAC = 'aac';
     public static readonly STR_DAC = 'dac';
@@ -12,6 +14,7 @@ export class DbmSettings {
     public static readonly STR_VALUETABLE_LABEL = DbmSettings.STR_DAL + '.valueTable(0:$,label)';
     public static readonly STR_VALUETABLE_VALUE = DbmSettings.STR_DAL + '.valueTable(0:$,value)';
     public static readonly STR_URL_MULTIREAD = '/scs/service/DbmComponent/multiReadValue?dbaddress=';
+    public static readonly STR_URL_MULTIWRITE = '/scs/service/DbmComponent/multiWriteValue?values=';
 
     public static readonly STR_ATTR_DBVALUE = 'dbvalue';
     public static readonly STR_ATTR_CLASSID = 'classId';
@@ -28,4 +31,7 @@ export class DbmSettings {
     public static readonly STR_ATTR_VALUE = '.value';
     public static readonly STR_ATTR_UNIT = '.unit';
     public static readonly STR_ATTR_COMPUTED_MESSAGE = '.computedMessage';
+    public static readonly STR_ATTR_LEVEL = '.level';
+    public static readonly STR_ATTR_GEO = ':^.geographicalCat';
+    public static readonly STR_ATTR_FUNC = ':^.functionalCat';
 }

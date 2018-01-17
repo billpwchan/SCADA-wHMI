@@ -12,6 +12,7 @@ export class OlsSettings {
 
     public static readonly STR_LST_SERVER = 'LstServer';
     public static readonly STR_SCADAGEN_DATA_POINT_MGN = 'SCADAgenDataPointMgn';
+    public static readonly STR_SCADAGEN_AVA_SUP = 'SCADAgenAvaSup';
 
     public static readonly STR_URL_LISTSERVER = 'listServer';
     public static readonly STR_URL_LISTNAME = 'listName';

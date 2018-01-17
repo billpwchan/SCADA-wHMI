@@ -1,11 +1,12 @@
 import { AppSettings } from '../../../app-settings';
+import { Env } from '../alarm-summary/alarm-summary-settings';
 
 export class MatrixSettings {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
 
   public static readonly STR_NORIFY_FROM_PARENT         = 'notifyFromParent';
-  public static readonly STR_MATRIX_CFG                 = 'matrixCfg';
+  public static readonly STR_MATRIX_CONFIG              = 'matrixConfig';
 
   public static readonly STR_ON_UPDATED_MATRIX          = 'onUpdateMatrix';
 
@@ -55,15 +56,16 @@ export class Matrix {
 }
 
 export class MatrixConfig {
-  public spreadsheet_height: number;
-  public spreadsheet_width: number;
-  public spreadsheet_visible_rows: number;
-  public col_header_prefix: string;
-  public col_header_ids: number[];
-  public col_width: number;
-  public row_header_prefix: string;
-  public row_header_ids: number[];
-  public row_header_width: number;
-  public default_value: number;
+  public spreadsheetHeight: number;
+  public spreadsheetWidth: number;
+  public spreadsheetVisibleRows: number;
+  public colHeaderPrefix: string;
+  public colHeaderIds: number[];
+  public colWidth: number;
+  public rowHeaderPrefix: string;
+  public rowHeaderIds: number[];
+  public rowHeaderWidth: number;
+  public defVal: number;
   public matrixes: Matrix[];
+  public envs: Env[];
 }

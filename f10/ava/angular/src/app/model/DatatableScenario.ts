@@ -3,7 +3,8 @@
  */
 export class DatatableCard {
   constructor(
-    public name: string
+    public index: string
+    , public name: string
     , public state: string
     , public status: string
     , public updated: Date

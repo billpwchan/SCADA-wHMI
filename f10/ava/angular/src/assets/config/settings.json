@@ -52,6 +52,11 @@
           , {"index": 3, "label": "&matrix_flag_label_3", "shortlabel" : "&matrix_flag_shortlabel_3", "title": "&matrix_flag_title_3"}
       ]
   }
+  , "AlarmSummaryComponent": {
+      "envs": [
+        {"label": "M100", "value": "http://127.0.0.1:8990"}
+      ]
+  }
   , "StorageComponent": {
       "init_cards_before_storage": true
   }

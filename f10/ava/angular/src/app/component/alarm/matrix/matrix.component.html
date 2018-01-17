@@ -16,7 +16,7 @@
   </hot-table>
   <div>
     <label class="checkbox-inline" 
-      *ngFor="let matrix of matrixes;let index = index;trackBy:trackByIndex"
+      *ngFor="let matrix of cfg.matrixes;let index = index;trackBy:trackByIndex"
       title="{{ matrix.title | translate }}">
     <input type="checkbox" [ngModel]="matrixChecked"
       [value]="index" [checked]="isChecked(index)" [indeterminate]="isIndeterminate(index)"

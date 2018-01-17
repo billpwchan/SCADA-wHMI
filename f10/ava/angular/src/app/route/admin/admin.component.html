@@ -29,8 +29,8 @@
       <app-steps (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"></app-steps>
     </div>
     <div style="padding: 10px;">
-      <app-matrix (notifyParent)="getNotification($event)" [notifyFromParent]="notifyMatrix" 
-      [matrixCfg]="matrixCfg" [updateMatrix]="updateMatrix" (onUpdatedMatrix)="onUpdatedMatrix($event)"></app-matrix>
+      <app-alarm-summary (notifyParent)="getNotification($event)" [notifyFromParent]="notifyAlarmSummary" 
+      [config]="alarmSummaryCfg" [updateAlarmSummary]="updateAlarmSummary" (onUpdatedAlarmSummary)="onUpdatedAlarmSummary($event)"></app-alarm-summary>
     </div>
   </div>
 </div>

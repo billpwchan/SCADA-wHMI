@@ -10,6 +10,8 @@ import { CardServiceType } from '../../../service/card/card-settings';
 import { SelectionServiceType } from '../../../service/card/selection-settings';
 import { Card } from '../../../model/Scenario';
 import { DataScenarioHelper } from '../../../model/DataScenarioHelper';
+import { OlsAvaSupService, AvaSupPoint } from '../../../service/scs/ava/ols-ava-sup.service';
+import { DbmReadAvaSupService } from '../../../service/scs/ava/dbm-read-ava-sup.service';
 
 @Component({
   selector: 'app-matrix',
@@ -24,39 +26,55 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
-  @Input() matrixCfg: MatrixConfig;
+  private cfg: MatrixConfig;
+  @Input() config: MatrixConfig;
 
   private preview: number[][];
   private updated: number[][];
   @Input()
-  set updateMatrix(data: number[][]) {
+  set updateMatrix(data: Map<number, Map<number, number>>) {
+    const f = 'updateMatrix';
+    console.log(this.c, f);
+
     if ( null != data ) {
-      this.preview = JSON.parse(JSON.stringify(data));
-      this.updated = JSON.parse(JSON.stringify(data));
+
+      if ( null == this.updated ) {
+        this.updated = new Array<Array<number>>();
+      }
+
+      for ( let i = 0 ; i < this.cfg.rowHeaderIds.length ; ++i ) {
+        for ( let j = 0 ; j < this.cfg.colHeaderIds.length ; ++j ) {
+          if ( null == this.updated[i] ) {
+            this.updated[i] = new Array<number>();
+          }
+          const row: number = this.cfg.rowHeaderIds[i];
+          const col: number = this.cfg.colHeaderIds[j];
+          console.log(this.c, f, 'row', row, 'col', col);
+          this.updated[i][j] = 0;
+          const func: Map<number, number> = data.get(row);
+          if ( null != func ) {
+            const level = func.get(col);
+            if ( null != level ) {
+              this.updated[i][j] = level;
+            } else {
+              console.warn(this.c, f, 'no data for row', row, 'col', col);
+            }
+          } else {
+            console.warn(this.c, f, 'no data for row', row);
+          }
+        }
+      }
+
+      console.log(this.c, f, 'this.updated', this.updated);
+      this.generateMatrix();
+      this.reloadData();
     } else {
-      this.updated = this.preview = data;
+      console.warn(this.c, f, 'data IS INVALID');
     }
-    this.reloadData();
   }
-  @Output() onUpdatedMatrix = new EventEmitter<number[][]>();
-
-  private rowHeaderPrefix: string;
-  private rowHeaderIds: number[];
-  private rowHeaderWidth: number;
-
-  private colHeaderPrefix: string;
-  private colHeaderIds: number[];
-  private colWidths: number;
+  @Output() onUpdatedMatrix = new EventEmitter<Map<number, Map<number, number>>>();
 
   private cellSel: Selection;
-
-  private matrixes: Matrix[];
-
-  private defVal: number;
-
-  spreadsheet_height: number;
-  spreadsheet_width: number;
-  spreadsheet_visible_rows: number;
 
   rows_header: string[];
   rows_header_width: number[];
@@ -69,10 +87,21 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(
     private translate: TranslateService
+    , private settingsService: SettingsService
   ) {
+    const f = 'constructor';
+    console.log(this.c, f);
+
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.loadTranslations();
     });
+
+    const matrixConfig: MatrixConfig = this.loadCfg();
+    if ( null != matrixConfig ) {
+      this.cfg = matrixConfig;
+    } else {
+      console.warn(this.c, f, 'loadMatrixCfgs IS INVALID');
+    }
   }
 
   ngOnInit() {
@@ -100,11 +129,11 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  onConfigChange(matrixConfig: MatrixConfig): void {
+  onConfigChange(cfg: MatrixConfig): void {
     const f = 'onConfigChange';
     console.log(this.c, f);
 
-    this.loadConfigs(matrixConfig);
+    this.cfg = cfg;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -112,8 +141,9 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
     if ( changes[MatrixSettings.STR_NORIFY_FROM_PARENT] ) {
       this.onParentChange(changes[MatrixSettings.STR_NORIFY_FROM_PARENT].currentValue);
-    } else if ( changes[MatrixSettings.STR_MATRIX_CFG] ) {
-      this.onConfigChange(changes[MatrixSettings.STR_MATRIX_CFG].currentValue);
+    }
+    if ( changes[MatrixSettings.STR_MATRIX_CONFIG] ) {
+      this.onConfigChange(changes[MatrixSettings.STR_MATRIX_CONFIG].currentValue);
     }
   }
 
@@ -123,34 +153,40 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     this.notifyParent.emit(str);
   }
 
+  private loadCfg(): MatrixConfig {
+    const f = 'loadMatrixCfgs';
+    console.log(this.c, f);
+
+    const c = 'MatrixComponent';
+    const cfg: MatrixConfig = new MatrixConfig();
+
+    cfg.spreadsheetHeight = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_SPREADSHEET_HEIGHT);
+    cfg.spreadsheetWidth = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_SPREADSHEET_WIDTH);
+    cfg.spreadsheetVisibleRows = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_SPREADSHEET_VISIBLE_ROW);
+
+    cfg.rowHeaderPrefix = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_ROW_HEADER_PREFIX);
+    cfg.rowHeaderIds = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_ROW_HEADER_IDS);
+    cfg.rowHeaderWidth = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_ROW_HEADER_WIDTH);
+
+    cfg.colHeaderPrefix = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_COL_HEADER_PREFIX);
+    cfg.colHeaderIds = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_COL_HEADER_IDS);
+    cfg.colWidth = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_COL_WIDTH);
+
+    cfg.defVal = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_DEFAULT_VALUE);
+
+    cfg.matrixes = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_MATRIXES) as Matrix[];
+
+    return cfg;
+  }
+
   loadTranslations() {
     const f = 'loadTranslations';
     console.log(this.c, f);
 
-    this.reloadData();
+    // this.reloadData();
   }
 
-  private loadConfigs(matrixConfig: MatrixConfig): void {
-    const f = 'loadConfigs';
-    console.log(this.c, f);
-    this.spreadsheet_height = matrixConfig.spreadsheet_height;
-    this.spreadsheet_width = matrixConfig.spreadsheet_width;
-    this.spreadsheet_visible_rows = matrixConfig.spreadsheet_visible_rows;
-
-    this.rowHeaderPrefix = matrixConfig.row_header_prefix;
-    this.rowHeaderIds = matrixConfig.row_header_ids;
-    this.rowHeaderWidth = matrixConfig.row_header_width;
-
-    this.colHeaderPrefix = matrixConfig.col_header_prefix;
-    this.colHeaderIds = matrixConfig.col_header_ids;
-    this.colWidths = matrixConfig.col_width;
-
-    this.defVal = matrixConfig.default_value;
-
-    this.matrixes = matrixConfig.matrixes;
-  }
-
-  sendNotifyOnUpdated(data: number[][]) {
+  sendNotifyOnUpdated(data: Map<number, Map<number, number>>) {
     const f = 'sendNotifyOnUpdated';
     console.log(this.c, f);
     console.log(this.c, f, data);
@@ -213,8 +249,8 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   isChecked(index: number, event): boolean {
-    const f = 'isChecked';
-    console.log(this.c, f);
+    // const f = 'isChecked';
+    // console.log(this.c, f);
     let checked = 0;
     if ( undefined !== this.cellSel ) {
       if ( 0 === this.isValidData() ) {
@@ -249,8 +285,20 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
         }
       }
     }
+    this.generateMatrix();
     this.reloadData();
-    this.sendNotifyOnUpdated(this.updated);
+
+    const data: Map<number, Map<number, number>> = new Map<number, Map<number, number>>();
+    for ( let i = 0 ; i < this.cfg.rowHeaderIds.length ; ++i ) {
+      const row: number = this.cfg.rowHeaderIds[i];
+      data.set(row, new Map<number, number>());
+      const data2: Map<number, number> = data.get(row);
+      for ( let j = 0 ; j < this.cfg.colHeaderIds.length ; ++j ) {
+        const col: number = this.cfg.colHeaderIds[j];
+        data2.set(col, this.updated[i][j]);
+      }
+    }
+    this.sendNotifyOnUpdated(data);
   }
 
   private getCellStr(data: number[][], x: number, y: number): string {
@@ -258,12 +306,12 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
     let ret = '';
     if ( undefined !== data && undefined !== data[x] && undefined !== data[x][y] ) {
-      for ( let i = 0 ; i < this.matrixes.length ; ++i ) {
-        if ( DataScenarioHelper.isFlagOn( data[x][y], this.matrixes[i].index) ) {
+      for ( let i = 0 ; i < this.cfg.matrixes.length ; ++i ) {
+        if ( DataScenarioHelper.isFlagOn( data[x][y], this.cfg.matrixes[i].index) ) {
           if ( 0 !== ret.length ) {
             ret += this.translate.instant(MatrixSettings.STR_DELFAULT_CELL_COMMA);
           }
-          ret += this.translate.instant(this.matrixes[i].shortlabel);
+          ret += this.translate.instant(this.cfg.matrixes[i].shortlabel);
         }
       }
       if ( 0 === ret.length ) {
@@ -300,16 +348,16 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'isValidConfiguration';
     console.log(this.c, f);
     let ret = 0;
-    if ( ! ( this.rowHeaderWidth > 0 ) ) {
+    if ( ! ( this.cfg.rowHeaderWidth > 0 ) ) {
       ret++;
     } else {
-      if ( ! (null != this.rowHeaderIds && this.rowHeaderIds.length > 0 ) ) {
+      if ( ! (null != this.cfg.rowHeaderIds && this.cfg.rowHeaderIds.length > 0 ) ) {
         ret++;
       } else {
-        if ( ! ( this.colWidths > 0 ) ) {
+        if ( ! ( this.cfg.colWidth > 0 ) ) {
           ret++;
         } else {
-          if ( ! (null != this.colHeaderIds && this.colHeaderIds.length > 0 ) ) {
+          if ( ! (null != this.cfg.colHeaderIds && this.cfg.colHeaderIds.length > 0 ) ) {
             ret++;
           }
         }
@@ -364,6 +412,18 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
   reloadData() {
     const f = 'reloadData';
     console.log(this.c, f);
+    // Refresh Data
+    for (let i = 0; i < this.rows_header.length ; ++i) {
+      this.spreadsheet_data[i] = new Array<string>();
+      for (let j = 0 ; j < this.cols_header.length ; ++ j) {
+        this.spreadsheet_data[i][j] = this.getCellStr(this.updated, i, j);
+      }
+    }
+  }
+
+  generateMatrix() {
+    const f = 'generateMatrix';
+    console.log(this.c, f);
 
     // Setup Col/Row Header
     this.rows_header        = [];
@@ -375,13 +435,13 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     const isvalidConfigurationId = this.isValidConfiguration();
     if ( 0 === isvalidConfigurationId ) {
       // Refresh Row Header and Col Header
-      this.rowHeaderIds.forEach(element => {
-        this.rows_header.push(this.translate.instant(this.rowHeaderPrefix + element));
-        this.rows_header_width.push(this.rowHeaderWidth);
+      this.cfg.rowHeaderIds.forEach(element => {
+        this.rows_header.push(this.translate.instant(this.cfg.rowHeaderPrefix + element));
+        this.rows_header_width.push(this.cfg.rowHeaderWidth);
       });
-      this.colHeaderIds.forEach(element => {
-        this.cols_header.push(this.translate.instant(this.colHeaderPrefix + element));
-        this.col_widths.push(this.colWidths);
+      this.cfg.colHeaderIds.forEach(element => {
+        this.cols_header.push(this.translate.instant(this.cfg.colHeaderPrefix + element));
+        this.col_widths.push(this.cfg.colWidth);
       });
     } else {
       console.warn(this.c, f, this.getIsValidConfigurationStr(isvalidConfigurationId) );
@@ -390,25 +450,18 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     const isValidDataId = this.isValidData();
     if ( 0 !== isValidDataId ) {
       console.warn(this.c, f, this.getIsValidDataStr(isvalidConfigurationId) );
-      this.updated = this.createEmptyData(this.defVal);
+      this.updated = this.createEmptyData(this.cfg.defVal);
     }
 
-    // Refresh Data
-    for (let i = 0; i < this.rows_header.length ; ++i) {
-      this.spreadsheet_data[i] = new Array<string>();
-      for (let j = 0 ; j < this.cols_header.length ; ++ j) {
-        this.spreadsheet_data[i][j] = this.getCellStr(this.updated, i, j);
-      }
-    }
   }
 
   private createEmptyData(defVal: number): number[][] {
     const f = 'createEmptyData';
     console.log(this.c, f);
     const data = new Array<Array<number>>();
-    for (let i = 0; i < this.rowHeaderIds.length ; ++i) {
+    for (let i = 0; i < this.cfg.rowHeaderIds.length ; ++i) {
       data[i] = new Array<number>();
-      for (let j = 0 ; j < this.colHeaderIds.length ; ++ j ) {
+      for (let j = 0 ; j < this.cfg.colHeaderIds.length ; ++ j ) {
         data[i][j] = defVal;
       }
     }
@@ -430,6 +483,7 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     switch (btnLabel) {
       case MatrixSettings.STR_INIT: {
         this.init();
+        this.generateMatrix();
         this.reloadData();
       } break;
     }

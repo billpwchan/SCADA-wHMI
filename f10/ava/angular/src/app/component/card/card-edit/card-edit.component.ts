@@ -150,7 +150,8 @@ export class CardEditComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
     this.cardService.getCards().push(
       new Card(
-        name
+        this.cardService.getCards().length
+        , name
         , false
         , false
       ));

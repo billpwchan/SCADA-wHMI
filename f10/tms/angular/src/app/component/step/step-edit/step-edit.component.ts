@@ -52,7 +52,7 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
 
   private geoPrefix: string;
   private funcPrefix: string;
-  private envs: Array<SelOptStr>;
+  envs: Array<SelOptStr>;
 
   private delayRangeStart: number;
   private delayRangeEnd: number;

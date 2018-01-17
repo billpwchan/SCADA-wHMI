@@ -36,7 +36,6 @@ CD /d %SOURCE_BASE_F10%/%COMPONENT%/%ANGULAR%
 ECHO Starting build %COMPONENT% angular process and log to %LOG_FILE%...
 
 CALL ./build_release.cmd >> %LOG_FILE%
-REM CALL ./build_dev.cmd >> %LOG_FILE%
 
 IF NOT EXIST ./dist goto :cleanup
 

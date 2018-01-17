@@ -34,6 +34,7 @@ import com.thalesgroup.scadagen.scadagenba.services.proxy.ScadagenConnectorProxy
 import com.thalesgroup.scadasoft.data.config.equipment.operation.OpSCADARequest;
 import com.thalesgroup.scadasoft.hvconnector.BAStateManager;
 import com.thalesgroup.scadasoft.hvconnector.configuration.SCSConfManager;
+import com.thalesgroup.scadasoft.myba.configuration.SCADAgenConfManager;
 import com.thalesgroup.scadasoft.services.proxy.ScsConnectorProxy;
 
 public class Main {
@@ -178,6 +179,9 @@ public class Main {
 
         // load scadasoft configuration
         SCSConfManager.instance().loadConfiguration();
+        
+        // load scadagen configuration
+        SCADAgenConfManager.instance().loadConfiguration();
 
         // then init hypervisor Generic Connector
         s_logger.info("init hypervisor connector");

@@ -11,6 +11,7 @@ import com.thalesgroup.scadasoft.hvconnector.operation.SCSOperationResponder;
 import com.thalesgroup.scadasoft.hvconnector.subscription.DBMSubscription;
 import com.thalesgroup.scadasoft.hvconnector.subscription.OLSConverter;
 import com.thalesgroup.scadasoft.hvconnector.subscription.OLSSubscription;
+import com.thalesgroup.scadasoft.myba.configuration.SCADAgenConfManager;
 import com.thalesgroup.scadasoft.myba.subscription.MyDBMSubscription;
 import com.thalesgroup.scadasoft.myba.subscription.OLSAlmConverter;
 import com.thalesgroup.scadasoft.myba.subscription.OLSHistEventConverter;
@@ -38,7 +39,7 @@ public class SCADAgenBA extends SCADAsoftBA {
         // get SCS alarm
         if (SCSConfManager.instance().getAlmServer() != null) {
             m_alarmSubscription = new OLSSubscription(SCSConfManager.instance().getAlmServer(),
-                    SCSConfManager.instance().getAlmListName(), "", new OLSAlmConverter(m_HVGenericConnector));
+                    SCSConfManager.instance().getAlmListName(), SCADAgenConfManager.instance().getScsAlmListFilter(), new OLSAlmConverter(m_HVGenericConnector));
             m_alarmSubscription.start();
         }
 

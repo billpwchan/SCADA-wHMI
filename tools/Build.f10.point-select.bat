@@ -6,10 +6,10 @@ IF [%1] == [] SET v_strdt=%strdt%
 IF [%v_strdt%] == [] SET v_strdt=%1
 
 SET SOURCE_BASE_F10=%SOURCE_BASE%/f10
-SET NODEJS_HOME=%SOFTS_BASE%/%SOFTS_DIR%/node-v6.11.0-win-x64
+SET NODEJS_HOME=%SOFTS_BASE%/%SOFTS_DIR%/node-v9.2.0-win-x64
 SET PATH=%PATH%;%NODEJS_HOME%
 
-set COMPONENT=autologout
+set COMPONENT=pointSelect
 set ANGULAR=angular
 set SPRING_BOOT=spring-boot
 set NODE_MODULES=node_modules
@@ -35,7 +35,8 @@ CD /d %SOURCE_BASE_F10%/%COMPONENT%/%ANGULAR%
 
 ECHO Starting build %COMPONENT% angular process and log to %LOG_FILE%...
 
-CALL ./build_release.cmd >> %LOG_FILE%
+REM CALL ./build_release.cmd >> %LOG_FILE%
+CALL ./build_dev.cmd >> %LOG_FILE%
 
 IF NOT EXIST ./dist goto :cleanup
 

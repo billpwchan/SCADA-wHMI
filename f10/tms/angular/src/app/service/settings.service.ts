@@ -22,7 +22,7 @@ export class SettingsService {
   // Service command
   settingChanged(str: string) {
     const f = 'settingChanged';
-    console.log(this.c, f);
+    console.info(this.c, f);
     this.settingSource.next(str);
   }
 
@@ -38,7 +38,7 @@ export class SettingsService {
     let ret;
     try {
       ret = this.settings.get(url)[component][key];
-      console.log(this.c, f, 'Loading setting for', c, func, url, component, key, ret);
+      console.info(this.c, f, 'Loading setting for', c, func, url, component, key, ret);
 
       if ( undefined === ret ) {
         console.warn(this.c, f, 'Loading setting for', c, func, url, component, key, ret, 'failed!');
@@ -46,26 +46,26 @@ export class SettingsService {
     } catch (err) {
       console.warn(this.c, f, 'Error when loading setting for', c, func, url, component, key, err);
     }
-    console.log(this.c, f, 'Loading component[' + component + '] key[' + key + '] => ret[' + ret + ']');
+    console.info(this.c, f, 'Loading component[' + component + '] key[' + key + '] => ret[' + ret + ']');
     return ret;
   }
 
   getSettings(url: string = AppSettings.STR_URL_SETTINGS): any {
     const f = 'getSettings';
-    console.log(this.c, f, 'url', url);
+    console.info(this.c, f, 'url', url);
     return this.settings.get(url);
   }
 
   // Sync Loading
   load(): Promise<any> {
     const f = 'load';
-    console.log(this.c, f);
-    console.log(this.c, f, 'loading config...');
+    console.info(this.c, f);
+    console.info(this.c, f, 'loading config...');
     return this.http.get(AppSettings.STR_URL_SETTINGS)
     .toPromise()
     .then(
       data => {
-        console.log(this.c, f, 'loading config success');
+        console.info(this.c, f, 'loading config success');
         this.settings.set(AppSettings.STR_URL_SETTINGS, data.json());
       }
     ).catch((err: HttpErrorResponse) => {

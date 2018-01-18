@@ -17,7 +17,7 @@ export class AdminComponent implements OnInit {
   @ViewChild(CardEditComponent) cardEditChildView: CardEditComponent;
   @ViewChild(StepEditComponent) stepEditChildView: StepEditComponent;
 
-  c: string = AdminComponent.name;
+  readonly c = 'AdminComponent';
 
   notifyCards: string;
   notifyCardController: string;

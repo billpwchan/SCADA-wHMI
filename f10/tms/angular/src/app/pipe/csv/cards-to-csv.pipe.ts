@@ -15,7 +15,7 @@ import { DacSimExecType } from '../../service/scs/dac-sim-settings';
 })
 export class CardsToCsvPipe implements PipeTransform {
 
-  c: string = CardsToCsvPipe.name;
+  readonly c = 'CardsToCsvPipe';
 
   transform(cards: Card[], args?: any[]): string {
     const f = 'transform';
@@ -69,18 +69,15 @@ export class CardsToCsvPipe implements PipeTransform {
         csv +=  session1
               + STR_COMMA + session2;
 
-        for ( const dacSimExecType in DacSimExecType ) {
-          if ( ! isNaN(Number(dacSimExecType)) ) {
-            const nDacSimExecType: number = Number(dacSimExecType);
-            equipment.phases[nDacSimExecType].forEach(exec => {
-              let session3 = CsvToCardSettings.STR_EMPTY;
-              session3 += nDacSimExecType;
-              session3 += STR_COMMA + exec.execType;
-              session3 += STR_COMMA + exec.name;
-              session3 += STR_COMMA + exec.value;
-              csv += STR_COMMA + session3;
-            });
-          }
+        for ( let i = 0 ; i < Object.keys(DacSimExecType).length ; ++i ) {
+          equipment.phases[i].forEach(exec => {
+            let session3 = CsvToCardSettings.STR_EMPTY;
+            session3 += i;
+            session3 += STR_COMMA + exec.execType;
+            session3 += STR_COMMA + exec.name;
+            session3 += STR_COMMA + exec.value;
+            csv += STR_COMMA + session3;
+          });
         }
         csv += STR_EOL;
 

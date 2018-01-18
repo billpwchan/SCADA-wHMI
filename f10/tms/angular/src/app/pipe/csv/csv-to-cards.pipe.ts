@@ -15,7 +15,7 @@ import { DacSimExecType } from '../../service/scs/dac-sim-settings';
 })
 export class CsvToCardsPipe implements PipeTransform {
 
-  c: string = CsvToCardsPipe.name;
+  readonly c = 'CsvToCardsPipe';
 
   private getEV(evs: Execution[], id: string): Execution {
     for ( let i = 0 ; i < evs.length ; ++i ) {
@@ -129,17 +129,14 @@ export class CsvToCardsPipe implements PipeTransform {
             const tokenExecs: string[] = token.slice(Number(TokenIndex.EXECUTION_BASE));
             console.log(this.c, f, 'token', token);
             console.log(this.c, f, 'tokenExecs', tokenExecs);
-            for ( const dacSimExecType in DacSimExecType ) {
-              if ( ! isNaN(Number(dacSimExecType)) ) {
-                const nDacSimExecType: number = Number(dacSimExecType);
-                if ( ! step.equipment.phases[nDacSimExecType] ) {
-                  step.equipment.phases[nDacSimExecType] = [];
-                }
-                const execs = this.getExecutions(tokenExecs, nDacSimExecType);
-                execs.forEach ( (exec: Execution) => {
-                  step.equipment.phases[nDacSimExecType].push(exec);
-                });
+            for ( let i = 0 ; i < Object.keys(DacSimExecType).length ; ++i ) {
+              if ( ! step.equipment.phases[i] ) {
+                step.equipment.phases[i] = [];
               }
+              const execs = this.getExecutions(tokenExecs, i);
+              execs.forEach ( (exec: Execution) => {
+                step.equipment.phases[i].push(exec);
+              });
             }
           } else {
             console.warn(this.c, f, 'No Execution session found at line[' + lineIndex + ']');
@@ -163,21 +160,17 @@ export class CsvToCardsPipe implements PipeTransform {
     const executionCount = token.length / lenOfExecutionIndex;
     for ( let i = 0, y = 0 ; i < executionCount ; ++i, y = i * lenOfExecutionIndex ) {
       const execPhase: DacSimExecType = Number.parseInt(token[ y + ExecutionIndex.PHASE_TYPE]);
-      if ( ! isNaN(execPhase) ) {
-        if ( execPhase === phaseType ) {
-          // Execution Session
-          const execType  = Number.parseInt(token[ y + ExecutionIndex.EXEC_TYPE]);
-          const execName  = token[ y + ExecutionIndex.EXEC_NAME];
-          const execValue = Number.parseFloat(token[ y + ExecutionIndex.EXEC_VALUE]);
-          const exec: Execution
-                      = new Execution(
-                                        execType
-                                      , execName
-                                      , execValue);
-          ret.push(exec);
-        }
-      } else {
-        console.warn(this.c, f, 'execPhase IS NaN');
+      if ( execPhase === phaseType ) {
+        // Execution Session
+        const execType  = Number.parseInt(token[ y + ExecutionIndex.EXEC_TYPE]);
+        const execName  = token[ y + ExecutionIndex.EXEC_NAME];
+        const execValue = Number.parseFloat(token[ y + ExecutionIndex.EXEC_VALUE]);
+        const exec: Execution
+                    = new Execution(
+                                      execType
+                                    , execName
+                                    , execValue);
+        ret.push(exec);
       }
     }
     return ret;

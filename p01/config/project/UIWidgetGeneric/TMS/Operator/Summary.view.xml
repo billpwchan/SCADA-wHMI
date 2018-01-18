@@ -9,8 +9,8 @@
 	</header>
 	<option key="0|0">
 		<uiCtrl>UIWidgetBox</uiCtrl>
-		<uiView>TMS/Trainer/URL.view.xml</uiView>
-		<uiOpts>TMS/Trainer/URL.opts.xml</uiOpts>
+		<uiView>TMS/Operator/URL.view.xml</uiView>
+		<uiOpts>TMS/Operator/URL.opts.xml</uiOpts>
 		<element>UIWidgetTMSURL</element>
 	</option>
 </data-set>

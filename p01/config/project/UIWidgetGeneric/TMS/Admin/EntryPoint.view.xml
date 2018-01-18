@@ -9,8 +9,8 @@
 	</header>
 	<option key="0|0">
 		<uiCtrl>UILayoutSummary</uiCtrl>
-		<uiView>TMS/TrainerAdmin/Summary.view.xml</uiView>
-		<uiOpts>TMS/TrainerAdmin/Summary.opts.xml</uiOpts>
+		<uiView>TMS/Admin/Summary.view.xml</uiView>
+		<uiOpts>TMS/Admin/Summary.opts.xml</uiOpts>
 		<element>UILayoutTMSAdminURLSummary</element>
 	</option>
 </data-set>

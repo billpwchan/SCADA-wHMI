@@ -104,7 +104,7 @@
             importReference="" textValue="Texte"/>
         <composeScsValue xmi:id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:1" name="1"
             id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:1" label="1" description="" value="1"
-            importReference="" textValue="Num¿ro de couleur"/>
+            importReference="" textValue="Num??ro de couleur"/>
         <composeScsValue xmi:id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:10" name="10"
             id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:10" label="10" description=""
             value="10" importReference="" textValue="Surbrillance"/>
@@ -119,28 +119,28 @@
             value="13" importReference="" textValue="Y"/>
         <composeScsValue xmi:id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:2" name="2"
             id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:2" label="2" description="" value="2"
-            importReference="" textValue="Num¿ro de symbole"/>
+            importReference="" textValue="Num??ro de symbole"/>
         <composeScsValue xmi:id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:3" name="3"
             id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:3" label="3" description="" value="3"
-            importReference="" textValue="Texte num¿rique"/>
+            importReference="" textValue="Texte num??rique"/>
         <composeScsValue xmi:id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:4" name="4"
             id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:4" label="4" description="" value="4"
             importReference="" textValue="Valeur de remplissage"/>
         <composeScsValue xmi:id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:5" name="5"
             id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:5" label="5" description="" value="5"
-            importReference="" textValue="Valeur num¿rique"/>
+            importReference="" textValue="Valeur num??rique"/>
         <composeScsValue xmi:id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:6" name="6"
             id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:6" label="6" description="" value="6"
             importReference="" textValue="Style de ligne"/>
         <composeScsValue xmi:id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:7" name="7"
             id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:7" label="7" description="" value="7"
-            importReference="" textValue="Visibilit¿"/>
+            importReference="" textValue="Visibilit??"/>
         <composeScsValue xmi:id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:8" name="8"
             id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:8" label="8" description="" value="8"
             importReference="" textValue="Clignotement"/>
         <composeScsValue xmi:id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:9" name="9"
             id=":R:A:DOMAINES:GRAPHIC:TYPE_ANIMATION:9" label="9" description="" value="9"
-            importReference="" textValue="Fr¿quence de clignotement"/>
+            importReference="" textValue="Fr??quence de clignotement"/>
       </composeScsDomain>
       <composeScsDomain xmi:type="scsmodel:ScsEnumDomain" xmi:id=":R:A:DOMAINES:GRAPHIC:TYPE_CX_FORMULE_VAR"
           name="type_cx_formule_var" id=":R:A:DOMAINES:GRAPHIC:TYPE_CX_FORMULE_VAR"
@@ -148,7 +148,7 @@
           maxValue="" importReference="">
         <composeScsValue xmi:id=":R:A:DOMAINES:GRAPHIC:TYPE_CX_FORMULE_VAR:0" name="0"
             id=":R:A:DOMAINES:GRAPHIC:TYPE_CX_FORMULE_VAR:0" label="0" description=""
-            value="0" importReference="" textValue="Entr¿e"/>
+            value="0" importReference="" textValue="Entr??e"/>
         <composeScsValue xmi:id=":R:A:DOMAINES:GRAPHIC:TYPE_CX_FORMULE_VAR:1" name="1"
             id=":R:A:DOMAINES:GRAPHIC:TYPE_CX_FORMULE_VAR:1" label="1" description=""
             value="1" importReference="" textValue="Sortie"/>
@@ -803,7 +803,7 @@
     </composeScsClass>
     <composeScsClass xmi:id=":R:A:CLASSES:EQPT_TYPE" name="EquipmentType" id=":R:A:CLASSES:EQPT_TYPE"
         label="Abstract equipement" description="This class is an abstract equipment used for children inheritance. advEquipment and basicEquipment both inherits from from this class. They have an attribute, user_class, which default value is different."
-        trigram="EQT" referenceSuperClass="#:R:A:CLASSES:SCS_UMCD:EQPT" referenceChildClass="#:R:A:CLASSES:EQPT_BASIC #:R:A:CLASSES:EQPT_ADV #_M_aKeUl3Eeavj5BfNP8KqQ"
+        trigram="EQT" referenceSuperClass="#:R:A:CLASSES:SCS_UMCD:EQPT" referenceChildClass="#:R:A:CLASSES:EQPT_BASIC #:R:A:CLASSES:EQPT_ADV #_M_aKeUl3Eeavj5BfNP8KqQ #_2hEnYPqjEees8OzwC7I80w"
         abstract="true" importReference="">
       <composeScsComposition xmi:id="_eItO87qBEeOabM6f4PMxWg" name="equipments" id="_eItO87qBEeOabM6f4PMxWg"
           label="" description="An equipment can be constitued with different pieces of equipments"
@@ -926,7 +926,7 @@
           id=":R:A:CLASSES:ROOT_ALPHANUM:POLE" label="" description="" referenceScsClass="#:R:A:CLASSES:SCS_UMCD:DACCOM:POLE"
           importReference=""/>
       <composeScsComposition xmi:id=":R:A:CLASSES:ROOT_ALPHANUM:SCADASOFT" name="SCADASOFT"
-          id=":R:A:CLASSES:ROOT_ALPHANUM:SCADASOFT" label="" description="Branche d'instances n�cessaires � SCADASoft"
+          id=":R:A:CLASSES:ROOT_ALPHANUM:SCADASOFT" label="" description="Branche d'instances n?cessaires ? SCADASoft"
           maxCardinality="1" minCardinality="1" referenceScsClass="#:R:A:CLASSES:SCS_UMCD:SCADASOFT"
           importReference=""/>
       <composeScsComposition xmi:id=":R:A:CLASSES:ROOT_ALPHANUM:SUBSYSTEM" name="subSystems"
@@ -940,6 +940,8 @@
           importReference=""/>
       <composeScsComposition xmi:id="_aMUxEcCkEeOd6-xWE8ixIA" name="areas" id="_aMUxEcCkEeOd6-xWE8ixIA"
           description="list the areas handled by Hv" referenceScsClass="#_WH3ysLtKEeONv8sdzPog0g"/>
+      <composeScsComposition xmi:id="_4VxNQPqlEees8OzwC7I80w" name="SCADAGEN" id="_4VxNQPqlEees8OzwC7I80w"
+          maxCardinality="1" referenceScsClass="#_cuw8YPqiEees8OzwC7I80w"/>
       <composeScsAttribute xmi:id=":R:A:CLASSES:ROOT_ALPHANUM:NOM_INSTANCE" name="nom_instance"
           id=":R:A:CLASSES:ROOT_ALPHANUM:NOM_INSTANCE" label="instance_name" description="Name of the object instance. Must be unique under its father point."
           attributesGroupInHMI="main" attributesOrderInHMI="1" presentInCtrlPanel="true"
@@ -997,7 +999,7 @@
             referenceScsClass="#_HyjBwD33EeaWVN-daG23cg"/>
         <composeScsVector xmi:id=":R:A:CLASSES:SCS_UMCD:EQPT:ALARMSYNTHESIS" name="alarmSynthesis"
             id=":R:A:CLASSES:SCS_UMCD:EQPT:ALARMSYNTHESIS" label="alarmSynthesis"
-            description="Synthesis of alarms on the variables: V0 : ¿0 at least one alarm V1 : number of variables with alarm V2 : ¿0 at least one alarm to be acknowledged V3 : number of variables with alarm to be acknowledged"
+            description="Synthesis of alarms on the variables: V0 : ??0 at least one alarm V1 : number of variables with alarm V2 : ??0 at least one alarm to be acknowledged V3 : number of variables with alarm to be acknowledged"
             attributesGroupInHMI="" triggeringOfCalculator="endElement" vectorLength="4"
             importReference="">
           <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id=":R:A:CLASSES:SCS_UMCD:EQPT:ALARMSYNTHESIS_export">
@@ -1009,7 +1011,7 @@
         </composeScsVector>
         <composeScsVector xmi:id=":R:A:CLASSES:SCS_UMCD:EQPT:PREVALARMSYNTHESIS" name="prevAlarmSynthesis"
             id=":R:A:CLASSES:SCS_UMCD:EQPT:PREVALARMSYNTHESIS" label="prevAlarmSynthesis"
-            description="Synthesis of alarms on the variables: V0 : ¿0 at least one alarm V1 : number of variables with alarm V2 : ¿0 at least one alarm to be acknowledged V3 : number of variables with alarm to be acknowledged"
+            description="Synthesis of alarms on the variables: V0 : ??0 at least one alarm V1 : number of variables with alarm V2 : ??0 at least one alarm to be acknowledged V3 : number of variables with alarm to be acknowledged"
             attributesGroupInHMI="" presentInCtrlPanel="true" calculated="true" calculatorPass="1"
             triggeringOfCalculator="endElement" changeableByRTOperator="true" vectorLength="4"
             importReference="">
@@ -1241,7 +1243,7 @@
             importReference=""/>
         <composeScsVector xmi:id=":R:A:CLASSES:SCS_UMCD:NODE:ALARMSYNTHESIS" name="alarmSynthesis"
             id=":R:A:CLASSES:SCS_UMCD:NODE:ALARMSYNTHESIS" label="alarmSynthesis"
-            description="Synthesis of alarms on the variables: V0 : ¿0 at least one alarm V1 : number of variables with alarm V2 : ¿0 at least one alarm to be acknowledged V3 : number of variables with alarm to be acknowledged"
+            description="Synthesis of alarms on the variables: V0 : ??0 at least one alarm V1 : number of variables with alarm V2 : ??0 at least one alarm to be acknowledged V3 : number of variables with alarm to be acknowledged"
             attributesGroupInHMI="" presentInCtrlPanel="true" triggeringOfCalculator="endElement"
             vectorLength="4" importReference="">
           <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id=":R:A:CLASSES:SCS_UMCD:NODE:ALARMSYNTHESIS_export">
@@ -1253,7 +1255,7 @@
         </composeScsVector>
         <composeScsVector xmi:id=":R:A:CLASSES:SCS_UMCD:NODE:PREVALARMSYNTHESIS" name="prevAlarmSynthesis"
             id=":R:A:CLASSES:SCS_UMCD:NODE:PREVALARMSYNTHESIS" label="prevAlarmSynthesis"
-            description="Synthesis of alarms on the variables: V0 : ¿0 at least one alarm V1 : number of variables with alarm V2 : ¿0 at least one alarm to be acknowledged V3 : number of variables with alarm to be acknowledged"
+            description="Synthesis of alarms on the variables: V0 : ??0 at least one alarm V1 : number of variables with alarm V2 : ??0 at least one alarm to be acknowledged V3 : number of variables with alarm to be acknowledged"
             attributesGroupInHMI="" presentInCtrlPanel="true" calculated="true" calculatorPass="1"
             triggeringOfCalculator="endElement" changeableByRTOperator="true" vectorLength="4"
             importReference="">
@@ -1387,8 +1389,8 @@
             stringLength="80" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
       </composeScsClass>
       <composeScsClass xmi:id=":R:A:CLASSES:SCS_UMCD:SCSOBJET" name="scsobject" id=":R:A:CLASSES:SCS_UMCD:SCSOBJET"
-          label="Objet : Classe M¿re" description="Objet" trigram="OBJ" referenceSuperClass="#:R:A:CLASSES:OBJET"
-          referenceChildClass="#:R:A:CLASSES:VMS_CLASSES:ORIENTATION_CLASSES:CAMERA_ORIENTATION #:R:A:CLASSES:VMS_CLASSES:ORIENTATION_CLASSES:CAMERA_ORIENTATION_FLDR #:R:A:CLASSES:VMS_CLASSES:POI_CLASSES:POI #:R:A:CLASSES:VMS_CLASSES:POI_CLASSES:POI_FLDR #:R:A:CLASSES:VMS_CLASSES:VIDEO_CLASSES:VIDEO_SOURCE #:R:A:CLASSES:VMS_CLASSES:VIDEO_CLASSES:VIDEO_SOURCE_FLDR #:R:A:CLASSES:VMS_CLASSES:VMS #:R:A:CLASSES:SCS_UMCD:INPUT_VAR:SOURCE:AES #:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR #:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SOURCE:DOV #:R:A:CLASSES:SCS_UMCD:USER_FIELDS #:R:A:CLASSES:SCS_UMCD:INPUT_VAR:DPC_IVAR #:R:A:CLASSES:SCS_UMCD:NODE #:R:A:CLASSES:SCS_UMCD:EQPT #_MZJI8eJtEeObDNeXgHhIzg #:R:A:CLASSES:SCS_UMCD:GRC:GRCPOINT #:R:A:CLASSES:SCS_UMCD:GRC:SCSCTLGRC #:R:A:CLASSES:SCS_UMCD:ALARM:CLSCSALARM #:R:A:CLASSES:SCS_UMCD:ALARM:CLALARMSYNTHESIS #:R:A:CLASSES:SCS_UMCD:SCADASOFT #_-ta7YOWDEeOINrouSZVtnA #_uE3YQOWEEeOINrouSZVtnA #_aZtm0OWFEeOINrouSZVtnA #_DkzPIOWGEeOINrouSZVtnA #_bfH3wT1YEee-i5e5pTvumg #:R:A:CLASSES:SCADAGEN:CRD:CRDTAB #:R:A:CLASSES:SCADAGEN:HMI:HMI #:R:A:CLASSES:SCADAGEN:HMI:HMIObject #:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:CMB_TYPE #:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE #:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:UCS_TYPE #:R:A:CLASSES:SCADAGEN:LSTTAGS:LSTTAG #:R:A:CLASSES:SCADAGEN:MODEGROUP:EQPLIST #:R:A:CLASSES:SCADAGEN:MODEGROUP:MODEGROUP #:R:A:CLASSES:SCADAGEN:MODEGROUP:MODEGROUPLIST #:R:A:CLASSES:SCADAGEN:SYS:GEN_SYS_PENV #:R:A:CLASSES:SCADAGEN:TAG:TAG #:R:A:CLASSES:SCADAGEN:TAG:TAGS #:R:A:CLASSES:SCADAGEN:UFE:UFE #:R:A:CLASSES:SCADAGEN:UFE:UFES"
+          label="Objet : Classe M??re" description="Objet" trigram="OBJ" referenceSuperClass="#:R:A:CLASSES:OBJET"
+          referenceChildClass="#:R:A:CLASSES:VMS_CLASSES:ORIENTATION_CLASSES:CAMERA_ORIENTATION #:R:A:CLASSES:VMS_CLASSES:ORIENTATION_CLASSES:CAMERA_ORIENTATION_FLDR #:R:A:CLASSES:VMS_CLASSES:POI_CLASSES:POI #:R:A:CLASSES:VMS_CLASSES:POI_CLASSES:POI_FLDR #:R:A:CLASSES:VMS_CLASSES:VIDEO_CLASSES:VIDEO_SOURCE #:R:A:CLASSES:VMS_CLASSES:VIDEO_CLASSES:VIDEO_SOURCE_FLDR #:R:A:CLASSES:VMS_CLASSES:VMS #:R:A:CLASSES:SCS_UMCD:INPUT_VAR:SOURCE:AES #:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR #:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SOURCE:DOV #:R:A:CLASSES:SCS_UMCD:USER_FIELDS #:R:A:CLASSES:SCS_UMCD:INPUT_VAR:DPC_IVAR #:R:A:CLASSES:SCS_UMCD:NODE #:R:A:CLASSES:SCS_UMCD:EQPT #_MZJI8eJtEeObDNeXgHhIzg #:R:A:CLASSES:SCS_UMCD:GRC:GRCPOINT #:R:A:CLASSES:SCS_UMCD:GRC:SCSCTLGRC #:R:A:CLASSES:SCS_UMCD:ALARM:CLSCSALARM #:R:A:CLASSES:SCS_UMCD:ALARM:CLALARMSYNTHESIS #:R:A:CLASSES:SCS_UMCD:SCADASOFT #_-ta7YOWDEeOINrouSZVtnA #_uE3YQOWEEeOINrouSZVtnA #_aZtm0OWFEeOINrouSZVtnA #_DkzPIOWGEeOINrouSZVtnA #_bfH3wT1YEee-i5e5pTvumg #:R:A:CLASSES:SCADAGEN:CRD:CRDTAB #:R:A:CLASSES:SCADAGEN:HMI:HMI #:R:A:CLASSES:SCADAGEN:HMI:HMIObject #:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:CMB_TYPE #:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE #:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:UCS_TYPE #:R:A:CLASSES:SCADAGEN:LSTTAGS:LSTTAG #:R:A:CLASSES:SCADAGEN:MODEGROUP:EQPLIST #:R:A:CLASSES:SCADAGEN:MODEGROUP:MODEGROUP #:R:A:CLASSES:SCADAGEN:MODEGROUP:MODEGROUPLIST #:R:A:CLASSES:SCADAGEN:SYS:GEN_SYS_PENV #:R:A:CLASSES:SCADAGEN:TAG:TAG #:R:A:CLASSES:SCADAGEN:TAG:TAGS #:R:A:CLASSES:SCADAGEN:UFE:UFE #:R:A:CLASSES:SCADAGEN:UFE:UFES #_9hlOUPbVEeeJqau34t3pjg #_lipZ4PbeEeeBRJsBJauVLQ #_Ah51oPbfEeeBRJsBJauVLQ #_cuw8YPqiEees8OzwC7I80w #_-Kle0PWzEee7wPIgSoNcnA"
           abstract="true" importReference="">
         <composeScsAttribute xmi:id=":R:A:CLASSES:SCS_UMCD:SCSOBJET:UNIVNAME" name="UNIVNAME"
             id=":R:A:CLASSES:SCS_UMCD:SCSOBJET:UNIVNAME" label="UNIVNAME" description="Attribut used to build the point alias of the point in data base."
@@ -1990,14 +1992,14 @@
               importReference=""/>
         </composeScsClass>
         <composeScsClass xmi:id=":R:A:CLASSES:SCS_UMCD:DACCOM:POLE" name="POLE" id=":R:A:CLASSES:SCS_UMCD:DACCOM:POLE"
-            label="POLE : Pole Concentrateur" description="Pole de concentrateur (le nom du pole doit être le même que celui de la base de données temps réel)"
+            label="POLE : Pole Concentrateur" description="Pole de concentrateur (le nom du pole doit ??tre le m??me que celui de la base de donn??es temps r??el)"
             trigram="TRI" referenceSuperClass="#_t6xi8LwVEeOUw46ciuX3Og #:R:A:CLASSES:OBJET"
             importReference="">
           <composeScsComposition xmi:id=":R:A:CLASSES:SCS_UMCD:DACCOM:POLE:CTRT" name="CTRT"
               id=":R:A:CLASSES:SCS_UMCD:DACCOM:POLE:CTRT" label="" description=""
               referenceScsClass="#:R:A:CLASSES:SCS_UMCD:DACCOM:BASE_CTRT" importReference=""/>
           <composeScsAttribute xmi:id=":R:A:CLASSES:SCS_UMCD:DACCOM:POLE:LABEL" name="label"
-              id=":R:A:CLASSES:SCS_UMCD:DACCOM:POLE:LABEL" label="label" description="Libellé du Pole"
+              id=":R:A:CLASSES:SCS_UMCD:DACCOM:POLE:LABEL" label="label" description="Libell?? du Pole"
               attributesGroupInHMI="" presentInCtrlPanel="true" mandatoryInConfigurator="true"
               triggeringOfCalculator="endElement" stringLength="60" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"
               importReference=""/>
@@ -2111,7 +2113,7 @@
               referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING" importReference=""/>
           <composeScsAttribute xmi:id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:IMAGE:LOCK_IMAGE"
               name="lock_image" id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:IMAGE:LOCK_IMAGE"
-              label="Image verrouillée" description="Boolean indicating if the image can be regenerated automatically. This boolean is positioned to 1 ( blocked image) during the automatic generation; it can be unblocked or blocked by the operator of configuration."
+              label="Image verrouill??e" description="Boolean indicating if the image can be regenerated automatically. This boolean is positioned to 1 ( blocked image) during the automatic generation; it can be unblocked or blocked by the operator of configuration."
               attributesGroupInHMI="" presentInCtrlPanel="true" triggeringOfCalculator="endElement"
               referenceScsDomain="#:R:A:DOMAINES:DATATYPE:BOOLEAN" importReference="">
             <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:IMAGE:LOCK_IMAGE_export">
@@ -2130,7 +2132,7 @@
           </composeScsAttribute>
           <composeScsAttribute xmi:id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:IMAGE:REFERENCE_IMPORT"
               name="reference_import" id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:IMAGE:REFERENCE_IMPORT"
-              label="Référence de l'import" description="This attribute allows to identify the reference of all the data having been of use to the import of the object."
+              label="R??f??rence de l'import" description="This attribute allows to identify the reference of all the data having been of use to the import of the object."
               attributesGroupInHMI="main" attributesOrderInHMI="3" presentInCtrlPanel="true"
               calculated="true" calculatorPass="1" triggeringOfCalculator="endElement"
               stringLength="128" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"
@@ -2162,7 +2164,7 @@
               MThistoricPeriod="0"/>
         </composeScsClass>
         <composeScsClass xmi:id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:IMAGE_FOLDER" name="image_folder"
-            id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:IMAGE_FOLDER" label="Répertoire Image"
+            id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:IMAGE_FOLDER" label="R??pertoire Image"
             description="This entity groups the common characteristics of the various types of shown graphic images."
             trigram="IMF" importReference="">
           <composeScsComposition xmi:id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:IMAGE_FOLDER:IMAGE"
@@ -2181,7 +2183,7 @@
           </composeScsAttribute>
           <composeScsAttribute xmi:id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:IMAGE_FOLDER:REFERENCE_IMPORT"
               name="reference_import" id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:IMAGE_FOLDER:REFERENCE_IMPORT"
-              label="Référence de l'import" description="This attribute allows to identify the reference of all the data having been of use to the import of the object."
+              label="R??f??rence de l'import" description="This attribute allows to identify the reference of all the data having been of use to the import of the object."
               attributesGroupInHMI="main" attributesOrderInHMI="3" presentInCtrlPanel="true"
               calculated="true" calculatorPass="1" triggeringOfCalculator="endElement"
               stringLength="128" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"
@@ -2202,7 +2204,7 @@
         </composeScsClass>
         <composeScsClass xmi:id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:OBJET_GRAPHIQUE_ANIME"
             name="objet_graphique_anime" id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:OBJET_GRAPHIQUE_ANIME"
-            label="Objet graphique animé" description="An animated graphic object allows to represent in an image an entity of the electricity network. This graphic object is defined from the classes Animator and from the editor of images. This class has meaning only in the BD of configuration."
+            label="Objet graphique anim??" description="An animated graphic object allows to represent in an image an entity of the electricity network. This graphic object is defined from the classes Animator and from the editor of images. This class has meaning only in the BD of configuration."
             trigram="OGA" importReference="">
           <composeScsAttribute xmi:id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:OBJET_GRAPHIQUE_ANIME:LIEN_ALPHANUMERIQUE"
               name="link_lien_alphanumerique" id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:OBJET_GRAPHIQUE_ANIME:LIEN_ALPHANUMERIQUE"
@@ -2221,7 +2223,7 @@
           </composeScsAttribute>
           <composeScsAttribute xmi:id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:OBJET_GRAPHIQUE_ANIME:REFERENCE_IMPORT"
               name="reference_import" id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:OBJET_GRAPHIQUE_ANIME:REFERENCE_IMPORT"
-              label="Référence de l'import" description="This attribute allows to identify the reference of all the data having been of use to the import of the object."
+              label="R??f??rence de l'import" description="This attribute allows to identify the reference of all the data having been of use to the import of the object."
               attributesGroupInHMI="main" attributesOrderInHMI="3" presentInCtrlPanel="true"
               calculated="true" calculatorPass="1" triggeringOfCalculator="endElement"
               stringLength="128" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"
@@ -2318,7 +2320,7 @@
             </composeScsAttribute>
             <composeScsAttribute xmi:id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:LIB:CLASS_ANIMATOR:OBJET_ALPHANUMERIQUE_TYPE"
                 name="objet_alphanumerique_type" id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:LIB:CLASS_ANIMATOR:OBJET_ALPHANUMERIQUE_TYPE"
-                label="Objet alphanumérique type" description="This attribute allows to force the alphanumeric instances connectable to the instances of this graphic object model."
+                label="Objet alphanum??rique type" description="This attribute allows to force the alphanumeric instances connectable to the instances of this graphic object model."
                 attributesGroupInHMI="" presentInCtrlPanel="true" triggeringOfCalculator="endElement"
                 stringLength="100" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"
                 importReference="">
@@ -2338,7 +2340,7 @@
             </composeScsAttribute>
             <composeScsAttribute xmi:id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:LIB:CLASS_ANIMATOR:TYPE_OBJET_ALPHANUMERIQUE"
                 name="type_objet_alphanumerique" id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:LIB:CLASS_ANIMATOR:TYPE_OBJET_ALPHANUMERIQUE"
-                label="Type d'objet alphanumérique" description="Type of connectable alphanumeric objet."
+                label="Type d'objet alphanum??rique" description="Type of connectable alphanumeric objet."
                 attributesGroupInHMI="" presentInCtrlPanel="true" triggeringOfCalculator="endElement"
                 stringLength="128" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"
                 importReference="">
@@ -2493,7 +2495,7 @@
             </composeScsAttribute>
             <composeScsAttribute xmi:id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:LIB:SUBIMAGE:OBJET_ALPHANUMERIQUE_TYPE"
                 name="objet_alphanumerique_type" id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:LIB:SUBIMAGE:OBJET_ALPHANUMERIQUE_TYPE"
-                label="Objet alphanumérique type" description="Type of alphanumeric object"
+                label="Objet alphanum??rique type" description="Type of alphanumeric object"
                 attributesGroupInHMI="" presentInCtrlPanel="true" triggeringOfCalculator="endElement"
                 stringLength="100" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"
                 importReference="">
@@ -2503,7 +2505,7 @@
             </composeScsAttribute>
             <composeScsAttribute xmi:id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:LIB:SUBIMAGE:TYPE_OBJET_ALPHANUMERIQUE"
                 name="type_objet_alphanumerique" id=":R:A:CLASSES:SCS_UMCD:GRAPHIC:LIB:SUBIMAGE:TYPE_OBJET_ALPHANUMERIQUE"
-                label="Type d'objet alphanumérique" description="Alphanumeric object type"
+                label="Type d'objet alphanum??rique" description="Alphanumeric object type"
                 attributesGroupInHMI="" presentInCtrlPanel="true" triggeringOfCalculator="endElement"
                 stringLength="128" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"
                 importReference="">
@@ -3288,7 +3290,7 @@
             importReference="">
           <composeScsVector xmi:id=":R:A:CLASSES:SCS_UMCD:INPUT_VAR:SCI_CB:VALUE"
               name="value" id=":R:A:CLASSES:SCS_UMCD:INPUT_VAR:SCI_CB:VALUE" label="value"
-              description="Combined SCI value. This value is computed with the following CE function:¿ SCSDPC_DCIVALUE([.source], [.status], [SAC.acqValue],[SFO.forcedValue])"
+              description="Combined SCI value. This value is computed with the following CE function:?? SCSDPC_DCIVALUE([.source], [.status], [SAC.acqValue],[SFO.forcedValue])"
               attributesGroupInHMI="" calculated="true" calculatorPass="1" calculatorOrder="7"
               triggeringOfCalculator="endElement" vectorLength="2" importReference="">
             <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id=":R:A:CLASSES:SCS_UMCD:INPUT_VAR:SCI_CB:VALUE_export">
@@ -3477,7 +3479,7 @@
                 stringLength="256" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING"/>
           </composeScsVector>
           <composeScsVector xmi:id="_PYEdSNnGEeKS_JX1AXta-g" name="value" id="_PYEdSNnGEeKS_JX1AXta-g"
-              label="value" description="Combined SCI value. This value is computed with the following CE function:¿ SCSDPC_DCIVALUE([.source], [.status], [SAC.acqValue],[SFO.forcedValue])"
+              label="value" description="Combined SCI value. This value is computed with the following CE function:?? SCSDPC_DCIVALUE([.source], [.status], [SAC.acqValue],[SFO.forcedValue])"
               attributesGroupInHMI="" calculated="true" calculatorPass="1" calculatorOrder="7"
               triggeringOfCalculator="endElement" vectorLength="2">
             <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_PYEdSdnGEeKS_JX1AXta-g">
@@ -3591,7 +3593,7 @@
             </composeScsVector>
             <composeScsVector xmi:id=":R:A:CLASSES:SCS_UMCD:INPUT_VAR:SOURCE:AAL:VALUELIMITS"
                 name="valueLimits" id=":R:A:CLASSES:SCS_UMCD:INPUT_VAR:SOURCE:AAL:VALUELIMITS"
-                label="valueLimits" description="Limits values for value attribute (up to 4); definition of these limits must be consistent with the ranges defined in the &quot;valueTable&quot; attribute. Meaning of each limit and each range is specific to each AIIV class: ¿ V0: hysteresis value ¿ V1: limit1 (defines the range 1 as ] -¿, limit1]) ¿ V2: limit2 (defines the range 2 as ]limit1, limit2]) ¿ V3: limit3 (defines the range 3 as ]limit2, limit3]) ¿ V4: limit4 defines the range 4 as ]limit3, limit4])"
+                label="valueLimits" description="Limits values for value attribute (up to 4); definition of these limits must be consistent with the ranges defined in the &quot;valueTable&quot; attribute. Meaning of each limit and each range is specific to each AIIV class: ?? V0: hysteresis value ?? V1: limit1 (defines the range 1 as ] -??, limit1]) ?? V2: limit2 (defines the range 2 as ]limit1, limit2]) ?? V3: limit3 (defines the range 3 as ]limit2, limit3]) ?? V4: limit4 defines the range 4 as ]limit3, limit4])"
                 attributesGroupInHMI="" presentInCtrlPanel="true" mandatoryInConfigurator="true"
                 triggeringOfCalculator="endElement" vectorLength="5" importReference="">
               <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id=":R:A:CLASSES:SCS_UMCD:INPUT_VAR:SOURCE:AAL:VALUELIMITS_export">
@@ -5681,7 +5683,7 @@
         </composeScsClass>
         <composeScsClass xmi:id=":R:A:CLASSES:SCS_UMCD:TSC:TSP_FILTER" name="TspFilter"
             id=":R:A:CLASSES:SCS_UMCD:TSC:TSP_FILTER" label="TSP_FILTER : TSP Filter"
-            description="Filter expression: dg_dow_moy_dom_h_m, where : - dg : day group ID from 1 to 32, or * (i.e. do not test day groups), - dow : day of the week from 1 (Monday) to 7 (Sunday), or * (i.e. do not test day of week), - dom : day of the month from 1 to 31, this value can be negative to express a given number of days before the end of the month: -1 is the last but one day in the month, ¿, down to -27 that is the smallest valid value), or $ (i.e. last day of the month), or * (i.e. do not test day of month), - moy : month of the year from 1 to 12, or * (i.e. any value), - h : hours from 0 to 23, or * (i.e. any value), - m : minutes from 0 to 59, or * (i.e. any value)."
+            description="Filter expression: dg_dow_moy_dom_h_m, where : - dg : day group ID from 1 to 32, or * (i.e. do not test day groups), - dow : day of the week from 1 (Monday) to 7 (Sunday), or * (i.e. do not test day of week), - dom : day of the month from 1 to 31, this value can be negative to express a given number of days before the end of the month: -1 is the last but one day in the month, ??, down to -27 that is the smallest valid value), or $ (i.e. last day of the month), or * (i.e. do not test day of month), - moy : month of the year from 1 to 12, or * (i.e. any value), - h : hours from 0 to 23, or * (i.e. any value), - m : minutes from 0 to 59, or * (i.e. any value)."
             trigram="TRI" referenceSuperClass="#:R:A:CLASSES:OBJET" importReference="">
           <composeScsAssociation xmi:id=":R:A:CLASSES:SCS_UMCD:TSC:TSP_FILTER:DAY_GRP_lk1"
               name="DayGroup" id=":R:A:CLASSES:SCS_UMCD:TSC:TSP_FILTER:DAY_GRP_lk1"
@@ -5967,7 +5969,7 @@
             description="Lists all available areas" referenceScsClass="#_oV59VakyEeOAIonpDcw8rw"/>
       </composeScsClass>
       <composeScsClass xmi:id="_t6xi8LwVEeOUw46ciuX3Og" name="CmSubSystemObject" id="_t6xi8LwVEeOUw46ciuX3Og"
-          label="CommonSubSysObjet" description="" trigram="TRI" referenceChildClass="#_ay7E0LsDEeOabM6f4PMxWg #:R:A:CLASSES:SCS_UMCD:DACCOM:BASE_CTRT #:R:A:CLASSES:SCS_UMCD:DACCOM:BASE_LINE #_eItO8LqBEeOabM6f4PMxWg #:R:A:CLASSES:SCS_UMCD:DACCOM:GRP_VE #:R:A:CLASSES:SCS_UMCD:DACCOM:VE #:R:A:CLASSES:SCS_UMCD:DACCOM:POLE #:R:A:CLASSES:SCS_UMCD:INPUT_VAR:DPC_IVAR #:R:A:CLASSES:SCS_UMCD:GRC:GRCPOINT #:R:A:CLASSES:SCS_UMCD:GRC:SCSCTLGRC #:R:A:CLASSES:SCS_UMCD:ALARM:CLSCSALARM #:R:A:CLASSES:SCS_UMCD:ALARM:CLALARMSYNTHESIS #:R:A:CLASSES:SCS_UMCD:SCADASOFT #:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR #:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SOURCE:DOV #_MZJI8eJtEeObDNeXgHhIzg #_-ta7YOWDEeOINrouSZVtnA #_uE3YQOWEEeOINrouSZVtnA #_aZtm0OWFEeOINrouSZVtnA #_DkzPIOWGEeOINrouSZVtnA #:R:A:CLASSES:SCS_UMCD:USER_FIELDS #:R:A:CLASSES:SCADAGEN:UFE:UFE #:R:A:CLASSES:SCADAGEN:TAG:TAG #:R:A:CLASSES:SCADAGEN:TAG:TAGS #:R:A:CLASSES:SCADAGEN:SYS:GEN_SYS_PENV #:R:A:CLASSES:SCADAGEN:MODEGROUP:EQPLIST #:R:A:CLASSES:SCADAGEN:MODEGROUP:MODEGROUP #:R:A:CLASSES:SCADAGEN:MODEGROUP:MODEGROUPLIST #:R:A:CLASSES:SCADAGEN:LSTTAGS:LSTTAG #:R:A:CLASSES:SCADAGEN:HMI:HMI #:R:A:CLASSES:SCADAGEN:HMI:HMIObject #:R:A:CLASSES:SCADAGEN:CRD:CRDTAB #:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE #:R:A:CLASSES:SCADAGEN:UFE:UFES"
+          label="CommonSubSysObjet" description="" trigram="TRI" referenceChildClass="#_ay7E0LsDEeOabM6f4PMxWg #:R:A:CLASSES:SCS_UMCD:DACCOM:BASE_CTRT #:R:A:CLASSES:SCS_UMCD:DACCOM:BASE_LINE #_eItO8LqBEeOabM6f4PMxWg #:R:A:CLASSES:SCS_UMCD:DACCOM:GRP_VE #:R:A:CLASSES:SCS_UMCD:DACCOM:VE #:R:A:CLASSES:SCS_UMCD:DACCOM:POLE #:R:A:CLASSES:SCS_UMCD:INPUT_VAR:DPC_IVAR #:R:A:CLASSES:SCS_UMCD:GRC:GRCPOINT #:R:A:CLASSES:SCS_UMCD:GRC:SCSCTLGRC #:R:A:CLASSES:SCS_UMCD:ALARM:CLSCSALARM #:R:A:CLASSES:SCS_UMCD:ALARM:CLALARMSYNTHESIS #:R:A:CLASSES:SCS_UMCD:SCADASOFT #:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR #:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SOURCE:DOV #_MZJI8eJtEeObDNeXgHhIzg #_-ta7YOWDEeOINrouSZVtnA #_uE3YQOWEEeOINrouSZVtnA #_aZtm0OWFEeOINrouSZVtnA #_DkzPIOWGEeOINrouSZVtnA #:R:A:CLASSES:SCS_UMCD:USER_FIELDS #:R:A:CLASSES:SCADAGEN:UFE:UFE #:R:A:CLASSES:SCADAGEN:TAG:TAG #:R:A:CLASSES:SCADAGEN:TAG:TAGS #:R:A:CLASSES:SCADAGEN:SYS:GEN_SYS_PENV #:R:A:CLASSES:SCADAGEN:MODEGROUP:EQPLIST #:R:A:CLASSES:SCADAGEN:MODEGROUP:MODEGROUP #:R:A:CLASSES:SCADAGEN:MODEGROUP:MODEGROUPLIST #:R:A:CLASSES:SCADAGEN:LSTTAGS:LSTTAG #:R:A:CLASSES:SCADAGEN:HMI:HMI #:R:A:CLASSES:SCADAGEN:HMI:HMIObject #:R:A:CLASSES:SCADAGEN:CRD:CRDTAB #:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:DAL_GEN_TYPE #:R:A:CLASSES:SCADAGEN:UFE:UFES #_9hlOUPbVEeeJqau34t3pjg #_lipZ4PbeEeeBRJsBJauVLQ #_Ah51oPbfEeeBRJsBJauVLQ #_cuw8YPqiEees8OzwC7I80w #_-Kle0PWzEee7wPIgSoNcnA #:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:CMB_TYPE #:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:UCS_TYPE"
           abstract="true">
         <composeScsAssociation xmi:id="_Uc8dsLwVEeOUw46ciuX3Og" name="subsystems"
             id="_Uc8dsLwVEeOUw46ciuX3Og" referenceScsClass="#_4GKe8LsPEeOabM6f4PMxWg"/>
@@ -6160,8 +6162,6 @@
       </composeScsClass>
     </composeScsClassPackage>
     <composeScsClassPackage xmi:id="_lG2FUhKoEea7gOG8GF6d-w" name="SCADAgen" id="_lG2FUhKoEea7gOG8GF6d-w">
-      <composeScsClass xmi:id="_0kdBILihEeemP4XL-gvU-Q" name="dummy_scadagen_version"
-          id="_0kdBILihEeemP4XL-gvU-Q" description="SCADAgen_RTDB_v0.2.1" abstract="true"/>
       <composeScsClassPackage xmi:id="_lG2FUxKoEea7gOG8GF6d-w" name="nonRTDB_HvOnly"
           id="_lG2FUxKoEea7gOG8GF6d-w">
         <composeScsClass xmi:id="_lG_PPhKoEea7gOG8GF6d-w" name="SGEQPT1" id="_lG_PPhKoEea7gOG8GF6d-w"
@@ -6370,7 +6370,8 @@
           <composeScsClass xmi:id=":R:A:CLASSES:SCADAGEN:EQPT:EQPT_GEN" name="EQPT_GEN"
               id=":R:A:CLASSES:SCADAGEN:EQPT:EQPT_GEN" label="EQPT_GEN" description="Inherited by EQPT_TYPE to contain customisation of BasicEquipment"
               trigram="EQT" referenceSuperClass="#:R:A:CLASSES:SCADAGEN:EQPT:RESERVED_INFO"
-              referenceChildClass="#:R:A:CLASSES:EQPT_BASIC" abstract="true">
+              referenceChildClass="#:R:A:CLASSES:EQPT_BASIC #_2hEnYPqjEees8OzwC7I80w"
+              abstract="true">
             <composeScsComposition xmi:id=":R:A:CLASSES:SCADAGEN:EQPT:EQPT_GEN:CRDTAB"
                 name="CRDTAB" id=":R:A:CLASSES:SCADAGEN:EQPT:EQPT_GEN:CRDTAB" label=""
                 description="" referenceScsClass="#:R:A:CLASSES:SCADAGEN:CRD:CRDTAB"/>
@@ -6706,6 +6707,9 @@
                 label="" description="" maxCardinality="1" minCardinality="0" referenceScsClass="#:R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:UCS_TYPE"/>
             <composeScsComposition xmi:id="_hOqAAGCPEeeAXp2n19n8og" name="AAL_TYPE"
                 id="_hOqAAGCPEeeAXp2n19n8og" maxCardinality="1" referenceScsClass="#:R:A:CLASSES:SCS_UMCD:INPUT_VAR:SOURCE:AAL"/>
+            <composeScsComposition xmi:id="_bUtkwPW2Eee7wPIgSoNcnA" name="NORMALSTATE"
+                id="_bUtkwPW2Eee7wPIgSoNcnA" label="Normal State" maxCardinality="1"
+                minCardinality="0" referenceScsClass="#_-Kle0PWzEee7wPIgSoNcnA"/>
             <composeScsAttribute xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DCI_GEN:INITVALUE_INIT"
                 name="initValue_init" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:DCI_GEN:INITVALUE_INIT"
                 label="initValue_init" description="Initial value" attributesGroupInHMI=""
@@ -6850,7 +6854,7 @@
             <composeScsClass xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:CMB_TYPE"
                 name="cmb_type" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:CMB_TYPE"
                 label="CMB_TYPE : Combines SOE to SOE2" description="Combine 2 SOEs to SOE2&#xA;"
-                trigram="TRI" referenceSuperClass="#:R:A:CLASSES:SCS_UMCD:SCSOBJET">
+                trigram="TRI" referenceSuperClass="#:R:A:CLASSES:SCS_UMCD:SCSOBJET #_t6xi8LwVEeOUw46ciuX3Og">
               <composeScsVector xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:CMB_TYPE:COMBINELIST"
                   name="combineList" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:CMB_TYPE:COMBINELIST"
                   label="combineList" description="" attributesGroupInHMI="" presentInCtrlPanel="true"
@@ -7139,7 +7143,7 @@
             <composeScsClass xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:UCS_TYPE"
                 name="ucs_type" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:UCS_TYPE"
                 label="UCS_TYPE" description="DCI type for UCS&#xA;" trigram="TRI"
-                referenceSuperClass="#:R:A:CLASSES:SCS_UMCD:SCSOBJET">
+                referenceSuperClass="#:R:A:CLASSES:SCS_UMCD:SCSOBJET #_t6xi8LwVEeOUw46ciuX3Og">
               <composeScsAttribute xmi:id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:UCS_TYPE:COMPUTEDVALUE"
                   name="computedValue" id=":R:A:CLASSES:SCADAGEN:INPUT_VAR:SOURCE:UCS_TYPE:COMPUTEDVALUE"
                   label="Computed Value" description="ComputedValue for UCS" attributesGroupInHMI=""
@@ -8942,6 +8946,356 @@
               </composeScsExportTarget>
             </composeScsAttribute>
             <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_dHnLoD1wEee-i5e5pTvumg"
+                CEmode="1"/>
+          </composeScsClass>
+        </composeScsClassPackage>
+        <composeScsClassPackage xmi:id="_ck9kofbHEeeJqau34t3pjg" name="AVA" id="_ck9kofbHEeeJqau34t3pjg">
+          <composeScsClass xmi:id="_9hlOUPbVEeeJqau34t3pjg" name="RULE" id="_9hlOUPbVEeeJqau34t3pjg"
+              trigram="AVA" referenceSuperClass="#:R:A:CLASSES:SCS_UMCD:SCSOBJET #_t6xi8LwVEeOUw46ciuX3Og">
+            <composeScsAttribute xmi:id="_IP1ugPbbEeeJqau34t3pjg" name="enable" id="_IP1ugPbbEeeJqau34t3pjg"
+                label="enable" presentInCtrlPanel="true" triggeringOfCalculator="startElement"
+                defaultValue="1" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_VM-TUPbbEeeJqau34t3pjg">
+                <composeScsAttributeHistorianTarget xmi:id="_WCiCUPbbEeeJqau34t3pjg"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_hpgsgPbbEeeJqau34t3pjg" name="condition1"
+                id="_hpgsgPbbEeeJqau34t3pjg" label="condition1" description="0 = condition not active; 1 = condition active. complusory if RULE is set"
+                presentInCtrlPanel="true" triggeringOfCalculator="startElement" defaultValue="0"
+                referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_mXh60PbbEeeJqau34t3pjg">
+                <composeScsAttributeCETarget xmi:id="_5k_OMPbbEeeJqau34t3pjg" ceEvaluationOrder="1"/>
+                <composeScsAttributeHistorianTarget xmi:id="_nB7isPbbEeeJqau34t3pjg"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_n2AD8PbbEeeJqau34t3pjg" name="condition2"
+                id="_n2AD8PbbEeeJqau34t3pjg" label="condition2" description="0 = condition not active; 1 = condition active. Optional if RULE is set for condition 2~8"
+                presentInCtrlPanel="true" triggeringOfCalculator="startElement" defaultValue="1"
+                referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_vcyPIPbbEeeJqau34t3pjg">
+                <composeScsAttributeCETarget xmi:id="_6Vp2IPbbEeeJqau34t3pjg" ceEvaluationOrder="2"/>
+                <composeScsAttributeHistorianTarget xmi:id="_wEgWcPbbEeeJqau34t3pjg"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_yTxqYPbbEeeJqau34t3pjg" name="condition3"
+                id="_yTxqYPbbEeeJqau34t3pjg" label="condition3" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" defaultValue="1" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_7IYTkPbbEeeJqau34t3pjg">
+                <composeScsAttributeCETarget xmi:id="_72DR4PbbEeeJqau34t3pjg" ceEvaluationOrder="3"/>
+                <composeScsAttributeHistorianTarget xmi:id="_KinuEPs8EeeKh4OSVdgAoA"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_9KtXsPbbEeeJqau34t3pjg" name="condition4"
+                id="_9KtXsPbbEeeJqau34t3pjg" label="condition4" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" defaultValue="1" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="__8ydwPbbEeeJqau34t3pjg">
+                <composeScsAttributeCETarget xmi:id="_AeuGIPbcEeeJqau34t3pjg" ceEvaluationOrder="4"/>
+                <composeScsAttributeHistorianTarget xmi:id="_AyzfwPbcEeeJqau34t3pjg"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_EMweIPbcEeeJqau34t3pjg" name="condition5"
+                id="_EMweIPbcEeeJqau34t3pjg" label="condition5" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" defaultValue="1" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_IutmYPbcEeeJqau34t3pjg">
+                <composeScsAttributeCETarget xmi:id="_KRNT4PbcEeeJqau34t3pjg" ceEvaluationOrder="5"/>
+                <composeScsAttributeHistorianTarget xmi:id="_J9REMPbcEeeJqau34t3pjg"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_LtdPcPbcEeeJqau34t3pjg" name="condition6"
+                id="_LtdPcPbcEeeJqau34t3pjg" label="condition6" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" defaultValue="1" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_O_XsIPbcEeeJqau34t3pjg">
+                <composeScsAttributeCETarget xmi:id="_PwUn8PbcEeeJqau34t3pjg" ceEvaluationOrder="6"/>
+                <composeScsAttributeHistorianTarget xmi:id="_PdH_IPbcEeeJqau34t3pjg"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_SkDT0PbcEeeJqau34t3pjg" name="condition7"
+                id="_SkDT0PbcEeeJqau34t3pjg" label="condition7" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" defaultValue="1" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_by0wgPbcEeeJqau34t3pjg">
+                <composeScsAttributeCETarget xmi:id="_cNdeEPbcEeeJqau34t3pjg" ceEvaluationOrder="7"/>
+                <composeScsAttributeHistorianTarget xmi:id="_cf548PbcEeeJqau34t3pjg"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_diG80PbcEeeJqau34t3pjg" name="condition8"
+                id="_diG80PbcEeeJqau34t3pjg" label="condition8" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" defaultValue="1" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_f4iBoPbcEeeJqau34t3pjg">
+                <composeScsAttributeCETarget xmi:id="_gXB7gPbcEeeJqau34t3pjg" ceEvaluationOrder="8"/>
+                <composeScsAttributeHistorianTarget xmi:id="_gxEMIPbcEeeJqau34t3pjg"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_issLUPbcEeeJqau34t3pjg" name="conditionGL"
+                id="_issLUPbcEeeJqau34t3pjg" label="conditionGL" description="0 = condition not active; 1 = condition active"
+                calculated="true" triggeringOfCalculator="endElement" defaultValue="0"
+                referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_xdRqwPbcEeeJqau34t3pjg">
+                <composeScsAttributeCETarget xmi:id="_yJTqUPbcEeeJqau34t3pjg" ceEvaluationOrder="20"/>
+                <composeScsAttributeHistorianTarget xmi:id="_ymLMgPbcEeeJqau34t3pjg"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_zSNMEPbcEeeJqau34t3pjg" name="index" id="_zSNMEPbcEeeJqau34t3pjg"
+                label="index" presentInCtrlPanel="true" triggeringOfCalculator="startElement"
+                referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_323DAPbcEeeJqau34t3pjg">
+                <composeScsAttributeHistorianTarget xmi:id="_5HVzcPbcEeeJqau34t3pjg"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_9KW88PbcEeeJqau34t3pjg" name="label" id="_9KW88PbcEeeJqau34t3pjg"
+                label="label" presentInCtrlPanel="true" triggeringOfCalculator="startElement"
+                stringLength="128" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_5VS6cfbdEeeovphiKiJmTw">
+                <composeScsAttributeHistorianTarget xmi:id="_6BlYsPbdEeeovphiKiJmTw"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_4DqpUPdzEeeBRJsBJauVLQ"
+                CEmode="1"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_lipZ4PbeEeeBRJsBJauVLQ" name="RULESYNTH" id="_lipZ4PbeEeeBRJsBJauVLQ"
+              trigram="AVA" referenceSuperClass="#:R:A:CLASSES:SCS_UMCD:SCSOBJET #_t6xi8LwVEeOUw46ciuX3Og">
+            <composeScsAttribute xmi:id="_uccsIPbeEeeBRJsBJauVLQ" name="condmask"
+                id="_uccsIPbeEeeBRJsBJauVLQ" label="condmask" description="Conditions Mask"
+                presentInCtrlPanel="true" triggeringOfCalculator="endElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_6fiqkPbeEeeBRJsBJauVLQ">
+                <composeScsAttributeCETarget xmi:id="_7qrA8PbeEeeBRJsBJauVLQ" ceEvaluationOrder="20"/>
+                <composeScsAttributeHistorianTarget xmi:id="_7SkqAPbeEeeBRJsBJauVLQ"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_3NUr4PbeEeeBRJsBJauVLQ" name="label" id="_3NUr4PbeEeeBRJsBJauVLQ"
+                label="label" presentInCtrlPanel="true" triggeringOfCalculator="startElement"
+                stringLength="128" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_8XdOcPbeEeeBRJsBJauVLQ">
+                <composeScsAttributeHistorianTarget xmi:id="_9E1R0PbeEeeBRJsBJauVLQ"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_gyxAYPm9EeeBRJsBJauVLQ" name="ce_calc1"
+                id="_gyxAYPm9EeeBRJsBJauVLQ" label="ce_calc1" description="tmp result"
+                presentInCtrlPanel="true" triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_oZQQoPm9EeeBRJsBJauVLQ">
+                <composeScsAttributeCETarget xmi:id="_rH6PQPm9EeeBRJsBJauVLQ"/>
+                <composeScsAttributeHistorianTarget xmi:id="_qzh6sPm9EeeBRJsBJauVLQ"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_tWb8UPm9EeeBRJsBJauVLQ" name="ce_calc2"
+                id="_tWb8UPm9EeeBRJsBJauVLQ" label="ce_calc2" description="tmp result"
+                presentInCtrlPanel="true" triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_yDQ30Pm9EeeBRJsBJauVLQ">
+                <composeScsAttributeCETarget xmi:id="_zCC0QPm9EeeBRJsBJauVLQ"/>
+                <composeScsAttributeHistorianTarget xmi:id="_ynQ8wPm9EeeBRJsBJauVLQ"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_0EGHIPm9EeeBRJsBJauVLQ" name="ce_calc3"
+                id="_0EGHIPm9EeeBRJsBJauVLQ" label="ce_calc3" description="tmp result"
+                presentInCtrlPanel="true" triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_3Qz6wPm9EeeBRJsBJauVLQ">
+                <composeScsAttributeCETarget xmi:id="_4HQakPm9EeeBRJsBJauVLQ"/>
+                <composeScsAttributeHistorianTarget xmi:id="_30XTwPm9EeeBRJsBJauVLQ"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_4_fqIPm9EeeBRJsBJauVLQ" name="ce_calc4"
+                id="_4_fqIPm9EeeBRJsBJauVLQ" label="ce_calc4" description="tmp result"
+                presentInCtrlPanel="true" triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_CjZpUPm-EeeBRJsBJauVLQ">
+                <composeScsAttributeCETarget xmi:id="_Dq9uUPm-EeeBRJsBJauVLQ"/>
+                <composeScsAttributeHistorianTarget xmi:id="_DWlZwPm-EeeBRJsBJauVLQ"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_mRgI0PqgEees8OzwC7I80w" name="ce_calc5"
+                id="_mRgI0PqgEees8OzwC7I80w" label="ce_calc5" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_osYP0PqgEees8OzwC7I80w">
+                <composeScsAttributeCETarget xmi:id="_phMX8PqgEees8OzwC7I80w"/>
+                <composeScsAttributeHistorianTarget xmi:id="_pNQIQPqgEees8OzwC7I80w"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_qruRYPqgEees8OzwC7I80w" name="ce_calc6"
+                id="_qruRYPqgEees8OzwC7I80w" label="ce_calc6" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_uALEsPqgEees8OzwC7I80w">
+                <composeScsAttributeCETarget xmi:id="_vATE8PqgEees8OzwC7I80w"/>
+                <composeScsAttributeHistorianTarget xmi:id="_usNrUPqgEees8OzwC7I80w"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_vmrvgPqgEees8OzwC7I80w" name="ce_calc7"
+                id="_vmrvgPqgEees8OzwC7I80w" label="ce_calc7" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_x2_lQPqgEees8OzwC7I80w">
+                <composeScsAttributeCETarget xmi:id="_yUJbUPqgEees8OzwC7I80w"/>
+                <composeScsAttributeHistorianTarget xmi:id="_yqBksPqgEees8OzwC7I80w"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_z15h8PqgEees8OzwC7I80w" name="ce_calc8"
+                id="_z15h8PqgEees8OzwC7I80w" label="ce_calc8" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_3ZN3sPqgEees8OzwC7I80w">
+                <composeScsAttributeCETarget xmi:id="_38VL0PqgEees8OzwC7I80w"/>
+                <composeScsAttributeHistorianTarget xmi:id="_4RwCMPqgEees8OzwC7I80w"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_2k5lQPdzEeeBRJsBJauVLQ"
+                CEmode="1"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_Ah51oPbfEeeBRJsBJauVLQ" name="AVASUPPRESSION"
+              id="_Ah51oPbfEeeBRJsBJauVLQ" trigram="AVA" referenceSuperClass="#:R:A:CLASSES:SCS_UMCD:SCSOBJET #_t6xi8LwVEeOUw46ciuX3Og">
+            <composeScsVector xmi:id="_yHZecPbfEeeBRJsBJauVLQ" name="level" id="_yHZecPbfEeeBRJsBJauVLQ"
+                label="level" presentInCtrlPanel="true" triggeringOfCalculator="startElement"
+                vectorLength="32">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_4AYrEPbfEeeBRJsBJauVLQ">
+                <composeScsAttributeHistorianTarget xmi:id="_JW1ZgPbgEeeBRJsBJauVLQ"/>
+              </composeScsExportTarget>
+              <composeVectorElement xmi:type="scsmodel:ScsVectorElement" xmi:id="_49-7wPbfEeeBRJsBJauVLQ"
+                  name="level" id="_49-7wPbfEeeBRJsBJauVLQ" stringLength="32" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT"/>
+            </composeScsVector>
+            <composeScsAttribute xmi:id="_KyeREPbgEeeBRJsBJauVLQ" name="computedvalue"
+                id="_KyeREPbgEeeBRJsBJauVLQ" label="computedvalue" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_NjN6YPbgEeeBRJsBJauVLQ">
+                <composeScsAttributeCETarget xmi:id="_PSNLwPbgEeeBRJsBJauVLQ" ceEvaluationOrder="20"/>
+                <composeScsAttributeHistorianTarget xmi:id="_PqJxsPbgEeeBRJsBJauVLQ"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_aOxnAPbgEeeBRJsBJauVLQ" name="suppressionlevel"
+                id="_aOxnAPbgEeeBRJsBJauVLQ" label="suppressionlevel" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_tuXMMPbgEeeBRJsBJauVLQ">
+                <composeScsAttributeCETarget xmi:id="_vI9xkPhXEeeBRJsBJauVLQ"/>
+                <composeScsAttributeHistorianTarget xmi:id="_urzr4PbgEeeBRJsBJauVLQ"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_3I0tEPplEees8OzwC7I80w" name="condmask"
+                id="_3I0tEPplEees8OzwC7I80w" label="condmask" description="Conditions Mask"
+                presentInCtrlPanel="true" triggeringOfCalculator="endElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_UFge0PpmEees8OzwC7I80w">
+                <composeScsAttributeCETarget xmi:id="_UkI7kPpmEees8OzwC7I80w"/>
+                <composeScsAttributeHistorianTarget xmi:id="_VQlK0PpmEees8OzwC7I80w"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_-VGWoPqeEees8OzwC7I80w" name="ce_calc1"
+                id="_-VGWoPqeEees8OzwC7I80w" label="ce_calc1" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_CYHgIPqfEees8OzwC7I80w">
+                <composeScsAttributeCETarget xmi:id="_DRFvgPqfEees8OzwC7I80w"/>
+                <composeScsAttributeHistorianTarget xmi:id="_C6B6YPqfEees8OzwC7I80w"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_G-FlsPqfEees8OzwC7I80w" name="ce_calc2"
+                id="_G-FlsPqfEees8OzwC7I80w" label="ce_calc2" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_JaAOgPqfEees8OzwC7I80w">
+                <composeScsAttributeCETarget xmi:id="_tLlJwPrGEees8OzwC7I80w"/>
+                <composeScsAttributeHistorianTarget xmi:id="_teKHgPrGEees8OzwC7I80w"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_VVqIMPqfEees8OzwC7I80w" name="ce_calc3"
+                id="_VVqIMPqfEees8OzwC7I80w" label="ce_calc3" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_ZiyP8PqfEees8OzwC7I80w">
+                <composeScsAttributeCETarget xmi:id="_aBI_4PqfEees8OzwC7I80w"/>
+                <composeScsAttributeHistorianTarget xmi:id="_aWQ7UPqfEees8OzwC7I80w"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_a9_CoPqfEees8OzwC7I80w" name="ce_calc4"
+                id="_a9_CoPqfEees8OzwC7I80w" label="ce_calc4" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_dqtuoPqfEees8OzwC7I80w">
+                <composeScsAttributeCETarget xmi:id="_eOH9sPqfEees8OzwC7I80w"/>
+                <composeScsAttributeHistorianTarget xmi:id="_ekcL8PqfEees8OzwC7I80w"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_6mFcUPqgEees8OzwC7I80w" name="ce_calc5"
+                id="_6mFcUPqgEees8OzwC7I80w" label="ce_calc5" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_9r9BEPqgEees8OzwC7I80w">
+                <composeScsAttributeCETarget xmi:id="_-PDuIPqgEees8OzwC7I80w"/>
+                <composeScsAttributeHistorianTarget xmi:id="_-hW_EPqgEees8OzwC7I80w"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="__xGvsPqgEees8OzwC7I80w" name="ce_calc6"
+                id="__xGvsPqgEees8OzwC7I80w" label="ce_calc6" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_DbIKYPqhEees8OzwC7I80w">
+                <composeScsAttributeCETarget xmi:id="_EQ1DUPqhEees8OzwC7I80w"/>
+                <composeScsAttributeHistorianTarget xmi:id="_EAwnAPqhEees8OzwC7I80w"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_E1blMPqhEees8OzwC7I80w" name="ce_calc7"
+                id="_E1blMPqhEees8OzwC7I80w" label="ce_calc7" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_HmnTYPqhEees8OzwC7I80w">
+                <composeScsAttributeCETarget xmi:id="_IY5r8PqhEees8OzwC7I80w"/>
+                <composeScsAttributeHistorianTarget xmi:id="_It4dcPqhEees8OzwC7I80w"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_JbGv0PqhEees8OzwC7I80w" name="ce_calc8"
+                id="_JbGv0PqhEees8OzwC7I80w" label="ce_calc8" presentInCtrlPanel="true"
+                triggeringOfCalculator="startElement" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_MRgVMPqhEees8OzwC7I80w">
+                <composeScsAttributeCETarget xmi:id="_NIjR8PqhEees8OzwC7I80w"/>
+                <composeScsAttributeHistorianTarget xmi:id="_MzRlgPqhEees8OzwC7I80w"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_4lvboPdzEeeBRJsBJauVLQ"
+                CEmode="1"/>
+          </composeScsClass>
+        </composeScsClassPackage>
+        <composeScsClassPackage xmi:id="_aG8lkPqiEees8OzwC7I80w" name="STRUCTURE"
+            id="_aG8lkPqiEees8OzwC7I80w">
+          <composeScsClass xmi:id="_cuw8YPqiEees8OzwC7I80w" name="Scadagen" id="_cuw8YPqiEees8OzwC7I80w"
+              trigram="TRI" referenceSuperClass="#:R:A:CLASSES:SCS_UMCD:SCSOBJET #_t6xi8LwVEeOUw46ciuX3Og">
+            <composeScsComposition xmi:id="_lxrbcPqvEees8OzwC7I80w" name="SCADAgenNode"
+                id="_lxrbcPqvEees8OzwC7I80w" referenceScsClass="#_2hEnYPqjEees8OzwC7I80w"/>
+            <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_uMpvkPqiEees8OzwC7I80w"
+                CEmode="1"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_2hEnYPqjEees8OzwC7I80w" name="ScadagenNode" id="_2hEnYPqjEees8OzwC7I80w"
+              trigram="TRI" referenceSuperClass="#:R:A:CLASSES:EQPT_TYPE #:R:A:CLASSES:SCADAGEN:EQPT:EQPT_GEN">
+            <composeScsComposition xmi:id="_lTcBQPqkEees8OzwC7I80w" name="RULE" id="_lTcBQPqkEees8OzwC7I80w"
+                maxCardinality="32" referenceScsClass="#_9hlOUPbVEeeJqau34t3pjg"/>
+            <composeScsComposition xmi:id="_o6VPcPqkEees8OzwC7I80w" name="RULESYNTH"
+                id="_o6VPcPqkEees8OzwC7I80w" maxCardinality="1" minCardinality="0"
+                referenceScsClass="#_lipZ4PbeEeeBRJsBJauVLQ"/>
+            <composeScsComposition xmi:id="_tMhdYPqkEees8OzwC7I80w" name="AVASUPPRESSION"
+                id="_tMhdYPqkEees8OzwC7I80w" maxCardinality="1" referenceScsClass="#_Ah51oPbfEeeBRJsBJauVLQ"/>
+            <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_jbFYgPqkEees8OzwC7I80w"
+                CEmode="1"/>
+          </composeScsClass>
+        </composeScsClassPackage>
+        <composeScsClassPackage xmi:id="_N14IcfWzEee7wPIgSoNcnA" name="NormalState"
+            id="_N14IcfWzEee7wPIgSoNcnA">
+          <composeScsClass xmi:id="_-Kle0PWzEee7wPIgSoNcnA" name="NormalState" id="_-Kle0PWzEee7wPIgSoNcnA"
+              trigram="NST" referenceSuperClass="#:R:A:CLASSES:SCS_UMCD:SCSOBJET #_t6xi8LwVEeOUw46ciuX3Og">
+            <composeScsAttribute xmi:id="_IahdkPW0Eee7wPIgSoNcnA" name="label" id="_IahdkPW0Eee7wPIgSoNcnA"
+                label="label" description="User to fill free text to describe the Norm State."
+                presentInCtrlPanel="true" changeableByRTOperator="true" stringLength="36"
+                referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_OjSLkPW0Eee7wPIgSoNcnA">
+                <composeScsAttributeHistorianTarget xmi:id="_QZ3SsPW0Eee7wPIgSoNcnA"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_loKccPW0Eee7wPIgSoNcnA" name="value" id="_loKccPW0Eee7wPIgSoNcnA"
+                label="value" description="only values in value table shall be allowed"
+                presentInCtrlPanel="true" changeableByRTOperator="true" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT"
+                supervisedAttribute="true">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_EeFnwPW1Eee7wPIgSoNcnA">
+                <composeScsAttributeHistorianTarget xmi:id="_FA5Z4PW1Eee7wPIgSoNcnA"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_qY_uMPW0Eee7wPIgSoNcnA" name="enable" id="_qY_uMPW0Eee7wPIgSoNcnA"
+                label="enable" description="&#x201c;1&#x201d; means valid &#x201c;NormalValue&#x201d; is filled otherwise it is &#x201c;0&#x201d;"
+                presentInCtrlPanel="true" changeableByRTOperator="true" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:INT">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_EDTwQPW1Eee7wPIgSoNcnA">
+                <composeScsAttributeHistorianTarget xmi:id="_FiOlUPW1Eee7wPIgSoNcnA"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsAttribute xmi:id="_51e04PW1Eee7wPIgSoNcnA" name="valueLabel"
+                id="_51e04PW1Eee7wPIgSoNcnA" label="valueLabel" description="The bit label of the corresponding NormalValue"
+                calculated="true" calculatorPass="4" stringLength="36" referenceScsDomain="#:R:A:DOMAINES:DATATYPE:STRING">
+              <composeScsExportTarget xmi:type="scsmodel:ScsAttributeRTDBTarget" xmi:id="_BK3HAPW2Eee7wPIgSoNcnA">
+                <composeScsAttributeCETarget xmi:id="_Bx1ncPW2Eee7wPIgSoNcnA" ceEvaluationOrder="1"/>
+                <composeScsAttributeHistorianTarget xmi:id="_Kn50kPppEee7wPIgSoNcnA"/>
+              </composeScsExportTarget>
+            </composeScsAttribute>
+            <composeScsExportTarget xmi:type="scsmodel:ScsClassRTDBTarget" xmi:id="_EFW0IPW0Eee7wPIgSoNcnA"
                 CEmode="1"/>
           </composeScsClass>
         </composeScsClassPackage>

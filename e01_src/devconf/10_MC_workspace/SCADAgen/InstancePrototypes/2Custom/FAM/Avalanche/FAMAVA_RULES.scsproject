@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="5">
+  <ownedPrototype>
+    <ownedAttributes frozen="true" name="scstype" partialUri="ScadagenNode_FASAVAP_u3lEIPwcEeepU6y6bM31UA_1516258599266"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_3-PGoPwcEeepU6y6bM31UA_1516258660362"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0001_9svhkPwcEeepU6y6bM31UA_1516258698793"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0001__N3WEPwcEeepU6y6bM31UA_1516258708977"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0003_C9nlUPwdEeepU6y6bM31UA_1516258734118"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0003_DNOHkPwdEeepU6y6bM31UA_1516258735753"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0003_DX01EPwdEeepU6y6bM31UA_1516258736865"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0003_DeFOEPwdEeepU6y6bM31UA_1516258737521"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0003_DkQukPwdEeepU6y6bM31UA_1516258738169"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0003_Dp-VAPwdEeepU6y6bM31UA_1516258738769"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0003_DwiQAPwdEeepU6y6bM31UA_1516258739456"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0003_D9-PEPwdEeepU6y6bM31UA_1516258740865"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0011_OfAk4PwdEeepU6y6bM31UA_1516258811438"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0011_OqeOAPwdEeepU6y6bM31UA_1516258812640"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0011_OxmwwPwdEeepU6y6bM31UA_1516258813388"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0011_O5MmgPwdEeepU6y6bM31UA_1516258814184"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0011_PAe6QPwdEeepU6y6bM31UA_1516258814948"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0011_PHoEEPwdEeepU6y6bM31UA_1516258815697"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0011_POxN4PwdEeepU6y6bM31UA_1516258816446"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0011_WqQIAPwdEeepU6y6bM31UA_1516258866304"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0011_Wx_HsPwdEeepU6y6bM31UA_1516258867115"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0020_aaqekPwdEeepU6y6bM31UA_1516258891513"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0020_af3usPwdEeepU6y6bM31UA_1516258892059"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0020_attWYPwdEeepU6y6bM31UA_1516258893510"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0020_az9IUPwdEeepU6y6bM31UA_1516258894165"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0020_a69IMPwdEeepU6y6bM31UA_1516258894899"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0020_bB8hAPwdEeepU6y6bM31UA_1516258895632"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0020_bIfN4PwdEeepU6y6bM31UA_1516258896318"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0020_bPemsPwdEeepU6y6bM31UA_1516258897051"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0020_bV4JoPwdEeepU6y6bM31UA_1516258897722"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0029_l9eacPwdEeepU6y6bM31UA_1516258968983"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0029_mOIsoPwdEeepU6y6bM31UA_1516258970730"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0030_pgzXQPwdEeepU6y6bM31UA_1516258992820"/>
+    <ownedAttributes frozen="true" name="index" partialUri="RULE_RULE0030_po_C4PwdEeepU6y6bM31UA_1516258993678"/>
+    <ownedAttributes frozen="true" formula="[.ce_calc1]+[.ce_calc2]+[.ce_calc3]+[.ce_calc4]" name="condmask" partialUri="RULESYNTH_uU6mgPwdEeepU6y6bM31UA_1516259025128"/>
+    <ownedAttributes frozen="true" formula="BITLSHIFT( [^:RULE0001.conditionGL], [^:RULE0001.index])+BITLSHIFT( [^:RULE0002.conditionGL], [^:RULE0002.index])+BITLSHIFT( [^:RULE0003.conditionGL], [^:RULE0003.index])+BITLSHIFT( [^:RULE0004.conditionGL], [^:RULE0004.index])+BITLSHIFT( [^:RULE0005.conditionGL], [^:RULE0005.index])+BITLSHIFT( [^:RULE0006.conditionGL], [^:RULE0006.index])+BITLSHIFT( [^:RULE0007.conditionGL], [^:RULE0007.index])+BITLSHIFT( [^:RULE0008.conditionGL], [^:RULE0008.index])" name="ce_calc1" partialUri="RULESYNTH_uU6mgPwdEeepU6y6bM31UA_1516259025128"/>
+    <ownedAttributes frozen="true" formula="BITLSHIFT( [^:RULE0009.conditionGL], [^:RULE0009.index])+BITLSHIFT( [^:RULE0010.conditionGL], [^:RULE0010.index])+BITLSHIFT( [^:RULE0011.conditionGL], [^:RULE0011.index])+BITLSHIFT( [^:RULE0012.conditionGL], [^:RULE0012.index])+BITLSHIFT( [^:RULE0013.conditionGL], [^:RULE0013.index])+BITLSHIFT( [^:RULE0014.conditionGL], [^:RULE0014.index])+BITLSHIFT( [^:RULE0015.conditionGL], [^:RULE0015.index])+BITLSHIFT( [^:RULE0016.conditionGL], [^:RULE0016.index])" name="ce_calc2" partialUri="RULESYNTH_uU6mgPwdEeepU6y6bM31UA_1516259025128"/>
+    <ownedAttributes frozen="true" formula="BITLSHIFT( [^:RULE0017.conditionGL], [^:RULE0017.index])+BITLSHIFT( [^:RULE0018.conditionGL], [^:RULE0018.index])+BITLSHIFT( [^:RULE0019.conditionGL], [^:RULE0019.index])+BITLSHIFT( [^:RULE0020.conditionGL], [^:RULE0020.index])+BITLSHIFT( [^:RULE0021.conditionGL], [^:RULE0021.index])+BITLSHIFT( [^:RULE0022.conditionGL], [^:RULE0022.index])+BITLSHIFT( [^:RULE0023.conditionGL], [^:RULE0023.index])+BITLSHIFT( [^:RULE0024.conditionGL], [^:RULE0024.index])" name="ce_calc3" partialUri="RULESYNTH_uU6mgPwdEeepU6y6bM31UA_1516259025128"/>
+    <ownedAttributes frozen="true" formula="BITLSHIFT( [^:RULE0025.conditionGL], [^:RULE0025.index])+BITLSHIFT( [^:RULE0026.conditionGL], [^:RULE0026.index])+BITLSHIFT( [^:RULE0027.conditionGL], [^:RULE0027.index])+BITLSHIFT( [^:RULE0028.conditionGL], [^:RULE0028.index])+BITLSHIFT( [^:RULE0029.conditionGL], [^:RULE0029.index])+BITLSHIFT( [^:RULE0030.conditionGL], [^:RULE0030.index])+BITLSHIFT( [^:RULE0031.conditionGL], [^:RULE0031.index])+ BITLSHIFT( [^:RULE0032.conditionGL], [^:RULE0032.index])" name="ce_calc4" partialUri="RULESYNTH_uU6mgPwdEeepU6y6bM31UA_1516259025128"/>
+  </ownedPrototype>
+</scsproject:Project>

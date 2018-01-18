@@ -102,7 +102,7 @@ basic_EQPT_attr=['ID','shortLabel','type','hdvFlag','resrvTimeout']
 VE_attr=['ID','functTrans','deadband']
 	
 dci_type_attr=['ID', 'label', 'hmiOrder', 'userField1', 'Archive', 'reportType','computedMessage','timestampSelection']
-aci_type_attr=['ID', 'label', 'hmiOrder', 'unit', 'Archive', 'reportType','computedMessage']
+aci_type_attr=['ID', 'label', 'hmiOrder', 'unit', 'Archive', 'reportType','computedMessage','NumDec']
 sci_type_attr=['ID', 'label', 'hmiOrder']
 dio_type_attr=['ID', 'label', 'hmiOrder', 'nature']
 aio_type_attr=['ID', 'label', 'hmiOrder', 'unit', 'initCond1', 'initCond2', 'initCond3', 'initCond4', 'initCond5', 'returnCond1', 'returnCondTO']

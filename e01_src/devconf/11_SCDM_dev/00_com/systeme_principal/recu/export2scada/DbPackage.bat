@@ -23,16 +23,18 @@ if exist %loc_locale%\alm_cn.po (
 mkdir %rep_dest%\%PKGNAME% >> %PACKAGE_LOG%
 mkdir %rep_dest%\%HV_PKGNAME% >> %PACKAGE_LOG%
 
+cd /d %rep_dest% >> %PACKAGE_LOG%
+
 for /f %%i in ('dir /ad /b %rep_dest%\Database\xml_*') do (
 	for /f "tokens=2* delims=_" %%e in ('echo %%i') do (
 		rem e.g. xml+SCADASUBSYSTEM name = "xml_OCCENVCONN", %%e will be OCCENVCONN
 		echo Environment Name: %%e  >> %PACKAGE_LOG%
-		SETLOCAL EnableDelayedExpansion
-		set ENVNAME=%%e
-		set /a SUFFIX=!ENVNAME:~3,10!
-		ENDLOCAL
+		rem SETLOCAL EnableDelayedExpansion
+		rem set ENVNAME=%%e
+		rem set SUFFIX=!ENVNAME:~3,10!
+		rem ENDLOCAL
+		rem echo SUFFIX %SUFFIX% >> %PACKAGE_LOG%
 		
-		echo SUFFIX %SUFFIX% >> %PACKAGE_LOG%
 		mkdir %rep_dest%\%PKGNAME%\%%e >> %PACKAGE_LOG%
 		::====Database
 		echo ########################### >> %PACKAGE_LOG%
@@ -61,26 +63,47 @@ for /f %%i in ('dir /ad /b %rep_dest%\Database\xml_*') do (
 				echo Evariable Filename = %%d  >> %PACKAGE_LOG%
 				:: If line number < 31, empty EV file -> get the EV file from corresponding station
 				if !tempfilelen! lss 31 (
-					:: Get the station name from the EV filename
-					for /f "tokens=1 delims=_" %%g in ('echo %%d') do (
-						echo filelen lss 31 >> %PACKAGE_LOG%
-						echo Copying %rep_dest%\dac_%%g%SUFFIX%\%%d to %rep_dest%\%PKGNAME%\%%e\dac\ >> %PACKAGE_LOG%
-						xcopy /c /y %rep_dest%\dac_%%g%SUFFIX%\%%d %rep_dest%\%PKGNAME%\%%e\dac\ >> %PACKAGE_LOG%
+					:: Get all EV filepath with name %%d, as %%d is empty EVfile, 
+					:: copy the one to the package if the file size is greater than the empty one
+					rem dir >> %PACKAGE_LOG%
+					for /R %%f in (%%d) do (
+						if exist %%f (
+						if exist %rep_dest%\dac_%%e\%%d (
+							cd /d %rep_dest%\dac_%%e	>> %PACKAGE_LOG%
+							:: Compare the filesize, overwrite if greater
+							if "" neq %%~zd (
+							if %%~zf gtr %%~zd (
+								echo %%f is greater than %%d >> %PACKAGE_LOG%
+								:: Check if the source folder is not the packaging folder
+								echo %%f | findstr /C:"\\dac\\">nul && (
+									echo %%f is package path, ignoring this file >> %PACKAGE_LOG%
+								) || (
+									echo Copying %%f to %rep_dest%\%PKGNAME%\%%e\dac\ >> %PACKAGE_LOG%
+									xcopy /c /y %%f %rep_dest%\%PKGNAME%\%%e\dac\ >> %PACKAGE_LOG%
+								)
+							)
+							)
+							
+						)
+						)
 					)
-				) 
-				:: If line number > 31, non-empty EV file -> get the EV file from its environment
+				)
+				:: If line number >= 31, non-empty EV file -> get the EV file from its environment
 				if !tempfilelen! gtr 30 (
 					echo Copying %rep_dest%\dac_%%e\%%d to %rep_dest%\%PKGNAME%\%%e\dac\ >> %PACKAGE_LOG%
 					xcopy /c /y %rep_dest%\dac_%%e\%%d %rep_dest%\%PKGNAME%\%%e\dac\ >> %PACKAGE_LOG%
 				)
+				
 				ENDLOCAL
 			)
 		)
 		) else (
 			echo ##Folder %rep_dest%\dac_%%e not exist! >> %PACKAGE_LOG%
 		)
-		if exist %rep_dest%\dac_%%e\%%e\ScsDacCtrt.cfg (
-			xcopy /c /y %rep_dest%\dac_%%e\%%e\ScsDacCtrt.cfg %rep_dest%\%PKGNAME%\%%e\dac\ >> %PACKAGE_LOG%
+		if exist %rep_dest%\dac_%%e\%%e (
+			if exist %rep_dest%\dac_%%e\%%e\ScsDacCtrt.cfg (
+				xcopy /c /y %rep_dest%\dac_%%e\%%e\ScsDacCtrt.cfg %rep_dest%\%PKGNAME%\%%e\dac\ >> %PACKAGE_LOG%
+			)
 		) else (
 			echo ##File %rep_dest%\dac_%%e\%%e\ScsDacCtrt.cfg not found! >> %PACKAGE_LOG%
 		)
@@ -95,13 +118,15 @@ for /f %%i in ('dir /ad /b %rep_dest%\Database\xml_*') do (
 		echo Start copy Archive >> %PACKAGE_LOG%
 		echo ########################### >> %PACKAGE_LOG%
 		mkdir %rep_dest%\%PKGNAME%\%%e\Archives >> %PACKAGE_LOG%
-		for /f %%b in ('findstr /m DbAddress %rep_dest%\Archives\DB_%%e\*.cfg 2^>nul:') do (
-			mkdir %rep_dest%\%PKGNAME%\%%e\Archives\%%~nb >> %PACKAGE_LOG%
-			echo Copying %%b to %rep_dest%\%PKGNAME%\%%e\Archives\%%~nb\ >> %PACKAGE_LOG%
-			xcopy /C /Y %%b %rep_dest%\%PKGNAME%\%%e\Archives\%%~nb\ >> %PACKAGE_LOG%
+		if exist %rep_dest%\Archives\%%e (
+			for /f %%b in ('findstr /m DbAddress %rep_dest%\Archives\%%e\*.cfg 2^>nul:') do (
+				mkdir %rep_dest%\%PKGNAME%\%%e\Archives\%%~nb >> %PACKAGE_LOG%
+				echo Copying %%b to %rep_dest%\%PKGNAME%\%%e\Archives\%%~nb\ >> %PACKAGE_LOG%
+				xcopy /C /Y %%b %rep_dest%\%PKGNAME%\%%e\Archives\%%~nb\ >> %PACKAGE_LOG%
+			)		
+			echo Archive moved >> %PACKAGE_LOG%
+			echo ########################### >> %PACKAGE_LOG%
 		)
-		echo Archive moved >> %PACKAGE_LOG%
-		echo ########################### >> %PACKAGE_LOG%
 		::====Archive_CSVs
 		echo Start copy Archive_csv >> %PACKAGE_LOG%
 		echo ########################### >> %PACKAGE_LOG%
@@ -117,16 +142,18 @@ for /f %%i in ('dir /ad /b %rep_dest%\Database\xml_*') do (
 		echo Start copy HV2SCS >> %PACKAGE_LOG%
 		echo ########################### >> %PACKAGE_LOG%
 		mkdir %rep_dest%\%HV_PKGNAME%\hvscs\%%e >> %PACKAGE_LOG%
+		if exist %rep_dest%\hvscs\%%e (
 		if exist %rep_dest%\hvscs\%%e\*.xml (
 			echo Copying %rep_dest%\hvscs\%%e\*.xml to %rep_dest%\%HV_PKGNAME%\%%e\hvscs\ >> %PACKAGE_LOG%
 			xcopy /c /y %rep_dest%\hvscs\%%e\*.xml %rep_dest%\%HV_PKGNAME%\hvscs\%%e\ >> %PACKAGE_LOG%
-		)
+		))
+		if exist %rep_dest%\Hypervisor_%%e (
 		if exist %rep_dest%\Hypervisor_%%e\systemConfiguration\instances\*.xml (
 			echo Copying %rep_dest%\Hypervisor_%%e\systemConfiguration\instances\*.xml to %rep_dest%\%HV_PKGNAME%\Hypervisor\ >> %PACKAGE_LOG%
 			xcopy /c /y %rep_dest%\Hypervisor_%%e\systemConfiguration\instances\*.xml %rep_dest%\%HV_PKGNAME%\Hypervisor\systemConfiguration\instances\  >> %PACKAGE_LOG%
 			echo Copying %rep_dest%\Hypervisor_%%e\systemConfiguration\mapping\*.xml to %rep_dest%\%HV_PKGNAME%\Hypervisor\ >> %PACKAGE_LOG%
 			xcopy /c /y %rep_dest%\Hypervisor_%%e\systemConfiguration\mapping\*.xml %rep_dest%\%HV_PKGNAME%\Hypervisor\systemConfiguration\mapping\  >> %PACKAGE_LOG%
-		)
+		))
 		if exist %rep_dest%\Hypervisor\systemConfiguration\instances\areas.xml (
 			echo Copying %rep_dest%\Hypervisor\systemConfiguration\instances\areas.xml to %rep_dest%\%HV_PKGNAME%\Hypervisor\ >> %PACKAGE_LOG%
 			xcopy /c /y %rep_dest%\Hypervisor\systemConfiguration\instances\areas.xml %rep_dest%\%HV_PKGNAME%\Hypervisor\systemConfiguration\instances\ >> %PACKAGE_LOG%

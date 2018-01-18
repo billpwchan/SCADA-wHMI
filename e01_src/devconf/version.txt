@@ -1,0 +1,6 @@
+building block name and version: SCADAgen_RTDB V0.3
+location: \\nitrogen\products\SCADAgen\4 Release\4.2 RTDB\RTDB_0.3
+
+Associated Directory:
+	.\10_MC_workspace
+	.\11_SCDM_dev

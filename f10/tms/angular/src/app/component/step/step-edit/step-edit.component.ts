@@ -52,7 +52,7 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
 
   private geoPrefix: string;
   private funcPrefix: string;
-  private envs: Array<SelOptStr>;
+  envs: Array<SelOptStr>;
 
   private delayRangeStart: number;
   private delayRangeEnd: number;
@@ -160,6 +160,9 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
     const card = this.cardService.getCard([this.selectedCardId]);
     if ( null != card ) {
       console.log(this.c, f, 'card.name', card.name);
+      if ( null == card.step ) {
+        card.steps = new Array<Step>();
+      }
       card.steps.push(step);
     } else {
       console.warn(this.c, f, 'card IS NULL');
@@ -171,8 +174,12 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f, 'addStep');
 
     const card = this.cardService.getCard(this.selectionService.getSelectedCardIds());
+    let index = 0;
+    if ( null != card.steps ) {
+      index = card.steps.length;
+    }
     const step: Step = new Step(
-      card.steps.length
+      index
       , StepType.STOPPED
       , ptSel.delay
       , true
@@ -194,25 +201,35 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
 
     if ( ! step.equipment.phases ) {
       step.equipment.phases = new Array<Array<Execution>>();
-      for ( const dacSimExecType in DacSimExecType ) {
-        if ( ! isNaN(Number(dacSimExecType) ) ) {
-          const nDacSimExecType: number = Number(DacSimExecType);
-          step.equipment.phases[nDacSimExecType] = new Array<Execution>();
-        }
+    }
+
+    for ( let i = 0 ; i < Object.keys(DacSimExecType).length ; ++i ) {
+      if ( null == step.equipment.phases[i] ) {
+        step.equipment.phases[i] = new Array<Execution>();
+      } else {
+        console.warn(this.c, f, 'dacSimExecType IS NAN');
       }
     }
 
-    step.equipment.phases[DacSimExecType.START].push(new Execution(
-      ExecType.DACSIM
-      , ptSel.evname
-      , ptSel.value
-    ));
+    if ( null != step.equipment.phases[DacSimExecType.START] ) {
+      step.equipment.phases[DacSimExecType.START].push(new Execution(
+        ExecType.DACSIM
+        , ptSel.evname
+        , ptSel.value
+      ));
+    } else {
+      console.warn(this.c, f, 'step.equipment.phases[DacSimExecType.START] IS INVALID');
+    }
 
-    step.equipment.phases[DacSimExecType.STOP].push(new Execution(
-      ExecType.DACSIM
-      , ptSel.evname
-      , ptSel.initvalue
-    ));
+    if ( null != step.equipment.phases[DacSimExecType.STOP] ) {
+      step.equipment.phases[DacSimExecType.STOP].push(new Execution(
+        ExecType.DACSIM
+        , ptSel.evname
+        , ptSel.initvalue
+      ));
+    } else {
+      console.warn(this.c, f, 'step.equipment.phases[DacSimExecType.STOP] IS INVALID');
+    }
 
     this.newStep(step);
   }

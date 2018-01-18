@@ -134,7 +134,7 @@ export class DbmPollingService {
               let changed = false;
               card.steps.forEach( item2 => {
                 if ( item2.equipment.univname === item.equipment.univname ) {
-                  if ( item2.equipment.currentlabel != dbvalue[0] ) {
+                  if ( item2.equipment.currentlabel !== dbvalue[0] ) {
                     if ( DbmSettings.INT_DCI_TYPE === item2.equipment.classId ) {
                       const labels: string[] = dbvalue[1] as string[];
                       const values: number[] = dbvalue[2] as number[];
@@ -191,7 +191,7 @@ export class DbmPollingService {
               let changed = false;
               card.steps.forEach( item2 => {
                 if ( item2.equipment.univname === item.equipment.univname ) {
-                  if ( item2.equipment.currentlabel != dbvalue[0] ) {
+                  if ( item2.equipment.currentlabel !== dbvalue[0] ) {
                     item2.equipment.currentlabel = dbvalue[0];
                     changed = true;
                   }

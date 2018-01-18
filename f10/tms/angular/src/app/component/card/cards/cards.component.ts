@@ -179,27 +179,47 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private isStoppedPartial ( card: Card ): boolean {
+    const f = 'isStoppedPartial';
+    console.log(this.c, f);
     let ret = false;
-    card.steps.forEach(item => {
-      if (
-        StepType.START === item.state
-        || StepType.START_FAILED === item.state
-      ) {
-        ret = true;
+    if ( null != card ) {
+      if ( null != card.steps ) {
+        card.steps.forEach(item => {
+          if (
+            StepType.START === item.state
+            || StepType.START_FAILED === item.state
+          ) {
+            ret = true;
+          }
+        });
+      } else {
+        console.warn(this.c, f, 'card and steps IS NULL');
       }
-    });
+    } else {
+      console.warn(this.c, f, 'card IS NULL');
+    }
     return ret;
   }
   private isStartedPartial ( card: Card ): boolean {
+    const f = 'isStartedPartial';
+    console.log(this.c, f);
     let ret = false;
-    card.steps.forEach(item => {
-      if (
-        StepType.STOPPED === item.state
-        || StepType.STOPPED_FAILED === item.state
-      ) {
-        ret = true;
+    if ( null != card ) {
+      if ( null != card.steps ) {
+        card.steps.forEach(item => {
+          if (
+            StepType.STOPPED === item.state
+            || StepType.STOPPED_FAILED === item.state
+          ) {
+            ret = true;
+          }
+        });
+      } else {
+        console.warn(this.c, f, 'card and steps IS NULL');
       }
-    });
+    } else {
+      console.warn(this.c, f, 'card IS NULL');
+    }
     return ret;
   }
 

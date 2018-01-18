@@ -122,9 +122,6 @@ export class StepEditControllerComponent implements OnInit, OnDestroy, OnChanges
   private loadSettings(): void {
     const f = 'loadSettings';
     console.log(this.c, f);
-
-    const component = StepEditControllerComponent.name;
-
   }
 
   private updateSelection() {

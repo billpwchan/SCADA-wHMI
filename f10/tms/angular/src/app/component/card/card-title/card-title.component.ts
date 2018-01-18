@@ -110,6 +110,15 @@ export class CardTitleComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
   }
 
+  onChange(name: string, event?: Event): void {
+    const f = 'onChange';
+    console.log(this.c, f);
+    console.log(this.c, f, 'name[' + name + ']');
+
+    if ( 'txtCardName' === name ) {
+    }
+  }
+
   private init(): void {
     const f = 'init';
     console.log(this.c, f);

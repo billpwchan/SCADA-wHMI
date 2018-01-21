@@ -12,7 +12,8 @@
     </div>
     <div>
       <app-card-edit (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-edit>
-      <app-cards (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCards"></app-cards>
+      <app-cards (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCards"
+      [updateCards]="updateCards" (onUpdatedCardSelection)="onUpdatedCardSelection($event)"></app-cards>
     </div>
   </div>
   <div style="padding: 10px;">

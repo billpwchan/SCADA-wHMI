@@ -35,6 +35,9 @@ import { DbmReadAvaSupService } from './service/scs/ava/dbm-read-ava-sup.service
 import { DbmWriteAvaSupService } from './service/scs/ava/dbm-write-ava-sup.service';
 import { AlarmSummaryComponent } from './component/alarm/alarm-summary/alarm-summary.component';
 import { DbmCacheAvaSupService } from './service/scs/ava/dbm-cache-ava-sup.service';
+import { GetInstancesByClassNameService } from './service/scs/ava/dbm/get-instances-by-class-name.service';
+import { GetChildrenAliasesService } from './service/scs/ava/dbm/get-children-aliases.service';
+import { MultiReadService } from './service/scs/ava/dbm/multi-read.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -103,6 +106,9 @@ const appRoutes: Routes = [
     , DbmCacheAvaSupService
     , DbmReadAvaSupService
     , DbmWriteAvaSupService
+    , GetInstancesByClassNameService
+    , GetChildrenAliasesService
+    , MultiReadService
   ],
   bootstrap: [AppComponent]
 })

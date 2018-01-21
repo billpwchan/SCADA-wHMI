@@ -4,7 +4,8 @@ export class DbmSettings {
     public static readonly INT_DCI_TYPE = 104;
     public static readonly STR_OPEN_PARENTHESIS = '(';
     public static readonly STR_CLOSE_PARENTHESIS = ')';
-    public static readonly STR_ALIAS = '%3Calias%3E';
+    public static readonly STR_URL_ALIAS = '%3Calias%3E';
+    public static readonly STR_ALIAS = '<alias>';
     public static readonly STR_AAC = 'aac';
     public static readonly STR_DAC = 'dac';
     public static readonly STR_DAL = 'dal';
@@ -15,9 +16,14 @@ export class DbmSettings {
     public static readonly STR_VALUETABLE_VALUE = DbmSettings.STR_DAL + '.valueTable(0:$,value)';
     public static readonly STR_URL_MULTIREAD = '/scs/service/DbmComponent/multiReadValue?dbaddress=';
     public static readonly STR_URL_MULTIWRITE = '/scs/service/DbmComponent/multiWriteValue?values=';
+    public static readonly STR_URL_GET_INSTANCES_BY_CLASSNAME = '/scs/service/DbmComponent/GetInstancesByClassName?className=';
+    public static readonly STR_URL_GET_CHILDREN_ALIASES = '/scs/service/DbmComponent/GetChildrenAliases?dbaddress=';
 
     public static readonly STR_ATTR_DBVALUE = 'dbvalue';
     public static readonly STR_ATTR_CLASSID = 'classId';
+    public static readonly STR_ATTR_CHILDREN_ALIASES = 'childrenAliases';
+    public static readonly STR_ATTR_INSTANCES = 'instances';
+
 
     public static readonly STR_URL_GETCLASSID = '/scs/service/DbmComponent/GetClassId?dbaddress=';
 

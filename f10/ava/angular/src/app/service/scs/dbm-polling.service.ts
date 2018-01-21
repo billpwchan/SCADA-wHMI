@@ -105,13 +105,13 @@ export class DbmPollingService {
 
     card.steps.forEach( item => {
       const urls: string [] = [];
-      urls.push(DbmSettings.STR_ALIAS + item.equipment.univname + DbmSettings.STR_ATTR_VALUE);
+      urls.push(DbmSettings.STR_URL_ALIAS + item.equipment.univname + DbmSettings.STR_ATTR_VALUE);
 
       if ( DbmSettings.INT_DCI_TYPE === item.equipment.classId ) {
-        urls.push(DbmSettings.STR_ALIAS + item.equipment.univname + DbmSettings.STR_VALUETABLE_LABEL);
-        urls.push(DbmSettings.STR_ALIAS + item.equipment.univname + DbmSettings.STR_VALUETABLE_VALUE);
+        urls.push(DbmSettings.STR_URL_ALIAS + item.equipment.univname + DbmSettings.STR_VALUETABLE_LABEL);
+        urls.push(DbmSettings.STR_URL_ALIAS + item.equipment.univname + DbmSettings.STR_VALUETABLE_VALUE);
       } else {
-        urls.push(DbmSettings.STR_ALIAS + item.equipment.univname + DbmSettings.STR_ATTR_UNIT);
+        urls.push(DbmSettings.STR_URL_ALIAS + item.equipment.univname + DbmSettings.STR_ATTR_UNIT);
       }
 
       const url = item.equipment.connAddr + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
@@ -169,7 +169,7 @@ export class DbmPollingService {
 
     card.steps.forEach( item => {
       const urls: string [] = [];
-      urls.push(DbmSettings.STR_ALIAS + item.equipment.univname + DbmSettings.STR_ATTR_COMPUTED_MESSAGE);
+      urls.push(DbmSettings.STR_URL_ALIAS + item.equipment.univname + DbmSettings.STR_ATTR_COMPUTED_MESSAGE);
 
       const url = item.equipment.connAddr + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
 

@@ -27,7 +27,6 @@ export class StorageService {
   remoteUrl: string;
   uploadUrl: string;
   downloadUrl: string;
-  downloadMethod: string;
   remotePrefix: string;
   remoteExtension: string;
 
@@ -56,7 +55,6 @@ export class StorageService {
     this.remoteUrl = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_REMOTE_URL);
     this.uploadUrl = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_UPLOAD_URL);
     this.downloadUrl = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_DOWNLOAD_URL);
-    this.downloadMethod = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_DOWNLOAD_METHOD);
     this.remotePrefix = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_REMOTE_FILENAME_PREFIX);
     this.remoteExtension = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_REMOTE_FILENAME_EXTENSION);
   }

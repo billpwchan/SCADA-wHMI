@@ -44,8 +44,8 @@ export class DbmService {
     console.log(this.c, f, 'connAddr', connAddr, 'univname', univname);
 
     const urls: string [] = [];
-    urls.push(DbmSettings.STR_ALIAS + univname + DbmSettings.STR_AAC + DbmSettings.STR_VETABLE_VENAME);
-    urls.push(DbmSettings.STR_ALIAS + univname + DbmSettings.STR_INITVALUE);
+    urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_AAC + DbmSettings.STR_VETABLE_VENAME);
+    urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_INITVALUE);
 
     const url = connAddr + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
 
@@ -82,10 +82,10 @@ export class DbmService {
     console.log(this.c, f, 'univname', univname);
 
     const urls: string [] = [];
-    urls.push(DbmSettings.STR_ALIAS + univname + DbmSettings.STR_DAC + DbmSettings.STR_VETABLE_VENAME);
-    urls.push(DbmSettings.STR_ALIAS + univname + DbmSettings.STR_INITVALUE);
-    urls.push(DbmSettings.STR_ALIAS + univname + DbmSettings.STR_VALUETABLE_LABEL);
-    urls.push(DbmSettings.STR_ALIAS + univname + DbmSettings.STR_VALUETABLE_VALUE);
+    urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_DAC + DbmSettings.STR_VETABLE_VENAME);
+    urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_INITVALUE);
+    urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_VALUETABLE_LABEL);
+    urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_VALUETABLE_VALUE);
 
     const url = connAddr + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
 
@@ -122,7 +122,7 @@ export class DbmService {
 
     let url = connAddr;
     url += DbmSettings.STR_URL_GETATTRIBUTEFORMULAS;
-    url += DbmSettings.STR_ALIAS + univname;
+    url += DbmSettings.STR_URL_ALIAS + univname;
 
     if ( DbmSettings.INT_ACI_TYPE === classId ) {
       url += DbmSettings.STR_AAC_ACQVALUE;
@@ -161,7 +161,7 @@ export class DbmService {
     console.log(this.c, f, 'connAddr' , connAddr);
     console.log(this.c, f, 'univname' , univname);
 
-    const url = connAddr + DbmSettings.STR_URL_GETCLASSID + DbmSettings.STR_ALIAS + univname;
+    const url = connAddr + DbmSettings.STR_URL_GETCLASSID + DbmSettings.STR_URL_ALIAS + univname;
 
     // Get Class ID
     this.httpClient.get(

@@ -11,8 +11,6 @@ export class StorageSettings {
     public static readonly STR_UPLOAD_URL = 'upload_url';
     public static readonly STR_DOWNLOAD_URL = 'download_url';
 
-    public static readonly STR_DOWNLOAD_METHOD = 'download_method';
-
     // Const Variable
     public static readonly STR_OPERATION = 'operation';
     public static readonly STR_PATH = 'path';

@@ -56,6 +56,8 @@
       "envs": [
         {"label": "M100", "value": "http://127.0.0.1:8990"}
       ]
+      , "instance_classname": "ScadagenNode"
+      , "instance_root": "Scadagen"
   }
   , "StorageComponent": {
       "init_cards_before_storage": true

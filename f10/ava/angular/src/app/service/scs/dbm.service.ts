@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { UtilsHttpModule } from './../utils-http/utils-http.module';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 import { AppSettings } from '../../app-settings';
 import { DbmSettings } from './dbm-settings';
 
@@ -183,5 +185,71 @@ export class DbmService {
         , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
         , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
     );
+  }
+
+  readFormulas(connAddr: string, univname: string): Observable<any> {
+    const f = 'readFormulas';
+    console.log(this.c, f);
+
+    let url = connAddr;
+    url += DbmSettings.STR_URL_GETATTRIBUTEFORMULAS;
+    url += DbmSettings.STR_QUOTE + univname + DbmSettings.STR_QUOTE;
+
+    return this.httpClient.get(url)
+      .map(this.extractFormulas);
+  }
+
+  extractFormulas(res: string) {
+    return res[AppSettings.STR_RESPONSE][DbmSettings.STR_FORMULAS];
+  }
+
+  writeFormulaStr(connAddr: string, univname: string, formulaStr: string): Observable<any>  {
+    const f = 'writeFormulaStr';
+    console.log(this.c, f);
+
+    let url = connAddr;
+    url += DbmSettings.STR_URL_SETATTRIBUTEFORMULA;
+    url += DbmSettings.STR_QUOTE + DbmSettings.STR_ALIAS + univname + DbmSettings.STR_QUOTE;
+    url += DbmSettings.STR_FORMULA_OPTION + DbmSettings.STR_QUOTE + formulaStr + DbmSettings.STR_QUOTE;
+    return this.httpClient.get(url).map(this.extractResponse);
+  }
+
+  extractResponse(res: string) {
+    return res[AppSettings.STR_RESPONSE];
+  }
+
+  writeFormulaNum(connAddr: string, univname: string, formulaNum: number): Observable<any>  {
+    const f = 'writeFormulaStr';
+    console.log(this.c, f);
+
+    let url = connAddr;
+    url += DbmSettings.STR_URL_SETATTRIBUTEFORMULA;
+    url += DbmSettings.STR_QUOTE + DbmSettings.STR_ALIAS + univname + DbmSettings.STR_QUOTE;
+    url += DbmSettings.STR_FORMULA_OPTION + formulaNum;
+    return this.httpClient.get(url).map(this.extractResponse);
+  }
+
+  getAttributes(connAddr: string, attributes: string[]) {
+    const f = 'getAttributes';
+    console.log(this.c, f);
+
+    let url = connAddr;
+    url += DbmSettings.STR_URL_MULTIREAD;
+    url += JSON.stringify(attributes);
+    return this.httpClient.get(url).map(this.extractAttributes);
+  }
+
+  extractAttributes(res: string) {
+    return res[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
+  }
+
+  setAttributes(connAddr: string, attributeValueMap: Map<string, string|number>) {
+    const f = 'setAttributes';
+    console.log(this.c, f);
+
+    let url = connAddr;
+    url += DbmSettings.STR_URL_MULTIWRITE;
+    url += JSON.stringify(attributeValueMap);
+    return this.httpClient.get(url).map(this.extractResponse);
   }
 }

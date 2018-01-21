@@ -38,6 +38,7 @@ import { DbmCacheAvaSupService } from './service/scs/ava/dbm-cache-ava-sup.servi
 import { GetInstancesByClassNameService } from './service/scs/ava/dbm/get-instances-by-class-name.service';
 import { GetChildrenAliasesService } from './service/scs/ava/dbm/get-children-aliases.service';
 import { MultiReadService } from './service/scs/ava/dbm/multi-read.service';
+import { ReadWriteCEService } from './service/scs/ava/dbm/read-write-ce.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -109,6 +110,7 @@ const appRoutes: Routes = [
     , GetInstancesByClassNameService
     , GetChildrenAliasesService
     , MultiReadService
+    , ReadWriteCEService
   ],
   bootstrap: [AppComponent]
 })

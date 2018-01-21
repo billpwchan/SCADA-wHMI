@@ -16,7 +16,7 @@ import { SelectionService } from '../../service/card/selection.service';
 import { CardServiceType } from '../../service/card/card-settings';
 import { SelectionServiceType } from '../../service/card/selection-settings';
 import { MatrixSettings, Matrix, MatrixConfig } from '../../component/alarm/Matrix/matrix-settings';
-import { Step, Card } from '../../model/Scenario';
+import { Step, Card, Equipment } from '../../model/Scenario';
 import { StepsComponent } from '../../component/step/steps/steps.component';
 import { AlarmSummaryConfig, Env, AlarmSummarySettings } from '../../component/alarm/alarm-summary/alarm-summary-settings';
 import { GetInstancesByClassNameService } from '../../service/scs/ava/dbm/get-instances-by-class-name.service';
@@ -24,6 +24,8 @@ import { Subscribable } from 'rxjs/Observable';
 import { GetChildrenAliasesService } from '../../service/scs/ava/dbm/get-children-aliases.service';
 import { DbmSettings } from '../../service/scs/dbm-settings';
 import { MultiReadService } from '../../service/scs/ava/dbm/multi-read.service';
+import { DbmService } from '../../service/scs/dbm.service';
+import { ReadWriteCEService, ReadWriteCEResult } from '../../service/scs/ava/dbm/read-write-ce.service';
 
 @Component({
   selector: 'app-admin',
@@ -46,6 +48,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   getInstancesByClassNameSubscription: Subscription;
   getChildrenAliasSubscription: Subscription;
   multiReadSubscription: Subscription;
+  readWriteCESubscription: Subscription;
 
   notifyCards: string;
   notifyCardController: string;
@@ -86,6 +89,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     , private getInstancesByClassNameService: GetInstancesByClassNameService
     , private getChildrenAliasService: GetChildrenAliasesService
     , private multiReadService: MultiReadService
+    , private readWriteCEService: ReadWriteCEService
   ) {
     const f = 'constructor';
     console.log(this.c, f);
@@ -245,18 +249,89 @@ export class AdminComponent implements OnInit, OnDestroy {
     .subscribe(result => {
       console.log(this.c, f, 'multiReadSubscription', result);
       if ( null != result ) {
-        this.cards = new Array<Card>();
-        for ( let i = 0 ; i < this.ruleList.length ; ++i ) {
-          const base: number = i * AlarmSummarySettings.RULE_ATTR_LIST.length;
-          const card: Card = new Card(
-                                      result.dbValue[base + 0]
-                                      , result.dbValue[base + 1]
-                                      , result.dbValue[base + 2]
-                                      , result.dbValue[base + 3]
-          );
-          this.cards.push(card);
+
+        if ( 0 === (result.dbValue.length % 4) ) {
+          this.cards = new Array<Card>();
+          for ( let i = 0 ; i < this.ruleList.length ; ++i ) {
+            const base: number = i * AlarmSummarySettings.RULE_ATTR_LIST.length;
+            const card: Card = new Card(
+                                        result.dbValue[base + 0]
+                                        , result.dbValue[base + 1]
+                                        , result.dbValue[base + 2]
+                                        , result.dbValue[base + 3]
+            );
+            this.cards.push(card);
+          }
+          this.updateCards = this.cards;
+        } else if (0 === (result.dbValue.length % 7)) {
+          const steps: Step[] = new Array<Step>();
+
+          for ( let i = 0; i < result.dbValue.length / 7; ++i ) {
+            const index: number = i * 7;
+            const geo: number         = result.dbValue[index + 0];
+            const func: number        = result.dbValue[index + 1];
+            const equipment: string   = result.dbValue[index + 2];
+            const point: string       = result.dbValue[index + 3];
+            const value: number       = result.dbValue[index + 4];
+            const values: number[]    = result.dbValue[index + 5];
+            const labels: string[]    = result.dbValue[index + 6];
+
+            let strLabel = '';
+            for ( let  x = 0 ; x < values.length; ++x ) {
+              if ( value === values[x] ) {
+                strLabel = labels[x];
+                break;
+              }
+            }
+
+            const step: Step = new Step(index);
+            step.equipment = new Equipment(
+                                              this.env
+                                            , ''
+                                            , 0
+                                            ,  geo
+                                            ,  func
+                                            , equipment
+                                            , point
+                                            , strLabel
+                                          );
+            steps.push(step);
+          }
         }
-        this.updateCards = this.cards;
+      }
+    });
+
+    this.readWriteCESubscription = this.readWriteCEService.dbmItem
+    .subscribe(result => {
+      console.log(this.c, f, 'readWriteCESubscription', result);
+      if ( null != result ) {
+
+
+        const dbAddresses: string[] = new Array<string>();
+
+        for ( let n = 0; n < result.length; ++n ) {
+          const readWriteCEResult: ReadWriteCEResult = result[n];
+          if ( null != readWriteCEResult ) {
+            const base: string = readWriteCEResult.base;
+            const targetAlias: string = readWriteCEResult.targetAlias;
+            const targetValue: string = readWriteCEResult.targetValue;
+            if ( null != targetAlias && null != targetValue ) {
+
+              const alias: string = targetAlias.toString().match(/^(.*?)\./)[1];
+
+              dbAddresses.push(alias + DbmSettings.STR_ATTR_GEO);
+              dbAddresses.push(alias + DbmSettings.STR_ATTR_FUNC);
+              dbAddresses.push(alias + DbmSettings.STR_ATTR_EQUIPMENT_LABEL);
+              dbAddresses.push(alias + DbmSettings.STR_ATTR_POINT_FUNC);
+              dbAddresses.push(alias + DbmSettings.STR_ATTR_VALUE);
+              dbAddresses.push(alias + DbmSettings.STR_COLON + DbmSettings.STR_VALUETABLE_VALUE);
+              dbAddresses.push(alias + DbmSettings.STR_COLON + DbmSettings.STR_VALUETABLE_LABEL);
+            }
+
+          }
+        }
+
+        this.multiReadService.readData(this.env, dbAddresses);
       }
     });
 
@@ -277,6 +352,16 @@ export class AdminComponent implements OnInit, OnDestroy {
   onUpdatedCardSelection(cards: Card[]) {
     const f = 'onUpdatedCardSelection';
     console.log(this.c, f);
+
+    if ( null != cards ) {
+      if ( cards.length > 0 ) {
+        const ruleBase = 1;
+        const card: Card = cards[0];
+        const index: number = card.index;
+        const univname: string = this.avar + ':' + 'RULE' + ('000' + (index + ruleBase)).slice(-4);
+        this.readWriteCEService.readConditions(this.env, univname, 1, 8);
+      }
+    }
   }
 
   onUpdatedSteps(data: Step[]): void {

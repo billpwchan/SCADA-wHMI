@@ -4,11 +4,13 @@ export class DbmSettings {
     public static readonly INT_DCI_TYPE = 104;
     public static readonly STR_OPEN_PARENTHESIS = '(';
     public static readonly STR_CLOSE_PARENTHESIS = ')';
+    public static readonly STR_COLON = ':';
     public static readonly STR_URL_ALIAS = '%3Calias%3E';
     public static readonly STR_ALIAS = '<alias>';
     public static readonly STR_AAC = 'aac';
     public static readonly STR_DAC = 'dac';
     public static readonly STR_DAL = 'dal';
+    public static readonly STR_QUOTE = '%22';
 
     public static readonly STR_INITVALUE = '.initValue';
     public static readonly STR_VETABLE_VENAME = '.veTable(0:$,vename)';
@@ -33,6 +35,8 @@ export class DbmSettings {
     public static readonly STR_FORMULAS = 'formulas';
     public static readonly STR_FORMULAS_ACQ_SINGLE = '[.veTable(0,value)]';
     public static readonly STR_URL_GETATTRIBUTEFORMULAS  = '/scs/service/DbmComponent/GetAttributeFormulas?dbaddress=';
+    public static readonly STR_URL_SETATTRIBUTEFORMULA  = '/scs/service/DbmComponent/SetAttributeFormula?dbaddress=';
+    public static readonly STR_FORMULA_OPTION = '&formula=';
 
     public static readonly STR_ATTR_VALUE = '.value';
     public static readonly STR_ATTR_UNIT = '.unit';
@@ -40,4 +44,6 @@ export class DbmSettings {
     public static readonly STR_ATTR_LEVEL = '.level';
     public static readonly STR_ATTR_GEO = ':^.geographicalCat';
     public static readonly STR_ATTR_FUNC = ':^.functionalCat';
+    public static readonly STR_ATTR_EQUIPMENT_LABEL = ':^.label';
+    public static readonly STR_ATTR_POINT_FUNC = '.label';
 }

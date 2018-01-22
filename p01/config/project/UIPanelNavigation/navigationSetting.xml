@@ -2326,7 +2326,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>TMS/TrainerAdmin/EntryPoint.view.xml</uiView>
+		<uiView>TMS/Admin/EntryPoint.view.xml</uiView>
 		<tooltips>TMS Trainer Admin</tooltips>
 	</option>
 	
@@ -2337,7 +2337,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>TMS/Trainer/EntryPoint.view.xml</uiView>
+		<uiView>TMS/Operator/EntryPoint.view.xml</uiView>
 		<tooltips>TMS Trainer</tooltips>
 	</option>
 	

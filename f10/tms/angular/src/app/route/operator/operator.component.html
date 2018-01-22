@@ -1,0 +1,19 @@
+<div class="div-operator-root">
+  <div class="div-operator-left">
+    <div class="div-operator-left-top">
+      <app-cards (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCards" ></app-cards>
+    </div>
+    <div class="div-operator-left-bottom">
+      <app-card-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardController"></app-card-controller>
+    </div>
+  </div>
+  <div class="div-operator-right">
+    <div class="div-operator-right-top">
+      <app-card-title (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"></app-card-title>
+      <app-steps (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"></app-steps>
+    </div>
+    <div class="div-operator-right-bottom">
+      <app-step-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepController"></app-step-controller>
+    </div>
+  </div>
+</div>

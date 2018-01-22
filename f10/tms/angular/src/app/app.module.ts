@@ -7,8 +7,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { AppComponent } from './app.component';
+import { RouterModule, Routes } from '@angular/router';
+import { HttpModule } from '@angular/http';
 import { UtilsHttpModule } from './service/utils-http/utils-http.module';
-
 import { CardService } from './service/card/card.service';
 import { CardsComponent } from './component/card/cards/cards.component';
 import { StepsComponent } from './component/step/steps/steps.component';
@@ -26,24 +27,22 @@ import { StepControllerComponent } from './component/step/step-controller/step-c
 import { SettingsService } from './service/settings.service';
 import { CsvToCardsPipe } from './pipe/csv/csv-to-cards.pipe';
 import { CardsToCsvPipe } from './pipe/csv/cards-to-csv.pipe';
-import { HttpModule } from '@angular/http';
-import { RouterModule, Routes } from '@angular/router';
-import { TrainerComponent } from './route/trainer/trainer.component';
-import { TrainerAdminComponent } from './route/trainer-admin/trainer-admin.component';
-import { TraineeComponent } from './route/trainee/trainee.component';
+import { OperatorComponent } from './route/operator/operator.component';
+import { AdminComponent } from './route/admin/admin.component';
 import { PageNotFoundComponent } from './route/page-not-found/page-not-found.component';
 import { StepEditControllerComponent } from './component/step/step-edit-controller/step-edit-controller.component';
 import { CardEditControllerComponent } from './component/card/card-edit-controller/card-edit-controller.component';
 import { DbmPollingService } from './service/scs/dbm-polling.service';
+import { PointSelectModule } from 'point-select';
+import { CardTitleComponent } from './component/card/card-title/card-title.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 const appRoutes: Routes = [
-  { path: 'trainer', component: TrainerComponent }
-  , { path: 'traineradmin', component: TrainerAdminComponent }
-  , { path: 'trainee', component: TraineeComponent }
+  { path: 'admin', component: AdminComponent }
+  , { path: 'operator', component: OperatorComponent }
   , { path: 'pagenotfound', component: PageNotFoundComponent }
   , { path: '', redirectTo: '/pagenotfound', pathMatch: 'full' }
   , { path: '**', component: PageNotFoundComponent }
@@ -62,12 +61,12 @@ const appRoutes: Routes = [
     , StepControllerComponent
     , CsvToCardsPipe
     , CardsToCsvPipe
-    , TrainerAdminComponent
-    , TrainerComponent
-    , TraineeComponent
+    , AdminComponent
+    , OperatorComponent
     , PageNotFoundComponent
     , StepEditControllerComponent
     , CardEditControllerComponent
+    , CardTitleComponent
   ],
   imports: [
     BrowserModule
@@ -88,6 +87,7 @@ const appRoutes: Routes = [
       , { useHash: true }
       // ,{ enableTracing: true } // <-- debugging purposes only
     )
+    , PointSelectModule
   ],
   providers: [
     SettingsService

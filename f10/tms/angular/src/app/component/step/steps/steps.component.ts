@@ -48,8 +48,6 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   selectedCardName: string;
   selectedCardStep: number[];
 
-  txtCardName: string;
-
   // Datatable
   @ViewChild('stepsDataTable') stepsDataTable: DatatableComponent;
 
@@ -132,7 +130,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy(): void {
-    const f = 'ngOnInit';
+    const f = 'ngOnDestroy';
     console.log(this.c, f);
 
     // prevent memory leak when component is destroyed
@@ -254,10 +252,12 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
         steps.forEach((item, index) => {
 
           const step = '' + item.step;
+          const env = item.equipment.envlabel;
           const location = this.geoPrefix + item.equipment.geo;
           const system = this.funcPrefix + item.equipment.func;
           const equipment = this.eqplabelPrefix + item.equipment.eqplabel;
           const point = this.pointlabelPrefix + item.equipment.pointlabel;
+          const init = this.pointlabelPrefix + item.equipment.initlabel;
           const value = this.valuePrefix + item.equipment.valuelabel;
           const delay = this.delayPrefix + item.delay;
           const execute = item.execute;
@@ -272,10 +272,12 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
           if ( ! updateOnly ) {
             const dtStep: DatatableStep = new DatatableStep(
               step
+              , env
               , location
               , system
               , equipment
               , point
+              , init
               , value
               , delay
               , execute
@@ -287,10 +289,12 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
             this.rows_step.push(dtStep);
           } else {
             this.rows_step[index].step = step;
+            this.rows_step[index].env = env;
             this.rows_step[index].location = location;
             this.rows_step[index].system = system;
             this.rows_step[index].equipment = equipment;
             this.rows_step[index].point = point;
+            this.rows_step[index].init = init;
             this.rows_step[index].value = value;
             this.rows_step[index].delay = delay;
             this.rows_step[index].execute = execute;
@@ -316,7 +320,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
       if ( this.selectedCardStep && this.rows_step ) {
         this.selectedCardStep.forEach ( item1 => {
           this.rows_step.forEach ( item2 => {
-            if ( '' + item1 == item2.step ) {
+            if ( '' + item1 === item2.step ) {
               this.selected_step.push(item2);
             }
           });
@@ -433,11 +437,11 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f, 'name', name, 'event', event);
 
     const checkboxCellIndex = 1;
-    if ('checkbox' == event.type) {
+    if ('checkbox' === event.type) {
       // Stop event propagation and let onSelect() work
       console.log('Checkbox Selected', event);
       event.event.stopPropagation();
-    } else if ('click' == event.type && event.cellIndex != checkboxCellIndex) {
+    } else if ('click' === event.type && event.cellIndex !== checkboxCellIndex) {
       // Do somethings when you click on row cell other than checkbox
       console.log('Row Clicked', event.row); /// <--- object is in the event row variable
     }
@@ -446,7 +450,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   private init(): void {
     const f = 'init';
     console.log(this.c, f);
-    this.txtCardName = this.selectedCardName = '';
+    this.selectedCardName = '';
   }
 
   btnClicked(btnLabel: string, event?: Event) {
@@ -459,12 +463,10 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
       } break;
       case StepsComponent.STR_CARD_RELOADED: {
         this.selectedCardName = '';
-        this.txtCardName = this.selectedCardName;
         this.reloadSteps(false, true);
       } break;
       case StepsComponent.STR_CARD_SELECTED: {
         this.selectedCardName = this.selectionService.getSelectedCardId();
-        this.txtCardName = this.selectedCardName;
         this.reloadSteps(false, true);
       } break;
       case StepsComponent.STR_STEP_RELOADED: {

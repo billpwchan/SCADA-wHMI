@@ -1,0 +1,150 @@
+<div>
+  <div class="div-step-edit-new-step"
+    [hidden]="!editEnableNewStep">
+    <label class="lbl-step-edit-addstep">{{ '&steps_edit_lbl_add_step' | translate }}</label>
+    <form>
+      <div>
+        <div class="input-group input-group-step-edit-selectenv">
+          <span class="input-group-addon span-step-edit-selectenv">{{ '&step_lbl_env' | translate }}</span>
+          <select class="form-control" name="selectEnv" id="selectEnv"
+            [(ngModel)]="selEnv"  (change)="onLstChange('selEnv', $event)">
+            <option *ngFor="let item of selOptEnv" [ngValue]="item"
+            [disabled]="item.value==''">{{item.label}}</option>
+          </select>
+        </div>
+  
+        <div class="input-group input-group-step-edit-selectgeo">
+          <span class="input-group-addon span-step-edit-selectgeo">{{ '&step_lbl_geo' | translate }}</span>
+          <select class="form-control" name="selectGeo" id="selectGeo"
+            [(ngModel)]="selGeo" (change)="onLstChange('selGeo', $event)">
+            <option *ngFor="let item of selOptGeo" [ngValue]="item.value"
+              [disabled]="item.value==-1">{{ item.label | translate }}</option>
+          </select>
+        </div>
+  
+        <div class="input-group input-group-step-edit-selectfunc">
+          <span class="input-group-addon span-step-edit-selectfunc">{{ '&step_lbl_func' | translate }}</span>
+          <select class="form-control" name="selectFunc" id="selectFunc" 
+            [(ngModel)]="selFunc" (change)="onLstChange('selFunc', $event)">
+            <option *ngFor="let item of selOptFunc" [ngValue]="item.value"
+              [disabled]="item.value==-1">{{ item.label | translate }}</option>
+          </select>
+        </div>
+  
+        <div class="input-group input-group-step-edit-eqplabel">
+          <span class="input-group-addon span-step-edit-eqplabel">{{ '&step_lbl_eqplabel' | translate }}</span>
+          <select class="form-control" name="selectEqpLabel" id="selectEqpLabel" 
+            [(ngModel)]="selEqpLabel" (change)="onLstChange('selEqpLabel', $event)">
+            <option *ngFor="let item of selOptEqpLabel" [ngValue]="item.value"
+              [disabled]="item.value==''">{{ item.label | translate }}</option>
+          </select>
+        </div>
+  
+        <div class="input-group input-group-step-edit-pointlabel">
+          <span class="input-group-addon span-step-edit-pointlabel">{{ '&step_lbl_pointlabel' | translate }}</span>
+          <select class="form-control" name="selectPointLabel" id="selectPointLabel" 
+            [(ngModel)]="selPointLabel" (change)="onLstChange('selPointLabel', $event)">
+            <option *ngFor="let item of selOptPointLabel" [ngValue]="item.value"
+              [disabled]="item.value==''">{{ item.label | translate }}</option>
+          </select>
+        </div>
+
+        <div class="input-group input-group-step-edit-selectdelay" [hidden]="!editEnableDelay">
+          <span class="input-group-addon span-step-edit-selectdelay">{{ '&step_lbl_delay' | translate }}</span>
+          <select [(ngModel)]="selDelay" 
+            class="form-control" name="selectDelay" id="selectDelay"
+            (change)="onLstChange('selDelay', $event)">
+            <option *ngFor="let item of selOptDelay"   [ngValue]="item.value"
+              [selected]="item.value==0">{{ item.label | translate }}</option>
+          </select>
+        </div>
+  
+        <span *ngIf="!hiddenClassId">
+          <div class="input-group input-group-step-edit-classid">
+            <span class="input-group-addon span-step-edit-classid">{{ '&step_lbl_classid' | translate }}</span>
+            <input type="text" class="form-control" name="textClassId" 
+            [(ngModel)]="txtClassId" placeholder="{{ '&step_txt_classid_placeholder' | translate }}">
+          </div>
+        </span>
+  
+        <span *ngIf="!hiddenUnivname">
+          <div class="input-group input-group-step-edit-univname">
+            <span class="input-group-addon span-step-edit-univname">{{ '&step_lbl_univname' | translate }}</span>
+            <input type="text" class="form-control" name="textUnivname" 
+            [(ngModel)]="txtUnivname" placeholder="{{ '&step_txt_univname_placeholder' | translate }}">
+          </div>
+        </span>
+  
+        <span *ngIf="!hiddenEVName">
+          <div class="input-group input-group-step-edit-evname">
+            <span class="input-group-addon span-step-edit-evname">{{ '&step_lbl_evname' | translate }}</span>
+            <input type="text" class="form-control" name="textEVName" 
+            [(ngModel)]="txtEVName" placeholder="{{ '&step_txt_evname_placeholder' | translate }}">
+          </div>
+        </span>
+      </div>
+  
+      <div class="div-step-edit-aci"
+        [hidden]="!editEnableAddAciStep">
+        <span *ngIf="!hiddenAciInitValue">
+          <div class="input-group input-group-step-edit-aciinitvalue">
+            <span class="input-group-addon span-step-edit-aciinitvalue">{{ '&step_lbl_aciinitvalue' | translate }}</span>
+            <input type="text" class="form-control" name="aciInitValue" 
+            [(ngModel)]="aciInitValue" (ngModelChange)="onChange('aciInitValue', $event)"
+            placeholder="{{ '&step_lst_aciinitvalue_placeholder' | translate }}">
+          </div>
+        </span>
+        <div class="input-group input-group-step-edit-acivalue">
+          <span class="input-group-addon span-step-edit-acivalue">{{ '&step_lbl_acivalue' | translate }}</span>
+          <input type="text"  class="form-control" name="aciValue" 
+          [(ngModel)]="aciValue" (ngModelChange)="onChange('aciValue', $event)"
+           placeholder="{{ '&step_txt_acivalue_placeholder' | translate }}">
+        </div>
+        <button 
+          type="button" class="btn btn-info btn-step-edit-add-aci" 
+          [disabled]="btnDisabledAddAciStep" (click)="btnClicked('addacistep')"
+          title="{{ 'step_btn_add_acistep_title' | translate }}"
+          >{{ '&step_btn_add_acistep' | translate }}</button>
+        <button 
+          type="button" class="btn btn-info btn-step-edit-add-aci-cancel" 
+          [disabled]="btnDisabledAddAciCancelStep" (click)="btnClicked('addacicancelstep')"
+          title="{{ '&step_btn_add_acicancelstep_title' | translate }}"
+          >{{ '&step_btn_add_acicancelstep' | translate }}</button>
+      </div>
+  
+      <div class="div-step-edit-dci"
+        [hidden]="!editEnableAddDciStep">
+        <span *ngIf="!hiddenDciInitValue">
+          <div class="input-group input-group-step-edit-dciinitvalue">
+            <span class="input-group-addon span-step-edit-dciinitvalue">{{ '&step_lbl_dciinitvalue' | translate }}</span>
+            <select class="form-control" name="selectDciInitValue" id="selectDciInitValue"
+            [(ngModel)]="selDciInitValue" (change)="onLstChange('selDciInitValue', $event)">
+            <option *ngFor="let item of selOptDciInitValue" 
+              [selected]="item.value==-1" [ngValue]="item.value" [disabled]="item.value==-1"
+              >{{ item.label | translate }}</option>
+          </select>
+          </div>
+        </span>
+        <div class="input-group input-group-step-edit-selectdci">
+          <span class="input-group-addon span-step-edit-selectdci">{{ '&step_lbl_dcivalue' | translate }}</span>
+          <select class="form-control" name="selectDciValue" id="selectDciValue"
+            [(ngModel)]="selDciValue" (change)="onLstChange('selDciValue', $event)">
+            <option *ngFor="let item of selOptDciValue" 
+              [selected]="item.value==-1" [ngValue]="item.value" [disabled]="item.value==-1"
+              >{{ item.label | translate }}</option>
+          </select>
+        </div>
+        <button 
+          type="button" class="btn btn-info btn-step-edit-add-dci" 
+          [disabled]="btnDisabledAddDciStep" (click)="btnClicked('adddcistep')"
+          title="{{ '&step_btn_add_dcistep_title' | translate }}"
+          >{{ '&step_btn_add_dcistep' | translate }}</button>
+        <button 
+          type="button" class="btn btn-info btn-step-edit-add-dci-cancel" 
+          [disabled]="btnDisabledAddDciCancelStep" (click)="btnClicked('adddcicancelstep')"
+          title="{{ '&step_btn_add_dcicancelstep_title' | translate }}"
+          >{{ '&step_btn_add_dcicancelstep' | translate }}</button>
+      </div>
+    </form>
+  </div>
+</div>

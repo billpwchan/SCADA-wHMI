@@ -45,6 +45,7 @@ export class SettingsService {
       }
     } catch (err) {
       console.warn(this.c, f, 'Error when loading setting for', c, func, url, component, key, err);
+      console.warn(this.c, f, 'Loading component[' + component + '] key[' + key + '] => ret[' + ret + ']');
     }
     console.log(this.c, f, 'Loading component[' + component + '] key[' + key + '] => ret[' + ret + ']');
     return ret;

@@ -27,7 +27,6 @@ export class StorageService {
   remoteUrl: string;
   uploadUrl: string;
   downloadUrl: string;
-  downloadMethod: string;
   remoteFileName: string;
 
   // Service command
@@ -55,7 +54,6 @@ export class StorageService {
     this.remoteUrl = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_REMOTE_URL);
     this.uploadUrl = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_UPLOAD_URL);
     this.downloadUrl = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_DOWNLOAD_URL);
-    this.downloadMethod = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_DOWNLOAD_METHOD);
     this.remoteFileName = this.settingsService.getSetting(this.c, f, this.c, StorageSettings.STR_REMOTE_FILENAME);
   }
 
@@ -76,12 +74,29 @@ export class StorageService {
   loadCard(): void {
     const f = 'loadCard';
     console.log(this.c, f);
+
+    // Reset the cards
+    this.cardService.setCards([]);
+
     if ( this.useLocalStorage ) {
-      const strCards: string = localStorage.getItem(this.localStorageName);
-      const cards: Card[] = JSON.parse(strCards);
-      this.cardService.setCards(cards);
-      this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
-      this.storageChanged(StorageResponse.LOAD_SUCCESS);
+      let cards: Card[] = null;
+      if ( null != localStorage ) {
+        const strCards: string = localStorage.getItem(this.localStorageName);
+        if ( null != strCards ) {
+          cards = JSON.parse(strCards);
+        } else {
+          console.warn(this.c, f, 'strCards IS strCards');
+        }
+      } else {
+        console.warn(this.c, f, 'localStorage IS INVALID');
+      }
+      if ( null != cards ) {
+        this.cardService.setCards(cards);
+        this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
+        this.storageChanged(StorageResponse.LOAD_SUCCESS);
+      } else {
+        console.warn(this.c, f, 'cards IS cards');
+      }
     } else {
       this.downloadCard();
     }
@@ -99,9 +114,6 @@ export class StorageService {
   downloadCard(): void {
     const f = 'downloadCard';
     console.log(this.c, f);
-
-    // Reset the cards
-    this.cardService.setCards([]);
 
     let url = this.remoteUrl + '/' + this.downloadUrl;
     url += '?' + StorageSettings.STR_OPERATION + '=' + StorageSettings.STR_GETFILE;

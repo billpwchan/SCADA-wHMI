@@ -27,7 +27,7 @@ export class CardEditControllerComponent implements OnInit , OnDestroy, OnChange
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
-  readonly c: string = CardEditControllerComponent.name;
+  readonly c: string = 'CardEditControllerComponent';
 
   @Input() notifyFromParent: string;
 
@@ -106,7 +106,6 @@ export class CardEditControllerComponent implements OnInit , OnDestroy, OnChange
   private loadSettings(): void {
     const f = 'loadSettings';
     console.log(this.c, f);
-    const component = CardEditControllerComponent.name;
   }
 
   /**

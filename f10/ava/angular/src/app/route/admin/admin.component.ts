@@ -79,6 +79,8 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   updateSteps: DatatableStep[];
 
+  updateStepEdit: Step[];
+
   updateAlarmEnv: string;
   updateAlarmUnivname: string[];
 
@@ -487,6 +489,14 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
+  onUpdatedStepEdit(steps: Step[]) {
+    const f = 'onUpdatedStepEdit';
+    console.log(this.c, f);
+
+    this.steps = steps;
+    this.renewSteps();
+  }
+
   // onUpdatedSteps(data: Step[]): void {
   //   const f = 'onUpdatedSteps';
   //   console.log(this.c, f);
@@ -574,10 +584,10 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  private deleteStep(/*card: Card, */steps: Step[], stepIds: number[]): void {
+  private deleteStep(steps: Step[], stepIds: number[]): void {
     const f = 'deleteStep';
     console.log(this.c, f);
-    // if ( null != card ) {
+    if ( null != steps ) {
       for ( let x = 0 ; x < stepIds.length ; ++x ) {
         console.log(this.c, f, 'delete', 'stepIds[x]', stepIds[x], 'x', x);
         for ( let y = 0 ; y < steps.length ; ++y ) {
@@ -589,9 +599,9 @@ export class AdminComponent implements OnInit, OnDestroy {
           }
         }
       }
-    // } else {
-    //   console.warn(this.c, f, 'card IS NULL');
-    // }
+    } else {
+      console.warn(this.c, f, 'steps IS NULL');
+    }
   }
 
   btnClicked(btnLabel: string, event?: Event): void {
@@ -626,7 +636,8 @@ export class AdminComponent implements OnInit, OnDestroy {
       case 'newstep': {
         const cardSelected: Card = this.getCardSelected();
         const stepSelected: Step = this.getStepSelected();
-
+        this.updateStepEdit = this.steps;
+        // this.getNotification(StepEditControllerSettings.STR_STEP_EDIT_ENABLE);
       } break;
       case 'deletestep': {
         const stepSelected: Step = this.getStepSelected();

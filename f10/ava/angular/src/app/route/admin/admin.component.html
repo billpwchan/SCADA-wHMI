@@ -5,8 +5,6 @@
         <label>{{ '&cards_title' | translate }}</label>
       </div>
       <div style="width: 50%; display: flex; flex-direction: row-reverse;">
-        <!--<app-card-edit-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-edit-controller>-->
-        <!--<app-card-state-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-state-controller>-->
 
         <div>
           <button type="button" 
@@ -38,7 +36,6 @@
     <div>
       <app-rename (notifyParent)="getNotification($event)" [notifyFromParent]="notifyRename"
         [updateNames]="updateNames" [updateName]="updateName" (onUpdatedName)="onUpdatedName($event)"></app-rename>
-      <!--<app-card-edit (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-edit>-->
       <app-cards (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCards"
       [updateCards]="updateCards" (onUpdatedCardSelection)="onUpdatedCardSelection($event)"></app-cards>
     </div>
@@ -50,9 +47,21 @@
         <app-card-title (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"
         [updateTitle]="updateTitle"></app-card-title>
       </div>
+
       <div style="width: 35%; display: flex; flex-direction: row-reverse; text-align: right;">
-        <app-step-edit-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepEdit"></app-step-edit-controller>
+        <button type="button" 
+          class="btn btn-info btn-step-edit-controller-deletestep" 
+          [disabled]="!btnEnableDeleteStep" (click)="btnClicked('deletestep', $event)"
+          title="{{ '&steps_btn_delete_step_title' | translate }}"
+          >{{ '&steps_btn_delete_step' | translate }}</button>
+        
+        <button type="button" 
+          class="btn btn-info btn-step-edit-controller-newstep" 
+          [disabled]="!btnEnableNewStep" (click)="btnClicked('newstep', $event)"
+          title="{{ '&steps_btn_new_step_title' | translate }}"
+          >{{ '&steps_btn_new_step' | translate }}</button>
       </div>
+
     </div>
     <div style="padding: 10px;">
       <app-steps (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"

@@ -74,6 +74,9 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   updateTitle: string;
 
+  btnEnableNewStep: boolean;
+  btnEnableDeleteStep: boolean;
+
   updateSteps: DatatableStep[];
 
   updateAlarmEnv: string;
@@ -265,14 +268,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           }
 
           // Renew StepsComponent
-          const dtSteps: DatatableStep[] = new Array<DatatableStep>();
-          for ( let i = 0 ; i < this.steps.length ; ++i ) {
-            const step: Step = this.steps[i];
-            if ( null != step ) {
-              dtSteps.push(DataScenarioHelper.convertToDatatableStep(step));
-            }
-          }
-          this.updateSteps = dtSteps;
+          this.renewSteps();
         }
       }
     });
@@ -398,11 +394,27 @@ export class AdminComponent implements OnInit, OnDestroy {
     return stepSelected;
   }
 
+  private renewSteps() {
+    const f = 'renewSteps';
+    console.log(this.c, f);
+
+    const dtSteps: DatatableStep[] = new Array<DatatableStep>();
+    for ( let i = 0 ; i < this.steps.length ; ++i ) {
+      const step: Step = this.steps[i];
+      if ( null != step ) {
+        dtSteps.push(DataScenarioHelper.convertToDatatableStep(step));
+      }
+    }
+    this.updateSteps = dtSteps;
+  }
+
   private initGui() {
     this.btnEnableStateEnable = false;
     this.btnEnableStateDisable = false;
     this.btnEnableRename = false;
     this.updateTitle = '';
+    this.btnEnableNewStep = false;
+    this.btnEnableDeleteStep = false;
   }
 
   onUpdatedCardSelection(cardIds: number[]) {
@@ -428,6 +440,9 @@ export class AdminComponent implements OnInit, OnDestroy {
 
       // Renew Title
       this.updateTitle = cardSelected.name;
+
+      this.btnEnableNewStep = true;
+      this.btnEnableDeleteStep = false;
 
       // Renew conditions
       const ruleBase = 1;
@@ -467,6 +482,8 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     const stepSelected: Step = this.getStepSelected();
     if ( null != stepSelected ) {
+      this.btnEnableNewStep = true;
+      this.btnEnableDeleteStep = true;
     }
   }
 
@@ -557,6 +574,26 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
+  private deleteStep(/*card: Card, */steps: Step[], stepIds: number[]): void {
+    const f = 'deleteStep';
+    console.log(this.c, f);
+    // if ( null != card ) {
+      for ( let x = 0 ; x < stepIds.length ; ++x ) {
+        console.log(this.c, f, 'delete', 'stepIds[x]', stepIds[x], 'x', x);
+        for ( let y = 0 ; y < steps.length ; ++y ) {
+          const step: Step = steps[y];
+          console.log(this.c, f, 'delete', 'stepIds[x]', stepIds[x]);
+          if ( step.step === stepIds[x] ) {
+            console.log(this.c, f, 'delete', 'y', y);
+            steps.splice(y, 1);
+          }
+        }
+      }
+    // } else {
+    //   console.warn(this.c, f, 'card IS NULL');
+    // }
+  }
+
   btnClicked(btnLabel: string, event?: Event): void {
     const f = 'btnClicked';
     console.log(this.c, f);
@@ -585,6 +622,16 @@ export class AdminComponent implements OnInit, OnDestroy {
 
         const cardSelected = this.getCardSelected();
         this.updateName = cardSelected.name;
+      } break;
+      case 'newstep': {
+        const cardSelected: Card = this.getCardSelected();
+        const stepSelected: Step = this.getStepSelected();
+
+      } break;
+      case 'deletestep': {
+        const stepSelected: Step = this.getStepSelected();
+        this.deleteStep(this.steps, this.stepIdsSelected);
+        this.renewSteps();
       } break;
     }
   }

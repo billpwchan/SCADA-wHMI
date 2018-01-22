@@ -67,7 +67,8 @@ const appRoutes: Routes = [
     , MatrixComponent
     , CardTitleComponent
     , CardStateControllerComponent
-    , AlarmSummaryComponent, RenameComponent
+    , AlarmSummaryComponent
+    , RenameComponent
   ],
   imports: [
     BrowserModule

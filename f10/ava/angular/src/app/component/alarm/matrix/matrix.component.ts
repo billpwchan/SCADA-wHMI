@@ -10,7 +10,6 @@ import { CardServiceType } from '../../../service/card/card-settings';
 import { SelectionServiceType } from '../../../service/card/selection-settings';
 import { Card } from '../../../model/Scenario';
 import { DataScenarioHelper } from '../../../model/DataScenarioHelper';
-import { OlsAvaSupService, AvaSupPoint } from '../../../service/scs/ava/ols-ava-sup.service';
 import { DbmReadAvaSupService } from '../../../service/scs/ava/dbm-read-ava-sup.service';
 
 @Component({
@@ -227,8 +226,8 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   isIndeterminate(index: number, event): boolean {
-    const f = 'isChecked';
-    console.log(this.c, f);
+    // const f = 'isIndeterminate';
+    // console.log(this.c, f);
     let selected = 0;
     let checked = 0;
     if ( null != this.updated ) {

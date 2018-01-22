@@ -1,0 +1,44 @@
+<form>
+  <div class="div-card-edit-modify-card"
+    [hidden]="!divRenameEnable">
+
+    <div class="input-group">
+      <span class="input-group-addon"
+      >{{ '&cards_lbl_modify_name' | translate }}</span>
+
+      <input type="text" 
+        class="form-control"
+        name="txtModifyName" 
+        [(ngModel)]="txtModifyName"
+        (ngModelChange)="onChange('txtModifyName', $event)"
+        placeholder="{{ '&cards_txt_modify_name' | translate }}">
+    </div>
+
+    <div [hidden]="!txtModifyNameDuplicatedInvalid" 
+      class="alert alert-danger" 
+      id="txtModifyNameDuplicatedInvalid"
+      >{{ '&cards_lbl_duplicated' | translate }}</div>
+
+    <div [hidden]="!txtModifyNameTooShortInvalid" 
+      class="alert alert-danger" 
+      id="txtModifyNameTooShortInvalid"
+      >{{ '&cards_lbl_length_too_short' | translate }}</div>
+
+    <div [hidden]="!txtModifyNameTooLongInvalid" 
+      class="alert alert-danger" 
+      id="txtModifyNameTooLongInvalid"
+      >{{ '&cards_lbl_length_too_long' | translate }}</div>
+
+    <button type="button" class="btn btn-info btn-card-edit-save" 
+      [disabled]="btnModifySaveDisable" 
+      (click)="btnClicked('modifysave')"
+      title="{{ '&cards_btn_modify_save_title' | translate }}"
+      >{{ '&cards_btn_modify_save' | translate }}</button>
+
+    <button type="button" class="btn btn-info btn-card-edit-cancel" 
+      [disabled]="btnModifyCancelDisable" 
+      (click)="btnClicked('modifysavecancel')"
+      title="{{ '&cards_btn_modify_cancel_title' | translate }}"
+      >{{ '&cards_btn_modify_cancel' | translate }}</button>
+  </div>
+</form>

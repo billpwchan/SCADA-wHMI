@@ -55,6 +55,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   notifyCardController: string;
   notifyCardEdit: string;
 
+  notifyRename: string;
+
   notifySteps: string;
   notifyStepController: string;
   notifyStepEdit: string;
@@ -65,6 +67,10 @@ export class AdminComponent implements OnInit, OnDestroy {
   updateCards: Card[];
   btnEnableStateEnable: boolean;
   btnEnableStateDisable: boolean;
+
+  btnEnableRename: boolean;
+  updateNames: string[];
+  updateName: string;
 
   updateSteps: DatatableStep[];
 
@@ -181,7 +187,7 @@ export class AdminComponent implements OnInit, OnDestroy {
                 return 0;
             });
 
-            this.reloadData();
+            this.reloadCards();
           }
         }
       }
@@ -301,7 +307,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     .subscribe(result => {
       console.log(this.c, f, 'multiWriteSubscription', result);
       if ( null != result ) {
-        this.reloadData();
+        this.reloadCards();
       }
     });
 
@@ -323,7 +329,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.getChildrenAliasService.readData(this.env, DbmSettings.STR_URL_ALIAS + this.instanceRoot);
   }
 
-  private reloadData() {
+  private reloadCards() {
     const f = 'reloadData';
     console.log(this.c, f);
     const dbAddresses: string[] = new Array<string>();
@@ -403,6 +409,9 @@ export class AdminComponent implements OnInit, OnDestroy {
         this.btnEnableStateDisable = false;
       }
 
+      // Rename Rename Button
+      this.btnEnableRename = true;
+
       // Renew conditions
       const ruleBase = 1;
       const cStart = 1;
@@ -416,7 +425,17 @@ export class AdminComponent implements OnInit, OnDestroy {
     } else {
       this.btnEnableStateEnable = false;
       this.btnEnableStateDisable = false;
+      this.btnEnableRename = false;
     }
+  }
+
+  onUpdatedName(name: string) {
+    const f = 'onUpdatedName';
+    console.log(this.c, f);
+
+    const cardSelected = this.getCardSelected();
+    cardSelected.name = name;
+    this.updateCard(cardSelected);
   }
 
   onUpdatedStepSelection(stepIds: number[]) {
@@ -534,6 +553,17 @@ export class AdminComponent implements OnInit, OnDestroy {
         const cardSelected = this.getCardSelected();
         this.updateCardState(cardSelected, false);
         this.updateCard(cardSelected);
+      } break;
+      case 'rename': {
+        const names: string[] = new Array<string>();
+        for ( let i = 0 ; i < this.cards.length ; ++i ) {
+          const card = this.cards[i];
+          names.push(card.name);
+        }
+        this.updateNames = names;
+
+        const cardSelected = this.getCardSelected();
+        this.updateName = cardSelected.name;
       } break;
     }
   }

@@ -54,6 +54,9 @@
 	, "&cards_btn_add_cancel": "Cancel"
 	, "&cards_btn_add_cancel_title": "Cancel to add a new condition."
 
+	, "&cards_rename_btn_rename": "Rename"
+	, "&cards_rename_btn_rename_title": "Rename title of selected condition."
+
 	, "&cards_lbl_modify_name": "Edit Name"
 	, "&cards_txt_modify_name": "type new name..."
 

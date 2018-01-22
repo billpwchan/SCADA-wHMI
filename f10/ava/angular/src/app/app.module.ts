@@ -40,6 +40,7 @@ import { GetChildrenAliasesService } from './service/scs/ava/dbm/get-children-al
 import { MultiReadService } from './service/scs/ava/dbm/multi-read.service';
 import { ReadWriteCEService } from './service/scs/ava/dbm/read-write-ce.service';
 import { MultiWriteService } from './service/scs/ava/dbm/multi-write.service';
+import { RenameComponent } from './component/card/rename/rename.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -67,7 +68,7 @@ const appRoutes: Routes = [
     , MatrixComponent
     , CardTitleComponent
     , CardStateControllerComponent
-    , AlarmSummaryComponent
+    , AlarmSummaryComponent, RenameComponent
   ],
   imports: [
     BrowserModule

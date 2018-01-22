@@ -9,6 +9,10 @@
   , "AppComponent": {
       "title": "AVA"
   }
+  , "RenameComponent": {
+    "card_min": 1
+    , "card_max": 40
+  }
   , "CardEditComponent": {
       "card_name_min": 1
       , "card_name_max": 40

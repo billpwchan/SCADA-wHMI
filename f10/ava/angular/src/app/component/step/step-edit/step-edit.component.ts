@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, OnChanges, Output, EventEmitter, SimpleChanges, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { CardService } from '../../../service/card/card.service';
 import { DatatableStep } from '../../../model/DatatableScenario';
 import { Card, Step, Equipment, Execution, ExecType, PhasesType } from '../../../model/Scenario';
 import { AppSettings } from '../../../app-settings';
@@ -11,11 +10,8 @@ import { OlsService } from '../../../service/scs/ols.service';
 import { DbmService } from '../../../service/scs/dbm.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Subscribable } from 'rxjs/Observable';
-import { SelectionService } from '../../../service/card/selection.service';
 import { StepSettings } from '../steps/step-settings';
 import { SettingsService } from '../../../service/settings.service';
-import { CardServiceType } from '../../../service/card/card-settings';
-import { SelectionServiceType } from '../../../service/card/selection-settings';
 
 class SelOptStr {
   constructor(
@@ -39,10 +35,6 @@ class SelOptNum {
 export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
-  public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
-  public static readonly STR_CARD_SELECTED = AppSettings.STR_CARD_SELECTED;
-  public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
-  public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
   public static readonly STR_ACI_SELECTED   = 'aciselected';
   public static readonly STR_DCI_SELECTED   = 'dciselected';
@@ -73,8 +65,6 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
   }
   @Output() onUpdatedStepEdit = new EventEmitter<Step[]>(null);
 
-  // cardSubscription: Subscription;
-  // selectionSubscription: Subscription;
   olsSubscription: Subscription;
   dbmSubscription: Subscription;
 
@@ -157,34 +147,6 @@ btnDisabledAddCancelStep: boolean;
     console.log(this.c, f);
 
     this.loadSettings();
-
-    // this.cardSubscription = this.cardService.cardItem
-    //   .subscribe(item => {
-    //     console.log(this.c, f, 'cardSubscription', item);
-    //     switch (item) {
-    //       case CardServiceType.CARD_RELOADED: {
-    //         this.btnClicked(StepEditComponent.STR_CARD_RELOADED);
-    //       } break;
-    //       case CardServiceType.STEP_RELOADED: {
-    //         this.btnClicked(StepEditComponent.STR_STEP_RELOADED);
-    //       } break;
-    //     }
-    //   }
-    // );
-
-    // this.selectionSubscription = this.selectionService.selectionItem
-    //   .subscribe(item => {
-    //     console.log(this.c, f, 'selectionSubscription', item);
-    //     switch (item) {
-    //       case SelectionServiceType.CARD_SELECTED: {
-    //         this.btnClicked(StepEditComponent.STR_CARD_SELECTED);
-    //       } break;
-    //       case SelectionServiceType.STEP_SELECTED: {
-    //         this.btnClicked(StepEditComponent.STR_STEP_SELECTED);
-    //       } break;
-    //     }
-    //   }
-    // );
 
     this.olsSubscription = this.olsService.olsItem
       .subscribe(item => {
@@ -286,7 +248,6 @@ btnDisabledAddCancelStep: boolean;
     const f = 'ngOnDestroy';
     console.log(this.c, f);
     // prevent memory leak when component is destroyed
-    // this.cardSubscription.unsubscribe();
     this.olsSubscription.unsubscribe();
     this.dbmSubscription.unsubscribe();
   }
@@ -545,18 +506,6 @@ btnDisabledAddCancelStep: boolean;
     }
   }
 
-  // private newStep(step: Step): void {
-  //   const f = 'newStep';
-  //   console.log(this.c, f);
-  //   const card = this.cardService.getCard([this.selectedCardId]);
-  //   if ( null != card ) {
-  //     console.log(this.c, f, 'card.name', card.name);
-  //     card.steps.push(step);
-  //   } else {
-  //     console.warn(this.c, f, 'card IS NULL');
-  //   }
-  // }
-
   private addStep(): void {
     const f = 'addStep';
     console.log(this.c, f, 'addStep');
@@ -609,7 +558,6 @@ btnDisabledAddCancelStep: boolean;
     ));
 
     this.updated.push(step);
-    // this.newStep(step);
   }
 
   private init(): void {
@@ -661,19 +609,6 @@ btnDisabledAddCancelStep: boolean;
       case StepEditComponent.STR_INIT: {
         this.init();
       } break;
-      case StepEditComponent.STR_CARD_RELOADED: {
-        this.init();
-      } break;
-      case StepEditComponent.STR_CARD_SELECTED: {
-        this.init();
-        // this.selectedCardId = this.selectionService.getSelectedCardId();
-      } break;
-      case StepEditComponent.STR_STEP_RELOADED: {
-        this.init();
-      } break;
-      case StepEditComponent.STR_STEP_SELECTED: {
-        // this.selectedStepId = this.selectionService.getSelectedStepId();
-      } break;
       case StepEditComponent.STR_ACI_SELECTED: {
         this.editEnableCancelStep = false;
         this.editEnableAddAciStep = true;
@@ -692,15 +627,11 @@ btnDisabledAddCancelStep: boolean;
       case 'addacistep': {
         this.addStep();
         this.onUpdatedStepEdit.emit(this.updated);
-        // this.cardService.notifyUpdate(CardServiceType.STEP_RELOADED);
-        // this.cardService.notifyUpdate(CardServiceType.STEP_EDITED);
         this.init();
       } break;
       case 'adddcistep': {
         this.addStep();
         this.onUpdatedStepEdit.emit(this.updated);
-        // this.cardService.notifyUpdate(CardServiceType.STEP_RELOADED);
-        // this.cardService.notifyUpdate(CardServiceType.STEP_EDITED);
         this.init();
       } break;
       case 'addacicancelstep': {
@@ -710,6 +641,5 @@ btnDisabledAddCancelStep: boolean;
         this.init();
       } break;
     }
-    // this.sendNotifyParent(btnLabel);
   }
 }

@@ -50,5 +50,8 @@ export class DbmSettings {
     public static readonly STR_ATTR_POINT_FUNC = '.label';
 
     public static readonly STR_RULE = 'RULE';
+    public static readonly STR_THREE_ZERO = '000';
+    public static readonly STR_ATTR_NAME = '.name';
+    public static readonly STR_ATTR_UNIVNAME = '.UNIVNAME';
     public static readonly STR_ATTR_CONDITION = '.condition';
 }

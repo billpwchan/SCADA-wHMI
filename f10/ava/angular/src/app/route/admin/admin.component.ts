@@ -13,7 +13,7 @@ import { SettingsService } from '../../service/settings.service';
 import { CardServiceType } from '../../service/card/card-settings';
 import { SelectionServiceType } from '../../service/card/selection-settings';
 import { MatrixSettings, Matrix, MatrixConfig } from '../../component/alarm/Matrix/matrix-settings';
-import { Step, Card, Equipment } from '../../model/Scenario';
+import { Step, Card, Equipment, Execution, PhasesType, ExecType } from '../../model/Scenario';
 import { StepsComponent } from '../../component/step/steps/steps.component';
 import { AlarmSummaryConfig, Env, AlarmSummarySettings } from '../../component/alarm/alarm-summary/alarm-summary-settings';
 import { GetInstancesByClassNameService } from '../../service/scs/ava/dbm/get-instances-by-class-name.service';
@@ -37,11 +37,11 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
 
-  @ViewChild(CardEditComponent) cardEditChildView: CardEditComponent;
-  @ViewChild(StepEditComponent) stepEditChildView: StepEditComponent;
-  @ViewChild(StepEditControllerComponent) stepEditControllerChildView: StepEditComponent;
+  // @ViewChild(CardEditComponent) cardEditChildView: CardEditComponent;
+  // @ViewChild(StepEditComponent) stepEditChildView: StepEditComponent;
+  // @ViewChild(StepEditControllerComponent) stepEditControllerChildView: StepEditComponent;
 
-  @ViewChild(StepsComponent) stepsComponent: StepsComponent;
+  // @ViewChild(StepsComponent) stepsComponent: StepsComponent;
 
   readonly c: string = 'AdminComponent';
 
@@ -171,7 +171,7 @@ export class AdminComponent implements OnInit, OnDestroy {
                 let found = false;
                 const base = 1;
                 for ( let n = 0; n < 16; ++n ) {
-                  const name = DbmSettings.STR_RULE + ('000' + (n + base)).slice(-4);
+                  const name = DbmSettings.STR_RULE + (DbmSettings.STR_THREE_ZERO + (n + base)).slice(-4);
                   if ( className === name ) {
                     found = true;
                   }
@@ -234,18 +234,19 @@ export class AdminComponent implements OnInit, OnDestroy {
           this.updateCards = this.cards;
           // this.updateCards = [...this.updateCards];
 
-        } else if (0 === (result.dbValue.length % 7)) {
+        } else if (0 === (result.dbValue.length % 8)) {
 
           this.steps = new Array<Step>();
-          for ( let i = 0; i < result.dbValue.length / 7; ++i ) {
-            const index: number = i * 7;
-            const geo: number         = result.dbValue[index + 0];
-            const func: number        = result.dbValue[index + 1];
-            const equipment: string   = result.dbValue[index + 2];
-            const point: string       = result.dbValue[index + 3];
-            const value: number       = result.dbValue[index + 4];
-            const values: number[]    = result.dbValue[index + 5];
-            const labels: string[]    = result.dbValue[index + 6];
+          for ( let i = 0; i < result.dbValue.length / 8; ++i ) {
+            const index: number = i * 8;
+            const univname: string    = result.dbValue[index + 0];
+            const geo: number         = result.dbValue[index + 1];
+            const func: number        = result.dbValue[index + 2];
+            const equipment: string   = result.dbValue[index + 3];
+            const point: string       = result.dbValue[index + 4];
+            const value: number       = result.dbValue[index + 5];
+            const values: number[]    = result.dbValue[index + 6];
+            const labels: string[]    = result.dbValue[index + 7];
 
             let strLabel = '';
             for ( let  x = 0 ; x < values.length; ++x ) {
@@ -258,7 +259,7 @@ export class AdminComponent implements OnInit, OnDestroy {
             const step: Step = new Step(index);
             step.equipment = new Equipment(
                                               this.env
-                                            , ''
+                                            , univname
                                             , 0
                                             ,  geo
                                             ,  func
@@ -266,6 +267,18 @@ export class AdminComponent implements OnInit, OnDestroy {
                                             , point
                                             , strLabel
                                           );
+
+            step.equipment.phases = new Array<Array<Execution>>();
+            for ( let n = 0 ; n < PhasesType.LENGTH ; ++n ) {
+              step.equipment.phases[n] = new Array<Execution>();
+            }
+
+            step.equipment.phases[PhasesType.SINGLE_EV].push(new Execution(
+              ExecType.DACSIM
+              , univname
+              , Number(value).valueOf()
+            ));
+
             this.steps.push(step);
           }
 
@@ -280,30 +293,40 @@ export class AdminComponent implements OnInit, OnDestroy {
       console.log(this.c, f, 'readWriteCESubscription', result);
       if ( null != result ) {
 
-        const dbAddresses: string[] = new Array<string>();
+        if ( result.length > 0 ) {
+          if ( result[0].method === 'readConditions' ) {
+            const dbAddresses: string[] = new Array<string>();
 
-        for ( let n = 0; n < result.length; ++n ) {
-          const readWriteCEResult: ReadWriteCEResult = result[n];
-          if ( null != readWriteCEResult ) {
-            const base: string = readWriteCEResult.base;
-            const targetAlias: string = readWriteCEResult.targetAlias;
-            const targetValue: string = readWriteCEResult.targetValue;
-            if ( null != targetAlias && null != targetValue ) {
+            for ( let n = 0; n < result.length; ++n ) {
+              const readWriteCEResult: ReadWriteCEResult = result[n];
+              if ( null != readWriteCEResult ) {
+                const base: string = readWriteCEResult.base;
+                const targetAlias: string = readWriteCEResult.targetAlias;
+                const targetValue: string = readWriteCEResult.targetValue;
+                if ( null != targetAlias && null != targetValue ) {
 
-              const alias: string = targetAlias.toString().match(/^(.*?)\./)[1];
+                  const alias: string = targetAlias.toString().match(/^(.*?)\./)[1];
 
-              dbAddresses.push(alias + DbmSettings.STR_ATTR_GEO);
-              dbAddresses.push(alias + DbmSettings.STR_ATTR_FUNC);
-              dbAddresses.push(alias + DbmSettings.STR_ATTR_EQUIPMENT_LABEL);
-              dbAddresses.push(alias + DbmSettings.STR_ATTR_POINT_FUNC);
-              dbAddresses.push(alias + DbmSettings.STR_ATTR_VALUE);
-              dbAddresses.push(alias + DbmSettings.STR_COLON + DbmSettings.STR_VALUETABLE_VALUE);
-              dbAddresses.push(alias + DbmSettings.STR_COLON + DbmSettings.STR_VALUETABLE_LABEL);
+                  dbAddresses.push(alias + DbmSettings.STR_ATTR_NAME);
+                  dbAddresses.push(alias + DbmSettings.STR_ATTR_GEO);
+                  dbAddresses.push(alias + DbmSettings.STR_ATTR_FUNC);
+                  dbAddresses.push(alias + DbmSettings.STR_ATTR_EQUIPMENT_LABEL);
+                  dbAddresses.push(alias + DbmSettings.STR_ATTR_POINT_FUNC);
+                  dbAddresses.push(alias + DbmSettings.STR_ATTR_VALUE);
+                  dbAddresses.push(alias + DbmSettings.STR_COLON + DbmSettings.STR_VALUETABLE_VALUE);
+                  dbAddresses.push(alias + DbmSettings.STR_COLON + DbmSettings.STR_VALUETABLE_LABEL);
+                }
+              }
             }
+
+            this.multiReadService.readData(this.env, dbAddresses);
+          } else if ( result[0].method === 'writeConditions' ) {
+
+            const card: Card = this.getCardSelected();
+            const index: number = card.index;
+            this.readConditions(index);
           }
         }
-
-        this.multiReadService.readData(this.env, dbAddresses);
       }
     });
 
@@ -419,6 +442,41 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.btnEnableDeleteStep = false;
   }
 
+  private readConditions(index: number) {
+    const f = 'readConditions';
+    console.log(this.c, f);
+
+    const ruleBase = 1;
+    const cStart = 1;
+    const cEnd = 8;
+    const univname: string = this.avar + DbmSettings.STR_COLON + DbmSettings.STR_RULE + ('000' + (index + ruleBase)).slice(-4);
+    this.readWriteCEService.readConditions(this.env, univname, cStart, cEnd);
+  }
+
+  private writeConditions(index: number) {
+    const f = 'writeConditions';
+    console.log(this.c, f);
+
+    const ruleBase = 1;
+    const cStart = 1;
+    const cEnd = 8;
+    const univname: string = this.avar + DbmSettings.STR_COLON + DbmSettings.STR_RULE + ('000' + (index + ruleBase)).slice(-4);
+    this.readWriteCEService.writeConditions(this.env, univname, cStart, cEnd, this.steps, 0);
+  }
+
+  private reloadAlarmSummary(index: number) {
+    const f = 'reloadAlarmSummary';
+    console.log(this.c, f);
+
+    this.updateAlarmEnv = this.env;
+    const univnameSups: string[] = new Array<string>();
+    for ( let i = 0 ; i < this.avasList.length ; ++i ) {
+      univnameSups.push(this.avasList[i] + DbmSettings.STR_COLON + 'avasuppression');
+    }
+    this.updateAlarmUnivname = univnameSups;
+    this.updateAlarmSummary = index;
+  }
+
   onUpdatedCardSelection(cardIds: number[]) {
     const f = 'onUpdatedCardSelection';
     console.log(this.c, f);
@@ -427,6 +485,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     const cardSelected: Card = this.getCardSelected();
     if ( null != cardSelected ) {
+
       // Renew State Button
       if ( cardSelected.state ) {
         this.btnEnableStateEnable = false;
@@ -446,23 +505,13 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.btnEnableNewStep = true;
       this.btnEnableDeleteStep = false;
 
-      // Renew conditions
-      const ruleBase = 1;
-      const cStart = 1;
-      const cEnd = 8;
-      const index: number = cardSelected.index;
-      const univname: string = this.avar + DbmSettings.STR_COLON + DbmSettings.STR_RULE + ('000' + (index + ruleBase)).slice(-4);
-      this.readWriteCEService.readConditions(this.env, univname, cStart, cEnd);
+      // Reload conditions
+      this.readConditions(cardSelected.index);
 
-      // Renew alarm summary
-      this.updateAlarmEnv = this.env;
-      const univnameSups: string[] = new Array<string>();
-      for ( let i = 0 ; i < this.avasList.length ; ++i ) {
-        univnameSups.push(this.avasList[i] + DbmSettings.STR_COLON + 'avasuppression');
-      }
-      this.updateAlarmUnivname = univnameSups;
-      this.updateAlarmSummary = cardSelected.index;
+      // Reload alarm summary
+      this.reloadAlarmSummary(cardSelected.index);
     } else {
+
       this.initGui();
     }
   }
@@ -497,32 +546,9 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.renewSteps();
   }
 
-  // onUpdatedSteps(data: Step[]): void {
-  //   const f = 'onUpdatedSteps';
-  //   console.log(this.c, f);
-  //   const selCardId: string = this.selectionService.getSelectedCardId();
-  //   if ( null != selCardId ) {
-  //     const card = this.cardService.getCard([selCardId]);
-  //     if ( null != card ) {
-  //       card.steps = JSON.parse(JSON.stringify(data));
-  //     } else {
-  //       card.steps = null;
-  //     }
-  //   }
-  // }
-
   onUpdatedAlarmSummary(data: number[][]): void {
     const f = 'onUpdatedAlarmSummary';
     console.log(this.c, f);
-    // const selCardId: string = this.selectionService.getSelectedCardId();
-    // if ( null != selCardId ) {
-    //   const card = this.cardService.getCard([selCardId]);
-    //   if ( null != card ) {
-    //     card.alarms = JSON.parse(JSON.stringify(data));
-    //   } else {
-    //     card.alarms = null;
-    //   }
-    // }
   }
 
   private loadAlarmSummaryCfgs(): AlarmSummaryConfig {
@@ -552,18 +578,6 @@ export class AdminComponent implements OnInit, OnDestroy {
     console.log(this.c, f, 'evt', evt);
 
     switch ( evt ) {
-      case StepEditControllerSettings.STR_STEP_EDIT_ENABLE: {
-        this.stepEditChildView.onParentChange(StepEditSettings.STR_STEP_EDIT_ENABLE);
-      } break;
-      case CardEditControllerSettings.STR_CARD_EDIT_CONTROLLER_ADD_ENABLE: {
-        this.cardEditChildView.onParentChange(CardEditSettings.STR_CARD_EDIT_ADD_ENABLE);
-      } break;
-      case CardEditControllerSettings.STR_CARD_EDIT_CONTROLLER_RENAME_ENABLE: {
-        this.cardEditChildView.onParentChange(CardEditSettings.STR_CARD_EDIT_MODIFY_ENABLE);
-      } break;
-      case CardEditControllerSettings.STR_CARD_EDIT_CONTROLLER_MODIFY_ENABLE: {
-        this.stepEditControllerChildView.onParentChange(StepEditControllerSettings.STR_STEP_EDIT_ENABLE);
-      } break;
     }
   }
 
@@ -589,12 +603,9 @@ export class AdminComponent implements OnInit, OnDestroy {
     console.log(this.c, f);
     if ( null != steps ) {
       for ( let x = 0 ; x < stepIds.length ; ++x ) {
-        console.log(this.c, f, 'delete', 'stepIds[x]', stepIds[x], 'x', x);
         for ( let y = 0 ; y < steps.length ; ++y ) {
           const step: Step = steps[y];
-          console.log(this.c, f, 'delete', 'stepIds[x]', stepIds[x]);
           if ( step.step === stepIds[x] ) {
-            console.log(this.c, f, 'delete', 'y', y);
             steps.splice(y, 1);
           }
         }
@@ -610,7 +621,6 @@ export class AdminComponent implements OnInit, OnDestroy {
     console.log(this.c, f, 'btnLabel[' + btnLabel + ']');
     switch (btnLabel) {
       case AdminComponent.STR_INIT: {
-        // this.init();
       } break;
       case 'enable': {
         const cardSelected = this.getCardSelected();
@@ -637,12 +647,13 @@ export class AdminComponent implements OnInit, OnDestroy {
         const cardSelected: Card = this.getCardSelected();
         const stepSelected: Step = this.getStepSelected();
         this.updateStepEdit = this.steps;
-        // this.getNotification(StepEditControllerSettings.STR_STEP_EDIT_ENABLE);
+        this.writeConditions(cardSelected.index);
       } break;
       case 'deletestep': {
+        const cardSelected: Card = this.getCardSelected();
         const stepSelected: Step = this.getStepSelected();
         this.deleteStep(this.steps, this.stepIdsSelected);
-        this.renewSteps();
+        this.writeConditions(cardSelected.index);
       } break;
     }
   }

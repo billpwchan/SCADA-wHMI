@@ -39,7 +39,6 @@ export class Equipment {
   ) {}
 }
 
-
 /**
  * A model for an individual Step
  */

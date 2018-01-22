@@ -224,7 +224,7 @@ export class DbmService {
 
     let url = connAddr;
     url += DbmSettings.STR_URL_SETATTRIBUTEFORMULA;
-    url += DbmSettings.STR_QUOTE + DbmSettings.STR_ALIAS + univname + DbmSettings.STR_QUOTE;
+    url += DbmSettings.STR_QUOTE + univname + DbmSettings.STR_QUOTE;
     url += DbmSettings.STR_FORMULA_OPTION + formulaNum;
     return this.httpClient.get(url).map(this.extractResponse);
   }

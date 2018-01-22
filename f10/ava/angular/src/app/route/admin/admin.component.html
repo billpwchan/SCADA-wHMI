@@ -5,7 +5,6 @@
         <label>{{ '&cards_title' | translate }}</label>
       </div>
       <div style="width: 50%; display: flex; flex-direction: row-reverse;">
-        <app-storage (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStorage"></app-storage>
         <app-card-edit-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-edit-controller>
         <app-card-state-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-state-controller>
       </div>
@@ -27,7 +26,8 @@
       </div>
     </div>
     <div style="padding: 10px;">
-      <app-steps (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"></app-steps>
+      <app-steps (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"
+      [updateSteps]="updateSteps" (onUpdatedStepSelection)="onUpdatedStepSelection($event)"></app-steps>
     </div>
     <div style="padding: 10px;">
       <app-alarm-summary (notifyParent)="getNotification($event)" [notifyFromParent]="notifyAlarmSummary" 

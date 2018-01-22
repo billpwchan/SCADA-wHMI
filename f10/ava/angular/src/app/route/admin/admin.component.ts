@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy, ViewChild, SimpleChanges } from '@angular/core';
-import { StorageService } from '../../service/card/storage.service';
 import { StepEditControllerSettings } from '../../component/step/step-edit-controller/step-edit-controller-settings';
 import { StepEditSettings } from '../../component/step/step-edit/step-edit-settings';
 import { CardEditControllerSettings } from '../../component/card/card-edit-controller/card-edit-controller-settings';
@@ -26,6 +25,8 @@ import { DbmSettings } from '../../service/scs/dbm-settings';
 import { MultiReadService } from '../../service/scs/ava/dbm/multi-read.service';
 import { DbmService } from '../../service/scs/dbm.service';
 import { ReadWriteCEService, ReadWriteCEResult } from '../../service/scs/ava/dbm/read-write-ce.service';
+import { DatatableStep } from '../../model/DatatableScenario';
+import { DataScenarioHelper } from '../../model/DataScenarioHelper';
 
 @Component({
   selector: 'app-admin',
@@ -43,7 +44,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   readonly c: string = 'AdminComponent';
 
   cardSubscription: Subscription;
-  selectionSubscription: Subscription;
+  // selectionSubscription: Subscription;
 
   getInstancesByClassNameSubscription: Subscription;
   getChildrenAliasSubscription: Subscription;
@@ -63,6 +64,8 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   updateCards: Card[];
 
+  updateSteps: DatatableStep[];
+
   alarmSummaryCfg: AlarmSummaryConfig;
   updateAlarmSummary: number;
 
@@ -79,13 +82,13 @@ export class AdminComponent implements OnInit, OnDestroy {
   private ruleList: string[];
 
   private cards: Card[];
+  private steps: Step[];
 
   constructor(
     private translate: TranslateService
     , private settingsService: SettingsService
-    , private cardService: CardService
-    , private selectionService: SelectionService
-    , private storageService: StorageService
+    // , private cardService: CardService
+    // , private selectionService: SelectionService
     , private getInstancesByClassNameService: GetInstancesByClassNameService
     , private getChildrenAliasService: GetChildrenAliasesService
     , private multiReadService: MultiReadService
@@ -110,50 +113,47 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'ngOnInit';
     console.log(this.c, f);
 
-    this.cardSubscription = this.cardService.cardItem
-      .subscribe(item => {
-        console.log(this.c, f, 'cardSubscription', item);
-        switch (item) {
-          case CardServiceType.CARD_RELOADED: {
-            this.updateAlarmSummary = null;
-          } break;
-          case CardServiceType.STEP_RELOADED: {
-            // const selCardId: string = this.selectionService.getSelectedCardId();
-            // if ( null != selCardId ) {
-            //   const card = this.cardService.getCard([selCardId]);
-            //   this.alarmSummaryComponent.updateAlarmSummary = card.index;
-            // }
-          } break;
-          case CardServiceType.STEP_UPDATED: {
-            // const selCardId: string = this.selectionService.getSelectedCardId();
-            // if ( null != selCardId ) {
-            //   const card = this.cardService.getCard([selCardId]);
-            //   this.alarmSummaryComponent.updateAlarmSummary = card.index;
-            // }
-          } break;
-        }
-      });
+    // this.cardSubscription = this.cardService.cardItem
+    //   .subscribe(item => {
+    //     console.log(this.c, f, 'cardSubscription', item);
+    //     switch (item) {
+    //       case CardServiceType.CARD_RELOADED: {
+    //         this.updateAlarmSummary = null;
+    //       } break;
+    //       case CardServiceType.STEP_RELOADED: {
+    //         // const selCardId: string = this.selectionService.getSelectedCardId();
+    //         // if ( null != selCardId ) {
+    //         //   const card = this.cardService.getCard([selCardId]);
+    //         //   this.alarmSummaryComponent.updateAlarmSummary = card.index;
+    //         // }
+    //       } break;
+    //       case CardServiceType.STEP_UPDATED: {
+    //         // const selCardId: string = this.selectionService.getSelectedCardId();
+    //         // if ( null != selCardId ) {
+    //         //   const card = this.cardService.getCard([selCardId]);
+    //         //   this.alarmSummaryComponent.updateAlarmSummary = card.index;
+    //         // }
+    //       } break;
+    //     }
+    //   });
 
-    this.selectionSubscription = this.selectionService.selectionItem
-      .subscribe(item => {
-        console.log(this.c, f, 'selectionSubscription', item);
-        switch (item) {
-          case SelectionServiceType.CARD_SELECTED: {
-            const selCardId: string = this.selectionService.getSelectedCardId();
-            if ( null != selCardId ) {
-              const card: Card = this.cardService.getCard([selCardId]);
-              if ( null != card ) {
-                this.updateAlarmSummary = card.index;
-              } else {
-                console.warn(this.c, f, 'card IS NULL');
-              }
-            }
-          } break;
-        }
-      });
-
-    this.storageService.loadCards();
-
+    // this.selectionSubscription = this.selectionService.selectionItem
+    //   .subscribe(item => {
+    //     console.log(this.c, f, 'selectionSubscription', item);
+    //     switch (item) {
+    //       case SelectionServiceType.CARD_SELECTED: {
+    //         const selCardId: string = this.selectionService.getSelectedCardId();
+    //         if ( null != selCardId ) {
+    //           const card: Card = this.cardService.getCard([selCardId]);
+    //           if ( null != card ) {
+    //             this.updateAlarmSummary = card.index;
+    //           } else {
+    //             console.warn(this.c, f, 'card IS NULL');
+    //           }
+    //         }
+    //       } break;
+    //     }
+    //   });
 
     // this.getInstancesByClassNameSubscription = this.getInstancesByClassNameService.dbmItem
     // .subscribe(item => {
@@ -190,7 +190,7 @@ export class AdminComponent implements OnInit, OnDestroy {
             }
             for ( let i = 0 ; i < result.data.length ; ++i ) {
               const alias = result.data[i];
-              const classNames = alias.split(':');
+              const classNames = alias.split(DbmSettings.STR_COLON);
               const className = classNames[classNames.length - 1];
               if ( className.startsWith(AlarmSummarySettings.STR_AVAR_PREFIX) ) {
                 this.avar = alias;
@@ -229,7 +229,7 @@ export class AdminComponent implements OnInit, OnDestroy {
                 if (A > B) {
                   return 1;
                 }
-                // must be equal
+                // equal
                 return 0;
             });
             const dbAddresses: string[] = new Array<string>();
@@ -264,8 +264,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           }
           this.updateCards = this.cards;
         } else if (0 === (result.dbValue.length % 7)) {
-          const steps: Step[] = new Array<Step>();
-
+          this.steps = new Array<Step>();
           for ( let i = 0; i < result.dbValue.length / 7; ++i ) {
             const index: number = i * 7;
             const geo: number         = result.dbValue[index + 0];
@@ -295,8 +294,21 @@ export class AdminComponent implements OnInit, OnDestroy {
                                             , point
                                             , strLabel
                                           );
-            steps.push(step);
+            this.steps.push(step);
           }
+
+          // Renew StepsComponent
+          const dtSteps: DatatableStep[] = new Array<DatatableStep>();
+          for ( let i = 0 ; i < this.steps.length ; ++i ) {
+            const step: Step = this.steps[i];
+            if ( null != step ) {
+              dtSteps.push(DataScenarioHelper.convertToDatatableStep(step));
+            }
+          }
+          this.updateSteps = dtSteps;
+        } else {
+          // Renew with No Conditions
+          this.updateSteps = this.steps = [];
         }
       }
     });
@@ -305,7 +317,6 @@ export class AdminComponent implements OnInit, OnDestroy {
     .subscribe(result => {
       console.log(this.c, f, 'readWriteCESubscription', result);
       if ( null != result ) {
-
 
         const dbAddresses: string[] = new Array<string>();
 
@@ -344,52 +355,91 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'ngOnDestroy';
     console.log(this.c, f);
     // prevent memory leak when component is destroyed
-    this.selectionSubscription.unsubscribe();
+    // this.selectionSubscription.unsubscribe();
     this.cardSubscription.unsubscribe();
     this.getInstancesByClassNameSubscription.unsubscribe();
   }
 
-  onUpdatedCardSelection(cards: Card[]) {
+  onUpdatedCardSelection(cardIds: number[]) {
     const f = 'onUpdatedCardSelection';
     console.log(this.c, f);
 
-    if ( null != cards ) {
-      if ( cards.length > 0 ) {
-        const ruleBase = 1;
-        const card: Card = cards[0];
-        const index: number = card.index;
-        const univname: string = this.avar + ':' + 'RULE' + ('000' + (index + ruleBase)).slice(-4);
-        this.readWriteCEService.readConditions(this.env, univname, 1, 8);
+    if ( null != cardIds ) {
+      if ( cardIds.length > 0 ) {
+        const cardId: number = cardIds[0];
+
+        let cardSelected: Card = null;
+        for ( let i = 0 ; i < this.cards.length ; ++i ) {
+          const card: Card = this.cards[i];
+          if ( cardId === card.index ) {
+            cardSelected = card;
+            break;
+          }
+        }
+
+        if ( null != cardSelected ) {
+
+          // Renew conditions
+          const ruleBase = 1;
+          const cStart = 1;
+          const cEnd = 8;
+          const index: number = cardSelected.index;
+          const univname: string = this.avar + DbmSettings.STR_COLON + DbmSettings.STR_RULE + ('000' + (index + ruleBase)).slice(-4);
+          this.readWriteCEService.readConditions(this.env, univname, cStart, cEnd);
+
+          // Renew alarm summary
+          this.updateAlarmSummary = cardSelected.index;
+        }
       }
     }
   }
 
-  onUpdatedSteps(data: Step[]): void {
-    const f = 'onUpdatedSteps';
+  onUpdatedStepSelection(stepIds: number[]) {
+    const f = 'onUpdatedStepSelection';
     console.log(this.c, f);
-    const selCardId: string = this.selectionService.getSelectedCardId();
-    if ( null != selCardId ) {
-      const card = this.cardService.getCard([selCardId]);
-      if ( null != card ) {
-        card.steps = JSON.parse(JSON.stringify(data));
-      } else {
-        card.steps = null;
+
+    if ( null != stepIds ) {
+      if ( stepIds.length > 0 ) {
+        const stepId: number = stepIds[0];
+
+        let stepSelected: Step = null;
+        for ( let i = 0 ; i < this.steps.length ; ++i ) {
+          const step: Step = this.steps[i];
+          if ( stepId === step.step ) {
+            stepSelected = step;
+            break;
+          }
+        }
       }
     }
   }
+
+  // onUpdatedSteps(data: Step[]): void {
+  //   const f = 'onUpdatedSteps';
+  //   console.log(this.c, f);
+  //   const selCardId: string = this.selectionService.getSelectedCardId();
+  //   if ( null != selCardId ) {
+  //     const card = this.cardService.getCard([selCardId]);
+  //     if ( null != card ) {
+  //       card.steps = JSON.parse(JSON.stringify(data));
+  //     } else {
+  //       card.steps = null;
+  //     }
+  //   }
+  // }
 
   onUpdatedAlarmSummary(data: number[][]): void {
     const f = 'onUpdatedAlarmSummary';
     console.log(this.c, f);
-    const selCardId: string = this.selectionService.getSelectedCardId();
-    if ( null != selCardId ) {
-      const card = this.cardService.getCard([selCardId]);
-      if ( null != card ) {
-        card.alarms = JSON.parse(JSON.stringify(data));
-      } else {
-        card.alarms = null;
-      }
-    }
+    // const selCardId: string = this.selectionService.getSelectedCardId();
+    // if ( null != selCardId ) {
+    //   const card = this.cardService.getCard([selCardId]);
+    //   if ( null != card ) {
+    //     card.alarms = JSON.parse(JSON.stringify(data));
+    //   } else {
+    //     card.alarms = null;
+    //   }
+    // }
   }
 
   private loadAlarmSummaryCfgs(): AlarmSummaryConfig {

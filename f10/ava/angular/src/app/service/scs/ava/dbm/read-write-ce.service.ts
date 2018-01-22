@@ -44,7 +44,7 @@ export class ReadWriteCEService {
     const obs = Array<Observable<any>>();
 
     for (let cond = condStartId; cond <= condEndId; cond++) {
-      const condpath = univname + '.condition' + cond;
+      const condpath = univname + DbmSettings.STR_ATTR_CONDITION + cond;
       obs.push(this.dbmService.readFormulas(connAddr, condpath));
     }
 
@@ -99,9 +99,10 @@ export class ReadWriteCEService {
 
       if (stepId < card.steps.length) {
         formula =
-        '['
+        DbmSettings.STR_OPEN_BRACKET
         + DbmSettings.STR_URL_ALIAS + card.steps[stepId].equipment.univname
-        + ']='
+        + DbmSettings.STR_CLOSE_BRACKET
+        + DbmSettings.STR_EQUAL
         + card.steps[stepId].equipment.phases[PhasesType.SINGLE_EV][0].value;
         obs.push(this.dbmService.writeFormulaStr(connAddr, condpath, formula));
       } else {

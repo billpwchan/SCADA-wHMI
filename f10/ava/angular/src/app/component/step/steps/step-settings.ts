@@ -10,3 +10,7 @@ export class StepSettings {
     public static readonly STR_POINTLABEL_PREFIX = 'pointlabel_prefix';
     public static readonly STR_VALUE_PREFIX = 'value_prefix';
 }
+
+export class StepsConfig {
+
+}

@@ -4,6 +4,9 @@ export class DbmSettings {
     public static readonly INT_DCI_TYPE = 104;
     public static readonly STR_OPEN_PARENTHESIS = '(';
     public static readonly STR_CLOSE_PARENTHESIS = ')';
+    public static readonly STR_OPEN_BRACKET = '[';
+    public static readonly STR_CLOSE_BRACKET = ']';
+    public static readonly STR_EQUAL = '=';
     public static readonly STR_COLON = ':';
     public static readonly STR_URL_ALIAS = '%3Calias%3E';
     public static readonly STR_ALIAS = '<alias>';
@@ -26,7 +29,6 @@ export class DbmSettings {
     public static readonly STR_ATTR_CHILDREN_ALIASES = 'childrenAliases';
     public static readonly STR_ATTR_INSTANCES = 'instances';
 
-
     public static readonly STR_URL_GETCLASSID = '/scs/service/DbmComponent/GetClassId?dbaddress=';
 
     public static readonly STR_ACQVALUE = '.acqValue';
@@ -46,4 +48,7 @@ export class DbmSettings {
     public static readonly STR_ATTR_FUNC = ':^.functionalCat';
     public static readonly STR_ATTR_EQUIPMENT_LABEL = ':^.label';
     public static readonly STR_ATTR_POINT_FUNC = '.label';
+
+    public static readonly STR_RULE = 'RULE';
+    public static readonly STR_ATTR_CONDITION = '.condition';
 }

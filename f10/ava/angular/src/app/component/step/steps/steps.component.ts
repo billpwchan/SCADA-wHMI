@@ -3,7 +3,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { CardService } from '../../../service/card/card.service';
 import { Subscription } from 'rxjs/Subscription';
 import { DatatableStep } from '../../../model/DatatableScenario';
-import { Card, Step } from '../../../model/Scenario';
+import { Card, Step, Equipment } from '../../../model/Scenario';
 import { AppSettings } from '../../../app-settings';
 import { SelectionService } from '../../../service/card/selection.service';
 import { StepSettings } from './step-settings';
@@ -40,20 +40,34 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
-  cardSubscription: Subscription;
-  selectionSubscription: Subscription;
-  dbmPollingSubscription: Subscription;
+  private updated: DatatableStep[];
+  @Input()
+  set updateSteps(dtSteps: DatatableStep[]) {
+    const f = 'updateSteps';
+    console.log(this.c, f);
 
-  selectedCardName: string;
-  selectedCardStep: number[];
+    this.updated = new Array<DatatableStep>();
+
+    if ( null != dtSteps ) {
+      for ( let i = 0 ; i < dtSteps.length ; ++i ) {
+        this.updated.push(DatatableStep.clone(dtSteps[i]));
+      }
+      console.log(this.c, f, 'this.updated', this.updated);
+
+      this.reloadData();
+    } else {
+      console.warn(this.c, f, 'data IS INVALID');
+    }
+  }
+  @Output() onUpdatedStepSelection = new EventEmitter<number[]>();
+
+  selectedStepStep: number[];
 
   // Datatable
   @ViewChild('stepsDataTable') stepsDataTable: DatatableComponent;
 
   rows_step = new Array<DatatableStep>();
   selected_step = new Array<DatatableStep>();
-  loadingIndicator: boolean;
-  reorderable: boolean;
 
   // properties for ngx-datatable
   public messages = {};
@@ -72,11 +86,7 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(
     private translate: TranslateService
-    , private cardService: CardService
-    , private selectionService: SelectionService
-    , private storageService: StorageService
     , private settingsService: SettingsService
-    , private dbmPollingService: DbmPollingService
   ) {
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.loadTranslations();
@@ -88,59 +98,18 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
 
     this.loadSettings();
-
-    this.cardSubscription = this.cardService.cardItem
-      .subscribe(item => {
-        console.log(this.c, f, 'cardSubscription', item);
-        switch (item) {
-          case CardServiceType.CARD_RELOADED: {
-            this.btnClicked(StepsComponent.STR_CARD_RELOADED);
-          } break;
-          case CardServiceType.STEP_RELOADED: {
-            this.btnClicked(StepsComponent.STR_STEP_RELOADED);
-          } break;
-          case CardServiceType.STEP_UPDATED: {
-            this.btnClicked(StepsComponent.STR_STEP_UPDATED);
-          } break;
-        }
-      });
-
-    this.selectionSubscription = this.selectionService.selectionItem
-      .subscribe(item => {
-        console.log(this.c, f, 'selectionSubscription', item);
-        switch (item) {
-          case SelectionServiceType.CARD_SELECTED: {
-            this.btnClicked(StepsComponent.STR_CARD_SELECTED);
-          } break;
-        }
-      });
-
-    this.dbmPollingSubscription = this.dbmPollingService.dbmPollingItem
-      .subscribe(item => {
-        console.log(this.c, f, 'dbmPollingSubscription', item);
-
-        if (item === this.selectedCardName) {
-          this.btnClicked(StepsComponent.STR_STEP_UPDATED);
-        }
-      });
   }
 
   ngOnDestroy(): void {
     const f = 'ngOnDestroy';
     console.log(this.c, f);
-
     // prevent memory leak when component is destroyed
-    this.selectionSubscription.unsubscribe();
-    this.cardSubscription.unsubscribe();
-    this.dbmPollingSubscription.unsubscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     const f = 'ngOnChanges';
     if (changes[StepsComponent.STR_NORIFY_FROM_PARENT]) {
-      switch (changes[StepsComponent.STR_NORIFY_FROM_PARENT].currentValue) {
-        // case StepsComponent.STR_NEWSTEP: {
-        // } break;
+      if (changes[StepsComponent.STR_NORIFY_FROM_PARENT].currentValue) {
       }
     }
   }
@@ -174,53 +143,25 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     this.stepsDataTable.messages['totalMessage'] = this.translate.instant('&steps_dg_footer_totalmessage');
   }
 
-  getRowClass(row) {
-    const f = 'getRowClass';
-    // console.log(this.c, f);
-    return {
-      'age-is-ten': (row.age % 10) === 0
-    };
-  }
-
-  getCellClass({ row, column, value }): any {
-    const f = 'getCellClass';
-    // console.log(this.c, f);
-    return {
-      'is-female': value === 'female'
-    };
-  }
-
-  onChange(name: string, event?: Event): void {
-    const f = 'onChange';
-    console.log(this.c, f);
-  }
-
-  private reloadingSteps(updateOnly: boolean, keepSelection: boolean, cb): void {
-    const f = 'reloadingSteps';
+  private reloadData(): void {
+    const f = 'reloadData';
     console.log(this.c, f);
 
-    if ( ! updateOnly ) {
-      // Reset ScenarioStep
-      this.rows_step = [];
-    }
+    this.rows_step = [];
 
-    const card: Card = this.cardService.getCard([this.selectedCardName]);
+    if ( null != this.updated ) {
+      if (this.updated.length > 0) {
+        this.updated.forEach((item, index) => {
+          if ( null != item ) {
+            const step = '' + item.step;
+            const location = this.geoPrefix + item.location;
+            const system = this.funcPrefix + item.system;
+            const equipment = this.eqplabelPrefix + item.equipment;
+            const point = this.pointlabelPrefix + item.point;
+            const value = this.valuePrefix + item.value;
+            const num = this.stepPrefix + (+item.step + +this.stepBase);
+            const updated = new Date();
 
-    if (null != card) {
-      const steps = card.steps;
-      if (steps.length > 0) {
-        steps.forEach((item, index) => {
-
-          const step = '' + item.step;
-          const location = this.geoPrefix + item.equipment.geo;
-          const system = this.funcPrefix + item.equipment.func;
-          const equipment = this.eqplabelPrefix + item.equipment.eqplabel;
-          const point = this.pointlabelPrefix + item.equipment.pointlabel;
-          const value = this.valuePrefix + item.equipment.valuelabel;
-          const num = this.stepPrefix + (+item.step + +this.stepBase);
-          const updated = new Date();
-
-          if ( ! updateOnly ) {
             const dtStep: DatatableStep = new DatatableStep(
               step
               , location
@@ -228,67 +169,18 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
               , equipment
               , point
               , value
-              // , delay
-              // , execute
-              // , status
               , num
-              // , current
               , updated
             );
             this.rows_step.push(dtStep);
-          } else {
-            this.rows_step[index].step = step;
-            this.rows_step[index].location = location;
-            this.rows_step[index].system = system;
-            this.rows_step[index].equipment = equipment;
-            this.rows_step[index].point = point;
-            this.rows_step[index].value = value;
-            // this.rows_step[index].delay = delay;
-            // this.rows_step[index].execute = execute;
-            // this.rows_step[index].status = status;
-            this.rows_step[index].num = num;
-            // this.rows_step[index].current = current;
-            this.rows_step[index].updated = updated;
           }
         });
       } else {
-        console.warn(this.c, f, 'step IS ZERO LENGTH');
+        console.warn(this.c, f, 'steps IS ZERO LENGTH');
       }
     } else {
-      console.warn(this.c, f, 'card IS NULL');
+      console.warn(this.c, f, 'steps IS NULL');
     }
-    this.rows_step = [...this.rows_step];
-
-    if ( ! keepSelection ) {
-      this.selected_step = [];
-      this.setSelectedRow();
-      this.selectedCardStep = null;
-    } else {
-      if ( this.selectedCardStep && this.rows_step ) {
-        this.selectedCardStep.forEach ( item1 => {
-          this.rows_step.forEach ( item2 => {
-            if ( '' + item1 === item2.step ) {
-              this.selected_step.push(item2);
-            }
-          });
-        });
-      }
-    }
-  }
-
-  private reloadSteps(updateOnly: boolean = false, keepSelection: boolean = false): void {
-    const f = 'reloadSteps';
-    console.log(this.c, f);
-    console.log(this.c, f, updateOnly);
-
-    this.reloadingSteps(updateOnly, keepSelection, (data) => {
-      setTimeout(() => { this.loadingIndicator = false; }, 1500);
-    });
-  }
-
-  selectFn() {
-    const f = 'selectFn';
-    console.log(this.c, f);
   }
 
   private emptySteps() {
@@ -298,21 +190,15 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     this.rows_step = [...this.rows_step];
   }
 
-  onColumnClick(name: string) {
-    const f = 'onColumnClick';
-    console.log(this.c, f);
-    console.log(this.c, f, 'name', name);
-  }
-
   private setSelectedRow() {
     const f = 'setSelectedRow';
-    console.log(this.c, f, 'name', name, 'event', event);
+    console.log(this.c, f, 'name', name);
 
-    this.selectedCardStep = new Array<number>();
-    this.selected_step.forEach(item => {
-      this.selectedCardStep.push(+item.step);
+    this.selectedStepStep = new Array<number>();
+      this.selected_step.forEach(item => {
+        this.selectedStepStep.push(Number(item.step));
     });
-    this.selectionService.setSelectedStepIds(this.selectedCardStep);
+    this.onUpdatedStepSelection.emit(this.selectedStepStep);
   }
 
   onRowSelect(name: string, event: Event) {
@@ -343,7 +229,6 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
   private init(): void {
     const f = 'init';
     console.log(this.c, f);
-    this.selectedCardName = '';
   }
 
   btnClicked(btnLabel: string, event?: Event) {
@@ -354,21 +239,6 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
       case StepsComponent.STR_INIT: {
         this.init();
       } break;
-      case StepsComponent.STR_CARD_RELOADED: {
-        this.selectedCardName = '';
-        this.reloadSteps(false, true);
-      } break;
-      case StepsComponent.STR_CARD_SELECTED: {
-        this.selectedCardName = this.selectionService.getSelectedCardId();
-        this.reloadSteps(false, true);
-      } break;
-      case StepsComponent.STR_STEP_RELOADED: {
-        this.reloadSteps(false, true);
-      } break;
-      case StepsComponent.STR_STEP_UPDATED: {
-        this.reloadSteps(true);
-      } break;
     }
-    // this.sendNotifyParent(btnLabel);
   }
 }

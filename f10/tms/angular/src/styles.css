@@ -28,7 +28,7 @@ html, body {
  }
  .ngx-datatable.bootstrap .datatable-body {
      /* Set the Datatable body Height */
-     height: 400px !important;
+     height: 300px !important;
  }
  .ngx-datatable.bootstrap .datatable-body .datatable-body-row {
     padding: 0.75rem;

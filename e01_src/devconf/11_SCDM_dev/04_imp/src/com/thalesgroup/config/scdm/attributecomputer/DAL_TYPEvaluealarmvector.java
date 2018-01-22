@@ -24,7 +24,7 @@ public class DAL_TYPEvaluealarmvector extends AttributeComputer {
 		
 		boolean hasHdv = false;
 		boolean hasDAC = false;
-		boolean setHidden = false;
+		//boolean setHidden = false;
 		boolean setInhibit = false;
 		
         // Behaviour
@@ -40,10 +40,10 @@ public class DAL_TYPEvaluealarmvector extends AttributeComputer {
             behaviour = "1"; // behaviour
         }
         
-        if ( null != vector.getAttribute("hidden")
+        /*if ( null != vector.getAttribute("hidden")
         		&& !"".equals(vector.getAttribute("hidden"))) {
         	setHidden = true;
-        }
+        }*/
         if ( null != vector.getAttribute("inhibit")
         		&& !"".equals(vector.getAttribute("inhibit"))) {
         	setInhibit = true;
@@ -83,11 +83,12 @@ public class DAL_TYPEvaluealarmvector extends AttributeComputer {
         walker.walkToNode("^:dfo");
 	    SAXElement dfo_node = walker.getCurrentNode();
 	    if (dfo_node != null) {
-	    	if (setHidden || setInhibit) {
+	    	//if (setHidden || setInhibit) {
+	    	if (setInhibit) {
 		    	almce += ",IF((NOT(BITAND([^:dfo.forcedStatus],12))";
-				if (setHidden ){
+				/*if (setHidden ){
 					almce += " AND ([.hidden]!=1)";
-	        	}
+	        	}*/
 				if	(setInhibit){
 					almce += " AND ([.inhibit]!=1)";
 				}

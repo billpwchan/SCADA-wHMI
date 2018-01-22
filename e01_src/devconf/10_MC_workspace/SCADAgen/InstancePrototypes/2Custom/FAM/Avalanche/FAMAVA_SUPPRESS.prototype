@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ASCII"?>
+<STRUCTURE:ScadagenNode xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:STRUCTURE="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/STRUCTURE" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/STRUCTURE ../../../../Generated/config.ecore#_aG8lkPqiEees8OzwC7I80w" xmi:id="ScadagenNode_FAMAVA_SUPPRESS_nOOo8PwjEeepU6y6bM31UA_1516261554431" nom_instance="FAMAVA_SUPPRESS" scstype="FASAVASuppress">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <AVASUPPRESSION xmi:id="AVASUPPRESSION_qFOrQPwjEeepU6y6bM31UA_1516261573620" nom_instance="avasuppression">
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+    <level xsi:nil="true"/>
+  </AVASUPPRESSION>
+</STRUCTURE:ScadagenNode>

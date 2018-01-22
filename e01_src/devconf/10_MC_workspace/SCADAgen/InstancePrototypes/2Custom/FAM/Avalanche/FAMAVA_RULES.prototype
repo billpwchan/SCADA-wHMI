@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ASCII"?>
+<STRUCTURE:ScadagenNode xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:STRUCTURE="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/STRUCTURE" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/STRUCTURE ../../../../Generated/config.ecore#_aG8lkPqiEees8OzwC7I80w" xmi:id="ScadagenNode_FASAVAP_u3lEIPwcEeepU6y6bM31UA_1516258599266" nom_instance="FAMAVA_RULES" scstype="FASAVAProtect">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <RULE xmi:id="RULE_3-PGoPwcEeepU6y6bM31UA_1516258660362" nom_instance="RULE0001"/>
+  <RULE xmi:id="RULE_RULE0001_9svhkPwcEeepU6y6bM31UA_1516258698793" nom_instance="RULE0002" index="1"/>
+  <RULE xmi:id="RULE_RULE0001__N3WEPwcEeepU6y6bM31UA_1516258708977" nom_instance="RULE0003" index="2"/>
+  <RULE xmi:id="RULE_RULE0003_C9nlUPwdEeepU6y6bM31UA_1516258734118" nom_instance="RULE0004" index="3"/>
+  <RULE xmi:id="RULE_RULE0003_DNOHkPwdEeepU6y6bM31UA_1516258735753" nom_instance="RULE0005" index="4"/>
+  <RULE xmi:id="RULE_RULE0003_DX01EPwdEeepU6y6bM31UA_1516258736865" nom_instance="RULE0006" index="5"/>
+  <RULE xmi:id="RULE_RULE0003_DeFOEPwdEeepU6y6bM31UA_1516258737521" nom_instance="RULE0007" index="6"/>
+  <RULE xmi:id="RULE_RULE0003_DkQukPwdEeepU6y6bM31UA_1516258738169" nom_instance="RULE0008" index="7"/>
+  <RULE xmi:id="RULE_RULE0003_Dp-VAPwdEeepU6y6bM31UA_1516258738769" nom_instance="RULE0009" index="8"/>
+  <RULE xmi:id="RULE_RULE0003_DwiQAPwdEeepU6y6bM31UA_1516258739456" nom_instance="RULE0010" index="9"/>
+  <RULE xmi:id="RULE_RULE0003_D9-PEPwdEeepU6y6bM31UA_1516258740865" nom_instance="RULE0011" index="10"/>
+  <RULE xmi:id="RULE_RULE0011_OfAk4PwdEeepU6y6bM31UA_1516258811438" nom_instance="RULE0012" index="11"/>
+  <RULE xmi:id="RULE_RULE0011_OqeOAPwdEeepU6y6bM31UA_1516258812640" nom_instance="RULE0013" index="12"/>
+  <RULE xmi:id="RULE_RULE0011_OxmwwPwdEeepU6y6bM31UA_1516258813388" nom_instance="RULE0014" index="13"/>
+  <RULE xmi:id="RULE_RULE0011_O5MmgPwdEeepU6y6bM31UA_1516258814184" nom_instance="RULE0015" index="14"/>
+  <RULE xmi:id="RULE_RULE0011_PAe6QPwdEeepU6y6bM31UA_1516258814948" nom_instance="RULE0016" index="15"/>
+  <RULE xmi:id="RULE_RULE0011_PHoEEPwdEeepU6y6bM31UA_1516258815697" nom_instance="RULE0017" index="16"/>
+  <RULE xmi:id="RULE_RULE0011_POxN4PwdEeepU6y6bM31UA_1516258816446" nom_instance="RULE0018" index="17"/>
+  <RULE xmi:id="RULE_RULE0011_WqQIAPwdEeepU6y6bM31UA_1516258866304" nom_instance="RULE0019" index="18"/>
+  <RULE xmi:id="RULE_RULE0011_Wx_HsPwdEeepU6y6bM31UA_1516258867115" nom_instance="RULE0020" index="19"/>
+  <RULE xmi:id="RULE_RULE0020_aaqekPwdEeepU6y6bM31UA_1516258891513" nom_instance="RULE0021" index="20"/>
+  <RULE xmi:id="RULE_RULE0020_af3usPwdEeepU6y6bM31UA_1516258892059" nom_instance="RULE0022" index="21"/>
+  <RULE xmi:id="RULE_RULE0020_attWYPwdEeepU6y6bM31UA_1516258893510" nom_instance="RULE0023" index="22"/>
+  <RULE xmi:id="RULE_RULE0020_az9IUPwdEeepU6y6bM31UA_1516258894165" nom_instance="RULE0024" index="23"/>
+  <RULE xmi:id="RULE_RULE0020_a69IMPwdEeepU6y6bM31UA_1516258894899" nom_instance="RULE0025" index="24"/>
+  <RULE xmi:id="RULE_RULE0020_bB8hAPwdEeepU6y6bM31UA_1516258895632" nom_instance="RULE0026" index="25"/>
+  <RULE xmi:id="RULE_RULE0020_bIfN4PwdEeepU6y6bM31UA_1516258896318" nom_instance="RULE0027" index="26"/>
+  <RULE xmi:id="RULE_RULE0020_bPemsPwdEeepU6y6bM31UA_1516258897051" nom_instance="RULE0028" index="27"/>
+  <RULE xmi:id="RULE_RULE0020_bV4JoPwdEeepU6y6bM31UA_1516258897722" nom_instance="RULE0029" index="28"/>
+  <RULE xmi:id="RULE_RULE0029_l9eacPwdEeepU6y6bM31UA_1516258968983" nom_instance="RULE0030" index="29"/>
+  <RULE xmi:id="RULE_RULE0029_mOIsoPwdEeepU6y6bM31UA_1516258970730" nom_instance="RULE0031" index="30"/>
+  <RULE xmi:id="RULE_RULE0030_pgzXQPwdEeepU6y6bM31UA_1516258992820" nom_instance="RULE0032" index="31"/>
+  <RULESYNTH xmi:id="RULESYNTH_uU6mgPwdEeepU6y6bM31UA_1516259025128" nom_instance="R_SYNTH"/>
+</STRUCTURE:ScadagenNode>

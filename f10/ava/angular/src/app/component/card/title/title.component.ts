@@ -1,18 +1,14 @@
 import { Component, OnInit, OnDestroy, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { AppSettings } from '../../../app-settings';
-import { CardService } from '../../../service/card/card.service';
-import { SelectionService } from '../../../service/card/selection.service';
 import { Subscription } from 'rxjs/Subscription';
-import { CardServiceType } from '../../../service/card/card-settings';
-import { SelectionServiceType } from '../../../service/card/selection-settings';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-card-title',
-  templateUrl: './card-title.component.html',
-  styleUrls: ['./card-title.component.css']
+  selector: 'app-title',
+  templateUrl: './title.component.html',
+  styleUrls: ['./title.component.css']
 })
-export class CardTitleComponent implements OnInit, OnDestroy, OnChanges {
+export class TitleComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
   public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
@@ -58,8 +54,8 @@ export class CardTitleComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     const f = 'ngOnChanges';
-    if (changes[CardTitleComponent.STR_NORIFY_FROM_PARENT]) {
-      if (changes[CardTitleComponent.STR_NORIFY_FROM_PARENT].currentValue) {
+    if (changes[TitleComponent.STR_NORIFY_FROM_PARENT]) {
+      if (changes[TitleComponent.STR_NORIFY_FROM_PARENT].currentValue) {
       }
     }
   }
@@ -86,7 +82,7 @@ export class CardTitleComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
     console.log(this.c, f, 'btnLabel[' + btnLabel + ']');
     switch (btnLabel) {
-      case CardTitleComponent.STR_INIT: {
+      case TitleComponent.STR_INIT: {
         this.init();
       } break;
     }

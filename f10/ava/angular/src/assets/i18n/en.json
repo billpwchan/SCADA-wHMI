@@ -8,7 +8,7 @@
 	
 	, "&cards_title": "Avalanche Conditions"
 
-	, "&cards_gd_header_index": "Condition"
+	, "&cards_gd_header_index": "#"
 	, "&cards_gd_header_name": "Name"
 	, "&cards_gd_header_state": "State"
 	, "&cards_gd_header_status": "Status"
@@ -98,6 +98,7 @@
 
 	, "&step_lbl_env": "Environment"
 	, "&step_lst_env_default": "Select env..."
+	, "&step_lst_env_default2": "Select env..."
 	, "&step_lbl_geo": "Location"
 	, "&step_lst_geo_default": "Select location..."
 	, "&step_lst_geo_prefix": "&location_"

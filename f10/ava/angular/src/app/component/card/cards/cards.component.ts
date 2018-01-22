@@ -1,18 +1,13 @@
 import { Component, OnInit, OnDestroy, OnChanges, EventEmitter, Output, SimpleChanges, Input, ViewChild } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { CardService } from '../../../service/card/card.service';
 import { Card } from '../../../model/Scenario';
 import { DatatableCard } from '../../../model/DatatableScenario';
 import { AppSettings } from '../../../app-settings';
 import { CardsSettings, SortingDirection, CardColumnIndex } from './cards-settings';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-import { SelectionService } from '../../../service/card/selection.service';
 import { AppComponent } from '../../../app.component';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
-import { CardServiceType } from '../../../service/card/card-settings';
-import { SelectionServiceType } from '../../../service/card/selection-settings';
-import { StorageService } from '../../../service/card/storage.service';
 
 @Component({
   selector: 'app-cards'
@@ -123,13 +118,13 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
 
   private getStateStr(state: boolean): string {
     const f = 'getStateStr';
-    console.log(this.c, f, state);
+    console.log(this.c, f);
     return ( state ? CardsSettings.STR_CARD_DG_STATE_ENABLED : CardsSettings.STR_CARD_DG_STATE_DISABLED );
   }
 
   private getStatusStr(status: boolean): string {
     const f = 'getStatusStr';
-    console.log(this.c, f, status);
+    console.log(this.c, f);
     return ( status ? CardsSettings.STR_CARD_DG_STATUS_TRIGGERED : CardsSettings.STR_CARD_DG_STATUS_NOT_TRIGGERED );
   }
 

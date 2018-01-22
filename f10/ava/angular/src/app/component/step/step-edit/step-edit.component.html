@@ -9,7 +9,7 @@
           <select class="form-control" name="selectEnv" id="selectEnv"
             [(ngModel)]="selEnv"  (change)="onLstChange('selEnv', $event)">
             <option *ngFor="let item of selOptEnv" [ngValue]="item.value"
-            [disabled]="item.value==''">{{item.label}}</option>
+            [disabled]="item.value==''">{{item.label | translate}}</option>
           </select>
         </div>
   

@@ -1,17 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild, SimpleChanges } from '@angular/core';
-import { StepEditControllerSettings } from '../../component/step/step-edit-controller/step-edit-controller-settings';
 import { StepEditSettings } from '../../component/step/step-edit/step-edit-settings';
-import { CardEditControllerSettings } from '../../component/card/card-edit-controller/card-edit-controller-settings';
-import { CardEditSettings } from '../../component/card/card-edit/card-edit-settings';
-import { CardEditComponent } from '../../component/card/card-edit/card-edit.component';
 import { StepEditComponent } from '../../component/step/step-edit/step-edit.component';
-import { StepEditControllerComponent } from '../../component/step/step-edit-controller/step-edit-controller.component';
 import { MatrixComponent } from '../../component/alarm/Matrix/matrix.component';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { SettingsService } from '../../service/settings.service';
-import { CardServiceType } from '../../service/card/card-settings';
-import { SelectionServiceType } from '../../service/card/selection-settings';
 import { MatrixSettings, Matrix, MatrixConfig } from '../../component/alarm/Matrix/matrix-settings';
 import { Step, Card, Equipment, Execution, PhasesType, ExecType } from '../../model/Scenario';
 import { StepsComponent } from '../../component/step/steps/steps.component';
@@ -60,6 +53,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   notifySteps: string;
   notifyStepController: string;
   notifyStepEdit: string;
+  notifyAlarmSummary: string;
 
   notifyStorage: string;
   notifyCsvInterpret: string;

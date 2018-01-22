@@ -4,12 +4,10 @@
       <ngx-datatable #cardsDataTable
         class="bootstrap"
         [rows]="rows_card"
-        [loadingIndicator]="loadingIndicator"
         [columnMode]="'force'"
         [headerHeight]="50"
         [footerHeight]="30"
         [rowHeight]="40"
-        [reorderable]="reorderable"
 
         [messages]="messages"
 
@@ -21,8 +19,7 @@
         (select)="onRowSelect('card', $event)"
         (activate)="onActivate('card', $event)"
         >
-        <ngx-datatable-column prop="index" name="Index" [sortable]='false' [canAutoResize]="false"
-          [width]="150">
+        <ngx-datatable-column prop="index" name="Index" [sortable]='false' [canAutoResize]="false" [width]="50">
           <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
             <span (click)="onHeaderClick('cards', 'index')">{{ '&cards_gd_header_index' | translate }}{{ strSortingOrderIndex | translate }}</span>
           </ng-template>
@@ -30,8 +27,7 @@
             <strong>{{ value }}</strong>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="name" name="Name" [sortable]='false' [canAutoResize]="false"
-          [width]="280">
+        <ngx-datatable-column prop="name" name="Name" [sortable]='false' [canAutoResize]="false" [width]="350">
           <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
             <span (click)="onHeaderClick('cards', 'name')">{{ '&cards_gd_header_name' | translate }}{{ strSortingOrderName | translate }}</span>
           </ng-template>
@@ -39,8 +35,7 @@
             <strong>{{ value }}</strong>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="state" name="State" [sortable]='false' [canAutoResize]="false"
-          [width]="100">
+        <ngx-datatable-column prop="state" name="State" [sortable]='false' [canAutoResize]="false" [width]="200">
           <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
             <span (click)="onHeaderClick('cards', 'state')">{{ '&cards_gd_header_state' | translate }}{{ strSortingOrderState | translate }}</span>
           </ng-template>
@@ -48,8 +43,7 @@
             <strong>{{ value | translate }}</strong>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="status" name="Status" [sortable]='false' [canAutoResize]="false"
-          [width]="100">
+        <ngx-datatable-column prop="status" name="Status" [sortable]='false' [canAutoResize]="false" [width]="200">
           <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
             <span (click)="onHeaderClick('cards', 'status')">{{ '&cards_gd_header_status' | translate }}{{ strSortingOrderStatus | translate }}</span>
           </ng-template>

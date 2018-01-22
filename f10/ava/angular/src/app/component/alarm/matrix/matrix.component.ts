@@ -3,11 +3,7 @@ import { AppSettings } from '../../../app-settings';
 import { SettingsService } from '../../../service/settings.service';
 import { MatrixSettings, Selection, Matrix, MatrixConfig } from './matrix-settings';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { CardService } from '../../../service/card/card.service';
-import { SelectionService } from '../../../service/card/selection.service';
 import { Subscription } from 'rxjs/Subscription';
-import { CardServiceType } from '../../../service/card/card-settings';
-import { SelectionServiceType } from '../../../service/card/selection-settings';
 import { Card } from '../../../model/Scenario';
 import { DataScenarioHelper } from '../../../model/DataScenarioHelper';
 import { DbmReadAvaSupService } from '../../../service/scs/ava/dbm-read-ava-sup.service';
@@ -25,8 +21,7 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
-  private cfg: MatrixConfig;
-  @Input() config: MatrixConfig;
+  cfg: MatrixConfig;
 
   private preview: number[][];
   private updated: number[][];
@@ -72,6 +67,8 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
   @Output() onUpdatedMatrix = new EventEmitter<Map<number, Map<number, number>>>();
+
+  @Output() onUpdatedSelection = new EventEmitter<string>();
 
   private cellSel: Selection;
 
@@ -182,7 +179,8 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'loadTranslations';
     console.log(this.c, f);
 
-    // this.reloadData();
+    this.generateMatrix();
+    this.reloadData();
   }
 
   sendNotifyOnUpdated(data: Map<number, Map<number, number>>) {
@@ -482,8 +480,8 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     switch (btnLabel) {
       case MatrixSettings.STR_INIT: {
         this.init();
-        this.generateMatrix();
-        this.reloadData();
+        // this.generateMatrix();
+        // this.reloadData();
       } break;
     }
   }

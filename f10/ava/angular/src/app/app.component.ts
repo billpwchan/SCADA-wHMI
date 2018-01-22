@@ -1,13 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CardService } from './service/card/card.service';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 import { StepsComponent } from './component/step/steps/steps.component';
 import { StepEditComponent } from './component/step/step-edit/step-edit.component';
-import { SelectionService } from './service/card/selection.service';
 import { SettingsService } from './service/settings.service';
 import { StepEditSettings } from './component/step/step-edit/step-edit-settings';
-import { CardServiceType } from './service/card/card-settings';
 import { AppSettings } from './app-settings';
 import { Cookie } from 'ng2-cookies';
 import { I18nSettings } from './service/i18n-settings';
@@ -33,7 +30,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private translate: TranslateService
-    , private cardService: CardService
     , private settingsService: SettingsService
     , private titleService: Title
   ) {
@@ -70,9 +66,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const f = 'ngOnInit';
     console.log(this.c, f);
-
-    this.cardSubscription = this.cardService.cardItem
-      .subscribe(item => this.changeCard(item));
   }
 
   ngOnDestroy(): void {
@@ -80,11 +73,6 @@ export class AppComponent implements OnInit, OnDestroy {
     console.log(this.c, f);
     // prevent memory leak when component is destroyed
     this.cardSubscription.unsubscribe();
-  }
-
-  changeCard(serviceType: CardServiceType) {
-    const f = 'changeCard';
-    console.log(this.c, f, 'serviceType', serviceType);
   }
 
   getNotification(evt) {

@@ -134,8 +134,6 @@ btnDisabledAddCancelStep: boolean;
   constructor(
     private translate: TranslateService
     , private settingsService: SettingsService
-    // , private cardService: CardService
-    // , private selectionService: SelectionService
     , private olsService: OlsService
     , private dbmService: DbmService
   ) {

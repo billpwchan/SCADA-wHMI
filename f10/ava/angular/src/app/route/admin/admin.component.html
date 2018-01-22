@@ -7,15 +7,14 @@
       <div style="width: 50%; display: flex; flex-direction: row-reverse;">
 
         <div>
+
           <button type="button"
             class="btn btn-info btn-card-rename"
             [disabled]="!btnEnableRename"
             (click)="btnClicked('rename')"
             title="{{ '&cards_rename_btn_rename_title' | translate }}"
             >{{ '&cards_rename_btn_rename' | translate }}</button>
-        </div>
 
-        <div>
           <button type="button"
             class="btn btn-info btn-card-state-controller-state-enable"
             [disabled]="!btnEnableStateEnable"
@@ -45,8 +44,8 @@
       [updateStepEdit]="updateStepEdit" (onUpdatedStepEdit)="onUpdatedStepEdit($event)"></app-step-edit>
     <div style="width: 100%; display: flex; flex-direction: row;">
       <div style="width: 65%;">
-        <app-card-title (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"
-          [updateTitle]="updateTitle"></app-card-title>
+        <app-title (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"
+          [updateTitle]="updateTitle"></app-title>
       </div>
 
       <div style="width: 35%; display: flex; flex-direction: row-reverse; text-align: right;">

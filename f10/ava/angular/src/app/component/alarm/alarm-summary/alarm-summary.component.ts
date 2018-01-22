@@ -56,17 +56,22 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'updateAlarmSummary';
     console.log(this.c, f);
     this.index = index;
-    if ( null != this.index ) {
+    if (null != this.index) {
       this.readingDbmData(this.env, this.univnames, this.index);
     }
+    this.disableButtons(true);
   }
   @Output() onUpdatedAlarmSummary = new EventEmitter<number[][]>();
+
+  notifyMatrix: string;
 
   dbmReadAvaSupSubscription: Subscription;
   dbmWriteAvaSupSubscription: Subscription;
 
+  btnApply: boolean;
+  btnCancel: boolean;
+
   updateMatrix: any;
-  @ViewChild('MatrixComponent') matrixComponent: MatrixComponent;
 
   constructor(
     private translate: TranslateService
@@ -84,32 +89,34 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
 
     this.dbmReadAvaSupSubscription = this.dbmReadAvaSupService.avaSupItem
-    .subscribe(env => {
-      console.log(this.c, f, 'dbmReadAvaSupSubscription', env);
+      .subscribe(env => {
+        console.log(this.c, f, 'dbmReadAvaSupSubscription', env);
 
-      if ( null != env && '' !== env ) {
-        console.log(this.c, f, 'Data already read from DBM');
+        if (null != env && '' !== env) {
+          console.log(this.c, f, 'Data already read from DBM');
 
-        // Update the Matrix Display
-        const data: Map<number, Map<number, number>> = this.dbmCacheAvaSupService.getAlarmMatrixData(env);
-        this.updateMatrix = data;
+          // Update the Matrix Display
+          const data: Map<number, Map<number, number>> = this.dbmCacheAvaSupService.getAlarmMatrixData(env);
+          this.updateMatrix = data;
 
-      } else {
-        console.warn(this.c, f, 'env IS INVALID');
-      }
-    });
+          this.disableButtons(true);
+
+        } else {
+          console.warn(this.c, f, 'env IS INVALID');
+        }
+      });
 
     this.dbmWriteAvaSupSubscription = this.dbmWriteAvaSupService.avaSupItem
-    .subscribe(env => {
-      console.log(this.c, f, 'dbmWriteAvaSupSubscription', env);
+      .subscribe(env => {
+        console.log(this.c, f, 'dbmWriteAvaSupSubscription', env);
 
-      if ( null != env && '' !== env ) {
-        console.log(this.c, f, 'Data already write to DBM');
+        if (null != env && '' !== env) {
+          console.log(this.c, f, 'Data already write to DBM');
 
-      } else {
-        console.warn(this.c, f, 'env IS INVALID');
-      }
-    });
+        } else {
+          console.warn(this.c, f, 'env IS INVALID');
+        }
+      });
   }
 
   ngOnDestroy(): void {
@@ -129,12 +136,18 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const f = 'ngOnChanges';
     console.log(this.c, f);
-    if ( changes[AlarmSummarySettings.STR_NORIFY_FROM_PARENT] ) {
+    if (changes[AlarmSummarySettings.STR_NORIFY_FROM_PARENT]) {
       this.onParentChange(changes[AlarmSummarySettings.STR_NORIFY_FROM_PARENT].currentValue);
     }
-    if ( changes[AlarmSummarySettings.STR_CONFIG] ) {
+    if (changes[AlarmSummarySettings.STR_CONFIG]) {
       this.cfg = changes[AlarmSummarySettings.STR_CONFIG].currentValue as AlarmSummaryConfig;
     }
+  }
+
+  getNotification(evt) {
+    const f = 'getNotification';
+    // Do something with the notification (evt) sent by the child!
+    console.log(this.c, f, 'evt', evt);
   }
 
   sendNotifyParent(str: string): void {
@@ -160,6 +173,8 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
     console.log(this.c, f, data);
     this.data = data;
+
+    this.disableButtons(false);
   }
 
   writeDbm(): void {
@@ -175,9 +190,19 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
     this.dbmReadAvaSupService.readData(env, univnames, index);
   }
 
+  private disableButtons(disable: boolean) {
+    const f = 'disableButtons';
+    console.log(this.c, f);
+
+    this.btnApply = disable;
+    this.btnCancel = disable;
+  }
+
   private init(): void {
     const f = 'init';
     console.log(this.c, f);
+
+    this.disableButtons(true);
   }
 
   btnClicked(btnLabel: string, event?: Event) {
@@ -188,15 +213,11 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
       case AlarmSummaryComponent.STR_INIT: {
         this.init();
       } break;
-      case AlarmSummaryComponent.STR_CARD_RELOADED: {
-      } break;
-      case AlarmSummaryComponent.STR_CARD_SELECTED: {
-      } break;
       case 'apply': {
         this.writeDbm();
       } break;
       case 'cancel': {
-        if ( null != this.index ) {
+        if (null != this.index) {
           this.readingDbmData(this.env, this.univnames, this.index);
         }
       } break;

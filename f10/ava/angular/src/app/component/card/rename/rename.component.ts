@@ -1,15 +1,11 @@
 import { Component, OnInit, OnDestroy, OnChanges, EventEmitter, Output, SimpleChanges, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { CardService } from '../../../service/card/card.service';
 import { Card } from '../../../model/Scenario';
 import { DatatableCard } from '../../../model/DatatableScenario';
 import { AppSettings } from '../../../app-settings';
 import { CardsSettings } from './../cards/cards-settings';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-import { SelectionService } from '../../../service/card/selection.service';
-import { CardServiceType } from '../../../service/card/card-settings';
-import { SelectionServiceType } from '../../../service/card/selection-settings';
 import { SettingsService } from '../../../service/settings.service';
 import { RenameSettings } from './rename-settings';
 

@@ -20,6 +20,7 @@ import { DatatableStep } from '../../model/DatatableScenario';
 import { DataScenarioHelper } from '../../model/DataScenarioHelper';
 import { AppSettings } from '../../app-settings';
 import { MultiWriteService } from '../../service/scs/ava/dbm/multi-write.service';
+import { DbmPollingService } from '../../service/scs/dbm-polling.service';
 
 @Component({
   selector: 'app-admin',
@@ -30,12 +31,6 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
 
-  // @ViewChild(CardEditComponent) cardEditChildView: CardEditComponent;
-  // @ViewChild(StepEditComponent) stepEditChildView: StepEditComponent;
-  // @ViewChild(StepEditControllerComponent) stepEditControllerChildView: StepEditComponent;
-
-  // @ViewChild(StepsComponent) stepsComponent: StepsComponent;
-
   readonly c: string = 'AdminComponent';
 
   getInstancesByClassNameSubscription: Subscription;
@@ -43,6 +38,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   multiReadSubscription: Subscription;
   readWriteCESubscription: Subscription;
   multiWriteSubscription: Subscription;
+  dbmPollingSubscription: Subscription;
 
   notifyCards: string;
   notifyCardController: string;
@@ -59,6 +55,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   notifyCsvInterpret: string;
 
   updateCards: Card[];
+  refreshCards: Card[];
   btnEnableStateEnable: boolean;
   btnEnableStateDisable: boolean;
 
@@ -98,6 +95,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   private steps: Step[];
   private stepIdsSelected: number[];
 
+  private subscriptsionStarted = false;
+
   constructor(
     private translate: TranslateService
     , private settingsService: SettingsService
@@ -105,6 +104,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     , private multiReadService: MultiReadService
     , private readWriteCEService: ReadWriteCEService
     , private multiWriteService: MultiWriteService
+    , private dbmPollingService: DbmPollingService
   ) {
     const f = 'constructor';
     console.log(this.c, f);
@@ -209,75 +209,17 @@ export class AdminComponent implements OnInit, OnDestroy {
 
         } else if ( 0 === (result.dbValue.length % AlarmSummarySettings.RULE_ATTR_LIST.length) ) {
 
-          this.initGui();
+          this.renewCard(result.dbValue);
 
-          this.cards = [];
-          this.updateCards = [];
-
-          for ( let i = 0 ; i < this.ruleList.length ; ++i ) {
-            const base: number = i * AlarmSummarySettings.RULE_ATTR_LIST.length;
-            const card: Card = new Card(
-                                        result.dbValue[base + 0]
-                                        , result.dbValue[base + 1]
-                                        , result.dbValue[base + 2]
-                                        , result.dbValue[base + 3]
-                                        , result.dbValue[base + 4]
-            );
-            this.cards.push(card);
+          if ( ! this.subscriptsionStarted ) {
+            this.subscriptsionStarted = true;
+            const dbaddress: string[] = this.prepareReloadCard();
+            this.dbmPollingService.subscribe(this.env, dbaddress);
           }
-          this.updateCards = this.cards;
-          // this.updateCards = [...this.updateCards];
 
         } else if (0 === (result.dbValue.length % 8)) {
 
-          this.steps = new Array<Step>();
-          for ( let i = 0; i < result.dbValue.length / 8; ++i ) {
-            const index: number = i * 8;
-            const univname: string    = result.dbValue[index + 0];
-            const geo: number         = result.dbValue[index + 1];
-            const func: number        = result.dbValue[index + 2];
-            const equipment: string   = result.dbValue[index + 3];
-            const point: string       = result.dbValue[index + 4];
-            const value: number       = result.dbValue[index + 5];
-            const values: number[]    = result.dbValue[index + 6];
-            const labels: string[]    = result.dbValue[index + 7];
-
-            let strLabel = '';
-            for ( let  x = 0 ; x < values.length; ++x ) {
-              if ( value === values[x] ) {
-                strLabel = labels[x];
-                break;
-              }
-            }
-
-            const step: Step = new Step(index);
-            step.equipment = new Equipment(
-                                              this.env
-                                            , univname
-                                            , 0
-                                            ,  geo
-                                            ,  func
-                                            , equipment
-                                            , point
-                                            , strLabel
-                                          );
-
-            step.equipment.phases = new Array<Array<Execution>>();
-            for ( let n = 0 ; n < PhasesType.LENGTH ; ++n ) {
-              step.equipment.phases[n] = new Array<Execution>();
-            }
-
-            step.equipment.phases[PhasesType.SINGLE_EV].push(new Execution(
-              ExecType.DACSIM
-              , univname
-              , Number(value).valueOf()
-            ));
-
-            this.steps.push(step);
-          }
-
-          // Renew StepsComponent
-          this.renewSteps();
+          this.renewStep(result.dbValue);
         }
       }
     });
@@ -332,6 +274,14 @@ export class AdminComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.dbmPollingSubscription = this.dbmPollingService.dbmPollingItem
+    .subscribe(result => {
+      console.log(this.c, f, 'dbmPollingSubscription', result);
+      if ( null != result ) {
+        this.refreshCard(result);
+      }
+    });
+
     this.reloadInstance();
   }
 
@@ -340,6 +290,115 @@ export class AdminComponent implements OnInit, OnDestroy {
     console.log(this.c, f);
     // prevent memory leak when component is destroyed
     this.getInstancesByClassNameSubscription.unsubscribe();
+    this.getChildrenAliasSubscription.unsubscribe();
+    this.multiReadSubscription.unsubscribe();
+    this.readWriteCESubscription.unsubscribe();
+    this.multiWriteSubscription.unsubscribe();
+    this.dbmPollingSubscription.unsubscribe();
+  }
+
+  private renewCard(dbValue: any) {
+    const f = 'renewCard';
+    console.log(this.c, f);
+
+    this.initGui();
+
+    this.cards = [];
+    this.updateCards = [];
+
+    for ( let i = 0 ; i < this.ruleList.length ; ++i ) {
+      const base: number = i * AlarmSummarySettings.RULE_ATTR_LIST.length;
+      const card: Card = new Card(
+                                  dbValue[base + 0]
+                                  , dbValue[base + 1]
+                                  , dbValue[base + 2]
+                                  , dbValue[base + 3]
+                                  , dbValue[base + 4]
+      );
+      this.cards.push(card);
+    }
+    this.updateCards = this.cards;
+    // this.updateCards = [...this.updateCards];
+  }
+
+  private renewStep(dbValue: any) {
+    const f = 'renewStep';
+    console.log(this.c, f);
+
+    this.steps = new Array<Step>();
+    for ( let i = 0; i < dbValue.length / 8; ++i ) {
+      const index: number = i * 8;
+      const univname: string    = dbValue[index + 0];
+      const geo: number         = dbValue[index + 1];
+      const func: number        = dbValue[index + 2];
+      const equipment: string   = dbValue[index + 3];
+      const point: string       = dbValue[index + 4];
+      const value: number       = dbValue[index + 5];
+      const values: number[]    = dbValue[index + 6];
+      const labels: string[]    = dbValue[index + 7];
+
+      let strLabel = '';
+      for ( let  x = 0 ; x < values.length; ++x ) {
+        if ( value === values[x] ) {
+          strLabel = labels[x];
+          break;
+        }
+      }
+
+      const step: Step = new Step(index);
+      step.equipment = new Equipment(
+                                        this.env
+                                      , univname
+                                      , 0
+                                      ,  geo
+                                      ,  func
+                                      , equipment
+                                      , point
+                                      , strLabel
+                                    );
+
+      step.equipment.phases = new Array<Array<Execution>>();
+      for ( let n = 0 ; n < PhasesType.LENGTH ; ++n ) {
+        step.equipment.phases[n] = new Array<Execution>();
+      }
+
+      step.equipment.phases[PhasesType.SINGLE_EV].push(new Execution(
+        ExecType.DACSIM
+        , univname
+        , Number(value).valueOf()
+      ));
+
+      this.steps.push(step);
+    }
+
+    // Renew StepsComponent
+    this.renewSteps();
+  }
+
+  private refreshCard(dbValue: any) {
+    const f = 'refreshCard';
+    console.log(this.c, f);
+
+    if ( null != dbValue && dbValue.length > 0 ) {
+    // this.initGui();
+
+    this.cards = [];
+    this.refreshCards = [];
+
+    for ( let i = 0 ; i < this.ruleList.length ; ++i ) {
+      const base: number = i * AlarmSummarySettings.RULE_ATTR_LIST.length;
+      const card: Card = new Card(
+                                  dbValue[base + 0]
+                                  , dbValue[base + 1]
+                                  , dbValue[base + 2]
+                                  , dbValue[base + 3]
+                                  , dbValue[base + 4]
+      );
+      this.cards.push(card);
+    }
+    this.refreshCards = this.cards;
+    // this.updateCards = [...this.updateCards];
+    }
   }
 
   private reloadInstance() {
@@ -350,16 +409,23 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.getChildrenAliasService.readData(this.env, DbmSettings.STR_URL_ALIAS + this.instanceRoot);
   }
 
-  private reloadCards() {
-    const f = 'reloadData';
+  private prepareReloadCard(): string[] {
+    const f = 'prepareReloadCard';
     console.log(this.c, f);
-    const dbAddresses: string[] = new Array<string>();
+    const ret: string[] = new Array<string>();
     for ( let i = 0 ; i < this.ruleList.length ; ++i ) {
       for ( let j = 0 ; j < AlarmSummarySettings.RULE_ATTR_LIST.length ; ++j ) {
         const dbAttribute = this.ruleList[i] + AlarmSummarySettings.RULE_ATTR_LIST[j];
-        dbAddresses.push(dbAttribute);
+        ret.push(dbAttribute);
       }
     }
+    return ret;
+  }
+
+  private reloadCards() {
+    const f = 'reloadCards';
+    console.log(this.c, f);
+    const dbAddresses: string[] = this.prepareReloadCard();
     this.multiReadService.readData(this.env, dbAddresses);
   }
 

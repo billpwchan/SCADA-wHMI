@@ -14,16 +14,15 @@ import 'rxjs/add/observable/interval';
 @Injectable()
 export class DbmPollingService {
 
-  private interval = 500;
+  private interval = 1000;
+  private enable = false;
 
   private subscriptions: Map<string, Subscription> = new Map<string, Subscription>();
-
-  private values: Map<string, Map<string, any>> = new Map<string, Map<string, any>>();
 
   readonly c = 'DbmPollingService';
 
   // Observable source
-  private dbmPollingSource = new BehaviorSubject<string>('');
+  private dbmPollingSource = new BehaviorSubject<string>(null);
 
   // Observable dbmPollingItem stream
   dbmPollingItem = this.dbmPollingSource.asObservable();
@@ -41,6 +40,7 @@ export class DbmPollingService {
     console.log(this.c, f);
 
     this.interval = this.settingsService.getSetting(this.c, f, this.c, DbmPollingSettings.STR_INTERVAL);
+    this.enable = this.settingsService.getSetting(this.c, f, this.c, DbmPollingSettings.STR_ENABLE);
   }
 
   // Service command
@@ -74,20 +74,21 @@ export class DbmPollingService {
 
     this.readValue(connAddr, univnames);
 
-    console.log(this.c, f, 'interval', this.interval, 'connAddr', connAddr);
+    if ( this.enable ) {
+      console.log(this.c, f, 'interval', this.interval, 'connAddr', connAddr);
 
-    this.subscriptions.set(
-      connAddr
-      , Observable.interval(this.interval).map((x) => {
-        console.log(this.c, f, 'interval map', 'card.name');
-
-      }).subscribe((x) => {
-        console.log(this.c, f, 'interval subscribe', 'connAddr', connAddr);
-
-      this.readValue(connAddr, univnames);
-
-      })
-    );
+      this.subscriptions.set(
+        connAddr
+        , Observable.interval(this.interval).map((x) => {
+          console.log(this.c, f, 'interval map', 'card.name');
+        }).subscribe((x) => {
+          console.log(this.c, f, 'interval subscribe', 'connAddr', connAddr);
+          this.readValue(connAddr, univnames);
+        })
+      );
+    } else {
+      console.log(this.c, f, 'subscription IS DISABLED');
+    }
   }
 
   readValue(connAddr: string, univnames: string[]) {
@@ -102,7 +103,6 @@ export class DbmPollingService {
 
     console.log(this.c, f, 'url', url);
 
-    // Get Label and Value
     this.httpClient.get(
       url
     )
@@ -112,6 +112,7 @@ export class DbmPollingService {
           const json = res;
           const dbvalue = json[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
 
+          this.dbmPollingChanged(dbvalue);
         }
         , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
         , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }

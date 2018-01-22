@@ -36,7 +36,8 @@
       <app-rename (notifyParent)="getNotification($event)" [notifyFromParent]="notifyRename"
         [updateNames]="updateNames" [updateName]="updateName" (onUpdatedName)="onUpdatedName($event)"></app-rename>
       <app-cards (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCards"
-        [updateCards]="updateCards" (onUpdatedCardSelection)="onUpdatedCardSelection($event)"></app-cards>
+        [updateCards]="updateCards" (onUpdatedCardSelection)="onUpdatedCardSelection($event)" [refreshCards]="refreshCards"
+        ></app-cards>
     </div>
   </div>
   <div style="padding: 10px;">

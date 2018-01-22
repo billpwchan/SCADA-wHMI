@@ -60,6 +60,31 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
   }
   @Output() onUpdatedCardSelection = new EventEmitter<number[]>();
 
+  @Input()
+  set refreshCards(cards: Card[]) {
+    const f = 'refreshCards';
+    console.log(this.c, f);
+
+    if ( null != cards ) {
+      for ( let i = 0 ; i < cards.length ; ++i ) {
+        const card = cards[i];
+        for ( let j = 0 ; j < this.updated.length ; ++j ) {
+          const orgCard: Card = this.updated[j];
+          if ( card.index === orgCard.index ) {
+            orgCard.name = card.name;
+            orgCard.state = card.state;
+            orgCard.status = card.status;
+          }
+        }
+      }
+      console.log(this.c, f, 'this.updated', this.updated);
+
+      this.reloadData(true);
+    } else {
+      console.warn(this.c, f, 'data IS INVALID');
+    }
+  }
+
 
   // Datatable
   @ViewChild('cardsDataTable') cardsDataTable: DatatableComponent;
@@ -128,24 +153,43 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     return ( status ? CardsSettings.STR_CARD_DG_STATUS_TRIGGERED : CardsSettings.STR_CARD_DG_STATUS_NOT_TRIGGERED );
   }
 
-  private reloadData() {
+  private reloadData(refrashOnly: boolean = false) {
     const f = 'reloadData';
     console.log(this.c, f);
 
-    this.rows_card.length = 0;
+    if ( ! refrashOnly ) {
+      this.rows_card.length = 0;
 
-    // Renew datatable from cards
-    this.updated.forEach(card => {
-      this.rows_card.push(
-        new DatatableCard(
-          String(card.index)
-          , card.name
-          , this.getStateStr(card.state)
-          , this.getStatusStr(card.status)
-          , new Date()
-        )
-      );
-    });
+      // Renew datatable from cards
+      this.updated.forEach(card => {
+        this.rows_card.push(
+          new DatatableCard(
+            String(card.index)
+            , card.name
+            , this.getStateStr(card.state)
+            , this.getStatusStr(card.status)
+            , new Date()
+          )
+        );
+      });
+    } else {
+      if ( null != this.updated && null != this.rows_card ) {
+        this.updated.forEach(card => {
+          if ( null != card ) {
+            for ( let i = 0 ; i < this.rows_card.length ; ++i ) {
+              const dtCard: DatatableCard = this.rows_card[i];
+              if ( Number(dtCard.index) === card.index ) {
+                dtCard.name = card.name;
+                dtCard.state = this.getStateStr(card.state);
+                dtCard.status = this.getStatusStr(card.status);
+                break;
+              }
+            }
+          }
+        });
+      }
+    }
+
     this.rows_card = [...this.rows_card];
   }
 

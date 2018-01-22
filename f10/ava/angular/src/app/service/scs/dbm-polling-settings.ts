@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class DbmPollingSettings {
 
     public static readonly STR_INTERVAL = 'interval';
-    public static readonly STR_USE_COMPUTED_MESSAGE = 'use_computed_message';
+    public static readonly STR_ENABLE = 'enable';
 }
 
 export class DbmNotify {

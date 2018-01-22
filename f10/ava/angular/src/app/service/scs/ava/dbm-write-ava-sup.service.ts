@@ -50,8 +50,7 @@ export class DbmWriteAvaSupService {
           const alarmSuppression: AlarmSuppression = this.dbmCacheAvaSupService.getAlarmSuppression(env, univnames[i]);
           if ( null != alarmSuppression ) {
             if ( alarmSuppression.geo === key1 && alarmSuppression.func === key2 ) {
-              const alias = DbmSettings.STR_URL_ALIAS
-                            + univnames[i]
+              const alias = univnames[i]
                             + DbmSettings.STR_ATTR_LEVEL
                             + DbmSettings.STR_OPEN_PARENTHESIS + index + DbmSettings.STR_CLOSE_PARENTHESIS;
               values[alias] = value2;

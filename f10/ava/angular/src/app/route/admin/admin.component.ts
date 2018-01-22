@@ -76,6 +76,9 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   updateSteps: DatatableStep[];
 
+  updateAlarmEnv: string;
+  updateAlarmUnivname: string[];
+
   alarmSummaryCfg: AlarmSummaryConfig;
   updateAlarmSummary: number;
 
@@ -207,6 +210,8 @@ export class AdminComponent implements OnInit, OnDestroy {
 
         } else if ( 0 === (result.dbValue.length % AlarmSummarySettings.RULE_ATTR_LIST.length) ) {
 
+          this.initGui();
+
           this.cards = [];
           this.updateCards = [];
 
@@ -297,7 +302,6 @@ export class AdminComponent implements OnInit, OnDestroy {
               dbAddresses.push(alias + DbmSettings.STR_COLON + DbmSettings.STR_VALUETABLE_VALUE);
               dbAddresses.push(alias + DbmSettings.STR_COLON + DbmSettings.STR_VALUETABLE_LABEL);
             }
-
           }
         }
 
@@ -394,6 +398,13 @@ export class AdminComponent implements OnInit, OnDestroy {
     return stepSelected;
   }
 
+  private initGui() {
+    this.btnEnableStateEnable = false;
+    this.btnEnableStateDisable = false;
+    this.btnEnableRename = false;
+    this.updateTitle = '';
+  }
+
   onUpdatedCardSelection(cardIds: number[]) {
     const f = 'onUpdatedCardSelection';
     console.log(this.c, f);
@@ -413,10 +424,10 @@ export class AdminComponent implements OnInit, OnDestroy {
 
       // Renew Rename Button
       this.btnEnableRename = true;
+      this.updateTitle = '';
 
       // Renew Title
       this.updateTitle = cardSelected.name;
-      console.log(this.c, f, 'this.updateTitle', this.updateTitle);
 
       // Renew conditions
       const ruleBase = 1;
@@ -427,12 +438,15 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.readWriteCEService.readConditions(this.env, univname, cStart, cEnd);
 
       // Renew alarm summary
+      this.updateAlarmEnv = this.env;
+      const univnameSups: string[] = new Array<string>();
+      for ( let i = 0 ; i < this.avasList.length ; ++i ) {
+        univnameSups.push(this.avasList[i] + DbmSettings.STR_COLON + 'avasuppression');
+      }
+      this.updateAlarmUnivname = univnameSups;
       this.updateAlarmSummary = cardSelected.index;
     } else {
-      this.btnEnableStateEnable = false;
-      this.btnEnableStateDisable = false;
-      this.btnEnableRename = false;
-      this.updateTitle = '';
+      this.initGui();
     }
   }
 

@@ -40,12 +40,11 @@ export class DbmReadAvaSupService {
     const urls: string [] = [];
     univnames.forEach( univname => {
       urls.push(
-        DbmSettings.STR_URL_ALIAS
-        + univname
+        univname
         + DbmSettings.STR_ATTR_LEVEL
         + DbmSettings.STR_OPEN_PARENTHESIS + index + DbmSettings.STR_CLOSE_PARENTHESIS);
-      urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_ATTR_GEO);
-      urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_ATTR_FUNC);
+      urls.push(univname + DbmSettings.STR_ATTR_GEO);
+      urls.push(univname + DbmSettings.STR_ATTR_FUNC);
     });
     url = env + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
     console.log(this.c, f, 'url', url);

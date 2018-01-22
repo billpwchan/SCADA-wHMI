@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { OlsAvaSupService } from '../../../service/scs/ava/ols-ava-sup.service';
 import { DbmReadAvaSupService } from '../../../service/scs/ava/dbm-read-ava-sup.service';
 import { AlarmSummaryConfig, Env, AlarmSummarySettings } from './alarm-summary-settings';
 import { AppSettings } from '../../../app-settings';
@@ -35,6 +34,21 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
   private index: number;
   private data: Map<number, Map<number, number>>;
 
+  @Input()
+  set updateAlarmEnv(env: string) {
+    const f = 'updateAlarmEnv';
+    console.log(this.c, f);
+    this.env = env;
+  }
+
+  private univnames: string[];
+  @Input()
+  set updateAlarmUnivname(univnames: string[]) {
+    const f = 'updateAlarmUnivname';
+    console.log(this.c, f);
+    this.univnames = univnames;
+  }
+
   private preview: number[][];
   private updated: number[][];
   @Input()
@@ -43,12 +57,11 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
     this.index = index;
     if ( null != this.index ) {
-      this.readingOls();
+      this.readingDbmData(this.env, this.univnames, this.index);
     }
   }
   @Output() onUpdatedAlarmSummary = new EventEmitter<number[][]>();
 
-  olsAvaSupSubscription: Subscription;
   dbmReadAvaSupSubscription: Subscription;
   dbmWriteAvaSupSubscription: Subscription;
 
@@ -57,7 +70,6 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(
     private translate: TranslateService
-    , private olsAvaSupService: OlsAvaSupService
     , private dbmCacheAvaSupService: DbmCacheAvaSupService
     , private dbmReadAvaSupService: DbmReadAvaSupService
     , private dbmWriteAvaSupService: DbmWriteAvaSupService
@@ -70,23 +82,6 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit() {
     const f = 'ngOnInit';
     console.log(this.c, f);
-
-    this.olsAvaSupSubscription = this.olsAvaSupService.avaSupItem
-    .subscribe(env => {
-      console.log(this.c, f, 'avaSupSubscription', env);
-
-      if ( null != env && '' !== env ) {
-        if ( null != this.index ) {
-          console.log(this.c, f, 'this.index', this.index);
-          const univnames: string[] = this.olsAvaSupService.getUnivname(env);
-          this.readingDbmData(env, univnames, this.index);
-        } else {
-          console.warn(this.c, f, 'index IS INVALID');
-        }
-      } else {
-        console.warn(this.c, f, 'env IS INVALID');
-      }
-    });
 
     this.dbmReadAvaSupSubscription = this.dbmReadAvaSupService.avaSupItem
     .subscribe(env => {
@@ -121,7 +116,6 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'ngOnDestroy';
     console.log(this.c, f);
     // prevent memory leak when component is destroyed
-    this.olsAvaSupSubscription.unsubscribe();
     this.dbmReadAvaSupSubscription.unsubscribe();
     this.dbmWriteAvaSupSubscription.unsubscribe();
   }
@@ -130,12 +124,6 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'onParentChange';
     console.log(this.c, f);
     console.log(this.c, f, 'change', change);
-
-    switch (change) {
-      // case StepEditSettings.STR_STEP_EDIT_ENABLE: {
-      //   this.editEnableNewStep = true;
-      // } break;
-    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -187,36 +175,6 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
     this.dbmReadAvaSupService.readData(env, univnames, index);
   }
 
-  readingOls(): void {
-    const f = 'readingOls';
-    console.log(this.c, f);
-    const envIndex = 0;
-    if ( null != this.cfg ) {
-      if ( null != this.cfg.envs ) {
-        if ( this.cfg.envs.length > envIndex ) {
-          this.env = this.cfg.envs[envIndex].value;
-          const url = this.olsAvaSupService.prepareUrl(this.env);
-          this.olsAvaSupService.retriveAvaSup(this.env, url);
-        } else {
-          console.warn(this.c, f, 'this.cfg.envs.length IS ZERO');
-        }
-      } else {
-        console.warn(this.c, f, 'this.cfg.envs IS NULL');
-      }
-    } else {
-      console.warn(this.c, f, 'this.cfg IS NULL');
-    }
-  }
-
-  readingOlsData(env: Env): void {
-    const f = 'readingOlsData';
-    console.log(this.c, f);
-
-    const connAddr = env.value;
-    const url = this.olsAvaSupService.prepareUrl(connAddr);
-    this.olsAvaSupService.retriveAvaSup(connAddr, url);
-  }
-
   private init(): void {
     const f = 'init';
     console.log(this.c, f);
@@ -239,7 +197,7 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
       } break;
       case 'cancel': {
         if ( null != this.index ) {
-          this.readingOls();
+          this.readingDbmData(this.env, this.univnames, this.index);
         }
       } break;
     }

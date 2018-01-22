@@ -21,10 +21,6 @@ import { RenameSettings } from './rename-settings';
 export class RenameComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
-  // public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
-  // public static readonly STR_CARD_SELECTED = AppSettings.STR_CARD_SELECTED;
-  // public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
-  // public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
   public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
@@ -54,22 +50,13 @@ export class RenameComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
     if ( null != data ) {
       this.name = data;
+      this.txtModifyName = this.name;
       this.divRenameEnable = true;
     }
   }
   @Output() onUpdatedName = new EventEmitter<string>(null);
 
-  // cardSubscription: Subscription;
-  // selectionSubscription: Subscription;
-
   name: string;
-
-  // // UI Data Building
-  // //  New Card
-  // divNewCardEnable: boolean;
-  //   txtNewAddName: string;
-  //   btnAddDisable: boolean;
-  //   btnAddCancelDisable: boolean;
 
   // Modify Card
   divRenameEnable: boolean;
@@ -91,8 +78,6 @@ export class RenameComponent implements OnInit, OnDestroy, OnChanges {
   constructor(
     private translate: TranslateService
     , private settingsService: SettingsService
-    // , private cardService: CardService
-    // , private selectionService: SelectionService
   ) {
   }
 
@@ -102,25 +87,6 @@ export class RenameComponent implements OnInit, OnDestroy, OnChanges {
 
     this.loadSettings();
 
-    // this.cardSubscription = this.cardService.cardItem
-    // .subscribe(item => {
-    //   console.log(this.c, f, 'cardSubscription', item);
-    //   switch (item) {
-    //     case CardServiceType.CARD_RELOADED: {
-    //       this.btnClicked(CardEditComponent.STR_CARD_RELOADED);
-    //     } break;
-    //   }
-    // });
-
-    // this.selectionSubscription = this.selectionService.selectionItem
-    // .subscribe(item => {
-    //   console.log(this.c, f, 'selectionSubscription', item);
-    //   switch (item) {
-    //     case SelectionServiceType.CARD_SELECTED: {
-    //       this.btnClicked(CardEditComponent.STR_CARD_SELECTED);
-    //     } break;
-    //   }
-    // });
     this.btnClicked(RenameComponent.STR_INIT);
   }
 
@@ -128,8 +94,6 @@ export class RenameComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'ngOnDestroy';
     console.log(this.c, f);
     // prevent memory leak when component is destroyed
-    // this.cardSubscription.unsubscribe();
-    // this.selectionSubscription.unsubscribe();
   }
 
   onParentChange(change: string): void {
@@ -138,14 +102,6 @@ export class RenameComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f, 'change', change);
 
     if ( change ) {
-      // switch (change) {
-      //   case CardEditSettings.STR_CARD_EDIT_ADD_ENABLE: {
-      //     this.btnClicked('newdiv');
-      //   } break;
-      //   case CardEditSettings.STR_CARD_EDIT_MODIFY_ENABLE: {
-      //     this.btnClicked('modify');
-      //   } break;
-      // }
     }
   }
 
@@ -171,79 +127,6 @@ export class RenameComponent implements OnInit, OnDestroy, OnChanges {
     this.cardNameMax = Number.parseInt(this.settingsService.getSetting(this.c, f, this.c, RenameSettings.STR_NAME_MAX));
   }
 
-  // private newCard(name: string): void {
-  //   const f = 'newCard';
-  //   console.log(this.c, f);
-  //   this.cardService.getCards().push(
-  //     new Card(
-  //       this.cardService.getCards().length
-  //       , name
-  //       , false
-  //       , false
-  //     ));
-  //   this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
-  //   this.cardService.notifyUpdate(CardServiceType.CARD_EDITED);
-  // }
-
-  // /**
-  //  * Delete the card from CardService by current selection
-  //  *
-  //  * @private
-  //  * @memberof CardsComponent
-  //  */
-  // private deleteCard() {
-  //   const f = 'deleteCard';
-  //   console.log(this.c, f);
-  //   const identitys: string[] = new Array<string>();
-  //   this.cardService.getCards(this.selectionService.getSelectedCardIds()).forEach ( item => {
-  //     identitys.push(item.name);
-  //   });
-  //   this.cardService.deleteCards(identitys);
-  //   this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
-  //   this.cardService.notifyUpdate(CardServiceType.CARD_EDITED);
-  // }
-
-  // /**
-  //  * Copy the card from CardService by current selection
-  //  *
-  //  * @private
-  //  * @memberof CardsComponent
-  //  */
-  // private CopyCard() {
-  //   const f = 'CopyCard';
-  //   console.log(this.c, f);
-
-  //   const sourceCard: Card = this.cardService.getCard(this.selectionService.getSelectedCardIds());
-  //   const strNewCard: string = JSON.stringify(sourceCard);
-  //   const newCard: Card = JSON.parse(strNewCard);
-  //   newCard.name = this.getNewName(sourceCard.name, this.translate.instant(CardEditSettings.STR_NEW_CARD_APPENDIX));
-  //   this.cardService.addCards([newCard]);
-
-  //   this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
-  //   this.cardService.notifyUpdate(CardServiceType.CARD_EDITED);
-  // }
-
-  // /**
-  //  * Get Non-duplicate card name with name prefix
-  //  *
-  //  * @private
-  //  * @returns {string} new non-duplicate card name
-  //  * @memberof CardsComponent
-  //  */
-  // private getNewName(prefix: string, appendix: string = ''): string {
-  //   let counter = this.cardService.getCards().length;
-  //   let name = prefix + appendix + counter;
-  //   while ( this.cardService.getCards([name]).length > 0 ) {
-  //     name = prefix + appendix + ++counter;
-  //   }
-  //   return name;
-  // }
-
-  // private setCurrentCardName(preName: string, curName: string): void {
-  //   this.cardService.getCard([preName]).name = curName;
-  //   this.cardService.notifyUpdate(CardServiceType.CARD_RELOADED);
-  // }
-
   private nameExists(newName: string): boolean {
     const f = 'nameExists';
     console.log(this.c, f);
@@ -263,32 +146,6 @@ export class RenameComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'onChange';
     console.log(this.c, f);
     console.log(this.c, f, 'name[' + name + ']');
-
-    // if ( 'txtNewAddName' === name ) {
-    //   const newName = this.txtNewAddName;
-    //   console.log(this.c, f, 'newName[' + newName + ']');
-
-    //   this.btnAddDisable = false;
-
-    //   this.txtNewAddNameTooShortInvalid = false;
-    //   this.txtNewAddNameTooLongInvalid = false;
-    //   this.txtNewAddNameDuplicatedInvalid = false;
-
-    //   if ( newName.length <= this.cardNameMin ) {
-    //     this.btnAddDisable = true;
-    //     this.txtNewAddNameTooShortInvalid = true;
-
-    //   } else if ( newName.length >= this.cardNameMax ) {
-    //     this.btnAddDisable = true;
-    //     this.txtNewAddNameTooLongInvalid = true;
-
-    //   } else if ( this.cardService.getCards([newName]).length > 0 ) {
-    //     this.btnAddDisable = true;
-    //     this.txtNewAddNameDuplicatedInvalid = true;
-
-    //   }
-
-    // } else
 
     if ( 'txtModifyName' === name ) {
       const newName = this.txtModifyName;
@@ -315,24 +172,13 @@ export class RenameComponent implements OnInit, OnDestroy, OnChanges {
         this.btnModifySaveDisable = true;
         this.txtModifyNameDuplicatedInvalid = true;
 
-      }/* else if ( this.cardService.getCards([newName]).length > 0 ) {
-        this.btnModifySaveDisable = true;
-        this.txtModifyNameDuplicatedInvalid = true;
-
-      }*/
-
+      }
     }
   }
 
   private init(): void {
     const f = 'init';
     console.log(this.c, f);
-
-    //  New Card
-    // this.divNewCardEnable = false;
-    // this.txtNewAddName = '';
-    //   this.btnAddDisable = false;
-    //   this.btnAddCancelDisable = false;
 
     // Modify Card
     this.divRenameEnable = false;
@@ -358,24 +204,6 @@ export class RenameComponent implements OnInit, OnDestroy, OnChanges {
       case RenameComponent.STR_INIT: {
         this.init();
       } break;
-      // case CardEditComponent.STR_CARD_RELOADED: {
-      // } break;
-      // case CardEditComponent.STR_CARD_SELECTED: {
-      //   this.selCardId = this.selectionService.getSelectedCardId();
-      // } break;
-      // case 'newdiv': {
-      //   this.divNewCardEnable = true;
-      //   const translatedStr = this.translate.instant(CardEditSettings.STR_NEW_CARD_PREFIX);
-      //   this.txtNewAddName = this.getNewName(translatedStr);
-      // } break;
-      // case 'newadd': {
-      //   this.newCard(this.txtNewAddName);
-      //   this.divNewCardEnable = false;
-      //   this.init();
-      // } break;
-      // case 'newaddcancel': {
-      //   this.divNewCardEnable = false;
-      // } break;
       case 'modify': {
         this.txtModifyName = this.name;
         this.divRenameEnable = true;
@@ -388,15 +216,6 @@ export class RenameComponent implements OnInit, OnDestroy, OnChanges {
       case 'modifysavecancel': {
         this.divRenameEnable = false;
       } break;
-      // case 'delete': {
-      //   this.deleteCard();
-      //   this.init();
-      // } break;
-      // case 'copy': {
-      //   this.CopyCard();
-      //   this.init();
-      // } break;
     }
-    // this.sendNotifyParent(btnLabel);
   }
 }

@@ -87,7 +87,7 @@
 	, "&steps_dg_footer_totalmessage": " total"
 
 	, "&steps_lbl_card_name": "Condition Name"
-	, "&steps_txt_select_card": "Select a condition..."
+	, "&steps_txt_select_card": ""
 	, "&steps_lbl_modify_step": "Modify Trigger"
 	, "&steps_btn_new_step": "New"
 	, "&steps_btn_new_step_title": "Add a new trigger to condition"

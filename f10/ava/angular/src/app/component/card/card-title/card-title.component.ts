@@ -5,6 +5,7 @@ import { SelectionService } from '../../../service/card/selection.service';
 import { Subscription } from 'rxjs/Subscription';
 import { CardServiceType } from '../../../service/card/card-settings';
 import { SelectionServiceType } from '../../../service/card/selection-settings';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-card-title',
@@ -29,67 +30,36 @@ export class CardTitleComponent implements OnInit, OnDestroy, OnChanges {
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
-  cardSubscription: Subscription;
-  selectionSubscription: Subscription;
+  @Input()
+  set updateTitle(data: string) {
+    const f = 'updateTitle';
+    console.log(this.c, f);
+    if ( null != data ) {
+      this.txtName = data;
+    }
+  }
 
-  txtCardName: string;
+  txtName: string;
 
   constructor(
-    private cardService: CardService
-    , private selectionService: SelectionService
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
-
     const f = 'ngOnInit';
     console.log(this.c, f);
-
-
-    this.loadSettings();
-
-    this.cardSubscription = this.cardService.cardItem
-      .subscribe(item => {
-        console.log(this.c, f, 'cardSubscription', item);
-        switch (item) {
-          case CardServiceType.CARD_RELOADED: {
-            this.btnClicked(CardTitleComponent.STR_CARD_RELOADED);
-          } break;
-          case CardServiceType.STEP_RELOADED: {
-            this.btnClicked(CardTitleComponent.STR_STEP_RELOADED);
-          } break;
-          case CardServiceType.STEP_UPDATED: {
-            this.btnClicked(CardTitleComponent.STR_STEP_UPDATED);
-          } break;
-        }
-      });
-
-    this.selectionSubscription = this.selectionService.selectionItem
-      .subscribe(item => {
-        console.log(this.c, f, 'selectionSubscription', item);
-        switch (item) {
-          case SelectionServiceType.CARD_SELECTED: {
-            this.btnClicked(CardTitleComponent.STR_CARD_SELECTED);
-          } break;
-        }
-      });
   }
-
 
   ngOnDestroy() {
     const f = 'ngOnDestroy';
     console.log(this.c, f);
-
-      // prevent memory leak when component is destroyed
-      this.selectionSubscription.unsubscribe();
-      this.cardSubscription.unsubscribe();
+    // prevent memory leak when component is destroyed
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     const f = 'ngOnChanges';
     if (changes[CardTitleComponent.STR_NORIFY_FROM_PARENT]) {
-      switch (changes[CardTitleComponent.STR_NORIFY_FROM_PARENT].currentValue) {
-        // case StepsComponent.STR_NEWSTEP: {
-        // } break;
+      if (changes[CardTitleComponent.STR_NORIFY_FROM_PARENT].currentValue) {
       }
     }
   }
@@ -100,11 +70,6 @@ export class CardTitleComponent implements OnInit, OnDestroy, OnChanges {
     this.notifyParent.emit(str);
   }
 
-  private loadSettings(): void {
-    const f = 'loadSettings';
-    console.log(this.c, f);
-  }
-
   private loadTranslations(): void {
     const f = 'loadTranslations';
     console.log(this.c, f);
@@ -113,7 +78,7 @@ export class CardTitleComponent implements OnInit, OnDestroy, OnChanges {
   private init(): void {
     const f = 'init';
     console.log(this.c, f);
-    this.txtCardName = '';
+    this.txtName = '';
   }
 
   btnClicked(btnLabel: string, event?: Event) {
@@ -123,12 +88,6 @@ export class CardTitleComponent implements OnInit, OnDestroy, OnChanges {
     switch (btnLabel) {
       case CardTitleComponent.STR_INIT: {
         this.init();
-      } break;
-      case CardTitleComponent.STR_CARD_RELOADED: {
-        this.txtCardName = '';
-      } break;
-      case CardTitleComponent.STR_CARD_SELECTED: {
-        this.txtCardName = this.selectionService.getSelectedCardId();
       } break;
     }
   }

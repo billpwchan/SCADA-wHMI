@@ -72,6 +72,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   updateNames: string[];
   updateName: string;
 
+  updateTitle: string;
+
   updateSteps: DatatableStep[];
 
   alarmSummaryCfg: AlarmSummaryConfig;
@@ -409,8 +411,12 @@ export class AdminComponent implements OnInit, OnDestroy {
         this.btnEnableStateDisable = false;
       }
 
-      // Rename Rename Button
+      // Renew Rename Button
       this.btnEnableRename = true;
+
+      // Renew Title
+      this.updateTitle = cardSelected.name;
+      console.log(this.c, f, 'this.updateTitle', this.updateTitle);
 
       // Renew conditions
       const ruleBase = 1;
@@ -426,6 +432,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.btnEnableStateEnable = false;
       this.btnEnableStateDisable = false;
       this.btnEnableRename = false;
+      this.updateTitle = '';
     }
   }
 

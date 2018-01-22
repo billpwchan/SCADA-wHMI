@@ -49,11 +49,11 @@ export class RenameComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
   @Input()
-  set updateName(data: string[]) {
+  set updateName(data: string) {
     const f = 'updateName';
     console.log(this.c, f);
     if ( null != data ) {
-      this.name = name;
+      this.name = data;
       this.divRenameEnable = true;
     }
   }

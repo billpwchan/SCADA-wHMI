@@ -71,7 +71,7 @@ MOVE %_folder%\%_F10_SRC_POINTSELECT_TGZ% %_folder%\%_F10_POINTSELECT_TGZ%
 COPY %_F10_TMS%\%_F10_SRC_TMS_ZIP% %_folder%\
 MOVE %_folder%\%_F10_SRC_TMS_ZIP% %_folder%\%_F10_TMS_ZIP%
 
-REM COPY %_F10_AVA%\%_F10_SRC_AVA_ZIP% %_folder%\
-REM MOVE %_folder%\%_F10_SRC_AVA_ZIP% %_folder%\%_F10_AVA_ZIP%
+COPY %_F10_AVA%\%_F10_SRC_AVA_ZIP% %_folder%\
+MOVE %_folder%\%_F10_SRC_AVA_ZIP% %_folder%\%_F10_AVA_ZIP%
 
 ECHO END OF EXPORT F10

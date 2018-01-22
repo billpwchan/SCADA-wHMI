@@ -5,8 +5,25 @@
         <label>{{ '&cards_title' | translate }}</label>
       </div>
       <div style="width: 50%; display: flex; flex-direction: row-reverse;">
-        <app-card-edit-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-edit-controller>
-        <app-card-state-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-state-controller>
+        <!--<app-card-edit-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-edit-controller>-->
+        <!--<app-card-state-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-state-controller>-->
+
+        <div>
+          <button type="button" 
+          class="btn btn-info btn-card-state-controller-state-enable" 
+          [disabled]="!btnEnableStateEnable" 
+          (click)="btnClicked('enable')"
+          title="{{ '&cards_state_btn_enable_title' | translate }}"
+          >{{ '&cards_state_btn_enable' | translate }}</button>
+        
+        <button type="button" 
+          class="btn btn-info btn-card-edit-controller-state-disable" 
+          [disabled]="!btnEnableStateDisable" 
+          (click)="btnClicked('disable')"
+          title="{{ '&cards_state_btn_disable_title' | translate }}"
+          >{{ '&cards_state_btn_disable' | translate }}</button>
+        </div>
+
       </div>
     </div>
     <div>

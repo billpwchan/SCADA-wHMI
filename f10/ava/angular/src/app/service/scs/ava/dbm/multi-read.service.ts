@@ -70,4 +70,42 @@ export class MultiReadService {
     );
   }
 
+  // 405 Method Not Allowed
+  // readDataPost(env: string, dbAddresses: string[]) {
+  //   const f = 'readDataPost';
+  //   console.log(this.c, f);
+
+  //   let url = null;
+  //   url = env + '/scs/service/DbmComponent/multiReadValue';
+
+  //   const body = {};
+  //   body['dbaddress'] = dbAddresses as string[];
+  //   const strBody = JSON.stringify(body);
+
+  //   console.log(this.c, f, 'url', url);
+
+  //   // Get Label and Value
+  //   this.httpClient.post(
+  //     url
+  //     , strBody
+  //     , {headers: {'Content-Type': 'application/json; charset=utf-8'}}
+  //   )
+  //     .subscribe(
+  //       (res: any[]) => {
+  //         console.log(this.c, f, res);
+  //         const json = res;
+  //         const dbvalue = json[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
+  //         console.log(this.c, f, 'env', env, 'url', url);
+
+  //         const result: MultiReadResult = new MultiReadResult();
+  //         result.env = env;
+  //         result.dbAddresses = dbAddresses;
+  //         result.dbValue = dbvalue;
+  //         this.dbmChanged(result);
+  //       }
+  //       , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
+  //       , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
+  //   );
+  // }
+
 }

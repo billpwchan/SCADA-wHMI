@@ -10,8 +10,6 @@ import { MatrixComponent } from '../../component/alarm/Matrix/matrix.component';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { SettingsService } from '../../service/settings.service';
-import { CardService } from '../../service/card/card.service';
-import { SelectionService } from '../../service/card/selection.service';
 import { CardServiceType } from '../../service/card/card-settings';
 import { SelectionServiceType } from '../../service/card/selection-settings';
 import { MatrixSettings, Matrix, MatrixConfig } from '../../component/alarm/Matrix/matrix-settings';
@@ -27,6 +25,8 @@ import { DbmService } from '../../service/scs/dbm.service';
 import { ReadWriteCEService, ReadWriteCEResult } from '../../service/scs/ava/dbm/read-write-ce.service';
 import { DatatableStep } from '../../model/DatatableScenario';
 import { DataScenarioHelper } from '../../model/DataScenarioHelper';
+import { AppSettings } from '../../app-settings';
+import { MultiWriteService } from '../../service/scs/ava/dbm/multi-write.service';
 
 @Component({
   selector: 'app-admin',
@@ -34,6 +34,8 @@ import { DataScenarioHelper } from '../../model/DataScenarioHelper';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit, OnDestroy {
+
+  public static readonly STR_INIT = AppSettings.STR_INIT;
 
   @ViewChild(CardEditComponent) cardEditChildView: CardEditComponent;
   @ViewChild(StepEditComponent) stepEditChildView: StepEditComponent;
@@ -43,13 +45,11 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   readonly c: string = 'AdminComponent';
 
-  cardSubscription: Subscription;
-  // selectionSubscription: Subscription;
-
   getInstancesByClassNameSubscription: Subscription;
   getChildrenAliasSubscription: Subscription;
   multiReadSubscription: Subscription;
   readWriteCESubscription: Subscription;
+  multiWriteSubscription: Subscription;
 
   notifyCards: string;
   notifyCardController: string;
@@ -63,6 +63,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   notifyCsvInterpret: string;
 
   updateCards: Card[];
+  btnEnableStateEnable: boolean;
+  btnEnableStateDisable: boolean;
 
   updateSteps: DatatableStep[];
 
@@ -82,17 +84,17 @@ export class AdminComponent implements OnInit, OnDestroy {
   private ruleList: string[];
 
   private cards: Card[];
+  private cardIdsSelected: number[];
   private steps: Step[];
+  private stepIdsSelected: number[];
 
   constructor(
     private translate: TranslateService
     , private settingsService: SettingsService
-    // , private cardService: CardService
-    // , private selectionService: SelectionService
-    , private getInstancesByClassNameService: GetInstancesByClassNameService
     , private getChildrenAliasService: GetChildrenAliasesService
     , private multiReadService: MultiReadService
     , private readWriteCEService: ReadWriteCEService
+    , private multiWriteService: MultiWriteService
   ) {
     const f = 'constructor';
     console.log(this.c, f);
@@ -113,71 +115,6 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'ngOnInit';
     console.log(this.c, f);
 
-    // this.cardSubscription = this.cardService.cardItem
-    //   .subscribe(item => {
-    //     console.log(this.c, f, 'cardSubscription', item);
-    //     switch (item) {
-    //       case CardServiceType.CARD_RELOADED: {
-    //         this.updateAlarmSummary = null;
-    //       } break;
-    //       case CardServiceType.STEP_RELOADED: {
-    //         // const selCardId: string = this.selectionService.getSelectedCardId();
-    //         // if ( null != selCardId ) {
-    //         //   const card = this.cardService.getCard([selCardId]);
-    //         //   this.alarmSummaryComponent.updateAlarmSummary = card.index;
-    //         // }
-    //       } break;
-    //       case CardServiceType.STEP_UPDATED: {
-    //         // const selCardId: string = this.selectionService.getSelectedCardId();
-    //         // if ( null != selCardId ) {
-    //         //   const card = this.cardService.getCard([selCardId]);
-    //         //   this.alarmSummaryComponent.updateAlarmSummary = card.index;
-    //         // }
-    //       } break;
-    //     }
-    //   });
-
-    // this.selectionSubscription = this.selectionService.selectionItem
-    //   .subscribe(item => {
-    //     console.log(this.c, f, 'selectionSubscription', item);
-    //     switch (item) {
-    //       case SelectionServiceType.CARD_SELECTED: {
-    //         const selCardId: string = this.selectionService.getSelectedCardId();
-    //         if ( null != selCardId ) {
-    //           const card: Card = this.cardService.getCard([selCardId]);
-    //           if ( null != card ) {
-    //             this.updateAlarmSummary = card.index;
-    //           } else {
-    //             console.warn(this.c, f, 'card IS NULL');
-    //           }
-    //         }
-    //       } break;
-    //     }
-    //   });
-
-    // this.getInstancesByClassNameSubscription = this.getInstancesByClassNameService.dbmItem
-    // .subscribe(item => {
-    //   console.log(this.c, f, 'selectionSubscription', item);
-    //   if ( '' !== item ) {
-    //     this.instances = this.getInstancesByClassNameService.getData(this.env, this.className);
-    //     if ( null == this.avas ) {
-    //       this.avas = new Array<string>();
-    //     }
-    //     for ( let i = 0 ; i < this.instances.length ; ++i ) {
-    //       const className: string = this.instances[i];
-    //       const avapPrefix = DbmSettings.STR_ALIAS + this.className + AlarmSummarySettings.STR_AVAP_PREFIX;
-    //       if (className.startsWith(avapPrefix)) {
-    //         this.avap = this.instances[i];
-    //       }
-    //       const avasPrefix = DbmSettings.STR_ALIAS + this.className + AlarmSummarySettings.STR_AVAP_PREFIX;
-    //       if (className.startsWith(avasPrefix)) {
-    //         this.avas.push(this.instances[i]);
-    //       }
-    //     }
-    //     this.getChildrenService.readData(this.env, this.avap);
-    //   }
-    // });
-
     this.getChildrenAliasSubscription = this.getChildrenAliasService.dbmItem
     .subscribe(result => {
       console.log(this.c, f, 'getChildrenAliasSubscription', result);
@@ -185,9 +122,9 @@ export class AdminComponent implements OnInit, OnDestroy {
         if ( null != this.instanceRoot ) {
           const root: string = DbmSettings.STR_URL_ALIAS + this.instanceRoot;
           if ( root === result.dbAddress ) {
-            if ( null == this.avasList ) {
-              this.avasList = new Array<string>();
-            }
+
+            this.avasList = new Array<string>();
+
             for ( let i = 0 ; i < result.data.length ; ++i ) {
               const alias = result.data[i];
               const classNames = alias.split(DbmSettings.STR_COLON);
@@ -209,12 +146,23 @@ export class AdminComponent implements OnInit, OnDestroy {
             if ( null == this.ruleList ) {
               this.ruleList = new Array<string>();
             }
-            for ( let i = 0 ; i < result.data.length ; ++i ) {
+            for ( let i = 0 ; i < result.data.length; ++i ) {
               const alias = result.data[i];
-              const classNames = alias.split(':');
+              const classNames = alias.split(DbmSettings.STR_COLON);
               const className = classNames [classNames.length - 1];
                if ( className.startsWith(AlarmSummarySettings.STR_RULE_PREFIX) ) {
-                this.ruleList.push(alias);
+
+                let found = false;
+                const base = 1;
+                for ( let n = 0; n < 16; ++n ) {
+                  const name = DbmSettings.STR_RULE + ('000' + (n + base)).slice(-4);
+                  if ( className === name ) {
+                    found = true;
+                  }
+                }
+                if ( found ) {
+                  this.ruleList.push(alias);
+                }
               }
             }
 
@@ -232,14 +180,8 @@ export class AdminComponent implements OnInit, OnDestroy {
                 // equal
                 return 0;
             });
-            const dbAddresses: string[] = new Array<string>();
-            for ( let i = 0 ; i < this.ruleList.length ; ++i ) {
-              for ( let j = 0 ; j < AlarmSummarySettings.RULE_ATTR_LIST.length ; ++j ) {
-                const dbAttribute = this.ruleList[i] + AlarmSummarySettings.RULE_ATTR_LIST[j];
-                dbAddresses.push(dbAttribute);
-              }
-            }
-            this.multiReadService.readData(this.env, dbAddresses);
+
+            this.reloadData();
           }
         }
       }
@@ -250,8 +192,16 @@ export class AdminComponent implements OnInit, OnDestroy {
       console.log(this.c, f, 'multiReadSubscription', result);
       if ( null != result ) {
 
-        if ( 0 === (result.dbValue.length % 4) ) {
-          this.cards = new Array<Card>();
+        if ( 0 === result.dbValue.length ) {
+
+          // Renew with No Conditions
+          this.updateSteps = this.steps = [];
+
+        } else if ( 0 === (result.dbValue.length % AlarmSummarySettings.RULE_ATTR_LIST.length) ) {
+
+          this.cards = [];
+          this.updateCards = [];
+
           for ( let i = 0 ; i < this.ruleList.length ; ++i ) {
             const base: number = i * AlarmSummarySettings.RULE_ATTR_LIST.length;
             const card: Card = new Card(
@@ -259,11 +209,15 @@ export class AdminComponent implements OnInit, OnDestroy {
                                         , result.dbValue[base + 1]
                                         , result.dbValue[base + 2]
                                         , result.dbValue[base + 3]
+                                        , result.dbValue[base + 4]
             );
             this.cards.push(card);
           }
           this.updateCards = this.cards;
+          // this.updateCards = [...this.updateCards];
+
         } else if (0 === (result.dbValue.length % 7)) {
+
           this.steps = new Array<Step>();
           for ( let i = 0; i < result.dbValue.length / 7; ++i ) {
             const index: number = i * 7;
@@ -306,9 +260,6 @@ export class AdminComponent implements OnInit, OnDestroy {
             }
           }
           this.updateSteps = dtSteps;
-        } else {
-          // Renew with No Conditions
-          this.updateSteps = this.steps = [];
         }
       }
     });
@@ -346,51 +297,125 @@ export class AdminComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.env = this.alarmSummaryCfg.envs[0].value;
-    this.instanceRoot = this.alarmSummaryCfg.instanceRoot;
-    this.getChildrenAliasService.readData(this.env, DbmSettings.STR_URL_ALIAS + this.instanceRoot);
+    this.multiWriteSubscription = this.multiWriteService.dbmItem
+    .subscribe(result => {
+      console.log(this.c, f, 'multiWriteSubscription', result);
+      if ( null != result ) {
+        this.reloadData();
+      }
+    });
+
+    this.reloadInstance();
   }
 
   ngOnDestroy(): void {
     const f = 'ngOnDestroy';
     console.log(this.c, f);
     // prevent memory leak when component is destroyed
-    // this.selectionSubscription.unsubscribe();
-    this.cardSubscription.unsubscribe();
     this.getInstancesByClassNameSubscription.unsubscribe();
+  }
+
+  private reloadInstance() {
+    const f = 'reloadInstance';
+    console.log(this.c, f);
+    this.env = this.alarmSummaryCfg.envs[0].value;
+    this.instanceRoot = this.alarmSummaryCfg.instanceRoot;
+    this.getChildrenAliasService.readData(this.env, DbmSettings.STR_URL_ALIAS + this.instanceRoot);
+  }
+
+  private reloadData() {
+    const f = 'reloadData';
+    console.log(this.c, f);
+    const dbAddresses: string[] = new Array<string>();
+    for ( let i = 0 ; i < this.ruleList.length ; ++i ) {
+      for ( let j = 0 ; j < AlarmSummarySettings.RULE_ATTR_LIST.length ; ++j ) {
+        const dbAttribute = this.ruleList[i] + AlarmSummarySettings.RULE_ATTR_LIST[j];
+        dbAddresses.push(dbAttribute);
+      }
+    }
+    this.multiReadService.readData(this.env, dbAddresses);
+  }
+
+  private getCard(cardId: number): Card {
+    const f = 'getSelectedCard';
+    console.log(this.c, f);
+    let cardSelected: Card = null;
+    for ( let i = 0 ; i < this.cards.length ; ++i ) {
+      const card: Card = this.cards[i];
+      if ( cardId === card.index ) {
+        cardSelected = card;
+        break;
+      }
+    }
+    return cardSelected;
+  }
+
+  private getCardSelected(): Card {
+    let selectedCard: Card = null;
+    if ( null != this.cardIdsSelected ) {
+      if ( this.cardIdsSelected.length > 0 ) {
+        selectedCard = this.getCard(this.cardIdsSelected[0]);
+      }
+    }
+    return selectedCard;
+  }
+
+  private getStep(stepId: number): Step {
+    const f = 'getStep';
+    console.log(this.c, f);
+    let stepSelected: Step = null;
+    for ( let i = 0 ; i < this.steps.length ; ++i ) {
+      const step: Step = this.steps[i];
+      if ( stepId === step.step ) {
+        stepSelected = step;
+        break;
+      }
+    }
+    return stepSelected;
+  }
+
+  private getStepSelected(): Step {
+    const f = 'getStepSelected';
+    console.log(this.c, f);
+    let stepSelected: Step = null;
+    if ( null != this.stepIdsSelected ) {
+      if ( this.stepIdsSelected.length > 0 ) {
+        stepSelected = this.getStep(this.stepIdsSelected[0]);
+      }
+    }
+    return stepSelected;
   }
 
   onUpdatedCardSelection(cardIds: number[]) {
     const f = 'onUpdatedCardSelection';
     console.log(this.c, f);
 
-    if ( null != cardIds ) {
-      if ( cardIds.length > 0 ) {
-        const cardId: number = cardIds[0];
+    this.cardIdsSelected = cardIds;
 
-        let cardSelected: Card = null;
-        for ( let i = 0 ; i < this.cards.length ; ++i ) {
-          const card: Card = this.cards[i];
-          if ( cardId === card.index ) {
-            cardSelected = card;
-            break;
-          }
-        }
-
-        if ( null != cardSelected ) {
-
-          // Renew conditions
-          const ruleBase = 1;
-          const cStart = 1;
-          const cEnd = 8;
-          const index: number = cardSelected.index;
-          const univname: string = this.avar + DbmSettings.STR_COLON + DbmSettings.STR_RULE + ('000' + (index + ruleBase)).slice(-4);
-          this.readWriteCEService.readConditions(this.env, univname, cStart, cEnd);
-
-          // Renew alarm summary
-          this.updateAlarmSummary = cardSelected.index;
-        }
+    const cardSelected: Card = this.getCardSelected();
+    if ( null != cardSelected ) {
+      // Renew State Button
+      if ( cardSelected.state ) {
+        this.btnEnableStateEnable = false;
+        this.btnEnableStateDisable = true;
+      } else {
+        this.btnEnableStateEnable = true;
+        this.btnEnableStateDisable = false;
       }
+
+      // Renew conditions
+      const ruleBase = 1;
+      const cStart = 1;
+      const cEnd = 8;
+      const index: number = cardSelected.index;
+      const univname: string = this.avar + DbmSettings.STR_COLON + DbmSettings.STR_RULE + ('000' + (index + ruleBase)).slice(-4);
+      this.readWriteCEService.readConditions(this.env, univname, cStart, cEnd);
+
+      // Renew alarm summary
+      this.updateAlarmSummary = cardSelected.index;
+    } else {
+      this.btnEnableStateEnable = false;
+      this.btnEnableStateDisable = false;
     }
   }
 
@@ -398,19 +423,10 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'onUpdatedStepSelection';
     console.log(this.c, f);
 
-    if ( null != stepIds ) {
-      if ( stepIds.length > 0 ) {
-        const stepId: number = stepIds[0];
+    this.stepIdsSelected = stepIds;
 
-        let stepSelected: Step = null;
-        for ( let i = 0 ; i < this.steps.length ; ++i ) {
-          const step: Step = this.steps[i];
-          if ( stepId === step.step ) {
-            stepSelected = step;
-            break;
-          }
-        }
-      }
+    const stepSelected: Step = this.getStepSelected();
+    if ( null != stepSelected ) {
     }
   }
 
@@ -480,6 +496,44 @@ export class AdminComponent implements OnInit, OnDestroy {
       } break;
       case CardEditControllerSettings.STR_CARD_EDIT_CONTROLLER_MODIFY_ENABLE: {
         this.stepEditControllerChildView.onParentChange(StepEditControllerSettings.STR_STEP_EDIT_ENABLE);
+      } break;
+    }
+  }
+
+  private updateCard(card: Card) {
+    const dbAddresses: string[] = new Array<string>();
+
+    const values = {};
+    const univname = card.univname;
+    values[DbmSettings.STR_URL_ALIAS + univname + AlarmSummarySettings.STR_RULE_NAME] = card.name;
+    values[DbmSettings.STR_URL_ALIAS + univname + AlarmSummarySettings.STR_RULE_ENABLE] = (card.state ? 1 : 0);
+
+    this.multiWriteService.writeData(this.env, values);
+  }
+
+  private updateCardState(card: Card, state: boolean) {
+    if ( null != card ) {
+      card.state = state;
+    }
+  }
+
+  btnClicked(btnLabel: string, event?: Event): void {
+    const f = 'btnClicked';
+    console.log(this.c, f);
+    console.log(this.c, f, 'btnLabel[' + btnLabel + ']');
+    switch (btnLabel) {
+      case AdminComponent.STR_INIT: {
+        // this.init();
+      } break;
+      case 'enable': {
+        const cardSelected = this.getCardSelected();
+        this.updateCardState(cardSelected, true);
+        this.updateCard(cardSelected);
+      } break;
+      case 'disable': {
+        const cardSelected = this.getCardSelected();
+        this.updateCardState(cardSelected, false);
+        this.updateCard(cardSelected);
       } break;
     }
   }

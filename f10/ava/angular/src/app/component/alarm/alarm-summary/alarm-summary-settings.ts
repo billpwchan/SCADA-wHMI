@@ -14,12 +14,14 @@ export class AlarmSummarySettings {
   public static readonly STR_AVAS_PREFIX                = 'AVAS';
   public static readonly STR_RULE_PREFIX                = 'RULE';
 
+  public static readonly STR_RULE_UNIVNAME              = '.UNIVNAME';
   public static readonly STR_RULE_INDEX                 = '.index';
   public static readonly STR_RULE_NAME                  = '.label';
   public static readonly STR_RULE_ENABLE                = '.enable';
   public static readonly STR_RULE_CONDITION_GL          = '.conditionGL';
   public static readonly RULE_ATTR_LIST                 = [
-                                                            AlarmSummarySettings.STR_RULE_INDEX
+                                                            AlarmSummarySettings.STR_RULE_UNIVNAME
+                                                            , AlarmSummarySettings.STR_RULE_INDEX
                                                             , AlarmSummarySettings.STR_RULE_NAME
                                                             , AlarmSummarySettings.STR_RULE_ENABLE
                                                             , AlarmSummarySettings.STR_RULE_CONDITION_GL

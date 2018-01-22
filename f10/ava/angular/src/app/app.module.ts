@@ -39,6 +39,7 @@ import { GetInstancesByClassNameService } from './service/scs/ava/dbm/get-instan
 import { GetChildrenAliasesService } from './service/scs/ava/dbm/get-children-aliases.service';
 import { MultiReadService } from './service/scs/ava/dbm/multi-read.service';
 import { ReadWriteCEService } from './service/scs/ava/dbm/read-write-ce.service';
+import { MultiWriteService } from './service/scs/ava/dbm/multi-write.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -111,6 +112,7 @@ const appRoutes: Routes = [
     , GetChildrenAliasesService
     , MultiReadService
     , ReadWriteCEService
+    , MultiWriteService
   ],
   bootstrap: [AppComponent]
 })

@@ -44,14 +44,13 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
 
     if ( null != cards ) {
 
-      if ( null == this.updated ) {
-        this.updated = new Array<Card>();
-      }
+      this.updated = new Array<Card>();
 
       for ( let i = 0 ; i < cards.length ; ++i ) {
         const card = cards[i];
         const newCard = new Card(
-                                  card.index
+                                  card.univname
+                                  , card.index
                                   , card.name
                                   , card.state
                                   , card.status);

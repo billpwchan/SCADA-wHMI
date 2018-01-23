@@ -1,23 +1,13 @@
 {
 	"&available_pages": "Available pages"
-	, "&traineradmin": "Avalanche Admin"
-	, "&trainer": "Trainer"
-	, "&trainee": "Trainee"
+	, "&admin": "Avalanche Admin"
 
-	, "&trainee_page": "trainee page"
-	
 	, "&cards_title": "Avalanche Conditions"
 
 	, "&cards_gd_header_index": "#"
 	, "&cards_gd_header_name": "Name"
 	, "&cards_gd_header_state": "State"
 	, "&cards_gd_header_status": "Status"
-
-	, "&cards_dg_header_sorting_non": ""
-	, "&cards_dg_header_sorting_asc": "▲"
-	, "&cards_dg_header_sorting_des": "▼"
-
-	, "&cards_dg_state_unknow": "Unknow"
 
 	, "&cards_dg_state_disabled": "Disabled"
 	, "&cards_dg_state_enabled": "Enabled"
@@ -36,26 +26,6 @@
 
 	, "&admin_btn_refresh": "Refresh"
 	, "&admin_btn_refresh_title": "Refresh the Panel"
-	
-	, "&cards_lbl_modify": "Modify"
-	, "&cards_btn_new": "New"
-	, "&cards_btn_new_title": "Add a new condition."
-	, "&cards_btn_delete": "Delete"
-	, "&cards_btn_delete_title": "Delete selected condition."
-	, "&cards_btn_copy": "Copy"
-	, "&cards_btn_copy_title": "Make a copy of selected condition."
-	, "&cards_btn_rename": "Rename"
-	, "&cards_btn_rename_title": "Rename title of selected condition."
-	, "&cards_btn_modify": "Modify"
-	, "&cards_btn_modify_title": "Modify selected condition name."
-
-	, "&cards_lbl_new_name": "New Name"
-	, "&cards_txt_new_name": "type new name..."
-
-	, "&cards_btn_add": "Add"
-	, "&cards_btn_add_title": "Add as a new condition."
-	, "&cards_btn_add_cancel": "Cancel"
-	, "&cards_btn_add_cancel_title": "Cancel to add a new condition."
 
 	, "&cards_rename_btn_rename": "Rename"
 	, "&cards_rename_btn_rename_title": "Rename title of selected condition."
@@ -67,9 +37,6 @@
 	, "&cards_btn_modify_save_title": "Save"
 	, "&cards_btn_modify_cancel": "Cancel"
 	, "&cards_btn_modify_cancel_title": "Cancel"
-
-	, "&cards_name_new_prefix": "Condition # "
-	, "&cards_name_copy_appendix": " - Copy"
 
 	, "&cards_lbl_duplicated": "Name duplicated with exists name"
 	, "&cards_lbl_length_too_short": "Name contain too less character"
@@ -148,35 +115,6 @@
 	, "&step_btn_add_dcicancelstep_title": "Cacnel the add a step to card"
 
 	, "&scenario": "Condition(s)"
-
-	, "&storage_lbl_scenario": "Condition"
-
-	, "&storage_btn_save": "Save"
-	, "&storage_btn_save_title": "Save condition(s) into storage."
-	, "&storage_btn_load": "Reload"
-	, "&storage_btn_load_title": "Reload condition(s) from storage."
-
-	, "&storage_info_modifycardsnotsaved_title": "Save the modified setting."
-	, "&storage_info_modifycardsnotsaved": "Save the modified condition(s) to storage before leave ava panel."
-	, "&storage_info_modifycardsnotsaved_close": " x "
-
-	, "&storage_btn_save_confirm": "Confirm"
-	, "&storage_btn_save_confirm_title": "Confirm to save the file."
-	, "&storage_btn_save_cancel": "Cancel"
-	, "&storage_btn_save_cancel_title": "Cancel the save operation."
-
-	, "&storage_info_modifycardsnotsavedsuccess_title": "Save success."
-	, "&storage_info_modifycardsnotsavedsuccess_close": " x "
-	, "&storage_info_modifycardsnotsavedfailed_title": "Save failed."
-	, "&storage_info_modifycardsnotsavedfailed_close": " x "
-
-	, "&storage_info_confirmtosavecards_title": "Overwrite current setting(s)."
-
-	, "&storage_info_reload_card_success_title": "Reload success."
-	, "&storage_info_reload_card_success_close": " x "
-
-	, "&storage_info_reload_card_failed_title": "Reload failed."
-	, "&storage_info_reload_card_failed_close": " x "
 
 	, "&matrix_default_cell_empty": " - "
 	, "&matrix_default_cell_comma": ","

@@ -175,6 +175,7 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     cfg.defVal = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_DEFAULT_VALUE);
 
     cfg.matrixes = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_MATRIXES) as Matrix[];
+    cfg.singleBitOnly = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_SINGLE_BIT_ONLY) as boolean;
 
     return cfg;
   }
@@ -275,17 +276,34 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
 
     const val = Number.parseInt(event.target.value);
 
-    if ( undefined !== this.cellSel ) {
-      for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
-        for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
-          if (event.target.checked) {
-            this.updated[x][y] = DataScenarioHelper.setFlagOn(this.updated[x][y], val);
-          } else {
-            this.updated[x][y] = DataScenarioHelper.setFlagOff(this.updated[x][y], val);
+    if ( this.cfg.singleBitOnly ) {
+      if ( undefined !== this.cellSel ) {
+        for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
+          for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
+            if (event.target.checked) {
+              this.updated[x][y] = 0;
+              this.updated[x][y] = DataScenarioHelper.setFlagOn(this.updated[x][y], val);
+            } else {
+              this.updated[x][y] = 0;
+            }
+          }
+        }
+      }
+    } else {
+      if ( undefined !== this.cellSel ) {
+        for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
+          for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
+            if (event.target.checked) {
+              this.updated[x][y] = DataScenarioHelper.setFlagOn(this.updated[x][y], val);
+            } else {
+              this.updated[x][y] = DataScenarioHelper.setFlagOff(this.updated[x][y], val);
+            }
           }
         }
       }
     }
+
+
     this.generateMatrix();
     this.reloadData();
 

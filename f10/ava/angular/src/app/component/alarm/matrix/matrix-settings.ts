@@ -25,6 +25,8 @@ export class MatrixSettings {
 
   public static readonly STR_MATRIXES                   = 'matrixes';
 
+  public static readonly STR_SINGLE_BIT_ONLY            = 'single_bit_only';
+
   public static readonly STR_DEFAULT_VALUE              = 'default_value';
 
   public static readonly STR_CFG_ROW_HEADER_WIDTH_IS_NEGAVITE       = '&matrix_cfg_row_header_width_is_negavite';
@@ -64,5 +66,6 @@ export class MatrixConfig {
   public rowHeaderWidth: number;
   public defVal: number;
   public matrixes: Matrix[];
+  public singleBitOnly: boolean;
   public envs: Env[];
 }

@@ -111,6 +111,8 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
         if (null != env && '' !== env) {
           console.log(this.c, f, 'Data already write to DBM');
 
+          this.disableButtons(true);
+
         } else {
           console.warn(this.c, f, 'env IS INVALID');
         }

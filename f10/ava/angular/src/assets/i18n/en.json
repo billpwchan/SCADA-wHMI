@@ -33,6 +33,9 @@
 	, "&cards_state_btn_enable_title": "Enable the selected condidition"
 	, "&cards_state_btn_disable": "Disable"
 	, "&cards_state_btn_disable_title": "Disable the selected condidition"
+
+	, "&admin_btn_refresh": "Refresh"
+	, "&admin_btn_refresh_title": "Refresh the Panel"
 	
 	, "&cards_lbl_modify": "Modify"
 	, "&cards_btn_new": "New"

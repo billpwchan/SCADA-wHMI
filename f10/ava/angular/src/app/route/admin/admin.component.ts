@@ -54,6 +54,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   notifyStorage: string;
   notifyCsvInterpret: string;
 
+  btnEnableRefresh: boolean;
+
   updateCards: Card[];
   refreshCards: Card[];
   btnEnableStateEnable: boolean;
@@ -504,10 +506,18 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   private initGui() {
+    const f = 'initGui';
+    console.log(this.c, f);
+
+    this.btnEnableRefresh = true;
+
     this.btnEnableStateEnable = false;
     this.btnEnableStateDisable = false;
+
     this.btnEnableRename = false;
+
     this.updateTitle = '';
+
     this.btnEnableNewStep = false;
     this.btnEnableDeleteStep = false;
   }
@@ -727,6 +737,9 @@ export class AdminComponent implements OnInit, OnDestroy {
         const stepSelected: Step = this.getStepSelected();
         this.deleteStep(this.steps, this.stepIdsSelected);
         this.writeConditions(cardSelected.index);
+      } break;
+      case 'refresh': {
+        window.location.reload();
       } break;
     }
   }

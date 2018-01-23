@@ -8,7 +8,6 @@ import { SettingsService } from '../../service/settings.service';
 import { MatrixSettings, Matrix, MatrixConfig } from '../../component/alarm/Matrix/matrix-settings';
 import { Step, Card, Equipment, Execution, PhasesType, ExecType } from '../../model/Scenario';
 import { StepsComponent } from '../../component/step/steps/steps.component';
-import { AlarmSummaryConfig, Env, AlarmSummarySettings } from '../../component/alarm/alarm-summary/alarm-summary-settings';
 import { GetInstancesByClassNameService } from '../../service/scs/ava/dbm/get-instances-by-class-name.service';
 import { Subscribable } from 'rxjs/Observable';
 import { GetChildrenAliasesService } from '../../service/scs/ava/dbm/get-children-aliases.service';
@@ -21,6 +20,11 @@ import { DataScenarioHelper } from '../../model/DataScenarioHelper';
 import { AppSettings } from '../../app-settings';
 import { MultiWriteService } from '../../service/scs/ava/dbm/multi-write.service';
 import { DbmPollingService } from '../../service/scs/dbm-polling.service';
+import { AlarmSummarySettings, Env } from '../../component/alarm/alarm-summary/alarm-summary-settings';
+import { AVASummaryConfig } from '../../component/alarm/alarm-summary/alarm-summary-settings';
+import { CardSummaryConfig } from '../../component/alarm/alarm-summary/alarm-summary-settings';
+import { StepSummaryConfig } from '../../component/alarm/alarm-summary/alarm-summary-settings';
+import { AlarmSummaryConfig } from '../../component/alarm/alarm-summary/alarm-summary-settings';
 
 @Component({
   selector: 'app-admin',
@@ -77,6 +81,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   updateAlarmEnv: string;
   updateAlarmUnivname: string[];
 
+  avaSummaryCfg: AVASummaryConfig;
+  cardSummaryCfg: CardSummaryConfig;
+  stepSummaryCfg: StepSummaryConfig;
   alarmSummaryCfg: AlarmSummaryConfig;
   updateAlarmSummary: number;
 
@@ -115,10 +122,23 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.loadTranslations();
     });
 
-    const almConfig: AlarmSummaryConfig = this.loadAlarmSummaryCfgs();
-    if ( null != almConfig ) {
-      this.alarmSummaryCfg = almConfig;
-    } else {
+    this.avaSummaryCfg = this.loadAVASummaryCfgs();
+    if ( null == this.avaSummaryCfg ) {
+      console.warn(this.c, f, 'loadAVASummaryCfgs IS INVALID');
+    }
+
+    this.cardSummaryCfg = this.loadCardSummaryCfgs();
+    if ( null == this.cardSummaryCfg ) {
+      console.warn(this.c, f, 'loadCardSummaryCfgs IS INVALID');
+    }
+
+    this.stepSummaryCfg = this.loadStepSummaryCfgs();
+    if ( null == this.stepSummaryCfg ) {
+      console.warn(this.c, f, 'loadStepSummaryCfgs IS INVALID');
+    }
+
+    this.alarmSummaryCfg = this.loadAlarmSummaryCfgs();
+    if ( null == this.alarmSummaryCfg ) {
       console.warn(this.c, f, 'loadAlarmSummaryCfgs IS INVALID');
     }
   }
@@ -165,8 +185,9 @@ export class AdminComponent implements OnInit, OnDestroy {
                if ( className.startsWith(AlarmSummarySettings.STR_RULE_PREFIX) ) {
 
                 let found = false;
-                const base = 1;
-                for ( let n = 0; n < 16; ++n ) {
+                const base = this.cardSummaryCfg.ruleBase;
+                const max = this.cardSummaryCfg.maxRuleNum;
+                for ( let n = 0; n < max ; ++n ) {
                   const name = DbmSettings.STR_RULE + (DbmSettings.STR_THREE_ZERO + (n + base)).slice(-4);
                   if ( className === name ) {
                     found = true;
@@ -416,8 +437,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   private reloadInstance() {
     const f = 'reloadInstance';
     console.log(this.c, f);
-    this.env = this.alarmSummaryCfg.envs[0].value;
-    this.instanceRoot = this.alarmSummaryCfg.instanceRoot;
+    this.env = this.avaSummaryCfg.envs[0].value;
+    this.instanceRoot = this.cardSummaryCfg.instanceRoot;
     this.getChildrenAliasService.readData(this.env, DbmSettings.STR_URL_ALIAS + this.instanceRoot);
   }
 
@@ -526,9 +547,9 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'readConditions';
     console.log(this.c, f);
 
-    const ruleBase = this.alarmSummaryCfg.ruleBase;
-    const cStart = this.alarmSummaryCfg.conditionBeginId;
-    const cEnd = this.alarmSummaryCfg.conditionEndId;
+    const ruleBase = this.stepSummaryCfg.ruleBase;
+    const cStart = this.stepSummaryCfg.conditionBeginId;
+    const cEnd = this.stepSummaryCfg.conditionEndId;
     const univname: string = this.avar + DbmSettings.STR_COLON + DbmSettings.STR_RULE + ('000' + (index + ruleBase)).slice(-4);
     this.readWriteCEService.readConditions(this.env, univname, cStart, cEnd);
   }
@@ -537,9 +558,9 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'writeConditions';
     console.log(this.c, f);
 
-    const ruleBase = this.alarmSummaryCfg.ruleBase;
-    const cStart = this.alarmSummaryCfg.conditionBeginId;
-    const cEnd = this.alarmSummaryCfg.conditionEndId;
+    const ruleBase = this.stepSummaryCfg.ruleBase;
+    const cStart = this.stepSummaryCfg.conditionBeginId;
+    const cEnd = this.stepSummaryCfg.conditionEndId;
     const univname: string = this.avar + DbmSettings.STR_COLON + DbmSettings.STR_RULE + ('000' + (index + ruleBase)).slice(-4);
     this.readWriteCEService.writeConditions(this.env, univname, cStart, cEnd, this.steps, 0);
   }
@@ -631,19 +652,52 @@ export class AdminComponent implements OnInit, OnDestroy {
     console.log(this.c, f);
   }
 
+  private loadAVASummaryCfgs(): AVASummaryConfig {
+    const f = 'loadAVASummaryCfgs';
+    console.log(this.c, f);
+
+    const c = 'AVASummaryComponent';
+    const cfg: AVASummaryConfig = new AVASummaryConfig();
+
+    cfg.envs = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_ENVS) as Env[];
+
+    return cfg;
+  }
+
+  private loadCardSummaryCfgs(): CardSummaryConfig {
+    const f = 'loadCardSummaryCfgs';
+    console.log(this.c, f);
+
+    const c = 'CardSummaryComponent';
+    const cfg: CardSummaryConfig = new CardSummaryConfig();
+
+    cfg.instanceClassName = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_INSTANCE_CLASSNAME) as string;
+    cfg.instanceRoot = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_INSTANCE_ROOT) as string;
+    cfg.ruleBase = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_RULE_BASE) as number;
+    cfg.maxRuleNum = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_MAX_RULE_NUM) as number;
+    return cfg;
+  }
+
+  private loadStepSummaryCfgs(): StepSummaryConfig {
+    const f = 'loadStepSummaryCfgs';
+    console.log(this.c, f);
+
+    const c = 'StepSummaryComponent';
+    const cfg: StepSummaryConfig = new StepSummaryConfig();
+
+    cfg.ruleBase = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_RULE_BASE) as number;
+    cfg.conditionBeginId = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_CONDITION_BEGIN_ID) as number;
+    cfg.conditionEndId = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_CONDITION_END_ID) as number;
+
+    return cfg;
+  }
+
   private loadAlarmSummaryCfgs(): AlarmSummaryConfig {
     const f = 'loadAlarmSummaryCfgs';
     console.log(this.c, f);
 
     const c = 'AlarmSummaryComponent';
     const cfg: AlarmSummaryConfig = new AlarmSummaryConfig();
-
-    cfg.envs = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_ENVS) as Env[];
-    cfg.instanceClassName = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_INSTANCE_CLASSNAME) as string;
-    cfg.instanceRoot = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_INSTANCE_ROOT) as string;
-    cfg.ruleBase = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_RULE_BASE) as number;
-    cfg.conditionBeginId = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_CONDITION_BEGIN_ID) as number;
-    cfg.conditionEndId = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_CONDITION_END_ID) as number;
 
     return cfg;
   }

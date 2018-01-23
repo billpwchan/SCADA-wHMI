@@ -7,79 +7,71 @@
     , "use_cookie_name": "iscs.webapp.Lang"
   }
   , "AppComponent": {
-      "title": "AVA"
+    "title": "AVA"
   }
   , "RenameComponent": {
     "card_min": 1
     , "card_max": 40
   }
-  , "CardEditComponent": {
-      "card_name_min": 1
-      , "card_name_max": 40
-  }
   , "StepsComponent": {
-      "step_prefix": ""
-      , "step_base": "1"
-      , "geo_prefix": "location_"
-      , "func_prefix": "function_"
-      , "eqplabel_prefix": ""
-      , "pointlabel_prefix": ""
-      , "value_prefix": ""
+    "step_prefix": ""
+    , "step_base": "1"
+    , "geo_prefix": "location_"
+    , "func_prefix": "function_"
+    , "eqplabel_prefix": ""
+     , "pointlabel_prefix": ""
+    , "value_prefix": ""
   }
   , "StepEditComponent": {
-      "geo_prefix": "location_"
-      , "func_prefix": "function_"
-      , "eqplabel_prefix": ""
-      , "pointlabel_prefix": ""
-      , "value_prefix": ""
-      , "envs": [
-        {"label": "M100", "value": "http://127.0.0.1:8990"}
-        , {"label": "M001", "value": "http://127.0.0.1:8991"}
-        , {"label": "M002", "value": "http://127.0.0.1:8992"}
-      ]
+    "geo_prefix": "location_"
+    , "func_prefix": "function_"
+    , "eqplabel_prefix": ""
+    , "pointlabel_prefix": ""
+    , "value_prefix": ""
+    , "envs": [
+      {"label": "M100", "value": "http://127.0.0.1:8990"}
+      , {"label": "M001", "value": "http://127.0.0.1:8991"}
+      , {"label": "M002", "value": "http://127.0.0.1:8992"}
+    ]
   }
   , "MatrixComponent": {
-      "spreadsheet_height": 150
-      , "spreadsheet_width": 80
-      , "spreadsheet_visible_rows": 6
-      , "col_header_prefix": "function_"
-      , "col_header_ids": [1,2,3,4,8,99]
-      , "col_width": 80
-      , "row_header_prefix": "location_"
-      , "row_header_ids": [1,2,100000]
-      , "row_header_width": 80
-      , "default_value": 0
-      , "matrixes": [
-          {"index": 0, "label": "&matrix_flag_label_0", "shortlabel" : "&matrix_flag_shortlabel_0", "title": "&matrix_flag_title_0"}
-          , {"index": 1, "label": "&matrix_flag_label_1", "shortlabel" : "&matrix_flag_shortlabel_1", "title": "&matrix_flag_title_1"}
-          , {"index": 2, "label": "&matrix_flag_label_2", "shortlabel" : "&matrix_flag_shortlabel_2", "title": "&matrix_flag_title_2"}
-          , {"index": 3, "label": "&matrix_flag_label_3", "shortlabel" : "&matrix_flag_shortlabel_3", "title": "&matrix_flag_title_3"}
-      ]
+    "spreadsheet_height": 150
+    , "spreadsheet_width": 80
+    , "spreadsheet_visible_rows": 6
+    , "col_header_prefix": "function_"
+    , "col_header_ids": [1,2,3,4,8,99]
+    , "col_width": 80
+    , "row_header_prefix": "location_"
+    , "row_header_ids": [1,2,100000]
+    , "row_header_width": 80
+    , "default_value": 0
+    , "matrixes": [
+      {"index": 0, "label": "&matrix_flag_label_0", "shortlabel" : "&matrix_flag_shortlabel_0", "title": "&matrix_flag_title_0"}
+      , {"index": 1, "label": "&matrix_flag_label_1", "shortlabel" : "&matrix_flag_shortlabel_1", "title": "&matrix_flag_title_1"}
+      , {"index": 2, "label": "&matrix_flag_label_2", "shortlabel" : "&matrix_flag_shortlabel_2", "title": "&matrix_flag_title_2"}
+      , {"index": 3, "label": "&matrix_flag_label_3", "shortlabel" : "&matrix_flag_shortlabel_3", "title": "&matrix_flag_title_3"}
+    ]
+  }
+  , "AVASummaryComponent": {
+    "envs": [
+      {"label": "M100", "value": "http://127.0.0.1:8990"}
+    ]
+  }
+  , "CardSummaryComponent": {
+    "instance_classname": "ScadagenNode"
+    , "instance_root": "Scadagen"
+    , "rule_base": 1
+    , "max_rule_num": 16
+  }
+  , "StepSummaryComponent": {
+    "rule_base": 1
+    , "condition_begin_id": 1
+    , "condition_end_id": 8
   }
   , "AlarmSummaryComponent": {
-      "envs": [
-        {"label": "M100", "value": "http://127.0.0.1:8990"}
-      ]
-      , "instance_classname": "ScadagenNode"
-      , "instance_root": "Scadagen"
-      , "rule_base": 1
-      , "condition_begin_id": 1
-      , "condition_end_id": 8
-  }
-  , "StorageComponent": {
-      "init_cards_before_storage": true
-  }
-  , "StorageService": {
-      "use_local_storage": false
-      , "local_storage_name": "ava_local_storage_name"
-      , "remote_url": "http://127.0.0.1:8080"
-      , "remote_filename_prefix": "ava"
-      , "remote_filename_extension": ".json"
-      , "upload_url": "upstreamFile_result"
-      , "download_url": "downstreamFile_result"
   }
   , "DbmPollingService": {
-      "interval": 1000
-      , "enable": false
+    "interval": 1000
+    , "enable": false
   }
 }

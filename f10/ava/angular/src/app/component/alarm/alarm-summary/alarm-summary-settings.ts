@@ -8,8 +8,11 @@ export class AlarmSummarySettings {
   public static readonly STR_CONFIG                     = 'config';
 
   public static readonly STR_ENVS                       = 'envs';
+
   public static readonly STR_INSTANCE_CLASSNAME         = 'instance_classname';
   public static readonly STR_INSTANCE_ROOT              = 'instance_root';
+  public static readonly STR_MAX_RULE_NUM               = 'max_rule_num';
+
   public static readonly STR_RULE_BASE                  = 'rule_base';
   public static readonly STR_CONDITION_BEGIN_ID         = 'condition_begin_id';
   public static readonly STR_CONDITION_END_ID           = 'condition_end_id';
@@ -38,11 +41,22 @@ export class Env {
   value: string;
 }
 
-export class AlarmSummaryConfig {
+export class AVASummaryConfig {
   public envs: Env[];
+}
+
+export class CardSummaryConfig {
   public instanceClassName: string;
   public instanceRoot: string;
   public ruleBase: number;
+  public maxRuleNum: number;
+}
+
+export class StepSummaryConfig {
+  public ruleBase: number;
   public conditionBeginId: number;
   public conditionEndId: number;
+}
+
+export class AlarmSummaryConfig {
 }

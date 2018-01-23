@@ -36,12 +36,12 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
 
+  public static readonly STR_NORIFY_FROM_PARENT = AppSettings.STR_NOTIFY_FROM_PARENT;
+
   public static readonly STR_ACI_SELECTED   = 'aciselected';
   public static readonly STR_DCI_SELECTED   = 'dciselected';
 
   public static readonly STR_NEWSTEP = 'newstep';
-
-  public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
 
   readonly c = 'StepEditComponent';
 
@@ -57,11 +57,14 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
     if ( null != data ) {
       this.updated = data;
-      this.editEnableNewStep = true;
       console.log(this.c, f, 'this.updated', this.updated);
     } else {
       console.warn(this.c, f, 'data IS INVALID');
     }
+  }
+  @Input()
+  set enableStepEdit(enable: Date) {
+    this.editEnableNewStep = true;
   }
   @Output() onUpdatedStepEdit = new EventEmitter<Step[]>(null);
 
@@ -82,6 +85,7 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
 
   hiddenClassId: boolean;
   hiddenUnivname: boolean;
+  hiddenFullpath: boolean;
   hiddenEVName: boolean;
 
   hiddenAciInitValue: boolean;
@@ -105,6 +109,7 @@ export class StepEditComponent implements OnInit, OnDestroy, OnChanges {
   // data binding
   txtClassId: string;
   txtUnivname: string;
+  txtFullpath: string;
   txtEVName: string;
 
 editEnableCancelStep: boolean;
@@ -460,6 +465,7 @@ btnDisabledAddCancelStep: boolean;
             ) {
 
             this.txtUnivname = item[OlsSettings.STR_ATTR_UNIVNAME];
+            this.txtFullpath = item[OlsSettings.STR_ATTR_NAME];
 
             this.dbmService.retriveClassId(this.selEnv, this.txtUnivname);
           }
@@ -526,7 +532,6 @@ btnDisabledAddCancelStep: boolean;
       }
     }
 
-    // const card = this.cardService.getCard(this.selectionService.getSelectedCardIds());
     const step: Step = new Step(
       this.updated.length
     );
@@ -534,26 +539,15 @@ btnDisabledAddCancelStep: boolean;
     step.equipment = new Equipment(
       this.selEnv
       , this.txtUnivname
+      , this.txtFullpath
       , Number(this.txtClassId).valueOf()
       , Number(this.selGeo).valueOf()
       , Number(this.selFunc).valueOf()
       , this.selEqpLabel
       , this.selPointLabel
+      , Number(value).valueOf()
       , valueLabel
     );
-
-    if ( ! step.equipment.phases ) {
-      step.equipment.phases = new Array<Array<Execution>>();
-      for ( let i = 0 ; i < PhasesType.LENGTH ; ++i ) {
-        step.equipment.phases[i] = new Array<Execution>();
-      }
-    }
-
-    step.equipment.phases[PhasesType.SINGLE_EV].push(new Execution(
-      ExecType.DACSIM
-      , this.txtEVName
-      , Number(value).valueOf()
-    ));
 
     this.updated.push(step);
   }
@@ -576,6 +570,7 @@ btnDisabledAddCancelStep: boolean;
 
     this.hiddenClassId = true;
     this.hiddenUnivname = true;
+    this.hiddenFullpath = true;
     this.hiddenEVName = true;
 
     // Disable the Init Aci and Dci input

@@ -9,6 +9,7 @@ export class OlsSettings {
     public static readonly STR_ATTR_EQPLABEL = 'eqplabel';
     public static readonly STR_ATTR_POINTLABEL = 'pointlabel';
     public static readonly STR_ATTR_UNIVNAME = 'univname';
+    public static readonly STR_ATTR_NAME = 'name';
 
     public static readonly STR_LST_SERVER = 'LstServer';
     public static readonly STR_SCADAGEN_DATA_POINT_MGN = 'SCADAgenDataPointMgn';

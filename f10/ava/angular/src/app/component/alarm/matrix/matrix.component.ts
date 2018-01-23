@@ -15,6 +15,10 @@ import { DbmReadAvaSupService } from '../../../service/scs/ava/dbm-read-ava-sup.
 })
 export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
 
+  public static readonly STR_INIT = AppSettings.STR_INIT;
+
+  public static readonly STR_NOTIFY_FROM_PARENT = AppSettings.STR_NOTIFY_FROM_PARENT;
+
   readonly c = 'MatrixComponent';
 
   @Input() notifyFromParent: string;
@@ -104,7 +108,7 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'ngOnInit';
     console.log(this.c, f);
 
-    this.btnClicked(MatrixSettings.STR_INIT);
+    this.btnClicked(MatrixComponent.STR_INIT);
   }
 
   ngOnDestroy(): void {
@@ -135,8 +139,8 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const f = 'ngOnChanges';
     console.log(this.c, f);
-    if ( changes[MatrixSettings.STR_NORIFY_FROM_PARENT] ) {
-      this.onParentChange(changes[MatrixSettings.STR_NORIFY_FROM_PARENT].currentValue);
+    if ( changes[MatrixComponent.STR_NOTIFY_FROM_PARENT] ) {
+      this.onParentChange(changes[MatrixComponent.STR_NOTIFY_FROM_PARENT].currentValue);
     }
     if ( changes[MatrixSettings.STR_MATRIX_CONFIG] ) {
       this.onConfigChange(changes[MatrixSettings.STR_MATRIX_CONFIG].currentValue);
@@ -478,10 +482,8 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
     console.log(this.c, f, 'btnLabel[' + btnLabel + ']');
     switch (btnLabel) {
-      case MatrixSettings.STR_INIT: {
+      case MatrixComponent.STR_INIT: {
         this.init();
-        // this.generateMatrix();
-        // this.reloadData();
       } break;
     }
   }

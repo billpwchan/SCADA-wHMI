@@ -28,7 +28,6 @@ export class GetInstancesByClassNameService {
   constructor(
     private httpClient: HttpClient
     , private utilsHttp: UtilsHttpModule
-    // , private dbmCacheAvaSupService: DbmCacheAvaSupService
   ) { }
 
   getData(env: string, className: string): string[] {
@@ -47,7 +46,6 @@ export class GetInstancesByClassNameService {
 
     console.log(this.c, f, 'url', url);
 
-    // Get Label and Value
     this.httpClient.get(
       url
     )

@@ -26,6 +26,8 @@ export class DbmService {
 
   private retriveClassIdData: Map<string, Map<string, any>> = new Map<string, Map<string, any>>();
 
+  private getFullPathData: Map<string, Map<string, any>> = new Map<string, Map<string, any>>();
+
   // Service command
   dbmChanged(str: string) {
     this.dbmSource.next(str);
@@ -187,6 +189,36 @@ export class DbmService {
     );
   }
 
+  getRetriveFullPathData(connAddr: string, univname: string): any {
+    return this.getFullPathData.get(connAddr).get(univname);
+  }
+  retriveFullPath(connAddr: string, univname: string) {
+    const f = 'retriveFullPath';
+    console.log(this.c, f);
+    console.log(this.c, f, 'connAddr' , connAddr);
+    console.log(this.c, f, 'univname' , univname);
+
+    const url = connAddr + DbmSettings.STR_URL_GETFULLPATH + DbmSettings.STR_URL_ALIAS + univname;
+
+    // Get Class ID
+    this.httpClient.get(
+      url
+    )
+      .subscribe(
+        (res: any[]) => {
+          console.log(this.c, f, res);
+          const fullPath = res[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_CLASSID];
+          console.log(this.c, f, 'fullPath', fullPath);
+
+          this.getFullPathData.set(connAddr, new Map<string, any>().set(univname, fullPath));
+
+          this.dbmChanged('retriveFullPath');
+        }
+        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
+        , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
+    );
+  }
+
   readFormulas(connAddr: string, univname: string): Observable<any> {
     const f = 'readFormulas';
     console.log(this.c, f);
@@ -209,7 +241,7 @@ export class DbmService {
 
     let url = connAddr;
     url += DbmSettings.STR_URL_SETATTRIBUTEFORMULA;
-    url += DbmSettings.STR_QUOTE + DbmSettings.STR_ALIAS + univname + DbmSettings.STR_QUOTE;
+    url += DbmSettings.STR_QUOTE + univname + DbmSettings.STR_QUOTE;
     url += DbmSettings.STR_FORMULA_OPTION + DbmSettings.STR_QUOTE + formulaStr + DbmSettings.STR_QUOTE;
     return this.httpClient.get(url).map(this.extractResponse);
   }

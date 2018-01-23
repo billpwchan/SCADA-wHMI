@@ -16,10 +16,8 @@ import { DbmCacheAvaSupService } from '../../../service/scs/ava/dbm-cache-ava-su
 export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
-  public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
-  public static readonly STR_CARD_SELECTED = AppSettings.STR_CARD_SELECTED;
-  public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
-  public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
+
+  public static readonly STR_NOTIFY_FROM_PARENT = AppSettings.STR_NOTIFY_FROM_PARENT;
 
   readonly c = 'AlarmSummaryComponent';
 
@@ -136,8 +134,8 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const f = 'ngOnChanges';
     console.log(this.c, f);
-    if (changes[AlarmSummarySettings.STR_NORIFY_FROM_PARENT]) {
-      this.onParentChange(changes[AlarmSummarySettings.STR_NORIFY_FROM_PARENT].currentValue);
+    if (changes[AlarmSummaryComponent.STR_NOTIFY_FROM_PARENT]) {
+      this.onParentChange(changes[AlarmSummaryComponent.STR_NOTIFY_FROM_PARENT].currentValue);
     }
     if (changes[AlarmSummarySettings.STR_CONFIG]) {
       this.cfg = changes[AlarmSummarySettings.STR_CONFIG].currentValue as AlarmSummaryConfig;

@@ -10,8 +10,8 @@
     "title": "AVA"
   }
   , "RenameComponent": {
-    "card_min": 1
-    , "card_max": 40
+    "name_min": 1
+    , "name_max": 40
   }
   , "StepsComponent": {
     "step_prefix": ""
@@ -67,6 +67,7 @@
     "rule_base": 1
     , "condition_begin_id": 1
     , "condition_end_id": 8
+    , "formula_default_value": 1
   }
   , "AlarmSummaryComponent": {
   }

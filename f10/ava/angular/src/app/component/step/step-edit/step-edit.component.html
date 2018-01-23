@@ -64,6 +64,14 @@
             [(ngModel)]="txtUnivname" placeholder="{{ '&step_txt_univname_placeholder' | translate }}">
           </div>
         </span>
+
+        <span *ngIf="!hiddenFullpath">
+          <div class="input-group input-group-step-edit-fullpath">
+            <span class="input-group-addon span-step-edit-fullpath">{{ '&step_lbl_fullpath' | translate }}</span>
+            <input type="text" class="form-control" name="textFullpath" 
+            [(ngModel)]="txtFullpath" placeholder="{{ '&step_txt_fullpath_placeholder' | translate }}">
+          </div>
+        </span>
   
         <span *ngIf="!hiddenEVName">
           <div class="input-group input-group-step-edit-evname">

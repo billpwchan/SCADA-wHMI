@@ -20,14 +20,8 @@ import { Subscribable } from 'rxjs/Observable';
 export class StepsComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
-  public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
-  public static readonly STR_CARD_SELECTED = AppSettings.STR_CARD_SELECTED;
-  public static readonly STR_CARD_UPDATED = AppSettings.STR_CARD_UPDATED;
-  public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
-  public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
-  public static readonly STR_STEP_UPDATED = AppSettings.STR_STEP_UPDATED;
 
-  public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
+  public static readonly STR_NORIFY_FROM_PARENT = AppSettings.STR_NOTIFY_FROM_PARENT;
 
   readonly c = 'StepsComponent';
 

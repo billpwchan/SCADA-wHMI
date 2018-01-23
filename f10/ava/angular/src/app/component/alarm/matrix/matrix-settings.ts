@@ -3,9 +3,6 @@ import { Env } from '../alarm-summary/alarm-summary-settings';
 
 export class MatrixSettings {
 
-  public static readonly STR_INIT = AppSettings.STR_INIT;
-
-  public static readonly STR_NORIFY_FROM_PARENT         = 'notifyFromParent';
   public static readonly STR_MATRIX_CONFIG              = 'matrixConfig';
 
   public static readonly STR_ON_UPDATED_MATRIX          = 'onUpdateMatrix';

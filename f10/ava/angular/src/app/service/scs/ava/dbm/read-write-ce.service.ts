@@ -12,7 +12,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class ReadWriteCEResult {
   public method: string;
   public base: string;
-  public targetAlias: string;
+  public targetFullpath: string;
   public targetValue: string;
 }
 
@@ -40,13 +40,13 @@ export class ReadWriteCEService {
     , private dbmService: DbmService
   ) { }
 
-  readConditions(connAddr: string, univname: string, condStartId: number, condEndId: number) {
+  readConditions(connAddr: string, alias: string, condStartId: number, condEndId: number) {
     const f = 'readConditions';
     console.log(this.c, f);
     const obs = Array<Observable<any>>();
 
     for (let cond = condStartId; cond <= condEndId; cond++) {
-      const condpath = univname + DbmSettings.STR_ATTR_CONDITION + cond;
+      const condpath = alias + DbmSettings.STR_ATTR_CONDITION + cond;
       obs.push(this.dbmService.readFormulas(connAddr, condpath));
     }
 
@@ -58,23 +58,17 @@ export class ReadWriteCEService {
 
       for ( let i = 0 ; i < res.length ; ++i ) {
         const ce: string = res[i];
-        const subAlias: string[] = ce.toString().match(/\[(.*?)\]/g);
+        const subFullpath: string[] = ce.toString().match(/\[(.*?)\]/g);
         const subValue: string[] = ce.toString().match(/=(.*)/g);
-        // console.log(this.c, f, 'ce[' + ce + ']');
-        // console.log(this.c, f, 'subAlias[' + subAlias + ']');
-        // console.log(this.c, f, 'subValue[' + subValue + ']');
 
         const readWriteCEREsult: ReadWriteCEResult = new ReadWriteCEResult();
         readWriteCEREsult.method = 'readConditions';
-        readWriteCEREsult.base = univname;
-        if ( null != subAlias && null != subValue ) {
-          const alias = subAlias[0].slice(1, subAlias[0].length - 1);
+        readWriteCEREsult.base = alias;
+        if ( null != subFullpath && null != subValue ) {
+          const fullpath = subFullpath[0].slice(1, subFullpath[0].length - 1);
           const value = subValue[0].slice(1);
 
-          // console.log(this.c, f, 'alias[' + alias + ']');
-          // console.log(this.c, f, 'value[' + value + ']');
-
-          readWriteCEREsult.targetAlias = alias;
+          readWriteCEREsult.targetFullpath = fullpath;
           readWriteCEREsult.targetValue = value;
         }
 
@@ -105,27 +99,16 @@ export class ReadWriteCEService {
 
         const step: Step = steps[stepId];
 
-        if ( null != step.equipment.phases ) {
-          if ( step.equipment.phases.length > 0 ) {
-            const executions: Execution[] = step.equipment.phases[PhasesType.SINGLE_EV];
-            if ( null != executions ) {
-              if ( executions.length > 0 ) {
-                const execution: Execution = executions[0];
+        formula =
+        DbmSettings.STR_OPEN_BRACKET
+        + step.equipment.fullpath + DbmSettings.STR_ATTR_VALUE
+        + DbmSettings.STR_CLOSE_BRACKET
+        + DbmSettings.STR_EQUAL
+        + step.equipment.value;
 
-                formula =
-                DbmSettings.STR_OPEN_BRACKET
-                + step.equipment.univname + DbmSettings.STR_ATTR_VALUE
-                + DbmSettings.STR_CLOSE_BRACKET
-                + DbmSettings.STR_EQUAL
-                + execution.value;
+        console.log(this.c, f, 'stepId[' + stepId + '] condpath[' + condpath + '] formula[' + formula + ']' );
 
-                console.log(this.c, f, 'stepId[' + stepId + '] condpath[' + condpath + '] formula[' + formula + ']' );
-
-                obs.push(this.dbmService.writeFormulaStr(connAddr, condpath, formula));
-              }
-            }
-          }
-        }
+        obs.push(this.dbmService.writeFormulaStr(connAddr, condpath, formula));
       } else {
 
         console.log(this.c, f, 'stepId[' + stepId + '] condpath[' + condpath + '] formula[' + formulaDefaultVal + ']' );

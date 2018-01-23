@@ -17,13 +17,8 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 export class CardsComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
-  public static readonly STR_CARD_RELOADED = AppSettings.STR_CARD_RELOADED;
-  public static readonly STR_CARD_SELECTED = AppSettings.STR_CARD_SELECTED;
-  public static readonly STR_CARD_UPDATED  = AppSettings.STR_CARD_UPDATED;
-  public static readonly STR_STEP_RELOADED = AppSettings.STR_STEP_RELOADED;
-  public static readonly STR_STEP_SELECTED = AppSettings.STR_STEP_SELECTED;
 
-  public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
+  public static readonly STR_NORIFY_FROM_PARENT = AppSettings.STR_NOTIFY_FROM_PARENT;
 
   readonly c = 'CardsComponent';
 
@@ -45,6 +40,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
         const card = cards[i];
         const newCard = new Card(
                                   card.univname
+                                  , card.fullpath
                                   , card.index
                                   , card.name
                                   , card.state
@@ -207,7 +203,7 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'onRowSelect';
     console.log(this.c, f);
 
-    this.btnClicked(CardsComponent.STR_CARD_SELECTED, event);
+    this.setSelectedCards();
 
     // Quick Fix for the ngx-datatable view update
     window.dispatchEvent(new Event('resize'));
@@ -234,9 +230,6 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
     switch (btnLabel) {
       case CardsComponent.STR_INIT: {
         this.init();
-      } break;
-      case CardsComponent.STR_CARD_SELECTED: {
-        this.setSelectedCards();
       } break;
     }
   }

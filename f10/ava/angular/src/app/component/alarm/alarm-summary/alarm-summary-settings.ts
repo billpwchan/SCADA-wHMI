@@ -1,10 +1,8 @@
 import { AppSettings } from '../../../app-settings';
+import { DbmSettings } from '../../../service/scs/dbm-settings';
 
 export class AlarmSummarySettings {
 
-  public static readonly STR_INIT = AppSettings.STR_INIT;
-
-  public static readonly STR_NORIFY_FROM_PARENT         = 'notifyFromParent';
   public static readonly STR_CONFIG                     = 'config';
 
   public static readonly STR_ENVS                       = 'envs';
@@ -16,24 +14,20 @@ export class AlarmSummarySettings {
   public static readonly STR_RULE_BASE                  = 'rule_base';
   public static readonly STR_CONDITION_BEGIN_ID         = 'condition_begin_id';
   public static readonly STR_CONDITION_END_ID           = 'condition_end_id';
+  public static readonly STR_FORMULA_DEFAULT_VALUE      = 'formula_default_value';
 
   public static readonly STR_AVAR_PREFIX                = 'AVAR';
   public static readonly STR_AVAS_PREFIX                = 'AVAS';
   public static readonly STR_RULE_PREFIX                = 'RULE';
 
-  public static readonly STR_RULE_UNIVNAME              = '.UNIVNAME';
-  public static readonly STR_RULE_INDEX                 = '.index';
-  public static readonly STR_RULE_NAME                  = '.label';
-  public static readonly STR_RULE_ENABLE                = '.enable';
-  public static readonly STR_RULE_CONDITION_GL          = '.conditionGL';
   public static readonly RULE_ATTR_LIST                 = [
-                                                            AlarmSummarySettings.STR_RULE_UNIVNAME
-                                                            , AlarmSummarySettings.STR_RULE_INDEX
-                                                            , AlarmSummarySettings.STR_RULE_NAME
-                                                            , AlarmSummarySettings.STR_RULE_ENABLE
-                                                            , AlarmSummarySettings.STR_RULE_CONDITION_GL
+                                                            DbmSettings.STR_ATTR_UNIVNAME
+                                                            , DbmSettings.STR_ATTR_NAME
+                                                            , DbmSettings.STR_ATTR_INDEX
+                                                            , DbmSettings.STR_ATTR_LABEL
+                                                            , DbmSettings.STR_ATTR_ENABLE
+                                                            , DbmSettings.STR_ATTR_CONDITION_GL
                                                           ];
-
 }
 
 export class Env {
@@ -56,6 +50,7 @@ export class StepSummaryConfig {
   public ruleBase: number;
   public conditionBeginId: number;
   public conditionEndId: number;
+  public formulaDefaultVal: number;
 }
 
 export class AlarmSummaryConfig {

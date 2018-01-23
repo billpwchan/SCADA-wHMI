@@ -30,6 +30,7 @@ export class DbmSettings {
     public static readonly STR_ATTR_INSTANCES = 'instances';
 
     public static readonly STR_URL_GETCLASSID = '/scs/service/DbmComponent/GetClassId?dbaddress=';
+    public static readonly STR_URL_GETFULLPATH = '/scs/service/DbmComponent/GetFullPath?dbaddress=';
 
     public static readonly STR_ACQVALUE = '.acqValue';
     public static readonly STR_AAC_ACQVALUE = DbmSettings.STR_AAC + DbmSettings.STR_ACQVALUE;
@@ -51,7 +52,11 @@ export class DbmSettings {
 
     public static readonly STR_RULE = 'RULE';
     public static readonly STR_THREE_ZERO = '000';
-    public static readonly STR_ATTR_NAME = '.name';
     public static readonly STR_ATTR_UNIVNAME = '.UNIVNAME';
+    public static readonly STR_ATTR_NAME = '.name';
+    public static readonly STR_ATTR_INDEX = '.index';
+    public static readonly STR_ATTR_LABEL = '.label';
+    public static readonly STR_ATTR_ENABLE = '.enable';
     public static readonly STR_ATTR_CONDITION = '.condition';
+    public static readonly STR_ATTR_CONDITION_GL = '.conditionGL';
 }

@@ -6,6 +6,7 @@ import { DbmSettings } from '../../dbm-settings';
 import { AppSettings } from '../../../../app-settings';
 
 export class MultiReadResult {
+  public method: string;
   public env: string;
   public dbAddresses: string[];
   public dbValue;
@@ -35,7 +36,7 @@ export class MultiReadService {
     // , private dbmCacheAvaSupService: DbmCacheAvaSupService
   ) { }
 
-  readData(env: string, dbAddresses: string[]) {
+  readData(env: string, dbAddresses: string[], method: string) {
     const f = 'readData';
     console.log(this.c, f);
 
@@ -60,6 +61,7 @@ export class MultiReadService {
           console.log(this.c, f, 'env', env, 'url', url);
 
           const result: MultiReadResult = new MultiReadResult();
+          result.method = method;
           result.env = env;
           result.dbAddresses = dbAddresses;
           result.dbValue = dbvalue;

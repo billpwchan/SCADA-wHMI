@@ -51,13 +51,8 @@ export class MultiWriteService {
         (res: any[]) => {
           console.log(this.c, f, res);
           const json = res;
-          // const dbvalue = json[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
-          // console.log(this.c, f, 'env', env, 'url', url);
 
           const result: MultiWriteResult = new MultiWriteResult();
-          // result.env = env;
-          // result.dbAddresses = dbAddresses;
-          // result.dbValue = dbvalue;
           this.dbmChanged(result);
         }
         , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }

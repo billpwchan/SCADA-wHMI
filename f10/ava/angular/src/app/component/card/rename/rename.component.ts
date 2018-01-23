@@ -18,7 +18,7 @@ export class RenameComponent implements OnInit, OnDestroy, OnChanges {
 
   public static readonly STR_INIT = AppSettings.STR_INIT;
 
-  public static readonly STR_NORIFY_FROM_PARENT = 'notifyFromParent';
+  public static readonly STR_NORIFY_FROM_PARENT = AppSettings.STR_NOTIFY_FROM_PARENT;
 
   readonly c: string = 'RenameComponent';
 
@@ -47,8 +47,12 @@ export class RenameComponent implements OnInit, OnDestroy, OnChanges {
     if ( null != data ) {
       this.name = data;
       this.txtModifyName = this.name;
-      this.divRenameEnable = true;
     }
+  }
+  @Input()
+  set renameEnable(data: Date) {
+    const f = 'renameEnable';
+    this.divRenameEnable = true;
   }
   @Output() onUpdatedName = new EventEmitter<string>(null);
 

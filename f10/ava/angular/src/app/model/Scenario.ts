@@ -26,15 +26,16 @@ export enum PhasesType {
  * A model for an individual Equipment
  */
 export class Equipment {
-  public phases: Execution[][];
   constructor(
     public connAddr: string
     , public univname: string
+    , public fullpath: string
     , public classId: number
     , public geo: number
     , public func: number
     , public eqplabel: string
     , public pointlabel: string
+    , public value: number
     , public valuelabel: string
   ) {}
 }
@@ -58,6 +59,7 @@ export class Card {
   public alarms: number[][];
   constructor(
     public univname: string
+    , public fullpath: string
     , public index: number
     , public name: string
     , public state: boolean

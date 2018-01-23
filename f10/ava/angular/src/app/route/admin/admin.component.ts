@@ -231,31 +231,9 @@ export class AdminComponent implements OnInit, OnDestroy {
 
         if ( result.length > 0 ) {
           if ( result[0].method === 'readConditions' ) {
-            const dbAddresses: string[] = new Array<string>();
 
-            for ( let n = 0; n < result.length; ++n ) {
-              const readWriteCEResult: ReadWriteCEResult = result[n];
-              if ( null != readWriteCEResult ) {
-                const base: string = readWriteCEResult.base;
-                const targetAlias: string = readWriteCEResult.targetAlias;
-                const targetValue: string = readWriteCEResult.targetValue;
-                if ( null != targetAlias && null != targetValue ) {
+            this.readStep(result);
 
-                  const alias: string = targetAlias.toString().match(/^(.*?)\./)[1];
-
-                  dbAddresses.push(alias + DbmSettings.STR_ATTR_NAME);
-                  dbAddresses.push(alias + DbmSettings.STR_ATTR_GEO);
-                  dbAddresses.push(alias + DbmSettings.STR_ATTR_FUNC);
-                  dbAddresses.push(alias + DbmSettings.STR_ATTR_EQUIPMENT_LABEL);
-                  dbAddresses.push(alias + DbmSettings.STR_ATTR_POINT_FUNC);
-                  dbAddresses.push(alias + DbmSettings.STR_ATTR_VALUE);
-                  dbAddresses.push(alias + DbmSettings.STR_COLON + DbmSettings.STR_VALUETABLE_VALUE);
-                  dbAddresses.push(alias + DbmSettings.STR_COLON + DbmSettings.STR_VALUETABLE_LABEL);
-                }
-              }
-            }
-
-            this.multiReadService.readData(this.env, dbAddresses);
           } else if ( result[0].method === 'writeConditions' ) {
 
             const card: Card = this.getCardSelected();
@@ -295,6 +273,38 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.readWriteCESubscription.unsubscribe();
     this.multiWriteSubscription.unsubscribe();
     this.dbmPollingSubscription.unsubscribe();
+  }
+
+  private readStep(result) {
+    const f = 'readStep';
+    console.log(this.c, f);
+
+    const dbAddresses: string[] = new Array<string>();
+
+    for ( let n = 0; n < result.length; ++n ) {
+      const readWriteCEResult: ReadWriteCEResult = result[n];
+      if ( null != readWriteCEResult ) {
+        const base: string = readWriteCEResult.base;
+        const targetAlias: string = readWriteCEResult.targetAlias;
+        const targetValue: string = readWriteCEResult.targetValue;
+        if ( null != targetAlias && null != targetValue ) {
+
+          const alias: string = targetAlias.toString().match(/^(.*?)\./)[1];
+
+          dbAddresses.push(alias + DbmSettings.STR_ATTR_NAME);
+          dbAddresses.push(alias + DbmSettings.STR_ATTR_GEO);
+          dbAddresses.push(alias + DbmSettings.STR_ATTR_FUNC);
+          dbAddresses.push(alias + DbmSettings.STR_ATTR_EQUIPMENT_LABEL);
+          dbAddresses.push(alias + DbmSettings.STR_ATTR_POINT_FUNC);
+          dbAddresses.push(alias + DbmSettings.STR_ATTR_VALUE);
+          dbAddresses.push(alias + DbmSettings.STR_COLON + DbmSettings.STR_VALUETABLE_VALUE);
+          dbAddresses.push(alias + DbmSettings.STR_COLON + DbmSettings.STR_VALUETABLE_LABEL);
+        }
+      }
+    }
+
+    this.multiReadService.readData(this.env, dbAddresses);
+
   }
 
   private renewCard(dbValue: any) {
@@ -506,9 +516,9 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'readConditions';
     console.log(this.c, f);
 
-    const ruleBase = 1;
-    const cStart = 1;
-    const cEnd = 8;
+    const ruleBase = this.alarmSummaryCfg.ruleBase;
+    const cStart = this.alarmSummaryCfg.conditionBeginId;
+    const cEnd = this.alarmSummaryCfg.conditionEndId;
     const univname: string = this.avar + DbmSettings.STR_COLON + DbmSettings.STR_RULE + ('000' + (index + ruleBase)).slice(-4);
     this.readWriteCEService.readConditions(this.env, univname, cStart, cEnd);
   }
@@ -517,9 +527,9 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'writeConditions';
     console.log(this.c, f);
 
-    const ruleBase = 1;
-    const cStart = 1;
-    const cEnd = 8;
+    const ruleBase = this.alarmSummaryCfg.ruleBase;
+    const cStart = this.alarmSummaryCfg.conditionBeginId;
+    const cEnd = this.alarmSummaryCfg.conditionEndId;
     const univname: string = this.avar + DbmSettings.STR_COLON + DbmSettings.STR_RULE + ('000' + (index + ruleBase)).slice(-4);
     this.readWriteCEService.writeConditions(this.env, univname, cStart, cEnd, this.steps, 0);
   }
@@ -621,6 +631,9 @@ export class AdminComponent implements OnInit, OnDestroy {
     cfg.envs = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_ENVS) as Env[];
     cfg.instanceClassName = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_INSTANCE_CLASSNAME) as string;
     cfg.instanceRoot = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_INSTANCE_ROOT) as string;
+    cfg.ruleBase = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_RULE_BASE) as number;
+    cfg.conditionBeginId = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_CONDITION_BEGIN_ID) as number;
+    cfg.conditionEndId = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_CONDITION_END_ID) as number;
 
     return cfg;
   }

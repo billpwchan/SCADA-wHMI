@@ -62,6 +62,9 @@
       ]
       , "instance_classname": "ScadagenNode"
       , "instance_root": "Scadagen"
+      , "rule_base": 1
+      , "condition_begin_id": 1
+      , "condition_end_id": 8
   }
   , "StorageComponent": {
       "init_cards_before_storage": true

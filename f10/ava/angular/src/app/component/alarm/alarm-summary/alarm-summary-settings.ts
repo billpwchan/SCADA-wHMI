@@ -10,6 +10,10 @@ export class AlarmSummarySettings {
   public static readonly STR_ENVS                       = 'envs';
   public static readonly STR_INSTANCE_CLASSNAME         = 'instance_classname';
   public static readonly STR_INSTANCE_ROOT              = 'instance_root';
+  public static readonly STR_RULE_BASE                  = 'rule_base';
+  public static readonly STR_CONDITION_BEGIN_ID         = 'condition_begin_id';
+  public static readonly STR_CONDITION_END_ID           = 'condition_end_id';
+
   public static readonly STR_AVAR_PREFIX                = 'AVAR';
   public static readonly STR_AVAS_PREFIX                = 'AVAS';
   public static readonly STR_RULE_PREFIX                = 'RULE';
@@ -38,4 +42,7 @@ export class AlarmSummaryConfig {
   public envs: Env[];
   public instanceClassName: string;
   public instanceRoot: string;
+  public ruleBase: number;
+  public conditionBeginId: number;
+  public conditionEndId: number;
 }

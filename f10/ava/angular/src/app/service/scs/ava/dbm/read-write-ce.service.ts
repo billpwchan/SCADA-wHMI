@@ -12,8 +12,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class ReadWriteCEResult {
   public method: string;
   public base: string;
-  public targetFullpath: string;
-  public targetValue: string;
+  public fullpath: string;
+  public value: number;
 }
 
 @Injectable()
@@ -27,6 +27,8 @@ export class ReadWriteCEService {
   // Observable cardItem stream
   dbmItem = this.dbmSource.asObservable();
 
+  private conditions: Map<string, Map<string, number>> = new Map<string, Map<string, number>>();
+
   // Service command
   dbmChanged(result: ReadWriteCEResult[]) {
     const f = 'dbmChanged';
@@ -39,6 +41,12 @@ export class ReadWriteCEService {
     , private utilsHttp: UtilsHttpModule
     , private dbmService: DbmService
   ) { }
+
+  getConditions(connAddr: string): Map<string, number> {
+    const f = 'getConditions';
+    console.log(this.c, f);
+    return this.conditions.get(connAddr);
+  }
 
   readConditions(connAddr: string, alias: string, condStartId: number, condEndId: number) {
     const f = 'readConditions';
@@ -54,7 +62,10 @@ export class ReadWriteCEService {
     Observable.forkJoin(obs).subscribe((res: string[]) => {
       console.log(this.c, f, 'res[' + res + ']');
 
-      const readWriteCEREsults: ReadWriteCEResult[] = new Array<ReadWriteCEResult>();
+      this.conditions.set(connAddr, new Map<string, number>());
+      const conditions: Map<string, number> = this.conditions.get(connAddr);
+
+      const readWriteCEResults: ReadWriteCEResult[] = new Array<ReadWriteCEResult>();
 
       for ( let i = 0 ; i < res.length ; ++i ) {
         const ce: string = res[i];
@@ -65,17 +76,18 @@ export class ReadWriteCEService {
         readWriteCEREsult.method = 'readConditions';
         readWriteCEREsult.base = alias;
         if ( null != subFullpath && null != subValue ) {
-          const fullpath = subFullpath[0].slice(1, subFullpath[0].length - 1);
-          const value = subValue[0].slice(1);
+          const fullpath: string = subFullpath[0].slice(1, subFullpath[0].length - 1);
+          const value: number = Number(subValue[0].slice(1));
 
-          readWriteCEREsult.targetFullpath = fullpath;
-          readWriteCEREsult.targetValue = value;
+          readWriteCEREsult.fullpath = fullpath;
+          readWriteCEREsult.value = value;
+          conditions.set(fullpath, value);
         }
 
-        readWriteCEREsults.push(readWriteCEREsult);
+        readWriteCEResults.push(readWriteCEREsult);
       }
 
-      this.dbmChanged(readWriteCEREsults);
+      this.dbmChanged(readWriteCEResults);
     }
     , (err: HttpErrorResponse) => {
       this.utilsHttp.httpClientHandlerError(f, err);

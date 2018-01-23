@@ -245,7 +245,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
         } else if ( 'readStep' === result.method ) {
 
-          this.renewStep(result.dbValue);
+          this.renewStep(result);
         }
       }
     });
@@ -311,8 +311,8 @@ export class AdminComponent implements OnInit, OnDestroy {
       const readWriteCEResult: ReadWriteCEResult = result[n];
       if ( null != readWriteCEResult ) {
         const base: string = readWriteCEResult.base;
-        const targetFullpath: string = readWriteCEResult.targetFullpath;
-        const targetValue: string = readWriteCEResult.targetValue;
+        const targetFullpath: string = readWriteCEResult.fullpath;
+        const targetValue: number = readWriteCEResult.value;
         if ( null != targetFullpath && null != targetValue ) {
 
           const fullPath: string = targetFullpath.toString().match(/^(.*?)\./)[1];
@@ -353,10 +353,13 @@ export class AdminComponent implements OnInit, OnDestroy {
     // this.updateCards = [...this.updateCards];
   }
 
-  private renewStep(dbValue: any) {
+  private renewStep(result: MultiReadResult) {
     const f = 'renewStep';
     console.log(this.c, f);
 
+    const conditions: Map<string, number> = this.readWriteCEService.getConditions(result.env);
+
+    const dbValue = result.dbValue;
     this.steps = new Array<Step>();
     for ( let i = 0; i < dbValue.length / StepSettings.STR_READ_STEP_ATTR_LIST.length; ++i ) {
       const base: number = i * StepSettings.STR_READ_STEP_ATTR_LIST.length;
@@ -371,9 +374,12 @@ export class AdminComponent implements OnInit, OnDestroy {
       const values: number[]    = dbValue[base + index++];
       const labels: string[]    = dbValue[base + index++];
 
+      const targetFullPath: string = fullpath + DbmSettings.STR_ATTR_VALUE;
+      const targetValue: number = conditions.get(targetFullPath);
+
       let strLabel = '';
       for ( let  x = 0 ; x < values.length; ++x ) {
-        if ( value === values[x] ) {
+        if ( targetValue === values[x] ) {
           strLabel = labels[x];
           break;
         }
@@ -389,7 +395,7 @@ export class AdminComponent implements OnInit, OnDestroy {
                                       ,  func
                                       , equipment
                                       , point
-                                      , Number(value).valueOf()
+                                      , Number(targetValue).valueOf()
                                       , strLabel
                                     );
 

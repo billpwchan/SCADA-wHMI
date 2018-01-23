@@ -83,7 +83,13 @@ export class ReadWriteCEService {
     , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The POST observable is now completed.'); });
   }
 
-  writeConditions(connAddr: string, univname: string, condStartId: number, condEndId: number, steps: Step[], formulaDefaultVal: number) {
+  writeConditions(connAddr: string
+                , univname: string
+                , condStartId: number
+                , condEndId: number
+                , steps: Step[]
+                , formulaDefaultVal: number
+                , formulaZeroDefaultVal: number) {
     const f = 'writeConditions';
     console.log(this.c, f);
     const obs = new Array<Observable<any>>();
@@ -111,9 +117,11 @@ export class ReadWriteCEService {
         obs.push(this.dbmService.writeFormulaStr(connAddr, condpath, formula));
       } else {
 
-        console.log(this.c, f, 'stepId[' + stepId + '] condpath[' + condpath + '] formula[' + formulaDefaultVal + ']' );
+        const forDefVal: number = ( cond !== 1 ? formulaDefaultVal : formulaZeroDefaultVal );
 
-        obs.push(this.dbmService.writeFormulaNum(connAddr, condpath, formulaDefaultVal));
+        console.log(this.c, f, 'stepId[' + stepId + '] condpath[' + condpath + '] formula[' + forDefVal + ']' );
+
+        obs.push(this.dbmService.writeFormulaNum(connAddr, condpath, forDefVal));
       }
       stepId++;
     }

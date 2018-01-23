@@ -69,6 +69,7 @@
     , "condition_begin_id": 1
     , "condition_end_id": 8
     , "formula_default_value": 1
+    , "formula_zero_default_value": 0
   }
   , "AlarmSummaryComponent": {
   }

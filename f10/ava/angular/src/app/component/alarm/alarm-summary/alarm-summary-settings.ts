@@ -14,7 +14,8 @@ export class AlarmSummarySettings {
   public static readonly STR_RULE_BASE                  = 'rule_base';
   public static readonly STR_CONDITION_BEGIN_ID         = 'condition_begin_id';
   public static readonly STR_CONDITION_END_ID           = 'condition_end_id';
-  public static readonly STR_FORMULA_DEFAULT_VALUE      = 'formula_default_value';
+  public static readonly STR_FORMULA_DEF_VAL      = 'formula_default_value';
+  public static readonly STR_FORMULA_ZERO_DEF_VAL = 'formula_zero_default_value';
 
   public static readonly STR_AVAR_PREFIX                = 'AVAR';
   public static readonly STR_AVAS_PREFIX                = 'AVAS';
@@ -51,6 +52,7 @@ export class StepSummaryConfig {
   public conditionBeginId: number;
   public conditionEndId: number;
   public formulaDefaultVal: number;
+  public formulaZeroDefaultVal: number;
 }
 
 export class AlarmSummaryConfig {

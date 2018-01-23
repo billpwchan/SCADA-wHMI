@@ -556,11 +556,12 @@ export class AdminComponent implements OnInit, OnDestroy {
     const ruleBase = this.stepSummaryCfg.ruleBase;
     const cStart = this.stepSummaryCfg.conditionBeginId;
     const cEnd = this.stepSummaryCfg.conditionEndId;
-    const formulaDefaultVal = this.stepSummaryCfg.formulaDefaultVal;
-    const univname: string =
+    const formulaDefaultVal: number = this.stepSummaryCfg.formulaDefaultVal;
+    const formulaZeroDefaultVal: number = this.stepSummaryCfg.formulaZeroDefaultVal;
+    const alias: string =
                               this.avarAlias + DbmSettings.STR_COLON
                               + DbmSettings.STR_RULE + (DbmSettings.STR_THREE_ZERO + (index + ruleBase)).slice(-4);
-    this.readWriteCEService.writeConditions(env, univname, cStart, cEnd, steps, formulaDefaultVal);
+    this.readWriteCEService.writeConditions(env, alias, cStart, cEnd, steps, formulaDefaultVal, formulaZeroDefaultVal);
   }
 
   private reloadAlarmSummary(index: number) {
@@ -568,11 +569,11 @@ export class AdminComponent implements OnInit, OnDestroy {
     console.log(this.c, f);
 
     this.updateAlarmEnv = this.env;
-    const univnameSups: string[] = new Array<string>();
+    const supsAlias: string[] = new Array<string>();
     for ( let i = 0 ; i < this.avasAliasList.length ; ++i ) {
-      univnameSups.push(this.avasAliasList[i] + DbmSettings.STR_COLON + 'avasuppression');
+      supsAlias.push(this.avasAliasList[i] + DbmSettings.STR_COLON + 'avasuppression');
     }
-    this.updateAlarmUnivname = univnameSups;
+    this.updateAlarmUnivname = supsAlias;
     this.updateAlarmSummary = index;
   }
 
@@ -687,8 +688,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     cfg.ruleBase = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_RULE_BASE) as number;
     cfg.conditionBeginId = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_CONDITION_BEGIN_ID) as number;
     cfg.conditionEndId = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_CONDITION_END_ID) as number;
-    cfg.formulaDefaultVal = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_FORMULA_DEFAULT_VALUE) as number;
-
+    cfg.formulaDefaultVal = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_FORMULA_DEF_VAL) as number;
+    cfg.formulaZeroDefaultVal = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_FORMULA_ZERO_DEF_VAL) as number;
     return cfg;
   }
 

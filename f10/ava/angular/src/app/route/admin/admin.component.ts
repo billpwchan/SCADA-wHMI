@@ -172,7 +172,7 @@ export class AdminComponent implements OnInit, OnDestroy {
               const base = this.alarmSummaryCfg.avarBase;
               const max = this.alarmSummaryCfg.maxAvarNum;
               for ( let n = 0; n < max ; ++n ) {
-                const name = AlarmSummarySettings.STR_AVAR_PREFIX + (DbmSettings.STR_THREE_ZERO + (n + base)).slice(-4);
+                const name = AlarmSummarySettings.STR_AVAS_PREFIX + (DbmSettings.STR_THREE_ZERO + (n + base)).slice(-4);
                 if ( className === name ) {
                   found = true;
                 }
@@ -180,9 +180,6 @@ export class AdminComponent implements OnInit, OnDestroy {
               if ( found ) {
                 this.avasAliasList.push(alias);
               }
-              // if ( className.startsWith(AlarmSummarySettings.STR_AVAS_PREFIX) ) {
-              //   this.avasAliasList.push(alias);
-              // }
             }
             if ( null != this.avarAlias ) {
               this.getChildrenAliasService.readData(this.env, this.avarAlias);

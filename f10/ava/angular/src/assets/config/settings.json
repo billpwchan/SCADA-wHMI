@@ -45,12 +45,12 @@
     , "row_header_ids": [1,2,100000]
     , "row_header_width": 80
     , "default_value": 0
-    , "single_bit_only": true
+    , "matrixes_value_type": 2
     , "matrixes": [
-      {"index": 0, "label": "&matrix_flag_label_0", "shortlabel" : "&matrix_flag_shortlabel_0", "title": "&matrix_flag_title_0"}
-      , {"index": 1, "label": "&matrix_flag_label_1", "shortlabel" : "&matrix_flag_shortlabel_1", "title": "&matrix_flag_title_1"}
-      , {"index": 2, "label": "&matrix_flag_label_2", "shortlabel" : "&matrix_flag_shortlabel_2", "title": "&matrix_flag_title_2"}
-      , {"index": 3, "label": "&matrix_flag_label_3", "shortlabel" : "&matrix_flag_shortlabel_3", "title": "&matrix_flag_title_3"}
+      {"value": 1, "label": "&matrix_flag_label_1", "shortlabel" : "&matrix_flag_shortlabel_1", "title": "&matrix_flag_title_1"}
+      , {"value": 2, "label": "&matrix_flag_label_2", "shortlabel" : "&matrix_flag_shortlabel_2", "title": "&matrix_flag_title_2"}
+      , {"value": 3, "label": "&matrix_flag_label_3", "shortlabel" : "&matrix_flag_shortlabel_3", "title": "&matrix_flag_title_3"}
+      , {"value": 4, "label": "&matrix_flag_label_4", "shortlabel" : "&matrix_flag_shortlabel_4", "title": "&matrix_flag_title_4"}
     ]
   }
   , "AVASummaryComponent": {

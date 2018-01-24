@@ -16,8 +16,8 @@
       *ngFor="let matrix of cfg.matrixes;let index = index;trackBy:trackByIndex"
       title="{{ matrix.title | translate }}">
     <input type="checkbox" [ngModel]="matrixChecked"
-      [value]="index" [checked]="isChecked(index)" [indeterminate]="isIndeterminate(index)"
-      (change)="onChange('', matrix.index, $event)" [disabled]="!enableCheckbox"
+      [value]="matrix.value" [checked]="isChecked(matrix.value)" [indeterminate]="isIndeterminate(matrix.value)"
+      (change)="onChange('', matrix.value, $event)" [disabled]="!enableCheckbox"
       title="{{ matrix.title | translate }}"
       >{{ matrix.label | translate }} ({{ matrix.shortlabel | translate }})</label>
   </div>

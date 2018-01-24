@@ -25,7 +25,7 @@ export class MatrixSettings {
 
   public static readonly STR_MATRIXES                   = 'matrixes';
 
-  public static readonly STR_SINGLE_BIT_ONLY            = 'single_bit_only';
+  public static readonly STR_MATRIXES_VALUE_TYPE        = 'matrixes_value_type';
 
   public static readonly STR_DEFAULT_VALUE              = 'default_value';
 
@@ -48,7 +48,7 @@ export class Selection {
 }
 
 export class Matrix {
-  index: number;
+  value: number;
   label: string;
   shortlabel: string;
   title: string;
@@ -65,7 +65,6 @@ export class MatrixConfig {
   public rowHeaderIds: number[];
   public rowHeaderWidth: number;
   public defVal: number;
+  public matrixesValueType: number;
   public matrixes: Matrix[];
-  public singleBitOnly: boolean;
-  public envs: Env[];
 }

@@ -174,8 +174,8 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
 
     cfg.defVal = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_DEFAULT_VALUE);
 
+    cfg.matrixesValueType = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_MATRIXES_VALUE_TYPE) as number;
     cfg.matrixes = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_MATRIXES) as Matrix[];
-    cfg.singleBitOnly = this.settingsService.getSetting(this.c, f, c, MatrixSettings.STR_SINGLE_BIT_ONLY) as boolean;
 
     return cfg;
   }
@@ -231,23 +231,29 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
   isIndeterminate(index: number, event): boolean {
     // const f = 'isIndeterminate';
     // console.log(this.c, f);
-    let selected = 0;
-    let checked = 0;
-    if ( null != this.updated ) {
-      if ( this.updated.length > 0 && null != this.updated[0] && this.updated[0].length > 0  ) {
-        if ( undefined !== this.cellSel ) {
-          for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
-            for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
-              selected++;
-              if ( DataScenarioHelper.isFlagOn(this.updated[x][y], index) ) {
-                checked++;
+    let ret = false;
+    if ( DataScenarioHelper.isSingleValueType(this.cfg.matrixesValueType) ) {
+      ret = false;
+    } else {
+      let selected = 0;
+      let checked = 0;
+      if ( null != this.updated ) {
+        if ( this.updated.length > 0 && null != this.updated[0] && this.updated[0].length > 0  ) {
+          if ( undefined !== this.cellSel ) {
+            for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
+              for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
+                selected++;
+                if ( DataScenarioHelper.isFlagOn(this.updated[x][y], index, this.cfg.matrixesValueType) ) {
+                  checked++;
+                }
               }
             }
           }
         }
       }
+      ret = (checked > 0 && (selected !== checked));
     }
-    return (checked > 0 && (selected !== checked));
+    return ret;
   }
 
   isChecked(index: number, event): boolean {
@@ -258,7 +264,7 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
       if ( 0 === this.isValidData() ) {
         for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
           for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
-            if ( DataScenarioHelper.isFlagOn(this.updated[x][y], index) ) {
+            if ( DataScenarioHelper.isFlagOn(this.updated[x][y], index, this.cfg.matrixesValueType) ) {
               checked++;
             }
           }
@@ -276,33 +282,17 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
 
     const val = Number.parseInt(event.target.value);
 
-    if ( this.cfg.singleBitOnly ) {
-      if ( undefined !== this.cellSel ) {
-        for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
-          for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
-            if (event.target.checked) {
-              this.updated[x][y] = 0;
-              this.updated[x][y] = DataScenarioHelper.setFlagOn(this.updated[x][y], val);
-            } else {
-              this.updated[x][y] = 0;
-            }
-          }
-        }
-      }
-    } else {
-      if ( undefined !== this.cellSel ) {
-        for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
-          for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
-            if (event.target.checked) {
-              this.updated[x][y] = DataScenarioHelper.setFlagOn(this.updated[x][y], val);
-            } else {
-              this.updated[x][y] = DataScenarioHelper.setFlagOff(this.updated[x][y], val);
-            }
+    if ( undefined !== this.cellSel ) {
+      for ( let x = this.cellSel.x ; x <= this.cellSel.x2 ; ++x ) {
+        for ( let y = this.cellSel.y ; y <= this.cellSel.y2 ; ++y ) {
+          if (event.target.checked) {
+            this.updated[x][y] = DataScenarioHelper.setFlagOn(this.updated[x][y], val, this.cfg.matrixesValueType);
+          } else {
+            this.updated[x][y] = DataScenarioHelper.setFlagOff(this.updated[x][y], val, this.cfg.matrixesValueType);
           }
         }
       }
     }
-
 
     this.generateMatrix();
     this.reloadData();
@@ -326,7 +316,7 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
     let ret = '';
     if ( undefined !== data && undefined !== data[x] && undefined !== data[x][y] ) {
       for ( let i = 0 ; i < this.cfg.matrixes.length ; ++i ) {
-        if ( DataScenarioHelper.isFlagOn( data[x][y], this.cfg.matrixes[i].index) ) {
+        if ( DataScenarioHelper.isFlagOn( data[x][y], this.cfg.matrixes[i].value, this.cfg.matrixesValueType) ) {
           if ( 0 !== ret.length ) {
             ret += this.translate.instant(MatrixSettings.STR_DELFAULT_CELL_COMMA);
           }

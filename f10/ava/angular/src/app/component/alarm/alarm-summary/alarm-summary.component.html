@@ -1,0 +1,14 @@
+<app-matrix (notifyParent)="getNotification($event)" [notifyFromParent]="notifyMatrix" 
+  [updateMatrix]="updateMatrix" (onUpdatedMatrix)="onUpdatedMatrix($event)"></app-matrix>
+
+<button type="button" class="btn btn-info btn-alarm-summary-apply" 
+  [disabled]="btnApply" 
+  (click)="btnClicked('apply')"
+  title="{{ '&alarm_summary_btn_apply_title' | translate }}"
+  >{{ '&alarm_summary_btn_apply' | translate }}</button>
+
+<button type="button" class="btn btn-info btn-alarm-summary-cancel" 
+  [disabled]="btnCancel" 
+  (click)="btnClicked('cancel')"
+  title="{{ '&alarm_summary_btn_cancel_title' | translate }}"
+  >{{ '&alarm_summary_btn_cancel' | translate }}</button>

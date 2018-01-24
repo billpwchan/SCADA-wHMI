@@ -1,36 +1,77 @@
 <div style="text-align: center; width: calc(100% - 10px); height: calc(100% - 10px);">
   <div style="margin: 5px 5px 5px 5px; border-radius: 10px; border: 1px solid rgba(229,229,229,229); padding: 10px;">
+    <app-step-edit (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepEdit"
+      [updateStepEdit]="updateStepEdit" [enableStepEdit]="enableStepEdit"
+      (onUpdatedStepEdit)="onUpdatedStepEdit($event)"></app-step-edit>
     <div style="width: 100%; display: flex; flex-direction: row;">
       <div style="width: 50%;">
         <label>{{ '&cards_title' | translate }}</label>
       </div>
       <div style="width: 50%; display: flex; flex-direction: row-reverse;">
-        <app-storage (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStorage"></app-storage>
-        <app-card-edit-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-edit-controller>
-        <app-card-state-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-state-controller>
+        <div>
+          <button type="button"
+            class="btn btn-info btn-admin-state-enable"
+            [disabled]="!btnEnableStateEnable"
+            (click)="btnClicked('enable')"
+            title="{{ '&cards_state_btn_enable_title' | translate }}"
+            >{{ '&cards_state_btn_enable' | translate }}</button>
+          <button type="button"
+            class="btn btn-info btn-admin-state-disable"
+            [disabled]="!btnEnableStateDisable"
+            (click)="btnClicked('disable')"
+            title="{{ '&cards_state_btn_disable_title' | translate }}"
+            >{{ '&cards_state_btn_disable' | translate }}</button>
+          <button type="button"
+            class="btn btn-info btn-admin-rename"
+            [disabled]="!btnEnableRename"
+            (click)="btnClicked('rename')"
+            title="{{ '&cards_rename_btn_rename_title' | translate }}"
+            >{{ '&cards_rename_btn_rename' | translate }}</button>
+          <button type="button"
+            class="btn btn-info btn-admin-refresh"
+            [disabled]="!btnEnableRefresh"
+            (click)="btnClicked('refresh')"
+            title="{{ '&admin_btn_refresh_title' | translate }}"
+            >{{ '&admin_btn_refresh' | translate }}</button>
+        </div>
       </div>
     </div>
     <div>
-      <app-card-edit (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardEdit"></app-card-edit>
-      <app-cards (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCards"></app-cards>
+      <app-rename (notifyParent)="getNotification($event)" [notifyFromParent]="notifyRename"
+        [updateNames]="updateNames" [updateName]="updateName" [renameEnable]="renameEnable"
+        (onUpdatedName)="onUpdatedName($event)"></app-rename>
+      <app-cards (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCards"
+        [updateCards]="updateCards" (onUpdatedCardSelection)="onUpdatedCardSelection($event)" [refreshCards]="refreshCards"
+        ></app-cards>
     </div>
   </div>
   <div style="padding: 10px;">
-    <app-step-edit (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepEdit"></app-step-edit>
     <div style="width: 100%; display: flex; flex-direction: row;">
       <div style="width: 65%;">
-        <app-card-title (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"></app-card-title>
+        <app-title (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"
+          [updateTitle]="updateTitle"></app-title>
       </div>
       <div style="width: 35%; display: flex; flex-direction: row-reverse; text-align: right;">
-        <app-step-edit-controller (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepEdit"></app-step-edit-controller>
+        <button type="button"
+          class="btn btn-info btn-admin-deletestep"
+          [disabled]="!btnEnableDeleteStep" (click)="btnClicked('deletestep', $event)"
+          title="{{ '&steps_btn_delete_step_title' | translate }}"
+          >{{ '&steps_btn_delete_step' | translate }}</button>
+        <button type="button"
+          class="btn btn-info btn-admin-newstep"
+          [disabled]="!btnEnableNewStep" (click)="btnClicked('newstep', $event)"
+          title="{{ '&steps_btn_new_step_title' | translate }}"
+          >{{ '&steps_btn_new_step' | translate }}</button>
       </div>
     </div>
     <div style="padding: 10px;">
-      <app-steps (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"></app-steps>
+      <app-steps (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"
+        [updateSteps]="updateSteps" (onUpdatedStepSelection)="onUpdatedStepSelection($event)"></app-steps>
     </div>
     <div style="padding: 10px;">
-      <app-matrix (notifyParent)="getNotification($event)" [notifyFromParent]="notifyMatrix" 
-      [matrixCfg]="matrixCfg" [updateMatrix]="updateMatrix" (onUpdatedMatrix)="onUpdatedMatrix($event)"></app-matrix>
+      <app-alarm-summary (notifyParent)="getNotification($event)" [notifyFromParent]="notifyAlarmSummary" 
+        [updateAlarmEnv]="updateAlarmEnv" [updateAlarmUnivname]="updateAlarmUnivname"
+        [config]="alarmSummaryCfg" [updateAlarmSummary]="updateAlarmSummary" (onUpdatedAlarmSummary)="onUpdatedAlarmSummary($event)"></app-alarm-summary>
     </div>
   </div>
 </div>

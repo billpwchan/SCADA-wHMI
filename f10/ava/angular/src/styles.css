@@ -29,6 +29,11 @@ html, body {
  .ngx-datatable.bootstrap .datatable-header .datatable-header-cell .datatable-header-cell-label {
     line-height: 24px;
  }
+ .datatable-body-cell-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+ }
  .ngx-datatable.bootstrap .datatable-body {
      /* Set the Datatable body Height */
      height: 130px !important;

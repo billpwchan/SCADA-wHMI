@@ -9,7 +9,7 @@
           <select class="form-control" name="selectEnv" id="selectEnv"
             [(ngModel)]="selEnv"  (change)="onLstChange('selEnv', $event)">
             <option *ngFor="let item of selOptEnv" [ngValue]="item.value"
-            [disabled]="item.value==''">{{item.label}}</option>
+            [disabled]="item.value==''">{{item.label | translate}}</option>
           </select>
         </div>
   
@@ -62,6 +62,14 @@
             <span class="input-group-addon span-step-edit-univname">{{ '&step_lbl_univname' | translate }}</span>
             <input type="text" class="form-control" name="textUnivname" 
             [(ngModel)]="txtUnivname" placeholder="{{ '&step_txt_univname_placeholder' | translate }}">
+          </div>
+        </span>
+
+        <span *ngIf="!hiddenFullpath">
+          <div class="input-group input-group-step-edit-fullpath">
+            <span class="input-group-addon span-step-edit-fullpath">{{ '&step_lbl_fullpath' | translate }}</span>
+            <input type="text" class="form-control" name="textFullpath" 
+            [(ngModel)]="txtFullpath" placeholder="{{ '&step_txt_fullpath_placeholder' | translate }}">
           </div>
         </span>
   

@@ -3,7 +3,8 @@
  */
 export class DatatableCard {
   constructor(
-    public name: string
+    public index: string
+    , public name: string
     , public state: string
     , public status: string
     , public updated: Date
@@ -24,4 +25,20 @@ export class DatatableStep {
     , public num: string
     , public updated: Date
   ) {}
+  public static clone(step: DatatableStep): DatatableStep {
+    let nStep: DatatableStep = null;
+    if ( null != step ) {
+      nStep = new DatatableStep(
+        step.step
+        , step.location
+        , step.system
+        , step.equipment
+        , step.point
+        , step.value
+        , step.num
+        , new Date()
+      );
+    }
+    return nStep;
+  }
 }

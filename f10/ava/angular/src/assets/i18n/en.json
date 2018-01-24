@@ -1,22 +1,13 @@
 {
 	"&available_pages": "Available pages"
-	, "&traineradmin": "Avalanche Admin"
-	, "&trainer": "Trainer"
-	, "&trainee": "Trainee"
+	, "&admin": "Avalanche Admin"
 
-	, "&trainee_page": "trainee page"
-	
 	, "&cards_title": "Avalanche Conditions"
 
+	, "&cards_gd_header_index": "#"
 	, "&cards_gd_header_name": "Name"
 	, "&cards_gd_header_state": "State"
 	, "&cards_gd_header_status": "Status"
-
-	, "&cards_dg_header_sorting_non": ""
-	, "&cards_dg_header_sorting_asc": "▲"
-	, "&cards_dg_header_sorting_des": "▼"
-
-	, "&cards_dg_state_unknow": "Unknow"
 
 	, "&cards_dg_state_disabled": "Disabled"
 	, "&cards_dg_state_enabled": "Enabled"
@@ -32,26 +23,12 @@
 	, "&cards_state_btn_enable_title": "Enable the selected condidition"
 	, "&cards_state_btn_disable": "Disable"
 	, "&cards_state_btn_disable_title": "Disable the selected condidition"
-	
-	, "&cards_lbl_modify": "Modify"
-	, "&cards_btn_new": "New"
-	, "&cards_btn_new_title": "Add a new condition."
-	, "&cards_btn_delete": "Delete"
-	, "&cards_btn_delete_title": "Delete selected condition."
-	, "&cards_btn_copy": "Copy"
-	, "&cards_btn_copy_title": "Make a copy of selected condition."
-	, "&cards_btn_rename": "Rename"
-	, "&cards_btn_rename_title": "Rename title of selected condition."
-	, "&cards_btn_modify": "Modify"
-	, "&cards_btn_modify_title": "Modify selected condition name."
 
-	, "&cards_lbl_new_name": "New Name"
-	, "&cards_txt_new_name": "type new name..."
+	, "&admin_btn_refresh": "Refresh"
+	, "&admin_btn_refresh_title": "Refresh the Panel"
 
-	, "&cards_btn_add": "Add"
-	, "&cards_btn_add_title": "Add as a new condition."
-	, "&cards_btn_add_cancel": "Cancel"
-	, "&cards_btn_add_cancel_title": "Cancel to add a new condition."
+	, "&cards_rename_btn_rename": "Rename"
+	, "&cards_rename_btn_rename_title": "Rename title of selected condition."
 
 	, "&cards_lbl_modify_name": "Edit Name"
 	, "&cards_txt_modify_name": "type new name..."
@@ -60,9 +37,6 @@
 	, "&cards_btn_modify_save_title": "Save"
 	, "&cards_btn_modify_cancel": "Cancel"
 	, "&cards_btn_modify_cancel_title": "Cancel"
-
-	, "&cards_name_new_prefix": "Condition # "
-	, "&cards_name_copy_appendix": " - Copy"
 
 	, "&cards_lbl_duplicated": "Name duplicated with exists name"
 	, "&cards_lbl_length_too_short": "Name contain too less character"
@@ -83,7 +57,7 @@
 	, "&steps_dg_footer_totalmessage": " total"
 
 	, "&steps_lbl_card_name": "Condition Name"
-	, "&steps_txt_select_card": "Select a condition..."
+	, "&steps_txt_select_card": ""
 	, "&steps_lbl_modify_step": "Modify Trigger"
 	, "&steps_btn_new_step": "New"
 	, "&steps_btn_new_step_title": "Add a new trigger to condition"
@@ -94,6 +68,7 @@
 
 	, "&step_lbl_env": "Environment"
 	, "&step_lst_env_default": "Select env..."
+	, "&step_lst_env_default2": "Select env..."
 	, "&step_lbl_geo": "Location"
 	, "&step_lst_geo_default": "Select location..."
 	, "&step_lst_geo_prefix": "&location_"
@@ -141,51 +116,22 @@
 
 	, "&scenario": "Condition(s)"
 
-	, "&storage_lbl_scenario": "Condition"
-
-	, "&storage_btn_save": "Save"
-	, "&storage_btn_save_title": "Save condition(s) into storage."
-	, "&storage_btn_load": "Reload"
-	, "&storage_btn_load_title": "Reload condition(s) from storage."
-
-	, "&storage_info_modifycardsnotsaved_title": "Save the modified setting."
-	, "&storage_info_modifycardsnotsaved": "Save the modified condition(s) to storage before leave ava panel."
-	, "&storage_info_modifycardsnotsaved_close": " x "
-
-	, "&storage_btn_save_confirm": "Confirm"
-	, "&storage_btn_save_confirm_title": "Confirm to save the file."
-	, "&storage_btn_save_cancel": "Cancel"
-	, "&storage_btn_save_cancel_title": "Cancel the save operation."
-
-	, "&storage_info_modifycardsnotsavedsuccess_title": "Save success."
-	, "&storage_info_modifycardsnotsavedsuccess_close": " x "
-	, "&storage_info_modifycardsnotsavedfailed_title": "Save failed."
-	, "&storage_info_modifycardsnotsavedfailed_close": " x "
-
-	, "&storage_info_confirmtosavecards_title": "Overwrite current setting(s)."
-
-	, "&storage_info_reload_card_success_title": "Reload success."
-	, "&storage_info_reload_card_success_close": " x "
-
-	, "&storage_info_reload_card_failed_title": "Reload failed."
-	, "&storage_info_reload_card_failed_close": " x "
-
 	, "&matrix_default_cell_empty": " - "
 	, "&matrix_default_cell_comma": ","
 	, "&matrix_default_cell_incorrect": " INCORRECT "
 
-	, "&matrix_flag_label_0": "Lowest Serverity"
-	, "&matrix_flag_shortlabel_0": "L"
-	, "&matrix_flag_title_0": "SET [Lowest Serverity] filer in selected cell state"
-	, "&matrix_flag_label_1": "Less Critical"
-	, "&matrix_flag_shortlabel_1": "LC"
-	, "&matrix_flag_title_1": "SET [Less Critical] filer in selected cell state"
-	, "&matrix_flag_label_2": "Critical"
-	, "&matrix_flag_shortlabel_2": "C"
-	, "&matrix_flag_title_2": "SET [Critical] filer in selected cell state"
-	, "&matrix_flag_label_3": "Super Critical"
-	, "&matrix_flag_shortlabel_3": "SC"
-	, "&matrix_flag_title_3": "SET [Super Critical] filer in selected cell state"
+	, "&matrix_flag_label_1": "Lowest Serverity"
+	, "&matrix_flag_shortlabel_1": "L"
+	, "&matrix_flag_title_1": "SET [Lowest Serverity] filer in selected cell state"
+	, "&matrix_flag_label_2": "Less Critical"
+	, "&matrix_flag_shortlabel_2": "LC"
+	, "&matrix_flag_title_2": "SET [Less Critical] filer in selected cell state"
+	, "&matrix_flag_label_3": "Critical"
+	, "&matrix_flag_shortlabel_3": "C"
+	, "&matrix_flag_title_3": "SET [Critical] filer in selected cell state"
+	, "&matrix_flag_label_4": "Super Critical"
+	, "&matrix_flag_shortlabel_4": "SC"
+	, "&matrix_flag_title_4": "SET [Super Critical] filer in selected cell state"
 
 	, "&matrix_cfg_row_header_width_is_negavite": "Configuration header width is negavite."
 	, "&matrix_cfg_row_header_id_is_null_or_invalid": "Configuration header is is null or invalid."
@@ -196,6 +142,11 @@
 	, "&matrix_data_index_length_is_zero": "Date index length is 0."
 	, "&matrix_data_index_zero_length_is_null": "Date index 0 length is null."
 	, "&matrix_data_index_zero_length_is_zero": "Date index 0 length is 0."
+
+	, "&alarm_summary_btn_apply": "Apply"
+	, "&alarm_summary_btn_apply_title": "Apply the change"
+	, "&alarm_summary_btn_cancel": "Cancel"
+	, "&alarm_summary_btn_cancel_title": "Cancel the change"
 
 	, "location_": "UNKNOW"
 	, "location_1": "M000001"

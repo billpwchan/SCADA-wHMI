@@ -26,4 +26,6 @@ CALL %TOOLS_PATH%\Build.f10.point-select.bat %v_strdt%
 
 CALL %TOOLS_PATH%\Build.f10.tms.bat %v_strdt%
 
+CALL %TOOLS_PATH%\Build.f10.ava.bat %v_strdt%
+
 ECHO End of building f10 packages.

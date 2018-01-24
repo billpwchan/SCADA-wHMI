@@ -26,19 +26,19 @@ export enum PhasesType {
  * A model for an individual Equipment
  */
 export class Equipment {
-  public phases: Execution[][];
   constructor(
     public connAddr: string
     , public univname: string
+    , public fullpath: string
     , public classId: number
     , public geo: number
     , public func: number
     , public eqplabel: string
     , public pointlabel: string
+    , public value: number
     , public valuelabel: string
   ) {}
 }
-
 
 /**
  * A model for an individual Step
@@ -58,7 +58,10 @@ export class Card {
   public steps: Step[] = new Array<Step>();
   public alarms: number[][];
   constructor(
-    public name: string
+    public univname: string
+    , public fullpath: string
+    , public index: number
+    , public name: string
     , public state: boolean
     , public status: boolean
   ) {}

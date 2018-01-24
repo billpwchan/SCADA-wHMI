@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { UtilsHttpModule } from './../utils-http/utils-http.module';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 import { AppSettings } from '../../app-settings';
 import { DbmSettings } from './dbm-settings';
 
@@ -24,6 +26,8 @@ export class DbmService {
 
   private retriveClassIdData: Map<string, Map<string, any>> = new Map<string, Map<string, any>>();
 
+  private getFullPathData: Map<string, Map<string, any>> = new Map<string, Map<string, any>>();
+
   // Service command
   dbmChanged(str: string) {
     this.dbmSource.next(str);
@@ -44,8 +48,8 @@ export class DbmService {
     console.log(this.c, f, 'connAddr', connAddr, 'univname', univname);
 
     const urls: string [] = [];
-    urls.push(DbmSettings.STR_ALIAS + univname + DbmSettings.STR_AAC + DbmSettings.STR_VETABLE_VENAME);
-    urls.push(DbmSettings.STR_ALIAS + univname + DbmSettings.STR_INITVALUE);
+    urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_AAC + DbmSettings.STR_VETABLE_VENAME);
+    urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_INITVALUE);
 
     const url = connAddr + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
 
@@ -82,10 +86,10 @@ export class DbmService {
     console.log(this.c, f, 'univname', univname);
 
     const urls: string [] = [];
-    urls.push(DbmSettings.STR_ALIAS + univname + DbmSettings.STR_DAC + DbmSettings.STR_VETABLE_VENAME);
-    urls.push(DbmSettings.STR_ALIAS + univname + DbmSettings.STR_INITVALUE);
-    urls.push(DbmSettings.STR_ALIAS + univname + DbmSettings.STR_VALUETABLE_LABEL);
-    urls.push(DbmSettings.STR_ALIAS + univname + DbmSettings.STR_VALUETABLE_VALUE);
+    urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_DAC + DbmSettings.STR_VETABLE_VENAME);
+    urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_INITVALUE);
+    urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_VALUETABLE_LABEL);
+    urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_VALUETABLE_VALUE);
 
     const url = connAddr + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
 
@@ -122,7 +126,7 @@ export class DbmService {
 
     let url = connAddr;
     url += DbmSettings.STR_URL_GETATTRIBUTEFORMULAS;
-    url += DbmSettings.STR_ALIAS + univname;
+    url += DbmSettings.STR_URL_ALIAS + univname;
 
     if ( DbmSettings.INT_ACI_TYPE === classId ) {
       url += DbmSettings.STR_AAC_ACQVALUE;
@@ -161,7 +165,7 @@ export class DbmService {
     console.log(this.c, f, 'connAddr' , connAddr);
     console.log(this.c, f, 'univname' , univname);
 
-    const url = connAddr + DbmSettings.STR_URL_GETCLASSID + DbmSettings.STR_ALIAS + univname;
+    const url = connAddr + DbmSettings.STR_URL_GETCLASSID + DbmSettings.STR_URL_ALIAS + univname;
 
     // Get Class ID
     this.httpClient.get(
@@ -183,5 +187,101 @@ export class DbmService {
         , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
         , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
     );
+  }
+
+  getRetriveFullPathData(connAddr: string, univname: string): any {
+    return this.getFullPathData.get(connAddr).get(univname);
+  }
+  retriveFullPath(connAddr: string, univname: string) {
+    const f = 'retriveFullPath';
+    console.log(this.c, f);
+    console.log(this.c, f, 'connAddr' , connAddr);
+    console.log(this.c, f, 'univname' , univname);
+
+    const url = connAddr + DbmSettings.STR_URL_GETFULLPATH + DbmSettings.STR_URL_ALIAS + univname;
+
+    // Get Class ID
+    this.httpClient.get(
+      url
+    )
+      .subscribe(
+        (res: any[]) => {
+          console.log(this.c, f, res);
+          const fullPath = res[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_CLASSID];
+          console.log(this.c, f, 'fullPath', fullPath);
+
+          this.getFullPathData.set(connAddr, new Map<string, any>().set(univname, fullPath));
+
+          this.dbmChanged('retriveFullPath');
+        }
+        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
+        , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
+    );
+  }
+
+  readFormulas(connAddr: string, univname: string): Observable<any> {
+    const f = 'readFormulas';
+    console.log(this.c, f);
+
+    let url = connAddr;
+    url += DbmSettings.STR_URL_GETATTRIBUTEFORMULAS;
+    url += DbmSettings.STR_QUOTE + univname + DbmSettings.STR_QUOTE;
+
+    return this.httpClient.get(url)
+      .map(this.extractFormulas);
+  }
+
+  extractFormulas(res: string) {
+    return res[AppSettings.STR_RESPONSE][DbmSettings.STR_FORMULAS];
+  }
+
+  writeFormulaStr(connAddr: string, univname: string, formulaStr: string): Observable<any>  {
+    const f = 'writeFormulaStr';
+    console.log(this.c, f);
+
+    let url = connAddr;
+    url += DbmSettings.STR_URL_SETATTRIBUTEFORMULA;
+    url += DbmSettings.STR_QUOTE + univname + DbmSettings.STR_QUOTE;
+    url += DbmSettings.STR_FORMULA_OPTION + DbmSettings.STR_QUOTE + formulaStr + DbmSettings.STR_QUOTE;
+    return this.httpClient.get(url).map(this.extractResponse);
+  }
+
+  extractResponse(res: string) {
+    return res[AppSettings.STR_RESPONSE];
+  }
+
+  writeFormulaNum(connAddr: string, univname: string, formulaNum: number): Observable<any>  {
+    const f = 'writeFormulaStr';
+    console.log(this.c, f);
+
+    let url = connAddr;
+    url += DbmSettings.STR_URL_SETATTRIBUTEFORMULA;
+    url += DbmSettings.STR_QUOTE + univname + DbmSettings.STR_QUOTE;
+    url += DbmSettings.STR_FORMULA_OPTION + formulaNum;
+    return this.httpClient.get(url).map(this.extractResponse);
+  }
+
+  getAttributes(connAddr: string, attributes: string[]) {
+    const f = 'getAttributes';
+    console.log(this.c, f);
+
+    let url = connAddr;
+    url += DbmSettings.STR_URL_MULTIREAD;
+    url += JSON.stringify(attributes);
+    return this.httpClient.get(url).map(this.extractAttributes);
+  }
+
+  extractAttributes(res: string) {
+    return res[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
+  }
+
+  setAttributes(connAddr: string, attributeValueMap: Map<string, string|number>) {
+    const f = 'setAttributes';
+    console.log(this.c, f);
+
+    let url = connAddr;
+    url += DbmSettings.STR_URL_MULTIWRITE;
+    url += JSON.stringify(attributeValueMap);
+    return this.httpClient.get(url).map(this.extractResponse);
   }
 }

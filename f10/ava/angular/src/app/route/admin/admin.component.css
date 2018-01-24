@@ -69,3 +69,14 @@
     text-align: left;
     margin: 0px 0px 0px 40px;
 }
+
+.btn-admin-state-enable
+, .btn-admin-state-disable
+, .btn-admin-rename
+, .btn-admin-refresh
+, .btn-admin-deletestep
+, .btn-admin-newstep {
+    width: 75px;
+    height: 35px;
+    margin: 5px 2px 5px 2px;
+}

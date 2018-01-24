@@ -11,11 +11,15 @@ export class AlarmSummarySettings {
   public static readonly STR_INSTANCE_ROOT              = 'instance_root';
   public static readonly STR_MAX_RULE_NUM               = 'max_rule_num';
 
+
+  public static readonly STR_AVAR_BASE                  = 'avar_base';
+  public static readonly STR_MAX_AVAR_NUM               = 'max_avar_num';
+
   public static readonly STR_RULE_BASE                  = 'rule_base';
   public static readonly STR_CONDITION_BEGIN_ID         = 'condition_begin_id';
   public static readonly STR_CONDITION_END_ID           = 'condition_end_id';
-  public static readonly STR_FORMULA_DEF_VAL      = 'formula_default_value';
-  public static readonly STR_FORMULA_ZERO_DEF_VAL = 'formula_zero_default_value';
+  public static readonly STR_FORMULA_DEF_VAL            = 'formula_default_value';
+  public static readonly STR_FORMULA_ZERO_DEF_VAL       = 'formula_zero_default_value';
 
   public static readonly STR_AVAR_PREFIX                = 'AVAR';
   public static readonly STR_AVAS_PREFIX                = 'AVAS';
@@ -56,4 +60,6 @@ export class StepSummaryConfig {
 }
 
 export class AlarmSummaryConfig {
+  public avarBase: number;
+  public maxAvarNum: number;
 }

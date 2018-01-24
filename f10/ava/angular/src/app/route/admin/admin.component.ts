@@ -167,9 +167,22 @@ export class AdminComponent implements OnInit, OnDestroy {
               if ( className.startsWith(AlarmSummarySettings.STR_AVAR_PREFIX) ) {
                 this.avarAlias = alias;
               }
-              if ( className.startsWith(AlarmSummarySettings.STR_AVAS_PREFIX) ) {
+
+              let found = false;
+              const base = this.alarmSummaryCfg.avarBase;
+              const max = this.alarmSummaryCfg.maxAvarNum;
+              for ( let n = 0; n < max ; ++n ) {
+                const name = AlarmSummarySettings.STR_AVAR_PREFIX + (DbmSettings.STR_THREE_ZERO + (n + base)).slice(-4);
+                if ( className === name ) {
+                  found = true;
+                }
+              }
+              if ( found ) {
                 this.avasAliasList.push(alias);
               }
+              // if ( className.startsWith(AlarmSummarySettings.STR_AVAS_PREFIX) ) {
+              //   this.avasAliasList.push(alias);
+              // }
             }
             if ( null != this.avarAlias ) {
               this.getChildrenAliasService.readData(this.env, this.avarAlias);
@@ -705,6 +718,9 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     const c = 'AlarmSummaryComponent';
     const cfg: AlarmSummaryConfig = new AlarmSummaryConfig();
+
+    cfg.avarBase = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAR_BASE) as number;
+    cfg.maxAvarNum = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_MAX_AVAR_NUM) as number;
 
     return cfg;
   }

@@ -72,6 +72,8 @@
     , "formula_zero_default_value": 0
   }
   , "AlarmSummaryComponent": {
+    "avar_base": 1
+    , "max_avar_num": 16
   }
   , "DbmPollingService": {
     "interval": 1000

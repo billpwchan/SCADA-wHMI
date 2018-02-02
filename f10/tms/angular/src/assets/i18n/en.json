@@ -217,6 +217,9 @@
 	, "&importexport_import_message": "Imported scenario(s): "
 	, "&importexport_import_message_close": " x "
 
+	, "&admin_btn_refresh": "Refresh"
+	, "&admin_btn_refresh_title": "Refresh the Panel"
+
 	, "location_": "UNKNOW"
 	, "location_1": "M000001"
 	, "location_2": "M000002"

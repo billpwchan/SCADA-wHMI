@@ -15,6 +15,7 @@ export class ImportExportSettings {
     public static readonly STR_EXPORT_FILENAME_EXTENSION = 'export_filename_extension';
 
     public static readonly STR_CSV_COMMA = 'csv_comma';
+    public static readonly STR_CSV_QUOTE = 'csv_quote';
     public static readonly STR_CSV_EOL = 'csv_eol';
 
     public static readonly STR_INIT_CARDS_BEFORE_EXPORT = 'init_cards_before_export';

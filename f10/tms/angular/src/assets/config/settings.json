@@ -58,6 +58,7 @@
       , "export_filename": "tms.csv"
 
       , "csv_comma": ","
+      , "csv_quote": "\""
       , "csv_eol": "\r\n"
 
       , "init_cards_before_export": true

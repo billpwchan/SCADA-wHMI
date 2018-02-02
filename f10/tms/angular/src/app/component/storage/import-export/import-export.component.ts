@@ -34,6 +34,7 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
 
   private strFileName: string = CsvToCardSettings.STR_FILENAME;
   private strComma: string = CsvToCardSettings.STR_COMMA;
+  private strQuote: string = CsvToCardSettings.STR_QUOTE;
   private strEOL: string = CsvToCardSettings.STR_EOL;
 
   readonly c = 'ImportExportComponent';
@@ -147,6 +148,7 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
     this.strFileNameExtension = this.settingsService.getSetting(this.c, f, this.c, ImportExportSettings.STR_EXPORT_FILENAME_EXTENSION);
 
     this.strComma = this.settingsService.getSetting(this.c, f, this.c, ImportExportSettings.STR_CSV_COMMA);
+    this.strQuote = this.settingsService.getSetting(this.c, f, this.c, ImportExportSettings.STR_CSV_QUOTE);
     this.strEOL = this.settingsService.getSetting(this.c, f, this.c, ImportExportSettings.STR_CSV_EOL);
     this.initCardsBeforeExport = this.settingsService.getSetting(this.c, f, this.c, ImportExportSettings.STR_INIT_CARDS_BEFORE_EXPORT);
   }
@@ -171,7 +173,7 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
     let data: string;
     switch ( type ) {
       case ExportFileType.CSV: {
-        data = new CardsToCsvPipe().transform(exportCards, [this.strComma, this.strEOL]);
+        data = new CardsToCsvPipe().transform(exportCards, [this.strComma, this.strQuote, this.strEOL]);
       } break;
       case ExportFileType.JSON: {
         data = JSON.stringify(exportCards);
@@ -215,7 +217,7 @@ export class ImportExportComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f, 'type', type);
     switch ( type ) {
       case ImportFileType.CSV: {
-        cards = new CsvToCardsPipe().transform(str, [this.strComma, this.strEOL]);
+        cards = new CsvToCardsPipe().transform(str, [this.strComma, this.strQuote, this.strEOL]);
       } break;
       case ImportFileType.JSON: {
         cards = JSON.parse(str);

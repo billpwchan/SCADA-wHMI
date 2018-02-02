@@ -3,6 +3,7 @@ export class CsvToCardSettings {
     public static readonly STR_FILENAME = 'tms.csv';
     public static readonly STR_EMPTY = '';
     public static readonly STR_COMMA = ',';
+    public static readonly STR_QUOTE = '\"';
     public static readonly STR_EOL  = '\r\n';
 }
 

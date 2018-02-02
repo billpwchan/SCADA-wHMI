@@ -41,7 +41,8 @@ export class ConfigService {
             funcat_translation_prefix: 'System_',
             page_size: 5,
             display_spinner: true,
-            display_other_types_in_running_schedules: true
+            display_other_types_in_running_schedules: true,
+            update_onofftime_delay: 5000
         }),
         schedule_planning: Map({
             weekly_planning: {},

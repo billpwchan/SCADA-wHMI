@@ -68,6 +68,8 @@ export interface Config {
         display_spinner: boolean;
         // option to display other schedule types in running schedule
         display_other_types_in_running_schedules: boolean;
+        // option to add delay to OnOff time checking after scheduled time
+        update_onofftime_delay: number;
     };
     schedule_planning: {
         // default schedule assignment for each weekday

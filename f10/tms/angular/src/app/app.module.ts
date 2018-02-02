@@ -35,6 +35,7 @@ import { CardEditControllerComponent } from './component/card/card-edit-controll
 import { DbmPollingService } from './service/scs/dbm-polling.service';
 import { PointSelectModule } from 'point-select';
 import { CardTitleComponent } from './component/card/card-title/card-title.component';
+import { RefreshComponent } from './component/refresh/refresh/refresh.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -67,6 +68,7 @@ const appRoutes: Routes = [
     , StepEditControllerComponent
     , CardEditControllerComponent
     , CardTitleComponent
+    , RefreshComponent
   ],
   imports: [
     BrowserModule

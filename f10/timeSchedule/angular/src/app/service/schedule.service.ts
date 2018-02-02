@@ -73,6 +73,8 @@ export class ScheduleService implements OnDestroy {
 
     private daygroupDatesSub: Subscription;
 
+    private updateOnOffTimeDelay: number;
+
     constructor(
         private configService: ConfigService, private translate: TranslateService,
         private scsTscService: ScsTscService, private loadingService: LoadingService
@@ -113,6 +115,9 @@ export class ScheduleService implements OnDestroy {
 
         this.periodicPlanningDuration = this.configService.config.getIn(['schedule_planning', 'periodic_planning_duration']);
         console.log('{schedule-planning}', '[loadConfig]', 'periodicPlanningDuration=', this.periodicPlanningDuration);
+
+        this.updateOnOffTimeDelay = this.configService.config.getIn(['schedule_table', 'update_onofftime_delay']);
+        console.log('{ScheduleService}', '[loadConfig]', 'update_onofftime_delay=', this.updateOnOffTimeDelay);
     }
     public loadData() {
         this.readTscTaskNames();
@@ -1123,7 +1128,7 @@ export class ScheduleService implements OnDestroy {
             this.readDayGroupDates();
 
             const startTime = new Date();
-            startTime.setSeconds(startTime.getSeconds() + (60 - startTime.getSeconds()))
+            startTime.setSeconds(startTime.getSeconds() + (60 - startTime.getSeconds() + (this.updateOnOffTimeDelay / 1000)));
             this.startDayGroupUpdateTimer(startTime);
         })
     }
@@ -1465,10 +1470,10 @@ export class ScheduleService implements OnDestroy {
         date.setHours(hour);
         date.setMinutes(minute);
         if (date.getTime() < currentTime) {
-            date.setTime(date.getTime() + ONE_DAY);
+            date.setTime(date.getTime() + ONE_DAY + this.updateOnOffTimeDelay);
             console.log('{ScheduleService}', '[addOnOffUpdateTimer]', taskName, hour, minute, 'set to next day', date);
         } else {
-            date.setTime(date.getTime());
+            date.setTime(date.getTime() + this.updateOnOffTimeDelay);
             console.log('{ScheduleService}', '[addOnOffUpdateTimer]', taskName, hour, minute, 'set to current day', date);
         }
 
@@ -1554,6 +1559,7 @@ export class ScheduleService implements OnDestroy {
     public startDayGroupUpdateTimer(startTime: Date) {
         const timer = Observable.timer(startTime, this.daygroupUpdatePeriod);
         const subTimer = timer.subscribe(() => {
+            console.log('{ScheduleService}', '[DayGroupUpdateTimer]', 'timer triggered');
             this.readDayGroupDates();
         })
     }

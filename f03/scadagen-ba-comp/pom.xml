@@ -12,7 +12,7 @@
 
     <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
     <artifactId>scadagen-ba-comp</artifactId>
-    <version>1.6.0</version>
+    <version>1.6.1</version>
     <packaging>jar</packaging>
     <name>SCADAgen BA Component</name>
     <description>SCADAgen BA Executor and JSComponent library</description>
@@ -52,7 +52,7 @@
 		<dependency>
             <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
             <artifactId>fasapi</artifactId>
-            <version>1.6.0</version>
+            <version>1.6.1</version>
         </dependency>
     </dependencies>
     

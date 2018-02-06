@@ -64,7 +64,6 @@ export class CardsToCsvPipe implements PipeTransform {
           equipment.phases[i].forEach(exec => {
 
             let session3 =  this.createField(CsvToCardSettings.STR_EMPTY, i, quoteStrings);
-            session3 = this.concatField(session3, i, fieldSeparator, quoteStrings);
             session3 = this.concatField(session3, exec.execType, fieldSeparator, quoteStrings);
             session3 = this.concatField(session3, exec.name, fieldSeparator, quoteStrings);
             session3 = this.concatField(session3, exec.value, fieldSeparator, quoteStrings);

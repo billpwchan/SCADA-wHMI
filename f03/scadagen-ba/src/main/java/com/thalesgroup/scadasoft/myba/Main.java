@@ -1,12 +1,16 @@
 package com.thalesgroup.scadasoft.myba;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.UnknownHostException;
@@ -198,7 +202,7 @@ public class Main {
             scadasoftBA.getOperationManager().eqptCommandRequestReception(UUID.randomUUID(), dummy);
             // 
             
-            scadasoftBA.start();
+            //scadasoftBA.start();
         } catch (final Exception e) {
             s_logger.error("SCADAgen BA  - Error at instantiation: ", e);
             ScsConnectorProxy.instance().stop();
@@ -208,9 +212,31 @@ public class Main {
         // start Jersey server
         HttpServer restServer = startRestServer();
         
+        Boolean enableInitPollerComponent = true;
+        if (s_appConfig != null) {
+        	String enableStr = s_appConfig.getProperty("initPollerComponent.enable", "true").trim();
+        	if (enableStr.compareToIgnoreCase("False") == 0) {
+        		enableInitPollerComponent = false;
+        	}	
+        }
+        if (enableInitPollerComponent) {
+        	// DbmPoller will unsubscribe all existing subscription when PollerComponent connects to it.
+        	// Initialize PollerComponent to connect to DbmPoller to prevent unwanted unsubscription
+        	initPollerComponent();
+        }
+        
+        // start scadasoftBA subscription after Poller Component is initialized
+        try {
+			scadasoftBA.start();
+		} catch (Exception e1) {
+			 s_logger.error("SCADAgen BA  - Error starting: ", e1);
+	         ScsConnectorProxy.instance().stop();
+	         System.exit(2);
+		}
+        
         // start SCADAgen BPS if configuration found
         startBPS(scadasoftBA.getConnector());
-        
+
         // start main loop
         s_logger.info("start main loop");
         smgr.setBA(scadasoftBA);
@@ -298,4 +324,69 @@ public class Main {
         
         return false;
     }
+    
+    // Initialize PollerComponent by sending a simple REST request to PollerComponent
+    protected static void initPollerComponent() {    	
+    	String rootURI = "http://localhost:8899";
+    	int connectTimeout = 3000;
+    	int readTimeout = 2000;
+    	
+    	s_logger.info("SCADAgen BA - initialize PollerComponent");
+    	
+    	if (s_appConfig != null) {
+    		String port = s_appConfig.getProperty("restapi.port", "8899").trim();
+    		rootURI = "http://localhost:" + port;
+    		
+    		String cTimeout = s_appConfig.getProperty("initPollerComponent.connectTimeout", "3000").trim();
+    		try {
+    			if (!cTimeout.isEmpty()) {
+    				connectTimeout = Integer.parseInt(cTimeout);
+    			}
+    		} catch (NumberFormatException e) {
+    			s_logger.warn("Property initPollerComponent.connectTimeout number format invalid");
+    		}
+    		String rTimeout = s_appConfig.getProperty("initPollerComponent.readTimeout", "2000").trim();
+    		try {
+    			if (!rTimeout.isEmpty()) {
+    				Integer.parseInt(rTimeout);
+    			}
+    		} catch (NumberFormatException e) {
+    			s_logger.warn("Property initPollerComponent.readTimeout number format invalid");
+    		}
+    	}
+		try {
+			URL pollerURL = new URL(rootURI + "/scs/service/PollerComponent/");
+			HttpURLConnection conn = (HttpURLConnection) pollerURL.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setConnectTimeout(connectTimeout);
+			conn.setReadTimeout(readTimeout);
+			int responseCode = conn.getResponseCode();
+			System.out.println("GET Response Code :: " + responseCode);
+			if (responseCode == HttpURLConnection.HTTP_OK) { // success
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						conn.getInputStream()));
+				String inputLine;
+				StringBuffer response = new StringBuffer();
+
+				while ((inputLine = in.readLine()) != null) {
+					response.append(inputLine);
+				}
+				in.close();
+
+				s_logger.debug("Init PollerComponent response: " + response.toString());
+			} else {
+				s_logger.debug("Init PollerComponent failed");
+			}
+
+		} catch (MalformedURLException e) {
+			s_logger.warn("init PollerComponent failed");
+			e.printStackTrace();
+		} catch (IOException e) {
+			s_logger.warn("init PollerComponent failed");
+			e.printStackTrace();
+		} catch (Exception e) {
+			s_logger.warn("init PollerComponent failed");
+			e.printStackTrace();
+		}
+	}
 }

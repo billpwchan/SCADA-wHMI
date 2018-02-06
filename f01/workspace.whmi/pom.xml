@@ -5,12 +5,12 @@
   <groupId>com.thalesgroup.scadagen.whmi</groupId>
   <artifactId>whmi</artifactId>
   <packaging>pom</packaging>
-  <version>1.6.0</version>
+  <version>1.6.1</version>
   <name>GWT Maven Archetype</name>
 
   <properties>
     <!-- Version of the SCADAgen WHMI -->
-    <scadagen.whmi.version>1.6.0</scadagen.whmi.version>
+    <scadagen.whmi.version>1.6.1</scadagen.whmi.version>
   
     <!-- Convenience property to set the GWT version -->
     <gwtVersion>2.7.0</gwtVersion>

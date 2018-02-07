@@ -2,9 +2,7 @@
 
 <scsbamapping scsdbpoller="DbmPoller"
               scsalmserver="AlmServer" scsalmlist="AlarmList" 
-              scsevtserver="HisServer" scsevtlist="EventListHis"
               hvalmclass="com.thalesgroup.scadasoft.data.exchange.entity.alarm.SCADAsoftAlarmType"
-              hvevtclass="com.thalesgroup.scadasoft.data.exchange.entity.alarm.SCADAsoftAlarmType"
               scsterracotta="Terracotta">
 
   <ols scsservername="DpcEqpServer" scslistname="DpcInhibList" scsfilter=""

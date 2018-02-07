@@ -38,6 +38,7 @@ public interface UILayoutGeneric_i {
 		, HorizontalPanel("HorizontalPanel")
 		, DockLayoutPanel("DockLayoutPanel")
 		, AbsolutePanel("AbsolutePanel")
+		, FlowPanel("FlowPanel")
 		;
 		private final String text;
 		private PanelAttribute(final String text) { this.text = text; }

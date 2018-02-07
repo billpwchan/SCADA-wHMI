@@ -9,6 +9,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.CellPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -107,7 +108,8 @@ public class UILayoutGeneric extends UIGeneric {
 				rootPanel = new DockLayoutPanel(Unit.PX);
 			} else if ( PanelAttribute.AbsolutePanel.equalsName(strPanel) ) {
 				rootPanel = new AbsolutePanel();
-			} else {
+			} else if ( PanelAttribute.FlowPanel.equalsName(strPanel) ) {
+				rootPanel = new FlowPanel();
 			}
 
 		} else {

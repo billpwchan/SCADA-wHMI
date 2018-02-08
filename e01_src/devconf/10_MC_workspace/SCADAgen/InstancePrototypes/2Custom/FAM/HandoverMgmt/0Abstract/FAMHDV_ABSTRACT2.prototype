@@ -8,7 +8,7 @@
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciFAM-HDVSTATUS_NRAZgnONEeewuatvcs1m1g_1501243597592" nom_instance="dciFAM-HDVSTATUS" label="&amp;dciFAM-HDVSTATUS">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciFAM-HDVSTATUS_NRAZgnONEeewuatvcs1m1g_1501243597592" nom_instance="dciFAM-HDVSTATUS" label="&amp;dciFAM-HDVSTATUS">
     <DAL xmi:id="dal_type_dal_NRAZiHONEeewuatvcs1m1g_1501243597592" nom_instance="dal" valueAutomaton="DIBasic3StateTimerLog 10">
       <valueAlarmVector xsi:nil="true"/>
       <valueAlarmVector xsi:nil="true"/>
@@ -32,7 +32,7 @@
     <DCO xmi:id="dco_type_lxGgkHRQEeewuatvcs1m1g_1501327513881" nom_instance="dco"/>
     <DFO xmi:id="dfo_type_dfo_NRAZlXONEeewuatvcs1m1g_1501243597592" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciFAM-HDVSTATUS_fhXA0HRQEeewuatvcs1m1g_1501327471965" nom_instance="dciFAM-HDVSTATUSACQ" hmiOrder="-1" label="&amp;dciFAM-HDVSTATUS">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciFAM-HDVSTATUS_fhXA0HRQEeewuatvcs1m1g_1501327471965" nom_instance="dciFAM-HDVSTATUSACQ" hmiOrder="-1" label="&amp;dciFAM-HDVSTATUS">
     <DAC xmi:id="dac_type_dac_fhXA0XRQEeewuatvcs1m1g_1501327471965" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>

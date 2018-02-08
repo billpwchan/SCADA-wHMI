@@ -8,7 +8,7 @@
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciAS-FaulAirZone_3z70OFWhEee4QdkqvzimmQ_1497953938163" nom_instance="dciMSD-Status" label="&amp;dciMSD-Status" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciAS-FaulAirZone_3z70OFWhEee4QdkqvzimmQ_1497953938163" nom_instance="dciMSD-Status" label="&amp;dciMSD-Status" initValue="1">
     <DAC xmi:id="dac_type_dac_3z70OVWhEee4QdkqvzimmQ_1497953938163" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -41,7 +41,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_3z70S1WhEee4QdkqvzimmQ_1497953938163" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMSD-Status_hc7PcVchEee9rZFG5ogX9w_1498118714855" nom_instance="dciMSD-Mode" label="&amp;dciMSD-Mode">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMSD-Status_hc7PcVchEee9rZFG5ogX9w_1498118714855" nom_instance="dciMSD-Mode" label="&amp;dciMSD-Mode">
     <DAC xmi:id="dac_type_dac_hc7PclchEee9rZFG5ogX9w_1498118714855" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -74,7 +74,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_hc7PhFchEee9rZFG5ogX9w_1498118714855" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMSD-Status_jZMH0FchEee9rZFG5ogX9w_1498118727885" nom_instance="dciMSD-InhibStatus" label="&amp;dciMSD-InhibStatus" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMSD-Status_jZMH0FchEee9rZFG5ogX9w_1498118727885" nom_instance="dciMSD-InhibStatus" label="&amp;dciMSD-InhibStatus" initValue="1">
     <DAC xmi:id="dac_type_dac_jZMH0VchEee9rZFG5ogX9w_1498118727885" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -107,7 +107,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_jZV43VchEee9rZFG5ogX9w_1498118727901" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMSD-Status_jrNr8FchEee9rZFG5ogX9w_1498118729775" nom_instance="dciMSD-ManualUnlatched" label="&amp;dciMSD-ManualUnlatched" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMSD-Status_jrNr8FchEee9rZFG5ogX9w_1498118729775" nom_instance="dciMSD-ManualUnlatched" label="&amp;dciMSD-ManualUnlatched" initValue="1">
     <DAC xmi:id="dac_type_dac_jrNr8VchEee9rZFG5ogX9w_1498118729775" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -140,7 +140,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_jrNsA1chEee9rZFG5ogX9w_1498118729775" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMSD-Status_jyNr0FchEee9rZFG5ogX9w_1498118730509" nom_instance="dciMSD-DoorObstructed" label="&amp;dciMSD-DoorObstructed">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMSD-Status_jyNr0FchEee9rZFG5ogX9w_1498118730509" nom_instance="dciMSD-DoorObstructed" label="&amp;dciMSD-DoorObstructed">
     <DAC xmi:id="dac_type_dac_jyNr0VchEee9rZFG5ogX9w_1498118730509" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -173,7 +173,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_jyNr41chEee9rZFG5ogX9w_1498118730509" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMSD-Status_j3dYMFchEee9rZFG5ogX9w_1498118731059" nom_instance="dciMSD-DcuStatus" label="&amp;dciMSD-DcuStatus">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMSD-Status_j3dYMFchEee9rZFG5ogX9w_1498118731059" nom_instance="dciMSD-DcuStatus" label="&amp;dciMSD-DcuStatus">
     <DAC xmi:id="dac_type_dac_j3dYMVchEee9rZFG5ogX9w_1498118731059" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -206,7 +206,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_j3dYQ1chEee9rZFG5ogX9w_1498118731059" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMSD-Status_j8YUcFchEee9rZFG5ogX9w_1498118731575" nom_instance="dciMSD-LockedFailure" label="&amp;dciMSD-LockedFailure">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMSD-Status_j8YUcFchEee9rZFG5ogX9w_1498118731575" nom_instance="dciMSD-LockedFailure" label="&amp;dciMSD-LockedFailure">
     <DAC xmi:id="dac_type_dac_j8YUcVchEee9rZFG5ogX9w_1498118731575" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -239,7 +239,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_j8YUg1chEee9rZFG5ogX9w_1498118731575" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMSD-Status_kDPKYFchEee9rZFG5ogX9w_1498118732294" nom_instance="dciMSD-DsiFailure" label="&amp;dciMSD-DsiFailure">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMSD-Status_kDPKYFchEee9rZFG5ogX9w_1498118732294" nom_instance="dciMSD-DsiFailure" label="&amp;dciMSD-DsiFailure">
     <DAC xmi:id="dac_type_dac_kDPKYVchEee9rZFG5ogX9w_1498118732294" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -272,7 +272,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_kDPKc1chEee9rZFG5ogX9w_1498118732294" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMSD-Status_kIAVoFchEee9rZFG5ogX9w_1498118732794" nom_instance="dciMSD-DcuBus1Failure" label="&amp;dciMSD-DcuBus1Failure">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMSD-Status_kIAVoFchEee9rZFG5ogX9w_1498118732794" nom_instance="dciMSD-DcuBus1Failure" label="&amp;dciMSD-DcuBus1Failure">
     <DAC xmi:id="dac_type_dac_kIAVoVchEee9rZFG5ogX9w_1498118732794" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -305,7 +305,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_kIAVs1chEee9rZFG5ogX9w_1498118732794" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMSD-Status_kMnv4FchEee9rZFG5ogX9w_1498118733278" nom_instance="dciMSD-DcuBus2Failure" label="&amp;dciMSD-DcuBus2Failure">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMSD-Status_kMnv4FchEee9rZFG5ogX9w_1498118733278" nom_instance="dciMSD-DcuBus2Failure" label="&amp;dciMSD-DcuBus2Failure">
     <DAC xmi:id="dac_type_dac_kMnv4VchEee9rZFG5ogX9w_1498118733278" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -338,7 +338,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_kMxg4FchEee9rZFG5ogX9w_1498118733294" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMSD-DcuBus2Failure_Pj9wEHEbEeeZKZg9II53bA_1500974748049" nom_instance="dciMSD-DsHealth" label="&amp;dciMSD-DsHealth">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMSD-DcuBus2Failure_Pj9wEHEbEeeZKZg9II53bA_1500974748049" nom_instance="dciMSD-DsHealth" label="&amp;dciMSD-DsHealth">
     <DAC xmi:id="dac_type_dac_Pj9wEXEbEeeZKZg9II53bA_1500974748049" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>

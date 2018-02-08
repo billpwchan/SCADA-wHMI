@@ -178,7 +178,7 @@
     </AAC>
     <AFO xmi:id="afo_type_afo_WfBpx1WXEee4QdkqvzimmQ_1497949419544" nom_instance="afo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTVF-AlaGeneral_WfBp5FWXEee4QdkqvzimmQ_1497949419544" nom_instance="dciTAHU-Running" label="&amp;dciTAHU-Running">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTVF-AlaGeneral_WfBp5FWXEee4QdkqvzimmQ_1497949419544" nom_instance="dciTAHU-Running" label="&amp;dciTAHU-Running">
     <DAC xmi:id="dac_type_dac_WfBp5VWXEee4QdkqvzimmQ_1497949419544" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -211,7 +211,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_WfBp91WXEee4QdkqvzimmQ_1497949419544" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTVF-AlaTempDeBear_WfBp-FWXEee4QdkqvzimmQ_1497949419544" nom_instance="dciTAHU-Fault" label="&amp;dciTAHU-Fault" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTVF-AlaTempDeBear_WfBp-FWXEee4QdkqvzimmQ_1497949419544" nom_instance="dciTAHU-Fault" label="&amp;dciTAHU-Fault" initValue="1">
     <DAC xmi:id="dac_type_dac_WfBp-VWXEee4QdkqvzimmQ_1497949419544" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>

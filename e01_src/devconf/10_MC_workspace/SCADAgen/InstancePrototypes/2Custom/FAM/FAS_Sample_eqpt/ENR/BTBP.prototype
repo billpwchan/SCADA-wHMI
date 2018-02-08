@@ -17,7 +17,7 @@
     </AAC>
     <AFO xmi:id="afo_type_afo_bVa6R1WjEee4QdkqvzimmQ_1497954606052" nom_instance="afo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciAS-FaulAirZone_bVa6SFWjEee4QdkqvzimmQ_1497954606052" nom_instance="dciBTBP-BbUvolt" label="&amp;dciBTBP-BbUvolt">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciAS-FaulAirZone_bVa6SFWjEee4QdkqvzimmQ_1497954606052" nom_instance="dciBTBP-BbUvolt" label="&amp;dciBTBP-BbUvolt">
     <DAC xmi:id="dac_type_dac_bVa6SVWjEee4QdkqvzimmQ_1497954606052" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -50,7 +50,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_bVa6W1WjEee4QdkqvzimmQ_1497954606052" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciAS-FaulAirZone_HYnC4FcqEee9rZFG5ogX9w_1498122405390" nom_instance="dciBTBP-BbOvolt" label="&amp;dciBTBP-BbOvolt">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciAS-FaulAirZone_HYnC4FcqEee9rZFG5ogX9w_1498122405390" nom_instance="dciBTBP-BbOvolt" label="&amp;dciBTBP-BbOvolt">
     <DAC xmi:id="dac_type_dac_HYnC4VcqEee9rZFG5ogX9w_1498122405390" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -83,7 +83,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_HYwz4lcqEee9rZFG5ogX9w_1498122405406" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciAS-FaulAirZone_HqfdEFcqEee9rZFG5ogX9w_1498122407265" nom_instance="dciBTBP-BbGPFSt1" label="&amp;dciBTBP-BbGPFSt1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciAS-FaulAirZone_HqfdEFcqEee9rZFG5ogX9w_1498122407265" nom_instance="dciBTBP-BbGPFSt1" label="&amp;dciBTBP-BbGPFSt1">
     <DAC xmi:id="dac_type_dac_HqfdEVcqEee9rZFG5ogX9w_1498122407265" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -116,7 +116,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_HqfdI1cqEee9rZFG5ogX9w_1498122407265" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciAS-FaulAirZone_IrhcQFcqEee9rZFG5ogX9w_1498122414084" nom_instance="dciBTBP-BbGPFSt2" label="&amp;dciBTBP-BbGPFSt2">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciAS-FaulAirZone_IrhcQFcqEee9rZFG5ogX9w_1498122414084" nom_instance="dciBTBP-BbGPFSt2" label="&amp;dciBTBP-BbGPFSt2">
     <DAC xmi:id="dac_type_dac_IrhcQVcqEee9rZFG5ogX9w_1498122414084" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -149,7 +149,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_IrhcU1cqEee9rZFG5ogX9w_1498122414084" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciAS-FaulAirZone_IyEwMFcqEee9rZFG5ogX9w_1498122414771" nom_instance="dciBTBP-BbUvoltRF" label="&amp;dciBTBP-BbUvoltRF">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciAS-FaulAirZone_IyEwMFcqEee9rZFG5ogX9w_1498122414771" nom_instance="dciBTBP-BbUvoltRF" label="&amp;dciBTBP-BbUvoltRF">
     <DAC xmi:id="dac_type_dac_IyEwMVcqEee9rZFG5ogX9w_1498122414771" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>

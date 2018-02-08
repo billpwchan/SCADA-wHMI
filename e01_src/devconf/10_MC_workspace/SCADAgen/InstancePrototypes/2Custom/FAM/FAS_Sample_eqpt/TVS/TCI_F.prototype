@@ -13,7 +13,7 @@
     </AAC>
     <AFO xmi:id="afo_type_afo_XbnUkVWfEee4QdkqvzimmQ_1497952861871" nom_instance="afo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTVF-AlaGeneral_XbnUw1WfEee4QdkqvzimmQ_1497952861871" nom_instance="dciTCI_F-FbIccMode" label="&amp;dciTCI_F-FbIccMode">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTVF-AlaGeneral_XbnUw1WfEee4QdkqvzimmQ_1497952861871" nom_instance="dciTCI_F-FbIccMode" label="&amp;dciTCI_F-FbIccMode">
     <DAC xmi:id="dac_type_dac_XbnUxFWfEee4QdkqvzimmQ_1497952861871" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_XbnUxVWfEee4QdkqvzimmQ_1497952861871"/>
       <veTable xmi:id="struct_veTable_dac_type_XbnUxlWfEee4QdkqvzimmQ_1497952861871"/>
@@ -42,7 +42,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_XbnU1lWfEee4QdkqvzimmQ_1497952861871" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTCI_F-FbIccMode_1tldoFWfEee4QdkqvzimmQ_1497953065082" nom_instance="dciTCI_F-FbIndivMode" label="&amp;dciTCI_F-FbIndivMode">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTCI_F-FbIccMode_1tldoFWfEee4QdkqvzimmQ_1497953065082" nom_instance="dciTCI_F-FbIndivMode" label="&amp;dciTCI_F-FbIndivMode">
     <DAC xmi:id="dac_type_dac_1tldoVWfEee4QdkqvzimmQ_1497953065082" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_1tldolWfEee4QdkqvzimmQ_1497953065082"/>
       <veTable xmi:id="struct_veTable_dac_type_1tldo1WfEee4QdkqvzimmQ_1497953065082"/>
@@ -71,7 +71,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_1tlds1WfEee4QdkqvzimmQ_1497953065082" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTCI_F-FbIccMode_159FsFWfEee4QdkqvzimmQ_1497953066379" nom_instance="dciTCI_F-FbLscpMode" label="&amp;dciTCI_F-FbLscpMode">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTCI_F-FbIccMode_159FsFWfEee4QdkqvzimmQ_1497953066379" nom_instance="dciTCI_F-FbLscpMode" label="&amp;dciTCI_F-FbLscpMode">
     <DAC xmi:id="dac_type_dac_159FsVWfEee4QdkqvzimmQ_1497953066379" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_159FslWfEee4QdkqvzimmQ_1497953066379"/>
       <veTable xmi:id="struct_veTable_dac_type_159Fs1WfEee4QdkqvzimmQ_1497953066379"/>
@@ -100,7 +100,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_159Fw1WfEee4QdkqvzimmQ_1497953066379" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTCI_F-FbIccMode_2QhLkFWfEee4QdkqvzimmQ_1497953068745" nom_instance="dciTCI_F-FbLpcpMode" label="&amp;dciTCI_F-FbLpcpMode">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTCI_F-FbIccMode_2QhLkFWfEee4QdkqvzimmQ_1497953068745" nom_instance="dciTCI_F-FbLpcpMode" label="&amp;dciTCI_F-FbLpcpMode">
     <DAC xmi:id="dac_type_dac_2QhLkVWfEee4QdkqvzimmQ_1497953068745" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_2QhLklWfEee4QdkqvzimmQ_1497953068745"/>
       <veTable xmi:id="struct_veTable_dac_type_2QhLk1WfEee4QdkqvzimmQ_1497953068745"/>
@@ -129,7 +129,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_2QhLo1WfEee4QdkqvzimmQ_1497953068745" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTCI_F-FbIccMode_2j4zgFWfEee4QdkqvzimmQ_1497953070776" nom_instance="dciTCI_F-FbEcpMode" label="&amp;dciTCI_F-FbEcpMode">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTCI_F-FbIccMode_2j4zgFWfEee4QdkqvzimmQ_1497953070776" nom_instance="dciTCI_F-FbEcpMode" label="&amp;dciTCI_F-FbEcpMode">
     <DAC xmi:id="dac_type_dac_2j4zgVWfEee4QdkqvzimmQ_1497953070776" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_2j4zglWfEee4QdkqvzimmQ_1497953070776"/>
       <veTable xmi:id="struct_veTable_dac_type_2j4zg1WfEee4QdkqvzimmQ_1497953070776"/>

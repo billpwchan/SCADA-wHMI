@@ -40,7 +40,7 @@
     </AAC>
     <AFO xmi:id="afo_type_afo_itXkWFWZEee4QdkqvzimmQ_1497950360572" nom_instance="afo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTAHU-Running_itXkWVWZEee4QdkqvzimmQ_1497950360572" nom_instance="dciTAHU_M-AlaGeneral" label="&amp;dciTAHU_M-AlaGeneral" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTAHU-Running_itXkWVWZEee4QdkqvzimmQ_1497950360572" nom_instance="dciTAHU_M-AlaGeneral" label="&amp;dciTAHU_M-AlaGeneral" initValue="1">
     <DAC xmi:id="dac_type_dac_itXkWlWZEee4QdkqvzimmQ_1497950360572" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_itXkW1WZEee4QdkqvzimmQ_1497950360572"/>
       <veTable xmi:id="struct_veTable_dac_type_itXkXFWZEee4QdkqvzimmQ_1497950360572"/>
@@ -69,7 +69,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_itXkbFWZEee4QdkqvzimmQ_1497950360572" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTAHU_M-AlaGeneral_Rt9m4FWaEee4QdkqvzimmQ_1497950676046" nom_instance="dciTAHU_M-AlaTempDeBear" label="&amp;dciTAHU_M-AlaTempDeBear" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTAHU_M-AlaGeneral_Rt9m4FWaEee4QdkqvzimmQ_1497950676046" nom_instance="dciTAHU_M-AlaTempDeBear" label="&amp;dciTAHU_M-AlaTempDeBear" initValue="1">
     <DAC xmi:id="dac_type_dac_Rt9m4VWaEee4QdkqvzimmQ_1497950676046" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_Rt9m4lWaEee4QdkqvzimmQ_1497950676046"/>
       <veTable xmi:id="struct_veTable_dac_type_Rt9m41WaEee4QdkqvzimmQ_1497950676046"/>
@@ -98,7 +98,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_Rt9m81WaEee4QdkqvzimmQ_1497950676046" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTAHU_M-AlaGeneral_SGZVAFWaEee4QdkqvzimmQ_1497950678608" nom_instance="dciTAHU_M-AlaTempNdeBear" label="&amp;dciTAHU_M-AlaTempNdeBear" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTAHU_M-AlaGeneral_SGZVAFWaEee4QdkqvzimmQ_1497950678608" nom_instance="dciTAHU_M-AlaTempNdeBear" label="&amp;dciTAHU_M-AlaTempNdeBear" initValue="1">
     <DAC xmi:id="dac_type_dac_SGZVAVWaEee4QdkqvzimmQ_1497950678608" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_SGZVAlWaEee4QdkqvzimmQ_1497950678608"/>
       <veTable xmi:id="struct_veTable_dac_type_SGZVA1WaEee4QdkqvzimmQ_1497950678608"/>
@@ -127,7 +127,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_SGZVE1WaEee4QdkqvzimmQ_1497950678608" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTAHU_M-AlaGeneral_SWyhcFWaEee4QdkqvzimmQ_1497950680327" nom_instance="dciTAHU_M-AlaVibration" label="&amp;dciTAHU_M-AlaVibration" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTAHU_M-AlaGeneral_SWyhcFWaEee4QdkqvzimmQ_1497950680327" nom_instance="dciTAHU_M-AlaVibration" label="&amp;dciTAHU_M-AlaVibration" initValue="1">
     <DAC xmi:id="dac_type_dac_SWyhcVWaEee4QdkqvzimmQ_1497950680327" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_SWyhclWaEee4QdkqvzimmQ_1497950680327"/>
       <veTable xmi:id="struct_veTable_dac_type_SWyhc1WaEee4QdkqvzimmQ_1497950680327"/>
@@ -156,7 +156,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_SWyhg1WaEee4QdkqvzimmQ_1497950680327" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTAHU_M-AlaGeneral_SgLG8FWaEee4QdkqvzimmQ_1497950681311" nom_instance="dciTAHU_M-AlaTempWind" label="&amp;dciTAHU_M-AlaTempWind" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTAHU_M-AlaGeneral_SgLG8FWaEee4QdkqvzimmQ_1497950681311" nom_instance="dciTAHU_M-AlaTempWind" label="&amp;dciTAHU_M-AlaTempWind" initValue="1">
     <DAC xmi:id="dac_type_dac_SgLG8VWaEee4QdkqvzimmQ_1497950681311" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_SgLG8lWaEee4QdkqvzimmQ_1497950681311"/>
       <veTable xmi:id="struct_veTable_dac_type_SgLG81WaEee4QdkqvzimmQ_1497950681311"/>
@@ -185,7 +185,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_SgLHA1WaEee4QdkqvzimmQ_1497950681311" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTAHU_M-AlaGeneral_Sx6XMFWaEee4QdkqvzimmQ_1497950683171" nom_instance="dciTAHU_M-AlaSoftstarter" label="&amp;dciTAHU_M-AlaSoftstarter" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTAHU_M-AlaGeneral_Sx6XMFWaEee4QdkqvzimmQ_1497950683171" nom_instance="dciTAHU_M-AlaSoftstarter" label="&amp;dciTAHU_M-AlaSoftstarter" initValue="1">
     <DAC xmi:id="dac_type_dac_Sx6XMVWaEee4QdkqvzimmQ_1497950683171" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_Sx6XMlWaEee4QdkqvzimmQ_1497950683171"/>
       <veTable xmi:id="struct_veTable_dac_type_Sx6XM1WaEee4QdkqvzimmQ_1497950683171"/>
@@ -214,7 +214,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_SyDhJlWaEee4QdkqvzimmQ_1497950683186" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTAHU_M-AlaGeneral_S6jV0FWaEee4QdkqvzimmQ_1497950684077" nom_instance="dciTAHU_M-WarGeneral" label="&amp;dciTAHU_M-WarGeneral">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTAHU_M-AlaGeneral_S6jV0FWaEee4QdkqvzimmQ_1497950684077" nom_instance="dciTAHU_M-WarGeneral" label="&amp;dciTAHU_M-WarGeneral">
     <DAC xmi:id="dac_type_dac_S6jV0VWaEee4QdkqvzimmQ_1497950684077" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_S6jV0lWaEee4QdkqvzimmQ_1497950684077"/>
       <veTable xmi:id="struct_veTable_dac_type_S6jV01WaEee4QdkqvzimmQ_1497950684077"/>
@@ -243,7 +243,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_S6jV41WaEee4QdkqvzimmQ_1497950684077" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTAHU_M-WarGeneral_v5YKsFWcEee4QdkqvzimmQ_1497951737563" nom_instance="dciTAHU_M-WarTempDeBear" label="&amp;dciTAHU_M-WarTempDeBear">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTAHU_M-WarGeneral_v5YKsFWcEee4QdkqvzimmQ_1497951737563" nom_instance="dciTAHU_M-WarTempDeBear" label="&amp;dciTAHU_M-WarTempDeBear">
     <DAC xmi:id="dac_type_dac_v5YKsVWcEee4QdkqvzimmQ_1497951737563" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_v5YKslWcEee4QdkqvzimmQ_1497951737563"/>
       <veTable xmi:id="struct_veTable_dac_type_v5YKs1WcEee4QdkqvzimmQ_1497951737563"/>
@@ -272,7 +272,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_v5YKw1WcEee4QdkqvzimmQ_1497951737563" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTAHU_M-WarTempDeBear_0dw74FWcEee4QdkqvzimmQ_1497951768222" nom_instance="dciTAHU_M-WarTempNdeBear" label="&amp;dciTAHU_M-WarTempNdeBear">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTAHU_M-WarTempDeBear_0dw74FWcEee4QdkqvzimmQ_1497951768222" nom_instance="dciTAHU_M-WarTempNdeBear" label="&amp;dciTAHU_M-WarTempNdeBear">
     <DAC xmi:id="dac_type_dac_0dw74VWcEee4QdkqvzimmQ_1497951768222" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_0dw74lWcEee4QdkqvzimmQ_1497951768222"/>
       <veTable xmi:id="struct_veTable_dac_type_0dw741WcEee4QdkqvzimmQ_1497951768222"/>
@@ -301,7 +301,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_0dw781WcEee4QdkqvzimmQ_1497951768222" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTAHU_M-WarTempNdeBear_4lXDYFWcEee4QdkqvzimmQ_1497951795862" nom_instance="dciTAHU_M-WarVibration" label="&amp;dciTAHU_M-WarVibration">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTAHU_M-WarTempNdeBear_4lXDYFWcEee4QdkqvzimmQ_1497951795862" nom_instance="dciTAHU_M-WarVibration" label="&amp;dciTAHU_M-WarVibration">
     <DAC xmi:id="dac_type_dac_4lXDYVWcEee4QdkqvzimmQ_1497951795862" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_4lXDYlWcEee4QdkqvzimmQ_1497951795862"/>
       <veTable xmi:id="struct_veTable_dac_type_4lXDY1WcEee4QdkqvzimmQ_1497951795862"/>
@@ -330,7 +330,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_4lXDc1WcEee4QdkqvzimmQ_1497951795862" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTAHU_M-WarVibration_7VkhMFWcEee4QdkqvzimmQ_1497951814339" nom_instance="dciTAHU_M-WarHeater" label="&amp;dciTAHU_M-WarHeater">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTAHU_M-WarVibration_7VkhMFWcEee4QdkqvzimmQ_1497951814339" nom_instance="dciTAHU_M-WarHeater" label="&amp;dciTAHU_M-WarHeater">
     <DAC xmi:id="dac_type_dac_7VkhMVWcEee4QdkqvzimmQ_1497951814339" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_7VkhMlWcEee4QdkqvzimmQ_1497951814339"/>
       <veTable xmi:id="struct_veTable_dac_type_7VkhM1WcEee4QdkqvzimmQ_1497951814339"/>
@@ -359,7 +359,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_7VkhQ1WcEee4QdkqvzimmQ_1497951814339" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTAHU_M-WarHeater_AjcUQFWdEee4QdkqvzimmQ_1497951849348" nom_instance="dciTAHU_M-WarPreFilter" label="&amp;dciTAHU_M-WarPreFilter">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTAHU_M-WarHeater_AjcUQFWdEee4QdkqvzimmQ_1497951849348" nom_instance="dciTAHU_M-WarPreFilter" label="&amp;dciTAHU_M-WarPreFilter">
     <DAC xmi:id="dac_type_dac_AjcUQVWdEee4QdkqvzimmQ_1497951849348" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_AjcUQlWdEee4QdkqvzimmQ_1497951849348"/>
       <veTable xmi:id="struct_veTable_dac_type_AjcUQ1WdEee4QdkqvzimmQ_1497951849348"/>
@@ -388,7 +388,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_AjcUU1WdEee4QdkqvzimmQ_1497951849348" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTAHU_M-WarPreFilter_CsxYQFWdEee4QdkqvzimmQ_1497951863748" nom_instance="dciTAHU_M-WarFilter" label="&amp;dciTAHU_M-WarFilter">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTAHU_M-WarPreFilter_CsxYQFWdEee4QdkqvzimmQ_1497951863748" nom_instance="dciTAHU_M-WarFilter" label="&amp;dciTAHU_M-WarFilter">
     <DAC xmi:id="dac_type_dac_CsxYQVWdEee4QdkqvzimmQ_1497951863748" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_CsxYQlWdEee4QdkqvzimmQ_1497951863748"/>
       <veTable xmi:id="struct_veTable_dac_type_CsxYQ1WdEee4QdkqvzimmQ_1497951863748"/>
@@ -417,7 +417,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_CsxYU1WdEee4QdkqvzimmQ_1497951863748" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTAHU_M-WarFilter_Gnux8FWdEee4QdkqvzimmQ_1497951890063" nom_instance="dciTAHU_M-RunningStatus" label="&amp;dciTAHU_M-RunningStatus">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTAHU_M-WarFilter_Gnux8FWdEee4QdkqvzimmQ_1497951890063" nom_instance="dciTAHU_M-RunningStatus" label="&amp;dciTAHU_M-RunningStatus">
     <DAC xmi:id="dac_type_dac_Gnux8VWdEee4QdkqvzimmQ_1497951890063" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_Gnux8lWdEee4QdkqvzimmQ_1497951890063"/>
       <veTable xmi:id="struct_veTable_dac_type_Gnux81WdEee4QdkqvzimmQ_1497951890063"/>
@@ -446,7 +446,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_GnuyA1WdEee4QdkqvzimmQ_1497951890063" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTAHU_M-WarFilter_HKbPUFWdEee4QdkqvzimmQ_1497951893701" nom_instance="dciTAHU_M-InterlockStatus" label="&amp;dciTAHU_M-InterlockStatus" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTAHU_M-WarFilter_HKbPUFWdEee4QdkqvzimmQ_1497951893701" nom_instance="dciTAHU_M-InterlockStatus" label="&amp;dciTAHU_M-InterlockStatus" initValue="1">
     <DAC xmi:id="dac_type_dac_HKbPUVWdEee4QdkqvzimmQ_1497951893701" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_HKbPUlWdEee4QdkqvzimmQ_1497951893701"/>
       <veTable xmi:id="struct_veTable_dac_type_HKbPU1WdEee4QdkqvzimmQ_1497951893701"/>

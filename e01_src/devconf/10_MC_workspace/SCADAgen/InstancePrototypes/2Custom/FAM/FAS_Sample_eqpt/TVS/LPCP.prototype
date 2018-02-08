@@ -4,7 +4,7 @@
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciDPLC-OpStatus_CcPkkVV_Eee4QdkqvzimmQ_1497938977113" nom_instance="dciLPCP-Mode" label="&amp;dciLPCP-Mode">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciDPLC-OpStatus_CcPkkVV_Eee4QdkqvzimmQ_1497938977113" nom_instance="dciLPCP-Mode" label="&amp;dciLPCP-Mode">
     <DAC xmi:id="dac_type_dac_CcPkklV_Eee4QdkqvzimmQ_1497938977113" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_CcPkk1V_Eee4QdkqvzimmQ_1497938977113"/>
       <veTable xmi:id="struct_veTable_dac_type_CcPklFV_Eee4QdkqvzimmQ_1497938977113"/>
@@ -33,7 +33,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_CcPkpFV_Eee4QdkqvzimmQ_1497938977113" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciDPLC-ComStatus_CcPkpVV_Eee4QdkqvzimmQ_1497938977113" nom_instance="dciLPCP-ModeSelection" label="&amp;dciLPCP-ModeSelection">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciDPLC-ComStatus_CcPkpVV_Eee4QdkqvzimmQ_1497938977113" nom_instance="dciLPCP-ModeSelection" label="&amp;dciLPCP-ModeSelection">
     <DAC xmi:id="dac_type_dac_CcPkplV_Eee4QdkqvzimmQ_1497938977113" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_CcPkp1V_Eee4QdkqvzimmQ_1497938977113"/>
       <veTable xmi:id="struct_veTable_dac_type_CcPkqFV_Eee4QdkqvzimmQ_1497938977113"/>
@@ -62,7 +62,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_CcPkuFV_Eee4QdkqvzimmQ_1497938977113" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciDPLC-PrimSecStatus_CcPkuVV_Eee4QdkqvzimmQ_1497938977113" nom_instance="dciLPCP-OperTube" label="&amp;dciLPCP-OperTube">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciDPLC-PrimSecStatus_CcPkuVV_Eee4QdkqvzimmQ_1497938977113" nom_instance="dciLPCP-OperTube" label="&amp;dciLPCP-OperTube">
     <DAC xmi:id="dac_type_dac_CcPkulV_Eee4QdkqvzimmQ_1497938977113" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_CcPku1V_Eee4QdkqvzimmQ_1497938977113"/>
       <veTable xmi:id="struct_veTable_dac_type_CcPkvFV_Eee4QdkqvzimmQ_1497938977113"/>
@@ -91,7 +91,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_CcPkzFV_Eee4QdkqvzimmQ_1497938977113" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciLPCPC-OperTube_QHgasFV_Eee4QdkqvzimmQ_1497939068891" nom_instance="dciLPCP-OperLocation" label="&amp;dciLPCP-OperLocation">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciLPCPC-OperTube_QHgasFV_Eee4QdkqvzimmQ_1497939068891" nom_instance="dciLPCP-OperLocation" label="&amp;dciLPCP-OperLocation">
     <DAC xmi:id="dac_type_dac_QHgasVV_Eee4QdkqvzimmQ_1497939068891" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_QHgaslV_Eee4QdkqvzimmQ_1497939068891"/>
       <veTable xmi:id="struct_veTable_dac_type_QHgas1V_Eee4QdkqvzimmQ_1497939068891"/>

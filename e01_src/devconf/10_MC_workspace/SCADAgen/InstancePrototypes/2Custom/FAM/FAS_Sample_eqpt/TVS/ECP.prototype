@@ -8,7 +8,7 @@
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciLSCP-Mode_AsDR8VWCEee4QdkqvzimmQ_1497940253839" nom_instance="dciECP-Mode" label="&amp;dciECP-Mode" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciLSCP-Mode_AsDR8VWCEee4QdkqvzimmQ_1497940253839" nom_instance="dciECP-Mode" label="&amp;dciECP-Mode" initValue="1">
     <DAC xmi:id="dac_type_dac_AsDR8lWCEee4QdkqvzimmQ_1497940253839" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_AsDR81WCEee4QdkqvzimmQ_1497940253839"/>
       <veTable xmi:id="struct_veTable_dac_type_AsDR9FWCEee4QdkqvzimmQ_1497940253839"/>
@@ -37,7 +37,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_AsDSBFWCEee4QdkqvzimmQ_1497940253839" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciLSCP-OperTube_AsDSBVWCEee4QdkqvzimmQ_1497940253839" nom_instance="dciECP-OperTube" label="&amp;dciECP-OperTube" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciLSCP-OperTube_AsDSBVWCEee4QdkqvzimmQ_1497940253839" nom_instance="dciECP-OperTube" label="&amp;dciECP-OperTube" initValue="1">
     <DAC xmi:id="dac_type_dac_AsDSBlWCEee4QdkqvzimmQ_1497940253839" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_AsDSB1WCEee4QdkqvzimmQ_1497940253839"/>
       <veTable xmi:id="struct_veTable_dac_type_AsDSCFWCEee4QdkqvzimmQ_1497940253839"/>
@@ -66,7 +66,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_AsDSGFWCEee4QdkqvzimmQ_1497940253839" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciLSCP-OperLocation_AsDSGVWCEee4QdkqvzimmQ_1497940253839" nom_instance="dciECP-OperLocation" label="&amp;dciECP-OperLocation" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciLSCP-OperLocation_AsDSGVWCEee4QdkqvzimmQ_1497940253839" nom_instance="dciECP-OperLocation" label="&amp;dciECP-OperLocation" initValue="1">
     <DAC xmi:id="dac_type_dac_AsDSGlWCEee4QdkqvzimmQ_1497940253839" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_AsDSG1WCEee4QdkqvzimmQ_1497940253839"/>
       <veTable xmi:id="struct_veTable_dac_type_AsDSHFWCEee4QdkqvzimmQ_1497940253839"/>

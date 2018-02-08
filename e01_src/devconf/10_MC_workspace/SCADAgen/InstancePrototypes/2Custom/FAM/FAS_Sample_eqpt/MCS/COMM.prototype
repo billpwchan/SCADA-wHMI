@@ -58,7 +58,7 @@
       <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc7_7zEeaDWYc-j7jl3Q_1488423361676"/>
     </DOV>
   </outputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciFAM-HDVSTATUS_xPxdEv7zEeaDWYc-j7jl3Q_1488423361676" nom_instance="dciMCS-COM" label="COM">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciFAM-HDVSTATUS_xPxdEv7zEeaDWYc-j7jl3Q_1488423361676" nom_instance="dciMCS-COM" label="COM">
     <DAC xmi:id="dac_type_dac_xPxdE_7zEeaDWYc-j7jl3Q_1488423361676" nom_instance="dac">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -91,7 +91,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_xPxdJf7zEeaDWYc-j7jl3Q_1488423361676" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciCOMM-COM_3rwzUP70EeaDWYc-j7jl3Q_1488423834373" nom_instance="dciMCS-INF" label="INF">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciCOMM-COM_3rwzUP70EeaDWYc-j7jl3Q_1488423834373" nom_instance="dciMCS-INF" label="INF">
     <DAC xmi:id="dac_type_dac_3rwzUf70EeaDWYc-j7jl3Q_1488423834373" nom_instance="dac">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -124,7 +124,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_3rwzY_70EeaDWYc-j7jl3Q_1488423834373" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciCOMM-COM_4QqQIP70EeaDWYc-j7jl3Q_1488423838242" nom_instance="dciMCS-LINK1" label="LINK1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciCOMM-COM_4QqQIP70EeaDWYc-j7jl3Q_1488423838242" nom_instance="dciMCS-LINK1" label="LINK1">
     <DAC xmi:id="dac_type_dac_4QqQIf70EeaDWYc-j7jl3Q_1488423838242" nom_instance="dac">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -157,7 +157,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_4QqQM_70EeaDWYc-j7jl3Q_1488423838242" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMCS-LINK1_2EelEP73EeaDWYc-j7jl3Q_1488425112033" nom_instance="dciMCS-LINK2" label="LINK2">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMCS-LINK1_2EelEP73EeaDWYc-j7jl3Q_1488425112033" nom_instance="dciMCS-LINK2" label="LINK2">
     <DAC xmi:id="dac_type_dac_2EelEf73EeaDWYc-j7jl3Q_1488425112033" nom_instance="dac">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -190,7 +190,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_2EelI_73EeaDWYc-j7jl3Q_1488425112033" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMCS-LINK1_2TNkoP73EeaDWYc-j7jl3Q_1488425113578" nom_instance="dciMCS-LINK3" label="LINK3">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMCS-LINK1_2TNkoP73EeaDWYc-j7jl3Q_1488425113578" nom_instance="dciMCS-LINK3" label="LINK3">
     <DAC xmi:id="dac_type_dac_2TNkof73EeaDWYc-j7jl3Q_1488425113578" nom_instance="dac">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -223,7 +223,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_2TNks_73EeaDWYc-j7jl3Q_1488425113578" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMCS-LINK1_2p0t0P73EeaDWYc-j7jl3Q_1488425115949" nom_instance="dciMCS-LINK4" label="LINK4">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMCS-LINK1_2p0t0P73EeaDWYc-j7jl3Q_1488425115949" nom_instance="dciMCS-LINK4" label="LINK4">
     <DAC xmi:id="dac_type_dac_2p0t0f73EeaDWYc-j7jl3Q_1488425115949" nom_instance="dac">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>

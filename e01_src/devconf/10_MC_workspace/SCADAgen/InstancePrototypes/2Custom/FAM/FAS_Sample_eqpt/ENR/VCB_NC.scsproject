@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="21">
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="24">
   <ownedPrototype id="BasicEquipment_VCB_NC_NGyRUFWjEee4QdkqvzimmQ_1497954510565">
     <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_VCB_NC_NGyRUFWjEee4QdkqvzimmQ_1497954510565"/>
     <ownedAttributes name="label" partialUri="BasicEquipment_VCB_NC_NGyRUFWjEee4QdkqvzimmQ_1497954510565"/>

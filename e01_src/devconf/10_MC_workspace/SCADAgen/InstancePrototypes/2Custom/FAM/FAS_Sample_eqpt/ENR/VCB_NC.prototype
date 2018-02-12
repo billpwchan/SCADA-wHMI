@@ -40,8 +40,8 @@
       <retCondTable xmi:id="struct_retCondTable_dpc_com_O1edLVcqEee9rZFG5ogX9w_1498122455393"/>
     </DOV>
   </outputs>
-  <outputs xsi:type="OUTPUT_VAR:dio_type" xmi:id="dio_type_dioVCB_NC-CmdOpen_2LJb4FcqEee9rZFG5ogX9w_1498122719390" nom_instance="dioVCB_NC-CmdExeClose" label="&amp;dioVCB_NC-CmdExeClose">
-    <valueTable xmi:id="struct_valueTable_dio_type_2LJb4VcqEee9rZFG5ogX9w_1498122719390" dovname="dovVCB_NC-Close" label="&amp;dovVCB_NC-Close" value="1"/>
+  <outputs xsi:type="OUTPUT_VAR:dio_type" xmi:id="dio_type_dioVCB_NC-CmdOpen_2LJb4FcqEee9rZFG5ogX9w_1498122719390" nom_instance="dioVCB_NC-CmdExeClo" label="&amp;dioVCB_NC-CmdExeClo">
+    <valueTable xmi:id="struct_valueTable_dio_type_2LJb4VcqEee9rZFG5ogX9w_1498122719390" dovname="dov" label="&amp;dovVCB_NC-Close" value="1"/>
     <valueTable xmi:id="struct_valueTable_dio_type_2LJb4lcqEee9rZFG5ogX9w_1498122719390"/>
     <valueTable xmi:id="struct_valueTable_dio_type_2LJb41cqEee9rZFG5ogX9w_1498122719390"/>
     <valueTable xmi:id="struct_valueTable_dio_type_2LJb5FcqEee9rZFG5ogX9w_1498122719390"/>
@@ -53,7 +53,7 @@
     <valueTable xmi:id="struct_valueTable_dio_type_2LJb6lcqEee9rZFG5ogX9w_1498122719390"/>
     <valueTable xmi:id="struct_valueTable_dio_type_2LJb61cqEee9rZFG5ogX9w_1498122719390"/>
     <valueTable xmi:id="struct_valueTable_dio_type_2LJb7FcqEee9rZFG5ogX9w_1498122719390"/>
-    <DOV xmi:id="dov_type_dovVCB_NC-CmdExeClose-Close_y6ewAINWEeevN_isMe_qRg_1502979446528" nom_instance="dovVCB_NC-Close" ctlvalue="8193">
+    <DOV xmi:id="dov_type_dovVCB_NC-CmdExeClose-Close_y6ewAINWEeevN_isMe_qRg_1502979446528" nom_instance="dov" ctlvalue="8193">
       <initCondTable xmi:id="struct_initCondTable_dpc_com_y6ewAYNWEeevN_isMe_qRg_1502979446528"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_y6ewAoNWEeevN_isMe_qRg_1502979446528"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_y6ewA4NWEeevN_isMe_qRg_1502979446528"/>
@@ -72,8 +72,8 @@
       <retCondTable xmi:id="struct_retCondTable_dpc_com_y6ewEINWEeevN_isMe_qRg_1502979446528"/>
     </DOV>
   </outputs>
-  <outputs xsi:type="OUTPUT_VAR:dio_type" xmi:id="dio_type_dioVCB_NC-CmdOpen_2d6m4FcqEee9rZFG5ogX9w_1498122721358" nom_instance="dioVCB_NC-CmdSelClose" label="&amp;dioVCB_NC-CmdSelClose">
-    <valueTable xmi:id="struct_valueTable_dio_type_2d6m4VcqEee9rZFG5ogX9w_1498122721358" dovname="dovVCB_NC-CloseCfm" label="&amp;dovVCB_NC-CloseCfm" value="1"/>
+  <outputs xsi:type="OUTPUT_VAR:dio_type" xmi:id="dio_type_dioVCB_NC-CmdOpen_2d6m4FcqEee9rZFG5ogX9w_1498122721358" nom_instance="dioVCB_NC-CmdSelClo" label="&amp;dioVCB_NC-CmdSelCl">
+    <valueTable xmi:id="struct_valueTable_dio_type_2d6m4VcqEee9rZFG5ogX9w_1498122721358" dovname="dov" label="&amp;dovVCB_NC-CloseCfm" value="1"/>
     <valueTable xmi:id="struct_valueTable_dio_type_2d6m4lcqEee9rZFG5ogX9w_1498122721358"/>
     <valueTable xmi:id="struct_valueTable_dio_type_2d6m41cqEee9rZFG5ogX9w_1498122721358"/>
     <valueTable xmi:id="struct_valueTable_dio_type_2d6m5FcqEee9rZFG5ogX9w_1498122721358"/>
@@ -85,7 +85,7 @@
     <valueTable xmi:id="struct_valueTable_dio_type_2d6m6lcqEee9rZFG5ogX9w_1498122721358"/>
     <valueTable xmi:id="struct_valueTable_dio_type_2d6m61cqEee9rZFG5ogX9w_1498122721358"/>
     <valueTable xmi:id="struct_valueTable_dio_type_2d6m7FcqEee9rZFG5ogX9w_1498122721358"/>
-    <DOV xmi:id="dov_type_dovJZR-OpJzrStartFw-ForwardCmd_2d6m7VcqEee9rZFG5ogX9w_1498122721358" nom_instance="dovVCB_NC-CloseCfm" ctlvalue="16385">
+    <DOV xmi:id="dov_type_dovJZR-OpJzrStartFw-ForwardCmd_2d6m7VcqEee9rZFG5ogX9w_1498122721358" nom_instance="dov" ctlvalue="16385">
       <initCondTable xmi:id="struct_initCondTable_dpc_com_2d6m7lcqEee9rZFG5ogX9w_1498122721358"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_2d6m71cqEee9rZFG5ogX9w_1498122721358"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_2d6m8FcqEee9rZFG5ogX9w_1498122721358"/>
@@ -203,7 +203,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_MOGyQ1cqEee9rZFG5ogX9w_1498122437843" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciAS-FaulAirZone_MTwuQFcqEee9rZFG5ogX9w_1498122438436" nom_instance="dciVCB_NC-AckSelClose" label="&amp;dciVCB_NC-AckSelClose">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciAS-FaulAirZone_MTwuQFcqEee9rZFG5ogX9w_1498122438436" nom_instance="dciVCB_NC-AckSelClo" label="&amp;dciVCB_NC-AckSelClo">
     <DAC xmi:id="dac_type_dac_MTwuQVcqEee9rZFG5ogX9w_1498122438436" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -236,7 +236,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_MTwuU1cqEee9rZFG5ogX9w_1498122438436" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciAS-FaulAirZone_MY1bgFcqEee9rZFG5ogX9w_1498122438983" nom_instance="dciVCB_NC-AckExeClose" label="&amp;dciVCB_NC-AckExeClose">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciAS-FaulAirZone_MY1bgFcqEee9rZFG5ogX9w_1498122438983" nom_instance="dciVCB_NC-AckExeClo" label="&amp;dciVCB_NC-AckExeClo">
     <DAC xmi:id="dac_type_dac_MY-lcFcqEee9rZFG5ogX9w_1498122438983" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>

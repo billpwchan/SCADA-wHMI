@@ -4,7 +4,7 @@
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciLPCP-Mode_Qezq8VWAEee4QdkqvzimmQ_1497939500831" nom_instance="dciLSCP-Mode" label="&amp;dciLSCP-Mode">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciLPCP-Mode_Qezq8VWAEee4QdkqvzimmQ_1497939500831" nom_instance="dciLSCP-Mode" label="&amp;dciLSCP-Mode">
     <DAC xmi:id="dac_type_dac_Qezq8lWAEee4QdkqvzimmQ_1497939500831" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_Qezq81WAEee4QdkqvzimmQ_1497939500831"/>
       <veTable xmi:id="struct_veTable_dac_type_Qezq9FWAEee4QdkqvzimmQ_1497939500831"/>
@@ -33,7 +33,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_QezrBFWAEee4QdkqvzimmQ_1497939500831" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciLPCP-OperTube_QezrGVWAEee4QdkqvzimmQ_1497939500831" nom_instance="dciLSCP-OperTube" label="&amp;dciLSCP-OperTube">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciLPCP-OperTube_QezrGVWAEee4QdkqvzimmQ_1497939500831" nom_instance="dciLSCP-OperTube" label="&amp;dciLSCP-OperTube">
     <DAC xmi:id="dac_type_dac_QezrGlWAEee4QdkqvzimmQ_1497939500831" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_QezrG1WAEee4QdkqvzimmQ_1497939500831"/>
       <veTable xmi:id="struct_veTable_dac_type_QezrHFWAEee4QdkqvzimmQ_1497939500831"/>
@@ -62,7 +62,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_QezrLFWAEee4QdkqvzimmQ_1497939500831" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciLPCP-OperLocation_QezrLVWAEee4QdkqvzimmQ_1497939500831" nom_instance="dciLSCP-OperLocation" label="&amp;dciLSCP-OperLocation">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciLPCP-OperLocation_QezrLVWAEee4QdkqvzimmQ_1497939500831" nom_instance="dciLSCP-OperLocation" label="&amp;dciLSCP-OperLocation">
     <DAC xmi:id="dac_type_dac_QezrLlWAEee4QdkqvzimmQ_1497939500831" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_QezrL1WAEee4QdkqvzimmQ_1497939500831"/>
       <veTable xmi:id="struct_veTable_dac_type_QezrMFWAEee4QdkqvzimmQ_1497939500831"/>

@@ -13,7 +13,7 @@
     </AAC>
     <AFO xmi:id="afo_type_afo_Cg5Qt1WjEee4QdkqvzimmQ_1497954439483" nom_instance="afo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciAS-FaulAirZone_Cg5QuFWjEee4QdkqvzimmQ_1497954439483" nom_instance="dciINF-GasPFault1" label="&amp;dciINF-GasPFault1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciAS-FaulAirZone_Cg5QuFWjEee4QdkqvzimmQ_1497954439483" nom_instance="dciINF-GasPFault1" label="&amp;dciINF-GasPFault1">
     <DAC xmi:id="dac_type_dac_Cg5QuVWjEee4QdkqvzimmQ_1497954439483" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_Cg5QulWjEee4QdkqvzimmQ_1497954439483"/>
       <veTable xmi:id="struct_veTable_dac_type_Cg5Qu1WjEee4QdkqvzimmQ_1497954439483"/>
@@ -42,7 +42,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_Cg5Qy1WjEee4QdkqvzimmQ_1497954439483" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciAS-FaulAirZone_KCP-oFcqEee9rZFG5ogX9w_1498122423178" nom_instance="dciINF-GasPFault2" label="&amp;dciINF-GasPFault2">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciAS-FaulAirZone_KCP-oFcqEee9rZFG5ogX9w_1498122423178" nom_instance="dciINF-GasPFault2" label="&amp;dciINF-GasPFault2">
     <DAC xmi:id="dac_type_dac_KCP-oVcqEee9rZFG5ogX9w_1498122423178" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_KCP-olcqEee9rZFG5ogX9w_1498122423178"/>
       <veTable xmi:id="struct_veTable_dac_type_KCP-o1cqEee9rZFG5ogX9w_1498122423178"/>
@@ -71,7 +71,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_KCP-s1cqEee9rZFG5ogX9w_1498122423178" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciAS-FaulAirZone_KRvzMFcqEee9rZFG5ogX9w_1498122424803" nom_instance="dciINF-PilotWS" label="&amp;dciINF-PilotWS">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciAS-FaulAirZone_KRvzMFcqEee9rZFG5ogX9w_1498122424803" nom_instance="dciINF-PilotWS" label="&amp;dciINF-PilotWS">
     <DAC xmi:id="dac_type_dac_KRvzMVcqEee9rZFG5ogX9w_1498122424803" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_KRvzMlcqEee9rZFG5ogX9w_1498122424803"/>
       <veTable xmi:id="struct_veTable_dac_type_KRvzM1cqEee9rZFG5ogX9w_1498122424803"/>
@@ -100,7 +100,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_KRvzQ1cqEee9rZFG5ogX9w_1498122424803" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciAS-FaulAirZone_KYc4IFcqEee9rZFG5ogX9w_1498122425506" nom_instance="dciINF-PilotWPRF" label="&amp;dciINF-PilotWPRF">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciAS-FaulAirZone_KYc4IFcqEee9rZFG5ogX9w_1498122425506" nom_instance="dciINF-PilotWPRF" label="&amp;dciINF-PilotWPRF">
     <DAC xmi:id="dac_type_dac_KYc4IVcqEee9rZFG5ogX9w_1498122425506" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_KYc4IlcqEee9rZFG5ogX9w_1498122425506"/>
       <veTable xmi:id="struct_veTable_dac_type_KYc4I1cqEee9rZFG5ogX9w_1498122425506"/>

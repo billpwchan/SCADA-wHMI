@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="17">
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="24">
   <ownedPrototype id="BasicEquipment_VCB_NC_NGyRUFWjEee4QdkqvzimmQ_1497954510565">
     <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_VCB_NC_NGyRUFWjEee4QdkqvzimmQ_1497954510565"/>
     <ownedAttributes name="label" partialUri="BasicEquipment_VCB_NC_NGyRUFWjEee4QdkqvzimmQ_1497954510565"/>
@@ -65,6 +65,8 @@
     <ownedAttributes frozen="true" formula="IF([^:^.validSynthesis]>0,0,SWITCH([^:^:dciVCB_NC-Position.value]=1,1,[^:^:dciVCB_NC-Position.value]=0,2,3))+IF([^:^.validSynthesis]>0,0,IF([^:^.alarmSynthesis(2)]=1,100,0))" name="value" partialUri="Symbol_Symbol1_OaAZoYHKEeediJf1kzsT0Q_1502809120826"/>
     <ownedAttributes frozen="true" name="ctlvalue" partialUri="dov_type_dovVCB_NC-CmdExeClose-Close_y6ewAINWEeevN_isMe_qRg_1502979446528"/>
     <ownedAttributes frozen="true" formula="IF([^:^.tagStatus]=1,1,0)" name="initCond1" partialUri="dov_type_dovVCB_NC-CmdExeClose-Close_y6ewAINWEeevN_isMe_qRg_1502979446528"/>
+    <ownedAttributes frozen="true" formula="&#xa3;0" name="computedStatus" partialUri="dco_type_0MikoQyZEeihHpgWO0KHuA_1518071540714"/>
+    <ownedAttributes frozen="true" formula="&#xa3;0" name="computedValue" partialUri="dco_type_0MikoQyZEeihHpgWO0KHuA_1518071540714"/>
     <parentPrototypes>BasicEquipment_FasBasicEquipment_amMc8Y3vEeeCWf0xiOvNtA_1504144507967</parentPrototypes>
   </ownedPrototype>
 </scsproject:Project>

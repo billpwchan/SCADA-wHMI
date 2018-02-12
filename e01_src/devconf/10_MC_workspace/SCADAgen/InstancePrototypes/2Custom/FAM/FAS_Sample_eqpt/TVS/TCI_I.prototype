@@ -4,7 +4,7 @@
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTVF-InterlockStatus_hfKvy1WdEee4QdkqvzimmQ_1497952070359" nom_instance="dciTCI_I-ActivationCmd" label="&amp;dciTCI_I-ActivationCmd">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTVF-InterlockStatus_hfKvy1WdEee4QdkqvzimmQ_1497952070359" nom_instance="dciTCI_I-ActivationCmd" label="&amp;dciTCI_I-ActivationCmd">
     <DAC xmi:id="dac_type_dac_hfKvzFWdEee4QdkqvzimmQ_1497952070359" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_hfKvzVWdEee4QdkqvzimmQ_1497952070359"/>
       <veTable xmi:id="struct_veTable_dac_type_hfKvzlWdEee4QdkqvzimmQ_1497952070359"/>

@@ -8,7 +8,7 @@
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciFAM-HDVSTATUS_MB9xfwQZEee6u6rZKL4cCw_1488989188615" nom_instance="dciFAM-HDVSTATUS" label="&amp;dciFAM-HDVSTATUS">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciFAM-HDVSTATUS_MB9xfwQZEee6u6rZKL4cCw_1488989188615" nom_instance="dciFAM-HDVSTATUS" label="&amp;dciFAM-HDVSTATUS">
     <DAC xmi:id="dac_type_dac_MB9xgAQZEee6u6rZKL4cCw_1488989188616" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>

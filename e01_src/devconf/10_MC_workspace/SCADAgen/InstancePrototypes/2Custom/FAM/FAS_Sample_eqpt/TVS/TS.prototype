@@ -17,7 +17,7 @@
     </AAC>
     <AFO xmi:id="afo_type_afo_YBRw8VWgEee4QdkqvzimmQ_1497953295317" nom_instance="afo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTVF-InterlockStatus_YBbiU1WgEee4QdkqvzimmQ_1497953295333" nom_instance="dciTS-FaultSensZone" label="&amp;dciTS-FaultSensZone" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTVF-InterlockStatus_YBbiU1WgEee4QdkqvzimmQ_1497953295333" nom_instance="dciTS-FaultSensZone" label="&amp;dciTS-FaultSensZone" initValue="1">
     <DAC xmi:id="dac_type_dac_YBbiVFWgEee4QdkqvzimmQ_1497953295333" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_YBbiVVWgEee4QdkqvzimmQ_1497953295333"/>
       <veTable xmi:id="struct_veTable_dac_type_YBbiVlWgEee4QdkqvzimmQ_1497953295333"/>

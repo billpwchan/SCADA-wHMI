@@ -238,6 +238,8 @@ export class AdminComponent implements OnInit, OnDestroy {
       // Renew with No Conditions
       this.updateSteps = this.steps = [];
     }
+
+    this.updateStepButton();
   }
 
   private renewStep(connAddr: string, dbValue) {
@@ -436,8 +438,6 @@ export class AdminComponent implements OnInit, OnDestroy {
 
       // Renew Title
       this.updateTitle = card.name;
-
-      this.updateStepButton();
 
       // Reload conditions
       this.readConditions(this.env, card.index);

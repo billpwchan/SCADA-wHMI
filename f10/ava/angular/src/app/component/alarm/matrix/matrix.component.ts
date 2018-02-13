@@ -310,8 +310,8 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private getCellStr(data: number[][], x: number, y: number): string {
-    const f = 'getCellStr';
-    console.log(this.c, f);
+    // const f = 'getCellStr';
+    // console.log(this.c, f);
     let ret = '';
     if ( undefined !== data && undefined !== data[x] && undefined !== data[x][y] ) {
       for ( let i = 0 ; i < this.cfg.matrixes.length ; ++i ) {

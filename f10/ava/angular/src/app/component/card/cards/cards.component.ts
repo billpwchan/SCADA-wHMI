@@ -56,32 +56,6 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
   }
   @Output() onUpdatedCardSelection = new EventEmitter<number[]>();
 
-  @Input()
-  set refreshCards(cards: Card[]) {
-    const f = 'refreshCards';
-    console.log(this.c, f);
-
-    if ( null != cards ) {
-      for ( let i = 0 ; i < cards.length ; ++i ) {
-        const card = cards[i];
-        for ( let j = 0 ; j < this.updated.length ; ++j ) {
-          const orgCard: Card = this.updated[j];
-          if ( card.index === orgCard.index ) {
-            orgCard.name = card.name;
-            orgCard.state = card.state;
-            orgCard.status = card.status;
-          }
-        }
-      }
-      console.log(this.c, f, 'this.updated', this.updated);
-
-      this.reloadData(true);
-    } else {
-      console.warn(this.c, f, 'data IS INVALID');
-    }
-  }
-
-
   // Datatable
   @ViewChild('cardsDataTable') cardsDataTable: DatatableComponent;
 
@@ -90,6 +64,8 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
 
   // properties for ngx-datatable
   public messages = {};
+
+  private skipSelectedCardUpdate = false;
 
   constructor(
     private translate: TranslateService
@@ -138,65 +114,77 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private getStateStr(state: boolean): string {
-    const f = 'getStateStr';
-    console.log(this.c, f);
+    // const f = 'getStateStr';
+    // console.log(this.c, f);
     return ( state ? CardsSettings.STR_CARD_DG_STATE_ENABLED : CardsSettings.STR_CARD_DG_STATE_DISABLED );
   }
 
   private getStatusStr(status: boolean): string {
-    const f = 'getStatusStr';
-    console.log(this.c, f);
+    // const f = 'getStatusStr';
+    // console.log(this.c, f);
     return ( status ? CardsSettings.STR_CARD_DG_STATUS_TRIGGERED : CardsSettings.STR_CARD_DG_STATUS_NOT_TRIGGERED );
   }
 
-  private reloadData(refrashOnly: boolean = false) {
+  private reloadData(keepSelection: boolean = true) {
     const f = 'reloadData';
     console.log(this.c, f);
+    const selIds = [];
+    this.selected_card.forEach( (value, key) => {
+      selIds.push(value);
+    });
 
-    if ( ! refrashOnly ) {
-      this.rows_card.length = 0;
-
-      // Renew datatable from cards
-      this.updated.forEach(card => {
-        this.rows_card.push(
-          new DatatableCard(
-            String(card.index)
-            , card.name
-            , this.getStateStr(card.state)
-            , this.getStatusStr(card.status)
-            , new Date()
-          )
-        );
-      });
-    } else {
-      if ( null != this.updated && null != this.rows_card ) {
-        this.updated.forEach(card => {
-          if ( null != card ) {
-            for ( let i = 0 ; i < this.rows_card.length ; ++i ) {
-              const dtCard: DatatableCard = this.rows_card[i];
-              if ( Number(dtCard.index) === card.index ) {
-                dtCard.name = card.name;
-                dtCard.state = this.getStateStr(card.state);
-                dtCard.status = this.getStatusStr(card.status);
-                break;
-              }
-            }
-          }
-        });
-      }
+    if ( null == this.rows_card ) {
+      this.rows_card = [];
     }
 
-    this.rows_card = [...this.rows_card];
+    this.updated.forEach ( (item, index) => {
+      const orgItem = this.rows_card[index];
+      if ( null == orgItem ) {
+
+        this.rows_card[index] = new DatatableCard(
+          String(item.index)
+          , item.name
+          , this.getStateStr(item.state)
+          , this.getStatusStr(item.status)
+          , new Date()
+        );
+
+      } else {
+        const card = this.rows_card[index];
+        card.index = String(item.index);
+        card.name = item.name;
+        card.state = this.getStateStr(item.state);
+        card.status = this.getStatusStr(item.status);
+        card.updated = new Date();
+      }
+    });
+
+    if ( ! keepSelection ) {
+      this.rows_card = [...this.rows_card];
+    } else {
+      this.skipSelectedCardUpdate = true;
+      this.rows_card = [...this.rows_card];
+      this.selected_card = [];
+      selIds.forEach( (value1, key1) => {
+        this.rows_card.forEach( (item2, key2) => {
+          if ( item2.index === value1.index ) {
+            this.selected_card.push(item2);
+          }
+        });
+      });
+      this.skipSelectedCardUpdate = false;
+    }
   }
 
   private setSelectedCards(): void {
     const f = 'setSelectedCards';
-    const selectedCards: number[] = new Array<number>();
-    this.selected_card.forEach(item => {
-      console.log(this.c, f, 'item.index[' + item.index + ']');
-      selectedCards.push(Number(item.index));
-    });
-    this.onUpdatedCardSelection.emit(selectedCards);
+    // if ( ! this.skipSelectedCardUpdate ) {
+      const selCardIds: number[] = new Array<number>();
+      this.selected_card.forEach(item => {
+        selCardIds.push(Number(item.index));
+      });
+      this.onUpdatedCardSelection.emit(selCardIds);
+    // }
   }
 
   onRowSelect(name: string, event: Event) {

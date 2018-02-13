@@ -22,6 +22,17 @@ export class DbmMultiWriteAttrService {
 
   private httpMultiAccessSubscription: Subscription;
 
+  private threshold = 2000;
+  private encode = {'#': '%23', '&': '%26'};
+
+  setThreshold(threshold: number) {
+    this.threshold = threshold;
+  }
+
+  setEncode(encode) {
+    this.encode = encode;
+  }
+
   // Service command
   dbmChanged(res: HttpAccessResult) {
     const f = 'dbmChanged';
@@ -49,7 +60,7 @@ export class DbmMultiWriteAttrService {
 
   }
 
-  write(env: string, values, key: string, limit: number = 2000) {
+  write(env: string, values, key: string) {
     const f = 'write';
     console.log(this.c, f);
 
@@ -63,9 +74,20 @@ export class DbmMultiWriteAttrService {
       const addresses = {};
 
       let strLen = 0;
-      while ( strLen < limit && m < keysLen ) {
+      while ( strLen < this.threshold && m < keysLen ) {
         const k = keys[m];
-        const v = values[k];
+        let v = values[k];
+        // v = encodeURI(v);
+        // v = encodeURIComponent(v);
+        if ( typeof v === 'string') {
+          if ( null != this.encode ) {
+            Object.keys(this.encode).forEach( encodeKey => {
+              v = v.split(encodeKey).join(this.encode[encodeKey]);
+            });
+          }
+          // v = v.split('#').join('%23');
+          // v = v.split('&').join('%26');
+        }
 
         attributes[k] = v;
         addresses[k] = v;

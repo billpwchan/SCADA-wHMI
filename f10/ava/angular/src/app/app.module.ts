@@ -29,6 +29,8 @@ import { UtilsHttpModule } from './service/scadagen/utils/utils-http.module';
 import { DbmService } from './service/scadagen/dbm/dbm.service';
 import { HttpMultiAccessService } from './service/scadagen/access/http/multi/http-multi-access.service';
 import { DbmMultiWriteAttrService } from './service/scadagen/dbm/dbm-multi-write-attr.service';
+import { CardSummaryComponent } from './component/card/card-summary/card-summary.component';
+import { StepSummaryComponent } from './component/step/step-summary/step-summary.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -53,6 +55,8 @@ const appRoutes: Routes = [
     , TitleComponent
     , AlarmSummaryComponent
     , RenameComponent
+    , CardSummaryComponent
+    , StepSummaryComponent
   ],
   imports: [
     BrowserModule

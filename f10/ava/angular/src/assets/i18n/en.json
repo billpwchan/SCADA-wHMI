@@ -39,7 +39,7 @@
 	, "&cards_btn_modify_cancel_title": "Cancel"
 
 	, "&cards_lbl_duplicated": "Name duplicated with exists name"
-	, "&cards_lbl_length_too_short": "Name contain too less character"
+	, "&cards_lbl_length_too_short": "Name contain too few character"
 	, "&cards_lbl_length_too_long": "Name containe too much character"
 
 	, "&steps_lbl_scenario_step_list": "Trigger Condition"

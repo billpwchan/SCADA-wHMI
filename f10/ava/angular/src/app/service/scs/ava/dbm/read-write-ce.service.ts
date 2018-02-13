@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { UtilsHttpModule } from '../../../scadagen/utils/utils-http.module';
 import { DbmService } from '../../../scadagen/dbm/dbm.service';
 import { DbmSettings } from '../../../scadagen/dbm/dbm-settings';
+import { StepSummarySettings } from '../../../../component/step/step-summary/step-summary-settings';
 
 export class ReadWriteCEResult {
   public key: string;
@@ -73,7 +74,7 @@ export class ReadWriteCEService {
         const subValue: string[] = ce.toString().match(/=(.*)/g);
 
         const readWriteCEREsult: ReadWriteCEResult = new ReadWriteCEResult();
-        readWriteCEREsult.key = 'readConditions';
+        readWriteCEREsult.key = StepSummarySettings.STR_READ_CONDITIONS;
         readWriteCEREsult.base = alias;
         if ( null != subFullpath && null != subValue ) {
           const fullpath: string = subFullpath[0].slice(1, subFullpath[0].length - 1);
@@ -141,7 +142,7 @@ export class ReadWriteCEService {
     Observable.forkJoin(obs).subscribe(
       () => {
         const readWriteCEREsult: ReadWriteCEResult = new ReadWriteCEResult();
-        readWriteCEREsult.key = 'writeConditions';
+        readWriteCEREsult.key = StepSummarySettings.STR_WRITE_CONDITIONS;
         this.dbmChanged([readWriteCEREsult]);
         // this.storageChanged(StorageResponse.SAVE_SUCCESS);
       },

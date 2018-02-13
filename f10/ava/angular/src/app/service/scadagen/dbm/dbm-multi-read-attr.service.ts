@@ -21,6 +21,11 @@ export class DbmMultiReadAttrService {
 
   private httpMultiAccessSubscription: Subscription;
 
+  private threshold = 2000;
+  setThreshold(threshold: number) {
+    this.threshold = threshold;
+  }
+
   // Service command
   dbmChanged(res: HttpAccessResult) {
     const f = 'dbmChanged';
@@ -48,7 +53,7 @@ export class DbmMultiReadAttrService {
 
   }
 
-  read(env: string, address: string[], key: string, limit: number = 2000) {
+  read(env: string, address: string[], key: string) {
     const f = 'read';
     console.log(this.c, f);
     const obs = Array<Observable<any>>();
@@ -60,7 +65,7 @@ export class DbmMultiReadAttrService {
       const addresses: string[] = new Array<string>();
 
       let n = 0;
-      while ( n < limit && m < address.length ) {
+      while ( n < this.threshold && m < address.length ) {
         const addr = address[m];
 
         attributes.push(addr);
@@ -71,12 +76,10 @@ export class DbmMultiReadAttrService {
         }
         ++m;
       }
-      console.log(this.c, f, 'm[' + m + '] n[' + n + '] obs.length[' + obs.length + '] attributes.length[' + attributes.length + ']');
       obs.push(this.dbmService.getAttributes(env, attributes));
       addrGrp.push(addresses);
     }
 
     this.httpMultiAccessService.access(env, addrGrp, key, obs, this.c);
   }
-
 }

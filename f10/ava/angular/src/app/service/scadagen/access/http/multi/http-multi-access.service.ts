@@ -53,7 +53,6 @@ export class HttpMultiAccessService {
       multiAccessResult.dbAddresses = new Array<string>();
       for ( let m = 0; m < dbAddress.length; ++m) {
         const v = dbAddress[m];
-        console.log('typeof v[' + typeof v + ']');
         if ( null != v ) {
           for ( let n = 0; n < v.length; ++n) {
             multiAccessResult.dbAddresses.push(v[n]);

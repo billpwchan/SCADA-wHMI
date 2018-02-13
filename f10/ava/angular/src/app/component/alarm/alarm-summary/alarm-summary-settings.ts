@@ -13,6 +13,7 @@ export class AlarmSummarySettings {
 
   public static readonly STR_AVAR_BASE                  = 'avar_base';
   public static readonly STR_MAX_AVAR_NUM               = 'max_avar_num';
+  public static readonly STR_AVASUPPRESSION             = 'avasuppression';
 
   public static readonly STR_RULE_BASE                  = 'rule_base';
   public static readonly STR_CONDITION_BEGIN_ID         = 'condition_begin_id';
@@ -64,4 +65,5 @@ export class StepSummaryConfig {
 export class AlarmSummaryConfig {
   public avarBase: number;
   public maxAvarNum: number;
+  public avasuppression: string;
 }

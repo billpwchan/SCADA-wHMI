@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { UtilsHttpModule } from '../../../utils-http/utils-http.module';
-import { DbmSettings } from '../../dbm-settings';
 import { AppSettings } from '../../../../app-settings';
+import { UtilsHttpModule } from '../../../scadagen/utils/utils-http.module';
+import { DbmSettings } from '../../../scadagen/dbm/dbm-settings';
 
 export class MultiWriteResult {
   public env: string;

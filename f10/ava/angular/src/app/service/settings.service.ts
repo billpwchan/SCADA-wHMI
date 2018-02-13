@@ -4,7 +4,7 @@ import { AppSettings } from '../app-settings';
 import { Observable } from 'rxjs/Observable';
 import { Http} from '@angular/http';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
-import { UtilsHttpModule } from './utils-http/utils-http.module';
+import { UtilsHttpModule } from './scadagen/utils/utils-http.module';
 
 @Injectable()
 export class SettingsService {

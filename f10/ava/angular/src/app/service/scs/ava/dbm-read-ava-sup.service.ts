@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { DbmSettings } from '../dbm-settings';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { UtilsHttpModule } from '../../utils-http/utils-http.module';
 import { AppSettings } from '../../../app-settings';
 import { AlarmSuppression } from './dbm-ava-settings';
 import { DbmCacheAvaSupService } from './dbm-cache-ava-sup.service';
+import { UtilsHttpModule } from '../../scadagen/utils/utils-http.module';
+import { DbmSettings } from '../../scadagen/dbm/dbm-settings';
 
 @Injectable()
 export class DbmReadAvaSupService {
@@ -57,7 +57,7 @@ export class DbmReadAvaSupService {
         (res: any[]) => {
           console.log(this.c, f, res);
           const json = res;
-          const dbvalue = json[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
+          const dbvalue = json[DbmSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
           console.log(this.c, f, 'env', env, 'url', url);
 
           this.dbmCacheAvaSupService.alarmSuppressions.set(env, new Map<string, AlarmSuppression>());

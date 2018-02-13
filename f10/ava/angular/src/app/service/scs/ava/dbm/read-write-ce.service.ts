@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { UtilsHttpModule } from '../../../utils-http/utils-http.module';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/map';
-import { DbmService } from '../../dbm.service';
 import { Card, PhasesType, Step, Execution } from '../../../../model/Scenario';
-import { DbmSettings } from '../../dbm-settings';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { UtilsHttpModule } from '../../../scadagen/utils/utils-http.module';
+import { DbmService } from '../../../scadagen/dbm/dbm.service';
+import { DbmSettings } from '../../../scadagen/dbm/dbm-settings';
 
 export class ReadWriteCEResult {
   public method: string;

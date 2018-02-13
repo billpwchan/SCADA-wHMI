@@ -1,4 +1,4 @@
-import { DbmSettings } from '../../../service/scs/dbm-settings';
+import { DbmSettings } from '../../../service/scadagen/dbm/dbm-settings';
 
 export class StepSettings {
 

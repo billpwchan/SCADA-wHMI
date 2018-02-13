@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { DbmSettings } from '../dbm-settings';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { UtilsHttpModule } from '../../utils-http/utils-http.module';
 import { AppSettings } from '../../../app-settings';
 import { AlarmSuppression } from './dbm-ava-settings';
+import { UtilsHttpModule } from '../../scadagen/utils/utils-http.module';
 
 @Injectable()
 export class DbmCacheAvaSupService {

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { UtilsHttpModule } from '../utils-http/utils-http.module';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
-import { DbmSettings } from './dbm-settings';
 import { AppSettings } from '../../app-settings';
 import { SubInfo, EqpSubInfo, DbmPollingServiceType, DbmNotify, DbmPollingSettings } from './dbm-polling-settings';
 import { Card } from '../../model/Scenario';
@@ -10,6 +8,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { SettingsService } from '../settings.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
+import { UtilsHttpModule } from '../scadagen/utils/utils-http.module';
+import { DbmSettings } from '../scadagen/dbm/dbm-settings';
 
 @Injectable()
 export class DbmPollingService {
@@ -110,7 +110,7 @@ export class DbmPollingService {
         (res: any[]) => {
           console.log(this.c, f, res);
           const json = res;
-          const dbvalue = json[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
+          const dbvalue = json[DbmSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
 
           this.dbmPollingChanged(dbvalue);
         }

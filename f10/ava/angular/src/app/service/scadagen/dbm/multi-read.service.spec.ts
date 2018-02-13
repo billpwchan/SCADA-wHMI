@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { MultiReadService } from './multi-read.service';
 
-describe('MultiReadRulesService', () => {
+describe('MultiReadService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [MultiReadService]

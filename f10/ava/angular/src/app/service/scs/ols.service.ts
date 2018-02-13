@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { UtilsHttpModule } from './../utils-http/utils-http.module';
+import { UtilsHttpModule } from '../scadagen/utils/utils-http.module';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { OlsSettings } from './ols-settings';
 import { AppSettings } from '../../app-settings';

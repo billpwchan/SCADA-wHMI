@@ -11,9 +11,6 @@ import { StepsComponent } from '../../component/step/steps/steps.component';
 import { GetInstancesByClassNameService } from '../../service/scs/ava/dbm/get-instances-by-class-name.service';
 import { Subscribable } from 'rxjs/Observable';
 import { GetChildrenAliasesService } from '../../service/scs/ava/dbm/get-children-aliases.service';
-import { DbmSettings } from '../../service/scs/dbm-settings';
-import { MultiReadService, MultiReadResult } from '../../service/scs/ava/dbm/multi-read.service';
-import { DbmService } from '../../service/scs/dbm.service';
 import { ReadWriteCEService, ReadWriteCEResult } from '../../service/scs/ava/dbm/read-write-ce.service';
 import { DatatableStep } from '../../model/DatatableScenario';
 import { DataScenarioHelper } from '../../model/DataScenarioHelper';
@@ -26,6 +23,9 @@ import { CardSummaryConfig } from '../../component/alarm/alarm-summary/alarm-sum
 import { StepSummaryConfig } from '../../component/alarm/alarm-summary/alarm-summary-settings';
 import { AlarmSummaryConfig } from '../../component/alarm/alarm-summary/alarm-summary-settings';
 import { StepSettings } from '../../component/step/steps/step-settings';
+import { MultiReadService } from '../../service/scadagen/dbm/multi-read.service';
+import { MultiReadResult } from '../../service/scadagen/dbm/multi-read-interface';
+import { DbmSettings } from '../../service/scadagen/dbm/dbm-settings';
 
 @Component({
   selector: 'app-admin',
@@ -238,14 +238,14 @@ export class AdminComponent implements OnInit, OnDestroy {
       console.log(this.c, f, 'multiReadSubscription', result);
       if ( null != result ) {
 
-        if ( 0 === result.dbValue.length ) {
+        if ( 0 === result.dbvalue.length ) {
 
           // Renew with No Conditions
           this.updateSteps = this.steps = [];
 
-        } else if ( 'readCard' === result.method ) {
+        } else if ( 'readCard' === result.key ) {
 
-          this.renewCard(result.dbValue);
+          this.renewCard(result.dbvalue);
 
           if ( ! this.subscriptsionStarted ) {
             this.subscriptsionStarted = true;
@@ -253,7 +253,7 @@ export class AdminComponent implements OnInit, OnDestroy {
             this.dbmPollingService.subscribe(this.env, dbaddress);
           }
 
-        } else if ( 'readStep' === result.method ) {
+        } else if ( 'readStep' === result.key ) {
 
           this.renewStep(result);
         }
@@ -334,7 +334,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.multiReadService.readData(this.env, dbAddresses, 'readStep');
+    this.multiReadService.read(this.env, dbAddresses, 'readStep');
   }
 
   private renewCard(dbValue: any) {
@@ -367,9 +367,9 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'renewStep';
     console.log(this.c, f);
 
-    const conditions: Map<string, number> = this.readWriteCEService.getConditions(result.env);
+    const conditions: Map<string, number> = this.readWriteCEService.getConditions(result.connAddr);
 
-    const dbValue = result.dbValue;
+    const dbValue = result.dbvalue;
     this.steps = new Array<Step>();
     for ( let i = 0; i < dbValue.length / StepSettings.STR_READ_STEP_ATTR_LIST.length; ++i ) {
       const base: number = i * StepSettings.STR_READ_STEP_ATTR_LIST.length;
@@ -468,7 +468,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'reloadCard';
     console.log(this.c, f);
     const dbAddresses: string[] = this.prepareReloadCard();
-    this.multiReadService.readData(this.env, dbAddresses, 'readCard');
+    this.multiReadService.read(this.env, dbAddresses, 'readCard');
   }
 
   private getCard(cardId: number): Card {

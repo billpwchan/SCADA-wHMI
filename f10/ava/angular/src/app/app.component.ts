@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 import { StepsComponent } from './component/step/steps/steps.component';
@@ -8,7 +8,7 @@ import { StepEditSettings } from './component/step/step-edit/step-edit-settings'
 import { AppSettings } from './app-settings';
 import { Cookie } from 'ng2-cookies';
 import { I18nSettings } from './service/i18n-settings';
-import { Title, DOCUMENT } from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root'
@@ -32,7 +32,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private translate: TranslateService
     , private settingsService: SettingsService
     , private titleService: Title
-    , @Inject(DOCUMENT) private document: Document
   ) {
     const f = 'constructor';
     console.log(this.c, f);
@@ -62,28 +61,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loadSettings();
 
     this.titleService.setTitle(this.title);
-
-    const STR_PROJECT_CSS = 'project.css';
-    this.loadExternalCssFile(STR_PROJECT_CSS);
-  }
-
-  loadExternalCssFile(filename) {
-    const f = 'loadExternalCss';
-    console.log(this.c, f);
-
-    const STR_LINK = 'link';
-    const STR_REL = 'rel';
-    const STR_STYLESHEET = 'stylesheet';
-    const STR_TYPE = 'type';
-    const STR_TEXST_CSS = 'text/css';
-    const STR_HREF = 'href';
-    const STR_HEAD = 'head';
-
-    const fileref = document.createElement(STR_LINK);
-    fileref.setAttribute(STR_REL, STR_STYLESHEET);
-    fileref.setAttribute(STR_TYPE, STR_TEXST_CSS);
-    fileref.setAttribute(STR_HREF, filename);
-    this.document.getElementsByTagName(STR_HEAD)[0].appendChild(fileref);
   }
 
   ngOnInit(): void {

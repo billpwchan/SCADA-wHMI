@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
-import { UtilsHttpModule } from './../utils-http/utils-http.module';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { AppSettings } from '../../app-settings';
 import { DbmSettings } from './dbm-settings';
+import { UtilsHttpModule } from '../utils/utils-http.module';
 
 @Injectable()
 export class DbmService {
@@ -63,7 +62,7 @@ export class DbmService {
         (res: any[]) => {
           console.log(this.c, f, res);
           const json = res;
-          const dbvalue = json[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
+          const dbvalue = json[DbmSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
           console.log(this.c, f, 'dbvalue', dbvalue);
 
           this.retriveAciData.set(connAddr, new Map<string, any>().set(univname, dbvalue));
@@ -103,7 +102,7 @@ export class DbmService {
         (res: any[]) => {
           console.log(this.c, f, res);
 
-          const dbvalue = res[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
+          const dbvalue = res[DbmSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
           console.log(this.c, f, 'dbvalue', dbvalue);
           if ( null != dbvalue ) {
 
@@ -144,7 +143,7 @@ export class DbmService {
         (res: any[]) => {
           console.log(this.c, f, res);
 
-          const formulas: string[] = res[AppSettings.STR_RESPONSE][DbmSettings.STR_FORMULAS];
+          const formulas: string[] = res[DbmSettings.STR_RESPONSE][DbmSettings.STR_FORMULAS];
 
           this.retriveAcquiredDataAttributeFormulasData.set(connAddr, new Map<string, any>().set(univname, formulas));
 
@@ -174,7 +173,7 @@ export class DbmService {
       .subscribe(
         (res: any[]) => {
           console.log(this.c, f, res);
-          const classId = res[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_CLASSID];
+          const classId = res[DbmSettings.STR_RESPONSE][DbmSettings.STR_ATTR_CLASSID];
           console.log(this.c, f, 'classId', classId);
 
           this.retriveClassIdData.set(connAddr, new Map<string, any>().set(univname, classId));
@@ -207,7 +206,7 @@ export class DbmService {
       .subscribe(
         (res: any[]) => {
           console.log(this.c, f, res);
-          const fullPath = res[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_CLASSID];
+          const fullPath = res[DbmSettings.STR_RESPONSE][DbmSettings.STR_ATTR_CLASSID];
           console.log(this.c, f, 'fullPath', fullPath);
 
           this.getFullPathData.set(connAddr, new Map<string, any>().set(univname, fullPath));
@@ -232,7 +231,7 @@ export class DbmService {
   }
 
   extractFormulas(res: string) {
-    return res[AppSettings.STR_RESPONSE][DbmSettings.STR_FORMULAS];
+    return res[DbmSettings.STR_RESPONSE][DbmSettings.STR_FORMULAS];
   }
 
   writeFormulaStr(connAddr: string, univname: string, formulaStr: string): Observable<any>  {
@@ -247,7 +246,7 @@ export class DbmService {
   }
 
   extractResponse(res: string) {
-    return res[AppSettings.STR_RESPONSE];
+    return res[DbmSettings.STR_RESPONSE];
   }
 
   writeFormulaNum(connAddr: string, univname: string, formulaNum: number): Observable<any>  {
@@ -272,7 +271,7 @@ export class DbmService {
   }
 
   extractAttributes(res: string) {
-    return res[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
+    return res[DbmSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
   }
 
   setAttributes(connAddr: string, attributeValueMap: Map<string, string|number>) {

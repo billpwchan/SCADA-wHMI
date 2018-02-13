@@ -8,11 +8,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
-import { UtilsHttpModule } from './service/utils-http/utils-http.module';
 import { CardsComponent } from './component/card/cards/cards.component';
 import { StepsComponent } from './component/step/steps/steps.component';
 import { OlsService } from './service/scs/ols.service';
-import { DbmService } from './service/scs/dbm.service';
 import { StepEditComponent } from './component/step/step-edit/step-edit.component';
 import { SettingsService } from './service/settings.service';
 import { AdminComponent } from './route/admin/admin.component';
@@ -27,10 +25,12 @@ import { AlarmSummaryComponent } from './component/alarm/alarm-summary/alarm-sum
 import { DbmCacheAvaSupService } from './service/scs/ava/dbm-cache-ava-sup.service';
 import { GetInstancesByClassNameService } from './service/scs/ava/dbm/get-instances-by-class-name.service';
 import { GetChildrenAliasesService } from './service/scs/ava/dbm/get-children-aliases.service';
-import { MultiReadService } from './service/scs/ava/dbm/multi-read.service';
 import { ReadWriteCEService } from './service/scs/ava/dbm/read-write-ce.service';
 import { MultiWriteService } from './service/scs/ava/dbm/multi-write.service';
 import { RenameComponent } from './component/card/rename/rename.component';
+import { MultiReadService } from './service/scadagen/dbm/multi-read.service';
+import { UtilsHttpModule } from './service/scadagen/utils/utils-http.module';
+import { DbmService } from './service/scadagen/dbm/dbm.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

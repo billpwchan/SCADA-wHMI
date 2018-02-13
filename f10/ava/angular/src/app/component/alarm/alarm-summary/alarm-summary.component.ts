@@ -7,7 +7,7 @@ import { MatrixComponent } from '../Matrix/matrix.component';
 import { DbmSettings } from '../../../service/scadagen/dbm/dbm-settings';
 import { DbmMultiReadAttrService } from '../../../service/scadagen/dbm/dbm-multi-read-attr.service';
 import { AlarmServerity } from '../../../service/scs/ava/dbm-ava-settings';
-import { HttpAccessResultType, HttpAccessResult } from '../../../service/scadagen/access/http/Access-interface';
+import { HttpAccessResultType, HttpAccessReadResult } from '../../../service/scadagen/access/http/Access-interface';
 import { DbmMultiWriteAttrService } from '../../../service/scadagen/dbm/dbm-multi-write-attr.service';
 
 @Component({
@@ -131,7 +131,7 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
       });
 
     this.multiWriteSubscription = this.dbmMultiWriteAttrService.dbmItem
-      .subscribe( (res: HttpAccessResult) => {
+      .subscribe( (res: HttpAccessReadResult) => {
         console.log(this.c, f, 'dbmWriteAvaSupSubscription', res);
 
         if (null != res ) {
@@ -234,10 +234,10 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
     this.dbmMultiWriteAttrService.write(env, values, AlarmSummarySettings.STR_WRITE_ALARM);
   }
 
-  readAlarm(connAddr: string, univnames: string[], index: number): void {
+  readAlarm(env: string, univnames: string[], index: number): void {
     const f = 'readAlarm';
     console.log(this.c, f);
-    console.log(this.c, f, connAddr, univnames, index);
+    console.log(this.c, f, env, univnames, index);
 
     const dbaddress: string[] = new Array<string>();
     univnames.forEach( univname => {
@@ -249,7 +249,7 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
       dbaddress.push(univname + DbmSettings.STR_ATTR_FUNC);
     });
 
-    this.dbmMultiReadAttrService.read(connAddr, dbaddress, AlarmSummarySettings.STR_READ_ALARM);
+    this.dbmMultiReadAttrService.read(env, dbaddress, AlarmSummarySettings.STR_READ_ALARM);
   }
 
   private disableButtons(disable: boolean) {

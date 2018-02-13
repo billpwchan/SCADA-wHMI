@@ -4,7 +4,7 @@ import { UtilsHttpModule } from '../utils/utils-http.module';
 import { DbmService } from './dbm.service';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { HttpAccessResult } from '../access/http/Access-interface';
+import { HttpAccessReadResult } from '../access/http/Access-interface';
 import { HttpMultiAccessService } from '../access/http/multi/http-multi-access.service';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -14,7 +14,7 @@ export class DbmMultiReadAttrService {
   readonly c = 'DbmMultiReadAttrService';
 
   // Observable source
-  private dbmSource = new BehaviorSubject<HttpAccessResult>(null);
+  private dbmSource = new BehaviorSubject<HttpAccessReadResult>(null);
 
   // Observable cardItem stream
   dbmItem = this.dbmSource.asObservable();
@@ -22,7 +22,7 @@ export class DbmMultiReadAttrService {
   private httpMultiAccessSubscription: Subscription;
 
   // Service command
-  dbmChanged(res: HttpAccessResult) {
+  dbmChanged(res: HttpAccessReadResult) {
     const f = 'dbmChanged';
     console.log(this.c, f);
     this.dbmSource.next(res);
@@ -48,18 +48,35 @@ export class DbmMultiReadAttrService {
 
   }
 
-  read(connAddr: string, address: string[], key: string) {
+  read(env: string, address: string[], key: string, limit: number = 2000) {
     const f = 'read';
     console.log(this.c, f);
     const obs = Array<Observable<any>>();
+    const addrGrp = new Array<Array<string>>();
 
-    for (let n = 0; n < address.length; ++n) {
+    let m = 0;
+    while ( m < address.length ) {
       const attributes: string[] = new Array<string>();
-      attributes.push(address[n]);
-      obs.push(this.dbmService.getAttributes(connAddr, attributes));
+      const addresses: string[] = new Array<string>();
+
+      let n = 0;
+      while ( n < limit && m < address.length ) {
+        const addr = address[m];
+
+        attributes.push(addr);
+        addresses.push(addr);
+
+        if ( null != addr ) {
+          n += addr.length;
+        }
+        ++m;
+      }
+      console.log(this.c, f, 'm[' + m + '] n[' + n + '] obs.length[' + obs.length + '] attributes.length[' + attributes.length + ']');
+      obs.push(this.dbmService.getAttributes(env, attributes));
+      addrGrp.push(addresses);
     }
 
-    this.httpMultiAccessService.access(connAddr, address, key, obs, this.c);
+    this.httpMultiAccessService.read(env, addrGrp, key, obs, this.c);
   }
 
 }

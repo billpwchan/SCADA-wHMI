@@ -4,7 +4,7 @@ import { UtilsHttpModule } from '../utils/utils-http.module';
 import { DbmService } from './dbm.service';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { HttpAccessResult } from '../access/http/Access-interface';
+import { HttpAccessReadResult } from '../access/http/Access-interface';
 import { HttpMultiAccessService } from '../access/http/multi/http-multi-access.service';
 import { Subscription } from 'rxjs/Subscription';
 import { DbmSettings } from './dbm-settings';
@@ -15,7 +15,7 @@ export class DbmMultiWriteAttrService {
   readonly c = 'DbmMultiWriteAttrService';
 
   // Observable source
-  private dbmSource = new BehaviorSubject<HttpAccessResult>(null);
+  private dbmSource = new BehaviorSubject<HttpAccessReadResult>(null);
 
   // Observable cardItem stream
   dbmItem = this.dbmSource.asObservable();
@@ -23,7 +23,7 @@ export class DbmMultiWriteAttrService {
   private httpMultiAccessSubscription: Subscription;
 
   // Service command
-  dbmChanged(res: HttpAccessResult) {
+  dbmChanged(res: HttpAccessReadResult) {
     const f = 'dbmChanged';
     console.log(this.c, f);
     this.dbmSource.next(res);
@@ -49,7 +49,7 @@ export class DbmMultiWriteAttrService {
 
   }
 
-  write(connAddr: string, values, key: string) {
+  write(env: string, values, key: string) {
     const f = 'read';
     console.log(this.c, f);
     const obs = Array<Observable<any>>();
@@ -58,10 +58,10 @@ export class DbmMultiWriteAttrService {
     for (let n = 0; n < keys.length; ++n) {
       const obj = {};
       obj[keys[n]] = values[keys[n]];
-      obs.push(this.dbmService.setAttributes(connAddr, obj));
+      obs.push(this.dbmService.setAttributes(env, obj));
     }
 
-    this.httpMultiAccessService.access(connAddr, values, key, obs, this.c);
+    this.httpMultiAccessService.write(env, values, key, obs, this.c);
   }
 
 }

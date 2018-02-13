@@ -72,7 +72,9 @@ export class DbmPollingService {
 
     this.unsubscribe(connAddr);
 
-    this.readValue(connAddr, univnames);
+    // this.readValue(connAddr, univnames);
+
+    this.dbmPollingChanged('UPDATE');
 
     if ( this.enable ) {
       console.log(this.c, f, 'interval', this.interval, 'connAddr', connAddr);
@@ -83,7 +85,8 @@ export class DbmPollingService {
           console.log(this.c, f, 'interval map', 'card.name');
         }).subscribe((x) => {
           console.log(this.c, f, 'interval subscribe', 'connAddr', connAddr);
-          this.readValue(connAddr, univnames);
+          // this.readValue(connAddr, univnames);
+          this.dbmPollingChanged('UPDATE');
         })
       );
     } else {
@@ -91,32 +94,32 @@ export class DbmPollingService {
     }
   }
 
-  readValue(connAddr: string, univnames: string[]) {
-    const f = 'readValue';
-    console.log(this.c, f);
+  // readValue(connAddr: string, univnames: string[]) {
+  //   const f = 'readValue';
+  //   console.log(this.c, f);
 
-    const urls: string [] = [];
-    univnames.forEach( univname => {
-      urls.push(univname);
-    });
-    const url = connAddr + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
+  //   const urls: string [] = [];
+  //   univnames.forEach( univname => {
+  //     urls.push(univname);
+  //   });
+  //   const url = connAddr + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
 
-    console.log(this.c, f, 'url', url);
+  //   console.log(this.c, f, 'url', url);
 
-    this.httpClient.get(
-      url
-    )
-      .subscribe(
-        (res: any[]) => {
-          console.log(this.c, f, res);
-          const json = res;
-          const dbvalue = json[DbmSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
+  //   this.httpClient.get(
+  //     url
+  //   )
+  //     .subscribe(
+  //       (res: any[]) => {
+  //         console.log(this.c, f, res);
+  //         const json = res;
+  //         const dbvalue = json[DbmSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
 
-          this.dbmPollingChanged(dbvalue);
-        }
-        , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
-        , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
-    );
-  }
+  //         this.dbmPollingChanged(dbvalue);
+  //       }
+  //       , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
+  //       , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
+  //   );
+  // }
 
 }

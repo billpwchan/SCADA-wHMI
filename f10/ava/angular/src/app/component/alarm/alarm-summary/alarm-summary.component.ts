@@ -5,10 +5,10 @@ import { AlarmSummaryConfig, Env, AlarmSummarySettings } from './alarm-summary-s
 import { AppSettings } from '../../../app-settings';
 import { MatrixComponent } from '../Matrix/matrix.component';
 import { DbmSettings } from '../../../service/scadagen/dbm/dbm-settings';
-import { MultiReadService } from '../../../service/scadagen/dbm/multi-read.service';
+import { DbmMultiReadAttrService } from '../../../service/scadagen/dbm/dbm-multi-read-attr.service';
 import { AlarmServerity } from '../../../service/scs/ava/dbm-ava-settings';
 import { HttpAccessResultType, HttpAccessResult } from '../../../service/scadagen/access/http/Access-interface';
-import { MultiWriteService } from '../../../service/scadagen/dbm/multi-write.service';
+import { DbmMultiWriteAttrService } from '../../../service/scadagen/dbm/dbm-multi-write-attr.service';
 
 @Component({
   selector: 'app-alarm-summary',
@@ -78,8 +78,8 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(
     private translate: TranslateService
-    , private multiReadService: MultiReadService
-    , private multiWriteService: MultiWriteService
+    , private dbmMultiReadAttrService: DbmMultiReadAttrService
+    , private dbmMultiWriteAttrService: DbmMultiWriteAttrService
   ) {
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.loadTranslations();
@@ -90,7 +90,7 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'ngOnInit';
     console.log(this.c, f);
 
-    this.multiReadSubscription = this.multiReadService.dbmItem
+    this.multiReadSubscription = this.dbmMultiReadAttrService.dbmItem
       .subscribe( res => {
         if ( null != res ) {
           if ( HttpAccessResultType.NEXT === res.method ) {
@@ -130,7 +130,7 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
         }
       });
 
-    this.multiWriteSubscription = this.multiWriteService.dbmItem
+    this.multiWriteSubscription = this.dbmMultiWriteAttrService.dbmItem
       .subscribe( (res: HttpAccessResult) => {
         console.log(this.c, f, 'dbmWriteAvaSupSubscription', res);
 
@@ -231,7 +231,7 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
       });
     });
 
-    this.multiWriteService.write(env, values, AlarmSummarySettings.STR_WRITE_ALARM);
+    this.dbmMultiWriteAttrService.write(env, values, AlarmSummarySettings.STR_WRITE_ALARM);
   }
 
   readAlarm(connAddr: string, univnames: string[], index: number): void {
@@ -249,7 +249,7 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
       dbaddress.push(univname + DbmSettings.STR_ATTR_FUNC);
     });
 
-    this.multiReadService.read(connAddr, dbaddress, AlarmSummarySettings.STR_READ_ALARM);
+    this.dbmMultiReadAttrService.read(connAddr, dbaddress, AlarmSummarySettings.STR_READ_ALARM);
   }
 
   private disableButtons(disable: boolean) {

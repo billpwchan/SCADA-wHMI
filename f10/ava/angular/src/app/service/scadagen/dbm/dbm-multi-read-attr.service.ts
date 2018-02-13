@@ -9,9 +9,9 @@ import { HttpMultiAccessService } from '../access/http/multi/http-multi-access.s
 import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
-export class MultiReadService {
+export class DbmMultiReadAttrService {
 
-  readonly c = 'MultiReadService';
+  readonly c = 'DbmMultiReadAttrService';
 
   // Observable source
   private dbmSource = new BehaviorSubject<HttpAccessResult>(null);
@@ -39,7 +39,11 @@ export class MultiReadService {
       .subscribe( res => {
         const f = 'httpMultiAccessSubscription';
         console.log(this.c, f);
-        this.dbmChanged((null != res ? res.httpAccessResult : null));
+        if ( null != res ) {
+          if ( this.c === res.caller ) {
+            this.dbmChanged(res.httpAccessResult);
+          }
+        }
       });
 
   }

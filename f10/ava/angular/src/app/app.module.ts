@@ -24,11 +24,11 @@ import { GetInstancesByClassNameService } from './service/scs/ava/dbm/get-instan
 import { GetChildrenAliasesService } from './service/scs/ava/dbm/get-children-aliases.service';
 import { ReadWriteCEService } from './service/scs/ava/dbm/read-write-ce.service';
 import { RenameComponent } from './component/card/rename/rename.component';
-import { MultiReadService } from './service/scadagen/dbm/multi-read.service';
+import { DbmMultiReadAttrService } from './service/scadagen/dbm/dbm-multi-read-attr.service';
 import { UtilsHttpModule } from './service/scadagen/utils/utils-http.module';
 import { DbmService } from './service/scadagen/dbm/dbm.service';
 import { HttpMultiAccessService } from './service/scadagen/access/http/multi/http-multi-access.service';
-import { MultiWriteService } from './service/scadagen/dbm/multi-write.service';
+import { DbmMultiWriteAttrService } from './service/scadagen/dbm/dbm-multi-write-attr.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -89,8 +89,8 @@ const appRoutes: Routes = [
     , GetInstancesByClassNameService
     , GetChildrenAliasesService
     , HttpMultiAccessService
-    , MultiReadService
-    , MultiWriteService
+    , DbmMultiReadAttrService
+    , DbmMultiWriteAttrService
     , ReadWriteCEService
   ],
   bootstrap: [AppComponent]

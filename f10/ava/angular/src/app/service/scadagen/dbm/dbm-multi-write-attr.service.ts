@@ -10,9 +10,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { DbmSettings } from './dbm-settings';
 
 @Injectable()
-export class MultiWriteService {
+export class DbmMultiWriteAttrService {
 
-  readonly c = 'MultiWriteService';
+  readonly c = 'DbmMultiWriteAttrService';
 
   // Observable source
   private dbmSource = new BehaviorSubject<HttpAccessResult>(null);
@@ -40,7 +40,11 @@ export class MultiWriteService {
       .subscribe( res => {
         const f = 'httpMultiAccessSubscription';
         console.log(this.c, f);
-        this.dbmChanged((null != res ? res.httpAccessResult : null));
+        if ( null != res ) {
+          if ( this.c === res.caller ) {
+            this.dbmChanged(res.httpAccessResult);
+          }
+        }
       });
 
   }

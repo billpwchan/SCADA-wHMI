@@ -22,10 +22,10 @@ import { CardSummaryConfig } from '../../component/alarm/alarm-summary/alarm-sum
 import { StepSummaryConfig } from '../../component/alarm/alarm-summary/alarm-summary-settings';
 import { AlarmSummaryConfig } from '../../component/alarm/alarm-summary/alarm-summary-settings';
 import { StepsSettings } from '../../component/step/steps/step-settings';
-import { MultiReadService } from '../../service/scadagen/dbm/multi-read.service';
+import { DbmMultiReadAttrService } from '../../service/scadagen/dbm/dbm-multi-read-attr.service';
 import { DbmSettings } from '../../service/scadagen/dbm/dbm-settings';
 import { HttpAccessResult, HttpAccessResultType } from '../../service/scadagen/access/http/Access-interface';
-import { MultiWriteService } from '../../service/scadagen/dbm/multi-write.service';
+import { DbmMultiWriteAttrService } from '../../service/scadagen/dbm/dbm-multi-write-attr.service';
 import { CardsSettings } from '../../component/card/cards/cards-settings';
 
 @Component({
@@ -114,9 +114,9 @@ export class AdminComponent implements OnInit, OnDestroy {
     private translate: TranslateService
     , private settingsService: SettingsService
     , private getChildrenAliasService: GetChildrenAliasesService
-    , private multiReadService: MultiReadService
+    , private dbmMultiReadAttrService: DbmMultiReadAttrService
     , private readWriteCEService: ReadWriteCEService
-    , private multiWriteService: MultiWriteService
+    , private dbmMultiWriteAttrService: DbmMultiWriteAttrService
     , private dbmPollingService: DbmPollingService
   ) {
     const f = 'constructor';
@@ -234,7 +234,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.multiReadSubscription = this.multiReadService.dbmItem
+    this.multiReadSubscription = this.dbmMultiReadAttrService.dbmItem
       .subscribe( (res: HttpAccessResult) => {
         console.log(this.c, f, 'multiReadSubscription', res);
         if ( null != res ) {
@@ -277,7 +277,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.multiWriteSubscription = this.multiWriteService.dbmItem
+    this.multiWriteSubscription = this.dbmMultiWriteAttrService.dbmItem
       .subscribe( res => {
         console.log(this.c, f, 'multiWriteSubscription', res);
         if ( null != res ) {
@@ -338,7 +338,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
 
     if ( null != dbAddresses && dbAddresses.length > 0 ) {
-      this.multiReadService.read(this.env, dbAddresses, StepsSettings.STR_READ_STEP);
+      this.dbmMultiReadAttrService.read(this.env, dbAddresses, StepsSettings.STR_READ_STEP);
     } else {
       // Renew with No Conditions
       this.updateSteps = this.steps = [];
@@ -475,7 +475,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'reloadCard';
     console.log(this.c, f);
     const dbAddresses: string[] = this.prepareReloadCard();
-    this.multiReadService.read(this.env, dbAddresses, CardsSettings.STR_READ_CARD);
+    this.dbmMultiReadAttrService.read(this.env, dbAddresses, CardsSettings.STR_READ_CARD);
   }
 
   private getCard(cardId: number): Card {
@@ -753,7 +753,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     values[DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_ATTR_LABEL] = card.name;
     values[DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_ATTR_ENABLE] = (card.state ? 1 : 0);
 
-    this.multiWriteService.write(this.env, values, CardsSettings.STR_WRITE_CARD);
+    this.dbmMultiWriteAttrService.write(this.env, values, CardsSettings.STR_WRITE_CARD);
   }
 
   private deleteStep(steps: Step[], stepIds: number[]): void {

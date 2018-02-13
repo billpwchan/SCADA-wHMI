@@ -48,29 +48,29 @@ export class HttpMultiAccessService {
       const multiAccessResult: HttpAccessResult = new HttpAccessResult();
       multiAccessResult.key = key;
       multiAccessResult.method = HttpAccessResultType.NEXT;
-      multiAccessResult.connAddr = connAddr;
+      multiAccessResult.env = connAddr;
 
-      multiAccessResult.dbAddresses = new Array<string>();
+      multiAccessResult.address = new Array<string>();
       for ( let m = 0; m < dbAddress.length; ++m) {
         const v = dbAddress[m];
         if ( null != v ) {
           for ( let n = 0; n < v.length; ++n) {
-            multiAccessResult.dbAddresses.push(v[n]);
+            multiAccessResult.address.push(v[n]);
           }
         } else {
-          multiAccessResult.dbAddresses.push(null);
+          multiAccessResult.address.push(null);
         }
       }
 
-      multiAccessResult.dbValues = new Array<string>();
+      multiAccessResult.values = new Array<string>();
       for ( let m = 0; m < res.length; ++m) {
         const v = res[m];
         if ( null != v ) {
           for ( let n = 0; n < v.length; ++n) {
-            multiAccessResult.dbValues.push(v[n]);
+            multiAccessResult.values.push(v[n]);
           }
         } else {
-          multiAccessResult.dbValues.push(null);
+          multiAccessResult.values.push(null);
         }
       }
 

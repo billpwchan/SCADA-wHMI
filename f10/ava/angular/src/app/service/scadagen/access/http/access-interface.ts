@@ -11,15 +11,15 @@ export enum HttpAccessResultType {
 export class HttpAccessResult {
   public key: string;
   public method: HttpAccessResultType;
-  public connAddr: string;
-  public dbAddresses;
-  public dbValues;
+  public env: string;
+  public address;
+  public values;
 }
 
 export class HttpAccessWriteResult {
   public key: string;
   public method: HttpAccessResultType;
-  public connAddr: string;
-  public dbAddresses;
-  public dbValues;
+  public env: string;
+  public address;
+  public values;
 }

@@ -119,21 +119,21 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
           if ( HttpAccessResultType.NEXT === res.method ) {
             if ( AlarmSummarySettings.STR_READ_ALARM === res.key ) {
 
-              let envAlarms = this.alarms.get(res.connAddr);
+              let envAlarms = this.alarms.get(res.env);
               if ( null == envAlarms ) {
-                this.alarms.set(res.connAddr, new Map<string, AlarmServerity>());
+                this.alarms.set(res.env, new Map<string, AlarmServerity>());
               }
-              envAlarms = this.alarms.get(res.connAddr);
+              envAlarms = this.alarms.get(res.env);
 
               const data: Map<number, Map<number, number>> = new Map<number, Map<number, number>>();
 
-              for ( let i = 0, j = 0 ; i < res.dbAddresses.length / 3 ; ++i, j = i * 3 ) {
+              for ( let i = 0, j = 0 ; i < res.address.length / 3 ; ++i, j = i * 3 ) {
 
-                const dbAddressLevel = res.dbAddresses[j];
+                const dbAddressLevel = res.address[j];
                 const alarmServerity = new AlarmServerity();
-                alarmServerity.level = Number(res.dbValues[j++]);
-                alarmServerity.geo = Number(res.dbValues[j++]);
-                alarmServerity.func = Number(res.dbValues[j++]);
+                alarmServerity.level = Number(res.values[j++]);
+                alarmServerity.geo = Number(res.values[j++]);
+                alarmServerity.func = Number(res.values[j++]);
 
                 let data1 = data.get(alarmServerity.geo);
                 if ( null == data1 ) {

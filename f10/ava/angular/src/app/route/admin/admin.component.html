@@ -72,7 +72,9 @@
     </div>
     <div style="padding: 10px;">
       <app-steps (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"
-        [updateSteps]="updateSteps" (onUpdatedStepSelection)="onUpdatedStepSelection($event)"></app-steps>
+        [updateSteps]="updateSteps" 
+        (onUpdatedSteps)="onUpdatedSteps"
+        (onUpdatedStepSelection)="onUpdatedStepSelection($event)"></app-steps>
     </div>
     <div style="padding: 10px;">
       <app-alarm-summary (notifyParent)="getNotification($event)" [notifyFromParent]="notifyAlarmSummary" 

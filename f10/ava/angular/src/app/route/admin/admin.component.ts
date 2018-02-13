@@ -73,7 +73,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   btnEnableNewStep: boolean;
   btnEnableDeleteStep: boolean;
 
-  updateSteps: DatatableStep[];
+  updateSteps: Step[];
 
   updateStepEdit: Step[];
   enableStepEdit: Date;
@@ -152,8 +152,8 @@ export class AdminComponent implements OnInit, OnDestroy {
         if ( null != res ) {
           if ( HttpAccessResultType.NEXT === res.method ) {
             if ( StepsSettings.STR_READ_STEP === res.key ) {
-              if ( null != res.dbValues.length && res.dbValues.length > 0 ) {
-                this.renewStep(res.connAddr, res.dbValues);
+              if ( null != res.values.length && res.values.length > 0 ) {
+                this.renewStep(res.env, res.values);
               }
             }
           }
@@ -187,7 +187,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           if ( HttpAccessResultType.NEXT === res.method ) {
             if (  CardsSettings.STR_WRITE_CARD_STATE === res.key
                   || CardsSettings.STR_WRITE_CARD_NAME === res.key ) {
-              if ( null != res.dbValues ) {
+              if ( null != res.values ) {
                 this.reloadCardSummary();
               }
             }
@@ -290,6 +290,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     // Renew StepsComponent
     this.renewSteps();
+    this.updateStepButton();
   }
 
   private getStep(stepId: number): Step {
@@ -322,14 +323,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'renewSteps';
     console.log(this.c, f);
 
-    const dtSteps: DatatableStep[] = new Array<DatatableStep>();
-    for ( let i = 0 ; i < this.steps.length ; ++i ) {
-      const step: Step = this.steps[i];
-      if ( null != step ) {
-        dtSteps.push(DataScenarioHelper.convertToDatatableStep(step));
-      }
-    }
-    this.updateSteps = dtSteps;
+    this.updateSteps = this.steps;
   }
 
   private initGui() {
@@ -408,7 +402,30 @@ export class AdminComponent implements OnInit, OnDestroy {
   private getCardsSelected(): Card {
     const f = 'getCardsSelected';
     console.log(this.c, f);
-    return this.getCard(this.cardsSelected[0]);
+    let card: Card = null;
+    if (null != this.cardsSelected && this.cardsSelected.length > 0) {
+      card = this.getCard(this.cardsSelected[0]);
+    }
+    return card;
+  }
+
+  private getMaxStepNum(): number {
+    const f = 'getMaxStepNum';
+    console.log(this.c, f);
+    return this.stepSummaryCfg.conditionEndId - this.stepSummaryCfg.conditionBeginId;
+  }
+
+  private updateStepButton(cards?: number[], steps?: Step[], step?: Step) {
+    const f = 'updateStepButton';
+    console.log(this.c, f);
+
+    if ( null == cards )  { cards = this.cardsSelected; }
+    if ( null == steps )  { steps = this.steps; }
+    if ( null == step )   { step  = this.getStepSelected(); }
+
+    const maxStep: number = this.getMaxStepNum();
+    this.btnEnableNewStep = (null != cards || null == steps || (null != steps && steps.length <= maxStep));
+    this.btnEnableDeleteStep = ((null != steps && steps.length > 0) && null != step );
   }
 
   onUpdatedCardsSelect(ids: number[]) {
@@ -421,13 +438,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     if ( null != card ) {
 
       // Renew State Button
-      if ( card.state ) {
-        this.btnEnableStateEnable = false;
-        this.btnEnableStateDisable = true;
-      } else {
-        this.btnEnableStateEnable = true;
-        this.btnEnableStateDisable = false;
-      }
+      this.btnEnableStateEnable = (!card.state);
+      this.btnEnableStateDisable = card.state;
 
       // Renew Rename Button
       this.btnEnableRename = true;
@@ -436,8 +448,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       // Renew Title
       this.updateTitle = card.name;
 
-      this.btnEnableNewStep = true;
-      this.btnEnableDeleteStep = false;
+      this.updateStepButton();
 
       // Reload conditions
       this.readConditions(this.env, card.index);
@@ -459,17 +470,21 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.updateCardName(card);
   }
 
+  onUpdatedSteps(steps: Step[]) {
+    const f = 'onUpdatedSteps';
+    console.log(this.c, f);
+
+    this.steps = steps;
+    this.updateStepButton();
+  }
+
   onUpdatedStepSelection(stepIds: number[]) {
     const f = 'onUpdatedStepSelection';
     console.log(this.c, f);
 
     this.stepIdsSelected = stepIds;
 
-    const stepSelected: Step = this.getStepSelected();
-    if ( null != stepSelected ) {
-      this.btnEnableNewStep = true;
-      this.btnEnableDeleteStep = true;
-    }
+    this.updateStepButton();
   }
 
   onUpdatedStepEdit(steps: Step[]) {

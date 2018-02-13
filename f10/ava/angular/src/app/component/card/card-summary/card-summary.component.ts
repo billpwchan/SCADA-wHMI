@@ -188,8 +188,8 @@ export class CardSummaryComponent implements OnInit, OnDestroy, OnChanges {
       if ( null != res ) {
         if ( HttpAccessResultType.NEXT === res.method ) {
           if ( CardsSettings.STR_READ_CARD === res.key ) {
-            if ( null != res.dbValues ) {
-              this.renewCard(res.dbValues);
+            if ( null != res.values ) {
+              this.renewCard(res.values);
               if ( ! this.subscriptsionStarted ) {
                 this.subscriptsionStarted = true;
                 const dbaddress: string[] = this.prepareReloadCard();

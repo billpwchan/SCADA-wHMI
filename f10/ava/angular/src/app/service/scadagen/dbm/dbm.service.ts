@@ -274,13 +274,13 @@ export class DbmService {
     return res[DbmSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
   }
 
-  setAttributes(connAddr: string, attributeValueMap: Map<string, string|number>) {
+  setAttributes(connAddr: string, attributes) {
     const f = 'setAttributes';
     console.log(this.c, f);
 
     let url = connAddr;
     url += DbmSettings.STR_URL_MULTIWRITE;
-    url += JSON.stringify(attributeValueMap);
+    url += JSON.stringify(attributes);
     return this.httpClient.get(url).map(this.extractResponse);
   }
 }

@@ -11,7 +11,6 @@ export class AlarmSummarySettings {
   public static readonly STR_INSTANCE_ROOT              = 'instance_root';
   public static readonly STR_MAX_RULE_NUM               = 'max_rule_num';
 
-
   public static readonly STR_AVAR_BASE                  = 'avar_base';
   public static readonly STR_MAX_AVAR_NUM               = 'max_avar_num';
 
@@ -33,6 +32,9 @@ export class AlarmSummarySettings {
                                                             , DbmSettings.STR_ATTR_ENABLE
                                                             , DbmSettings.STR_ATTR_CONDITION_GL
                                                           ];
+
+  public static readonly STR_READ_ALARM                 = 'readAlarm';
+  public static readonly STR_WRITE_ALARM                = 'writeAlarm';
 }
 
 export class Env {

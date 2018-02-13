@@ -15,17 +15,18 @@ import { ReadWriteCEService, ReadWriteCEResult } from '../../service/scs/ava/dbm
 import { DatatableStep } from '../../model/DatatableScenario';
 import { DataScenarioHelper } from '../../model/DataScenarioHelper';
 import { AppSettings } from '../../app-settings';
-import { MultiWriteService } from '../../service/scs/ava/dbm/multi-write.service';
 import { DbmPollingService } from '../../service/scs/dbm-polling.service';
 import { AlarmSummarySettings, Env } from '../../component/alarm/alarm-summary/alarm-summary-settings';
 import { AVASummaryConfig } from '../../component/alarm/alarm-summary/alarm-summary-settings';
 import { CardSummaryConfig } from '../../component/alarm/alarm-summary/alarm-summary-settings';
 import { StepSummaryConfig } from '../../component/alarm/alarm-summary/alarm-summary-settings';
 import { AlarmSummaryConfig } from '../../component/alarm/alarm-summary/alarm-summary-settings';
-import { StepSettings } from '../../component/step/steps/step-settings';
+import { StepsSettings } from '../../component/step/steps/step-settings';
 import { MultiReadService } from '../../service/scadagen/dbm/multi-read.service';
-import { MultiReadResult } from '../../service/scadagen/dbm/multi-read-interface';
 import { DbmSettings } from '../../service/scadagen/dbm/dbm-settings';
+import { HttpAccessResult, HttpAccessResultType } from '../../service/scadagen/access/http/Access-interface';
+import { MultiWriteService } from '../../service/scadagen/dbm/multi-write.service';
+import { CardsSettings } from '../../component/card/cards/cards-settings';
 
 @Component({
   selector: 'app-admin',
@@ -151,150 +152,152 @@ export class AdminComponent implements OnInit, OnDestroy {
     console.log(this.c, f);
 
     this.getChildrenAliasSubscription = this.getChildrenAliasService.dbmItem
-    .subscribe(result => {
-      console.log(this.c, f, 'getChildrenAliasSubscription', result);
-      if ( null != result ) {
-        if ( null != this.instanceRoot ) {
-          const root: string = DbmSettings.STR_URL_ALIAS + this.instanceRoot;
-          if ( root === result.dbAddress ) {
+      .subscribe(result => {
+        console.log(this.c, f, 'getChildrenAliasSubscription', result);
+        if ( null != result ) {
+          if ( null != this.instanceRoot ) {
+            const root: string = DbmSettings.STR_URL_ALIAS + this.instanceRoot;
+            if ( root === result.dbAddress ) {
 
-            this.avasAliasList = new Array<string>();
+              this.avasAliasList = new Array<string>();
 
-            for ( let i = 0 ; i < result.data.length ; ++i ) {
-              const alias = result.data[i];
-              const classNames = alias.split(DbmSettings.STR_COLON);
-              const className = classNames[classNames.length - 1];
-              if ( className.startsWith(AlarmSummarySettings.STR_AVAR_PREFIX) ) {
-                this.avarAlias = alias;
-              }
-
-              let found = false;
-              const base = this.alarmSummaryCfg.avarBase;
-              const max = this.alarmSummaryCfg.maxAvarNum;
-              for ( let n = 0; n < max ; ++n ) {
-                const name = AlarmSummarySettings.STR_AVAS_PREFIX + (DbmSettings.STR_THREE_ZERO + (n + base)).slice(-4);
-                if ( className === name ) {
-                  found = true;
+              for ( let i = 0 ; i < result.data.length ; ++i ) {
+                const alias = result.data[i];
+                const classNames = alias.split(DbmSettings.STR_COLON);
+                const className = classNames[classNames.length - 1];
+                if ( className.startsWith(AlarmSummarySettings.STR_AVAR_PREFIX) ) {
+                  this.avarAlias = alias;
                 }
-              }
-              if ( found ) {
-                this.avasAliasList.push(alias);
-              }
-            }
-            if ( null != this.avarAlias ) {
-              this.getChildrenAliasService.readData(this.env, this.avarAlias);
-            }
-          }
-        }
-        if ( null != this.avarAlias ) {
-          if ( this.avarAlias === result.dbAddress ) {
-            if ( null == this.ruleList ) {
-              this.ruleList = new Array<string>();
-            }
-            for ( let i = 0 ; i < result.data.length; ++i ) {
-              const alias = result.data[i];
-              const classNames = alias.split(DbmSettings.STR_COLON);
-              const className = classNames [classNames.length - 1];
-               if ( className.startsWith(AlarmSummarySettings.STR_RULE_PREFIX) ) {
 
                 let found = false;
-                const base = this.cardSummaryCfg.ruleBase;
-                const max = this.cardSummaryCfg.maxRuleNum;
+                const base = this.alarmSummaryCfg.avarBase;
+                const max = this.alarmSummaryCfg.maxAvarNum;
                 for ( let n = 0; n < max ; ++n ) {
-                  const name = DbmSettings.STR_RULE + (DbmSettings.STR_THREE_ZERO + (n + base)).slice(-4);
+                  const name = AlarmSummarySettings.STR_AVAS_PREFIX + (DbmSettings.STR_THREE_ZERO + (n + base)).slice(-4);
                   if ( className === name ) {
                     found = true;
                   }
                 }
                 if ( found ) {
-                  this.ruleList.push(alias);
+                  this.avasAliasList.push(alias);
                 }
               }
+              if ( null != this.avarAlias ) {
+                this.getChildrenAliasService.readData(this.env, this.avarAlias);
+              }
             }
+          }
+          if ( null != this.avarAlias ) {
+            if ( this.avarAlias === result.dbAddress ) {
+              if ( null == this.ruleList ) {
+                this.ruleList = new Array<string>();
+              }
+              for ( let i = 0 ; i < result.data.length; ++i ) {
+                const alias = result.data[i];
+                const classNames = alias.split(DbmSettings.STR_COLON);
+                const className = classNames [classNames.length - 1];
+                if ( className.startsWith(AlarmSummarySettings.STR_RULE_PREFIX) ) {
 
-            // Sorting
-            // this.ruleList.sort();
-            this.ruleList.sort((a, b) => {
-                const A = a.toUpperCase(); // ignore upper and lowercase
-                const B = b.toUpperCase(); // ignore upper and lowercase
-                if (A < B) {
-                  return -1;
+                  let found = false;
+                  const base = this.cardSummaryCfg.ruleBase;
+                  const max = this.cardSummaryCfg.maxRuleNum;
+                  for ( let n = 0; n < max ; ++n ) {
+                    const name = DbmSettings.STR_RULE + (DbmSettings.STR_THREE_ZERO + (n + base)).slice(-4);
+                    if ( className === name ) {
+                      found = true;
+                    }
+                  }
+                  if ( found ) {
+                    this.ruleList.push(alias);
+                  }
                 }
-                if (A > B) {
-                  return 1;
-                }
-                // equal
-                return 0;
-            });
+              }
 
-            this.reloadCard();
+              // Sorting
+              // this.ruleList.sort();
+              this.ruleList.sort((a, b) => {
+                  const A = a.toUpperCase(); // ignore upper and lowercase
+                  const B = b.toUpperCase(); // ignore upper and lowercase
+                  if (A < B) {
+                    return -1;
+                  }
+                  if (A > B) {
+                    return 1;
+                  }
+                  // equal
+                  return 0;
+              });
+
+              this.reloadCard();
+            }
           }
         }
-      }
-    });
+      });
 
     this.multiReadSubscription = this.multiReadService.dbmItem
-    .subscribe( (result: MultiReadResult) => {
-      console.log(this.c, f, 'multiReadSubscription', result);
-      if ( null != result ) {
-
-        if ( 0 === result.dbvalue.length ) {
-
-          // Renew with No Conditions
-          this.updateSteps = this.steps = [];
-
-        } else if ( 'readCard' === result.key ) {
-
-          this.renewCard(result.dbvalue);
-
-          if ( ! this.subscriptsionStarted ) {
-            this.subscriptsionStarted = true;
-            const dbaddress: string[] = this.prepareReloadCard();
-            this.dbmPollingService.subscribe(this.env, dbaddress);
+      .subscribe( (res: HttpAccessResult) => {
+        console.log(this.c, f, 'multiReadSubscription', res);
+        if ( null != res ) {
+          if ( HttpAccessResultType.NEXT === res.method ) {
+            if ( CardsSettings.STR_READ_CARD === res.key ) {
+              if ( null != res.dbValues ) {
+                this.renewCard(res.dbValues);
+                if ( ! this.subscriptsionStarted ) {
+                  this.subscriptsionStarted = true;
+                  const dbaddress: string[] = this.prepareReloadCard();
+                  this.dbmPollingService.subscribe(this.env, dbaddress);
+                }
+              }
+            } else if ( StepsSettings.STR_READ_STEP === res.key ) {
+              if ( null != res.dbValues.length && res.dbValues.length > 0 ) {
+                this.renewStep(res.connAddr, res.dbValues);
+              }
+            }
           }
-
-        } else if ( 'readStep' === result.key ) {
-
-          this.renewStep(result);
         }
-      }
-    });
+      });
 
     this.readWriteCESubscription = this.readWriteCEService.dbmItem
-    .subscribe(result => {
-      console.log(this.c, f, 'readWriteCESubscription', result);
-      if ( null != result ) {
+      .subscribe( res => {
+        console.log(this.c, f, 'readWriteCESubscription', res);
+        if ( null != res ) {
 
-        if ( result.length > 0 ) {
-          if ( result[0].method === 'readConditions' ) {
+          if ( res.length > 0 ) {
+            if ( res[0].key === 'readConditions' ) {
 
-            this.readStep(result);
+              this.readStep(res);
 
-          } else if ( result[0].method === 'writeConditions' ) {
+            } else if ( res[0].key === 'writeConditions' ) {
 
-            const card: Card = this.getCardSelected();
-            const index: number = card.index;
-            this.readConditions(this.env, index);
+              const card: Card = this.getCardSelected();
+              const index: number = card.index;
+              this.readConditions(this.env, index);
+            }
           }
         }
-      }
-    });
+      });
 
     this.multiWriteSubscription = this.multiWriteService.dbmItem
-    .subscribe(result => {
-      console.log(this.c, f, 'multiWriteSubscription', result);
-      if ( null != result ) {
-        this.reloadCard();
-      }
-    });
+      .subscribe( res => {
+        console.log(this.c, f, 'multiWriteSubscription', res);
+        if ( null != res ) {
+          if ( HttpAccessResultType.NEXT === res.method ) {
+            if ( CardsSettings.STR_WRITE_CARD === res.key ) {
+              if ( null != res.dbValues ) {
+                this.reloadCard();
+              }
+            }
+          }
+        }
+      });
 
     this.dbmPollingSubscription = this.dbmPollingService.dbmPollingItem
-    .subscribe(result => {
-      console.log(this.c, f, 'dbmPollingSubscription', result);
-      if ( null != result ) {
-        this.refreshCard(result);
-      }
-    });
+      .subscribe(result => {
+        console.log(this.c, f, 'dbmPollingSubscription', result);
+        if ( null != result ) {
+          this.refreshCard(result);
+        }
+      });
 
     this.reloadInstance();
   }
@@ -305,8 +308,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     // prevent memory leak when component is destroyed
     this.getInstancesByClassNameSubscription.unsubscribe();
     this.getChildrenAliasSubscription.unsubscribe();
-    this.multiReadSubscription.unsubscribe();
     this.readWriteCESubscription.unsubscribe();
+    this.multiReadSubscription.unsubscribe();
     this.multiWriteSubscription.unsubscribe();
     this.dbmPollingSubscription.unsubscribe();
   }
@@ -327,14 +330,19 @@ export class AdminComponent implements OnInit, OnDestroy {
 
           const fullPath: string = targetFullpath.toString().match(/^(.*?)\./)[1];
 
-          for ( let  i = 0 ; i < StepSettings.STR_READ_STEP_ATTR_LIST.length ; ++i ) {
-            dbAddresses.push(fullPath + StepSettings.STR_READ_STEP_ATTR_LIST[i]);
+          for ( let  i = 0 ; i < StepsSettings.STR_READ_STEP_ATTR_LIST.length ; ++i ) {
+            dbAddresses.push(fullPath + StepsSettings.STR_READ_STEP_ATTR_LIST[i]);
           }
         }
       }
     }
 
-    this.multiReadService.read(this.env, dbAddresses, 'readStep');
+    if ( null != dbAddresses && dbAddresses.length > 0 ) {
+      this.multiReadService.read(this.env, dbAddresses, StepsSettings.STR_READ_STEP);
+    } else {
+      // Renew with No Conditions
+      this.updateSteps = this.steps = [];
+    }
   }
 
   private renewCard(dbValue: any) {
@@ -363,16 +371,15 @@ export class AdminComponent implements OnInit, OnDestroy {
     // this.updateCards = [...this.updateCards];
   }
 
-  private renewStep(result: MultiReadResult) {
+  private renewStep(connAddr: string, dbValue) {
     const f = 'renewStep';
     console.log(this.c, f);
 
-    const conditions: Map<string, number> = this.readWriteCEService.getConditions(result.connAddr);
+    const conditions: Map<string, number> = this.readWriteCEService.getConditions(connAddr);
 
-    const dbValue = result.dbvalue;
     this.steps = new Array<Step>();
-    for ( let i = 0; i < dbValue.length / StepSettings.STR_READ_STEP_ATTR_LIST.length; ++i ) {
-      const base: number = i * StepSettings.STR_READ_STEP_ATTR_LIST.length;
+    for ( let i = 0; i < dbValue.length / StepsSettings.STR_READ_STEP_ATTR_LIST.length; ++i ) {
+      const base: number = i * StepsSettings.STR_READ_STEP_ATTR_LIST.length;
       let index = 0;
       const univname: string    = dbValue[base + index++];
       const fullpath: string    = dbValue[base + index++];
@@ -468,7 +475,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'reloadCard';
     console.log(this.c, f);
     const dbAddresses: string[] = this.prepareReloadCard();
-    this.multiReadService.read(this.env, dbAddresses, 'readCard');
+    this.multiReadService.read(this.env, dbAddresses, CardsSettings.STR_READ_CARD);
   }
 
   private getCard(cardId: number): Card {
@@ -746,7 +753,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     values[DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_ATTR_LABEL] = card.name;
     values[DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_ATTR_ENABLE] = (card.state ? 1 : 0);
 
-    this.multiWriteService.writeData(this.env, values);
+    this.multiWriteService.write(this.env, values, CardsSettings.STR_WRITE_CARD);
   }
 
   private deleteStep(steps: Step[], stepIds: number[]): void {

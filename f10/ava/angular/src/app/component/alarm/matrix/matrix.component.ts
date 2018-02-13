@@ -6,7 +6,6 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Card } from '../../../model/Scenario';
 import { DataScenarioHelper } from '../../../model/DataScenarioHelper';
-import { DbmReadAvaSupService } from '../../../service/scs/ava/dbm-read-ava-sup.service';
 
 @Component({
   selector: 'app-matrix',

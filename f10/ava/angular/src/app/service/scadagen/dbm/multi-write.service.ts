@@ -7,11 +7,12 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpAccessResult } from '../access/http/Access-interface';
 import { HttpMultiAccessService } from '../access/http/multi/http-multi-access.service';
 import { Subscription } from 'rxjs/Subscription';
+import { DbmSettings } from './dbm-settings';
 
 @Injectable()
-export class MultiReadService {
+export class MultiWriteService {
 
-  readonly c = 'MultiReadService';
+  readonly c = 'MultiWriteService';
 
   // Observable source
   private dbmSource = new BehaviorSubject<HttpAccessResult>(null);
@@ -44,18 +45,19 @@ export class MultiReadService {
 
   }
 
-  read(connAddr: string, address: string[], key: string) {
+  write(connAddr: string, values, key: string) {
     const f = 'read';
     console.log(this.c, f);
     const obs = Array<Observable<any>>();
 
-    for (let n = 0; n < address.length; ++n) {
-      const attributes: string[] = new Array<string>();
-      attributes.push(address[n]);
-      obs.push(this.dbmService.getAttributes(connAddr, attributes));
+    const keys = Object.keys(values);
+    for (let n = 0; n < keys.length; ++n) {
+      const obj = {};
+      obj[keys[n]] = values[keys[n]];
+      obs.push(this.dbmService.setAttributes(connAddr, obj));
     }
 
-    this.httpMultiAccessService.access(connAddr, address, key, obs, this.c);
+    this.httpMultiAccessService.access(connAddr, values, key, obs, this.c);
   }
 
 }

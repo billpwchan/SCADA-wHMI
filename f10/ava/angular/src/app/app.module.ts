@@ -19,18 +19,16 @@ import { DbmPollingService } from './service/scs/dbm-polling.service';
 import { HotTableModule } from 'angular-handsontable';
 import { MatrixComponent } from './component/alarm/Matrix/matrix.component';
 import { TitleComponent } from './component/card/title/title.component';
-import { DbmReadAvaSupService } from './service/scs/ava/dbm-read-ava-sup.service';
-import { DbmWriteAvaSupService } from './service/scs/ava/dbm-write-ava-sup.service';
 import { AlarmSummaryComponent } from './component/alarm/alarm-summary/alarm-summary.component';
-import { DbmCacheAvaSupService } from './service/scs/ava/dbm-cache-ava-sup.service';
 import { GetInstancesByClassNameService } from './service/scs/ava/dbm/get-instances-by-class-name.service';
 import { GetChildrenAliasesService } from './service/scs/ava/dbm/get-children-aliases.service';
 import { ReadWriteCEService } from './service/scs/ava/dbm/read-write-ce.service';
-import { MultiWriteService } from './service/scs/ava/dbm/multi-write.service';
 import { RenameComponent } from './component/card/rename/rename.component';
 import { MultiReadService } from './service/scadagen/dbm/multi-read.service';
 import { UtilsHttpModule } from './service/scadagen/utils/utils-http.module';
 import { DbmService } from './service/scadagen/dbm/dbm.service';
+import { HttpMultiAccessService } from './service/scadagen/access/http/multi/http-multi-access.service';
+import { MultiWriteService } from './service/scadagen/dbm/multi-write.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -88,14 +86,12 @@ const appRoutes: Routes = [
     , OlsService
     , DbmService
     , DbmPollingService
-    , DbmCacheAvaSupService
-    , DbmReadAvaSupService
-    , DbmWriteAvaSupService
     , GetInstancesByClassNameService
     , GetChildrenAliasesService
+    , HttpMultiAccessService
     , MultiReadService
-    , ReadWriteCEService
     , MultiWriteService
+    , ReadWriteCEService
   ],
   bootstrap: [AppComponent]
 })

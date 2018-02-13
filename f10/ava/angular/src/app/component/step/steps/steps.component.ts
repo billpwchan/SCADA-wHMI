@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { DatatableStep } from '../../../model/DatatableScenario';
 import { Card, Step, Equipment } from '../../../model/Scenario';
 import { AppSettings } from '../../../app-settings';
-import { StepSettings } from './step-settings';
+import { StepsSettings } from './step-settings';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { SettingsService } from '../../../service/settings.service';
 import { RowHeightCache } from '@swimlane/ngx-datatable/release/utils';
@@ -113,14 +113,14 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'loadSettings';
     console.log(this.c, f);
 
-    this.stepPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_STEP_PREFIX);
-    this.stepBase = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_STEP_BASE);
+    this.stepPrefix = this.settingsService.getSetting(this.c, f, this.c, StepsSettings.STR_STEP_PREFIX);
+    this.stepBase = this.settingsService.getSetting(this.c, f, this.c, StepsSettings.STR_STEP_BASE);
 
-    this.geoPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_GEO_PREFIX);
-    this.funcPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_FUNC_PREFIX);
-    this.eqplabelPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_EQPLABEL_PREFIX);
-    this.pointlabelPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_POINTLABEL_PREFIX);
-    this.valuePrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_VALUE_PREFIX);
+    this.geoPrefix = this.settingsService.getSetting(this.c, f, this.c, StepsSettings.STR_GEO_PREFIX);
+    this.funcPrefix = this.settingsService.getSetting(this.c, f, this.c, StepsSettings.STR_FUNC_PREFIX);
+    this.eqplabelPrefix = this.settingsService.getSetting(this.c, f, this.c, StepsSettings.STR_EQPLABEL_PREFIX);
+    this.pointlabelPrefix = this.settingsService.getSetting(this.c, f, this.c, StepsSettings.STR_POINTLABEL_PREFIX);
+    this.valuePrefix = this.settingsService.getSetting(this.c, f, this.c, StepsSettings.STR_VALUE_PREFIX);
   }
 
   private loadTranslations(): void {

@@ -17,6 +17,7 @@ export class DataScenarioHelper {
 
   public static isFlagOn(val: number, flag: number, valueType: AlarmValueType): boolean {
     const f = 'isFlagOn';
+    // console.log(this.c, f);
     let ret = false;
     switch (valueType) {
       case AlarmValueType.USE_VALUE: {
@@ -31,12 +32,13 @@ export class DataScenarioHelper {
         ret = ((val & ( 1 << flag)) !== 0);
       } break;
     }
-    console.log(this.c, f, 'ret[' + ret + '] val[' + val + '] flag[' + flag + '] valueType[' + valueType + ']');
+    // console.log(this.c, f, 'ret[' + ret + '] val[' + val + '] flag[' + flag + '] valueType[' + valueType + ']');
     return ret;
   }
 
   public static setFlagOn(val: number, flag: number, valueType: AlarmValueType): number {
     const f = 'setFlagOn';
+    // console.log(this.c, f);
     let ret = 0;
     switch (valueType) {
       case AlarmValueType.USE_VALUE: {
@@ -52,12 +54,13 @@ export class DataScenarioHelper {
         ret = ( val | ( 1 << flag ) );
       } break;
     }
-    console.log(this.c, f, 'ret[' + ret + '] val[' + val + '] flag[' + flag + '] valueType[' + valueType + ']');
+    // console.log(this.c, f, 'ret[' + ret + '] val[' + val + '] flag[' + flag + '] valueType[' + valueType + ']');
     return ret;
   }
 
   public static setFlagOff(val: number, flag: number, valueType: AlarmValueType): number {
     const f = 'setFlagOff';
+    // console.log(this.c, f);
     let ret = 0;
     switch (valueType) {
       case AlarmValueType.USE_VALUE: {
@@ -71,7 +74,7 @@ export class DataScenarioHelper {
         ret = ( val ^ ( 1 << flag ) );
       } break;
     }
-    console.log(this.c, f, 'ret[' + ret + '] val[' + val + '] flag[' + flag + '] valueType[' + valueType + ']');
+    // console.log(this.c, f, 'ret[' + ret + '] val[' + val + '] flag[' + flag + '] valueType[' + valueType + ']');
     return ret;
   }
 

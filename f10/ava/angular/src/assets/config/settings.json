@@ -62,7 +62,7 @@
     "instance_classname": "ScadagenNode"
     , "instance_root": "Scadagen"
     , "rule_base": 1
-    , "max_rule_num": 16
+    , "max_rule_num": 256
   }
   , "StepSummaryComponent": {
     "rule_base": 1
@@ -73,10 +73,11 @@
   }
   , "AlarmSummaryComponent": {
     "avar_base": 1
-    , "max_avar_num": 16
+    , "max_avar_num": 256
+    , "avasuppression": "avasuppression"
   }
   , "DbmPollingService": {
-    "interval": 1000
+    "interval": 4000
     , "enable": false
   }
 }

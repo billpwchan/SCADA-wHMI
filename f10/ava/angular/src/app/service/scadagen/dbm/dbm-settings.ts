@@ -1,5 +1,7 @@
 export class DbmSettings {
 
+    public static readonly STR_RESPONSE = 'response';
+
     public static readonly INT_ACI_TYPE = 106;
     public static readonly INT_DCI_TYPE = 104;
     public static readonly STR_OPEN_PARENTHESIS = '(';

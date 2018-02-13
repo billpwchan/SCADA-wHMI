@@ -1,6 +1,6 @@
-import { DbmSettings } from '../../../service/scs/dbm-settings';
+import { DbmSettings } from '../../../service/scadagen/dbm/dbm-settings';
 
-export class StepSettings {
+export class StepsSettings {
 
     public static readonly STR_STEP_PREFIX = 'step_prefix';
     public static readonly STR_STEP_BASE = 'step_base';
@@ -23,6 +23,8 @@ export class StepSettings {
         , DbmSettings.STR_COLON + DbmSettings.STR_VALUETABLE_VALUE
         , DbmSettings.STR_COLON + DbmSettings.STR_VALUETABLE_LABEL
     ];
+
+    public static readonly STR_READ_STEP = 'readStep';
 }
 
 export class StepsConfig {

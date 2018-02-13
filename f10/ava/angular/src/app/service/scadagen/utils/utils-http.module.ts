@@ -13,7 +13,11 @@ export class UtilsHttpModule {
 
   readonly c = 'UtilsHttpModule';
 
-  httpClientHandlerError(func: string, err: HttpErrorResponse, mgs?: string): void {
+  httpClientHandlerError(
+                          func: string
+                          , err: HttpErrorResponse
+                          , msg: string = 'The GET observable is error.')
+                                                                          : void {
     const f = 'httpClientHandlerError';
     console.warn(this.c, f, 'call from', func, 'error', err);
     console.warn(this.c, f, 'call from', func, 'error.error', err.error);
@@ -24,7 +28,10 @@ export class UtilsHttpModule {
     }
   }
 
-  httpClientHandlerComplete(func: string, msg?: string): void {
+  httpClientHandlerComplete(
+                              func: string
+                              , msg: string = 'The GET observable is now completed.')
+                                                                                      : void {
     const f = 'httpClientHandlerComplete';
     console.log(this.c, f, 'call from', func, 'Complete msg', msg);
   }

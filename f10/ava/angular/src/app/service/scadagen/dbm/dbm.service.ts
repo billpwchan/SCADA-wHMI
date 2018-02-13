@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
-import { UtilsHttpModule } from './../utils-http/utils-http.module';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { AppSettings } from '../../app-settings';
 import { DbmSettings } from './dbm-settings';
+import { UtilsHttpModule } from '../utils/utils-http.module';
 
 @Injectable()
 export class DbmService {
@@ -39,19 +38,19 @@ export class DbmService {
   ) {}
 
 
-  getRetriveAciData(connAddr: string, univname: string): any {
-    return this.retriveAciData.get(connAddr).get(univname);
+  getRetriveAciData(env: string, univname: string): any {
+    return this.retriveAciData.get(env).get(univname);
   }
-  retriveAci(connAddr: string, univname: string): void {
+  retriveAci(env: string, univname: string): void {
     const f = 'retriveAci';
     console.log(this.c, f);
-    console.log(this.c, f, 'connAddr', connAddr, 'univname', univname);
+    console.log(this.c, f, 'env', env, 'univname', univname);
 
     const urls: string [] = [];
     urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_AAC + DbmSettings.STR_VETABLE_VENAME);
     urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_INITVALUE);
 
-    const url = connAddr + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
+    const url = env + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
 
     console.log(this.c, f, 'url', url);
 
@@ -63,10 +62,10 @@ export class DbmService {
         (res: any[]) => {
           console.log(this.c, f, res);
           const json = res;
-          const dbvalue = json[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
+          const dbvalue = json[DbmSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
           console.log(this.c, f, 'dbvalue', dbvalue);
 
-          this.retriveAciData.set(connAddr, new Map<string, any>().set(univname, dbvalue));
+          this.retriveAciData.set(env, new Map<string, any>().set(univname, dbvalue));
 
           this.dbmChanged('retriveAci');
         }
@@ -76,13 +75,13 @@ export class DbmService {
   }
 
 
-  getRetriveDciData(connAddr: string, univname: string): any {
-    return this.retriveDciData.get(connAddr).get(univname);
+  getRetriveDciData(env: string, univname: string): any {
+    return this.retriveDciData.get(env).get(univname);
   }
-  retriveDci(connAddr: string, univname: string): void {
+  retriveDci(env: string, univname: string): void {
     const f = 'retriveDci';
     console.log(this.c, f);
-    console.log(this.c, f, 'connAddr', connAddr);
+    console.log(this.c, f, 'env', env);
     console.log(this.c, f, 'univname', univname);
 
     const urls: string [] = [];
@@ -91,7 +90,7 @@ export class DbmService {
     urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_VALUETABLE_LABEL);
     urls.push(DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_VALUETABLE_VALUE);
 
-    const url = connAddr + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
+    const url = env + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
 
     console.log(this.c, f, 'url', url);
 
@@ -103,11 +102,11 @@ export class DbmService {
         (res: any[]) => {
           console.log(this.c, f, res);
 
-          const dbvalue = res[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
+          const dbvalue = res[DbmSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
           console.log(this.c, f, 'dbvalue', dbvalue);
           if ( null != dbvalue ) {
 
-            this.retriveDciData.set(connAddr, new Map<string, any>().set(univname, dbvalue));
+            this.retriveDciData.set(env, new Map<string, any>().set(univname, dbvalue));
 
             this.dbmChanged('retriveDci');
           }
@@ -117,14 +116,14 @@ export class DbmService {
     );
   }
 
-  getRetriveAcquiredDataAttributeFormulasData(connAddr: string, univname: string): any {
-    return this.retriveAcquiredDataAttributeFormulasData.get(connAddr).get(univname);
+  getRetriveAcquiredDataAttributeFormulasData(env: string, univname: string): any {
+    return this.retriveAcquiredDataAttributeFormulasData.get(env).get(univname);
   }
-  private retriveAcquiredDataAttributeFormulas(connAddr: string, univname: string, classId: number ): void {
+  private retriveAcquiredDataAttributeFormulas(env: string, univname: string, classId: number ): void {
     const f = 'retriveAcquiredDataAttributeFormulas';
     console.log(this.c, f);
 
-    let url = connAddr;
+    let url = env;
     url += DbmSettings.STR_URL_GETATTRIBUTEFORMULAS;
     url += DbmSettings.STR_URL_ALIAS + univname;
 
@@ -144,9 +143,9 @@ export class DbmService {
         (res: any[]) => {
           console.log(this.c, f, res);
 
-          const formulas: string[] = res[AppSettings.STR_RESPONSE][DbmSettings.STR_FORMULAS];
+          const formulas: string[] = res[DbmSettings.STR_RESPONSE][DbmSettings.STR_FORMULAS];
 
-          this.retriveAcquiredDataAttributeFormulasData.set(connAddr, new Map<string, any>().set(univname, formulas));
+          this.retriveAcquiredDataAttributeFormulasData.set(env, new Map<string, any>().set(univname, formulas));
 
           this.dbmChanged('retriveAcquiredDataAttributeFormulas');
         }
@@ -156,16 +155,16 @@ export class DbmService {
 
   }
 
-  getRetriveClassIdData(connAddr: string, univname: string): any {
-    return this.retriveClassIdData.get(connAddr).get(univname);
+  getRetriveClassIdData(env: string, univname: string): any {
+    return this.retriveClassIdData.get(env).get(univname);
   }
-  retriveClassId(connAddr: string, univname: string): void {
+  retriveClassId(env: string, univname: string): void {
     const f = 'retriveClassId';
     console.log(this.c, f);
-    console.log(this.c, f, 'connAddr' , connAddr);
+    console.log(this.c, f, 'env' , env);
     console.log(this.c, f, 'univname' , univname);
 
-    const url = connAddr + DbmSettings.STR_URL_GETCLASSID + DbmSettings.STR_URL_ALIAS + univname;
+    const url = env + DbmSettings.STR_URL_GETCLASSID + DbmSettings.STR_URL_ALIAS + univname;
 
     // Get Class ID
     this.httpClient.get(
@@ -174,14 +173,14 @@ export class DbmService {
       .subscribe(
         (res: any[]) => {
           console.log(this.c, f, res);
-          const classId = res[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_CLASSID];
+          const classId = res[DbmSettings.STR_RESPONSE][DbmSettings.STR_ATTR_CLASSID];
           console.log(this.c, f, 'classId', classId);
 
-          this.retriveClassIdData.set(connAddr, new Map<string, any>().set(univname, classId));
+          this.retriveClassIdData.set(env, new Map<string, any>().set(univname, classId));
 
           this.dbmChanged('retriveClassId');
 
-          this.retriveAcquiredDataAttributeFormulas(connAddr, univname, classId);
+          this.retriveAcquiredDataAttributeFormulas(env, univname, classId);
 
         }
         , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
@@ -189,16 +188,16 @@ export class DbmService {
     );
   }
 
-  getRetriveFullPathData(connAddr: string, univname: string): any {
-    return this.getFullPathData.get(connAddr).get(univname);
+  getRetriveFullPathData(env: string, univname: string): any {
+    return this.getFullPathData.get(env).get(univname);
   }
-  retriveFullPath(connAddr: string, univname: string) {
+  retriveFullPath(env: string, univname: string) {
     const f = 'retriveFullPath';
     console.log(this.c, f);
-    console.log(this.c, f, 'connAddr' , connAddr);
+    console.log(this.c, f, 'env' , env);
     console.log(this.c, f, 'univname' , univname);
 
-    const url = connAddr + DbmSettings.STR_URL_GETFULLPATH + DbmSettings.STR_URL_ALIAS + univname;
+    const url = env + DbmSettings.STR_URL_GETFULLPATH + DbmSettings.STR_URL_ALIAS + univname;
 
     // Get Class ID
     this.httpClient.get(
@@ -207,10 +206,10 @@ export class DbmService {
       .subscribe(
         (res: any[]) => {
           console.log(this.c, f, res);
-          const fullPath = res[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_CLASSID];
+          const fullPath = res[DbmSettings.STR_RESPONSE][DbmSettings.STR_ATTR_CLASSID];
           console.log(this.c, f, 'fullPath', fullPath);
 
-          this.getFullPathData.set(connAddr, new Map<string, any>().set(univname, fullPath));
+          this.getFullPathData.set(env, new Map<string, any>().set(univname, fullPath));
 
           this.dbmChanged('retriveFullPath');
         }
@@ -219,11 +218,11 @@ export class DbmService {
     );
   }
 
-  readFormulas(connAddr: string, univname: string): Observable<any> {
+  readFormulas(env: string, univname: string): Observable<any> {
     const f = 'readFormulas';
     console.log(this.c, f);
 
-    let url = connAddr;
+    let url = env;
     url += DbmSettings.STR_URL_GETATTRIBUTEFORMULAS;
     url += DbmSettings.STR_QUOTE + univname + DbmSettings.STR_QUOTE;
 
@@ -232,14 +231,14 @@ export class DbmService {
   }
 
   extractFormulas(res: string) {
-    return res[AppSettings.STR_RESPONSE][DbmSettings.STR_FORMULAS];
+    return res[DbmSettings.STR_RESPONSE][DbmSettings.STR_FORMULAS];
   }
 
-  writeFormulaStr(connAddr: string, univname: string, formulaStr: string): Observable<any>  {
+  writeFormulaStr(env: string, univname: string, formulaStr: string): Observable<any>  {
     const f = 'writeFormulaStr';
     console.log(this.c, f);
 
-    let url = connAddr;
+    let url = env;
     url += DbmSettings.STR_URL_SETATTRIBUTEFORMULA;
     url += DbmSettings.STR_QUOTE + univname + DbmSettings.STR_QUOTE;
     url += DbmSettings.STR_FORMULA_OPTION + DbmSettings.STR_QUOTE + formulaStr + DbmSettings.STR_QUOTE;
@@ -247,41 +246,41 @@ export class DbmService {
   }
 
   extractResponse(res: string) {
-    return res[AppSettings.STR_RESPONSE];
+    return res[DbmSettings.STR_RESPONSE];
   }
 
-  writeFormulaNum(connAddr: string, univname: string, formulaNum: number): Observable<any>  {
+  writeFormulaNum(env: string, univname: string, formulaNum: number): Observable<any>  {
     const f = 'writeFormulaStr';
     console.log(this.c, f);
 
-    let url = connAddr;
+    let url = env;
     url += DbmSettings.STR_URL_SETATTRIBUTEFORMULA;
     url += DbmSettings.STR_QUOTE + univname + DbmSettings.STR_QUOTE;
     url += DbmSettings.STR_FORMULA_OPTION + formulaNum;
     return this.httpClient.get(url).map(this.extractResponse);
   }
 
-  getAttributes(connAddr: string, attributes: string[]) {
+  getAttributes(env: string, attributes: any) {
     const f = 'getAttributes';
     console.log(this.c, f);
 
-    let url = connAddr;
+    let url = env;
     url += DbmSettings.STR_URL_MULTIREAD;
     url += JSON.stringify(attributes);
     return this.httpClient.get(url).map(this.extractAttributes);
   }
 
   extractAttributes(res: string) {
-    return res[AppSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
+    return res[DbmSettings.STR_RESPONSE][DbmSettings.STR_ATTR_DBVALUE];
   }
 
-  setAttributes(connAddr: string, attributeValueMap: Map<string, string|number>) {
+  setAttributes(env: string, attributes) {
     const f = 'setAttributes';
     console.log(this.c, f);
 
-    let url = connAddr;
+    let url = env;
     url += DbmSettings.STR_URL_MULTIWRITE;
-    url += JSON.stringify(attributeValueMap);
+    url += JSON.stringify(attributes);
     return this.httpClient.get(url).map(this.extractResponse);
   }
 }

@@ -4,13 +4,14 @@ import { Subscription } from 'rxjs/Subscription';
 import { DatatableStep } from '../../../model/DatatableScenario';
 import { Card, Step, Equipment } from '../../../model/Scenario';
 import { AppSettings } from '../../../app-settings';
-import { StepSettings } from './step-settings';
+import { StepsSettings } from './step-settings';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { SettingsService } from '../../../service/settings.service';
 import { RowHeightCache } from '@swimlane/ngx-datatable/release/utils';
 import { Observable } from 'rxjs/Observable';
 import { DbmPollingService } from '../../../service/scs/dbm-polling.service';
 import { Subscribable } from 'rxjs/Observable';
+import { DataScenarioHelper } from '../../../model/DataScenarioHelper';
 
 @Component({
   selector: 'app-steps'
@@ -29,25 +30,21 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
 
   @Output() notifyParent: EventEmitter<string> = new EventEmitter();
 
-  private updated: DatatableStep[];
+  private updated: Step[];
   @Input()
-  set updateSteps(dtSteps: DatatableStep[]) {
+  set updateSteps(steps: Step[]) {
     const f = 'updateSteps';
     console.log(this.c, f);
 
-    this.updated = new Array<DatatableStep>();
+    this.updated = steps;
 
-    if ( null != dtSteps ) {
-      for ( let i = 0 ; i < dtSteps.length ; ++i ) {
-        this.updated.push(DatatableStep.clone(dtSteps[i]));
-      }
-      console.log(this.c, f, 'this.updated', this.updated);
-
+    if ( null != steps ) {
       this.reloadData();
     } else {
       console.warn(this.c, f, 'data IS INVALID');
     }
   }
+  @Output() onUpdatedSteps = new EventEmitter<Step[]>();
   @Output() onUpdatedStepSelection = new EventEmitter<number[]>();
 
   selectedStepStep: number[];
@@ -113,14 +110,14 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'loadSettings';
     console.log(this.c, f);
 
-    this.stepPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_STEP_PREFIX);
-    this.stepBase = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_STEP_BASE);
+    this.stepPrefix = this.settingsService.getSetting(this.c, f, this.c, StepsSettings.STR_STEP_PREFIX);
+    this.stepBase = this.settingsService.getSetting(this.c, f, this.c, StepsSettings.STR_STEP_BASE);
 
-    this.geoPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_GEO_PREFIX);
-    this.funcPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_FUNC_PREFIX);
-    this.eqplabelPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_EQPLABEL_PREFIX);
-    this.pointlabelPrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_POINTLABEL_PREFIX);
-    this.valuePrefix = this.settingsService.getSetting(this.c, f, this.c, StepSettings.STR_VALUE_PREFIX);
+    this.geoPrefix = this.settingsService.getSetting(this.c, f, this.c, StepsSettings.STR_GEO_PREFIX);
+    this.funcPrefix = this.settingsService.getSetting(this.c, f, this.c, StepsSettings.STR_FUNC_PREFIX);
+    this.eqplabelPrefix = this.settingsService.getSetting(this.c, f, this.c, StepsSettings.STR_EQPLABEL_PREFIX);
+    this.pointlabelPrefix = this.settingsService.getSetting(this.c, f, this.c, StepsSettings.STR_POINTLABEL_PREFIX);
+    this.valuePrefix = this.settingsService.getSetting(this.c, f, this.c, StepsSettings.STR_VALUE_PREFIX);
   }
 
   private loadTranslations(): void {
@@ -142,24 +139,16 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
       if (this.updated.length > 0) {
         this.updated.forEach((item, index) => {
           if ( null != item ) {
-            const step = '' + item.step;
-            const location = this.geoPrefix + item.location;
-            const system = this.funcPrefix + item.system;
-            const equipment = this.eqplabelPrefix + item.equipment;
-            const point = this.pointlabelPrefix + item.point;
-            const value = this.valuePrefix + item.value;
-            const num = this.stepPrefix + (+item.step + +this.stepBase);
-            const updated = new Date();
 
             const dtStep: DatatableStep = new DatatableStep(
-              step
-              , location
-              , system
-              , equipment
-              , point
-              , value
-              , num
-              , updated
+              '' + index
+              , this.geoPrefix + item.equipment.geo
+              , this.funcPrefix + item.equipment.func
+              , this.eqplabelPrefix + item.equipment.eqplabel
+              , this.pointlabelPrefix + item.equipment.pointlabel
+              , this.valuePrefix + item.equipment.valuelabel
+              , this.stepPrefix + (+index + +this.stepBase)
+              , new Date()
             );
             this.rows_step.push(dtStep);
           }
@@ -170,6 +159,8 @@ export class StepsComponent implements OnInit, OnDestroy, OnChanges {
     } else {
       console.warn(this.c, f, 'steps IS NULL');
     }
+
+    this.onUpdatedSteps.emit(this.updated);
   }
 
   private emptySteps() {

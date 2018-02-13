@@ -1,5 +1,5 @@
 import { AppSettings } from '../../../app-settings';
-import { DbmSettings } from '../../../service/scs/dbm-settings';
+import { DbmSettings } from '../../../service/scadagen/dbm/dbm-settings';
 
 export class AlarmSummarySettings {
 
@@ -11,9 +11,9 @@ export class AlarmSummarySettings {
   public static readonly STR_INSTANCE_ROOT              = 'instance_root';
   public static readonly STR_MAX_RULE_NUM               = 'max_rule_num';
 
-
   public static readonly STR_AVAR_BASE                  = 'avar_base';
   public static readonly STR_MAX_AVAR_NUM               = 'max_avar_num';
+  public static readonly STR_AVASUPPRESSION             = 'avasuppression';
 
   public static readonly STR_RULE_BASE                  = 'rule_base';
   public static readonly STR_CONDITION_BEGIN_ID         = 'condition_begin_id';
@@ -33,6 +33,9 @@ export class AlarmSummarySettings {
                                                             , DbmSettings.STR_ATTR_ENABLE
                                                             , DbmSettings.STR_ATTR_CONDITION_GL
                                                           ];
+
+  public static readonly STR_READ_ALARM                 = 'readAlarm';
+  public static readonly STR_WRITE_ALARM                = 'writeAlarm';
 }
 
 export class Env {
@@ -62,4 +65,5 @@ export class StepSummaryConfig {
 export class AlarmSummaryConfig {
   public avarBase: number;
   public maxAvarNum: number;
+  public avasuppression: string;
 }

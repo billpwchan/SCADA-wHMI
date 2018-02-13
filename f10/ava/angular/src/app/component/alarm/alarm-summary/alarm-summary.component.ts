@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { DbmReadAvaSupService } from '../../../service/scs/ava/dbm-read-ava-sup.service';
 import { AlarmSummaryConfig, Env, AlarmSummarySettings } from './alarm-summary-settings';
 import { AppSettings } from '../../../app-settings';
 import { MatrixComponent } from '../Matrix/matrix.component';
-import { DbmWriteAvaSupService } from '../../../service/scs/ava/dbm-write-ava-sup.service';
-import { DbmCacheAvaSupService } from '../../../service/scs/ava/dbm-cache-ava-sup.service';
+import { DbmSettings } from '../../../service/scadagen/dbm/dbm-settings';
+import { DbmMultiReadAttrService } from '../../../service/scadagen/dbm/dbm-multi-read-attr.service';
+import { AlarmServerity } from '../../../service/scs/ava/dbm-ava-settings';
+import { HttpAccessResultType, HttpAccessResult } from '../../../service/scadagen/access/http/Access-interface';
+import { DbmMultiWriteAttrService } from '../../../service/scadagen/dbm/dbm-multi-write-attr.service';
 
 @Component({
   selector: 'app-alarm-summary',
@@ -40,11 +42,35 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private univnames: string[];
+  get getUnivnames(): string[] {return this.univnames; }
   @Input()
   set updateAlarmUnivname(univnames: string[]) {
     const f = 'updateAlarmUnivname';
     console.log(this.c, f);
-    this.univnames = univnames;
+
+    if ( null != univnames ) {
+      const avasAliasList: string[] = new Array<string>();
+      for ( let i = 0 ; i < univnames.length ; ++i ) {
+        const alias: string = univnames[i];
+        const classNames: string[] = alias.split(DbmSettings.STR_COLON);
+        const className: string = classNames[classNames.length - 1];
+        if (className.startsWith(AlarmSummarySettings.STR_AVAS_PREFIX)) {
+          let found = false;
+          const base = this.cfg.avarBase;
+          const max = this.cfg.maxAvarNum;
+          for ( let n = 0; n < max ; ++n ) {
+            const name = AlarmSummarySettings.STR_AVAS_PREFIX + (DbmSettings.STR_THREE_ZERO + (n + base)).slice(-4);
+            if ( className === name ) {
+              found = true;
+            }
+          }
+          if ( found ) {
+            avasAliasList.push(alias + DbmSettings.STR_COLON + this.cfg.avasuppression);
+          }
+        }
+      }
+      this.univnames = avasAliasList;
+    }
   }
 
   private preview: number[][];
@@ -55,7 +81,7 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
     console.log(this.c, f);
     this.index = index;
     if (null != this.index) {
-      this.readingDbmData(this.env, this.univnames, this.index);
+      this.readAlarm(this.env, this.univnames, this.index);
     }
     this.disableButtons(true);
   }
@@ -63,19 +89,20 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
 
   notifyMatrix: string;
 
-  dbmReadAvaSupSubscription: Subscription;
-  dbmWriteAvaSupSubscription: Subscription;
+  multiReadSubscription: Subscription;
+  multiWriteSubscription: Subscription;
 
   btnApply: boolean;
   btnCancel: boolean;
 
   updateMatrix: any;
 
+  private alarms: Map<string, Map<string, AlarmServerity>> = new Map<string, Map<string, AlarmServerity>>();
+
   constructor(
     private translate: TranslateService
-    , private dbmCacheAvaSupService: DbmCacheAvaSupService
-    , private dbmReadAvaSupService: DbmReadAvaSupService
-    , private dbmWriteAvaSupService: DbmWriteAvaSupService
+    , private dbmMultiReadAttrService: DbmMultiReadAttrService
+    , private dbmMultiWriteAttrService: DbmMultiWriteAttrService
   ) {
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.loadTranslations();
@@ -86,32 +113,56 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'ngOnInit';
     console.log(this.c, f);
 
-    this.dbmReadAvaSupSubscription = this.dbmReadAvaSupService.avaSupItem
-      .subscribe(env => {
-        console.log(this.c, f, 'dbmReadAvaSupSubscription', env);
+    this.multiReadSubscription = this.dbmMultiReadAttrService.dbmItem
+      .subscribe( res => {
+        if ( null != res ) {
+          if ( HttpAccessResultType.NEXT === res.method ) {
+            if ( AlarmSummarySettings.STR_READ_ALARM === res.key ) {
 
-        if (null != env && '' !== env) {
-          console.log(this.c, f, 'Data already read from DBM');
+              let envAlarms = this.alarms.get(res.env);
+              if ( null == envAlarms ) {
+                this.alarms.set(res.env, new Map<string, AlarmServerity>());
+              }
+              envAlarms = this.alarms.get(res.env);
 
-          // Update the Matrix Display
-          const data: Map<number, Map<number, number>> = this.dbmCacheAvaSupService.getAlarmMatrixData(env);
-          this.updateMatrix = data;
+              const data: Map<number, Map<number, number>> = new Map<number, Map<number, number>>();
 
-          this.disableButtons(true);
+              for ( let i = 0, j = 0 ; i < res.address.length / 3 ; ++i, j = i * 3 ) {
 
-        } else {
-          console.warn(this.c, f, 'env IS INVALID');
+                const dbAddressLevel = res.address[j];
+                const alarmServerity = new AlarmServerity();
+                alarmServerity.level = Number(res.values[j++]);
+                alarmServerity.geo = Number(res.values[j++]);
+                alarmServerity.func = Number(res.values[j++]);
+
+                let data1 = data.get(alarmServerity.geo);
+                if ( null == data1 ) {
+                  data.set(alarmServerity.geo, new Map<number, number>());
+                  data1 = data.get(alarmServerity.geo);
+                }
+                data1.set(alarmServerity.func, alarmServerity.level);
+
+                envAlarms.set(dbAddressLevel, alarmServerity);
+              }
+
+              this.updateMatrix = data;
+
+              this.disableButtons(true);
+            }
+          }
         }
       });
 
-    this.dbmWriteAvaSupSubscription = this.dbmWriteAvaSupService.avaSupItem
-      .subscribe(env => {
-        console.log(this.c, f, 'dbmWriteAvaSupSubscription', env);
+    this.multiWriteSubscription = this.dbmMultiWriteAttrService.dbmItem
+      .subscribe( (res: HttpAccessResult) => {
+        console.log(this.c, f, 'dbmWriteAvaSupSubscription', res);
 
-        if (null != env && '' !== env) {
-          console.log(this.c, f, 'Data already write to DBM');
-
-          this.disableButtons(true);
+        if (null != res ) {
+          if ( HttpAccessResultType.NEXT === res.method) {
+            if ( AlarmSummarySettings.STR_WRITE_ALARM === res.key ) {
+              this.disableButtons(true);
+            }
+          }
 
         } else {
           console.warn(this.c, f, 'env IS INVALID');
@@ -123,8 +174,8 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'ngOnDestroy';
     console.log(this.c, f);
     // prevent memory leak when component is destroyed
-    this.dbmReadAvaSupSubscription.unsubscribe();
-    this.dbmWriteAvaSupSubscription.unsubscribe();
+    this.multiReadSubscription.unsubscribe();
+    this.multiWriteSubscription.unsubscribe();
   }
 
   onParentChange(change: string): void {
@@ -177,17 +228,51 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
     this.disableButtons(false);
   }
 
-  writeDbm(): void {
-    const f = 'writeDbm';
+  writeAlarm(env: string, univnames: string[], index: number): void {
+    const f = 'writeAlarm';
     console.log(this.c, f);
-    this.dbmWriteAvaSupService.writeData(this.env, this.data, this.index);
+
+    const values = {};
+    this.data.forEach ( (data1, key1: number) => {
+      data1.forEach( (value2, key2: number) => {
+        let found = false;
+        for ( let i = 0 ; i < this.univnames.length ; ++i ) {
+          if ( found ) {
+            break;
+          }
+          const alias = univnames[i]
+                        + DbmSettings.STR_ATTR_LEVEL
+                        + DbmSettings.STR_OPEN_PARENTHESIS + index + DbmSettings.STR_CLOSE_PARENTHESIS;
+          const alarmServerity: AlarmServerity = this.alarms.get(env).get(alias);
+          if ( null != alarmServerity ) {
+            if ( alarmServerity.geo === key1 && alarmServerity.func === key2 ) {
+              values[alias] = value2;
+              found = true;
+            }
+          }
+        }
+      });
+    });
+
+    this.dbmMultiWriteAttrService.write(env, values, AlarmSummarySettings.STR_WRITE_ALARM);
   }
 
-  readingDbmData(env: string, univnames: string[], index: number): void {
-    const f = 'readingDbmData';
+  readAlarm(env: string, univnames: string[], index: number): void {
+    const f = 'readAlarm';
     console.log(this.c, f);
     console.log(this.c, f, env, univnames, index);
-    this.dbmReadAvaSupService.readData(env, univnames, index);
+
+    const dbaddress: string[] = new Array<string>();
+    univnames.forEach( univname => {
+      dbaddress.push(
+        univname
+        + DbmSettings.STR_ATTR_LEVEL
+        + DbmSettings.STR_OPEN_PARENTHESIS + index + DbmSettings.STR_CLOSE_PARENTHESIS);
+      dbaddress.push(univname + DbmSettings.STR_ATTR_GEO);
+      dbaddress.push(univname + DbmSettings.STR_ATTR_FUNC);
+    });
+
+    this.dbmMultiReadAttrService.read(env, dbaddress, AlarmSummarySettings.STR_READ_ALARM);
   }
 
   private disableButtons(disable: boolean) {
@@ -214,11 +299,17 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
         this.init();
       } break;
       case 'apply': {
-        this.writeDbm();
+        if (null != this.index) {
+          this.writeAlarm(this.env, this.univnames, this.index);
+        } else {
+          console.warn(this.c, f, 'index IS NULL');
+        }
       } break;
       case 'cancel': {
         if (null != this.index) {
-          this.readingDbmData(this.env, this.univnames, this.index);
+          this.readAlarm(this.env, this.univnames, this.index);
+        } else {
+          console.warn(this.c, f, 'index IS NULL');
         }
       } break;
     }

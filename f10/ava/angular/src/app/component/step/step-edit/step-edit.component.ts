@@ -5,13 +5,13 @@ import { Card, Step, Equipment, Execution, ExecType, PhasesType } from '../../..
 import { AppSettings } from '../../../app-settings';
 import { StepEditSettings } from './step-edit-settings';
 import { OlsSettings } from '../../../service//scs/ols-settings';
-import { DbmSettings } from '../../../service/scs/dbm-settings';
 import { OlsService } from '../../../service/scs/ols.service';
-import { DbmService } from '../../../service/scs/dbm.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Subscribable } from 'rxjs/Observable';
-import { StepSettings } from '../steps/step-settings';
+import { StepsSettings } from '../steps/step-settings';
 import { SettingsService } from '../../../service/settings.service';
+import { DbmService } from '../../../service/scadagen/dbm/dbm.service';
+import { DbmSettings } from '../../../service/scadagen/dbm/dbm-settings';
 
 class SelOptStr {
   constructor(
@@ -530,6 +530,10 @@ btnDisabledAddCancelStep: boolean;
           break;
         }
       }
+    }
+
+    if ( null == this.updated ) {
+      this.updated = new Array<Step>();
     }
 
     const step: Step = new Step(

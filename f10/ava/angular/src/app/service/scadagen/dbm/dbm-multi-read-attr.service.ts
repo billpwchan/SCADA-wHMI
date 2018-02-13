@@ -4,7 +4,7 @@ import { UtilsHttpModule } from '../utils/utils-http.module';
 import { DbmService } from './dbm.service';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { HttpAccessReadResult } from '../access/http/Access-interface';
+import { HttpAccessResult } from '../access/http/Access-interface';
 import { HttpMultiAccessService } from '../access/http/multi/http-multi-access.service';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -14,7 +14,7 @@ export class DbmMultiReadAttrService {
   readonly c = 'DbmMultiReadAttrService';
 
   // Observable source
-  private dbmSource = new BehaviorSubject<HttpAccessReadResult>(null);
+  private dbmSource = new BehaviorSubject<HttpAccessResult>(null);
 
   // Observable cardItem stream
   dbmItem = this.dbmSource.asObservable();
@@ -22,7 +22,7 @@ export class DbmMultiReadAttrService {
   private httpMultiAccessSubscription: Subscription;
 
   // Service command
-  dbmChanged(res: HttpAccessReadResult) {
+  dbmChanged(res: HttpAccessResult) {
     const f = 'dbmChanged';
     console.log(this.c, f);
     this.dbmSource.next(res);
@@ -76,7 +76,7 @@ export class DbmMultiReadAttrService {
       addrGrp.push(addresses);
     }
 
-    this.httpMultiAccessService.read(env, addrGrp, key, obs, this.c);
+    this.httpMultiAccessService.access(env, addrGrp, key, obs, this.c);
   }
 
 }

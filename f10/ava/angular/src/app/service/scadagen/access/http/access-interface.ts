@@ -8,7 +8,7 @@ export enum HttpAccessResultType {
   , COMPLETE
 }
 
-export class HttpAccessReadResult {
+export class HttpAccessResult {
   public key: string;
   public method: HttpAccessResultType;
   public connAddr: string;

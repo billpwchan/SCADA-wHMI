@@ -7,7 +7,7 @@ import { MatrixComponent } from '../Matrix/matrix.component';
 import { DbmSettings } from '../../../service/scadagen/dbm/dbm-settings';
 import { DbmMultiReadAttrService } from '../../../service/scadagen/dbm/dbm-multi-read-attr.service';
 import { AlarmServerity } from '../../../service/scs/ava/dbm-ava-settings';
-import { HttpAccessResultType, HttpAccessReadResult } from '../../../service/scadagen/access/http/Access-interface';
+import { HttpAccessResultType, HttpAccessResult } from '../../../service/scadagen/access/http/Access-interface';
 import { DbmMultiWriteAttrService } from '../../../service/scadagen/dbm/dbm-multi-write-attr.service';
 
 @Component({
@@ -131,7 +131,7 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
       });
 
     this.multiWriteSubscription = this.dbmMultiWriteAttrService.dbmItem
-      .subscribe( (res: HttpAccessReadResult) => {
+      .subscribe( (res: HttpAccessResult) => {
         console.log(this.c, f, 'dbmWriteAvaSupSubscription', res);
 
         if (null != res ) {

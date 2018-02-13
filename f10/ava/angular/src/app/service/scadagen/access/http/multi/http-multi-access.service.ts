@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { HttpAccessReadResult, HttpAccessResultType } from '../Access-interface';
+import { HttpAccessResult, HttpAccessResultType, HttpAccessWriteResult } from '../Access-interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MultiResult } from './multi-settings';
 
@@ -37,7 +37,7 @@ export class HttpMultiAccessService {
   // ,"parameters":{"values":{"<alias>Scadagen:AVAS0106:avasuppression.level(0)":10}}
   // ,"response":{}
   // }
-  read(connAddr: string, dbAddress: Array<Array<string>>, key: string, obs: Array<Observable<any>>, caller: string) {
+  access(connAddr: string, dbAddress: Array<Array<string>> | Array<any>, key: string, obs: Array<Observable<any>>, caller: string) {
     const f = 'read';
     console.log(this.c, f);
 
@@ -45,7 +45,7 @@ export class HttpMultiAccessService {
     Observable.forkJoin(obs).subscribe((res: string[]) => {
       console.log(this.c, f, 'next res[' + res + ']');
 
-      const multiAccessResult: HttpAccessReadResult = new HttpAccessReadResult();
+      const multiAccessResult: HttpAccessResult = new HttpAccessResult();
       multiAccessResult.key = key;
       multiAccessResult.method = HttpAccessResultType.NEXT;
       multiAccessResult.connAddr = connAddr;
@@ -53,6 +53,7 @@ export class HttpMultiAccessService {
       multiAccessResult.dbAddresses = new Array<string>();
       for ( let m = 0; m < dbAddress.length; ++m) {
         const v = dbAddress[m];
+        console.log('typeof v[' + typeof v + ']');
         if ( null != v ) {
           for ( let n = 0; n < v.length; ++n) {
             multiAccessResult.dbAddresses.push(v[n]);
@@ -82,7 +83,7 @@ export class HttpMultiAccessService {
     , (err: HttpErrorResponse) => {
       console.log(this.c, f, 'error err[' + err + ']');
 
-      const multiAccessResult: HttpAccessReadResult = new HttpAccessReadResult();
+      const multiAccessResult: HttpAccessResult = new HttpAccessResult();
       multiAccessResult.key = key;
       multiAccessResult.method = HttpAccessResultType.ERROR;
 
@@ -94,75 +95,7 @@ export class HttpMultiAccessService {
     , () => {
       // console.log(this.c, f, 'complete');
 
-      const multiAccessResult: HttpAccessReadResult = new HttpAccessReadResult();
-      multiAccessResult.key = key;
-      multiAccessResult.method = HttpAccessResultType.COMPLETE;
-
-      const multiResult: MultiResult = new MultiResult();
-      multiResult.caller = caller;
-      multiResult.httpAccessResult = multiAccessResult;
-      this.accessChanged(multiResult);
-    });
-  }
-
-  write(connAddr: string, values: Map<string, string>, key: string, obs: Array<Observable<any>>, caller: string) {
-    const f = 'write';
-    console.log(this.c, f);
-
-    // Combining array of observables and emit values based on array order
-    Observable.forkJoin(obs).subscribe((res: string[]) => {
-      console.log(this.c, f, 'next res[' + res + ']');
-
-      const multiAccessResult: HttpAccessReadResult = new HttpAccessReadResult();
-      multiAccessResult.key = key;
-      multiAccessResult.method = HttpAccessResultType.NEXT;
-      multiAccessResult.connAddr = connAddr;
-
-      multiAccessResult.dbAddresses = new Array<string>();
-      for ( let m = 0; m < values.size; ++m) {
-        const v = values[m];
-        if ( null != v ) {
-          for ( let n = 0; n < v.length; ++n) {
-            multiAccessResult.dbAddresses.push(v[n]);
-          }
-        } else {
-          multiAccessResult.dbAddresses.push(null);
-        }
-      }
-
-      multiAccessResult.dbValues = new Array<string>();
-      for ( let m = 0; m < res.length; ++m) {
-        const v = res[m];
-        if ( null != v ) {
-          for ( let n = 0; n < v.length; ++n) {
-            multiAccessResult.dbValues.push(v[n]);
-          }
-        } else {
-          multiAccessResult.dbValues.push(null);
-        }
-      }
-
-      const multiResult: MultiResult = new MultiResult();
-      multiResult.caller = caller;
-      multiResult.httpAccessResult = multiAccessResult;
-      this.accessChanged(multiResult);
-    }
-    , (err: HttpErrorResponse) => {
-      console.log(this.c, f, 'error err[' + err + ']');
-
-      const multiAccessResult: HttpAccessReadResult = new HttpAccessReadResult();
-      multiAccessResult.key = key;
-      multiAccessResult.method = HttpAccessResultType.ERROR;
-
-      const multiResult: MultiResult = new MultiResult();
-      multiResult.caller = caller;
-      multiResult.httpAccessResult = multiAccessResult;
-      this.accessChanged(multiResult);
-    }
-    , () => {
-      // console.log(this.c, f, 'complete');
-
-      const multiAccessResult: HttpAccessReadResult = new HttpAccessReadResult();
+      const multiAccessResult: HttpAccessResult = new HttpAccessResult();
       multiAccessResult.key = key;
       multiAccessResult.method = HttpAccessResultType.COMPLETE;
 

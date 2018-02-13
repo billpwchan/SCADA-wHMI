@@ -24,7 +24,7 @@ import { AlarmSummaryConfig } from '../../component/alarm/alarm-summary/alarm-su
 import { StepsSettings } from '../../component/step/steps/step-settings';
 import { DbmMultiReadAttrService } from '../../service/scadagen/dbm/dbm-multi-read-attr.service';
 import { DbmSettings } from '../../service/scadagen/dbm/dbm-settings';
-import { HttpAccessReadResult, HttpAccessResultType } from '../../service/scadagen/access/http/Access-interface';
+import { HttpAccessResult, HttpAccessResultType } from '../../service/scadagen/access/http/Access-interface';
 import { DbmMultiWriteAttrService } from '../../service/scadagen/dbm/dbm-multi-write-attr.service';
 import { CardsSettings } from '../../component/card/cards/cards-settings';
 
@@ -235,7 +235,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       });
 
     this.multiReadSubscription = this.dbmMultiReadAttrService.dbmItem
-      .subscribe( (res: HttpAccessReadResult) => {
+      .subscribe( (res: HttpAccessResult) => {
         console.log(this.c, f, 'multiReadSubscription', res);
         if ( null != res ) {
           if ( HttpAccessResultType.NEXT === res.method ) {

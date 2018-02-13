@@ -260,7 +260,7 @@ export class DbmService {
     return this.httpClient.get(url).map(this.extractResponse);
   }
 
-  getAttributes(connAddr: string, attributes: string[]) {
+  getAttributes(connAddr: string, attributes: any) {
     const f = 'getAttributes';
     console.log(this.c, f);
 

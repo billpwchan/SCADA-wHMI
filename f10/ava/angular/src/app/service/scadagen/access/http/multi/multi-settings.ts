@@ -1,4 +1,4 @@
-import { HttpAccessReadResult } from '../Access-interface';
+import { HttpAccessResult } from '../Access-interface';
 
 export class MultiSettings {
 
@@ -6,5 +6,5 @@ export class MultiSettings {
 
 export class MultiResult {
     public caller: string;
-    public httpAccessResult: HttpAccessReadResult;
+    public httpAccessResult: HttpAccessResult;
 }

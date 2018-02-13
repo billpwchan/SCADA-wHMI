@@ -271,7 +271,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         }
       }
 
-      const step: Step = new Step(base);
+      const step: Step = new Step(i);
       step.equipment = new Equipment(
                                         this.env
                                       , univname
@@ -289,7 +289,9 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
 
     // Renew StepsComponent
-    this.renewSteps();
+    this.updateSteps = this.steps;
+    this.stepIdsSelected = [];
+
     this.updateStepButton();
   }
 
@@ -317,13 +319,6 @@ export class AdminComponent implements OnInit, OnDestroy {
       }
     }
     return stepSelected;
-  }
-
-  private renewSteps() {
-    const f = 'renewSteps';
-    console.log(this.c, f);
-
-    this.updateSteps = this.steps;
   }
 
   private initGui() {
@@ -409,12 +404,6 @@ export class AdminComponent implements OnInit, OnDestroy {
     return card;
   }
 
-  private getMaxStepNum(): number {
-    const f = 'getMaxStepNum';
-    console.log(this.c, f);
-    return this.stepSummaryCfg.conditionEndId - this.stepSummaryCfg.conditionBeginId;
-  }
-
   private updateStepButton(cards?: number[], steps?: Step[], step?: Step) {
     const f = 'updateStepButton';
     console.log(this.c, f);
@@ -423,8 +412,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     if ( null == steps )  { steps = this.steps; }
     if ( null == step )   { step  = this.getStepSelected(); }
 
-    const maxStep: number = this.getMaxStepNum();
-    this.btnEnableNewStep = (null != cards || null == steps || (null != steps && steps.length <= maxStep));
+    const maxStep: number = this.stepSummaryCfg.conditionEndId - this.stepSummaryCfg.conditionBeginId;
+    this.btnEnableNewStep = ((null != cards && null == steps) || (null != cards && null != steps && steps.length < (maxStep + 1)));
     this.btnEnableDeleteStep = ((null != steps && steps.length > 0) && null != step );
   }
 
@@ -475,7 +464,6 @@ export class AdminComponent implements OnInit, OnDestroy {
     console.log(this.c, f);
 
     this.steps = steps;
-    this.updateStepButton();
   }
 
   onUpdatedStepSelection(stepIds: number[]) {

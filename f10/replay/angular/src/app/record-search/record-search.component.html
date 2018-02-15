@@ -1,0 +1,29 @@
+<div id="record-search">
+  <div id="start-time">
+    <div class="start-time-label">{{ 'Start Time' | translate }}</div>
+    <p-calendar
+      [(ngModel)]="startTime"
+      showTime="true"
+      hourFormat="24"
+      showIcon="true"
+      [dateFormat]="dateFormat"
+      [locale]="calendarLabels">
+    </p-calendar>
+  </div>
+  <div id="end-time">
+    <div class="end-time-label">{{ 'End Time' | translate }}</div>
+    <p-calendar
+      [(ngModel)]="endTime"
+      showTime="true"
+      hourFormat="24"
+      showIcon="true"
+      [dateFormat]="dateFormat"
+      [locale]="calendarLabels">
+    </p-calendar>
+  </div>
+  <div class="btn-group" role="group" id="search-btn-group">
+    <button type="button" class="btn btn-default" (click)="onSearch($event)">{{ 'Search' | translate }}</button>
+    <button type="button" class="btn btn-default" (click)="onCancelSearch()">X</button>
+  </div>
+  
+</div>

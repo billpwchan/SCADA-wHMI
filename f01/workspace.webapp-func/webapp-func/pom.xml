@@ -11,18 +11,18 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
 	<groupId>com.thalesgroup.hv.myproject</groupId>
 		<artifactId>myproject-webapp-func</artifactId>
-		<version>1.6.1</version>
+		<version>1.7.0</version>
 		<packaging>jar</packaging>
 	<name>ScsTraining :: Reactor</name>
 
     <properties>
 	
         <!-- Version of the SCADAgen WHMI -->
-        <scadagen.whmi.version>1.6.1</scadagen.whmi.version>
+        <scadagen.whmi.version>1.7.0</scadagen.whmi.version>
 	
         <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
         <mwt.version>3.8.0</mwt.version>
-        <scadasoft.mwt.version>6.3.1_P07-HV960P01</scadasoft.mwt.version>
+        <scadasoft.mwt.version>6.3.1_P08-HV960P01</scadasoft.mwt.version>
         <jackson.version>2.8.4</jackson.version>
         <maven.javadoc.skip>true</maven.javadoc.skip>
     </properties>

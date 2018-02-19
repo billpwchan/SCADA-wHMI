@@ -1,6 +1,14 @@
 <div id="replay-action">
-  <button>Play</button>
-  <button>Stop</button>
-  <select>Speed</select>
-  <select>Loop</select>
+  <button class="btn btn-default replay-action-btn1" id="replay-action-btn1" type="button" (click)="onClickBtn1()" [innerHtml]="btn1Label"></button>
+  <button class="btn btn-default replay-action-btn2" id="replay-action-btn2" type="button" (click)="onClickBtn2()" [innerHtml]="btn2Label"></button>
+
+  <div>
+    <div>
+      {{ 'Speed' | translate }}
+    </div>
+    <select (change)="onSpeedChange($event.target.value)">
+      <option *ngFor="let speed of speeds">{{ speed }}</option>
+    </select>
+  </div>
+  
 </div>

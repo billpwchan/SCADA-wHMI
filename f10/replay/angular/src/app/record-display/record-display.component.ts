@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { GridOptions } from 'ag-grid';
@@ -13,11 +13,17 @@ import { Record } from '../model/record';
   templateUrl: './record-display.component.html',
   styleUrls: ['./record-display.component.css']
 })
+
+
+
 export class RecordDisplayComponent implements OnInit {
   readonly c = 'RecordDisplayComponent';
+  readonly COLUMN_DEFS = 'columnDefs';
 
   private columnDefs = [];
   private rowData = [];
+
+  private selectedRecord: Record = null;
 
   constructor(
     private translate: TranslateService
@@ -26,13 +32,8 @@ export class RecordDisplayComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.columnDefs = [
-      {
-        headerName: 'Name',
-        field: 'fileName',
-        width: 500
-      }
-    ];
+    const f = 'ngOnInit';
+    this.columnDefs = this.settingsService.getSetting(this.c, f, this.c, this.COLUMN_DEFS);
     this.rowData = [];
     this.getRecords();
   }
@@ -45,6 +46,13 @@ export class RecordDisplayComponent implements OnInit {
       console.log(this.c, f, 'update display records', records.length);
       this.rowData = records;
     });
+  }
+
+  onRowClicked(event: any) {
+    const f = 'onRowClicked';
+    console.log(this.c, f, event);
+
+    this.replayService.setSelectedRecord(event.data);
   }
 
 }

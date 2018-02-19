@@ -11,6 +11,9 @@ import { ReplayService } from '../service/replay.service';
 })
 export class RecordSearchComponent implements OnInit {
   readonly c = 'RecordSearchComponent';
+  readonly DATA_FORMAT = 'dateFormat';
+  readonly HOUR_FORMAT = 'hourFormat';
+  readonly FIRST_DAY_OF_WEEK = 'firstDayOfWeek';
 
   public startTime: Date = new Date();
 
@@ -18,7 +21,9 @@ export class RecordSearchComponent implements OnInit {
 
   public calendarLabels: any;
 
-  public dataFormat = 'yy-mm-dd';
+  public dateFormat = 'yy-mm-dd';
+  
+  public hourFormat = '24';
 
   public filterSet = false;
 
@@ -41,7 +46,80 @@ export class RecordSearchComponent implements OnInit {
       today: 'Today',
       clear: 'Clear'
     };
-
+	this.dateFormat = this.settingsService.getSetting(this.c, f, this.c, STR_DATE_FORMAT);
+	this.hourFormat = this.settingsService.getSetting(this.c, f, this.c, STR_TIME_FORMAT);
+	this.getCalendarLabels();
+  }
+  
+  public getCalendarLabels() {
+  
+    this.calendarLabels['firstDayOfWeek'] = this.settingsService.getSetting(this.c, f, this.c, STR_FIRST_DAY_OF_WEEK);
+	
+	const dayNames: string[] = new Array(7);
+	dayNames[0] = this.translate('Sunday');
+	dayNames[1] = this.translate('Monday');
+	dayNames[2] = this.translate('Tuesday');
+	dayNames[3] = this.translate('Wednesday');
+	dayNames[4] = this.translate('Thursday');
+	dayNames[5] = this.translate('Friday');
+	dayNames[6] = this.translate('Saturday');	
+    this.calendarLabels['dayNames'] = dayNames;
+	
+	const dayNamesShort: string[] = new Array(7);
+	dayNamesShort[0] = this.translate('SundayShort');
+	dayNamesShort[1] = this.translate('MondayShort');
+	dayNamesShort[2] = this.translate('TuesdayShort');
+	dayNamesShort[3] = this.translate('WednesdayShort');
+	dayNamesShort[4] = this.translate('ThursdayShort');
+	dayNamesShort[5] = this.translate('FridayShort');
+	dayNamesShort[6] = this.translate('SaturdayShort');
+	this.calendarLabels['dayNamesShort'] = dayNamesShort;
+	
+	const dayNamesShort: string[] = new Array(7);
+	dayNamesMin[0] = this.translate('SundayMin');
+	dayNamesMin[1] = this.translate('MondayMin');
+	dayNamesMin[2] = this.translate('TuesdayMin');
+	dayNamesMin[3] = this.translate('WednesdayMin');
+	dayNamesMin[4] = this.translate('ThursdayMin');
+	dayNamesMin[5] = this.translate('FridayMin');
+	dayNamesMin[6] = this.translate('SaturdayMin');
+	this.calendarLabels['dayNamesMin'] = dayNamesMin;
+	
+	const monthNames: string[] = new Array(12);
+	monthNames[0] = this.translate.instant('January');
+	monthNames[1] = this.translate.instant('February');
+	monthNames[2] = this.translate.instant('March');
+	monthNames[3] = this.translate.instant('April');
+	monthNames[4] = this.translate.instant('May');
+	monthNames[5] = this.translate.instant('June');
+	monthNames[6] = this.translate.instant('July');
+	monthNames[7] = this.translate.instant('August');
+	monthNames[8] = this.translate.instant('September');
+	monthNames[9] = this.translate.instant('October');
+	monthNames[10] = this.translate.instant('November');
+	monthNames[11] = this.translate.instant('December');
+	this.calendarLabels['monthNames'] = monthNames;
+	
+	const monthNamesShort: string[] = new Array(12);
+	monthNamesShort[0] = this.translate.instant('JanuaryShort');
+	monthNamesShort[1] = this.translate.instant('FebruaryShort');
+	monthNamesShort[2] = this.translate.instant('MarchShort');
+	monthNamesShort[3] = this.translate.instant('AprilShort');
+	monthNamesShort[4] = this.translate.instant('MayShort');
+	monthNamesShort[5] = this.translate.instant('JuneShort');
+	monthNamesShort[6] = this.translate.instant('JulyShort');
+	monthNamesShort[7] = this.translate.instant('AugustShort');
+	monthNamesShort[8] = this.translate.instant('SeptemberShort');
+	monthNamesShort[9] = this.translate.instant('OctoberShort');
+	monthNamesShort[10] = this.translate.instant('NovemberShort');
+	monthNamesShort[11] = this.translate.instant('DecemberShort');
+	this.calendarLabels['monthNamesShort'] = monthNamesShort;
+	
+	const today = this.translate.instant('today');
+	this.calendarLabels['Today'] = today;
+	
+	const clear = this.translate.instant('clear');
+	this.calendarLabels['Clear'] = clear;
   }
 
   public onSearch(event) {

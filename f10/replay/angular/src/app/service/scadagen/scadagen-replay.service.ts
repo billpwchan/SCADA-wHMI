@@ -1,18 +1,104 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { UtilsHttpModule } from './../utils-http/utils-http.module';
+import { SettingsService } from '../settings.service';
+import { CommonSettings } from './common-settings';
+
 
 @Injectable()
 export class ScadagenReplayService {
 
   readonly c = 'ScadagenReplayService';
 
-  constructor() { }
+  readonly STR_URL_RPL_GETINFO = '/scs/service/ReplayComponent/GetInfo';
+  readonly STR_URL_RPL_INIT = '/scs/service/ReplayComponent/Init?startDate=';
+  readonly STR_URL_RPL_START = '/scs/service/ReplayComponent/Start?speed=';
+  readonly STR_URL_RPL_STOP = '/scs/service/ReplayComponent/Stop';
+  readonly STR_QUESTION_MARK = '?';
+  readonly STR_AMPERSAND = '&';
+  readonly STR_EQUAL = '='
+  readonly STR_QUESTION_MARK = '\"';
+
+  constructor(
+    private httpClient: HttpClient
+    , private utilsHttp: UtilsHttpModule
+    , private settingsService: SettingsService
+  ) { }
 
   public getInfo(): Observable<any> {
     const f = 'getInfo';
     console.log(this.c, f);
 
+    const connAddr = this.settingsService.getSetting(this.c, f, this.c, CommonSettings.STR_CONN_ADDR);
+
+    const url = connAddr + this.STR_URL_RPL_GETINFO;
+
+    return this.httpClient.get(url);
+  }
+
+  public initReplay(startDate: number): Observable<any> {
+    const f = 'initReplay';
+    console.log(this.c, f);
+
+    const connAddr = this.settingsService.getSetting(this.c, f, this.c, CommonSettings.STR_CONN_ADDR);
+
+    const url = connAddr + this.STR_URL_RPL_INIT + startDate;
+
+    return this.httpClient.get(url);
+  }
+
+  public start(speed: number): Observable<any> {
+    const f = 'start';
+    console.log(this.c, f);
+
+    const connAddr = this.settingsService.getSetting(this.c, f, this.c, CommonSettings.STR_CONN_ADDR);
+
+    const url = connAddr + this.STR_URL_RPL_START + speed;
+
+    return this.httpClient.get(url);
+  }
+
+  public stop(): Observable<any> {
+    const f = 'stop';
+    console.log(this.c, f);
+
+    const connAddr = this.settingsService.getSetting(this.c, f, this.c, CommonSettings.STR_CONN_ADDR);
+
+    const url = connAddr + this.STR_URL_RPL_STOP;
+
+    return this.httpClient.get(url);
+  }
+  
+  public sendRestRequest(request: string, params: Map<string, string>) {
+    const f = 'sendRestRequest';
+    console.log(this.c, f);
+    const url = request;
+	
+	if (params.size > 0) {
+	  let cnt = 0;
+      params.forEach( (value, key:string) => {
+	    if (cnt > 0) {
+		  if (typeof value === 'string) {
+            url = url + STR_QUESTION_MARK + key + STR_EQUAL + STR_QUOTE + value + STR_QUOTE;
+		  } else {
+		    url = url + STR_QUESTION_MARK + key + STR_EQUAL + value;
+		  }
+		} else {
+		  if (typeof value === 'string') {
+            url = url + STR_AMPERSAND + key + STR_EQUAL + STR_QUOTE + value + STR_QUOTE;
+		  } else {
+            url = url + STR_AMPERSAND + key + STR_EQUAL + value;
+		  }
+		}
+	    cnt++;
+      });
+	}
+	
+    this.httpClient.get(url);
+  }
+
+  private getDummyInfo(): Observable<any> {
     const testObservable = new Observable((observer) => {
       const obj = {
         'speed': 0.0,
@@ -82,4 +168,5 @@ export class ScadagenReplayService {
 
     return testObservable;
   }
+
 }

@@ -6,7 +6,7 @@ IF [%1] == [] SET v_strdt=%strdt%
 IF [%v_strdt%] == [] SET v_strdt=%1
 
 SET SOURCE_BASE_F10=%SOURCE_BASE%/f10
-SET NODEJS_HOME=%SOFTS_BASE%/%SOFTS_DIR%/node-v9.2.0-win-x64
+SET NODEJS_HOME=%SOFTS_BASE%/%SOFTS_DIR%/node-v8.1.3-win-x64
 SET PATH=%PATH%;%NODEJS_HOME%
 
 set COMPONENT=pointSelect

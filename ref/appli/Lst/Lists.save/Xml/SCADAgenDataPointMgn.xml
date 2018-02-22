@@ -12,6 +12,7 @@
 		
 		<Name value="univname"></Name>
 		<Name value="name"></Name>
+		<Name value="nomInstance"></Name>
 		<Name value="pointlabel"></Name>
 
 		<Name value="eqplabel"></Name>
@@ -28,6 +29,7 @@
 
 		<Attribute name="dci_cb_type!^.UNIVNAME"></Attribute>
 		<Attribute name="dci_cb_type!^.name"></Attribute>
+		<Attribute name="dci_cb_type!^.nom_instance"></Attribute>
 		<Attribute name="dci_cb_type!^.label"></Attribute>
 
 		<Attribute name="BasicEquipment!^:^.label"></Attribute>
@@ -46,6 +48,7 @@
 		
 		<Attribute name="aci_cb_type!^.UNIVNAME"></Attribute>
 		<Attribute name="aci_cb_type!^.name"></Attribute>
+		<Attribute name="aci_cb_type!^.nom_instance"></Attribute>
 		<Attribute name="aci_cb_type!^.label"></Attribute>
 
 		<Attribute name="BasicEquipment!^:^.label"></Attribute>

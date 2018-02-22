@@ -34,6 +34,9 @@
       , {"label": "M001", "value": "http://127.0.0.1:8991"}
       , {"label": "M002", "value": "http://127.0.0.1:8992"}
     ]
+    , "ols_lst_server": "LstServer"
+    , "ols_lst_name": "SCADAgenDataPointMgn"
+    , "ols_lst_filter": "nomInstance%20LIKE%20dci"
   }
   , "MatrixComponent": {
     "spreadsheet_height": 150

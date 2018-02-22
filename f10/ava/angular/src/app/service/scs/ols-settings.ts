@@ -1,5 +1,8 @@
 export class OlsSettings {
 
+    public static readonly STR_SIG_EQUAL = '=';
+    public static readonly STR_SIG_AND = '&';
+
     public static readonly STR_ATTR_PARAMETERS = 'parameters';
     public static readonly STR_ATTR_LISTSERVER = 'listServer';
     public static readonly STR_ATTR_LISTNAME = 'listName';
@@ -17,6 +20,7 @@ export class OlsSettings {
 
     public static readonly STR_URL_LISTSERVER = 'listServer';
     public static readonly STR_URL_LISTNAME = 'listName';
+    public static readonly STR_URL_FILTER = 'filter';
     public static readonly STR_URL_READOLSLIST = '/scs/service/OlsComponent/ReadOlsList?listServer=';
 
 }

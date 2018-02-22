@@ -34,13 +34,14 @@ export class OlsService {
   getEqps(): Map<string, Map<number, number[]>> { return this.eqps; }
   getPointData(): Map<string, any> { return this.pointData; }
 
-  retriveEquipments(connAddr: string): void {
+  retriveEquipments(connAddr: string, lstServer: string, lstName: string, filter: string = null): void {
     const f = 'retriveEquipments';
     console.log(this.c, f);
 
     let url: string = connAddr;
-    url += OlsSettings.STR_URL_READOLSLIST + OlsSettings.STR_LST_SERVER;
-    url += '&' + OlsSettings.STR_URL_LISTNAME + '=' + OlsSettings.STR_SCADAGEN_DATA_POINT_MGN;
+    url += OlsSettings.STR_URL_READOLSLIST + lstServer;
+    url += OlsSettings.STR_SIG_AND + OlsSettings.STR_URL_LISTNAME + OlsSettings.STR_SIG_EQUAL + lstName;
+    if ( null != filter ) { url += OlsSettings.STR_SIG_AND + OlsSettings.STR_URL_FILTER + OlsSettings.STR_SIG_EQUAL + filter; }
 
     this.retriveEquipment(connAddr, url);
   }

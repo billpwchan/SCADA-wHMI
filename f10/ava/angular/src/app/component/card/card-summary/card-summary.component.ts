@@ -120,10 +120,10 @@ export class CardSummaryComponent implements OnInit, OnDestroy, OnChanges {
               const alias = result.data[i];
               const classNames = alias.split(DbmSettings.STR_COLON);
               const className = classNames[classNames.length - 1];
-              if ( className.startsWith(this.cfg.avar) ) {
+              if ( className.startsWith(this.cfg.avarPrefix) ) {
                 this.avarAlias = alias;
                 this.onUpdatedAvarAlias.emit(this.avarAlias);
-              } else if ( className.startsWith(this.cfg.avas) ) {
+              } else if ( className.startsWith(this.cfg.avasPrefix) ) {
                 this.avasAliasList.push(alias);
               }
             }

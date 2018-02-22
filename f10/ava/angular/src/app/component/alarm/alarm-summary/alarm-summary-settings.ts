@@ -21,8 +21,8 @@ export class AlarmSummarySettings {
   public static readonly STR_FORMULA_DEF_VAL            = 'formula_default_value';
   public static readonly STR_FORMULA_ZERO_DEF_VAL       = 'formula_zero_default_value';
 
-  public static readonly STR_AVAR                       = 'avar';
-  public static readonly STR_AVAS                       = 'avas';
+  public static readonly STR_AVAR_PREFIX                = 'avar_prefix';
+  public static readonly STR_AVAS_PREFIX                = 'avas_prefix';
 
   public static readonly RULE_ATTR_LIST                 = [
                                                             DbmSettings.STR_ATTR_UNIVNAME
@@ -44,11 +44,13 @@ export class Env {
 
 export class AVASummaryConfig {
   public envs: Env[];
+  public avarPrefix: string;
+  public avasPrefix: string;
 }
 
 export class CardSummaryConfig {
-  public avar: string;
-  public avas: string;
+  public avarPrefix: string;
+  public avasPrefix: string;
   public instanceClassName: string;
   public instanceRoot: string;
   public ruleBase: number;
@@ -64,8 +66,8 @@ export class StepSummaryConfig {
 }
 
 export class AlarmSummaryConfig {
-  public avar: string;
-  public avas: string;
+  public avarPrefix: string;
+  public avasPrefix: string;
   public avarBase: number;
   public maxAvarNum: number;
   public avasuppression: string;

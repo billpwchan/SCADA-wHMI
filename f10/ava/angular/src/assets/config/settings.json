@@ -59,11 +59,11 @@
       {"label": "SRV1", "value": "http://10.216.135.34:8991"}
       , {"label": "M100", "value": "http://127.0.0.1:8990"}
     ]
+    , "avar_prefix": "AVAR"
+    , "avas_prefix": "AVAS"
   }
   , "CardSummaryComponent": {
-    "avar": "AVAR"
-    , "avas": "AVAS"
-    , "instance_classname": "ScadagenNode"
+    "instance_classname": "ScadagenNode"
     , "instance_root": "Scadagen"
     , "rule_base": 1
     , "max_rule_num": 256
@@ -76,9 +76,7 @@
     , "formula_zero_default_value": 0
   }
   , "AlarmSummaryComponent": {
-    "avar": "AVAR"
-    , "avas": "AVAS"
-    , "avar_base": 1
+    "avar_base": 1
     , "max_avar_num": 256
     , "avasuppression": "avasuppression"
   }

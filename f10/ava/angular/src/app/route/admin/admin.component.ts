@@ -498,6 +498,9 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     cfg.envs = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_ENVS) as Env[];
 
+    cfg.avarPrefix = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAR_PREFIX) as string;
+    cfg.avasPrefix = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAS_PREFIX) as string;
+
     return cfg;
   }
 
@@ -508,8 +511,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     const c = 'CardSummaryComponent';
     const cfg: CardSummaryConfig = new CardSummaryConfig();
 
-    cfg.avar = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAR) as string;
-    cfg.avas = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAS) as string;
+    cfg.avarPrefix = this.avaSummaryCfg.avarPrefix;
+    cfg.avasPrefix = this.avaSummaryCfg.avasPrefix;
 
     cfg.instanceClassName = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_INSTANCE_CLASSNAME) as string;
     cfg.instanceRoot = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_INSTANCE_ROOT) as string;
@@ -540,8 +543,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     const c = 'AlarmSummaryComponent';
     const cfg: AlarmSummaryConfig = new AlarmSummaryConfig();
 
-    cfg.avar = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAR) as string;
-    cfg.avas = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAS) as string;
+    cfg.avarPrefix = this.avaSummaryCfg.avarPrefix;
+    cfg.avasPrefix = this.avaSummaryCfg.avasPrefix;
 
     cfg.avarBase = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAR_BASE) as number;
     cfg.maxAvarNum = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_MAX_AVAR_NUM) as number;

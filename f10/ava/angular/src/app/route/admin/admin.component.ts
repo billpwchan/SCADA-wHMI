@@ -500,6 +500,8 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     cfg.avarPrefix = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAR_PREFIX) as string;
     cfg.avasPrefix = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAS_PREFIX) as string;
+    cfg.avarScstype = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAR_SCSTYPE) as string;
+    cfg.avasScstype = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAS_SCSTYPE) as string;
 
     return cfg;
   }
@@ -513,6 +515,8 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     cfg.avarPrefix = this.avaSummaryCfg.avarPrefix;
     cfg.avasPrefix = this.avaSummaryCfg.avasPrefix;
+    cfg.avarScstype = this.avaSummaryCfg.avarScstype;
+    cfg.avasScstype = this.avaSummaryCfg.avasScstype;
 
     cfg.instanceClassName = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_INSTANCE_CLASSNAME) as string;
     cfg.instanceRoot = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_INSTANCE_ROOT) as string;
@@ -545,6 +549,8 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     cfg.avarPrefix = this.avaSummaryCfg.avarPrefix;
     cfg.avasPrefix = this.avaSummaryCfg.avasPrefix;
+    cfg.avarScstype = this.avaSummaryCfg.avarScstype;
+    cfg.avasScstype = this.avaSummaryCfg.avasScstype;
 
     cfg.avarBase = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAR_BASE) as number;
     cfg.maxAvarNum = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_MAX_AVAR_NUM) as number;

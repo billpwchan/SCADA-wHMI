@@ -61,6 +61,8 @@
     ]
     , "avar_prefix": "AVAR"
     , "avas_prefix": "AVAS"
+    , "avar_scstype": "FASAVARULES"
+    , "avas_scstype": "FASAVASUPPRESS"
   }
   , "CardSummaryComponent": {
     "instance_classname": "ScadagenNode"

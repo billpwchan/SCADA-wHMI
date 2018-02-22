@@ -6,6 +6,7 @@ export class CardsSettings {
     public static readonly STR_CARD_DG_STATUS_TRIGGERED         = '&cards_dg_status_triggered';
 
     public static readonly STR_READ_CARD                        = 'readCard';
+    public static readonly STR_READ_SCSTYPE                     = 'readScstype';
     public static readonly STR_WRITE_CARD_NAME                  = 'writeCardName';
     public static readonly STR_WRITE_CARD_STATE                 = 'writeCardState';
 }

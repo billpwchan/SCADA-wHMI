@@ -120,10 +120,10 @@ export class CardSummaryComponent implements OnInit, OnDestroy, OnChanges {
               const alias = result.data[i];
               const classNames = alias.split(DbmSettings.STR_COLON);
               const className = classNames[classNames.length - 1];
-              if ( className.startsWith(AlarmSummarySettings.STR_AVAR_PREFIX) ) {
+              if ( className.startsWith(this.cfg.avar) ) {
                 this.avarAlias = alias;
                 this.onUpdatedAvarAlias.emit(this.avarAlias);
-              } else if ( className.startsWith(AlarmSummarySettings.STR_AVAS_PREFIX) ) {
+              } else if ( className.startsWith(this.cfg.avas) ) {
                 this.avasAliasList.push(alias);
               }
             }
@@ -144,7 +144,7 @@ export class CardSummaryComponent implements OnInit, OnDestroy, OnChanges {
               const alias = result.data[i];
               const classNames = alias.split(DbmSettings.STR_COLON);
               const className = classNames [classNames.length - 1];
-              if ( className.startsWith(AlarmSummarySettings.STR_RULE_PREFIX) ) {
+              if ( className.startsWith(DbmSettings.STR_RULE) ) {
 
                 let found = false;
                 const base = this.cfg.ruleBase;

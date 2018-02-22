@@ -59,7 +59,6 @@ export class Card {
   public alarms: number[][];
   constructor(
     public univname: string
-    , public fullpath: string
     , public index: number
     , public name: string
     , public state: boolean

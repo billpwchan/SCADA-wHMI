@@ -29,7 +29,8 @@
     , "pointlabel_prefix": ""
     , "value_prefix": ""
     , "envs": [
-      {"label": "M100", "value": "http://127.0.0.1:8990"}
+      {"label": "SRV1", "value": "http://10.216.135.34:8991"}
+      , {"label": "M100", "value": "http://127.0.0.1:8990"}
       , {"label": "M001", "value": "http://127.0.0.1:8991"}
       , {"label": "M002", "value": "http://127.0.0.1:8992"}
     ]
@@ -39,24 +40,29 @@
     , "spreadsheet_width": 80
     , "spreadsheet_visible_rows": 6
     , "col_header_prefix": "function_"
-    , "col_header_ids": [1,2,3,4,8,99]
+    , "col_header_ids": [1,2,4,8,9,10,12,13,99]
     , "col_width": 80
     , "row_header_prefix": "location_"
-    , "row_header_ids": [1,2,100000]
+    , "row_header_ids": [1,2,3,4,5,6,7,8,91,2,100000]
     , "row_header_width": 80
     , "default_value": 0
     , "matrixes_value_type": 2
     , "matrixes": [
-      {"value": 1, "label": "&matrix_flag_label_1", "shortlabel" : "&matrix_flag_shortlabel_1", "title": "&matrix_flag_title_1"}
-      , {"value": 2, "label": "&matrix_flag_label_2", "shortlabel" : "&matrix_flag_shortlabel_2", "title": "&matrix_flag_title_2"}
-      , {"value": 3, "label": "&matrix_flag_label_3", "shortlabel" : "&matrix_flag_shortlabel_3", "title": "&matrix_flag_title_3"}
-      , {"value": 4, "label": "&matrix_flag_label_4", "shortlabel" : "&matrix_flag_shortlabel_4", "title": "&matrix_flag_title_4"}
+      {"value": 2, "label": "&matrix_flag_label_1", "shortlabel" : "&matrix_flag_shortlabel_1", "title": "&matrix_flag_title_1"}
+      , {"value": 3, "label": "&matrix_flag_label_2", "shortlabel" : "&matrix_flag_shortlabel_2", "title": "&matrix_flag_title_2"}
+      , {"value": 4, "label": "&matrix_flag_label_3", "shortlabel" : "&matrix_flag_shortlabel_3", "title": "&matrix_flag_title_3"}
+      , {"value": 5, "label": "&matrix_flag_label_4", "shortlabel" : "&matrix_flag_shortlabel_4", "title": "&matrix_flag_title_4"}
     ]
   }
   , "AVASummaryComponent": {
     "envs": [
-      {"label": "M100", "value": "http://127.0.0.1:8990"}
+      {"label": "SRV1", "value": "http://10.216.135.34:8991"}
+      , {"label": "M100", "value": "http://127.0.0.1:8990"}
     ]
+    , "avar_prefix": "AVAR"
+    , "avas_prefix": "AVAS"
+    , "avar_scstype": "FASAVARULES"
+    , "avas_scstype": "FASAVASUPPRESS"
   }
   , "CardSummaryComponent": {
     "instance_classname": "ScadagenNode"

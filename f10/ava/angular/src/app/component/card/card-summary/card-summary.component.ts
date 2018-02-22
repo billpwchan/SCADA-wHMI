@@ -114,25 +114,12 @@ export class CardSummaryComponent implements OnInit, OnDestroy, OnChanges {
           const root: string = DbmSettings.STR_URL_ALIAS + this.instanceRoot;
           if ( root === result.dbAddress ) {
 
-            this.avasAliasList = new Array<string>();
-
+            const avaList: Array<string> = new Array<string>();
             for ( let i = 0 ; i < result.data.length ; ++i ) {
               const alias = result.data[i];
-              const classNames = alias.split(DbmSettings.STR_COLON);
-              const className = classNames[classNames.length - 1];
-              if ( className.startsWith(AlarmSummarySettings.STR_AVAR_PREFIX) ) {
-                this.avarAlias = alias;
-                this.onUpdatedAvarAlias.emit(this.avarAlias);
-              } else if ( className.startsWith(AlarmSummarySettings.STR_AVAS_PREFIX) ) {
-                this.avasAliasList.push(alias);
-              }
+              avaList.push(alias + DbmSettings.STR_ATTR_SCSTYPE);
             }
-
-            this.onUpdatedAvasAliasList.emit(this.avasAliasList);
-
-            if ( null != this.avarAlias ) {
-              this.getChildrenAliasService.readData(this.env, this.avarAlias);
-            }
+            this.dbmMultiReadAttrService.read(this.env, avaList, CardsSettings.STR_READ_SCSTYPE);
           }
         }
         if ( null != this.avarAlias ) {
@@ -144,7 +131,7 @@ export class CardSummaryComponent implements OnInit, OnDestroy, OnChanges {
               const alias = result.data[i];
               const classNames = alias.split(DbmSettings.STR_COLON);
               const className = classNames [classNames.length - 1];
-              if ( className.startsWith(AlarmSummarySettings.STR_RULE_PREFIX) ) {
+              if ( className.startsWith(DbmSettings.STR_RULE) ) {
 
                 let found = false;
                 const base = this.cfg.ruleBase;
@@ -187,7 +174,29 @@ export class CardSummaryComponent implements OnInit, OnDestroy, OnChanges {
       console.log(this.c, f, 'multiReadSubscription', res);
       if ( null != res ) {
         if ( HttpAccessResultType.NEXT === res.method ) {
-          if ( CardsSettings.STR_READ_CARD === res.key ) {
+          if ( CardsSettings.STR_READ_SCSTYPE === res.key ) {
+            if ( null != res.values ) {
+              this.avasAliasList = new Array<string>();
+
+              for ( let i = 0 ; i < res.address.length ; ++i ) {
+                const address: string = res.address[i];
+                const alias = address.slice(0, address.length - (DbmSettings.STR_ATTR_SCSTYPE.length));
+                const scstype = res.values[i];
+                if ( scstype.startsWith(this.cfg.avarScstype) ) {
+                  this.avarAlias = alias;
+                  this.onUpdatedAvarAlias.emit(this.avarAlias);
+                } else if ( scstype.startsWith(this.cfg.avasScstype) ) {
+                  this.avasAliasList.push(alias);
+                }
+              }
+
+              this.onUpdatedAvasAliasList.emit(this.avasAliasList);
+
+              if ( null != this.avarAlias ) {
+                this.getChildrenAliasService.readData(this.env, this.avarAlias);
+              }
+            }
+          } else if ( CardsSettings.STR_READ_CARD === res.key ) {
             if ( null != res.values ) {
               this.renewCard(res.values);
               if ( ! this.subscriptsionStarted ) {
@@ -267,7 +276,6 @@ export class CardSummaryComponent implements OnInit, OnDestroy, OnChanges {
       let index = 0;
       const card: Card = new Card(
                                   dbValue[base + index++]
-                                  , dbValue[base + index++]
                                   , dbValue[base + index++]
                                   , dbValue[base + index++]
                                   , dbValue[base + index++]

@@ -54,12 +54,12 @@ export class AlarmSummaryComponent implements OnInit, OnDestroy, OnChanges {
         const alias: string = univnames[i];
         const classNames: string[] = alias.split(DbmSettings.STR_COLON);
         const className: string = classNames[classNames.length - 1];
-        if (className.startsWith(AlarmSummarySettings.STR_AVAS_PREFIX)) {
+        if (className.startsWith(this.cfg.avasPrefix)) {
           let found = false;
           const base = this.cfg.avarBase;
           const max = this.cfg.maxAvarNum;
           for ( let n = 0; n < max ; ++n ) {
-            const name = AlarmSummarySettings.STR_AVAS_PREFIX + (DbmSettings.STR_THREE_ZERO + (n + base)).slice(-4);
+            const name = this.cfg.avasPrefix + (DbmSettings.STR_THREE_ZERO + (n + base)).slice(-4);
             if ( className === name ) {
               found = true;
             }

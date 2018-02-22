@@ -40,7 +40,6 @@ export class CardsComponent implements OnInit, OnDestroy, OnChanges {
         const card = cards[i];
         const newCard = new Card(
                                   card.univname
-                                  , card.fullpath
                                   , card.index
                                   , card.name
                                   , card.state

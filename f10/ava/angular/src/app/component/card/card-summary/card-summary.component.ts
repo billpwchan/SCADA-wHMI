@@ -280,7 +280,6 @@ export class CardSummaryComponent implements OnInit, OnDestroy, OnChanges {
                                   , dbValue[base + index++]
                                   , dbValue[base + index++]
                                   , dbValue[base + index++]
-                                  , dbValue[base + index++]
       );
       this.cards.push(card);
     }

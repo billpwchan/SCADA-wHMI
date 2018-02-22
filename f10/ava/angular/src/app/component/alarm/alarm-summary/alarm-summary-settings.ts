@@ -28,7 +28,6 @@ export class AlarmSummarySettings {
 
   public static readonly RULE_ATTR_LIST                 = [
                                                             DbmSettings.STR_ATTR_UNIVNAME
-                                                            , DbmSettings.STR_ATTR_NAME
                                                             , DbmSettings.STR_ATTR_INDEX
                                                             , DbmSettings.STR_ATTR_LABEL
                                                             , DbmSettings.STR_ATTR_ENABLE

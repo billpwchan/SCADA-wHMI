@@ -8,5 +8,6 @@
     <ownedAttributes frozen="true" formula="MAX((BITRSHIFT(BITAND([.condmask],16777216),24)*[.level(24)]),(BITRSHIFT(BITAND([.condmask],33554432),25)*[.level(25)]),(BITRSHIFT(BITAND([.condmask],67108864),26)*[.level(26)]),(BITRSHIFT(BITAND([.condmask],134217728),27)*[.level(27)]),(BITRSHIFT(BITAND([.condmask],268435456),28)*[.level(28)]),(BITRSHIFT(BITAND([.condmask],536870912),29)*[.level(29)]),(BITRSHIFT(BITAND([.condmask],1073741824),30)*[.level(30)]),ABS(BITRSHIFT(BITAND([.condmask],-2147483647),31)*[.level(31)]))" name="ce_calc4" partialUri="AVASUPPRESSION_qFOrQPwjEeepU6y6bM31UA_1516261573620"/>
     <ownedAttributes name="ce_calc5" partialUri="AVASUPPRESSION_qFOrQPwjEeepU6y6bM31UA_1516261573620"/>
     <ownedAttributes frozen="true" formula="[^:^:AVAR0001:R_SYNTH.condmask]" name="condmask" partialUri="AVASUPPRESSION_qFOrQPwjEeepU6y6bM31UA_1516261573620"/>
+    <ownedAttributes frozen="true" name="scstype" partialUri="ScadagenNode_FAMAVA_SUPPRESS_nOOo8PwjEeepU6y6bM31UA_1516261554431"/>
   </ownedPrototype>
 </scsproject:Project>

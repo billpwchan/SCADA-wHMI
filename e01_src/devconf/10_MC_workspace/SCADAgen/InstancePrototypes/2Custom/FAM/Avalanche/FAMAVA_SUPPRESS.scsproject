@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="8">
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="10">
   <ownedPrototype>
     <ownedAttributes frozen="true" formula="MAX([.ce_calc1],[.ce_calc2],[.ce_calc3],[.ce_calc4])" name="suppressionlevel" partialUri="AVASUPPRESSION_qFOrQPwjEeepU6y6bM31UA_1516261573620"/>
     <ownedAttributes frozen="true" formula="MAX((BITRSHIFT(BITAND([.condmask],1),0)*[.level(0)]),(BITRSHIFT(BITAND([.condmask],2),1)*[.level(1)]),(BITRSHIFT(BITAND([.condmask],4),2)*[.level(2)]),(BITRSHIFT(BITAND([.condmask],8),3)*[.level(3)]),(BITRSHIFT(BITAND([.condmask],16),4)*[.level(4)]),(BITRSHIFT(BITAND([.condmask],32),5)*[.level(5)]),(BITRSHIFT(BITAND([.condmask],64),6)*[.level(6)]),(BITRSHIFT(BITAND([.condmask],128),7)*[.level(7)]))" name="ce_calc1" partialUri="AVASUPPRESSION_qFOrQPwjEeepU6y6bM31UA_1516261573620"/>

@@ -474,6 +474,8 @@ public class UIWidgetGeneric extends UIGeneric {
 									rootPanel.add(w);
 								} else if ( RootWidgetType.VerticalPanel.equalsName(strRootPanel) ) {
 									rootPanel.add(w);
+								} else if ( RootWidgetType.FlowPanel.equalsName(strRootPanel) ) {	
+									rootPanel.add(w);
 								} else if ( RootWidgetType.FlexTable.equalsName(strRootPanel) ) {	
 									((FlexTable)rootPanel).setWidget(i, j, w);
 								} else if ( RootWidgetType.AbsolutePanel.equalsName(strRootPanel) ) {

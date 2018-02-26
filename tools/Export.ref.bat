@@ -21,9 +21,15 @@ ECHO _REF=%_REF%
 
 REM Export REF
 
+ECHO "%v_strdt% > "%_REF%\appli\version.txt"
+
 CALL ARCHIVE.cmd :ZIP "%_folder%\ref_appli" "%_REF%\appli\*" "-xr!.gitignore -xr!.gitkeep"
 
+ECHO "%v_strdt%" > "%_REF%\conn\version.txt"
+
 CALL ARCHIVE.cmd :ZIP "%_folder%\ref_conn" "%_REF%\conn\*" "-xr!.gitignore -xr!.gitkeep"
+
+ECHO "%v_strdt%" > "%_REF%\webapp\version.txt"
 
 CALL ARCHIVE.cmd :ZIP "%_folder%\ref_webapp" "%_REF%\webapp\*" "-xr!.gitignore -xr!.gitkeep"
 

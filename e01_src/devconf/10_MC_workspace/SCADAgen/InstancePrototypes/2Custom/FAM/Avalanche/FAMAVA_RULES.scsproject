@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="5">
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="7">
   <ownedPrototype>
     <ownedAttributes frozen="true" name="scstype" partialUri="ScadagenNode_FASAVAP_u3lEIPwcEeepU6y6bM31UA_1516258599266"/>
     <ownedAttributes frozen="true" name="index" partialUri="RULE_3-PGoPwcEeepU6y6bM31UA_1516258660362"/>

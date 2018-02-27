@@ -9,35 +9,35 @@
     , "AppComponent": {
       "title": "Replay"
     }
-	, "RecordComponent": {
+	, "RecordDisplayComponent": {
 	  "columnDefs": [
 	    {
-	      headerName: 'Name',
-          field: 'fileName',
-          width: 500
+	      "headerName": "Name",
+        "field": "fileName",
+        "width": 500
 	    }
 	  ]
 	}
 	, "RecordSearchComponent": {
-	  "dateFormat: "yy-mm-dd"
-	  , "hourFormat": "24"
+	  "dateFormat": "yy-mm-dd"
+	  , "timeFormat": "24"
 	  , "firstDayOfWeek": 0
 	}
 	, "ReplayActionComponent": {
-	  "speeds": [ 1, 2, 5, 10 , 20 ]
-	  , "btn1Caption: "&#60;"
-	  , "btn2Caption: "&#52;"
-	  , "btn1Action: {
+	  "speeds": [ 1, 2, 5, 10, 20 ]
+	  , "btn1Caption": "&#52;"
+	  , "btn2Caption": "&#60;"
+	  , "btn1Action": {
 	    "type": "REST"
-		, "url": "http://localhost:18080/scs/service/ReplayComponent/Start"
-		, "params: [
-		  "speed": "&speed"
-		]
+		  , "url": "http://localhost:18080/scs/service/ReplayComponent/Start"
+		  , "params": {
+			  "speed": "&speed"
+			}
 	  }
-	  , "btn2Action: {
+	  , "btn2Action": {
 	    "type": "REST"
 		, "url": "http://localhost:18080/scs/service/ReplayComponent/Stop"
-		, "params": []
+		, "params": {}
 	  }
 	}
     , "ScadagenReplayService": {

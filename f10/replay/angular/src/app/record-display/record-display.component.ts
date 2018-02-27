@@ -20,10 +20,10 @@ export class RecordDisplayComponent implements OnInit {
   readonly c = 'RecordDisplayComponent';
   readonly COLUMN_DEFS = 'columnDefs';
 
-  private columnDefs = [];
-  private rowData = [];
+  public columnDefs = [];
+  public rowData = [];
 
-  private selectedRecord: Record = null;
+  public selectedRecord: Record = null;
 
   constructor(
     private translate: TranslateService

@@ -73,48 +73,52 @@ export class ReplayService {
   public cancelFilter() {
     const f = 'cancelFilter';
     console.log(this.c, f);
-	
+
     this.subjRecords.next(this.records);
   }
 
   public setSelectedRecord(record: Record) {
     const f = 'setSelectedRecord';
     console.log(this.c, f);
-	
+
     this.selectedRecord = record;
-	
-	// init replay with record's fileDate as startDate
-	this.scgRlyService.initReplay(record.fileDate);
+
+    // init replay with record's fileDate as startDate
+    this.scgRlyService.initReplay(record.fileDate).subscribe(res => {
+      console.log(this.c, f, res);
+    });
   }
 
   public setReplaySpeed(speed: number) {
     const f = 'setReplaySpeed';
-    console.log(this.c, f);
-	
+    console.log(this.c, f, 'speed =', speed, typeof(speed));
+
     this.replaySpeed = speed;
   }
 
   public execAction(action: any) {
     const f = 'execAction';
-    console.log(this.c, f);
-	
-	if (action['type'] === 'REST') {
-	  console.log(this.c, f, 'action is REST');
+    console.log(this.c, f, 'action =', action);
+
+    if (action['type'] === 'REST') {
+      console.log(this.c, f, 'action is REST');
       const url: string = action['url'];
-      const params: Map<string, string> = new Map<string, string>();
-	  if (action['params']) {
-	    const ps: Map<string, string> = acton['params'];
-		ps.forEach( (value: string, key: string) => {
-		  if (value === '&speed') {
-		    params.set(key, speed);
-		  } else {
-		    params.set(key, value);
-		  }
-		});
-	  }
-	  this.scgRlyService.sendRestRequest(url, params);
-	} else {
-	  console.warn(this.c, f, 'action type not supported');
-	}
+      const params: Map<string, string|number> = new Map();
+      const obj = action['params'];
+      if (obj) {
+        Object.keys(obj).forEach(key => {
+          if (obj[key] === '&speed') {
+            params.set(key, this.replaySpeed);
+            // console.log(this.c, f, 'typeof ', params.get(key), typeof(params.get(key)));
+          } else {
+            params.set(key, obj[key]);
+            // console.log(this.c, f, 'typeof ', params.get(key), typeof(params.get(key)));
+          }
+        });
+      }
+      this.scgRlyService.sendRestRequest(url, params);
+    } else {
+      console.warn(this.c, f, 'action type not supported');
+    }
   }
 }

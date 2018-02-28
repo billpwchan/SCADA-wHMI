@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { SettingsService } from '../service/settings.service';
 import { ReplayService } from '../service/replay.service';
@@ -31,23 +31,17 @@ export class RecordSearchComponent implements OnInit {
     private translate: TranslateService
     , private settingsService: SettingsService
     , private replayService: ReplayService
-  ) { }
+  ) {
+    translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      console.log(this.c, 'onLangChange');
+      this.getCalendarLabels();
+    });
+   }
 
   ngOnInit() {
     const f = 'ngOnInit';
     console.log(this.c, f);
 
-    // this.calendarLabels = {
-    //   firstDayOfWeek: 0,
-    //   dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    //   dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    //   dayNamesMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-    //   monthNames: ['January', 'February', 'March', 'April', 'May', 'June',
-    //     'July', 'August', 'September', 'October', 'November', 'December'],
-    //   monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    //   today: 'Today',
-    //   clear: 'Clear'
-    // };
     this.dateFormat = this.settingsService.getSetting(this.c, f, this.c, this.STR_DATE_FORMAT);
     this.hourFormat = this.settingsService.getSetting(this.c, f, this.c, this.STR_TIME_FORMAT);
     this.getCalendarLabels();
@@ -57,7 +51,9 @@ export class RecordSearchComponent implements OnInit {
     const f = 'getCalendarLabels';
     console.log(this.c, f);
 
-    this.calendarLabels['firstDayOfWeek'] = this.settingsService.getSetting(this.c, f, this.c, this.STR_FIRST_DAY_OF_WEEK);
+    const labels = {};
+
+    labels['firstDayOfWeek'] = this.settingsService.getSetting(this.c, f, this.c, this.STR_FIRST_DAY_OF_WEEK);
 
     const dayNames: string[] = new Array(7);
     dayNames[0] = this.translate.instant('Sunday');
@@ -67,7 +63,7 @@ export class RecordSearchComponent implements OnInit {
     dayNames[4] = this.translate.instant('Thursday');
     dayNames[5] = this.translate.instant('Friday');
     dayNames[6] = this.translate.instant('Saturday');
-    this.calendarLabels['dayNames'] = dayNames;
+    labels['dayNames'] = dayNames;
 
     const dayNamesShort: string[] = new Array(7);
     dayNamesShort[0] = this.translate.instant('SundayShort');
@@ -77,7 +73,7 @@ export class RecordSearchComponent implements OnInit {
     dayNamesShort[4] = this.translate.instant('ThursdayShort');
     dayNamesShort[5] = this.translate.instant('FridayShort');
     dayNamesShort[6] = this.translate.instant('SaturdayShort');
-    this.calendarLabels['dayNamesShort'] = dayNamesShort;
+    labels['dayNamesShort'] = dayNamesShort;
 
     const dayNamesMin: string[] = new Array(7);
     dayNamesMin[0] = this.translate.instant('SundayMin');
@@ -87,7 +83,8 @@ export class RecordSearchComponent implements OnInit {
     dayNamesMin[4] = this.translate.instant('ThursdayMin');
     dayNamesMin[5] = this.translate.instant('FridayMin');
     dayNamesMin[6] = this.translate.instant('SaturdayMin');
-    this.calendarLabels['dayNamesMin'] = dayNamesMin;
+    labels['dayNamesMin'] = dayNamesMin;
+    console.log(this.c, f, 'dayNamesMin = ', dayNamesMin);
 
     const monthNames: string[] = new Array(12);
     monthNames[0] = this.translate.instant('January');
@@ -102,7 +99,7 @@ export class RecordSearchComponent implements OnInit {
     monthNames[9] = this.translate.instant('October');
     monthNames[10] = this.translate.instant('November');
     monthNames[11] = this.translate.instant('December');
-    this.calendarLabels['monthNames'] = monthNames;
+    labels['monthNames'] = monthNames;
 
     const monthNamesShort: string[] = new Array(12);
     monthNamesShort[0] = this.translate.instant('JanuaryShort');
@@ -117,13 +114,15 @@ export class RecordSearchComponent implements OnInit {
     monthNamesShort[9] = this.translate.instant('OctoberShort');
     monthNamesShort[10] = this.translate.instant('NovemberShort');
     monthNamesShort[11] = this.translate.instant('DecemberShort');
-    this.calendarLabels['monthNamesShort'] = monthNamesShort;
+    labels['monthNamesShort'] = monthNamesShort;
 
     const today = this.translate.instant('today');
-    this.calendarLabels['Today'] = today;
+    labels['Today'] = today;
 
     const clear = this.translate.instant('clear');
-    this.calendarLabels['Clear'] = clear;
+    labels['Clear'] = clear;
+
+    this.calendarLabels = labels;
 
     console.log(this.c, f, 'calendarLabels', this.calendarLabels);
   }

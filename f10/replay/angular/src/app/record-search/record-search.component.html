@@ -4,7 +4,7 @@
     <p-calendar
       [(ngModel)]="startTime"
       showTime="true"
-      hourFormat="24"
+      [hourFormat]="hourFormat"
       showIcon="true"
       [dateFormat]="dateFormat"
       [locale]="calendarLabels">

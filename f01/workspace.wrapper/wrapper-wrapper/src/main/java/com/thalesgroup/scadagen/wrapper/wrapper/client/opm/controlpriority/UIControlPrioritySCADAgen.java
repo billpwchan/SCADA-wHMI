@@ -655,6 +655,12 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	
 	private String usrIdentity = null;
 	public void setUsrIdentity(final String usrIdentity) { this.usrIdentity = usrIdentity; }
+	
+	/**
+	 * Get the UsrIdentity
+	 * 
+	 * @return UsrIdentity in String
+	 */
 	public String getUsrIdentity() { return usrIdentity; }
 	
 	/**

@@ -131,6 +131,21 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 
 		logger.end(className, function);
 	}
+	
+	private void getUsrIdentity() {
+		final String function = "getUsrIdentity";
+		logger.begin(className, function);
+		
+		String uicpapivalue		= uiGeneric.getWidgetValue("uicpapivalue");
+		
+		UIControlPriority_i uiControlPriority_i = UIControlPriorityFactory.getInstance().get(uicpapivalue);
+		
+		String result = uiControlPriority_i.getUsrIdentity();
+		
+		uiGeneric.setWidgetValue("resultvalue", result);
+
+		logger.end(className, function);
+	}	
 
 	private void launch(String element) {
 		final String function = "launch";
@@ -150,6 +165,9 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 		}
 		else if ( 0 == "checkReservationAvailability".compareToIgnoreCase(element) ) {
 			checkReservationAvailability();
+		}
+		else if ( 0 == "getUsrIdentity".compareToIgnoreCase(element) ) {
+			getUsrIdentity();
 		}
 		logger.end(className, function);
 	}

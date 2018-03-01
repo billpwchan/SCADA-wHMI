@@ -1567,6 +1567,18 @@
 		<uiConf>uiCtrl=UIWidgetVerifyControlPriority&amp;uiView=Verify/ControlPriority/CheckReservationAvailability.view.xml</uiConf>
 	</option>
 	
+	<option key="197">
+		<type>P</type>
+		<name>Check GetUsrIdentity</name>
+		<title>Check GetUsrIdentity</title>
+		<tooltips>Check GetUsrIdentity</tooltips>
+
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiScreen>-1</uiScreen>
+
+		<uiConf>uiCtrl=UIWidgetVerifyControlPriority&amp;uiView=Verify/ControlPriority/GetUsrIdentity.view.xml</uiConf>
+	</option>
+	
 	<option key="200">
 		<type>M</type>
 		<name>Verify OPM Summary</name>

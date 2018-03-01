@@ -235,6 +235,7 @@
 	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_GetCurrentReservationBy"><setting>195</setting></option>
 	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationLevel"><setting>196</setting></option>
 	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationAvailability"><setting>197</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_GetUsrIdentity"><setting>198</setting></option>
 	
 	<option key="LMC|MCS|OPM Verify"><setting>200</setting></option>
 	<option key="LMC|MCS|OPM Verify|OPM Summary"><setting>201</setting></option>

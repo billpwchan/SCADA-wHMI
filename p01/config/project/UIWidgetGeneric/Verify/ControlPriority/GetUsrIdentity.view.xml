@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>10</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIVerifyControlPriority_GetUsrIdentity-panel-inner</rootCss>
+	</header>
+	
+	<!-- Result -->
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>Verify Result:</label>
+		<css>project-UIVerifyControlPriority_GetUsrIdentity-label-title</css>
+		<element>title</element>
+	</option>
+
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>GetUsrIdentity</label>
+		<css>project-UIVerifyControlPriority_GetUsrIdentity-button-GetUsrIdentity</css>
+		<element>GetUsrIdentity</element>
+		<cssContainer>project-UIVerifyControlPriority_GetUsrIdentity-container-GetUsrIdentity</cssContainer>
+		<tooltip>GetUsrIdentity</tooltip>
+	</option>
+	
+	<option key="0|2">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+		<css>project-UIVerifyControlPriority_GetUsrIdentity-inlinelabel-resultlabel</css>
+		<element>resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|3">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIVerifyControlPriority_GetUsrIdentity-textbox-resultvalue</css>
+		<element>resultvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIVerifyControlPriority_GetUsrIdentity-container-resultvalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|4">
+		<widget>InlineLabel</widget>
+		<label>uicpapi Value:</label>
+		<css>project-UIVerifyControlPriority_GetUsrIdentity-inlinelabel-uicpapilabel</css>
+		<element>uicpapilabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|5">
+		<widget>TextBox</widget>
+		<label>UIControlPrioritySCADAgen</label>
+		<css>project-UIVerifyControlPriority_GetUsrIdentity-textbox-uicpapivalue</css>
+		<element>uicpapivalue</element>
+		<maxlength>100</maxlength>
+		
+		<cssContainer>project-UIVerifyControlPriority_GetUsrIdentity-container-uicpapivalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|6">
+		<widget>InlineLabel</widget>
+		<label>scsenvid Value:</label>
+		<css>project-UIVerifyControlPriority_GetUsrIdentity-inlinelabel-scsenvidlabel</css>
+		<element>scsenvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|7">
+		<widget>TextBox</widget>
+		<label>M100CONN</label>
+		<css>project-UIVerifyControlPriority_GetUsrIdentity-textbox-scsenvidvalue</css>
+		<element>scsenvidvalue</element>
+		<maxlength>100</maxlength>
+		
+		<cssContainer>project-UIVerifyControlPriority_GetUsrIdentity-container-scsenvidvalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|8">
+		<widget>InlineLabel</widget>
+		<label>dbaddress Value:</label>
+		<css>project-UIVerifyControlPriority_GetUsrIdentity-inlinelabel-dbaddresslabel</css>
+		<element>dbaddresslabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|9">
+		<widget>TextBox</widget>
+		<label>:TUN:M100000:TVS:TAHU_1</label>
+		<css>project-UIVerifyControlPriority_GetUsrIdentity-textbox-dbaddressvalue</css>
+		<element>dbaddressvalue</element>
+		<maxlength>100</maxlength>
+		
+		<cssContainer>project-UIVerifyControlPriority_GetUsrIdentity-container-dbaddressvalue</cssContainer>
+		
+	</option>
+	
+</data-set>

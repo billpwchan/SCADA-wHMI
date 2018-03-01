@@ -151,6 +151,13 @@ public interface UIControlPriority_i {
 	void checkReservationAvailability(String scsEnvId, String dbAddress, UIControlPriorityCallback callBack);
 	
 	/**
+	 * Get the Current User Identity
+	 * 
+	 * @return Current User Identity
+	 */
+	String getUsrIdentity();
+	
+	/**
 	 * Init the UIControlPriority instance
 	 */
 	void init();

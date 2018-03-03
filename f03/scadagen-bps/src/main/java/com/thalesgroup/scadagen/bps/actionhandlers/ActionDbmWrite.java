@@ -198,7 +198,7 @@ public class ActionDbmWrite extends ActionSCADARequest {
 			eqpId = eqpIdAtt.getValue();
 			
 		} catch (EntityManipulationException e) {
-			e.printStackTrace();
+			LOGGER.error("Error getting equipment id from entity attribute [{}]", e);
 		}
         
 		return eqpId;

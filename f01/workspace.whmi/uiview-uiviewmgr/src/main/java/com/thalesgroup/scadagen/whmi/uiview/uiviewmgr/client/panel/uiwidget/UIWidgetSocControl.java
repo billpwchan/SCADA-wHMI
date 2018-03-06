@@ -86,6 +86,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 	
 	private int grcStatus = 0;
 	//private int stepStatus = 0;
+	private String grcStatusStr;
 	
 	private int autoManu = 0;
 	
@@ -123,6 +124,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 	private int completedSteps = 0;
 	private int failedSteps = 0;
 	private int skippedSteps = 0;
+
+	private String savedMsg = null;
 
 	private class ReserveVerifier
 	{
@@ -272,9 +275,27 @@ public class UIWidgetSocControl extends UIWidget_i {
 							
 						} else if (element.equals(stopElement)) {
 							
-							setAbortGrcResultCallback();
-							
-							grcMgr.abortGrc(strKeyAbortGrc, scsenvid, dbalias);
+							if (grcStatus != GrcExecStatus.Terminated.getValue() &&
+								grcStatus != GrcExecStatus.Aborted.getValue() &&
+								grcStatus != GrcExecStatus.Stopped.getValue()) {
+
+								setAbortGrcResultCallback();
+
+								grcMgr.abortGrc(strKeyAbortGrc, scsenvid, dbalias);
+							}
+
+							if (autoManu == GrcExecMode.StopOnFailed.getValue() && lastExecutedStep > 0 && failedSteps > 0 ) {
+								if (lastExecutedStep > 0 && savedMsg != null) {
+									sendDisplayMessageEvent(savedMsg, new Object[]{grcName, failedSteps});
+
+									sendGrcStatusEvent(grcStatusStr);
+								}
+								logger.debug("Sending DisableCheckBox event when SOC is stopped");
+								sendDisableCheckBoxEvent(false);
+
+								String actionsetkey = "GrcStatus_" + GrcExecStatus.Stopped.name();
+								uiEventActionProcessor_i.executeActionSet(actionsetkey);
+							}
 						}
 					}
 				}
@@ -366,6 +387,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 											// Clear display message
 											String msg = "";
 											sendDisplayMessageEvent(msg);
+
+											// Clear saved message
+											savedMsg = null;
 											
 											// Read step and eqp from brctable for check reservation later
 											readStepEqp();
@@ -795,8 +819,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 					JSONNumber grcStatusObj = obj.get("grcStatus").isNumber();
 					if (grcStatusObj != null) {
 						String grcStatusStr = grcStatusObj.toString();
-	
-						sendGrcStatusEvent(grcStatusStr);
+
+						//sendGrcStatusEvent(grcStatusStr);
 
 						int prevGrcStatus = grcStatus;
 						grcStatus = (int) grcStatusObj.doubleValue();
@@ -837,11 +861,10 @@ public class UIWidgetSocControl extends UIWidget_i {
 								
 								readGrcStepStatuses(numSteps);
 							}
-							
+
 							if (autoManu == GrcExecMode.Auto.getValue()) {
 								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name();							
 							} else {
-								
 								actionsetkey = null;
 							}
 						} else if (grcStatus == GrcExecStatus.Aborted.getValue()) {
@@ -850,7 +873,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 									String [] reserveAliases = getReserveAlias(resrvUnreserveReqID);
 									unsetReserve(reserveAliases);
 								}
-								
+
 								readGrcStepStatuses(numSteps);
 							}
 							actionsetkey = actionsetkey + GrcExecStatus.Aborted.name();
@@ -863,7 +886,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 						
 						if (actionsetkey != null) {
 							logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
-						
+
+							sendGrcStatusEvent(grcStatusStr);
+
 							uiEventActionProcessor_i.executeActionSet(actionsetkey);
 						}
 					}
@@ -1156,10 +1181,10 @@ public class UIWidgetSocControl extends UIWidget_i {
 					sendDisplayMessageEvent(msg);
 				} else {
 					if (values != null) {
-						String curStatusStr = values[0];
-						sendGrcStatusEvent(curStatusStr);
+						grcStatusStr = values[0];
+						// sendGrcStatusEvent(curStatusStr);
 						
-						grcStatus = Integer.parseInt(curStatusStr);
+						grcStatus = Integer.parseInt(grcStatusStr);
 						String actionsetkey = "GrcStatus_";
 						if (grcStatus == GrcExecStatus.Terminated.getValue()) {
 							actionsetkey = actionsetkey + GrcExecStatus.Terminated.name();
@@ -1189,13 +1214,15 @@ public class UIWidgetSocControl extends UIWidget_i {
 						} else if (grcStatus == GrcExecStatus.Resumed.getValue()) {
 							actionsetkey = actionsetkey + GrcExecStatus.Resumed.name();
 						}
-						
+
 						if (actionsetkey != null) {
 							logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
 							uiEventActionProcessor_i.executeActionSet(actionsetkey);
+
+							sendGrcStatusEvent(grcStatusStr);
 						}
-						
-						logger.debug(className, function, "readResult curStatus=[{}]", curStatusStr);
+
+						logger.debug(className, function, "readResult curStatus=[{}]", grcStatusStr);
 					}
 				}
 			}
@@ -1288,26 +1315,33 @@ public class UIWidgetSocControl extends UIWidget_i {
 							}
 						}
 
-						if (lastExecutedStep > 0) {
-							sendDisplayMessageEvent(msg, new Object[]{grcName, failedSteps});
-						}
-
 						String actionsetkey = "GrcStatus_";
 						if (grcStatus == GrcExecStatus.Stopped.getValue()) {
 							logger.debug(className, function, "GrcStatus is STOPPED");
 
 							if (autoManu == GrcExecMode.StopOnFailed.getValue() && lastExecutedStep > 0 && failedSteps > 0 ) {
 								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name() + "_Manu_" + CtlBrcStatus.Failed.name();
+								savedMsg = msg;
+								logger.debug(className, function, "saved StopOnFailed msg:[{}]", msg);
 							} else {
 								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name();
+								if (lastExecutedStep > 0) {
+									sendDisplayMessageEvent(msg, new Object[]{grcName, failedSteps});
+								}
+								logger.debug("Sending DisableCheckBox event when SOC ends.");
+								sendDisableCheckBoxEvent(false);
 							}
-							
+
 							logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
 							uiEventActionProcessor_i.executeActionSet(actionsetkey);
+						} else {
+							if (lastExecutedStep > 0) {
+								sendDisplayMessageEvent(msg, new Object[]{grcName, failedSteps});
+							}
+							logger.debug("Sending DisableCheckBox event when SOC ends.");
+							sendDisableCheckBoxEvent(false);
 						}
 						logger.debug(className, function, "SOC ends with setReadResult-values:[{}]", values);
-						logger.debug("Sending DisableCheckBox event when SOC ends.");
-						sendDisableCheckBoxEvent(false);
 					}
 				}
 			}

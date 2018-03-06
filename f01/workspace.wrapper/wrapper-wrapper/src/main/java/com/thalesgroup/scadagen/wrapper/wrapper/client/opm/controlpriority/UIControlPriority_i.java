@@ -115,14 +115,14 @@ public interface UIControlPriority_i {
 	 * @param dbAddress dbAddress Target Equipment DbAddress
 	 * @param callBack Return JSON String, JSONNumber attribute "value" contain the requester, "code" contain the return code
 	 */
-	void requestReservation(String scsEnvId, String dbAddress, final UIControlPriorityCallback callBack);
+	void requestReservation(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack);
 	
 	/** Make a Withdraw Reservation Request on a Equipment
 	 * @param scsEnvId Target Equipment ScsEnvId
 	 * @param dbAddress Target Equipment DbAddress
 	 * @param callBack Return JSON String, JSONNumber attributes "value" contain the withdrawer, "code" contain the return code
 	 */
-	void withdrawReservation(String scsEnvId, String dbAddress, final UIControlPriorityCallback callBack);
+	void withdrawReservation(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack);
 	
 	/**
 	 * Get the Current Reservation By
@@ -131,24 +131,32 @@ public interface UIControlPriority_i {
 	 * @param dbAddress	Target DbAddress
 	 * @param callback	Return JSON String, JSONString Attribute "value" contain the current reserved by, "code" contain the return code
 	 */
-	void getCurrentReservationBy(String scsEnvId, String dbAddress, UIControlPriorityCallback callBack);
+	void getCurrentReservationBy(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack);
 	
 	/**
 	 * Get the Current Reservation Level
 	 * 
 	 * @param identity	Target identity to compare
-	 * @param callback	Return JSON String, JSONNumber Attribute "value" contain the current reserved status, ref to AVAILABILITY_* code.
+	 * @Return 			Return the current reserved status, ref to AVAILABILITY_* code.
 	 */
-	void checkReservationLevel(final String identity, final UIControlPriorityCallback callBack);
+	int checkReservationLevel(final String identity);
 	
 	/**
-	 * Get the Current Reservation Status
+	 * Get the Current Reservation Availability
 	 * 
 	 * @param scsEnvId	Target Equipment ScsEnvId
 	 * @param dbAddress	Target Equipment DbAddress
 	 * @param callback	Return JSON String, JSONNumber Attribute "value" contain the current reserved status, ref to AVAILABILITY_* code.
 	 */
-	void checkReservationAvailability(String scsEnvId, String dbAddress, UIControlPriorityCallback callBack);
+	void checkReservationAvailability(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack);
+	
+	/**
+	 * Get the Current Reservation Availability
+	 * 
+	 * @param identity	Target Equipment identity
+	 * @return 			Return the current reserved status, ref to AVAILABILITY_* code.
+	 */
+	int checkReservationAvailability(final String identity);
 	
 	/**
 	 * Get the Current User Identity

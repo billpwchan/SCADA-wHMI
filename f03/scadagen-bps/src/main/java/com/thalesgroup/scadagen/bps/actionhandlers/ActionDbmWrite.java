@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.thalesgroup.hv.common.HypervisorException;
 import com.thalesgroup.hv.data.exception.EntityManipulationException;
+import com.thalesgroup.hv.data.tools.bean.BeanManipulationException;
 import com.thalesgroup.hv.data_v1.attribute.AbstractAttributeType;
 import com.thalesgroup.hv.data_v1.attribute.StringAttributeType;
 import com.thalesgroup.hv.data_v1.entity.AbstractEntityStatusesType;
@@ -193,11 +194,22 @@ public class ActionDbmWrite extends ActionSCADARequest {
 		}
 
 		try {
-
-			StringAttributeType eqpIdAtt = (StringAttributeType) operationConnector.getTools().getDataHelper().getAttribute(entity, hvEqpIdAttributeName);
-			eqpId = eqpIdAtt.getValue();
-			
+			Object currentObject = operationConnector.getTools().getDataHelper().getBeanEditor().getValue(entity, hvEqpIdAttributeName);
+			if (currentObject != null) {
+				if (currentObject instanceof StringAttributeType) {
+					StringAttributeType eqpIdAtt = (StringAttributeType) operationConnector.getTools().getDataHelper().getAttribute(entity, hvEqpIdAttributeName);
+					eqpId = eqpIdAtt.getValue();
+				} else if (currentObject instanceof String) {
+					eqpId = (String)currentObject;
+				} else {
+					LOGGER.error("Unable to get equipment id from non-String attribute/property [{}].", hvEqpIdAttributeName);
+				}
+			} else {
+				LOGGER.error("Unable to get equipment id from entity object");
+			}
 		} catch (EntityManipulationException e) {
+			LOGGER.error("Error getting equipment id from entity attribute [{}]", e);
+		} catch (BeanManipulationException e) {
 			LOGGER.error("Error getting equipment id from entity attribute [{}]", e);
 		}
         

@@ -20,9 +20,11 @@ import com.thalesgroup.scadagen.bps.connector.operation.IGenericOperationConnect
 
 public class TVSScreenWallAction extends AbstractActionFromOls {
 	protected static final Logger LOGGER = LoggerFactory.getLogger(TVSScreenWallAction.class);
-	
+
 	protected String cameraType_ = "RTSP";
 	protected int paneIdx_ = 0;
+	
+	protected static final String STR_DEFAULT_LAYOUT_IDX = "1";
 
 	@Override
 	protected boolean isIncludeCorrelationId() {
@@ -87,8 +89,8 @@ public class TVSScreenWallAction extends AbstractActionFromOls {
 	}
 	
 
-	// Expected csvData format: operatorID,camerID,layoutIdx
-	// Sample csvData: operator1,CAM001,1
+	// Expected csvData format: operatorID,camerID,layoutIdx,paneIdx(optional)
+	// Sample csvData: operator1,CAM001,1,0
 	protected void extractDataFromCsvStr(IGenericOperationConnector operationConnector, String csvData, String delimiter) throws HypervisorException {
 
 		try {
@@ -109,7 +111,8 @@ public class TVSScreenWallAction extends AbstractActionFromOls {
 
 					while (scanner.hasNext()) {
 						String cameraID = scanner.next();
-						String layoutIdx = scanner.hasNext() ? scanner.next() : null;
+						String layoutIdx = scanner.hasNext() ? scanner.next() : STR_DEFAULT_LAYOUT_IDX;
+						String paneIdx = scanner.hasNext() ? scanner.next() : null;
 
 						if (cameraID != null && layoutIdx != null) {							
 							long currentTimeStamp = System.currentTimeMillis();
@@ -136,7 +139,11 @@ public class TVSScreenWallAction extends AbstractActionFromOls {
 							layoutIdxAtt.setTimestamp(currentTimeStamp);
 							
 							IntAttributeType paneIdxAtt = new IntAttributeType();
-							paneIdxAtt.setValue(getPaneIdx());
+							if (paneIdx == null) {
+								paneIdxAtt.setValue(getDefaultPaneIdx());
+							} else {
+								paneIdxAtt.setValue(Integer.parseInt(paneIdx));
+							}
 							paneIdxAtt.setValid(true);
 							paneIdxAtt.setTimestamp(currentTimeStamp);
 							
@@ -166,7 +173,7 @@ public class TVSScreenWallAction extends AbstractActionFromOls {
 		return cameraType_;
 	}
 	
-	protected int getPaneIdx() {
+	protected int getDefaultPaneIdx() {
 		return paneIdx_;
 	}
 

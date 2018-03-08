@@ -5,7 +5,7 @@
 
 	<groupId>com.thalesgroup.scadagen</groupId>
 	<artifactId>time-schedule</artifactId>
-	<version>1.7.0-SNAPSHOT</version>
+	<version>1.7.0</version>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

@@ -86,7 +86,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 	
 	private int grcStatus = 0;
 	//private int stepStatus = 0;
-	
+
 	private int autoManu = 0;
 	
 	private List<Integer> skipList = new ArrayList<Integer>();
@@ -272,9 +272,22 @@ public class UIWidgetSocControl extends UIWidget_i {
 							
 						} else if (element.equals(stopElement)) {
 							
-							setAbortGrcResultCallback();
-							
-							grcMgr.abortGrc(strKeyAbortGrc, scsenvid, dbalias);
+							if (grcStatus != GrcExecStatus.Terminated.getValue() &&
+								grcStatus != GrcExecStatus.Aborted.getValue() &&
+								grcStatus != GrcExecStatus.Stopped.getValue()) {
+
+								setAbortGrcResultCallback();
+
+								grcMgr.abortGrc(strKeyAbortGrc, scsenvid, dbalias);
+							}
+
+							if (autoManu == GrcExecMode.StopOnFailed.getValue() && lastExecutedStep > 0 && failedSteps > 0 ) {
+								logger.debug("Sending DisableCheckBox event when SOC is stopped");
+								sendDisableCheckBoxEvent(false);
+
+								String actionsetkey = "GrcStatus_" + GrcExecStatus.Stopped.name();
+								uiEventActionProcessor_i.executeActionSet(actionsetkey);
+							}
 						}
 					}
 				}
@@ -366,7 +379,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 											// Clear display message
 											String msg = "";
 											sendDisplayMessageEvent(msg);
-											
+
 											// Read step and eqp from brctable for check reservation later
 											readStepEqp();
 											
@@ -795,7 +808,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 					JSONNumber grcStatusObj = obj.get("grcStatus").isNumber();
 					if (grcStatusObj != null) {
 						String grcStatusStr = grcStatusObj.toString();
-	
+
 						sendGrcStatusEvent(grcStatusStr);
 
 						int prevGrcStatus = grcStatus;
@@ -837,7 +850,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 								
 								readGrcStepStatuses(numSteps);
 							}
-							
+
 							if (autoManu == GrcExecMode.Auto.getValue()) {
 								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name();							
 							} else {
@@ -850,7 +863,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 									String [] reserveAliases = getReserveAlias(resrvUnreserveReqID);
 									unsetReserve(reserveAliases);
 								}
-								
+
 								readGrcStepStatuses(numSteps);
 							}
 							actionsetkey = actionsetkey + GrcExecStatus.Aborted.name();
@@ -863,7 +876,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 						
 						if (actionsetkey != null) {
 							logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
-						
+
 							uiEventActionProcessor_i.executeActionSet(actionsetkey);
 						}
 					}
@@ -1189,12 +1202,12 @@ public class UIWidgetSocControl extends UIWidget_i {
 						} else if (grcStatus == GrcExecStatus.Resumed.getValue()) {
 							actionsetkey = actionsetkey + GrcExecStatus.Resumed.name();
 						}
-						
+
 						if (actionsetkey != null) {
 							logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
 							uiEventActionProcessor_i.executeActionSet(actionsetkey);
 						}
-						
+
 						logger.debug(className, function, "readResult curStatus=[{}]", curStatusStr);
 					}
 				}
@@ -1300,14 +1313,18 @@ public class UIWidgetSocControl extends UIWidget_i {
 								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name() + "_Manu_" + CtlBrcStatus.Failed.name();
 							} else {
 								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name();
+
+								logger.debug("Sending DisableCheckBox event when SOC ends.");
+								sendDisableCheckBoxEvent(false);
 							}
-							
+
 							logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
 							uiEventActionProcessor_i.executeActionSet(actionsetkey);
+						} else {
+							logger.debug("Sending DisableCheckBox event when SOC ends.");
+							sendDisableCheckBoxEvent(false);
 						}
 						logger.debug(className, function, "SOC ends with setReadResult-values:[{}]", values);
-						logger.debug("Sending DisableCheckBox event when SOC ends.");
-						sendDisableCheckBoxEvent(false);
 					}
 				}
 			}

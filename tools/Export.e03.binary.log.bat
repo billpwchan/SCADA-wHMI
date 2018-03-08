@@ -16,7 +16,7 @@ SET _folder="%DEPOT_HOME%\%v_strdt%"
 ECHO _folder=%_folder% 
 MD %_folder%
 
-SET _E03="D:\Build.SCADAgen\whmi\e03\02_MA_generated\scadagen-data-model\target\*.jar"
+SET _E03="%SOURCE_BASE_HOME%\e03\02_MA_generated\scadagen-data-model\target\*.jar"
 ECHO _E03=%_E03%
 
 REM Export E03

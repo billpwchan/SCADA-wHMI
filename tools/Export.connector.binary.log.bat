@@ -26,9 +26,9 @@ SET _F03_SCADAGEN_BA_EXPORT_PATH=%_folder%\scadagen-f03-ba.zip
 
 ECHO COPY %_F03_SCADAGEN_BA%\target\scadagen-ba*.zip %_folder%
 
-COPY %_F03_SCADAGEN_BA%\target\scadagen-ba*.zip %_folder%
+COPY "%_F03_SCADAGEN_BA%\target\scadagen-ba*.zip" %_folder%
 
-MOVE %_folder%\scadagen-ba*.zip %_F03_SCADAGEN_BA_EXPORT_PATH%
+MOVE "%_folder%\scadagen-ba*.zip" %_F03_SCADAGEN_BA_EXPORT_PATH%
 
 REM Export Logs
 

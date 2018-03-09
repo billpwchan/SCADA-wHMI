@@ -1567,7 +1567,19 @@
 		<uiConf>uiCtrl=UIWidgetVerifyControlPriority&amp;uiView=Verify/ControlPriority/CheckReservationAvailability.view.xml</uiConf>
 	</option>
 	
-	<option key="197">
+	<option key="198">
+		<type>P</type>
+		<name>Check Reservation Availability(Dbm)</name>
+		<title>Check Reservation Availability(Dbm)</title>
+		<tooltips>Check Reservation Availability(Dbm)</tooltips>
+
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiScreen>-1</uiScreen>
+
+		<uiConf>uiCtrl=UIWidgetVerifyControlPriority&amp;uiView=Verify/ControlPriority/CheckReservationAvailabilityDbm.view.xml</uiConf>
+	</option>
+	
+	<option key="199">
 		<type>P</type>
 		<name>Check GetUsrIdentity</name>
 		<title>Check GetUsrIdentity</title>

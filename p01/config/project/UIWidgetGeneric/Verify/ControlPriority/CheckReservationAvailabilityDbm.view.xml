@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>8</cols>
+		<cols>10</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
 	</header>
 	
@@ -16,9 +16,9 @@
 
 	<option key="0|1">
 		<widget>Button</widget>
-		<label>CheckReservationAvailability</label>
-		<element>CheckReservationAvailability</element>
-		<tooltip>CheckReservationAvailability</tooltip>
+		<label>CheckReservationAvailabilityDbm</label>
+		<element>CheckReservationAvailabilityDbm</element>
+		<tooltip>CheckReservationAvailabilityDbm</tooltip>
 	</option>
 	
 	<option key="0|2">
@@ -44,11 +44,24 @@
 	
 	<option key="0|6">
 		<widget>InlineLabel</widget>
-		<label>identity Value:</label>
+		<label>scsenvid Value:</label>
+		<element>scsenvidlabel</element>
 	</option>
 	<option key="0|7">
 		<widget>TextBox</widget>
-		<element>identityvalue</element>
+		<label>M100CONN</label>
+		<element>scsenvidvalue</element>
+	</option>
+	
+	<option key="0|8">
+		<widget>InlineLabel</widget>
+		<label>dbaddress Value:</label>
+		<element>dbaddresslabel</element>
+	</option>
+	<option key="0|9">
+		<widget>TextBox</widget>
+		<label>:TUN:M100000:TVS:TAHU_1</label>
+		<element>dbaddressvalue</element>
 	</option>
 	
 </data-set>

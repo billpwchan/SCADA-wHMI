@@ -2365,4 +2365,21 @@
 		<tooltips>TMS Trainer</tooltips>
 	</option>
 	
+	<option key="440">
+		<type>M</type>
+		<name>AVA</name>
+		<title>AVA</title>
+	</option>
+	
+	<option key="441">
+		<type>P</type>
+		<name>Admin</name>
+		<title>Admin</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>AVA/Admin/EntryPoint.view.xml</uiView>
+		<tooltips>AVA Admin</tooltips>
+	</option>
+	
 </data-set>

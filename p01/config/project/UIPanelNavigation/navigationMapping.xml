@@ -330,8 +330,11 @@
 	<option key="Verify|Log|UILogger"><setting>424</setting></option>
 	
 	<option key="M100|MCS|TMS"><setting>430</setting></option>
-	<option key="M100|MCS|TMS|TrainerAdmin"><setting>431</setting></option>
-	<option key="M100|MCS|TMS|Trainer"><setting>432</setting></option>
+	<option key="M100|MCS|TMS|Admin"><setting>431</setting></option>
+	<option key="M100|MCS|TMS|Operator"><setting>432</setting></option>
+	
+	<option key="M100|MCS|AVA"><setting>440</setting></option>
+	<option key="M100|MCS|AVA|Admin"><setting>441</setting></option>
 	
 	<!-- Keep it as Default Page for not found -->
 	<option key="MenuNotFound"><setting>-1</setting></option>

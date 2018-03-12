@@ -194,6 +194,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 							String errorMsg = MessageTranslationID.E_Reserve_fail_unable_launch_grc.toString();
 							sendDisplayMessageEvent(errorMsg);
 							
+							// Sending DisableCheckBoxEvent when SOC cannot launch due to reservation fail
+							sendDisableCheckBoxEvent(false);
+
 							logger.warn(className, function, "readReserve error");
 						}
 					} else {
@@ -1455,6 +1458,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 					// Found any equipment was already reserved
 					String errorMsg = MessageTranslationID.E_Reserve_fail_unable_launch_grc.toString();
 					sendDisplayMessageEvent(errorMsg);
+
+					// Sending DisableCheckBoxEvent when SOC cannot launch due to reservation fail
+					sendDisableCheckBoxEvent(false);
 					
 					logger.warn(className, function, errorMsg);
 					

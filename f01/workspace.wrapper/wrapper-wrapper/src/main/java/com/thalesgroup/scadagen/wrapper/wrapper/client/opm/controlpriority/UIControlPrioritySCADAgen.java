@@ -349,6 +349,10 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		return ret;
 	}
 	
+
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#checkReservationAvailability(java.lang.String)
+	 */
 	@Override
 	public int checkReservationAvailability(String identity) {
 		String function = "checkReservationAvailability";

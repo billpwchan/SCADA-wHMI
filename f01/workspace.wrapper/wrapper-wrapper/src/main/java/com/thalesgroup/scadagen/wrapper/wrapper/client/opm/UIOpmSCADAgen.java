@@ -479,6 +479,14 @@ public class UIOpmSCADAgen implements UIOpm_i {
 				, resultEvent);
 	}
 	@Override
+	public boolean checkAccessWithHom(
+			String function, String location, String action, String mode
+			, int hdv) {
+		return getUIHom().checkAccessWithHom(
+				function, location, action, mode
+				, hdv, this);
+	}
+	@Override
 	public boolean isHOMAction(String action) {
 		return getUIHom().isHOMAction(action);
 	}

@@ -2321,12 +2321,24 @@
 	
 	
 	<option key="423">
+		<type>P</type>
+		<name>CheckAccess</name>
+		<title>CheckAccess</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Opm/UILayoutVerifyOPMSummary.view.xml</uiView>
+		<tooltips>CheckAccess</tooltips>
+	</option>
+	
+	
+	<option key="425">
 		<type>M</type>
 		<name>Log</name>
 		<title>Log</title>
 	</option>
 	
-	<option key="424">
+	<option key="426">
 		<type>P</type>
 		<name>Verify UILogger</name>
 		<title>Verify UILogger</title>

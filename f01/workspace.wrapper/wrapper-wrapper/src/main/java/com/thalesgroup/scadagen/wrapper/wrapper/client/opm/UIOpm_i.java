@@ -140,6 +140,21 @@ public interface UIOpm_i {
 	void checkAccessWithHom(String function, String location, String action, String mode, int hdv, String identity, CheckAccessWithHOMEvent_i resultEvent);
 
 	/**
+	 * Verify the access right for the input parameter with HOM, HHV Value and "HOMLevels" key is a parameters.
+	 * Check access right with HOM, According configuration in in "hom.json", 
+	 * Reading hdv value from RTDB (By HVID with "DBAttribute"), make a AND operation with predefined value "HOMLevels".
+	 * 
+	 * @param function    Function value for the opm rule checking.
+	 * @param location    Location value for the opm rule checking.
+	 * @param action      Action value for the opm rule checking.
+	 * @param mode        Mode value for the opm rule checking.
+	 * @param hdv         hdvValue for the AND Operation.
+	 * @return Return  Value of the hdv result.
+	 */
+	boolean checkAccessWithHom(String function, String location, String action, String mode, int hdv);
+
+	
+	/**
 	 * Change the operator password, oldPassword must be equal to operator current password.
 	 * 
 	 * @param operator            Operator name to change password.

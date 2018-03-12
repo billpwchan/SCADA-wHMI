@@ -159,6 +159,65 @@ public class UIHomSCADAgen implements UIHom_i {
 	}
 
 	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.hom.UIHom_i#checkAccessWithHom(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int, com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i)
+	 */
+	@Override
+	public boolean checkAccessWithHom(
+			final String function , final String location , final String action , final String mode
+			, final int hdv, final UIOpm_i uiOpm_i
+			) {
+		final String functionName = "checkAccessWithHom";
+		logger.begin(className, functionName);
+		logger.debug(className, functionName, "function[{}] location[{}] action[{}] mode[{}] hdv[{}]"
+				, new Object[]{function, location, action, mode, hdv});
+		
+		boolean ret = false;
+		
+		boolean isHOMRequested = false;
+		boolean caResult = false;
+		boolean homResult = false;
+		
+		if ( isHOMAction(action) ) {
+			
+			String identityType = getHOMIdentityType();
+			logger.debug(className, functionName, "identityType[{}]", identityType);
+			
+			String identity = null;
+			if ( null != identityType ) {
+				if ( identityType.equals(UIOpmSCADAgen_i.HOMIdentityType.Profile.toString()) ) {
+					identity = uiOpm_i.getCurrentProfile();
+				} 
+				else if ( identityType.equals(UIOpmSCADAgen_i.HOMIdentityType.Operator.toString()) ) {
+					identity = uiOpm_i.getCurrentOperator();
+				}
+				else if ( identityType.equals(UIOpmSCADAgen_i.HOMIdentityType.HostName.toString()) ) {
+					identity = uiOpm_i.getCurrentHostName();
+				}
+				else if ( identityType.equals(UIOpmSCADAgen_i.HOMIdentityType.IpAddress.toString()) ) {
+					identity = uiOpm_i.getCurrentIPAddress();
+				}
+				
+				if ( null == identity ) {
+					identity = uiOpm_i.getCurrentProfile();
+				}
+			}
+			logger.debug(className, functionName, "identityType[{}] identity[{}]", identityType, identity);
+			
+			isHOMRequested = true;
+			homResult = checkHom(hdv, identity);
+		}
+		
+		caResult = uiOpm_i.checkAccess(function, location, action, mode);
+		
+		ret = isHOMRequested?(caResult && homResult):caResult;
+		logger.debug(className, functionName, "function[{}] location[{}] action[{}] mode[{}] hdv[{}] identity[{}] ret[{}]"
+				, new Object[]{function, location, action, mode, hdv, ret});
+
+		logger.end(className, functionName);
+		return ret;
+	}
+
+	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentHOMValue(java.lang.String, java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i.GetCurrentHOMValueEvent_i)
 	 */
 	@Override

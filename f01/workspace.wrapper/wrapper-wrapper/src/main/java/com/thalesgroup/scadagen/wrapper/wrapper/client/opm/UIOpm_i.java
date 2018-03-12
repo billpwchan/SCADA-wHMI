@@ -251,6 +251,16 @@ public interface UIOpm_i {
 	boolean isBypassValue(int value);
 	
 	/**
+	 * @return Current HOM Identity
+	 */
+	String getHOMIdentityType();
+	
+	/**
+	 * @return Current HOM Identity Type
+	 */
+	String getHOMIdentity();
+	
+	/**
 	 * @author syau
 	 *
 	 */

@@ -29,6 +29,10 @@ public interface UIHom_i {
 	boolean isHOMAction(String action);
 	
 	boolean isBypassValue(int value);
+	
+	String getHOMIdentityType();
+	
+	String getHOMIdentity(final UIOpm_i uiOpm_i);
 
 	/**
 	 * Init the UIControlPriority instance

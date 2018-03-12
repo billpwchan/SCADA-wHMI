@@ -462,10 +462,12 @@ public class UIHomSCADAgen implements UIHom_i {
 	}
 	
 	private String getHOMIdentityType = null;
-	/**
-	 * @return default value in configuration
+
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.hom.UIHom_i#getHOMIdentityType()
 	 */
-	private String getHOMIdentityType() {
+	@Override
+	public String getHOMIdentityType() {
 		String function = "getHOMIdentityType";
 		logger.begin(className, function);
 		
@@ -478,6 +480,41 @@ public class UIHomSCADAgen implements UIHom_i {
 		logger.debug(className, function, "getHOMIdentityType[{}]", getHOMIdentityType);
 		logger.end(className, function);
 		return getHOMIdentityType;
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.hom.UIHom_i#getHOMIdentity(com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i)
+	 */
+	@Override
+	public String getHOMIdentity(final UIOpm_i uiOpm_i) {
+		String function = "getHOMIdentityType";
+		logger.begin(className, function);
+	
+		String identityType = getHOMIdentityType();
+		logger.debug(className, function, "identityType[{}]", identityType);
+		
+		String identity = null;
+		if ( null != identityType ) {
+			if ( identityType.equals(UIOpmSCADAgen_i.HOMIdentityType.Profile.toString()) ) {
+				identity = uiOpm_i.getCurrentProfile();
+			} 
+			else if ( identityType.equals(UIOpmSCADAgen_i.HOMIdentityType.Operator.toString()) ) {
+				identity = uiOpm_i.getCurrentOperator();
+			}
+			else if ( identityType.equals(UIOpmSCADAgen_i.HOMIdentityType.HostName.toString()) ) {
+				identity = uiOpm_i.getCurrentHostName();
+			}
+			else if ( identityType.equals(UIOpmSCADAgen_i.HOMIdentityType.IpAddress.toString()) ) {
+				identity = uiOpm_i.getCurrentIPAddress();
+			}
+			
+			if ( null == identity ) {
+				identity = uiOpm_i.getCurrentProfile();
+			}
+		}
+		logger.debug(className, function, "identityType[{}] identity[{}]", identityType, identity);
+		
+		return identity;
 	}
 
 	private DatabaseMultiRead_i databaseMultiRead_i = null;

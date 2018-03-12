@@ -3,19 +3,19 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>16</cols>
+		<cols>18</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
 	</header>
 
 	<option key="0|0">
 		<widget>InlineLabel</widget>
-		<label>Check Access With HOM HDV Value:</label>
+		<label>Check Access With HOM HDV Identity:</label>
 	</option>
 	
 	<option key="0|1">
 		<widget>Button</widget>
-		<label>checkAccessWithHomHdvValue</label>
-		<element>checkAccessWithHomHdvValue</element>
+		<label>checkAccessWithHomHdvIdentity</label>
+		<element>checkAccessWithHomHdvIdentity</element>
 	</option>
 	
 	<option key="0|2">
@@ -87,6 +87,17 @@
 		<widget>TextBox</widget>
 		<label></label>
 		<element>hdvvaluevalue</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|16">
+		<widget>InlineLabel</widget>
+		<label>Identity:</label>
+	</option>
+	<option key="0|17">
+		<widget>TextBox</widget>
+		<label></label>
+		<element>identityvalue</element>
 		<maxlength>100</maxlength>
 	</option>
 

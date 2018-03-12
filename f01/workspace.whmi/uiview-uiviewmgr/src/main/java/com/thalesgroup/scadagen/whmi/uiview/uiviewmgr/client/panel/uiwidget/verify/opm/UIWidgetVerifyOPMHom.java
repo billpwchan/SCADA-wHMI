@@ -136,6 +136,29 @@ public class UIWidgetVerifyOPMHom extends UIWidgetRealize {
 		String modevalue		= uiGeneric.getWidgetValue("modevalue");
 		
 		String hdvvaluevalue	= uiGeneric.getWidgetValue("hdvvaluevalue");
+		
+		int hdvvalue = Integer.parseInt(hdvvaluevalue);
+		
+		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(uiopmapivalue);
+		
+		boolean result = uiOpm_i.checkAccessWithHom(functionvalue, locationvalue, actionvalue, modevalue, hdvvalue);
+		uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
+		
+		logger.end(className, function);
+	}
+	
+	private void checkAccessWithHomHdvIdentity() {
+		final String function = "checkAccessWithHomHdvIdentity";
+		logger.begin(className, function);
+		
+		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
+		
+		String functionvalue	= uiGeneric.getWidgetValue("functionvalue");
+		String locationvalue	= uiGeneric.getWidgetValue("locationvalue");
+		String actionvalue		= uiGeneric.getWidgetValue("actionvalue");
+		String modevalue		= uiGeneric.getWidgetValue("modevalue");
+		
+		String hdvvaluevalue	= uiGeneric.getWidgetValue("hdvvaluevalue");
 		String identityvalue	= uiGeneric.getWidgetValue("identityvalue");
 		
 		int hdvvalue = Integer.parseInt(hdvvaluevalue);
@@ -149,6 +172,32 @@ public class UIWidgetVerifyOPMHom extends UIWidgetRealize {
 				uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
 			}
 		});
+		logger.end(className, function);
+	}
+	
+	private void getHOMIdentityType() {
+		final String function = "getHOMIdentityType";
+		logger.begin(className, function);
+		
+		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
+
+		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(uiopmapivalue);
+				
+		String result = uiOpm_i.getHOMIdentityType();
+		uiGeneric.setWidgetValue("resultvalue", result);
+		logger.end(className, function);
+	}
+	
+	private void getHOMIdentity() {
+		final String function = "getHOMIdentity";
+		logger.begin(className, function);
+		
+		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
+
+		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(uiopmapivalue);
+				
+		String result = uiOpm_i.getHOMIdentity();
+		uiGeneric.setWidgetValue("resultvalue", result);
 		logger.end(className, function);
 	}
 	
@@ -171,6 +220,15 @@ public class UIWidgetVerifyOPMHom extends UIWidgetRealize {
 		}
 		else if ( 0 == "checkAccessWithHomHdvValue".compareToIgnoreCase(element) ) {
 			checkAccessWithHomHdvValue();
+		}
+		else if ( 0 == "checkAccessWithHomHdvIdentity".compareToIgnoreCase(element) ) {
+			checkAccessWithHomHdvIdentity();
+		}
+		else if ( 0 == "getHOMIdentityType".compareToIgnoreCase(element) ) {
+			getHOMIdentityType();
+		}
+		else if ( 0 == "getHOMIdentity".compareToIgnoreCase(element) ) {
+			getHOMIdentity();
 		}
 
 	}

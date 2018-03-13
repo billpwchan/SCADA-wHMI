@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>16</cols>
+		<cols>18</cols>
 		<rootPanel>VerticalPanel</rootPanel>
 	</header>
 	
@@ -101,6 +101,18 @@
 		<uiCtrl>UIWidgetVerifyOPMHom</uiCtrl>
 		<uiView>Verify/Opm/Hom/UIWidgetVerifyOPMCheckAccessWithHomHdvValue.view.xml</uiView>
 		<element>UIWidgetVerifyOPMCheckAccessWithHomHdvValue</element>
+	</option>
+	
+	<option key="0|16">
+		<uiCtrl>UIWidgetVerifyOPMHom</uiCtrl>
+		<uiView>Verify/Opm/Hom/UIWidgetVerifyOPMGetHOMIdentityType.view.xml</uiView>
+		<element>UIWidgetVerifyOPMGetHOMIdentityType</element>
+	</option>
+	
+	<option key="0|17">
+		<uiCtrl>UIWidgetVerifyOPMHom</uiCtrl>
+		<uiView>Verify/Opm/Hom/UIWidgetVerifyOPMGetHOMIdentity.view.xml</uiView>
+		<element>UIWidgetVerifyOPMGetHOMIdentity</element>
 	</option>
 
 </data-set>

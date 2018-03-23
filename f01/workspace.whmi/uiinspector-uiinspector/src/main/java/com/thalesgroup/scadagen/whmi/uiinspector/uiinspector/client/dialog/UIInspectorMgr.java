@@ -33,7 +33,7 @@ public class UIInspectorMgr {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorMgr.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private static HashMap<String, UIInspectorMgr> instances = new HashMap<String, UIInspectorMgr>();
+	private static Map<String, UIInspectorMgr> instances = new HashMap<String, UIInspectorMgr>();
 	private UIInspectorMgr () {}
 	public static UIInspectorMgr getInstance(String key) {
 		if ( ! instances.containsKey(key) ) { instances.put(key, new UIInspectorMgr()); }

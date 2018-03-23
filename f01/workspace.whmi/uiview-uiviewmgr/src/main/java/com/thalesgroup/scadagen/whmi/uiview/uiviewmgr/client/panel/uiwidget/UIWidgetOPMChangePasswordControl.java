@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.json.client.JSONObject;
@@ -77,7 +78,7 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 							
 							String actionsetkey = element;
 							
-							HashMap<String, HashMap<String, Object>> override = null;
+							Map<String, Map<String, Object>> override = null;
 							
 							uiEventActionProcessor_i.executeActionSet(actionsetkey, override, new UIExecuteActionHandler_i() {
 								
@@ -254,9 +255,9 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 				String actionsetkey = "SetCurrentOperator";
 				String actionkey = "SetCurrentOperator";
 				
-				HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+				Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 
-				HashMap<String, Object> parameters = new HashMap<String, Object>();
+				Map<String, Object> parameters = new HashMap<String, Object>();
 
 				String uiopmapivalue	= opmApi;
 				

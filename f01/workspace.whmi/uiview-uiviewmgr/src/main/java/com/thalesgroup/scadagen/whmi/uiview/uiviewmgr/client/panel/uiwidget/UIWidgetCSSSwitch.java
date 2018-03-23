@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Panel;
@@ -57,7 +57,7 @@ public class UIWidgetCSSSwitch extends UILayoutRealize {
 		
 		logger.info(className, function, "os1["+os1+"]");
 
-		HashMap<String, HashMap<String, Object>> override = null;
+		Map<String, Map<String, Object>> override = null;
 		
 		uiEventActionProcessor_i.executeActionSet(os1, override, new UIExecuteActionHandler_i() {
 			

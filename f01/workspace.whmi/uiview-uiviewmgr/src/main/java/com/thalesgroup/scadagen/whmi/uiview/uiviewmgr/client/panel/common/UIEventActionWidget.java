@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.Widget;
@@ -30,7 +30,7 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 	}
 	
 	@Override
-	public boolean executeAction(UIEventAction uiEventAction, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(UIEventAction uiEventAction, Map<String, Map<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
 		logger.begin(className, function);
 		
@@ -45,7 +45,7 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 		String strWidget		= (String) uiEventAction.getParameter(ActionAttribute.OperationString2.toString());
 		String widgetValue		= (String) uiEventAction.getParameter(ActionAttribute.OperationString3.toString());
 		
-		logger.info(className, function, logPrefix+"strWidgetAction[{}] strWidget[{}] widgetValue[{}]", new Object[]{strWidgetAction, strWidget, widgetValue});
+		logger.debug(className, function, logPrefix+"strWidgetAction[{}] strWidget[{}] widgetValue[{}]", new Object[]{strWidgetAction, strWidget, widgetValue});
 		
 		if ( uiGeneric == null ) {
 			logger.warn(className, function, logPrefix+"uiWidgetGeneric IS NULL");

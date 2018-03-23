@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
@@ -24,7 +24,7 @@ public class UIEventActionCtrl extends UIEventActionExecute_i {
 	}
 	
 	@Override
-	public boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(UIEventAction action, Map<String, Map<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
 		logger.begin(className, function);
 		

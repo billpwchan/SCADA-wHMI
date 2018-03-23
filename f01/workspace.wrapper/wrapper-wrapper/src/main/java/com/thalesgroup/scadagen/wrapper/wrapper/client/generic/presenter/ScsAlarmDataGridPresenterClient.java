@@ -154,9 +154,9 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
 //            	}
 //            }
         	
-            Set<HashMap<String, String>> set = new HashSet<HashMap<String, String>>();
+            Set<Map<String, String>> set = new HashSet<Map<String, String>>();
             for ( EntityClient ec : selectedEntities ) {
-            	HashMap<String, String> details = new HashMap<String, String>();
+            	Map<String, String> details = new HashMap<String, String>();
             	for ( String attributeName : ec.attributeNames() ) {
              		details.put(attributeName, ec.getAttribute(attributeName).getValue().toString());
             	}

@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
@@ -31,7 +31,7 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 	}
 
 	@Override
-	public boolean executeAction(UIEventAction uiEventAction, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(UIEventAction uiEventAction, Map<String, Map<String, Object>> override) {
 		final String function = logPrefix + " executeAction";
 		logger.begin(className, function);
 

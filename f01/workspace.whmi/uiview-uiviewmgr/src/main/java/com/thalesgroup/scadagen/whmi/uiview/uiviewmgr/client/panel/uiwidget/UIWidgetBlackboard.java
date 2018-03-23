@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
@@ -61,7 +62,7 @@ public class UIWidgetBlackboard extends UIWidgetRealize {
 							
 							String os1s[] = new String[]{"SetWidgetValue", "SetWidgetStatus"};
 							
-							HashMap<String, HashMap<String, Object>> override = null;
+							Map<String, Map<String, Object>> override = null;
 							
 							for ( String s : os1s ) {
 								
@@ -69,9 +70,9 @@ public class UIWidgetBlackboard extends UIWidgetRealize {
 								
 								if ( s.equals(os1) ) {
 									
-									override = new HashMap<String, HashMap<String, Object>>();
+									override = new HashMap<String, Map<String, Object>>();
 									
-									HashMap<String, Object> parameters = new HashMap<String, Object>();
+									Map<String, Object> parameters = new HashMap<String, Object>();
 									
 									logger.info(className, function, "os1[" + os1 + "]");
 									

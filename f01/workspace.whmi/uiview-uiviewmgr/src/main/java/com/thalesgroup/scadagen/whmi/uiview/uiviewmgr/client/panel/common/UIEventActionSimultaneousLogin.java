@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -28,7 +29,7 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 	}
 
 	@Override
-	public boolean executeAction(UIEventAction uiEventAction, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(UIEventAction uiEventAction, Map<String, Map<String, Object>> override) {
 		final String function = logPrefix + " executeAction";
 		logger.begin(className, function);
 
@@ -109,12 +110,12 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 			String actionkey2 = loginRequestProcedure;
 			logger.debug(className, function, "actionkey2[{}]", actionkey2);
 			
-			HashMap<String, Object> parameter2 = new HashMap<String, Object>();
+			Map<String, Object> parameter2 = new HashMap<String, Object>();
 			parameter2.put(ActionAttribute.OperationString2.toString(), scsEnvId);
 			parameter2.put(ActionAttribute.OperationString3.toString(), address);
 			parameter2.put(ActionAttribute.OperationString4.toString(), value);
 			
-			HashMap<String, HashMap<String, Object>> override2 = new HashMap<String, HashMap<String, Object>>();
+			Map<String, Map<String, Object>> override2 = new HashMap<String, Map<String, Object>>();
 			override2.put(actionkey2, parameter2);
 
 			uiEventActionProcessorCore_i.executeActionSet(actionsetkey2, override2);
@@ -158,12 +159,12 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 
 			logger.debug(className, function, "actionsetkey2[{}] actionkey2[{}]", actionsetkey2, actionkey2);
 
-			HashMap<String, Object> parameter2 = new HashMap<String, Object>();
+			Map<String, Object> parameter2 = new HashMap<String, Object>();
 			parameter2.put(ActionAttribute.OperationString2.toString(), scsEnvId);
 			parameter2.put(ActionAttribute.OperationString3.toString(), address);
 			parameter2.put(ActionAttribute.OperationString4.toString(), value);
 
-			HashMap<String, HashMap<String, Object>> override2 = new HashMap<String, HashMap<String, Object>>();
+			Map<String, Map<String, Object>> override2 = new HashMap<String, Map<String, Object>>();
 			override2.put(actionkey2, parameter2);
 
 			uiEventActionProcessorCore_i.executeActionSet(actionsetkey2, override2);
@@ -220,12 +221,12 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 			
 			logger.debug(className, function, "actionsetkey2[{}]", actionsetkey2);
 
-			HashMap<String, HashMap<String, Object>> override2 = new HashMap<String, HashMap<String, Object>>();
+			Map<String, Map<String, Object>> override2 = new HashMap<String, Map<String, Object>>();
 
 			String actionkey3 = loginJSSession;
 			logger.debug(className, function, "actionkey3[{}]", actionkey3);
 			
-			HashMap<String, Object> parameter3 = new HashMap<String, Object>();
+			Map<String, Object> parameter3 = new HashMap<String, Object>();
 				
 			parameter3.put(ActionAttribute.OperationString3.toString(), currentOperator);
 			parameter3.put(ActionAttribute.OperationString4.toString(), currentProfile);

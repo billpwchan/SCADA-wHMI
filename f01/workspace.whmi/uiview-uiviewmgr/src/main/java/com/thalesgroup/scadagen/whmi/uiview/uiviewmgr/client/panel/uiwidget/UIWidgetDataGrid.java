@@ -753,11 +753,11 @@ public class UIWidgetDataGrid extends UIWidget_i {
 					logger.begin(className, function);
 					
 					String actionsetkey = "RowSelected";
-					HashMap<String, Object> parameter = new HashMap<String, Object>();
+					Map<String, Object> parameter = new HashMap<String, Object>();
 					parameter.put(ViewAttribute.OperationObject1.toString(), strDataGrid);
 					parameter.put(ViewAttribute.OperationObject2.toString(), selected);
 					
-					HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+					Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 					override.put("RowSelected", parameter);
 					
 					uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -839,11 +839,11 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						String strPageValueChanged = "PagerValueChanged_";
 						String actionsetkey = strPageValueChanged+strType;
 						String actionkey = strPageValueChanged+strType;
-						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						Map<String, Object> parameter = new HashMap<String, Object>();
 						parameter.put(ActionAttribute.OperationString1.toString(), strPageValueChanged+strType);
 						parameter.put(ActionAttribute.OperationString2.toString(), Integer.toString(pageStart));
 						
-						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 						override.put(actionkey, parameter);
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -864,11 +864,11 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						String strPageValueChanged = "PagerValueChanged_";
 						String actionsetkey = strPageValueChanged+strType;
 						String actionkey = strPageValueChanged+strType;
-						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						Map<String, Object> parameter = new HashMap<String, Object>();
 						parameter.put(ActionAttribute.OperationString1.toString(), strPageValueChanged+strType);
 						parameter.put(ActionAttribute.OperationString2.toString(), Integer.toString(endIndex));
 						
-						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 						override.put(actionkey, parameter);
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -889,11 +889,11 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						String strPageValueChanged = "PagerValueChanged_";
 						String actionsetkey = strPageValueChanged+strType;
 						String actionkey = strPageValueChanged+strType;
-						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						Map<String, Object> parameter = new HashMap<String, Object>();
 						parameter.put(ActionAttribute.OperationString1.toString(), strPageValueChanged+strType);
 						parameter.put(ActionAttribute.OperationString2.toString(), Integer.toString(dataSize));
 						
-						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 						override.put(actionkey, parameter);
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -915,11 +915,11 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						
 						String actionsetkey = "PagerButtonChanged_"+operation;
 						String actionkey = "PagerButtonChanged_"+operation;
-						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						Map<String, Object> parameter = new HashMap<String, Object>();
 						parameter.put(ActionAttribute.OperationString1.toString(), operation);
 						parameter.put(ActionAttribute.OperationString2.toString(), Boolean.toString(status));
 						
-						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 						override.put(actionkey, parameter);
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);

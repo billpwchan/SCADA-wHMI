@@ -1,6 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -30,7 +29,7 @@ public class UIEventActionOls extends UIEventActionExecute_i {
 	}
 	
 	@Override
-	public boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(UIEventAction action, Map<String, Map<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
 		logger.begin(className, function);
 		

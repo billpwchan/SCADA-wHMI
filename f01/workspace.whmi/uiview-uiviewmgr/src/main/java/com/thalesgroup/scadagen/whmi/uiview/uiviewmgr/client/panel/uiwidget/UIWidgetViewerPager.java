@@ -1,6 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.HashMap;
+import java.util.Map;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
@@ -55,7 +57,7 @@ public class UIWidgetViewerPager extends UIWidgetRealize {
 						if ( null != element ) {
 							String actionsetkey = element;
 							
-							HashMap<String, HashMap<String, Object>> override = null;
+							Map<String, Map<String, Object>> override = null;
 							
 							uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 
@@ -127,10 +129,10 @@ public class UIWidgetViewerPager extends UIWidgetRealize {
 									String actionsetkey = os1;
 									String actionkey = os1;
 									
-									HashMap<String, Object> parameter = new HashMap<String, Object>();
+									Map<String, Object> parameter = new HashMap<String, Object>();
 									parameter.put(ActionAttribute.OperationString3.toString(), Integer.toString(value));
 									
-									HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+									Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 									override.put(actionkey, parameter);
 									
 									uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -150,10 +152,10 @@ public class UIWidgetViewerPager extends UIWidgetRealize {
 									String actionsetkey = os1;
 									String actionkey = os1;
 									
-									HashMap<String, Object> parameter = new HashMap<String, Object>();
+									Map<String, Object> parameter = new HashMap<String, Object>();
 									parameter.put(ActionAttribute.OperationString3.toString(), Integer.toString(value));
 									
-									HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+									Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 									override.put(actionkey, parameter);
 									
 									uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -172,10 +174,10 @@ public class UIWidgetViewerPager extends UIWidgetRealize {
 									String actionsetkey = os1;
 									String actionkey = os1;
 									
-									HashMap<String, Object> parameter = new HashMap<String, Object>();
+									Map<String, Object> parameter = new HashMap<String, Object>();
 									parameter.put(ActionAttribute.OperationString3.toString(), Integer.toString(value));
 									
-									HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+									Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 									override.put(actionkey, parameter);
 									
 									uiEventActionProcessor_i.executeActionSet(actionsetkey, override);

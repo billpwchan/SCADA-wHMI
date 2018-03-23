@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary;
 
 import java.util.HashMap;
+import java.util.Map;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
@@ -182,10 +183,10 @@ public class UILayoutSummary extends UIWidget_i {
 				actionkey = LifeValue.envup.toString();
 			};
 			
-			HashMap<String, Object> parameter = new HashMap<String, Object>();
+			Map<String, Object> parameter = new HashMap<String, Object>();
 			parameter.put(ActionAttribute.OperationString2.toString(), env);
 			
-			HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+			Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 			override.put(actionkey, parameter);
 			
 			uiEventActionProcessor_i.executeActionSet(actionkey, override);
@@ -206,10 +207,10 @@ public class UILayoutSummary extends UIWidget_i {
 				actionkey = LifeValue.envdown.toString();
 			};
 			
-			HashMap<String, Object> parameter = new HashMap<String, Object>();
+			Map<String, Object> parameter = new HashMap<String, Object>();
 			parameter.put(ActionAttribute.OperationString2.toString(), env);
 			
-			HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+			Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 			override.put(actionkey, parameter);
 			
 			uiEventActionProcessor_i.executeActionSet(actionkey, override);

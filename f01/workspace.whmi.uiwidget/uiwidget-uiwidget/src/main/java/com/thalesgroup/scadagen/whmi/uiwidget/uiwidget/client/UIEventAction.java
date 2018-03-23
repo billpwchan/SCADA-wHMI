@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ public class UIEventAction extends GwtEvent<UIEventActionHandler> {
 		handler.onAction(this);
 	}
 
-	private HashMap<String, Object> hashMap = new HashMap<String, Object>();
+	private Map<String, Object> hashMap = new HashMap<String, Object>();
 	
 	public UIEventAction() {}
 	public UIEventAction(String key, String value) { this.hashMap.put(key, value);}

@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -40,7 +40,7 @@ public class UIWidgetDpcControl extends UIWidgetRealize {
 //	private final String strUnSet				= "unset";
 //	private final String strApply				= "apply";
 
-	private Set<HashMap<String, String>> selectedSet = null;
+	private Set<Map<String, String>> selectedSet = null;
 	
 	@Override
 	public void init() {
@@ -90,7 +90,7 @@ public class UIWidgetDpcControl extends UIWidgetRealize {
 						if ( null != element ) {
 							String actionsetkey = element;
 							
-							HashMap<String, HashMap<String, Object>> override = null;
+							Map<String, Map<String, Object>> override = null;
 							
 							uiEventActionProcessor_i.executeActionSet(actionsetkey, override, new UIExecuteActionHandler_i() {
 								
@@ -103,7 +103,7 @@ public class UIWidgetDpcControl extends UIWidgetRealize {
 									if ( null != os1 ) {
 										if ( os1.equals("SendDpcInhibitControl") ) {
 									
-											for ( HashMap<String, String> hashMap : selectedSet ) {
+											for ( Map<String, String> hashMap : selectedSet ) {
 												String selectedAlias = hashMap.get(columnAlias);
 												String selectedServiceOwner = hashMap.get(columnServiceOwner);
 												
@@ -175,10 +175,10 @@ public class UIWidgetDpcControl extends UIWidgetRealize {
 						
 						logger.info(className, function, "Store Selected Row");
 						
-						selectedSet	= (Set<HashMap<String, String>>) obj1;
+						selectedSet	= (Set<Map<String, String>>) obj1;
 						
 						String selectedStatus1 = null;
-						for ( HashMap<String, String> hashMap : selectedSet ) {
+						for ( Map<String, String> hashMap : selectedSet ) {
 							selectedStatus1 = hashMap.get(columnStatus);
 						}
 						

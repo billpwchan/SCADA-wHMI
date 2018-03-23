@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmgr.client.UIDialogMgr;
@@ -29,7 +29,7 @@ public class UIEventActionDialogMsg extends UIEventActionExecute_i {
 	}
 	
 	@Override
-	public boolean executeAction(UIEventAction uiEventAction, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(UIEventAction uiEventAction, Map<String, Map<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
 		
 		boolean bContinue = true;

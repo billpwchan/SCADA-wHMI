@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.uieventaction;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.json.client.JSONObject;
@@ -68,7 +68,7 @@ public class UIWidgetVerifyUIEventActionControl extends UIWidgetRealize {
 			if ( 0 == execute.compareTo(element) ) {
 
 				UIEventAction uiEventAction = new UIEventAction();
-				HashMap<String, HashMap<String, Object>> override = null;
+				Map<String, Map<String, Object>> override = null;
 				
 				for ( String strActionEventAttribute : UIActionEventAttribute.toStrings() ) {
 					String actionEventAttribute		= uiGeneric.getWidgetValue(strActionEventAttribute);

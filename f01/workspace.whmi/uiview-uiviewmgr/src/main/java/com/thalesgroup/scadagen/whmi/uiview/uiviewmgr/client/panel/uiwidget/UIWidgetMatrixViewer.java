@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -83,16 +84,16 @@ public class UIWidgetMatrixViewer extends UILayoutRealize {
 				matrixPresenter.setSelectionEvent(new SelectionEvent() {
 					
 					@Override
-					public void onSelection(Set<HashMap<String, String>> entities) {
+					public void onSelection(Set<Map<String, String>> entities) {
 						final String function = "onSelection fireFilterEvent";
 						
 						logger.begin(className, function);
 						
 						String actionsetkey = "RowSelected";
-						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						Map<String, Object> parameter = new HashMap<String, Object>();
 						parameter.put(ViewAttribute.OperationObject1.toString(), entities);
 						
-						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 						override.put("RowSelected", parameter);
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);

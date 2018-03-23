@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.hilc;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Widget;
@@ -114,7 +114,7 @@ public class UIWidgetVerifyHILCControl extends UIWidgetRealize {
 						if ( null != element ) {
 							String actionsetkey = element;
 							
-							HashMap<String, HashMap<String, Object>> override = null;
+							Map<String, Map<String, Object>> override = null;
 							
 							uiEventActionProcessor_i.executeActionSet(actionsetkey, override, new UIExecuteActionHandler_i() {
 								

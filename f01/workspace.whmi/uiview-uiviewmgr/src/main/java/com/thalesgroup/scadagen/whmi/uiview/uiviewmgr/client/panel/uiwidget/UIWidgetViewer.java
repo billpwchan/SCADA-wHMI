@@ -232,10 +232,10 @@ public class UIWidgetViewer extends UILayoutRealize {
 						if ( enableRowUpdated ) {
 							
 							String actionsetkey = "RowUpdated";
-							HashMap<String, Object> parameter = new HashMap<String, Object>();
+							Map<String, Object> parameter = new HashMap<String, Object>();
 							parameter.put(ViewAttribute.OperationObject1.toString(), entities);
 							
-							HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+							Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 							override.put("RowUpdated", parameter);
 							
 							uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -248,15 +248,15 @@ public class UIWidgetViewer extends UILayoutRealize {
 				gridPresenter.setSelectionEvent(new SelectionEvent() {
 
 					@Override
-					public void onSelection(Set<HashMap<String, String>> entities) {
+					public void onSelection(Set<Map<String, String>> entities) {
 						final String function = "onSelection fireFilterEvent";
 						logger.begin(className, function);
 						
 						String actionsetkey = "RowSelected";
-						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						Map<String, Object> parameter = new HashMap<String, Object>();
 						parameter.put(ViewAttribute.OperationObject1.toString(), entities);
 						
-						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 						override.put("RowSelected", parameter);
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -308,11 +308,11 @@ public class UIWidgetViewer extends UILayoutRealize {
 								
 								String actionsetkey = "CounterValueChanged";
 								String actionkey = "SetWidgetValue";
-								HashMap<String, Object> parameter = new HashMap<String, Object>();
+								Map<String, Object> parameter = new HashMap<String, Object>();
 								parameter.put(ActionAttribute.OperationString2.toString(), key);
 								parameter.put(ActionAttribute.OperationString3.toString(), strValue);
 								
-								HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+								Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 								override.put(actionkey, parameter);
 								
 								uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -335,11 +335,11 @@ public class UIWidgetViewer extends UILayoutRealize {
 						
 						String actionsetkey = "PagerButtonChanged_"+operation;
 						String actionkey = "PagerButtonChanged_"+operation;
-						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						Map<String, Object> parameter = new HashMap<String, Object>();
 						parameter.put(ActionAttribute.OperationString1.toString(), operation);
 						parameter.put(ActionAttribute.OperationString2.toString(), Boolean.toString(status));
 						
-						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 						override.put(actionkey, parameter);
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -368,11 +368,11 @@ public class UIWidgetViewer extends UILayoutRealize {
 						String strPageValueChanged = "PagerValueChanged_";
 						String actionsetkey = strPageValueChanged+strType;
 						String actionkey = strPageValueChanged+strType;
-						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						Map<String, Object> parameter = new HashMap<String, Object>();
 						parameter.put(ActionAttribute.OperationString1.toString(), strPageValueChanged+strType);
 						parameter.put(ActionAttribute.OperationString2.toString(), Integer.toString(pageStart));
 						
-						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 						override.put(actionkey, parameter);
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -392,11 +392,11 @@ public class UIWidgetViewer extends UILayoutRealize {
 						String strPageValueChanged = "PagerValueChanged_";
 						String actionsetkey = strPageValueChanged+strType;
 						String actionkey = strPageValueChanged+strType;
-						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						Map<String, Object> parameter = new HashMap<String, Object>();
 						parameter.put(ActionAttribute.OperationString1.toString(), strPageValueChanged+strType);
 						parameter.put(ActionAttribute.OperationString2.toString(), Integer.toString(endIndex));
 						
-						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 						override.put(actionkey, parameter);
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -416,11 +416,11 @@ public class UIWidgetViewer extends UILayoutRealize {
 						String strPageValueChanged = "PagerValueChanged_";
 						String actionsetkey = strPageValueChanged+strType;
 						String actionkey = strPageValueChanged+strType;
-						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						Map<String, Object> parameter = new HashMap<String, Object>();
 						parameter.put(ActionAttribute.OperationString1.toString(), strPageValueChanged+strType);
 						parameter.put(ActionAttribute.OperationString2.toString(), Integer.toString(dataSize));
 						
-						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 						override.put(actionkey, parameter);
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);

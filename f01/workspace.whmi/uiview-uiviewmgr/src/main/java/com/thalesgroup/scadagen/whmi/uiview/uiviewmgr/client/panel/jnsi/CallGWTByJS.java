@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.jnsi;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.json.client.JSONObject;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
@@ -32,7 +32,7 @@ public class CallGWTByJS {
 		logger.debug(className, function, "ot[{}]", ot);
 		
 		UIEventAction uiEventAction = new UIEventAction();
-		HashMap<String, HashMap<String, Object>> override = null;
+		Map<String, Map<String, Object>> override = null;
 
 		uiEventAction.setParameter(UIActionEventAttribute.OperationType.toString(), ot);
 		uiEventAction.setParameter(UIActionEventAttribute.OperationAction.toString(), oa);

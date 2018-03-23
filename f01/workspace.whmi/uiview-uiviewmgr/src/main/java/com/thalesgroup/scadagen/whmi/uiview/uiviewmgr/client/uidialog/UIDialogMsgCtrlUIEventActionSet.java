@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -14,8 +14,8 @@ public class UIDialogMsgCtrlUIEventActionSet implements UIDialogMsgCtrl_i {
 
 	private String actionsetkey = null;
 	private UIEventActionProcessorCore_i uiEventActionProcessorCore_i = null;
-	private HashMap<String, HashMap<String, Object>> override = null;
-	public UIDialogMsgCtrlUIEventActionSet(UIEventActionProcessorCore_i uiEventActionProcessorCore_i, String actionsetkey, HashMap<String, HashMap<String, Object>> override) {
+	private Map<String, Map<String, Object>> override = null;
+	public UIDialogMsgCtrlUIEventActionSet(UIEventActionProcessorCore_i uiEventActionProcessorCore_i, String actionsetkey, Map<String, Map<String, Object>> override) {
 		this.uiEventActionProcessorCore_i = uiEventActionProcessorCore_i;
 		this.actionsetkey = actionsetkey;
 		this.override = override;

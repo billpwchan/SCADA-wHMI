@@ -124,7 +124,7 @@ public class ScsMatrixPresenterClient extends GenericMatrixPresenterClient {
 		}
     	
     	// Create selection set for selection event
-    	Set<HashMap<String, String>> selectionSet = new HashSet<HashMap<String, String>>();
+    	Set<Map<String, String>> selectionSet = new HashSet<Map<String, String>>();
     	Set<LocationKey> currentSelectedLocationKeySet = selectionManager.getCurrentSelectedLocationKeySet();
     	if (currentSelectedLocationKeySet == null) {
     		logger.debug(className, function, "currentSelectionLocationKeySet is null");
@@ -139,7 +139,7 @@ public class ScsMatrixPresenterClient extends GenericMatrixPresenterClient {
 				Map<String, EntityClient> map = state.getListEntities();
 	    		if (map != null) {
 		    		for ( EntityClient ec : map.values() ) {  				    			
-		            	HashMap<String, String> details = new HashMap<String, String>();
+		            	Map<String, String> details = new HashMap<String, String>();
 		            	for ( String attributeName : ec.attributeNames() ) {
 		             		details.put(attributeName, ec.getAttribute(attributeName).getValue().toString());
 		             		logger.debug(className, function, "details add attribute[{}] value[{}]", attributeName, ec.getAttribute(attributeName).getValue().toString());

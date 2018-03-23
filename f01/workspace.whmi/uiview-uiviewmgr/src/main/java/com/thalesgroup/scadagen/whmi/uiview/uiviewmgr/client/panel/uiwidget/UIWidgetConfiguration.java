@@ -1,6 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.HashMap;
+import java.util.Map;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
@@ -76,7 +78,7 @@ public class UIWidgetConfiguration extends UIWidgetRealize {
 						if ( null != element ) {
 							String actionsetkey = element;
 							
-							HashMap<String, HashMap<String, Object>> override = null;
+							Map<String, Map<String, Object>> override = null;
 							
 							uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 						}
@@ -108,7 +110,7 @@ public class UIWidgetConfiguration extends UIWidgetRealize {
 							String os1 = (String) uiEventActionReceived.getParameter(ActionAttribute.OperationString1.toString());
 							logger.info(className, function, "os1[" + os1 + "]");
 							
-							HashMap<String, HashMap<String, Object>> override = null;
+							Map<String, Map<String, Object>> override = null;
 							
 							for ( String actionkey : supportOperations ) {
 								
@@ -116,9 +118,9 @@ public class UIWidgetConfiguration extends UIWidgetRealize {
 								
 								if ( actionkey.equals(os1) ) {
 									
-									override = new HashMap<String, HashMap<String, Object>>();
+									override = new HashMap<String, Map<String, Object>>();
 									
-									HashMap<String, Object> parameters = new HashMap<String, Object>();
+									Map<String, Object> parameters = new HashMap<String, Object>();
 									
 									logger.info(className, function, "os1[" + os1 + "]");
 									

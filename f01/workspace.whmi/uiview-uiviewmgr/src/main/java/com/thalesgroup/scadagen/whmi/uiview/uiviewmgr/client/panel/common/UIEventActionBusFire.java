@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -13,7 +13,7 @@ public class UIEventActionBusFire extends UIEventActionExecute_i {
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	@Override
-	public boolean executeAction( UIEventAction action, HashMap<String, HashMap<String, Object>> override ) {
+	public boolean executeAction( UIEventAction action, Map<String, Map<String, Object>> override ) {
 		final String function = "executeAction";
 		
 		boolean bContinue = true;

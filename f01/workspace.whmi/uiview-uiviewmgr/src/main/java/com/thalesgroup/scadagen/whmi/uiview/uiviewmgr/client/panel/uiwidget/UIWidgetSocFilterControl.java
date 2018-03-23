@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
@@ -217,7 +218,7 @@ public class UIWidgetSocFilterControl extends UIWidget_i {
 						}
 						
 						if (!parameter.isEmpty()) {
-							HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+							Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 							override.put(action, parameter);
 						
 							uiEventActionProcessor_i.executeActionSet(actionsetkey, override);

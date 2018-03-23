@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.gwt.event.shared.SimpleEventBus;
@@ -28,13 +28,13 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	public void setPrefix(String prefix) { this.prefix = prefix; }
 	
 	private String dictionariesCacheName;
-	public void setDictionariesCacheName(String dictionariesCacheName) {
+	public void setDictionariesCacheName(final String dictionariesCacheName) {
 		this.dictionariesCacheName = dictionariesCacheName;
 	}
 	
 	private UINameCard uiNameCard;
 	@Override
-	public void setUINameCard(UINameCard uiNameCard) {
+	public void setUINameCard(final UINameCard uiNameCard) {
 		final String function = prefix+" setElement";
 		if ( null != uiNameCard ) {
 			this.uiNameCard = new UINameCard(uiNameCard);
@@ -50,7 +50,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	
 	private String element;
 	@Override
-	public void setElement(String element) {
+	public void setElement(final String element) {
 		final String function = prefix+" setElement";
 		if ( null != element ) {
 			this.element = element;
@@ -61,7 +61,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	
 	protected SimpleEventBus simpleEventBus = null;
 	@Override
-	public void setEventBus(SimpleEventBus simpleEventBus) {
+	public void setEventBus(final SimpleEventBus simpleEventBus) {
 		final String function = prefix+" setEventBus";
 		if ( null != simpleEventBus ) {
 			this.simpleEventBus = simpleEventBus;
@@ -72,7 +72,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	
 	protected UIGeneric uiGeneric = null;
 	@Override
-	public void setUIGeneric(UIGeneric uiGeneric) {
+	public void setUIGeneric(final UIGeneric uiGeneric) {
 		final String function = prefix+" setUIGeneric";
 		if ( null != uiGeneric ) {
 			this.uiGeneric = uiGeneric;
@@ -83,19 +83,19 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 
 	private String optsXMLFile;
 	@Override
-	public void setOptsXMLFile(String optsXMLFile) {
+	public void setOptsXMLFile(final String optsXMLFile) {
 		this.optsXMLFile=optsXMLFile;
 	}
 	
 	private String actionSetTagName = null;
 	@Override
-	public void setActionSetTagName(String actionSetTagName) {
+	public void setActionSetTagName(final String actionSetTagName) {
 		this.actionSetTagName = actionSetTagName;
 	}
 	
 	private String actionTagName = null;
 	@Override
-	public void setActionTagName(String actionTagName ) {
+	public void setActionTagName(final String actionTagName ) {
 		this.actionTagName = actionTagName;
 	}
 	
@@ -113,17 +113,17 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	}
 	
 	@Override
-	public UIEventAction getUIEventActionSetMgr(String actionsetkey) {
+	public UIEventAction getUIEventActionSetMgr(final String actionsetkey) {
 		return this.uiEventActionSetMgr.get(actionsetkey);
 	}
 	
 	@Override
-	public UIEventAction getUIEventActionMgr(String actionkey) {
+	public UIEventAction getUIEventActionMgr(final String actionkey) {
 		return this.uiEventActionMgr.get(actionkey);
 	}
 	
 	@Override
-	public boolean executeActionSet(String actionsetkey) {
+	public boolean executeActionSet(final String actionsetkey) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
 		logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
@@ -135,7 +135,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	}
 	
 	@Override
-	public boolean executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeActionSet(final String actionsetkey, final Map<String, Map<String, Object>> override) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
 		logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
@@ -152,7 +152,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	 * @param straction
 	 */
 	@Override
-	public boolean executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler) {
+	public boolean executeActionSet(final String actionsetkey, final Map<String, Map<String, Object>> override, final UIExecuteActionHandler_i executeActionHandler) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
 		logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
@@ -171,9 +171,9 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 						action.setParameter(UIActionEventAttribute.OperationType.toString(), UIActionEventType.action.toString());
 						if ( null != override ) {
 							
-							for ( Entry<String, HashMap<String, Object>> entry : override.entrySet() ) {
+							for ( Entry<String, Map<String, Object>> entry : override.entrySet() ) {
 								String key = entry.getKey();
-								HashMap<String, Object> parameters = entry.getValue();
+								Map<String, Object> parameters = entry.getValue();
 								logger.debug(className, function, "key[{}] == actionsetattribute[{}]", key, actionsetattribute);
 								if ( key.equals(actionsetattribute) ) {
 									if ( null != parameters ) {
@@ -204,7 +204,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	}
 	
 	@Override
-	public boolean executeActionSet(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeActionSet(final UIEventAction action, final Map<String, Map<String, Object>> override) {
 		final String function = prefix+" executeAction";
 		logger.begin(className, function);
 		boolean bContinue = true;
@@ -214,7 +214,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	}
 	
 	@Override
-	public boolean executeActionSet(UIEventAction action, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler) {
+	public boolean executeActionSet(final UIEventAction action, final Map<String, Map<String, Object>> override, final UIExecuteActionHandler_i executeActionHandler) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
 		boolean bContinue = true;
@@ -242,7 +242,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	}
 	
 	@Override
-	public boolean executeAction(String actionkey, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(final String actionkey, final Map<String, Map<String, Object>> override) {
 		final String function = prefix+" executeAction";
 		logger.begin(className, function);
 		logger.debug(className, function, "actionkey[{}]", actionkey);
@@ -257,7 +257,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	 * @param actionkey: UIEventAction key
 	 */
 	@Override
-	public boolean executeAction(String actionkey, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler) {
+	public boolean executeAction(final String actionkey, final Map<String, Map<String, Object>> override, final UIExecuteActionHandler_i executeActionHandler) {
 		final String function = prefix+" executeAction";
 		logger.begin(className, function);
 		logger.debug(className, function, "actionkey[{}]", actionkey);
@@ -274,7 +274,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	}
 	
 	@Override
-	public boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(final UIEventAction action, final Map<String, Map<String, Object>> override) {
 		final String function = prefix+" executeAction";
 		logger.begin(className, function);
 		boolean bContinue = true;
@@ -288,7 +288,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	 * @param action: UIEventAction instance
 	 */
 	@Override
-	public boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler) {
+	public boolean executeAction(final UIEventAction action, final Map<String, Map<String, Object>> override, final UIExecuteActionHandler_i executeActionHandler) {
 		final String function = prefix+" executeAction";
 		logger.begin(className, function);
 		
@@ -362,7 +362,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 		return bContinue;
 	}
 
-	private static String getParameter(String prefix, UIEventAction uiEventAction, String parameter) {
+	private static String getParameter(final String prefix, final UIEventAction uiEventAction, final String parameter) {
 		final String function = prefix+" getParameter";
 		logger.begin(className, function);
 		logger.debug(className, function, "parameter[{}]", parameter);
@@ -377,7 +377,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 		return parameterValue;
 	}
 	
-	private static String getOperationElement(String prefix, UIEventAction uiEventAction) {
+	private static String getOperationElement(final String prefix, final UIEventAction uiEventAction) {
 		final String function = prefix+" getOperationElement";
 		logger.begin(className, function);
 		String operationElement = getParameter(prefix, uiEventAction, UIActionEventTargetAttribute.OperationElement.toString());
@@ -385,7 +385,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 		return operationElement;
 	}
 	
-	public static void dumpUIEventAction(String prefix, UIEventAction uiEventAction) {
+	public static void dumpUIEventAction(final String prefix, final UIEventAction uiEventAction) {
 		final String function = prefix+" dumpUIEventAction";
 		logger.begin(className, function);
 		if ( null != uiEventAction ) {

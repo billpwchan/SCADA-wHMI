@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -27,15 +27,15 @@ public interface UIEventActionProcessorCore_i {
 	
 	boolean executeActionSet(String actionsetkey);
 	
-	boolean executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override);
-	boolean executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler);
+	boolean executeActionSet(final String actionsetkey, final Map<String, Map<String, Object>> override);
+	boolean executeActionSet(final String actionsetkey, final Map<String, Map<String, Object>> override, final UIExecuteActionHandler_i executeActionHandler);
 	
-	boolean executeActionSet(UIEventAction action, HashMap<String, HashMap<String, Object>> override);
-	boolean executeActionSet(UIEventAction action, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler);
+	boolean executeActionSet(final UIEventAction action, final Map<String, Map<String, Object>> override);
+	boolean executeActionSet(final UIEventAction action, final Map<String, Map<String, Object>> override, final UIExecuteActionHandler_i executeActionHandler);
 	
-	boolean executeAction(String actionkey, HashMap<String, HashMap<String, Object>> override);
-	boolean executeAction(String actionkey, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler);
+	boolean executeAction(final String actionkey, final Map<String, Map<String, Object>> override);
+	boolean executeAction(final String actionkey, final Map<String, Map<String, Object>> override, final UIExecuteActionHandler_i executeActionHandler);
 	
-	boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override);
-	boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler);
+	boolean executeAction(final UIEventAction action, final Map<String, Map<String, Object>> override);
+	boolean executeAction(final UIEventAction action, final Map<String, Map<String, Object>> override, final UIExecuteActionHandler_i executeActionHandler);
 }

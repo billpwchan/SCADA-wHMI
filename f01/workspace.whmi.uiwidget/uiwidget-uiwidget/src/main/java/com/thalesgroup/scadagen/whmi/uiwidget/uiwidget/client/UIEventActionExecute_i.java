@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -18,13 +18,13 @@ public abstract class UIEventActionExecute_i {
 	
 	protected String [] supportedActions = null;
 	
-	public void setUIEventActionProcessor(UIEventActionProcessorCore_i uiEventActionProcessorCore_i) { this.uiEventActionProcessorCore_i = uiEventActionProcessorCore_i; }
+	public void setUIEventActionProcessor(final UIEventActionProcessorCore_i uiEventActionProcessorCore_i) { this.uiEventActionProcessorCore_i = uiEventActionProcessorCore_i; }
 	
-	public void setLogPrefix(String logPrefix) { this.logPrefix = "-> "+logPrefix+" "; }
-	public void setInstance(String instance) { this.instance = instance; }
-	public void setSimpleEventBus(SimpleEventBus simpleEventBus) { this.simpleEventBus = simpleEventBus; }
-	public void setUIGeneric(UIGeneric uiGeneric) { this.uiGeneric = uiGeneric; }
-	public void setUINameCard(UINameCard uiNameCard) { if ( null != uiNameCard ) { this.uiNameCard = new UINameCard(uiNameCard); } }
+	public void setLogPrefix(final String logPrefix) { this.logPrefix = "-> "+logPrefix+" "; }
+	public void setInstance(final String instance) { this.instance = instance; }
+	public void setSimpleEventBus(final SimpleEventBus simpleEventBus) { this.simpleEventBus = simpleEventBus; }
+	public void setUIGeneric(final UIGeneric uiGeneric) { this.uiGeneric = uiGeneric; }
+	public void setUINameCard(final UINameCard uiNameCard) { if ( null != uiNameCard ) { this.uiNameCard = new UINameCard(uiNameCard); } }
 	
 	public boolean isSupportedAction(String operation) {
 		boolean supported = false;
@@ -38,5 +38,5 @@ public abstract class UIEventActionExecute_i {
 		}
 		return supported;
 	}
-	public abstract boolean executeAction(final UIEventAction uiEventAction, HashMap<String, HashMap<String, Object>> override);
+	public abstract boolean executeAction(final UIEventAction uiEventAction, final Map<String, Map<String, Object>> override);
 }

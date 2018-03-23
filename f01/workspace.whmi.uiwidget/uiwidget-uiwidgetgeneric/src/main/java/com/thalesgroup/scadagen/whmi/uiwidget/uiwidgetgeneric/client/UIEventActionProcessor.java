@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client;
 
-import java.util.HashMap;
+import java.util.Map;
 import com.google.gwt.user.client.Timer;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -29,7 +29,7 @@ public class UIEventActionProcessor extends UIEventActionProcessorCore implement
 	 * Load and Execute the Local Init Action Set
 	 */
 	@Override
-	public void executeActionSet(final String actionsetkey, final int delayMillis, final HashMap<String, HashMap<String, Object>> override) {
+	public void executeActionSet(final String actionsetkey, final int delayMillis, final Map<String, Map<String, Object>> override) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
 		logger.info(className, function, "delayMillis[{}]", delayMillis);

@@ -111,10 +111,10 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		
 		logger.debug(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
 		
-		HashMap<String, Object> parameter = new HashMap<String, Object>();
+		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put(ActionAttribute.OperationString2.toString(), button);
 		
-		HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+		Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 		override.put(actionkey, parameter);
 		
 		uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -130,10 +130,10 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		
 		logger.debug(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
 		
-		HashMap<String, Object> parameter = new HashMap<String, Object>();
+		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put(ActionAttribute.OperationString2.toString(), button);
 		
-		HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+		Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 		override.put(actionkey, parameter);
 		
 		uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -149,10 +149,10 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		
 		logger.debug(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
 		
-		HashMap<String, Object> parameter = new HashMap<String, Object>();
+		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put(ActionAttribute.OperationString2.toString(), button);
 		
-		HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+		Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 		override.put(actionkey, parameter);
 		
 		uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -168,10 +168,10 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		
 		logger.debug(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
 		
-		HashMap<String, Object> parameter = new HashMap<String, Object>();
+		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put(ActionAttribute.OperationString2.toString(), button);
 		
-		HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+		Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 		override.put(actionkey, parameter);
 		
 		uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -187,11 +187,11 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		
 		logger.debug(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
 		
-		HashMap<String, Object> parameter = new HashMap<String, Object>();
+		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put(ActionAttribute.OperationString2.toString(), button);
 		parameter.put(ActionAttribute.OperationString3.toString(), label);
 		
-		HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+		Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 		override.put(actionkey, parameter);
 		
 		uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
@@ -573,12 +573,12 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		
 		logger.debug(className, function, "env[{}] alias[{}] value[{}]", new Object[]{env, alias, value});
 		
-		HashMap<String, Object> parameter = new HashMap<String, Object>();
+		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put(ActionAttribute.OperationString2.toString(), env);
 		parameter.put(ActionAttribute.OperationString3.toString(), alias);
 		parameter.put(ActionAttribute.OperationString4.toString(), value);
 		
-		HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+		Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 		override.put(actionkey, parameter);
 		
 		uiEventActionProcessor_i.executeActionSet(actionsetkey, override);

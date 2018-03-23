@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.uieventaction;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.json.client.JSONObject;
@@ -38,7 +38,7 @@ public class UIWidgetVerifyUIEventActionGenericControl extends UIWidgetRealize {
 				logger.debug(className, function, "jsdata[{}]", jsdata);
 
 				UIEventAction uiEventAction = new UIEventAction();
-				HashMap<String, HashMap<String, Object>> override = null;
+				Map<String, Map<String, Object>> override = null;
 				
 				JSONObject json = ReadJson.readJson(jsdata);
 				

@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
@@ -125,12 +126,12 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 							
 							sendDisplayMessageEvent(scsenvid, dbalias, "", null);
 							
-							HashMap<String, Object> parameter = new HashMap<String, Object>();
+							Map<String, Object> parameter = new HashMap<String, Object>();
 							parameter.put(ActionAttribute.OperationString2.toString(), scsenvid);
 							parameter.put(ActionAttribute.OperationString3.toString(), dbalias);
 							parameter.put(ActionAttribute.OperationString4.toString(), Integer.toString(delay));
 							
-							HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+							Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 							override.put(strWriteDelayToDB, parameter);
 							
 							uiEventActionProcessor_i.executeActionSet(actionsetkey, override);

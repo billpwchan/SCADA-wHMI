@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -20,7 +21,7 @@ public class UIEventActionExecuteMgr {
 		return instance; }
 	private UIEventActionExecuteMgr() {}
 	
-	private HashMap<String, UIEventActionExecuteMgrFactory> hashMap = new HashMap<String, UIEventActionExecuteMgrFactory>();
+	private Map<String, UIEventActionExecuteMgrFactory> hashMap = new HashMap<String, UIEventActionExecuteMgrFactory>();
 	public void addUIEventActionExecute(String key, UIEventActionExecuteMgrFactory uiEventActionExecuteMgrFactory) {
 		hashMap.put(key, uiEventActionExecuteMgrFactory);
 	}

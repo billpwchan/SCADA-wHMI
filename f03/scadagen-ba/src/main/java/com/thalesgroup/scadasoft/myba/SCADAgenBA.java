@@ -1,5 +1,6 @@
 package com.thalesgroup.scadasoft.myba;
 
+import java.util.Properties;
 import java.util.UUID;
 
 import com.thalesgroup.hv.common.HypervisorException;
@@ -12,12 +13,15 @@ import com.thalesgroup.scadasoft.hvconnector.subscription.DBMSubscription;
 import com.thalesgroup.scadasoft.hvconnector.subscription.OLSConverter;
 import com.thalesgroup.scadasoft.hvconnector.subscription.OLSSubscription;
 import com.thalesgroup.scadasoft.myba.configuration.SCADAgenConfManager;
+import com.thalesgroup.scadasoft.myba.plugin.PluginNBTransientGenericManager;
 import com.thalesgroup.scadasoft.myba.subscription.MyDBMSubscription;
 import com.thalesgroup.scadasoft.myba.subscription.OLSAlmConverter;
 import com.thalesgroup.scadasoft.myba.subscription.OLSHistEventConverter;
 import com.thalesgroup.scadasoft.services.proxy.ScsPollerServicesProxy;
 
 public class SCADAgenBA extends SCADAsoftBA {
+	
+	Properties appConfig = null;
 
     public SCADAgenBA() {
     }
@@ -30,6 +34,10 @@ public class SCADAgenBA extends SCADAsoftBA {
         SCSOperationResponder opeResponder = getOperationManager();
         if (opeResponder != null) {
         	opeResponder.register("SigHILCServer", HILCExecutor.class);
+        }
+
+        if (appConfig != null) {
+        	registerPlugins();
         }
     }
 
@@ -61,7 +69,7 @@ public class SCADAgenBA extends SCADAsoftBA {
 	            sub = new OLSSubscription(SCSConfManager.instance().getRemoteEnv(), cnf.m_serverName,
 	                    cnf.m_listName, cnf.m_filter, new OLSConverter(cnf.m_hvclass, m_HVGenericConnector));
             }
-            
+
             sub.start();
             m_olsSubList.add(sub);
         }
@@ -70,6 +78,14 @@ public class SCADAgenBA extends SCADAsoftBA {
 	@Override
 	public DBMSubscription getDbmSubscription(ScsPollerServicesProxy dbpoller, UUID subscriptionID) {
         return new MyDBMSubscription(dbpoller, subscriptionID, this, 100);
+	}
+	
+	private void registerPlugins() {
+		PluginNBTransientGenericManager.load(getConnector(), appConfig);
+	}
+
+	public void setAppConfig(Properties appConfig) {
+		this.appConfig = appConfig;
 	}
 
 }

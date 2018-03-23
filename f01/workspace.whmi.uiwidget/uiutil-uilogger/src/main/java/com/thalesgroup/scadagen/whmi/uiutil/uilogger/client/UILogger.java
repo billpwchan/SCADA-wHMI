@@ -13,7 +13,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  * @author syau
  *
  */
-public class UILogger {
+public class UILogger implements UILogger_i {
 	
 	private final static String STR_OB		= "[";
 	private final static String STR_CB		= "] ";
@@ -25,6 +25,13 @@ public class UILogger {
 	private final static String END			= "End";
 	
 	private final static String STR_NULL	= "null";
+	
+	private String name                     = null;
+	
+	public UILogger(final String name) { this.name = name; }
+	
+	@Override
+	public String getName() { return name; }
 
 	public void setCurrentLogLevel(int level) { Log.setCurrentLogLevel(level); }
 	public int getCurrentLogLevel() { return Log.getCurrentLogLevel(); }
@@ -68,9 +75,6 @@ public class UILogger {
 	public boolean isErrorEnabled()	{ return Log.isErrorEnabled();	}
 	public boolean isFatalEnabled()	{ return Log.isFatalEnabled();	}
 	
-	public void trace(final String message) {
-	    Log.trace(message);
-	}
 	public void trace(final String className, final String function, String log) {
 		trace(className, function, log, null);
 	}
@@ -83,10 +87,9 @@ public class UILogger {
 	public void trace(final String className, final String function, String log, Object [] arguments) {
 		if ( Log.isTraceEnabled() ) addLog(Log.LOG_LEVEL_TRACE, className, function, log, arguments);
 	}
+	public void trace(final String message) { Log.trace(message); }
+    public void trace(final String message, final Throwable throwable) { Log.trace(message, throwable); }
 	
-	public void debug(final String message) {
-	    Log.debug(message);
-	}
 	public void debug(final String className, final String function, String log) {
 		debug(className, function, log, null);
 	}
@@ -99,10 +102,10 @@ public class UILogger {
 	public void debug(final String className, final String function, String log, Object [] arguments) {
 		if ( Log.isDebugEnabled() ) addLog(Log.LOG_LEVEL_DEBUG, className, function, log, arguments);
 	}
+	public void debug(final String message) { Log.debug(message); }
+	public void debug(final String message, final Throwable throwable) { Log.debug(message, throwable); }
+    public void debug(final Object message) { Log.debug(String.valueOf(message)); }
 
-	public void info(final String message) {
-	    Log.info(message);
-	}
 	public void info(final String className, final String function, String log) {
 		info(className, function, log, null);
 	}
@@ -115,10 +118,9 @@ public class UILogger {
 	public void info(final String className, final String function, String log, Object [] arguments) {
 		if ( Log.isInfoEnabled() ) addLog(Log.LOG_LEVEL_INFO, className, function, log, arguments);
 	}
+	public void info(final String log) { Log.info(log); }
+    public void info(final String message, final Throwable throwable) { Log.info(message, throwable); }
 	
-	public void warn(final String message) {
-	    Log.warn(message);
-	}
 	public void warn(final String className, final String function, String log) {
 		warn(className, function, log, null);
 	}
@@ -130,11 +132,10 @@ public class UILogger {
 	}
 	public void warn(final String className, final String function, String log, Object [] arguments) {
 		if ( Log.isWarnEnabled() ) addLog(Log.LOG_LEVEL_WARN, className, function, log, arguments);
-	}	
-	
-	public void error(final String log) {
-		Log.error(log);
 	}
+	public void warn(final String log) { Log.warn(log); }
+    public void warn(final String message, final Throwable throwable) { Log.warn(message, throwable); }
+	
 	public void error(final String className, final String function, final String log) {
 		error(className, function, log, null);
 	}
@@ -147,6 +148,8 @@ public class UILogger {
 	public void error(final String className, final String function, String log, Object[] arguments) {
 		if ( Log.isErrorEnabled() ) addLog(Log.LOG_LEVEL_ERROR, className, function, log, arguments);
 	}
+	public void error(final String log) { Log.error(log); }
+    public void error(final String message, final Throwable throwable) { Log.error(message, throwable); }
 	
 	public void fatal(final String log) {
 		Log.fatal(log);

@@ -17,14 +17,14 @@ public class PluginNBTransientGeneric5 extends PluginNBTransientGenericAbstract 
 			Class<? extends AbstractEntityStatusesType> entityStatusesTypeClass, String fromExpression,
 			String topicExpression) throws SubscriptionInitException {
 		super(configPlugin, entityStatusesTypeClass, fromExpression, topicExpression);
-		pluginId = PluginNBTransientGeneric5.class.getName();
+		pluginId = this.getClass().getName();
 	}
 
 	public PluginNBTransientGeneric5(IConfiguration configuration, IDataHelper dataHelper,
 			Class<? extends AbstractEntityStatusesType> entityStatusesTypeClass, ExecutionMode executionMode,
 			String fromExpression, String topicExpression) throws SubscriptionInitException {
 		super(configuration, dataHelper, entityStatusesTypeClass, executionMode, fromExpression, topicExpression);
-		pluginId = PluginNBTransientGeneric5.class.getName();
+		pluginId = this.getClass().getName();
 	}
 
 }

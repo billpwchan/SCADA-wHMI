@@ -12,8 +12,9 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.UIDialogMsgCtrlUIEventActionSet;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.UIDialogMsgCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.UIDialogMsgEvent.UIDialogMsgEventType;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDailogMsg_i.UIConfimDlgParameter;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDailogMsg_i.UIConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDialogMsg;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDialogMsg.UIConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
 
@@ -48,6 +49,11 @@ public class UIEventActionDialogMsg extends UIEventActionExecute_i {
 		String strMsgOpt2ActionSetKey	= (String) uiEventAction.getParameter(ActionAttribute.OperationString6.toString());
 		String strMsgOpt1Label			= (String) uiEventAction.getParameter(ActionAttribute.OperationString7.toString());
 		String strMsgOpt2Label			= (String) uiEventAction.getParameter(ActionAttribute.OperationString8.toString());
+		
+		String strCssPrefix				= (String) uiEventAction.getParameter(ActionAttribute.OperationString9.toString());
+		String strImgPrefix				= (String) uiEventAction.getParameter(ActionAttribute.OperationString10.toString());
+		
+		String strFocusOnBtn			= (String) uiEventAction.getParameter(ActionAttribute.OperationString11.toString());
 		
 		if ( strUIDialogBoxAction == null ) {
 			logger.warn(className, function, logPrefix+"strUIDialogBoxAction IS NULL");
@@ -125,7 +131,28 @@ public class UIEventActionDialogMsg extends UIEventActionExecute_i {
 				} else {
 					logger.warn(className, function, logPrefix+"strMsgOpt2ActionSetKey[{}] IS INVALID", strMsgOpt2ActionSetKey);
 				}
-
+				
+				if(null!=strCssPrefix) {
+					logger.debug(className, function, logPrefix+"strCssPrefix[{}]", strCssPrefix);
+					uiDialgogMsg.setParameter(UIConfimDlgParameter.CSS_PREFIX.toString(), strCssPrefix);	
+				} else {
+					logger.warn(className, function, logPrefix+"strCssPrefix IS NULL");
+				}
+				
+				if(null!=strImgPrefix) {
+					logger.debug(className, function, logPrefix+"strImgPrefix[{}]", strImgPrefix);
+					uiDialgogMsg.setParameter(UIConfimDlgParameter.IMG_PREFIX.toString(), strImgPrefix);
+				} else {
+					logger.warn(className, function, logPrefix+"strImgPrefix IS NULL");
+				}
+				
+				if(null!=strFocusOnBtn) {
+					logger.debug(className, function, logPrefix+"strFocusOnBtn[{}]", strFocusOnBtn);
+					uiDialgogMsg.setParameter(UIConfimDlgParameter.BTN_FOCUS.toString(), strFocusOnBtn);
+				} else {
+					logger.warn(className, function, logPrefix+"strFocusOnBtn IS NULL");
+				}
+				
 				uiDialgogMsg.popUp();
 			} else {
 				logger.warn(className, function, logPrefix+"strUIDialogMsg[{}] uiDialogMsg IS NULL", UIEventActionDialogMsgAction.UIDialogMsg.toString());

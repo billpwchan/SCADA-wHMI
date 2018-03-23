@@ -4,6 +4,7 @@ import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UICookies;
 
 /**
@@ -54,7 +55,7 @@ public class UIGwsLogin {
         form.setMethod(FormPanel.METHOD_POST);
 
         // Create a panel to hold all of the form widgets.		
-		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		Panel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.addStyleName(strCssPanel);
 
         form.setWidget(horizontalPanel);

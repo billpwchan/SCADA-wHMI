@@ -74,6 +74,7 @@
 		<OperationString2>DLG_ERR</OperationString2>
 		<OperationString3>Operator or Password Invalid</OperationString3>
 		<OperationString4>Operator or Password Invalid</OperationString4>
+		<OperationString11>1</OperationString11>
 	</action>
 	
 	<action key="set_result_value_invalid_2">
@@ -83,6 +84,7 @@
 		<OperationString2>DLG_ERR</OperationString2>
 		<OperationString3>Cannot connect to LDAP</OperationString3>
 		<OperationString4>Cannot connect to LDAP</OperationString4>
+		<OperationString11>1</OperationString11>
 	</action>
 	
 	<action key="set_result_value_invalid_3">
@@ -92,6 +94,7 @@
 		<OperationString2>DLG_ERR</OperationString2>
 		<OperationString3>Invalid Login Operation</OperationString3>
 		<OperationString4>Invalid Login Operation</OperationString4>
+		<OperationString11>1</OperationString11>
 	</action>
 	
 	<action key="set_result_value_invalid_4">
@@ -101,6 +104,7 @@
 		<OperationString2>DLG_ERR</OperationString2>
 		<OperationString3>Invalid Login Operation</OperationString3>
 		<OperationString4>Invalid Login Operation</OperationString4>
+		<OperationString11>1</OperationString11>
 	</action>
 	
 	<action key="set_result_value_invalid_5">
@@ -110,6 +114,7 @@
 		<OperationString2>DLG_ERR</OperationString2>
 		<OperationString3>Invalid Login Operation</OperationString3>
 		<OperationString4>Invalid Login Operation</OperationString4>
+		<OperationString11>1</OperationString11>
 	</action>
 	
 	<action key="set_result_value_invalid_6">
@@ -119,6 +124,7 @@
 		<OperationString2>DLG_ERR</OperationString2>
 		<OperationString3>Invalid Login Operation</OperationString3>
 		<OperationString4>Invalid Login Operation</OperationString4>
+		<OperationString11>1</OperationString11>
 	</action>
 	
 </data-set>

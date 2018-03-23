@@ -45,6 +45,7 @@
 		<OperationString3>&amp;UIPanelAccessBarButton_logout_title_1</OperationString3>
 		<OperationString4>&amp;UIPanelAccessBarButton_logout_content_1</OperationString4>
 		<OperationString5>logout_process</OperationString5>
+		<OperationString11>1</OperationString11>
 	</action>
 	
 	<actionset key="logout_process">

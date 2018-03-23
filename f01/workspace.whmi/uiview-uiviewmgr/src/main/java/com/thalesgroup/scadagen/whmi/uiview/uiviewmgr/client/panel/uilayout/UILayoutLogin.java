@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -46,27 +47,27 @@ public class UILayoutLogin extends UIWidget_i {
 
 	private final String strHeader			= "header";
 	
-	private final String strname			= "name";
-	private final String strpassword		= "password";
+	private final String STR_NAME			= "name";
+	private final String STR_PASSWORD		= "password";
 	
-	private final String strlogin			= "login";
+	private final String STR_LOGIN			= "login";
 	
-	private final String strUrlFaultCodeKey	= "autherr";
+	private final String STR_URLFAULT_CODEKEY	= "autherr";
 	
-	private final String strResultInvalidPrefix	= "set_result_value_invalid_";
+	private final String STR_RESULT_INVALID_PREFIX	= "set_result_value_invalid_";
 	
 	private void login() {
 		String function = "login";
 		logger.begin(className, function);
 		
-		String actionsetkey = strlogin;
+		String actionsetkey = STR_LOGIN;
 		
-		HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+		Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 
-		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		
-		String operator = uiWidgetGenericInfo.getWidgetValue(strname);
-		String password = uiWidgetGenericInfo.getWidgetValue(strpassword);
+		String operator = uiWidgetGenericInfo.getWidgetValue(STR_NAME);
+		String password = uiWidgetGenericInfo.getWidgetValue(STR_PASSWORD);
 		
 		if ( null != upperCaseName && Boolean.TRUE.toString().equals(upperCaseName) ) {
 			operator = operator.toUpperCase();
@@ -128,7 +129,7 @@ public class UILayoutLogin extends UIWidget_i {
 			
 			if ( null != element ) {
 				
-				if ( element.equals(strlogin) ) {
+				if ( element.equals(STR_LOGIN) ) {
 					login();
 				}
 				
@@ -185,6 +186,7 @@ public class UILayoutLogin extends UIWidget_i {
 		uiEventActionProcessor_i.setDictionariesCacheName(strUIWidgetGeneric);
 		uiEventActionProcessor_i.setEventBus(eventBus);
 		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
+//		uiEventActionProcessor_i.setUIGeneric((UIGeneric) uiWidgetGenericInfo);
 		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
 		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
 		uiEventActionProcessor_i.init();
@@ -198,7 +200,7 @@ public class UILayoutLogin extends UIWidget_i {
 		handleErrorCode();
 		
 		// Handle the Entry Key in the Password Box
-		Widget password = uiWidgetGenericInfo.getWidget(strpassword);
+		Widget password = uiWidgetGenericInfo.getWidget(STR_PASSWORD);
 		if ( null != password ) {
 			if ( password instanceof TextBox ) {
 				TextBox txtpassword = (TextBox) password;
@@ -213,24 +215,25 @@ public class UILayoutLogin extends UIWidget_i {
 			}
 		}
 		
+//		TextBox name = (TextBox) uiWidgetGenericInfo.getWidget(STR_NAME);
+//		if (null!=name) name.setFocus(true);
+		
 		logger.end(className, function);
 	}
 
 	// Display the login invalid message 
-	private int handleErrorCode() {
+	private String handleErrorCode() {
 		final String function = "handleErrorMessage";
 		logger.begin(className, function);
 		
-		int code = 0;
-		
-		String authErrCode = Window.Location.getParameter(strUrlFaultCodeKey);
+		String authErrCode = Window.Location.getParameter(STR_URLFAULT_CODEKEY);
 		if ((authErrCode != null) && (!authErrCode.isEmpty())) {
-			uiEventActionProcessor_i.executeActionSet(strResultInvalidPrefix+authErrCode);
+			uiEventActionProcessor_i.executeActionSet(STR_RESULT_INVALID_PREFIX+authErrCode);
 		}
 		
 		logger.begin(className, function);
 		
-		return code;
+		return authErrCode;
 	}
 	
 }

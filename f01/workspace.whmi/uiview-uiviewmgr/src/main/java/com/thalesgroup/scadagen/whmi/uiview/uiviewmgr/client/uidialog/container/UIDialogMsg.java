@@ -1,8 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container;
 
 import java.util.HashMap;
+import java.util.Map;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -20,6 +20,8 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.UIDialogMsgCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.UIDialogMsgEvent.UIDialogMsgEventType;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDailogMsg_i.UIConfimDlgParameter;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDailogMsg_i.UIConfimDlgType;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.TextArea;
@@ -28,30 +30,23 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIDialogMsg.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
-	private static final String basePath	= GWT.getModuleBaseURL();
-	private static final String folder		= "/resources/img/project/dialog/";
-	
+
 	private String element = className;
 	
-	int baseBoderX = 28, baseBoderY = 28;
+	private String cssPrefix = "project-"+element;
+	private String imgBase = UIDailogMsg_i.STR_BASEPATH;
+	private String imgPrefix = imgBase + UIDailogMsg_i.STR_FOLDER;
 	
-	int baseWidth = 400, baseHeight = 600;
+	private String focusOnBtn		= "";
 	
-	public enum UIConfimDlgType {
-		  DLG_ERR("DLG_ERR")
-		, DLG_WAR("DLG_WAR")
-		, DLG_OK("DLG_OK")
-		, DLG_YESNO("DLG_YESNO")
-		, DLG_OKCANCEL("DLG_OKCANCEL")
-		, DLG_EXECANCEL("DLG_EXECANCEL")
-		, DLG_CONFIRMCANCEL("DLG_CONFIRMCANCEL")
-		;
-		private final String text;
-		private UIConfimDlgType(final String text) { this.text = text; }
-		@Override
-		public String toString() { return this.text; }
-	}
+	private String imgErr			= "/error.png";
+	private String imgWar			= "/warning.png";
+	private String imgOk			= "/info.png";
+	private String imgYesNo			= "/question.png";
+	private String imgOkCancel		= "/question.png";
+	private String imgExeCancel		= "/question.png";
+	private String imgConfirmCancel	= "/question.png";
+	
 	
 	private String title = null;
 	public void setTitle(String title) { this.title = title; }
@@ -73,17 +68,17 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i {
 	public void setConfimDlgType(UIConfimDlgType confimDlgType) { this.confimDlgType = confimDlgType; }
 	public UIConfimDlgType getConfimDlgType() { return this.confimDlgType; }
 	
-	private HashMap<String, UIDialogMsgCtrl_i> uiDialogMsgCtrls = new HashMap<String, UIDialogMsgCtrl_i>();
+	private Map<String, UIDialogMsgCtrl_i> uiDialogMsgCtrls = new HashMap<String, UIDialogMsgCtrl_i>();
 	public void setResponse(String msgOpt, UIDialogMsgCtrl_i uiDialogMsgCtrl_i) {
 		String function = "setResponse";
 		logger.debug(className, function, "msgOpt[{}]", msgOpt);
 		this.uiDialogMsgCtrls.put(msgOpt, uiDialogMsgCtrl_i);
 	}
-	private Image image;
-	private TextArea txtMsg;
-	private Button btnOk;
-	private Button btnCancel;
-	private HorizontalPanel btnBar;
+	private Image image				= null;
+	private TextArea txtMsg			= null;
+	private Button btnOk			= null;
+	private Button btnCancel		= null;
+	private HorizontalPanel btnBar	= null;
 	
 	private UINameCard uiNameCard;
 	public void setUINameCard(UINameCard uiNameCard) {
@@ -102,7 +97,41 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i {
 		this.setMsg(msg);
 	}
 	
+	public UIConfimDlgParameter getParameterKey(final String key) {
+		UIConfimDlgParameter ret = null;
+		UIConfimDlgParameter[] ps = UIConfimDlgParameter.values();
+		for(int i = 0;i < ps.length;++i) {
+			if(0==key.compareTo(ps[i].toString())) {
+				ret = ps[i];
+				break;
+			}
+		}
+		return ret;
+	}
+
+	public void setParameter(final String key, final String value) {
+		String function = "setParameter";
+		logger.debug(className, function, "key[{}] value[{}]", key, value);
+		UIConfimDlgParameter p = getParameterKey(key);
+		switch(p) {
+		case CSS_PREFIX:			cssPrefix = value;			break;
+		case IMG_BASE:				imgBase = value;
+									imgPrefix = imgBase + UIDailogMsg_i.STR_FOLDER;	break;		
+		case IMG_PREFIX:			imgPrefix = value;			break;
+		case IMG_DLG_ERR:			imgErr = value;				break;
+		case IMG_DLG_WAR:			imgWar = value;				break;
+		case IMG_DLG_OK:			imgOk = value;				break;
+		case IMG_DLG_YESNO:			imgYesNo = value;			break;
+		case IMG_DLG_OKCANCEL:		imgOkCancel = value;		break;
+		case IMG_DLG_EXECANCEL:		imgExeCancel = value;		break;
+		case IMG_DLG_CONFIRMCANCEL:	imgConfirmCancel = value;	break;
+		
+		case BTN_FOCUS:				focusOnBtn = value;			break;
+		}
+	}
+	
 	public void popUp() {
+		String function = "popUp";
 
 		int baseWidth = 500;
 		int baseHeight = 200;
@@ -137,53 +166,45 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i {
 		
 		btnBar.add(btnOk);
 		btnBar.add(btnCancel);
-		
-		final String strOK = "OK";
-		final String strCancel = "Cancel";
-		final String strExecute = "Execute";
-		final String strYes = "Yes";
-		final String strNo = "No";
-		final String strConfirm = "Confirm";
-		final String strEmpty = "";
-		
+
 		switch ( confimDlgType ) {
 			case DLG_ERR:
-				image.setUrl(basePath + folder+"/error.png");
-				btnOk.setText(null==opt1Label?strOK:opt1Label);
-				btnCancel.setText(null==opt2Label?strEmpty:opt2Label);
+				image.setUrl(imgPrefix+imgErr);
+				btnOk.setText(null==opt1Label?UIDailogMsg_i.strOK:opt1Label);
+				btnCancel.setText(null==opt2Label?UIDailogMsg_i.strEmpty:opt2Label);
 				btnCancel.setVisible(false);
 				break;
 			case DLG_WAR:
-				image.setUrl(basePath + folder+"/warning.png");
-				btnOk.setText(null==opt1Label?strOK:opt1Label);
-				btnCancel.setText(null==opt2Label?strEmpty:opt2Label);
+				image.setUrl(imgPrefix+imgWar);
+				btnOk.setText(null==opt1Label?UIDailogMsg_i.strOK:opt1Label);
+				btnCancel.setText(null==opt2Label?UIDailogMsg_i.strEmpty:opt2Label);
 				btnCancel.setVisible(false);
 				break;
 			case DLG_OK:
-				image.setUrl(basePath + folder+"/info.png");
-				btnOk.setText(null==opt1Label?strOK:opt1Label);
-				btnCancel.setText(null==opt2Label?strEmpty:opt2Label);
+				image.setUrl(imgPrefix+imgOk);
+				btnOk.setText(null==opt1Label?UIDailogMsg_i.strOK:opt1Label);
+				btnCancel.setText(null==opt2Label?UIDailogMsg_i.strEmpty:opt2Label);
 				btnCancel.setVisible(false);
 				break;
 			case DLG_YESNO:
-				image.setUrl(basePath + folder+"/question.png");
-				btnOk.setText(null==opt1Label?strYes:opt1Label);
-				btnCancel.setText(null==opt2Label?strNo:opt2Label);
+				image.setUrl(imgPrefix+imgYesNo);
+				btnOk.setText(null==opt1Label?UIDailogMsg_i.strYes:opt1Label);
+				btnCancel.setText(null==opt2Label?UIDailogMsg_i.strNo:opt2Label);
 				break;
 			case DLG_OKCANCEL:
-				image.setUrl(basePath + folder+"/question.png");
-				btnOk.setText(null==opt1Label?strOK:opt1Label);
-				btnCancel.setText(null==opt2Label?strCancel:opt2Label);
+				image.setUrl(imgPrefix+imgOkCancel);
+				btnOk.setText(null==opt1Label?UIDailogMsg_i.strOK:opt1Label);
+				btnCancel.setText(null==opt2Label?UIDailogMsg_i.strCancel:opt2Label);
 				break;
 			case DLG_EXECANCEL:
-				image.setUrl(basePath + folder+"/question.png");
-				btnOk.setText(null==opt1Label?strExecute:opt1Label);
-				btnCancel.setText(null==opt2Label?strCancel:opt2Label);
+				image.setUrl(imgPrefix+imgExeCancel);
+				btnOk.setText(null==opt1Label?UIDailogMsg_i.strExecute:opt1Label);
+				btnCancel.setText(null==opt2Label?UIDailogMsg_i.strCancel:opt2Label);
 				break;
 			case DLG_CONFIRMCANCEL:
-				image.setUrl(basePath + folder+"/question.png");
-				btnOk.setText(null==opt1Label?strConfirm:opt1Label);
-				btnCancel.setText(null==opt2Label?strCancel:opt2Label);
+				image.setUrl(imgPrefix+imgConfirmCancel);
+				btnOk.setText(null==opt1Label?UIDailogMsg_i.strConfirm:opt1Label);
+				btnCancel.setText(null==opt2Label?UIDailogMsg_i.strCancel:opt2Label);
 				break;				
 				
 			default:
@@ -198,13 +219,13 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i {
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
 		dockLayoutPanel.getElement().getStyle().setWidth(baseWidth, Unit.PX);
 		dockLayoutPanel.getElement().getStyle().setHeight(baseHeight, Unit.PX);	
-		dockLayoutPanel.addStyleName("project-"+element+"-panel-dialogmsg");
+		dockLayoutPanel.addStyleName(cssPrefix+"-panel-dialogmsg");
 
-		btnOk.addStyleName("project-"+element+"-button-ok");
+		btnOk.addStyleName(cssPrefix+"-button-ok");
 		
-		btnCancel.addStyleName("project-"+element+"-button-cancel");
+		btnCancel.addStyleName(cssPrefix+"-button-cancel");
 
-		btnBar.addStyleName("project-"+element+"-btnbar");
+		btnBar.addStyleName(cssPrefix+"-btnbar");
 		dockLayoutPanel.addSouth(btnBar, 50);
 		
 		image.getElement().getStyle().setPadding(25, Unit.PX);  
@@ -213,20 +234,29 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i {
 		txtMsg.setWidth("90%");
 		txtMsg.setHeight("95%");
 		txtMsg.getElement().getStyle().setPadding(10, Unit.PX);
-		txtMsg.addStyleName("project-"+element+"-textarea");
+		txtMsg.addStyleName(cssPrefix+"-textarea");
 		dockLayoutPanel.add(txtMsg);
 		
 		this.add(dockLayoutPanel);
 		
 		this.getElement().getStyle().setPosition(Style.Position.ABSOLUTE);
-		int left = (Window.getClientWidth() / 2) - ( baseWidth / 2 ) - (baseBoderX / 2);
-	    int top = (Window.getClientHeight() / 2) - ( baseHeight / 2 ) - (baseBoderY / 2);
+		int left = (Window.getClientWidth() / 2) - ( baseWidth / 2 ) - (UIDailogMsg_i.baseBoderX / 2);
+	    int top = (Window.getClientHeight() / 2) - ( baseHeight / 2 ) - (UIDailogMsg_i.baseBoderY / 2);
 	    this.setPopupPosition(left, top);
 	    
 	    this.show();
-
+	    
+	    if(null!=focusOnBtn) {
+	    	logger.debug(className, function, "focusOnBtn[{}]", focusOnBtn);
+	    	if (0==focusOnBtn.compareTo(UIDailogMsg_i.STR_ONE)){
+	    		logger.debug(className, function, "btnOk.setFocus(true);");
+	    		btnOk.setFocus(true);
+	    	} else if(0==focusOnBtn.compareTo(UIDailogMsg_i.STR_TWO)){
+	    		logger.debug(className, function, "btnCancel.setFocus(true);");
+	    		btnCancel.setFocus(true);
+	    	}
+	    }
 	}
-
 	
 	@Override
 	public void onMouseMove(Widget sender, int x, int y) {
@@ -237,16 +267,16 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i {
 			XtoMove = 0;
 			XtoMoveInvalid = true;
 		}
-		if ( this.getPopupLeft() + baseWidth + baseBoderX > Window.getClientWidth() ) {
-			XtoMove = Window.getClientWidth() - baseWidth - baseBoderX;
+		if ( this.getPopupLeft() + UIDailogMsg_i.baseWidth + UIDailogMsg_i.baseBoderX > Window.getClientWidth() ) {
+			XtoMove = Window.getClientWidth() - UIDailogMsg_i.baseWidth - UIDailogMsg_i.baseBoderX;
 			XtoMoveInvalid = true;
 		}
 		if ( this.getPopupTop() < 0 ) {
 			YtoMove = 0;
 			YtoMoveInvalid = true;
 		}
-		if ( this.getPopupTop() + baseHeight + baseBoderY > Window.getClientHeight() ) {
-			YtoMove = Window.getClientHeight() - baseHeight - baseBoderY;
+		if ( this.getPopupTop() + UIDailogMsg_i.baseHeight + UIDailogMsg_i.baseBoderY > Window.getClientHeight() ) {
+			YtoMove = Window.getClientHeight() - UIDailogMsg_i.baseHeight - UIDailogMsg_i.baseBoderY;
 			YtoMoveInvalid = true;
 		}
 		if ( XtoMoveInvalid || YtoMoveInvalid ) {

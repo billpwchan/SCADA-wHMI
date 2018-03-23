@@ -2,6 +2,8 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
 import java.util.HashMap;
 
+import com.google.gwt.user.client.ui.Focusable;
+import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -20,6 +22,10 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 		supportedActions = new String[] {
 				  UIEventActionWidgetAction.SetWidgetStatus.toString()
 				, UIEventActionWidgetAction.SetWidgetValue.toString()
+				, UIEventActionWidgetAction.SetWidgetFocus.toString()
+				, UIEventActionWidgetAction.SetWidgetCSS.toString()
+				, UIEventActionWidgetAction.AddWidgetCSS.toString()
+				, UIEventActionWidgetAction.RemoveWidgetCSS.toString()
 				};
 	}
 	
@@ -63,7 +69,9 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 		
 		if ( strWidgetAction.equals(UIEventActionWidgetAction.SetWidgetValue.toString()) ) {
 			uiGeneric.setWidgetValue(strWidget, widgetValue);
-		} else if ( strWidgetAction.equals(UIEventActionWidgetAction.SetWidgetStatus.toString()) ) {
+		}
+		else 
+			if ( strWidgetAction.equals(UIEventActionWidgetAction.SetWidgetStatus.toString()) ) {
 			WidgetStatus widgetStatus = null;
 			for ( WidgetStatus cstWidgetStatus : WidgetStatus.values() ) {
 				String name = cstWidgetStatus.toString();
@@ -78,7 +86,33 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 				logger.warn(className, function, logPrefix+"widgetStatus IS NULL");
 			}
 			
-		} else {
+		}
+		else 
+			if ( strWidgetAction.equals(UIEventActionWidgetAction.SetWidgetFocus.toString()) ) {
+				Widget widget = uiGeneric.getWidget(strWidget);
+				if(widget instanceof Focusable) {
+					Focusable focusable = (com.google.gwt.user.client.ui.Focusable) uiGeneric.getWidget(strWidget);
+					focusable.setFocus(Boolean.parseBoolean(widgetValue));
+				} else {
+					logger.warn(className, function, logPrefix+"strWidget["+strWidget+"] IS NOT Focusable");
+				}
+		}
+		else 
+			if ( strWidgetAction.equals(UIEventActionWidgetAction.SetWidgetCSS.toString()) ) {
+				Widget widget = uiGeneric.getWidget(strWidget);
+				widget.setStyleName(widgetValue);
+		}
+		else 
+			if ( strWidgetAction.equals(UIEventActionWidgetAction.AddWidgetCSS.toString()) ) {
+				Widget widget = uiGeneric.getWidget(strWidget);
+				widget.addStyleName(widgetValue);
+		}
+		else 
+			if ( strWidgetAction.equals(UIEventActionWidgetAction.RemoveWidgetCSS.toString()) ) {
+				Widget widget = uiGeneric.getWidget(strWidget);
+				widget.removeStyleName(widgetValue);
+		}
+		else {
 			logger.warn(className, function, "strWidgetAction[{}] IS UNKNOW TYPE", strWidgetAction);
 		}
 		

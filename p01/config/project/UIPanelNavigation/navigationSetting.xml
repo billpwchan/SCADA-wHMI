@@ -24,6 +24,8 @@
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<css>project-gwt-button-navigation-location-lmc</css>
 		<tooltips>Lok Ma Chau Station</tooltips>
+		
+		<enableHTMLName>true</enableHTMLName>
 	</option>
 	<option key="1">
 		<type>M</type>

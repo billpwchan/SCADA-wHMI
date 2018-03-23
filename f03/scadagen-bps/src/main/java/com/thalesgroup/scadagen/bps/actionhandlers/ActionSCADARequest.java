@@ -11,7 +11,9 @@ import com.thalesgroup.hv.common.HypervisorException;
 import com.thalesgroup.hv.data_v1.attribute.AbstractAttributeType;
 import com.thalesgroup.hv.data_v1.entity.AbstractEntityStatusesType;
 import com.thalesgroup.hv.data_v1.operation.AbstractOperationRequestType;
+import com.thalesgroup.scadagen.bps.conf.OperationConfigLoader;
 import com.thalesgroup.scadagen.bps.conf.actions.IAction;
+import com.thalesgroup.scadagen.bps.conf.operation.Operation;
 import com.thalesgroup.scadagen.bps.connector.operation.GenericOperationConnector;
 import com.thalesgroup.scadagen.bps.connector.operation.IGenericOperationConnector;
 
@@ -44,6 +46,8 @@ public abstract class ActionSCADARequest implements IAction {
 		operationParam_.put("action", getActionParam());
 		
 		try {
+			Operation operation = OperationConfigLoader.getInstance().getOperation(actionConfigId);
+			
 			AbstractOperationRequestType operationRequest = opConnector.createOperation(OPERATIONTYPE, operationParam_);
 			if (operationRequest == null) {
 				LOGGER.debug("Error creating operation using OperationEntry [{}]", actionConfigId);
@@ -51,7 +55,8 @@ public abstract class ActionSCADARequest implements IAction {
 			}
 	
 	    	if (operationConnector != null) {	    		
-    			if (isIncludeCorrelationId()) {
+	    		if ((operation.getCommandContent().isIncludeCorrelationId() != null && operation.getCommandContent().isIncludeCorrelationId()) ||
+	    			(operation.getCommandContent().isIncludeCorrelationId() == null && isIncludeCorrelationId())) {
     				UUID correlationId = UUID.randomUUID();
 					operationConnector.requestOperation(correlationId, operationRequest);
 	    		} else {

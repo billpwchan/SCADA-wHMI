@@ -104,7 +104,12 @@ public class ActionDbmWrite extends ActionSCADARequest {
 		for (AttributeBinding binding: bindingSet) {
 			LOGGER.trace("Start process attribute binding [{}]", binding.getId());
 			IData data = ConfManager.getBindingEngine().getScsValue(entity, eqpId, binding);
-			String dataType = ConfManager.getBindingEngine().getScsValueType(binding);				
+			String dataType = ConfManager.getBindingEngine().getScsValueType(binding);
+			
+			if (data == null || dataType == null) {
+				LOGGER.info("Unable to process attribute binding [{}]. Attribute skipped", binding.getId());
+				continue;
+			}
 			LOGGER.trace("data = [{}], dataType = [{}]", data.toString(), dataType);
 
 			// Get scs point level db path from attribute binding

@@ -13,7 +13,9 @@ import com.thalesgroup.hv.data.tools.bean.IBeanEditor;
 import com.thalesgroup.hv.data_v1.attribute.AbstractAttributeType;
 import com.thalesgroup.hv.data_v1.entity.AbstractEntityStatusesType;
 import com.thalesgroup.hv.data_v1.operation.AbstractOperationRequestType;
+import com.thalesgroup.scadagen.bps.conf.OperationConfigLoader;
 import com.thalesgroup.scadagen.bps.conf.actions.IAction;
+import com.thalesgroup.scadagen.bps.conf.operation.Operation;
 import com.thalesgroup.scadagen.bps.connector.operation.GenericOperationConnector;
 import com.thalesgroup.scadagen.bps.connector.operation.IGenericOperationConnector;
 
@@ -38,8 +40,10 @@ public abstract class AbstractAction implements IAction {
 			Map<String, AbstractAttributeType> attributeMap, String actionConfigId) {
 		
 		GenericOperationConnector opConnector = (GenericOperationConnector)operationConnector;
-		
+
 		try {			
+			Operation operation = OperationConfigLoader.getInstance().getOperation(actionConfigId);
+			
 			if (entityID_ == null || entityID_.isEmpty()) {
 				LOGGER.error("Error sending operation. EntityID is not set.");
 				return;
@@ -61,7 +65,8 @@ public abstract class AbstractAction implements IAction {
 			}
 	
 	    	if (operationConnector != null) {	    		
-    			if (isIncludeCorrelationId()) {
+    			if ((operation.getCommandContent().isIncludeCorrelationId() != null && operation.getCommandContent().isIncludeCorrelationId()) ||
+    				(operation.getCommandContent().isIncludeCorrelationId() == null && isIncludeCorrelationId())) {
     				UUID correlationId = UUID.randomUUID();
 					operationConnector.requestOperation(correlationId, operationRequest);
 	    		} else {

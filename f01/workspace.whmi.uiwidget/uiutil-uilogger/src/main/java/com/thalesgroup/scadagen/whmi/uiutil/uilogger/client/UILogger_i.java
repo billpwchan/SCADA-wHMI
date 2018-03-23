@@ -36,6 +36,14 @@ public interface UILogger_i {
      * @param message message to log
      */
     void debug(final Object message);
+    
+    /**
+     * debug with throwable
+     * 
+     * @param message message to log
+     * @param throwable throwable
+     */
+    void debug(final String message, final Throwable throwable);
 
     /**
      * error without throwable

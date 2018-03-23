@@ -36,6 +36,22 @@ public class UILogger implements UILogger_i {
 	public void setCurrentLogLevel(int level) { Log.setCurrentLogLevel(level); }
 	public int getCurrentLogLevel() { return Log.getCurrentLogLevel(); }
 	
+	private static String msg(final String className, final String function, final String log, final Object[] arguments) {
+		String message = STR_OB+className+STR_CB+STR_EMPTY+function+STR_EMPTY+log;
+		if ( null != arguments ) {
+			String [] splits = message.split(STR_OCB);
+			final StringBuffer buffer = new StringBuffer();
+			for ( int i = 0 ; i < splits.length ; ++i) {
+				buffer.append(splits[i]);
+				if ( i < splits.length - 1 ) {
+					buffer.append( null != arguments[i] ? arguments[i] : STR_NULL );
+				}
+			}
+			message = buffer.toString();
+		}
+		return message;
+	}
+	
 	public void begin(final String className, final String function) {
 		if ( Log.isTraceEnabled() ) Log.trace(STR_OB+className+STR_CB+STR_EMPTY+function+STR_EMPTY+BEGIN);
 	}
@@ -79,76 +95,85 @@ public class UILogger implements UILogger_i {
 		trace(className, function, log, null);
 	}
 	public void trace(final String className, final String function, String log, Object argument) {
-		if ( Log.isTraceEnabled() ) addLog(Log.LOG_LEVEL_TRACE, className, function, log, argument);
+		if ( Log.isTraceEnabled() ) Log.trace(UILogger.msg(className, function, log, new Object[]{argument}));
 	}
 	public void trace(final String className, final String function, String log, Object argument1, Object argument2) {
-		if ( Log.isTraceEnabled() ) addLog(Log.LOG_LEVEL_TRACE, className, function, log, argument1, argument2);
+		if ( Log.isTraceEnabled() ) Log.trace(UILogger.msg(className, function, log, new Object[]{argument1, argument2}));
 	}
 	public void trace(final String className, final String function, String log, Object [] arguments) {
-		if ( Log.isTraceEnabled() ) addLog(Log.LOG_LEVEL_TRACE, className, function, log, arguments);
+		if ( Log.isTraceEnabled() ) Log.trace(UILogger.msg(className, function, log, arguments));
 	}
+	@Override
 	public void trace(final String message) { Log.trace(message); }
+	@Override
     public void trace(final String message, final Throwable throwable) { Log.trace(message, throwable); }
 	
 	public void debug(final String className, final String function, String log) {
 		debug(className, function, log, null);
 	}
 	public void debug(final String className, final String function, String log, Object argument) {
-		if ( Log.isDebugEnabled() ) addLog(Log.LOG_LEVEL_DEBUG, className, function, log, argument);
+		if ( Log.isDebugEnabled() ) Log.debug(UILogger.msg(className, function, log, new Object[]{argument}));
 	}
 	public void debug(final String className, final String function, String log, Object argument1, Object argument2) {
-		if ( Log.isDebugEnabled() ) addLog(Log.LOG_LEVEL_DEBUG, className, function, log, argument1, argument2);
+		if ( Log.isDebugEnabled() ) Log.debug(UILogger.msg(className, function, log, new Object[]{argument1, argument2}));
 	}
 	public void debug(final String className, final String function, String log, Object [] arguments) {
-		if ( Log.isDebugEnabled() ) addLog(Log.LOG_LEVEL_DEBUG, className, function, log, arguments);
+		if ( Log.isDebugEnabled() ) Log.debug(UILogger.msg(className, function, log, arguments));
 	}
+	@Override
 	public void debug(final String message) { Log.debug(message); }
+	@Override
 	public void debug(final String message, final Throwable throwable) { Log.debug(message, throwable); }
+	@Override
     public void debug(final Object message) { Log.debug(String.valueOf(message)); }
 
 	public void info(final String className, final String function, String log) {
 		info(className, function, log, null);
 	}
 	public void info(final String className, final String function, String log, Object argument) {
-		if ( Log.isInfoEnabled() ) addLog(Log.LOG_LEVEL_INFO, className, function, log, argument);
+		if ( Log.isInfoEnabled() ) Log.info(UILogger.msg(className, function, log, new Object[]{argument}));
 	}
 	public void info(final String className, final String function, String log, Object argument1, Object argument2) {
-		if ( Log.isInfoEnabled() ) addLog(Log.LOG_LEVEL_INFO, className, function, log, argument1, argument2);
+		if ( Log.isInfoEnabled() ) Log.info(UILogger.msg(className, function, log, new Object[]{argument1, argument2}));
 	}
 	public void info(final String className, final String function, String log, Object [] arguments) {
-		if ( Log.isInfoEnabled() ) addLog(Log.LOG_LEVEL_INFO, className, function, log, arguments);
+		if ( Log.isInfoEnabled() ) Log.info(UILogger.msg(className, function, log, arguments));
 	}
+	@Override
 	public void info(final String log) { Log.info(log); }
-    public void info(final String message, final Throwable throwable) { Log.info(message, throwable); }
 	
 	public void warn(final String className, final String function, String log) {
 		warn(className, function, log, null);
 	}
 	public void warn(final String className, final String function, String log, Object argument) {
-		if ( Log.isWarnEnabled() ) addLog(Log.LOG_LEVEL_WARN, className, function, log, argument);
+		if ( Log.isWarnEnabled() ) Log.warn(UILogger.msg(className, function, log, new Object[]{argument}));
 	}
 	public void warn(final String className, final String function, String log, Object argument1, Object argument2) {
-		if ( Log.isWarnEnabled() ) addLog(Log.LOG_LEVEL_WARN, className, function, log, argument1, argument2);
+		if ( Log.isWarnEnabled() ) Log.warn(UILogger.msg(className, function, log, new Object[]{argument1, argument2}));
 	}
 	public void warn(final String className, final String function, String log, Object [] arguments) {
-		if ( Log.isWarnEnabled() ) addLog(Log.LOG_LEVEL_WARN, className, function, log, arguments);
+		if ( Log.isWarnEnabled() ) Log.warn(UILogger.msg(className, function, log, arguments));
 	}
+	@Override
 	public void warn(final String log) { Log.warn(log); }
+	@Override
     public void warn(final String message, final Throwable throwable) { Log.warn(message, throwable); }
 	
 	public void error(final String className, final String function, final String log) {
 		error(className, function, log, null);
 	}
 	public void error(final String className, final String function, String log, Object argument) {
-		if ( Log.isErrorEnabled() ) addLog(Log.LOG_LEVEL_ERROR, className, function, log, argument);
+		if ( Log.isErrorEnabled() ) Log.error(UILogger.msg(className, function, log, new Object[]{argument}));
 	}
 	public void error(final String className, final String function, String log, Object argument1, Object argument2) {
-		if ( Log.isErrorEnabled() ) addLog(Log.LOG_LEVEL_ERROR, className, function, log, argument1, argument2);
+		if ( Log.isErrorEnabled() ) Log.error(UILogger.msg(className, function, log, new Object[]{argument1, argument2}));
 	}
 	public void error(final String className, final String function, String log, Object[] arguments) {
-		if ( Log.isErrorEnabled() ) addLog(Log.LOG_LEVEL_ERROR, className, function, log, arguments);
+		if ( Log.isErrorEnabled() ) Log.error(UILogger.msg(className, function, log, arguments));
 	}
+	@Override
 	public void error(final String log) { Log.error(log); }
+	@Override
     public void error(final String message, final Throwable throwable) { Log.error(message, throwable); }
 	
 	public void fatal(final String log) {
@@ -158,13 +183,13 @@ public class UILogger implements UILogger_i {
 		fatal(className, function, log, null);
 	}
 	public void fatal(final String className, final String function, String log, Object argument) {
-		if ( Log.isFatalEnabled() ) addLog(Log.LOG_LEVEL_FATAL, className, function, log, argument);
+		if ( Log.isFatalEnabled() ) Log.fatal(UILogger.msg(className, function, log, new Object[]{argument}));
 	}
 	public void fatal(final String className, final String function, String log, Object argument1, Object argument2) {
-		if ( Log.isFatalEnabled() ) addLog(Log.LOG_LEVEL_FATAL, className, function, log, argument1, argument2);
+		if ( Log.isFatalEnabled() ) Log.fatal(UILogger.msg(className, function, log, new Object[]{argument1, argument2}));
 	}
 	public void fatal(final String className, final String function, String log, Object[] arguments) {
-		if ( Log.isFatalEnabled() ) addLog(Log.LOG_LEVEL_FATAL, className, function, log, arguments);
+		if ( Log.isFatalEnabled() ) Log.fatal(UILogger.msg(className, function, log, arguments));
 	}
 	
 	private void addLog(int level, final String className, final String function, String log) {
@@ -177,19 +202,7 @@ public class UILogger implements UILogger_i {
 		addLog(level, className, function, log, ( null != argument1 || null != argument2 ) ? new Object[]{argument1, argument2} : null);
 	}
 	private void addLog(int level, final String className, final String function, String log, Object[] arguments) {
-		String message = STR_OB+className+STR_CB+STR_EMPTY+function+STR_EMPTY+log;
-		if ( null != arguments ) {
-			String [] splits = message.split(STR_OCB);
-			final StringBuffer buffer = new StringBuffer();
-			for ( int i = 0 ; i < splits.length ; ++i) {
-				buffer.append(splits[i]);
-				if ( i < splits.length - 1 ) {
-					buffer.append( null != arguments[i] ? arguments[i] : STR_NULL );
-				}
-			}
-			message = buffer.toString();
-		}
-		addLog(level, message);
+		addLog(level, UILogger.msg(className, function, log, arguments));
 	}
 	private void addLog(int level, String message) {
 		switch ( level ) {

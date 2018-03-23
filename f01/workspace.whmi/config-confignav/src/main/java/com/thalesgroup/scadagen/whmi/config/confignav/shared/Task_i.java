@@ -20,6 +20,8 @@ public interface Task_i {
 		, Type("type")
 		
 		, Name("name")
+		, EnableHTMLName("enableHTMLName")
+		
 		, Title("title")
 		, Enable("enable")
 		, Visible("visible")

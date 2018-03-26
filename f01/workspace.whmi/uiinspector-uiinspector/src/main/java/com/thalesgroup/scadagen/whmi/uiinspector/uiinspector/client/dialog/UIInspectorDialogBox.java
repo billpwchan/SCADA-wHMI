@@ -20,8 +20,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorDialogBox.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String cls = this.getClass().getName();
+	private final String className = UIWidgetUtil.getClassSimpleName(cls);
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
 	
 	int baseBoderX = 28, baseBoderY = 28;
 	int baseWidth = 600, baseHeight = 620;

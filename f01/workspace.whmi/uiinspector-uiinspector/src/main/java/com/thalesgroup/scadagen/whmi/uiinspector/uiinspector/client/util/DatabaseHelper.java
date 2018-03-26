@@ -10,8 +10,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class DatabaseHelper {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(DatabaseHelper.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final static String cls = DatabaseHelper.class.getName();
+	private final static String className = UIWidgetUtil.getClassSimpleName(cls);
+	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
 	
 	public static String getPoint(String dbaddress) {
 		String dbaddressTokenes[] = dbaddress.split(":");

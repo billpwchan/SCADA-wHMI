@@ -20,8 +20,9 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey
 
 public class EquipmentReserve {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(EquipmentReserve.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final static String cls = EquipmentReserve.class.getName();
+	private final static String className = UIWidgetUtil.getClassSimpleName(cls);
+	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
 	
 	private static String reservationName = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
 	

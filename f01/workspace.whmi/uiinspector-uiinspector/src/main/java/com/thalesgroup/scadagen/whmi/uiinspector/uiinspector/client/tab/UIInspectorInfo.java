@@ -46,8 +46,9 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey
 
 public class UIInspectorInfo implements UIInspectorTab_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorInfo.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String cls = this.getClass().getName();
+	private final String className = UIWidgetUtil.getClassSimpleName(cls);
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
 	
 	private int dalValueTableLength = 12;
 	

@@ -17,17 +17,17 @@ public class AckAlarm {
 	private final String className = UIWidgetUtil.getClassSimpleName(cls);
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
 	
-	private final String strOlsMgr = AckAlarm_i.STR_OLS_MGR;
-	private final String strOlsMgrKey = AckAlarm_i.STR_OLS_MGR_KEY;
+	private final String strOlsMgr          = AckAlarm_i.STR_OLS_MGR;
+	private final String strOlsMgrKey       = AckAlarm_i.STR_OLS_MGR_KEY;
 	
-	private final String strAlmServer = AckAlarm_i.STR_ALM_SERVER;
-	private final String strListName = AckAlarm_i.STR_LIST_NAME;
-	private final String strAlarmField = AckAlarm_i.STR_ALARM_FIELDS;
+	private final String strAlmServer       = AckAlarm_i.STR_ALM_SERVER;
+	private final String strListName        = AckAlarm_i.STR_LIST_NAME;
+	private final String strAlarmField      = AckAlarm_i.STR_ALARM_FIELDS;
 	
-	private final String strKeyword = AckAlarm_i.STR_KEYWORD;
-	private final String strFilterMsgLike = AckAlarm_i.STR_FILTER_MSG_LIKE;
-	private final String strFilterConcat = AckAlarm_i.STR_FILTER_CONCAT;
-	private final String strFilter = AckAlarm_i.STR_FILTER;
+	private final String strKeyword         = AckAlarm_i.STR_KEYWORD;
+	private final String strFilterMsgLike   = AckAlarm_i.STR_FILTER_MSG_LIKE;
+	private final String strFilterConcat    = AckAlarm_i.STR_FILTER_CONCAT;
+	private final String strFilter          = AckAlarm_i.STR_FILTER;
 	
 	private String scsEnvId = null;
 	public AckAlarm(String scsEnvId) {

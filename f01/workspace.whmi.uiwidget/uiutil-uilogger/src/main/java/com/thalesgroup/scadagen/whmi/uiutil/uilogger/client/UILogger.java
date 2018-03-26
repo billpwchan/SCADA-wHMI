@@ -10,6 +10,8 @@ import com.google.gwt.core.client.JavaScriptObject;
 // Error:	Critical Error E.g Application Should be Stop
 
 /**
+ * SCADAgen default logger
+ * 
  * @author syau
  *
  */

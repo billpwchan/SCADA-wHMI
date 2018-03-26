@@ -30,8 +30,9 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 
 public class UIInspectorMgr {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorMgr.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String cls = this.getClass().getName();
+	private final String className = UIWidgetUtil.getClassSimpleName(cls);
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
 	
 	private static HashMap<String, UIInspectorMgr> instances = new HashMap<String, UIInspectorMgr>();
 	private UIInspectorMgr () {}

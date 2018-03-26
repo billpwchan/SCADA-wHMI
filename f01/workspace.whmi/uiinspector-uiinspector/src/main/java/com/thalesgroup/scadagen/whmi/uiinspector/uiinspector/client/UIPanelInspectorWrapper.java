@@ -23,11 +23,14 @@ import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadProp;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperInfoCmdTabPanel;
 
 public class UIPanelInspectorWrapper implements UIInspector_i, EqptSelectionEventHandler {
 	
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(UIPanelInspectorWrapper.class.getName());
+	private final String cls = this.getClass().getName();
+	private final String className = UIWidgetUtil.getClassSimpleName(cls);
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
 	
 	private UIPanelInspector uiPanelInspector_ = null;
 	private WrapperInfoCmdTabPanel infoCmdTabPanel_ = null;

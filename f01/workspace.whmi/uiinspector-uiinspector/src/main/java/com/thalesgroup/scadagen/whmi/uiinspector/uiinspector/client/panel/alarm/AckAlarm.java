@@ -13,8 +13,9 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.ols.OlsMgr_i;
 
 public class AckAlarm {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(AckAlarm.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String cls = this.getClass().getName();
+	private final String className = UIWidgetUtil.getClassSimpleName(cls);
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
 	
 	private final String strOlsMgr = AckAlarm_i.STR_OLS_MGR;
 	private final String strOlsMgrKey = AckAlarm_i.STR_OLS_MGR_KEY;

@@ -48,8 +48,9 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 
 public class UIInspectorTag implements UIInspectorTab_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorTag.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String cls = this.getClass().getName();
+	private final String className = UIWidgetUtil.getClassSimpleName(cls);
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
 	
 	private static final String DICTIONARY_CACHE_NAME = UIInspector_i.strUIInspector;
 	private static final String DICTIONARY_FILE_NAME = "inspectorpanel.tag.properties";

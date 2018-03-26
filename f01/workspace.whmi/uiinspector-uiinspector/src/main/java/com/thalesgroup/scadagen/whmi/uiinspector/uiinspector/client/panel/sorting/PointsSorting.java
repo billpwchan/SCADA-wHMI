@@ -17,8 +17,9 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey
 
 public class PointsSorting {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(PointsSorting.class.getName());
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String cls = this.getClass().getName();
+	private final String className = UIWidgetUtil.getClassSimpleName(cls);
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
 
 	private Database database = null;
 	public void setDatabase(Database database) {

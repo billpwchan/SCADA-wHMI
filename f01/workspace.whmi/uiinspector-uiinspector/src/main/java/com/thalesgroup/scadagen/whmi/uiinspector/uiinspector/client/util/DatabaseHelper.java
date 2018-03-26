@@ -13,8 +13,14 @@ public class DatabaseHelper {
 	private static final String className = UIWidgetUtil.getClassSimpleName(DatabaseHelper.class.getName());
 	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
+	public static final String STR_EMPTY				= Database_i.STR_EMPTY;
+	public static final String STR_UNDERSCORE			= Database_i.STR_UNDERSCORE;
+	public static final String STR_COLON				= Database_i.STR_COLON;
+	public static final String STR_COMMA				= Database_i.STR_COMMA;
+
+	
 	public static String getPoint(String dbaddress) {
-		String dbaddressTokenes[] = dbaddress.split(":");
+		String dbaddressTokenes[] = dbaddress.split(STR_COLON);
 		return dbaddressTokenes[dbaddressTokenes.length-1];
 	}
 	
@@ -107,7 +113,7 @@ public class DatabaseHelper {
 				s = removeBegin(s, '[');
 				s = removeBegin(s, ']');
 				logger.trace(className, function, "s[{}]", s);
-//				String str2s[] = s.split(",");
+//				String str2s[] = s.split(STR_COMMA);
 				String str2s[] = s.split("\\s*,\\s*");
 				logger.trace(className, function, "str2s[{}][{}]", row, str2s[row]);
 				if ( str2s.length > 0 && row < str2s.length ) {
@@ -125,6 +131,12 @@ public class DatabaseHelper {
 		return str;
 	}
 	
+	public static String[] getValueTableColumn(final String string) {
+		String s = string;
+		s = removeDBStringWrapper(s);
+		return s.split(STR_COMMA);
+	}
+
 	public static String getAttributeValue(String address, String point, Map<String, String> dbvalues) {
 		final String function = "getAttributeValue";
 		logger.begin(className, function);
@@ -168,7 +180,7 @@ public class DatabaseHelper {
 	public static boolean isAlarm(String alarmVector) {
 		boolean result = false;
 		if ( null != alarmVector && alarmVector.length() > 0 ) {
-			int intAlarmVector = string2int(alarmVector.split(",")[Database_i.isAlarmVectorIndex], "isAlarm");
+			int intAlarmVector = string2int(alarmVector.split(STR_COMMA)[Database_i.isAlarmVectorRowIndex], "isAlarm");
 			result = (1 == intAlarmVector);
 		}
 		return result;
@@ -178,7 +190,7 @@ public class DatabaseHelper {
 	public static boolean isNeedAck(String alarmVector) {
 		boolean result = false;
 		if ( null != alarmVector && alarmVector.length() > 0 ) {
-			int intAlarmVector = string2int(alarmVector.split(",")[Database_i.isNeedAckAlarmVectorIndex], "isNeedAck");
+			int intAlarmVector = string2int(alarmVector.split(STR_COMMA)[Database_i.isNeedAckAlarmVectorRowIndex], "isNeedAck");
 			result = (1 == intAlarmVector);
 		}
 		return result;
@@ -208,28 +220,28 @@ public class DatabaseHelper {
 	
 	public static String getGetChildenClientKey(String source, String address, String uiPath, int screen, String tag) {
 		final String function = "getGetChildenClientKey";
-		String key = strGetChildren + "_" + source + "_" + strStatic + "_" + uiPath + "_" + screen + "_" + tag + "_" + address;
+		String key = strGetChildren + STR_UNDERSCORE + source + STR_UNDERSCORE + strStatic + STR_UNDERSCORE + uiPath + STR_UNDERSCORE + screen + STR_UNDERSCORE + tag + STR_UNDERSCORE + address;
 		logger.beginEnd(className, function, "key[{}]", key);
 		return key;
 	}
 
 	public static String getStaticReadClienyKey(String source, String address, String uiPath, int screen, String tag) {
 		final String function = "getStaticReadClienyKey";
-		String key = strMultiReadValue + "_" + source + "_" + strStatic + "_" + uiPath + "_" + screen + "_" + tag + "_" + address;
+		String key = strMultiReadValue + STR_UNDERSCORE + source + STR_UNDERSCORE + strStatic + STR_UNDERSCORE + uiPath + STR_UNDERSCORE + screen + STR_UNDERSCORE + tag + STR_UNDERSCORE + address;
 		logger.beginEnd(className, function, "key[{}]", key);
 		return key;
 	}
 
 	public static String getDyanimcClientKey(String source, String address, String uiPath, int screen, String tag) {
 		final String function = "getSubscribeClientKey";
-		String key = strMultiReadValue + "_" + source + "_" + strDynamic + "_" + uiPath + "_" + screen + "_" + tag + "_" + address;
+		String key = strMultiReadValue + STR_UNDERSCORE + source + STR_UNDERSCORE + strDynamic + STR_UNDERSCORE + uiPath + STR_UNDERSCORE + screen + STR_UNDERSCORE + tag + STR_UNDERSCORE + address;
 		logger.beginEnd(className, function, "key[{}]", key);
 		return key;
 	}
 	
 	public static String getSubscribeClientKey(String source, String address, String uiPath, int screen, String tag) {
 		final String function = "getSubscribeClientKey";
-		String key = strMultiReadValue + "_" + source + "_" + strDynamic + "_" + uiPath + "_" + screen + "_" + tag + "_" + address;
+		String key = strMultiReadValue + STR_UNDERSCORE + source + STR_UNDERSCORE + strDynamic + STR_UNDERSCORE + uiPath + STR_UNDERSCORE + screen + STR_UNDERSCORE + tag + STR_UNDERSCORE + address;
 		logger.beginEnd(className, function, "key[{}]", key);
 		return key;
 	}

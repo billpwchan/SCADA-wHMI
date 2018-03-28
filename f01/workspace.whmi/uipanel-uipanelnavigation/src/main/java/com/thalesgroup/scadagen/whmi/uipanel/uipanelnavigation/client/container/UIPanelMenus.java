@@ -226,28 +226,6 @@ public class UIPanelMenus extends UIWidget_i {
 		logger.end(className, function);
 	}
 	
-	//	Char	Escape String
-	//	<	&lt;
-	//	>	&gt;
-	//	"	&quot;
-	//	'	&apos;
-	//	&	&amp;	
-	private String backwardConvertXMLTag(final String element) {
-		final String function = "backwardConvertXMLTag";
-		logger.begin(className, function);
-		logger.debug(className, function, "element[{}]", element);
-		String ret = element;
-		
-		ret = ret.replace("&amp;", "&");
-		ret = ret.replace("&lt;", "<");
-		ret = ret.replace("&gt;", ">");
-		ret = ret.replace("&quot;", "\"");
-		ret = ret.replace("&apos;", "'");
-		
-		logger.debug(className, function, "ret[{}]", ret);
-		return ret;
-	}
-
 	private void addTaskToMenu(int level, String header, ArrayList<UITaskLaunch> taskLaunchs, String launchHeader, boolean executeTask) {
 		final String function = "addTaskToMenu";
 		

@@ -4,7 +4,7 @@
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTVF-OperStat_2RzzL1JvEeee9omJKKZbfw_1497602599549" nom_instance="dciDPLC-OpStatus" label="&amp;dciDPLC-OpStatus" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTVF-OperStat_2RzzL1JvEeee9omJKKZbfw_1497602599549" nom_instance="dciDPLC-OpStatus" label="&amp;dciDPLC-OpStatus" initValue="1">
     <DAC xmi:id="dac_type_dac_2RzzMFJvEeee9omJKKZbfw_1497602599549" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_2RzzMVJvEeee9omJKKZbfw_1497602599549"/>
       <veTable xmi:id="struct_veTable_dac_type_2RzzMlJvEeee9omJKKZbfw_1497602599549"/>
@@ -33,7 +33,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_2R88w1JvEeee9omJKKZbfw_1497602599564" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTVF-FanDir_2R88xFJvEeee9omJKKZbfw_1497602599564" nom_instance="dciDPLC-ComStatus" label="&amp;dciDPLC-ComStatus">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTVF-FanDir_2R88xFJvEeee9omJKKZbfw_1497602599564" nom_instance="dciDPLC-ComStatus" label="&amp;dciDPLC-ComStatus">
     <DAC xmi:id="dac_type_dac_2R88xVJvEeee9omJKKZbfw_1497602599564" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_2R88xlJvEeee9omJKKZbfw_1497602599564"/>
       <veTable xmi:id="struct_veTable_dac_type_2R88x1JvEeee9omJKKZbfw_1497602599564"/>
@@ -62,7 +62,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_2R8811JvEeee9omJKKZbfw_1497602599564" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTVF-SpeedAla_2R882FJvEeee9omJKKZbfw_1497602599564" nom_instance="dciDPLC-PrimSecStatus" label="&amp;dciDPLC-PrimSecStatus" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTVF-SpeedAla_2R882FJvEeee9omJKKZbfw_1497602599564" nom_instance="dciDPLC-PrimSecStatus" label="&amp;dciDPLC-PrimSecStatus" initValue="1">
     <DAC xmi:id="dac_type_dac_2R882VJvEeee9omJKKZbfw_1497602599564" nom_instance="dac" nature="1">
       <veTable xmi:id="struct_veTable_dac_type_2R882lJvEeee9omJKKZbfw_1497602599564"/>
       <veTable xmi:id="struct_veTable_dac_type_2R8821JvEeee9omJKKZbfw_1497602599564"/>

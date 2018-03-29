@@ -11,6 +11,9 @@ public class UIWidgetUtil {
 	public static String getLogPrefix(String className) {
 		return "["+className+"] ";
 	}
+	public static String getClassName(String className) {
+		return className;
+	}
 	public static String getClassSimpleName(String className) {
 		return getClassSimpleName(className, true);
 	}

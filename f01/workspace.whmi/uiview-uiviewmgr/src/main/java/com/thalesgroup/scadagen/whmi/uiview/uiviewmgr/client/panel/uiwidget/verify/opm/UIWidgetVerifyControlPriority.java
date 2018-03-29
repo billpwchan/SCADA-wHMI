@@ -98,20 +98,29 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 		
 		UIControlPriority_i uiControlPriority_i = UIControlPriorityFactory.getInstance().get(uicpapivalue);
 		
-		uiControlPriority_i.checkReservationLevel(identityvalue, new UIControlPriorityCallback() {
-			
-			@Override
-			public void callBack(String strJson) {
-				int result = ReadJson.readInt(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, -1);
-				uiGeneric.setWidgetValue("resultvalue", Integer.toString(result));
-			}
-		});
+		int result = uiControlPriority_i.checkReservationLevel(identityvalue);
+		uiGeneric.setWidgetValue("resultvalue", Integer.toString(result));
 
 		logger.end(className, function);
 	}
 	
 	private void checkReservationAvailability() {
 		final String function = "checkReservationAvailability";
+		logger.begin(className, function);
+		
+		String uicpapivalue		= uiGeneric.getWidgetValue("uicpapivalue");
+		String identityvalue	= uiGeneric.getWidgetValue("identityvalue");
+		
+		UIControlPriority_i uiControlPriority_i = UIControlPriorityFactory.getInstance().get(uicpapivalue);
+		
+		int result =  uiControlPriority_i.checkReservationAvailability(identityvalue);
+		uiGeneric.setWidgetValue("resultvalue", Integer.toString(result));
+
+		logger.end(className, function);
+	}
+	
+	private void checkReservationAvailabilityDbm() {
+		final String function = "checkReservationAvailabilityDbm";
 		logger.begin(className, function);
 		
 		String uicpapivalue		= uiGeneric.getWidgetValue("uicpapivalue");
@@ -131,6 +140,21 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 
 		logger.end(className, function);
 	}
+	
+	private void getUsrIdentity() {
+		final String function = "getUsrIdentity";
+		logger.begin(className, function);
+		
+		String uicpapivalue		= uiGeneric.getWidgetValue("uicpapivalue");
+		
+		UIControlPriority_i uiControlPriority_i = UIControlPriorityFactory.getInstance().get(uicpapivalue);
+		
+		String result = uiControlPriority_i.getUsrIdentity();
+		
+		uiGeneric.setWidgetValue("resultvalue", result);
+
+		logger.end(className, function);
+	}	
 
 	private void launch(String element) {
 		final String function = "launch";
@@ -150,6 +174,12 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 		}
 		else if ( 0 == "checkReservationAvailability".compareToIgnoreCase(element) ) {
 			checkReservationAvailability();
+		}
+		else if ( 0 == "checkReservationAvailabilityDbm".compareToIgnoreCase(element) ) {
+			checkReservationAvailabilityDbm();
+		}
+		else if ( 0 == "getUsrIdentity".compareToIgnoreCase(element) ) {
+			getUsrIdentity();
 		}
 		logger.end(className, function);
 	}

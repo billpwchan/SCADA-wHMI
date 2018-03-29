@@ -12,8 +12,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class PointsFilter {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(PointsFilter.class.getName());
-	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final static String cls = PointsFilter.class.getName();
+	private final static String className = UIWidgetUtil.getClassSimpleName(cls);
+	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
 	
 	private static boolean isRegExpMatch(RegExp regExp, String input) {
 		final String function = "isRegExpMatch";

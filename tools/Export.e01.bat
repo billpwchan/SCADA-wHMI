@@ -16,7 +16,7 @@ SET _folder="%DEPOT_HOME%\%v_strdt%"
 ECHO _folder=%_folder% 
 MD %_folder%
 
-SET _E01="D:\Build.SCADAgen\whmi\e01\*"
+SET _E01="%SOURCE_BASE_HOME%\e01\*"
 ECHO _E01=%_E01%
 
 REM Export E01

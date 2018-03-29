@@ -11,21 +11,23 @@ import { StepsComponent } from '../../component/step/steps/steps.component';
 import { GetInstancesByClassNameService } from '../../service/scs/ava/dbm/get-instances-by-class-name.service';
 import { Subscribable } from 'rxjs/Observable';
 import { GetChildrenAliasesService } from '../../service/scs/ava/dbm/get-children-aliases.service';
-import { DbmSettings } from '../../service/scs/dbm-settings';
-import { MultiReadService, MultiReadResult } from '../../service/scs/ava/dbm/multi-read.service';
-import { DbmService } from '../../service/scs/dbm.service';
 import { ReadWriteCEService, ReadWriteCEResult } from '../../service/scs/ava/dbm/read-write-ce.service';
 import { DatatableStep } from '../../model/DatatableScenario';
 import { DataScenarioHelper } from '../../model/DataScenarioHelper';
 import { AppSettings } from '../../app-settings';
-import { MultiWriteService } from '../../service/scs/ava/dbm/multi-write.service';
 import { DbmPollingService } from '../../service/scs/dbm-polling.service';
 import { AlarmSummarySettings, Env } from '../../component/alarm/alarm-summary/alarm-summary-settings';
 import { AVASummaryConfig } from '../../component/alarm/alarm-summary/alarm-summary-settings';
 import { CardSummaryConfig } from '../../component/alarm/alarm-summary/alarm-summary-settings';
 import { StepSummaryConfig } from '../../component/alarm/alarm-summary/alarm-summary-settings';
 import { AlarmSummaryConfig } from '../../component/alarm/alarm-summary/alarm-summary-settings';
-import { StepSettings } from '../../component/step/steps/step-settings';
+import { StepsSettings } from '../../component/step/steps/step-settings';
+import { DbmMultiReadAttrService } from '../../service/scadagen/dbm/dbm-multi-read-attr.service';
+import { DbmSettings } from '../../service/scadagen/dbm/dbm-settings';
+import { HttpAccessResult, HttpAccessResultType } from '../../service/scadagen/access/http/Access-interface';
+import { DbmMultiWriteAttrService } from '../../service/scadagen/dbm/dbm-multi-write-attr.service';
+import { CardsSettings } from '../../component/card/cards/cards-settings';
+import { StepSummarySettings } from '../../component/step/step-summary/step-summary-settings';
 
 @Component({
   selector: 'app-admin',
@@ -38,14 +40,11 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   readonly c: string = 'AdminComponent';
 
-  getInstancesByClassNameSubscription: Subscription;
-  getChildrenAliasSubscription: Subscription;
   multiReadSubscription: Subscription;
   readWriteCESubscription: Subscription;
   multiWriteSubscription: Subscription;
-  dbmPollingSubscription: Subscription;
 
-  notifyCards: string;
+  notifyCardSummary: string;
   notifyCardController: string;
   notifyCardEdit: string;
 
@@ -61,8 +60,6 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   btnEnableRefresh: boolean;
 
-  updateCards: Card[];
-  refreshCards: Card[];
   btnEnableStateEnable: boolean;
   btnEnableStateDisable: boolean;
 
@@ -76,7 +73,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   btnEnableNewStep: boolean;
   btnEnableDeleteStep: boolean;
 
-  updateSteps: DatatableStep[];
+  updateSteps: Step[];
 
   updateStepEdit: Step[];
   enableStepEdit: Date;
@@ -84,9 +81,16 @@ export class AdminComponent implements OnInit, OnDestroy {
   updateAlarmEnv: string;
   updateAlarmUnivname: string[];
 
+  updateCardEnv: string;
+
   avaSummaryCfg: AVASummaryConfig;
+
   cardSummaryCfg: CardSummaryConfig;
+  renewCardSummary: Date;
+  updateCardSummary: Date;
+
   stepSummaryCfg: StepSummaryConfig;
+
   alarmSummaryCfg: AlarmSummaryConfig;
   updateAlarmSummary: number;
 
@@ -94,29 +98,21 @@ export class AdminComponent implements OnInit, OnDestroy {
   updateMatrix: number;
 
   private env: string;
-  private instanceRoot: string;
 
-  private className: string;
-  private instances: string[];
-  private avarAlias: string;
-  private avasAliasList: string[];
-  private ruleList: string[];
-
-  private cards: Card[];
-  private cardIdsSelected: number[];
   private steps: Step[];
   private stepIdsSelected: number[];
 
-  private subscriptsionStarted = false;
+  private cards: Card[];
+  private cardsSelected: number[];
+  private avarAlias: string;
+  private avasAliasList: string[];
 
   constructor(
     private translate: TranslateService
     , private settingsService: SettingsService
-    , private getChildrenAliasService: GetChildrenAliasesService
-    , private multiReadService: MultiReadService
+    , private dbmMultiReadAttrService: DbmMultiReadAttrService
+    , private dbmMultiWriteAttrService: DbmMultiWriteAttrService
     , private readWriteCEService: ReadWriteCEService
-    , private multiWriteService: MultiWriteService
-    , private dbmPollingService: DbmPollingService
   ) {
     const f = 'constructor';
     console.log(this.c, f);
@@ -150,165 +146,67 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'ngOnInit';
     console.log(this.c, f);
 
-    this.getChildrenAliasSubscription = this.getChildrenAliasService.dbmItem
-    .subscribe(result => {
-      console.log(this.c, f, 'getChildrenAliasSubscription', result);
-      if ( null != result ) {
-        if ( null != this.instanceRoot ) {
-          const root: string = DbmSettings.STR_URL_ALIAS + this.instanceRoot;
-          if ( root === result.dbAddress ) {
-
-            this.avasAliasList = new Array<string>();
-
-            for ( let i = 0 ; i < result.data.length ; ++i ) {
-              const alias = result.data[i];
-              const classNames = alias.split(DbmSettings.STR_COLON);
-              const className = classNames[classNames.length - 1];
-              if ( className.startsWith(AlarmSummarySettings.STR_AVAR_PREFIX) ) {
-                this.avarAlias = alias;
+    this.multiReadSubscription = this.dbmMultiReadAttrService.dbmItem
+      .subscribe( (res: HttpAccessResult) => {
+        console.log(this.c, f, 'multiReadSubscription', res);
+        if ( null != res ) {
+          if ( HttpAccessResultType.NEXT === res.method ) {
+            if ( StepsSettings.STR_READ_STEP === res.key ) {
+              if ( null != res.values.length && res.values.length > 0 ) {
+                this.renewStep(res.env, res.values);
               }
-
-              let found = false;
-              const base = this.alarmSummaryCfg.avarBase;
-              const max = this.alarmSummaryCfg.maxAvarNum;
-              for ( let n = 0; n < max ; ++n ) {
-                const name = AlarmSummarySettings.STR_AVAS_PREFIX + (DbmSettings.STR_THREE_ZERO + (n + base)).slice(-4);
-                if ( className === name ) {
-                  found = true;
-                }
-              }
-              if ( found ) {
-                this.avasAliasList.push(alias);
-              }
-            }
-            if ( null != this.avarAlias ) {
-              this.getChildrenAliasService.readData(this.env, this.avarAlias);
             }
           }
         }
-        if ( null != this.avarAlias ) {
-          if ( this.avarAlias === result.dbAddress ) {
-            if ( null == this.ruleList ) {
-              this.ruleList = new Array<string>();
-            }
-            for ( let i = 0 ; i < result.data.length; ++i ) {
-              const alias = result.data[i];
-              const classNames = alias.split(DbmSettings.STR_COLON);
-              const className = classNames [classNames.length - 1];
-               if ( className.startsWith(AlarmSummarySettings.STR_RULE_PREFIX) ) {
-
-                let found = false;
-                const base = this.cardSummaryCfg.ruleBase;
-                const max = this.cardSummaryCfg.maxRuleNum;
-                for ( let n = 0; n < max ; ++n ) {
-                  const name = DbmSettings.STR_RULE + (DbmSettings.STR_THREE_ZERO + (n + base)).slice(-4);
-                  if ( className === name ) {
-                    found = true;
-                  }
-                }
-                if ( found ) {
-                  this.ruleList.push(alias);
-                }
-              }
-            }
-
-            // Sorting
-            // this.ruleList.sort();
-            this.ruleList.sort((a, b) => {
-                const A = a.toUpperCase(); // ignore upper and lowercase
-                const B = b.toUpperCase(); // ignore upper and lowercase
-                if (A < B) {
-                  return -1;
-                }
-                if (A > B) {
-                  return 1;
-                }
-                // equal
-                return 0;
-            });
-
-            this.reloadCard();
-          }
-        }
-      }
-    });
-
-    this.multiReadSubscription = this.multiReadService.dbmItem
-    .subscribe( (result: MultiReadResult) => {
-      console.log(this.c, f, 'multiReadSubscription', result);
-      if ( null != result ) {
-
-        if ( 0 === result.dbValue.length ) {
-
-          // Renew with No Conditions
-          this.updateSteps = this.steps = [];
-
-        } else if ( 'readCard' === result.method ) {
-
-          this.renewCard(result.dbValue);
-
-          if ( ! this.subscriptsionStarted ) {
-            this.subscriptsionStarted = true;
-            const dbaddress: string[] = this.prepareReloadCard();
-            this.dbmPollingService.subscribe(this.env, dbaddress);
-          }
-
-        } else if ( 'readStep' === result.method ) {
-
-          this.renewStep(result);
-        }
-      }
-    });
+      });
 
     this.readWriteCESubscription = this.readWriteCEService.dbmItem
-    .subscribe(result => {
-      console.log(this.c, f, 'readWriteCESubscription', result);
-      if ( null != result ) {
+      .subscribe( res => {
+        console.log(this.c, f, 'readWriteCESubscription', res);
+        if ( null != res ) {
 
-        if ( result.length > 0 ) {
-          if ( result[0].method === 'readConditions' ) {
+          if ( res.length > 0 ) {
+            if (StepSummarySettings.STR_READ_CONDITIONS === res[0].key) {
 
-            this.readStep(result);
+              this.readStep(res);
 
-          } else if ( result[0].method === 'writeConditions' ) {
+            } else if (StepSummarySettings.STR_WRITE_CONDITIONS === res[0].key) {
 
-            const card: Card = this.getCardSelected();
-            const index: number = card.index;
-            this.readConditions(this.env, index);
+              const card: Card = this.getCardsSelected();
+              const index: number = card.index;
+              this.readConditions(this.env, index);
+            }
           }
         }
-      }
-    });
+      });
 
-    this.multiWriteSubscription = this.multiWriteService.dbmItem
-    .subscribe(result => {
-      console.log(this.c, f, 'multiWriteSubscription', result);
-      if ( null != result ) {
-        this.reloadCard();
-      }
-    });
+    this.multiWriteSubscription = this.dbmMultiWriteAttrService.dbmItem
+      .subscribe( res => {
+        console.log(this.c, f, 'multiWriteSubscription', res);
+        if ( null != res ) {
+          if ( HttpAccessResultType.NEXT === res.method ) {
+            if (  CardsSettings.STR_WRITE_CARD_STATE === res.key
+                  || CardsSettings.STR_WRITE_CARD_NAME === res.key ) {
+              if ( null != res.values ) {
+                this.reloadCardSummary();
+              }
+            }
+          }
+        }
+      });
 
-    this.dbmPollingSubscription = this.dbmPollingService.dbmPollingItem
-    .subscribe(result => {
-      console.log(this.c, f, 'dbmPollingSubscription', result);
-      if ( null != result ) {
-        this.refreshCard(result);
-      }
-    });
-
-    this.reloadInstance();
+    this.initGui();
+    this.env = this.avaSummaryCfg.envs[0].value;
+    this.initCardSummary(this.env);
   }
 
   ngOnDestroy(): void {
     const f = 'ngOnDestroy';
     console.log(this.c, f);
     // prevent memory leak when component is destroyed
-    this.getInstancesByClassNameSubscription.unsubscribe();
-    this.getChildrenAliasSubscription.unsubscribe();
-    this.multiReadSubscription.unsubscribe();
     this.readWriteCESubscription.unsubscribe();
+    this.multiReadSubscription.unsubscribe();
     this.multiWriteSubscription.unsubscribe();
-    this.dbmPollingSubscription.unsubscribe();
   }
 
   private readStep(result) {
@@ -327,52 +225,32 @@ export class AdminComponent implements OnInit, OnDestroy {
 
           const fullPath: string = targetFullpath.toString().match(/^(.*?)\./)[1];
 
-          for ( let  i = 0 ; i < StepSettings.STR_READ_STEP_ATTR_LIST.length ; ++i ) {
-            dbAddresses.push(fullPath + StepSettings.STR_READ_STEP_ATTR_LIST[i]);
+          for ( let  i = 0 ; i < StepsSettings.STR_READ_STEP_ATTR_LIST.length ; ++i ) {
+            dbAddresses.push(fullPath + StepsSettings.STR_READ_STEP_ATTR_LIST[i]);
           }
         }
       }
     }
 
-    this.multiReadService.readData(this.env, dbAddresses, 'readStep');
-  }
-
-  private renewCard(dbValue: any) {
-    const f = 'renewCard';
-    console.log(this.c, f);
-
-    this.initGui();
-
-    this.cards = [];
-    this.updateCards = [];
-
-    for ( let i = 0 ; i < this.ruleList.length ; ++i ) {
-      const base: number = i * AlarmSummarySettings.RULE_ATTR_LIST.length;
-      let index = 0;
-      const card: Card = new Card(
-                                  dbValue[base + index++]
-                                  , dbValue[base + index++]
-                                  , dbValue[base + index++]
-                                  , dbValue[base + index++]
-                                  , dbValue[base + index++]
-                                  , dbValue[base + index++]
-      );
-      this.cards.push(card);
+    if ( null != dbAddresses && dbAddresses.length > 0 ) {
+      this.dbmMultiReadAttrService.read(this.env, dbAddresses, StepsSettings.STR_READ_STEP);
+    } else {
+      // Renew with No Conditions
+      this.updateSteps = this.steps = [];
     }
-    this.updateCards = this.cards;
-    // this.updateCards = [...this.updateCards];
+
+    this.updateStepButton();
   }
 
-  private renewStep(result: MultiReadResult) {
+  private renewStep(connAddr: string, dbValue) {
     const f = 'renewStep';
     console.log(this.c, f);
 
-    const conditions: Map<string, number> = this.readWriteCEService.getConditions(result.env);
+    const conditions: Map<string, number> = this.readWriteCEService.getConditions(connAddr);
 
-    const dbValue = result.dbValue;
     this.steps = new Array<Step>();
-    for ( let i = 0; i < dbValue.length / StepSettings.STR_READ_STEP_ATTR_LIST.length; ++i ) {
-      const base: number = i * StepSettings.STR_READ_STEP_ATTR_LIST.length;
+    for ( let i = 0; i < dbValue.length / StepsSettings.STR_READ_STEP_ATTR_LIST.length; ++i ) {
+      const base: number = i * StepsSettings.STR_READ_STEP_ATTR_LIST.length;
       let index = 0;
       const univname: string    = dbValue[base + index++];
       const fullpath: string    = dbValue[base + index++];
@@ -395,7 +273,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         }
       }
 
-      const step: Step = new Step(base);
+      const step: Step = new Step(i);
       step.equipment = new Equipment(
                                         this.env
                                       , univname
@@ -413,86 +291,10 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
 
     // Renew StepsComponent
-    this.renewSteps();
-  }
+    this.updateSteps = this.steps;
+    this.stepIdsSelected = [];
 
-  private refreshCard(dbValue: any) {
-    const f = 'refreshCard';
-    console.log(this.c, f);
-
-    if ( null != dbValue && dbValue.length > 0 ) {
-    // this.initGui();
-
-    this.cards = [];
-    this.refreshCards = [];
-
-    for ( let i = 0 ; i < this.ruleList.length ; ++i ) {
-      const base: number = i * AlarmSummarySettings.RULE_ATTR_LIST.length;
-      const card: Card = new Card(
-                                  dbValue[base + 0]
-                                  , dbValue[base + 1]
-                                  , dbValue[base + 2]
-                                  , dbValue[base + 3]
-                                  , dbValue[base + 4]
-                                  , dbValue[base + 5]
-      );
-      this.cards.push(card);
-    }
-    this.refreshCards = this.cards;
-    // this.updateCards = [...this.updateCards];
-    }
-  }
-
-  private reloadInstance() {
-    const f = 'reloadInstance';
-    console.log(this.c, f);
-    this.env = this.avaSummaryCfg.envs[0].value;
-    this.instanceRoot = this.cardSummaryCfg.instanceRoot;
-    this.getChildrenAliasService.readData(this.env, DbmSettings.STR_URL_ALIAS + this.instanceRoot);
-  }
-
-  private prepareReloadCard(): string[] {
-    const f = 'prepareReloadCard';
-    console.log(this.c, f);
-    const ret: string[] = new Array<string>();
-    for ( let i = 0 ; i < this.ruleList.length ; ++i ) {
-      for ( let j = 0 ; j < AlarmSummarySettings.RULE_ATTR_LIST.length ; ++j ) {
-        const dbAttribute = this.ruleList[i] + AlarmSummarySettings.RULE_ATTR_LIST[j];
-        ret.push(dbAttribute);
-      }
-    }
-    return ret;
-  }
-
-  private reloadCard() {
-    const f = 'reloadCard';
-    console.log(this.c, f);
-    const dbAddresses: string[] = this.prepareReloadCard();
-    this.multiReadService.readData(this.env, dbAddresses, 'readCard');
-  }
-
-  private getCard(cardId: number): Card {
-    const f = 'getSelectedCard';
-    console.log(this.c, f);
-    let cardSelected: Card = null;
-    for ( let i = 0 ; i < this.cards.length ; ++i ) {
-      const card: Card = this.cards[i];
-      if ( cardId === card.index ) {
-        cardSelected = card;
-        break;
-      }
-    }
-    return cardSelected;
-  }
-
-  private getCardSelected(): Card {
-    let selectedCard: Card = null;
-    if ( null != this.cardIdsSelected ) {
-      if ( this.cardIdsSelected.length > 0 ) {
-        selectedCard = this.getCard(this.cardIdsSelected[0]);
-      }
-    }
-    return selectedCard;
+    this.updateStepButton();
   }
 
   private getStep(stepId: number): Step {
@@ -521,20 +323,6 @@ export class AdminComponent implements OnInit, OnDestroy {
     return stepSelected;
   }
 
-  private renewSteps() {
-    const f = 'renewSteps';
-    console.log(this.c, f);
-
-    const dtSteps: DatatableStep[] = new Array<DatatableStep>();
-    for ( let i = 0 ; i < this.steps.length ; ++i ) {
-      const step: Step = this.steps[i];
-      if ( null != step ) {
-        dtSteps.push(DataScenarioHelper.convertToDatatableStep(step));
-      }
-    }
-    this.updateSteps = dtSteps;
-  }
-
   private initGui() {
     const f = 'initGui';
     console.log(this.c, f);
@@ -556,11 +344,12 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'readConditions';
     console.log(this.c, f);
 
+    const avarAlias = this.getAvarAlias();
     const ruleBase = this.stepSummaryCfg.ruleBase;
     const cStart = this.stepSummaryCfg.conditionBeginId;
     const cEnd = this.stepSummaryCfg.conditionEndId;
     const alias: string =
-                              this.avarAlias + DbmSettings.STR_COLON
+                              avarAlias + DbmSettings.STR_COLON
                               + DbmSettings.STR_RULE + (DbmSettings.STR_THREE_ZERO + (index + ruleBase)).slice(-4);
     this.readWriteCEService.readConditions(env, alias, cStart, cEnd);
   }
@@ -569,63 +358,92 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'writeConditions';
     console.log(this.c, f);
 
+    const avarAlias = this.getAvarAlias();
     const ruleBase = this.stepSummaryCfg.ruleBase;
     const cStart = this.stepSummaryCfg.conditionBeginId;
     const cEnd = this.stepSummaryCfg.conditionEndId;
     const formulaDefaultVal: number = this.stepSummaryCfg.formulaDefaultVal;
     const formulaZeroDefaultVal: number = this.stepSummaryCfg.formulaZeroDefaultVal;
     const alias: string =
-                              this.avarAlias + DbmSettings.STR_COLON
+                              avarAlias + DbmSettings.STR_COLON
                               + DbmSettings.STR_RULE + (DbmSettings.STR_THREE_ZERO + (index + ruleBase)).slice(-4);
     this.readWriteCEService.writeConditions(env, alias, cStart, cEnd, steps, formulaDefaultVal, formulaZeroDefaultVal);
   }
 
-  private reloadAlarmSummary(index: number) {
+  private initCardSummary(env): void {
+    const f = 'initCardSummary';
+    this.updateCardEnv = env;
+    this.renewCardSummary = new Date();
+  }
+
+  private reloadCardSummary(): void {
+    const f = 'reloadCardSummary';
+
+    this.updateCardSummary = new Date();
+  }
+
+  private reloadAlarmSummary(index: number): void {
     const f = 'reloadAlarmSummary';
     console.log(this.c, f);
 
     this.updateAlarmEnv = this.env;
-    const supsAlias: string[] = new Array<string>();
-    for ( let i = 0 ; i < this.avasAliasList.length ; ++i ) {
-      supsAlias.push(this.avasAliasList[i] + DbmSettings.STR_COLON + 'avasuppression');
-    }
-    this.updateAlarmUnivname = supsAlias;
+    this.updateAlarmUnivname = this.getAvasAliasList();
     this.updateAlarmSummary = index;
   }
 
-  onUpdatedCardSelection(cardIds: number[]) {
-    const f = 'onUpdatedCardSelection';
+  private setCardsSelected(ids: number[]): void {
+    const f = 'setCardsSelected';
+    console.log(this.c, f);
+    this.cardsSelected = ids;
+  }
+  private getCardsSelected(): Card {
+    const f = 'getCardsSelected';
+    console.log(this.c, f);
+    let card: Card = null;
+    if (null != this.cardsSelected && this.cardsSelected.length > 0) {
+      card = this.getCard(this.cardsSelected[0]);
+    }
+    return card;
+  }
+
+  private updateStepButton(cards?: number[], steps?: Step[], step?: Step) {
+    const f = 'updateStepButton';
     console.log(this.c, f);
 
-    this.cardIdsSelected = cardIds;
+    if ( null == cards )  { cards = this.cardsSelected; }
+    if ( null == steps )  { steps = this.steps; }
+    if ( null == step )   { step  = this.getStepSelected(); }
 
-    const cardSelected: Card = this.getCardSelected();
-    if ( null != cardSelected ) {
+    const maxStep: number = this.stepSummaryCfg.conditionEndId - this.stepSummaryCfg.conditionBeginId;
+    this.btnEnableNewStep = ((null != cards && null == steps) || (null != cards && null != steps && steps.length < (maxStep + 1)));
+    this.btnEnableDeleteStep = ((null != steps && steps.length > 0) && null != step );
+  }
+
+  onUpdatedCardsSelect(ids: number[]) {
+    const f = 'onUpdatedCardsSelect';
+    console.log(this.c, f);
+
+    this.setCardsSelected(ids);
+
+    const card: Card = this.getCardsSelected();
+    if ( null != card ) {
 
       // Renew State Button
-      if ( cardSelected.state ) {
-        this.btnEnableStateEnable = false;
-        this.btnEnableStateDisable = true;
-      } else {
-        this.btnEnableStateEnable = true;
-        this.btnEnableStateDisable = false;
-      }
+      this.btnEnableStateEnable = (!card.state);
+      this.btnEnableStateDisable = card.state;
 
       // Renew Rename Button
       this.btnEnableRename = true;
       this.updateTitle = '';
 
       // Renew Title
-      this.updateTitle = cardSelected.name;
-
-      this.btnEnableNewStep = true;
-      this.btnEnableDeleteStep = false;
+      this.updateTitle = card.name;
 
       // Reload conditions
-      this.readConditions(this.env, cardSelected.index);
+      this.readConditions(this.env, card.index);
 
       // Reload alarm summary
-      this.reloadAlarmSummary(cardSelected.index);
+      this.reloadAlarmSummary(card.index);
     } else {
 
       this.initGui();
@@ -636,9 +454,16 @@ export class AdminComponent implements OnInit, OnDestroy {
     const f = 'onUpdatedName';
     console.log(this.c, f);
 
-    const cardSelected = this.getCardSelected();
-    cardSelected.name = name;
-    this.updateCard(cardSelected);
+    const card = this.getCardsSelected();
+    card.name = name;
+    this.updateCardName(card);
+  }
+
+  onUpdatedSteps(steps: Step[]) {
+    const f = 'onUpdatedSteps';
+    console.log(this.c, f);
+
+    this.steps = steps;
   }
 
   onUpdatedStepSelection(stepIds: number[]) {
@@ -647,11 +472,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     this.stepIdsSelected = stepIds;
 
-    const stepSelected: Step = this.getStepSelected();
-    if ( null != stepSelected ) {
-      this.btnEnableNewStep = true;
-      this.btnEnableDeleteStep = true;
-    }
+    this.updateStepButton();
   }
 
   onUpdatedStepEdit(steps: Step[]) {
@@ -659,7 +480,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     console.log(this.c, f);
 
     this.steps = steps;
-    const cardSelected: Card = this.getCardSelected();
+    const cardSelected: Card = this.getCardsSelected();
     this.writeConditions(this.env, this.steps, cardSelected.index);
   }
 
@@ -677,6 +498,11 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     cfg.envs = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_ENVS) as Env[];
 
+    cfg.avarPrefix = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAR_PREFIX) as string;
+    cfg.avasPrefix = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAS_PREFIX) as string;
+    cfg.avarScstype = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAR_SCSTYPE) as string;
+    cfg.avasScstype = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAS_SCSTYPE) as string;
+
     return cfg;
   }
 
@@ -686,6 +512,11 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     const c = 'CardSummaryComponent';
     const cfg: CardSummaryConfig = new CardSummaryConfig();
+
+    cfg.avarPrefix = this.avaSummaryCfg.avarPrefix;
+    cfg.avasPrefix = this.avaSummaryCfg.avasPrefix;
+    cfg.avarScstype = this.avaSummaryCfg.avarScstype;
+    cfg.avasScstype = this.avaSummaryCfg.avasScstype;
 
     cfg.instanceClassName = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_INSTANCE_CLASSNAME) as string;
     cfg.instanceRoot = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_INSTANCE_ROOT) as string;
@@ -716,8 +547,14 @@ export class AdminComponent implements OnInit, OnDestroy {
     const c = 'AlarmSummaryComponent';
     const cfg: AlarmSummaryConfig = new AlarmSummaryConfig();
 
+    cfg.avarPrefix = this.avaSummaryCfg.avarPrefix;
+    cfg.avasPrefix = this.avaSummaryCfg.avasPrefix;
+    cfg.avarScstype = this.avaSummaryCfg.avarScstype;
+    cfg.avasScstype = this.avaSummaryCfg.avasScstype;
+
     cfg.avarBase = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVAR_BASE) as number;
     cfg.maxAvarNum = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_MAX_AVAR_NUM) as number;
+    cfg.avasuppression = this.settingsService.getSetting(this.c, f, c, AlarmSummarySettings.STR_AVASUPPRESSION) as string;
 
     return cfg;
   }
@@ -738,15 +575,26 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  private updateCard(card: Card) {
-    const dbAddresses: string[] = new Array<string>();
+  private updateCardName(card: Card) {
+    const f = 'updateCardName';
+    console.log(this.c, f);
 
     const values = {};
     const univname = card.univname;
     values[DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_ATTR_LABEL] = card.name;
+
+    this.dbmMultiWriteAttrService.write(this.env, values, CardsSettings.STR_WRITE_CARD_NAME);
+  }
+
+  private updateCardState(card: Card) {
+    const f = 'updateCardState';
+    console.log(this.c, f);
+
+    const values = {};
+    const univname = card.univname;
     values[DbmSettings.STR_URL_ALIAS + univname + DbmSettings.STR_ATTR_ENABLE] = (card.state ? 1 : 0);
 
-    this.multiWriteService.writeData(this.env, values);
+    this.dbmMultiWriteAttrService.write(this.env, values, CardsSettings.STR_WRITE_CARD_STATE);
   }
 
   private deleteStep(steps: Step[], stepIds: number[]): void {
@@ -766,6 +614,53 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
+  onUpdatedCards(cards: Card[]): void {
+    const f = 'onUpdatedCards';
+    console.log(this.c, f);
+    this.cards = cards;
+  }
+  private getCards(): Card[] {
+    const f = 'getCards';
+    console.log(this.c, f);
+    return this.cards;
+  }
+  private getCard(id: number): Card {
+    const f = 'getCard';
+    console.log(this.c, f);
+    let card = null;
+    const cards = this.getCards();
+    if ( null != cards ) {
+      cards.forEach(element => {
+        if ( id === element.index) {
+          card = element;
+        }
+      });
+    }
+    return card;
+  }
+
+  onUpdatedAvarAlias(avarAlias: string): void {
+    const f = 'onUpdatedAvarAlias';
+    console.log(this.c, f);
+    this.avarAlias = avarAlias;
+  }
+  private getAvarAlias(): string {
+    const f = 'getAvarAlias';
+    console.log(this.c, f);
+    return this.avarAlias;
+  }
+
+  onUpdatedAvasAliasList(avasAliasList: string[]): void {
+    const f = 'onUpdatedAvasAliasList';
+    console.log(this.c, f);
+    this.avasAliasList = avasAliasList;
+  }
+  private getAvasAliasList(): string[] {
+    const f = 'getAvasAliasList';
+    console.log(this.c, f);
+    return this.avasAliasList;
+  }
+
   btnClicked(btnLabel: string, event?: Event): void {
     const f = 'btnClicked';
     console.log(this.c, f);
@@ -774,39 +669,39 @@ export class AdminComponent implements OnInit, OnDestroy {
       case AdminComponent.STR_INIT: {
       } break;
       case 'enable': {
-        const cardSelected = this.getCardSelected();
+        const cardSelected = this.getCardsSelected();
         if ( null != cardSelected ) {
           cardSelected.state = true;
-          this.updateCard(cardSelected);
+          this.updateCardState(cardSelected);
         }
       } break;
       case 'disable': {
-        const cardSelected = this.getCardSelected();
+        const cardSelected = this.getCardsSelected();
         if ( null != cardSelected ) {
           cardSelected.state = false;
-          this.updateCard(cardSelected);
+          this.updateCardState(cardSelected);
         }
       } break;
       case 'rename': {
         const names: string[] = new Array<string>();
-        for ( let i = 0 ; i < this.cards.length ; ++i ) {
-          const card = this.cards[i];
-          names.push(card.name);
+        const cards: Card[] = this.getCards();
+        for ( let i = 0 ; i < cards.length ; ++i ) {
+          names.push(cards[i].name);
         }
         this.updateNames = names;
 
-        const cardSelected = this.getCardSelected();
+        const cardSelected = this.getCardsSelected();
         this.updateName = cardSelected.name;
         this.renameEnable = new Date();
       } break;
       case 'newstep': {
-        const cardSelected: Card = this.getCardSelected();
+        const cardSelected: Card = this.getCardsSelected();
         const stepSelected: Step = this.getStepSelected();
         this.updateStepEdit = this.steps;
         this.enableStepEdit = new Date();
       } break;
       case 'deletestep': {
-        const cardSelected: Card = this.getCardSelected();
+        const cardSelected: Card = this.getCardsSelected();
         const stepSelected: Step = this.getStepSelected();
         this.deleteStep(this.steps, this.stepIdsSelected);
         this.writeConditions(this.env, this.steps, cardSelected.index);

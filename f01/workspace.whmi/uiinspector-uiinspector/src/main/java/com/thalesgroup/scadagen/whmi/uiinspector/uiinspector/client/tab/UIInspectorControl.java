@@ -28,6 +28,7 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page.PageCou
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.UIButtonToggle;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorControl_i.Attribute;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointType;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
@@ -48,8 +49,9 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 
 public class UIInspectorControl implements UIInspectorTab_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorControl.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String cls = this.getClass().getName();
+	private final String className = UIWidgetUtil.getClassSimpleName(cls);
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
 	
 	private static final String DICTIONARY_CACHE_NAME = UIInspector_i.strUIInspector;
 	private static final String DICTIONARY_FILE_NAME = "inspectorpanel.control.properties";
@@ -57,10 +59,11 @@ public class UIInspectorControl implements UIInspectorTab_i {
 	
 	private final String INSPECTOR = UIInspectorControl_i.INSPECTOR;
 	
-	public static final String STR_UNDERSCORE			= "_";
-	public static final String STR_INITCONDGL_VALID		= "1";
+	public static final String STR_EMPTY                = Database_i.STR_EMPTY;
+	public static final String STR_UNDERSCORE           = Database_i.STR_UNDERSCORE;
+	public static final String STR_COLON                = Database_i.STR_COLON;
 	
-	public static final String STR_EMPTY				= "";
+	public static final String STR_INITCONDGL_VALID		= "1";	
 	
 	public static final String STR_UP					= "▲";
 	public static final String STR_SPLITER				= " / ";
@@ -69,9 +72,8 @@ public class UIInspectorControl implements UIInspectorTab_i {
 	
 	public static final String STR_EXECUTE				= "Execute";
 	
-	public static final String STR_ALIAS				= "<alias>";
-	public static final String STR_INITCONDGL			= ".initCondGL";
-	public static final String STR_COLON				= ":";
+	public static final String STR_ALIAS				= Database_i.STR_ALIAS;
+	public static final String STR_INITCONDGL			= PointName.initCondGL.toString();
 	
 	private static final String strPrefix				= "Executing command : ";
 	private static final String strInit					= strPrefix+" "+"Initing Command";
@@ -79,32 +81,15 @@ public class UIInspectorControl implements UIInspectorTab_i {
 	private static final String strSucceed				= strPrefix+" "+"Succeed";
 	private static final String strFailed				= strPrefix+" "+"Failed";
 
-	private int dioValueTableLength = 12;
-	
-	private int dioValueTableLabelColIndex = 4;
-	private int dioValueTableDovnameColIndex = 1;
-	private int dioValueTableValueColIndex = 1;
-	
-	private int aioValueTableLength = 12;
-	
-	private int aioValueTableLabelColIndex = 4;
-	private int aioValueTableDovnameColIndex = 1;
-	private int aioValueTableValueColIndex = 1;
-	
-	private int sioValueTableLength = 12;
-	
-	private int sioValueTableLabelColIndex = 4;
-	private int sioValueTableDovnameColIndex = 1;
-	private int sioValueTableValueColIndex = 1;
-	 		
 	private int byPassInitCond = 0;
 	private int byPassRetCond = 0;
 	private int sendAnyway = 0;
 	
 	// Static Attribute List
-	private final String aioStaticAttibutes[]	= new String[] {PointName.label.toString(), PointName.valueTable.toString()};
-	private final String dioStaticAttibutes[]	= new String[] {PointName.label.toString(), PointName.valueTable.toString()};
-	private final String sioStaticAttibutes[]	= new String[] {PointName.label.toString(), PointName.valueTable.toString()};
+	private final String aioStaticAttibutes[]	= new String[] {PointName.label.toString()};
+	private final String dioStaticAttibutes[]	= new String[] {PointName.label.toString()
+			, PointName.valueTableDovName.toString(), PointName.valueTableLabel.toString(), PointName.valueTableValue.toString()};
+	private final String sioStaticAttibutes[]	= new String[] {PointName.label.toString()};
 
 	private String scsEnvId		= null;
 	private String parent		= null;
@@ -428,16 +413,16 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		logger.end(className, function);
 	}
 	
-	private Panel updateDioControl(String address, int row) {
+	private Panel updateDioControl(String dbaddress, int row) {
 		final String function = "updateDioControl";
 		logger.begin(className, function);
 		
-		logger.trace(className, function, "address[{}] row[{}]", address, row);
+		logger.trace(className, function, "address[{}] row[{}]", dbaddress, row);
 		
 		inlineLabels[row] = new InlineLabel();
 		inlineLabels[row].addStyleName(strCssPrefix+"label-"+row);
 
-		String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
+		String label = DatabaseHelper.getAttributeValue(dbaddress, PointName.label.toString(), dbvalues);
 		label = DatabaseHelper.removeDBStringWrapper(label);
 		logger.trace(className, function, "label[{}]", label);
 		if ( null != label ) inlineLabels[row].setText(label);
@@ -445,29 +430,23 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		controlboxes[row] = new FlowPanel();
 		controlboxes[row].addStyleName(strCssPrefix+"panel-controlbox-"+row);
 		
-		String valueTable = DatabaseHelper.getAttributeValue(address, PointName.valueTable.toString(), dbvalues);
-		logger.trace(className, function, "valueTable[{}]", valueTable);
-
-		if ( null !=  valueTable ) {
-			
-			String points[] = new String[dioValueTableLength];
-			String labels[] = new String[dioValueTableLength];
-			String values[] = new String[dioValueTableLength];
-			for( int r = 0 ; r < dioValueTableLength ; ++r ) {
-				
-				points[r] = DatabaseHelper.getArrayValues(valueTable, dioValueTableDovnameColIndex, r );
-				points[r] = DatabaseHelper.removeDBStringWrapper(points[r]);
-				
-				labels[r] = DatabaseHelper.getArrayValues(valueTable, dioValueTableLabelColIndex, r );
-				labels[r] = DatabaseHelper.removeDBStringWrapper(labels[r]);
-				
-				values[r] = DatabaseHelper.getArrayValues(valueTable, dioValueTableValueColIndex, r );
-				values[r] = DatabaseHelper.removeDBStringWrapper(values[r]);					
-			}
+		final String valueTableDovName = DatabaseHelper.getAttributeValue(dbaddress, PointName.valueTableDovName.toString(), dbvalues);
+		logger.trace(className, function, "valueTableDovName[{}]", valueTableDovName);
+		
+		final String valueTableLabel = DatabaseHelper.getAttributeValue(dbaddress, PointName.valueTableLabel.toString(), dbvalues);
+		logger.trace(className, function, "valueTableLabel[{}]", valueTableLabel);
+		
+		final String valueTableValue = DatabaseHelper.getAttributeValue(dbaddress, PointName.valueTableValue.toString(), dbvalues);
+		logger.trace(className, function, "valueTableValue[{}]", valueTableValue);
+		
+		if(null!=valueTableDovName&&null!=valueTableLabel&&null!=valueTableValue) {
+			final String dovNames []    = DatabaseHelper.getValueTableColumn(valueTableDovName);
+			final String labels []      = DatabaseHelper.getValueTableColumn(valueTableLabel);
+			final String values []      = DatabaseHelper.getValueTableColumn(valueTableValue);
 
 			// Loop Control Point
 			List<UIButtonToggle> btnOptions = new LinkedList<UIButtonToggle>();
-			for ( int i = 0 ; i < points.length ; ++i ) {
+			for ( int i = 0 ; i < dovNames.length ; ++i ) {
 				
 				if ( labels[i].length() == 0  ) break;
 				
@@ -488,14 +467,14 @@ public class UIInspectorControl implements UIInspectorTab_i {
 				
 				controlboxes[row].add(btnOption);
 				
-				widgetGroups.put(address, btnOptions.toArray(new UIButtonToggle[0]));
+				widgetGroups.put(dbaddress, btnOptions.toArray(new UIButtonToggle[0]));
 				
-				widgetPoints.put(btnOption, new ControlPoint(PointType.dio.toString(), scsEnvId, address, values[i]));
+				widgetPoints.put(btnOption, new ControlPoint(PointType.dio.toString(), scsEnvId, dbaddress, values[i]));
 
-				initCondGLAndWidget.put(address+STR_COLON+points[i]+STR_INITCONDGL, btnOption);
+				initCondGLAndWidget.put(dbaddress+STR_COLON+dovNames[i]+STR_INITCONDGL, btnOption);
 			}
 		}
-		
+
 //		widgetBoxes[row] = new VerticalPanel();
 //		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tabName+"-control");
 		widgetBoxes[row].clear();
@@ -507,16 +486,16 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		return widgetBoxes[row];
 	}
 	
-	private Panel updateAioControl(String address, int row) {
+	private Panel updateAioControl(String dbaddress, int row) {
 		final String function = "updateAioControl";
 		logger.begin(className, function);
 		
-		logger.trace(className, function, "address[{}] row[{}]", address, row);
+		logger.trace(className, function, "address[{}] row[{}]", dbaddress, row);
 		
 		inlineLabels[row] = new InlineLabel();
 		inlineLabels[row].addStyleName(strCssPrefix+"label-"+row);
 
-		String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
+		String label = DatabaseHelper.getAttributeValue(dbaddress, PointName.label.toString(), dbvalues);
 		label = DatabaseHelper.removeDBStringWrapper(label);
 		logger.trace(className, function, "label[{}]", label);
 		if ( null != label ) inlineLabels[row].setText(label);
@@ -547,11 +526,11 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		
 		controlboxes[row].add(btnOption);
 		
-		widgetGroups.put(address, btnOptions.toArray(new UIButtonToggle[0]));
+		widgetGroups.put(dbaddress, btnOptions.toArray(new UIButtonToggle[0]));
 		
-		widgetPoints.put(btnOption, new ControlPoint(PointType.aio.toString(), scsEnvId, address, textBox));
+		widgetPoints.put(btnOption, new ControlPoint(PointType.aio.toString(), scsEnvId, dbaddress, textBox));
 
-		initCondGLAndWidget.put(address+STR_INITCONDGL, btnOption);
+		initCondGLAndWidget.put(dbaddress+STR_INITCONDGL, btnOption);
 		
 //		widgetBoxes[row] = new VerticalPanel();
 //		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tabName+"-control-"+row);
@@ -564,16 +543,16 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		return widgetBoxes[row];
 	}
 		
-	private Panel updateSioControl(String address, int row) {
+	private Panel updateSioControl(String dbaddress, int row) {
 		final String function = "updateSioControl";
 		logger.begin(className, function);
 		
-		logger.trace(className, function, "address[{}] row[{}]", address, row);
+		logger.trace(className, function, "address[{}] row[{}]", dbaddress, row);
 		
 		inlineLabels[row] = new InlineLabel();
 		inlineLabels[row].addStyleName(strCssPrefix+"label-"+row);
 
-		String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
+		String label = DatabaseHelper.getAttributeValue(dbaddress, PointName.label.toString(), dbvalues);
 		label = DatabaseHelper.removeDBStringWrapper(label);
 		logger.trace(className, function, "label[{}]", label);
 		if ( null != label ) inlineLabels[row].setText(label);
@@ -604,11 +583,11 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		
 		controlboxes[row].add(btnOption);
 		
-		widgetGroups.put(address, btnOptions.toArray(new UIButtonToggle[0]));
+		widgetGroups.put(dbaddress, btnOptions.toArray(new UIButtonToggle[0]));
 		
-		widgetPoints.put(btnOption, new ControlPoint(PointType.sio.toString(), scsEnvId, address, textBox));
+		widgetPoints.put(btnOption, new ControlPoint(PointType.sio.toString(), scsEnvId, dbaddress, textBox));
 
-		initCondGLAndWidget.put(address+STR_INITCONDGL, btnOption);
+		initCondGLAndWidget.put(dbaddress+STR_INITCONDGL, btnOption);
 		
 //		widgetBoxes[row] = new VerticalPanel();
 //		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tabName+"-control-"+row);
@@ -795,33 +774,26 @@ public class UIInspectorControl implements UIInspectorTab_i {
 			String point = DatabaseHelper.getPoint(dbaddress);
 			PointType pointType = DatabaseHelper.getPointType(point);
 				
-			if ( PointType.dio == pointType ) {
-				String valueTable = DatabaseHelper.getAttributeValue(dbaddress, PointName.valueTable.toString(), dbvalues);
-				logger.debug(className, function, "valueTable[{}]", valueTable);
+			if ( PointType.dio == pointType ) {				
+				final String valueTableDovName = DatabaseHelper.getAttributeValue(dbaddress, PointName.valueTableDovName.toString(), dbvalues);
+				logger.trace(className, function, "valueTableDovName[{}]", valueTableDovName);
 				
-				if ( null !=  valueTable ) {
-
-					String points[] = new String[dioValueTableLength];
-					String labels[] = new String[dioValueTableLength];
-					String values[] = new String[dioValueTableLength];
-					for( int r = 0 ; r < dioValueTableLength ; ++r ) {
-							
-						points[r] = DatabaseHelper.getArrayValues(valueTable, dioValueTableDovnameColIndex, r );
-						points[r] = DatabaseHelper.removeDBStringWrapper(points[r]);
-							
-						labels[r] = DatabaseHelper.getArrayValues(valueTable, dioValueTableLabelColIndex, r );
-						labels[r] = DatabaseHelper.removeDBStringWrapper(labels[r]);
-							
-						values[r] = DatabaseHelper.getArrayValues(valueTable, dioValueTableValueColIndex, r );
-						values[r] = DatabaseHelper.removeDBStringWrapper(values[r]);					
-					}
+				final String valueTableLabel = DatabaseHelper.getAttributeValue(dbaddress, PointName.valueTableLabel.toString(), dbvalues);
+				logger.trace(className, function, "valueTableLabel[{}]", valueTableLabel);
+				
+				final String valueTableValue = DatabaseHelper.getAttributeValue(dbaddress, PointName.valueTableValue.toString(), dbvalues);
+				logger.trace(className, function, "valueTableValue[{}]", valueTableValue);
+				
+				if(null!=valueTableDovName&&null!=valueTableLabel&&null!=valueTableValue) {
+					final String dovNames []    = DatabaseHelper.getValueTableColumn(valueTableDovName);
+					final String labels []      = DatabaseHelper.getValueTableColumn(valueTableLabel);
 					
 					List<String> initCondGLList = new LinkedList<String>();
-					for ( int i = 0 ; i < points.length ; ++i ) {
+					for ( int i = 0 ; i < dovNames.length ; ++i ) {
 						
 						if ( labels[i].length() == 0  ) break;
 						
-						String pointaddress = dbaddress+STR_COLON+points[i];
+						String pointaddress = dbaddress+STR_COLON+dovNames[i];
 						initCondGLList.add(pointaddress+STR_INITCONDGL);
 					}
 
@@ -1342,54 +1314,6 @@ public class UIInspectorControl implements UIInspectorTab_i {
 	private void readProperties() {
 		final String function = "readProperties";
 		logger.begin(className, function);
-		
-		dioValueTableLength = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
-				, CONFIG_PREFIX+Attribute.dioValueTableLength.toString(), 12);
-		
-		dioValueTableLabelColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
-				, CONFIG_PREFIX+Attribute.dioValueTableLabelColIndex.toString(), 1);
-		dioValueTableDovnameColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
-				, CONFIG_PREFIX+Attribute.dioValueTableDovnameColIndex.toString(), 1);
-		dioValueTableValueColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
-				, CONFIG_PREFIX+Attribute.dioValueTableValueColIndex.toString(), 4);
-		
-		logger.debug(className, function, "dioValueTableLength[{}]", dioValueTableLength);
-		
-		logger.debug(className, function, "dioValueTableLabelColIndex[{}]", dioValueTableLabelColIndex);
-		logger.debug(className, function, "dioValueTableDovnameColIndex[{}]", dioValueTableDovnameColIndex);
-		logger.debug(className, function, "dioValueTableValueColIndex[{}]", dioValueTableValueColIndex);
-		
-		aioValueTableLength = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
-				, CONFIG_PREFIX+Attribute.aioValueTableLength.toString(), 12);
-		
-		aioValueTableLabelColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
-				, CONFIG_PREFIX+Attribute.aioValueTableLabelColIndex.toString(), 1);
-		aioValueTableDovnameColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
-				, CONFIG_PREFIX+Attribute.aioValueTableDovnameColIndex.toString(), 1);
-		aioValueTableValueColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
-				, CONFIG_PREFIX+Attribute.aioValueTableValueColIndex.toString(), 4);
-		
-		logger.debug(className, function, "aioValueTableLength[{}]", aioValueTableLength);
-		
-		logger.debug(className, function, "aioValueTableLabelColIndex[{}]", aioValueTableLabelColIndex);
-		logger.debug(className, function, "aioValueTableDovnameColIndex[{}]", aioValueTableDovnameColIndex);
-		logger.debug(className, function, "aioValueTableValueColIndex[{}]", aioValueTableValueColIndex);
-
-		sioValueTableLength = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
-				, CONFIG_PREFIX+Attribute.sioValueTableLength.toString(), 12);
-		
-		sioValueTableLabelColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
-				, CONFIG_PREFIX+Attribute.sioValueTableLabelColIndex.toString(), 1);
-		sioValueTableDovnameColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
-				, CONFIG_PREFIX+Attribute.sioValueTableDovnameColIndex.toString(), 1);
-		sioValueTableValueColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
-				, CONFIG_PREFIX+Attribute.sioValueTableValueColIndex.toString(), 4);
-		
-		logger.debug(className, function, "sioValueTableLength[{}]", sioValueTableLength);
-		
-		logger.debug(className, function, "sioValueTableLabelColIndex[{}]", sioValueTableLabelColIndex);
-		logger.debug(className, function, "sioValueTableDovnameColIndex[{}]", sioValueTableDovnameColIndex);
-		logger.debug(className, function, "sioValueTableValueColIndex[{}]", sioValueTableValueColIndex);
 		
 		byPassInitCond	= ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME, CONFIG_PREFIX+Attribute.byPassInitCond.toString(), 0);
 		byPassRetCond	= ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME, CONFIG_PREFIX+Attribute.byPassRetCond.toString(), 0);

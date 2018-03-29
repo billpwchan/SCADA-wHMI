@@ -135,7 +135,7 @@ public class Hveqp2scs implements IAction {
         			// Go through each attribute binding
         			for (AttributeBinding binding: bindings) {
         				LOGGER.trace("Start process attribute binding [{}]", binding.getId());
-        				IData data = ConfManager.getBindingEngine().getScsValue(eqp, binding);
+        				IData data = ConfManager.getBindingEngine().getScsValue(eqp, eqpId, binding);
         				String dataType = ConfManager.getBindingEngine().getScsValueType(binding);
         				
     
@@ -189,7 +189,7 @@ public class Hveqp2scs implements IAction {
 	    		}
 		
 		    	if (operationConnector != null) {
-		    		if (operation.getCommandContent().isIncludeCorrelationId()) {
+		    		if (operation.getCommandContent().isIncludeCorrelationId() != null &&  operation.getCommandContent().isIncludeCorrelationId()) {
 		    			UUID correlationId = UUID.randomUUID();
 		    			operationConnector.requestOperation(correlationId, operationRequest);
 		    		} else {

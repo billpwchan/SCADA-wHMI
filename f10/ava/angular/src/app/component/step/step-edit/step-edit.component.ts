@@ -3,15 +3,15 @@ import { TranslateService } from '@ngx-translate/core';
 import { DatatableStep } from '../../../model/DatatableScenario';
 import { Card, Step, Equipment, Execution, ExecType, PhasesType } from '../../../model/Scenario';
 import { AppSettings } from '../../../app-settings';
-import { StepEditSettings } from './step-edit-settings';
+import { StepEditSettings, StepEditConfig } from './step-edit-settings';
 import { OlsSettings } from '../../../service//scs/ols-settings';
-import { DbmSettings } from '../../../service/scs/dbm-settings';
 import { OlsService } from '../../../service/scs/ols.service';
-import { DbmService } from '../../../service/scs/dbm.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Subscribable } from 'rxjs/Observable';
-import { StepSettings } from '../steps/step-settings';
+import { StepsSettings } from '../steps/step-settings';
 import { SettingsService } from '../../../service/settings.service';
+import { DbmService } from '../../../service/scadagen/dbm/dbm.service';
+import { DbmSettings } from '../../../service/scadagen/dbm/dbm-settings';
 
 class SelOptStr {
   constructor(
@@ -132,9 +132,7 @@ editEnableAddDciStep: boolean;
 
 btnDisabledAddCancelStep: boolean;
 
-  private geoPrefix: string;
-  private funcPrefix: string;
-  private envs: any;
+  public cfg: StepEditConfig;
 
   constructor(
     private translate: TranslateService
@@ -149,7 +147,7 @@ btnDisabledAddCancelStep: boolean;
     const f = 'ngOnInit';
     console.log(this.c, f);
 
-    this.loadSettings();
+    this.cfg = this.loadSettings();
 
     this.olsSubscription = this.olsService.olsItem
       .subscribe(item => {
@@ -161,7 +159,7 @@ btnDisabledAddCancelStep: boolean;
               .forEach((value: number[], key: number) => {
                 this.selOptGeo.push(
                   new SelOptNum(
-                    this.translate.instant(this.geoPrefix + key)
+                    this.translate.instant(this.cfg.geoPrefix + key)
                     , key
                   )
                 );
@@ -280,13 +278,23 @@ btnDisabledAddCancelStep: boolean;
     this.notifyParent.emit(str);
   }
 
-  private loadSettings(): void {
+  private loadSettings(): StepEditConfig {
     const f = 'loadSettings';
     console.log(this.c, f);
 
-    this.geoPrefix = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_GEO_PREFIX);
-    this.funcPrefix = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_FUNC_PREFIX);
-    this.envs = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_ENVS);
+    const cfg = new StepEditConfig();
+
+    cfg.olsLstServer = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_OLS_LST_SERVER);
+    cfg.olsLstName = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_OLS_LST_NAME);
+
+    cfg.geoPrefix = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_GEO_PREFIX);
+    cfg.funcPrefix = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_FUNC_PREFIX);
+
+    cfg.envs = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_ENVS);
+
+    cfg.olsLstFilter = this.settingsService.getSetting(this.c, f, this.c, StepEditSettings.STR_OLS_LST_FILTER);
+
+    return cfg;
   }
 
   private initSelOptEnv(): void {
@@ -299,9 +307,9 @@ btnDisabledAddCancelStep: boolean;
       , ''
     ));
 
-    console.log(this.c, f, 'this.envs', this.envs);
-    if (  this.envs ) {
-      this.envs.forEach((item, index) => {
+    console.log(this.c, f, 'this.envs', this.cfg.envs);
+    if (  this.cfg.envs ) {
+      this.cfg.envs.forEach((item, index) => {
         this.selOptEnv.push(
           new SelOptStr(
             item[StepEditSettings.STR_LABEL]
@@ -365,12 +373,25 @@ btnDisabledAddCancelStep: boolean;
 
     switch (name) {
       case 'selEnv': {
-        // this.selectEnv = event.target.value;
         console.log(this.c, f, 'selEnv this.selEnv[' + this.selEnv + ']');
-        // console.log(this.c, f, 'selEnv this.selectEnv['+this.selectEnv+']');
+
+        let olsLstServer: string = null;
+        if ( null != this.cfg.olsLstServer && this.cfg.olsLstServer.length > 0 ) { olsLstServer = this.cfg.olsLstServer; }
+
+        let olsLstName: string = null;
+        if ( null != this.cfg.olsLstName && this.cfg.olsLstName.length > 0 ) { olsLstName = this.cfg.olsLstName; }
+
+        let olsLstfilter: string = null;
+        if ( null != this.cfg.olsLstFilter && this.cfg.olsLstFilter.length > 0 ) { olsLstfilter = this.cfg.olsLstFilter; }
+
         this.initSelOptGeo();
         this.initSelOptFunc();
-        this.olsService.retriveEquipments(this.selEnv);
+        this.olsService.retriveEquipments(
+                                          this.selEnv
+                                          , ( null != olsLstServer ? this.cfg.olsLstServer : OlsSettings.STR_LST_SERVER )
+                                          , ( null != olsLstName ? this.cfg.olsLstName : OlsSettings.STR_SCADAGEN_DATA_POINT_MGN )
+                                          , olsLstfilter
+                                          , );
       } break;
       case 'selGeo': {
 
@@ -380,7 +401,7 @@ btnDisabledAddCancelStep: boolean;
         eqps.get(this.selEnv).get(this.selGeo)
         .forEach((value, index) => {
           this.selOptFunc.push(new  SelOptNum(
-            this.funcPrefix + value
+            this.cfg.funcPrefix + value
             , value
           ));
         });
@@ -530,6 +551,10 @@ btnDisabledAddCancelStep: boolean;
           break;
         }
       }
+    }
+
+    if ( null == this.updated ) {
+      this.updated = new Array<Step>();
     }
 
     const step: Step = new Step(

@@ -12,6 +12,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UIWidgetRealize;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.GetCurrentIpAddressCallback_i;
 
 public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 	
@@ -59,6 +60,33 @@ public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 		}
 		
 		uiGeneric.setWidgetValue("resultvalue", result);
+		logger.end(className, function);
+	}
+	
+	private void getCurrentIPAddressAsync() {
+		final String function = "getCurrentIPAddressAsync";
+		logger.begin(className, function);
+		
+		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
+		
+		logger.debug(className, function, "uiopmapivalue[{}]",uiopmapivalue);
+		
+		OpmMgr opmMgr = OpmMgr.getInstance();
+		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
+		
+		if ( null != uiOpm_i ) {
+			uiOpm_i.getCurrentIPAddress(new GetCurrentIpAddressCallback_i() {
+				@Override
+				public void callback(String ipAddress) {
+					String result = ipAddress;
+					uiGeneric.setWidgetValue("resultvalue", result);
+				}
+			});
+
+		} else {
+			logger.warn(className, function, "uiopmapivalue[{}] uiOpm_i IS NULL", uiopmapivalue);
+		}
+
 		logger.end(className, function);
 	}
 	
@@ -112,6 +140,9 @@ public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 		}
 		else if ( 0 == "getCurrentIPAddress".compareToIgnoreCase(element) ) {
 			getCurrentIPAddress();
+		}
+		else if ( 0 == "getCurrentIPAddressAsync".compareToIgnoreCase(element) ) {
+			getCurrentIPAddressAsync();
 		}
 		else if ( 0 == "getCurrentOperator".compareToIgnoreCase(element) ) {
 			getCurrentOperator();

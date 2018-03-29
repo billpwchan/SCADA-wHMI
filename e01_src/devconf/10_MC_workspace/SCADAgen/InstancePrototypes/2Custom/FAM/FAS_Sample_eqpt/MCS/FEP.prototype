@@ -30,7 +30,7 @@
     <value xsi:nil="true"/>
     <value xsi:nil="true"/>
   </outputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciFAM-HDVSTATUS_6igeiv7xEeaDWYc-j7jl3Q_1488422565045" nom_instance="dciMCS-DEVSTA1" label="Device A state">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciFAM-HDVSTATUS_6igeiv7xEeaDWYc-j7jl3Q_1488422565045" nom_instance="dciMCS-DEVSTA1" label="Device A state">
     <DAC xmi:id="dac_type_dac_6igei_7xEeaDWYc-j7jl3Q_1488422565045" nom_instance="dac">
       <veTable xmi:id="struct_veTable_dac_type_6igejP7xEeaDWYc-j7jl3Q_1488422565045"/>
       <veTable xmi:id="struct_veTable_dac_type_6igejf7xEeaDWYc-j7jl3Q_1488422565045"/>
@@ -59,7 +59,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_6igenf7xEeaDWYc-j7jl3Q_1488422565045" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMCS-DEVSTA1_sSeDAP74EeaDWYc-j7jl3Q_1488425475888" nom_instance="dciMCS-DEVSTA2" label="Device B state">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMCS-DEVSTA1_sSeDAP74EeaDWYc-j7jl3Q_1488425475888" nom_instance="dciMCS-DEVSTA2" label="Device B state">
     <DAC xmi:id="dac_type_dac_sSeDAf74EeaDWYc-j7jl3Q_1488425475888" nom_instance="dac">
       <veTable xmi:id="struct_veTable_dac_type_sSeDAv74EeaDWYc-j7jl3Q_1488425475888"/>
       <veTable xmi:id="struct_veTable_dac_type_sSeDA_74EeaDWYc-j7jl3Q_1488425475888"/>
@@ -88,7 +88,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_sSeDE_74EeaDWYc-j7jl3Q_1488425475888" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMCS-DEVSTA2_xdy4YP74EeaDWYc-j7jl3Q_1488425510630" nom_instance="dciMCS-STATUS" label="Concentrator Status">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMCS-DEVSTA2_xdy4YP74EeaDWYc-j7jl3Q_1488425510630" nom_instance="dciMCS-STATUS" label="Concentrator Status">
     <DAC xmi:id="dac_type_dac_xdy4Yf74EeaDWYc-j7jl3Q_1488425510630" nom_instance="dac">
       <veTable xmi:id="struct_veTable_dac_type_xdy4Yv74EeaDWYc-j7jl3Q_1488425510630"/>
       <veTable xmi:id="struct_veTable_dac_type_xdy4Y_74EeaDWYc-j7jl3Q_1488425510630"/>
@@ -117,7 +117,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_xdy4c_74EeaDWYc-j7jl3Q_1488425510630" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMCS-STATUS_3NHLoP74EeaDWYc-j7jl3Q_1488425549146" nom_instance="dciMCS-SPYSTA" label="Com spy change">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMCS-STATUS_3NHLoP74EeaDWYc-j7jl3Q_1488425549146" nom_instance="dciMCS-SPYSTA" label="Com spy change">
     <DAC xmi:id="dac_type_dac_3NHLof74EeaDWYc-j7jl3Q_1488425549146" nom_instance="dac">
       <veTable xmi:id="struct_veTable_dac_type_3NHLov74EeaDWYc-j7jl3Q_1488425549146"/>
       <veTable xmi:id="struct_veTable_dac_type_3NHLo_74EeaDWYc-j7jl3Q_1488425549146"/>

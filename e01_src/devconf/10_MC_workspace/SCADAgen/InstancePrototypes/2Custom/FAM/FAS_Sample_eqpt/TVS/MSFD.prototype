@@ -108,7 +108,7 @@
       <retCondTable xmi:id="struct_retCondTable_dpc_com_4BHEnlVoEee4QdkqvzimmQ_1497929458231"/>
     </DOV>
   </outputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciDPLC-OpStatus_KAz2IlVnEee4QdkqvzimmQ_1497928720002" nom_instance="dciMSFD-SwStatus" label="&amp;dciMSFD-SwStatus" initValue="2">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciDPLC-OpStatus_KAz2IlVnEee4QdkqvzimmQ_1497928720002" nom_instance="dciMSFD-SwStatus" label="&amp;dciMSFD-SwStatus" initValue="2">
     <DAC xmi:id="dac_type_dac_KAz2I1VnEee4QdkqvzimmQ_1497928720002" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -150,7 +150,7 @@
     </AAC>
     <AFO xmi:id="afo_type_afo_KAz2ZFVnEee4QdkqvzimmQ_1497928720002" nom_instance="afo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMSFD-SwStatus_WnficFVqEee4QdkqvzimmQ_1497930093079" nom_instance="dciMSFD-OpeningClosing" label="&amp;dciMSFD-OpeningClosing" initValue="2">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMSFD-SwStatus_WnficFVqEee4QdkqvzimmQ_1497930093079" nom_instance="dciMSFD-OpeningClosing" label="&amp;dciMSFD-OpeningClosing" initValue="2">
     <DAC xmi:id="dac_type_dac_WnficVVqEee4QdkqvzimmQ_1497930093079" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -183,7 +183,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_Wnfig1VqEee4QdkqvzimmQ_1497930093079" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMSFD-OpeningClosing_ndJ4AFVqEee4QdkqvzimmQ_1497930206080" nom_instance="dciMSFD-Heater" label="&amp;dciMSFD-Heater" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMSFD-OpeningClosing_ndJ4AFVqEee4QdkqvzimmQ_1497930206080" nom_instance="dciMSFD-Heater" label="&amp;dciMSFD-Heater" initValue="1">
     <DAC xmi:id="dac_type_dac_ndJ4AVVqEee4QdkqvzimmQ_1497930206080" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -216,7 +216,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_ndJ4E1VqEee4QdkqvzimmQ_1497930206080" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMSFD-Heater_5AcvoFVqEee4QdkqvzimmQ_1497930323866" nom_instance="dciMSFD-AlaDamper" label="&amp;dciMSFD-AlaDamper" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMSFD-Heater_5AcvoFVqEee4QdkqvzimmQ_1497930323866" nom_instance="dciMSFD-AlaDamper" label="&amp;dciMSFD-AlaDamper" initValue="1">
     <DAC xmi:id="dac_type_dac_5AcvoVVqEee4QdkqvzimmQ_1497930323866" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -249,7 +249,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_5Acvs1VqEee4QdkqvzimmQ_1497930323866" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMSFD-AlaDamper_H1FBkFVrEee4QdkqvzimmQ_1497930423337" nom_instance="dciMSFD-WarDamper" label="&amp;dciMSFD-WarDamper">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMSFD-AlaDamper_H1FBkFVrEee4QdkqvzimmQ_1497930423337" nom_instance="dciMSFD-WarDamper" label="&amp;dciMSFD-WarDamper">
     <DAC xmi:id="dac_type_dac_H1FBkVVrEee4QdkqvzimmQ_1497930423337" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -282,7 +282,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_H1FBo1VrEee4QdkqvzimmQ_1497930423337" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMSFD-WarDamper_ewhCkFVrEee4QdkqvzimmQ_1497930577209" nom_instance="dciMSFD-WarHeater" label="&amp;dciMSFD-WarHeater">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMSFD-WarDamper_ewhCkFVrEee4QdkqvzimmQ_1497930577209" nom_instance="dciMSFD-WarHeater" label="&amp;dciMSFD-WarHeater">
     <DAC xmi:id="dac_type_dac_ewhCkVVrEee4QdkqvzimmQ_1497930577209" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -315,7 +315,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_ewhCo1VrEee4QdkqvzimmQ_1497930577209" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMSFD-WarHeater_nY2xYFVrEee4QdkqvzimmQ_1497930635126" nom_instance="dciMSFD-InterlockStatus" label="&amp;dciMSFD-InterlockStatus" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciMSFD-WarHeater_nY2xYFVrEee4QdkqvzimmQ_1497930635126" nom_instance="dciMSFD-InterlockStatus" label="&amp;dciMSFD-InterlockStatus" initValue="1">
     <DAC xmi:id="dac_type_dac_nY2xYVVrEee4QdkqvzimmQ_1497930635126" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>

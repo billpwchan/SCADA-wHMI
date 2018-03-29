@@ -1,4 +1,4 @@
-export class AlarmSuppression {
+export class AlarmServerity {
   level: number;
   geo: number;
   func: number;

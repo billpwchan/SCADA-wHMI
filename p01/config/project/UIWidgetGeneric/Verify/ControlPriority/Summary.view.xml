@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>5</cols>
+		<cols>7</cols>
 		<rootPanel>AbsolutePanel</rootPanel>
 		<rootCSS>project-gwt-panel-summaryview-inner</rootCSS>
 	</header>
@@ -37,5 +37,17 @@
 		<uiView>Verify/ControlPriority/CheckReservationAvailability.view.xml</uiView>
 		<element>CheckReservationAvailability</element>
 	</option>
+	
+	<option key="0|5">
+		<uiCtrl>UIWidgetVerifyControlPriority</uiCtrl>
+		<uiView>Verify/ControlPriority/CheckReservationAvailabilityDbm.view.xml</uiView>
+		<element>CheckReservationAvailabilityDbm</element>
+	</option>
+	
+	<option key="0|6">
+		<uiCtrl>UIWidgetVerifyControlPriority</uiCtrl>
+		<uiView>Verify/ControlPriority/GetUsrIdentity.view.xml</uiView>
+		<element>GetUsrIdentity</element>
+	</option>	
 
 </data-set>

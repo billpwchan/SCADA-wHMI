@@ -2,6 +2,8 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
 
 import java.util.Map;
 
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.GetCurrentIpAddressCallback_i;
+
 /**
  * UIOpm_i is the interface of the WHMI OPM API, it define the Function Signature of each OPM function.
  * 
@@ -138,6 +140,21 @@ public interface UIOpm_i {
 	void checkAccessWithHom(String function, String location, String action, String mode, int hdv, String identity, CheckAccessWithHOMEvent_i resultEvent);
 
 	/**
+	 * Verify the access right for the input parameter with HOM, HHV Value and "HOMLevels" key is a parameters.
+	 * Check access right with HOM, According configuration in in "hom.json", 
+	 * Reading hdv value from RTDB (By HVID with "DBAttribute"), make a AND operation with predefined value "HOMLevels".
+	 * 
+	 * @param function    Function value for the opm rule checking.
+	 * @param location    Location value for the opm rule checking.
+	 * @param action      Action value for the opm rule checking.
+	 * @param mode        Mode value for the opm rule checking.
+	 * @param hdv         hdvValue for the AND Operation.
+	 * @return Return  Value of the hdv result.
+	 */
+	boolean checkAccessWithHom(String function, String location, String action, String mode, int hdv);
+
+	
+	/**
 	 * Change the operator password, oldPassword must be equal to operator current password.
 	 * 
 	 * @param operator            Operator name to change password.
@@ -183,6 +200,14 @@ public interface UIOpm_i {
 	String getCurrentIPAddress();
 	
 	/**
+	 * Get the current client IP Address
+	 * 
+	 * @param cb    Callback for the Async result:  Current Client IP Address
+	 */
+	void getCurrentIPAddress(GetCurrentIpAddressCallback_i cb);
+	
+	
+	/**
 	 * Get the current client Env Address
 	 * 
 	 * @return Current Client Env Address
@@ -224,6 +249,16 @@ public interface UIOpm_i {
 	 * @return Return true if the action is by pass value, otherwise return false
 	 */
 	boolean isBypassValue(int value);
+	
+	/**
+	 * @return Current HOM Identity
+	 */
+	String getHOMIdentityType();
+	
+	/**
+	 * @return Current HOM Identity Type
+	 */
+	String getHOMIdentity();
 	
 	/**
 	 * @author syau

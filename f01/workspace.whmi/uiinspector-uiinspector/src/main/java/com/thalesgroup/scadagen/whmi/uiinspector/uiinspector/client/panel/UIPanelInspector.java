@@ -31,7 +31,6 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.reserv
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.sorting.PointsSorting;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.sorting.PointsSortingEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorHeader;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorHeader_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorTabFactory;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadProp;
@@ -55,8 +54,9 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i.CheckAccessWi
  */
 public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIInspectorTags_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelInspector.class.getName());
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String cls = this.getClass().getName();
+	private final String className = UIWidgetUtil.getClassSimpleName(cls);
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
 
 	// Static Attribute List
 	private final String staticAttibutes[]	= new String[] {PointName.label.toString()};

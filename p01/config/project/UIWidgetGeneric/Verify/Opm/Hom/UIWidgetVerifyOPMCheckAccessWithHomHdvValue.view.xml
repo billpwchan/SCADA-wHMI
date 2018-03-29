@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>18</cols>
+		<cols>16</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
 	</header>
 
@@ -87,17 +87,6 @@
 		<widget>TextBox</widget>
 		<label></label>
 		<element>hdvvaluevalue</element>
-		<maxlength>100</maxlength>
-	</option>
-	
-	<option key="0|16">
-		<widget>InlineLabel</widget>
-		<label>Identity:</label>
-	</option>
-	<option key="0|17">
-		<widget>TextBox</widget>
-		<label></label>
-		<element>identityvalue</element>
 		<maxlength>100</maxlength>
 	</option>
 

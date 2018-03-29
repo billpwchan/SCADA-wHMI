@@ -17,7 +17,7 @@
     </AAC>
     <AFO xmi:id="afo_type_afo_xfeB91WgEee4QdkqvzimmQ_1497953466255" nom_instance="afo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTS-FaultSensZone_xfeB-FWgEee4QdkqvzimmQ_1497953466255" nom_instance="dciHS-FaulHumZone" label="&amp;dciHS-FaulHumZone" initValue="1">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciTS-FaultSensZone_xfeB-FWgEee4QdkqvzimmQ_1497953466255" nom_instance="dciHS-FaulHumZone" label="&amp;dciHS-FaulHumZone" initValue="1">
     <DAC xmi:id="dac_type_dac_xfeB-VWgEee4QdkqvzimmQ_1497953466255" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>

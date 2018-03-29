@@ -1,5 +1,7 @@
 export class DbmSettings {
 
+    public static readonly STR_RESPONSE = 'response';
+
     public static readonly INT_ACI_TYPE = 106;
     public static readonly INT_DCI_TYPE = 104;
     public static readonly STR_OPEN_PARENTHESIS = '(';
@@ -49,6 +51,7 @@ export class DbmSettings {
     public static readonly STR_ATTR_FUNC = ':^.functionalCat';
     public static readonly STR_ATTR_EQUIPMENT_LABEL = ':^.label';
     public static readonly STR_ATTR_POINT_FUNC = '.label';
+    public static readonly STR_ATTR_SCSTYPE = '.scstype';
 
     public static readonly STR_RULE = 'RULE';
     public static readonly STR_THREE_ZERO = '000';

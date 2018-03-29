@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { UtilsHttpModule } from '../../../utils-http/utils-http.module';
+import { UtilsHttpModule } from '../../../scadagen/utils/utils-http.module';
 import { AppSettings } from '../../../../app-settings';
-import { DbmSettings } from '../../dbm-settings';
+import { DbmSettings } from '../../../scadagen/dbm/dbm-settings';
 
 @Injectable()
 export class GetInstancesByClassNameService {

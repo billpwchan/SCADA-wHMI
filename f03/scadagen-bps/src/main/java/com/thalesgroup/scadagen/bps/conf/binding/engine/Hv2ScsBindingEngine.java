@@ -13,8 +13,7 @@ import com.thalesgroup.hv.common.HypervisorException;
 import com.thalesgroup.hv.data.exception.EntityManipulationException;
 import com.thalesgroup.hv.data.tools.helper.IDataHelper;
 import com.thalesgroup.hv.data_v1.attribute.AbstractAttributeType;
-import com.thalesgroup.hv.data_v1.entity.AbstractConfiguredEntityStatusesType;
-import com.thalesgroup.hv.data_v1.equipment.AbstractEquipmentStatusesType;
+import com.thalesgroup.hv.data_v1.entity.AbstractEntityStatusesType;
 import com.thalesgroup.scadagen.binding.AttributeBinding;
 import com.thalesgroup.scadagen.binding.BooleanBinding;
 import com.thalesgroup.scadagen.binding.BooleanToIntegerBinding;
@@ -57,14 +56,14 @@ public class Hv2ScsBindingEngine {
     }
     
     
-    public IData getScsValue(final AbstractConfiguredEntityStatusesType entity, final String attributeName) {
+    public IData getScsValue(final AbstractEntityStatusesType entity, final String eqpId, final String attributeName) {
     	IData toReturn = null;
     	
-    	String entityId = entity.getId();
+    	//String entityId = entity.getId();
     	
     	try {
 			AbstractAttributeType att = dataHelper_.getAttribute(entity, attributeName);
-			IData inputHvData = (IData) new HvDataWrapper(entityId, attributeName, att);
+			IData inputHvData = (IData) new HvDataWrapper(eqpId, attributeName, att);
 			HashSet<AttributeBinding> bindingSet = new HashSet<AttributeBinding>(bindingLoader_.getDescription(inputHvData));
 			if (bindingSet.isEmpty()) {
 				throw new HypervisorException("Unable to get binding for input attribute " + attributeName);
@@ -82,13 +81,13 @@ public class Hv2ScsBindingEngine {
     	return toReturn;
     }
 
-	public IData getScsValue(AbstractEquipmentStatusesType eqp, AttributeBinding binding) {
+	public IData getScsValue(AbstractEntityStatusesType entity, String eqpId, AttributeBinding binding) {
 		IData data = null;
 		
 		if (binding instanceof MonoInputBinding) {
 			String attName = ((MonoInputBinding) binding).getInput().getName();
 			LOGGER.trace("Get value from input [{}] MonoInputBinding", attName);
-			data = getScsValue(eqp, attName);
+			data = getScsValue(entity, eqpId, attName);
 		} else if (binding instanceof MultiInputBinding) {
 			MultiInputBinding mBinding = (MultiInputBinding)binding;
 			Map<String, IData> dataMap = new HashMap<String, IData>();
@@ -98,14 +97,14 @@ public class Hv2ScsBindingEngine {
 				LOGGER.debug("binding input = [{}]", attName);
 				AbstractAttributeType att = null;
 				try {
-					att = dataHelper_.getAttribute(eqp, attName);
+					att = dataHelper_.getAttribute(entity, attName);
 				} catch (EntityManipulationException e) {
 					LOGGER.error("Error get value from binding for attribute {}. {}", attName, e);
 				}
-				IData inputHvData = (IData) new HvDataWrapper(eqp.getId(), attName, att);
+				IData inputHvData = (IData) new HvDataWrapper(entity.getId(), attName, att);
 				dataMap.put(attName, inputHvData);
 			}
-			data = getMergedData(eqp, mBinding, dataMap);
+			data = getMergedData(entity, mBinding, dataMap);
 		}
 		return data;
 	}
@@ -155,7 +154,7 @@ public class Hv2ScsBindingEngine {
      * @param dataMap dataMap to use (first merge, then convert)
      * @return the converted data
      */
-    private IData getMergedData(AbstractConfiguredEntityStatusesType entity, final MultiInputBinding description, 
+    private IData getMergedData(AbstractEntityStatusesType entity, final MultiInputBinding description, 
             final Map<String, IData> dataMap) {
     	LOGGER.debug("getMergedData for entity [{}] target [{}]", entity.getId(), description.getId());
         

@@ -28,8 +28,8 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIIns
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page.PageCounter;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.alarm.AckAlarm;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorInfo_i.Attribute;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointType;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadProp;
@@ -46,13 +46,9 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey
 
 public class UIInspectorInfo implements UIInspectorTab_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorInfo.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
-	private int dalValueTableLength = 12;
-	
-	private int dalValueTableLabelColIndex = 4;
-	private int dalValueTableValueColIndex = 1;
+	private final String cls = this.getClass().getName();
+	private final String className = UIWidgetUtil.getClassSimpleName(cls);
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
 	
 	public String strCSSStatusGreen		= null;
 	public String strCSSStatusRed		= null;
@@ -60,9 +56,9 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	public String strCSSStatusGrey		= null;
 	
 	// Static Attribute List
-	private final String staticAciAttibutes [] = new String[] {PointName.label.toString(), PointName.aalValueTable.toString(), PointName.hmiOrder.toString()};
-	private final String staticDciAttibutes [] = new String[] {PointName.label.toString(), PointName.dalValueTable.toString(), PointName.hmiOrder.toString()};
-	private final String staticSciAttibutes [] = new String[] {PointName.label.toString(), PointName.salValueTable.toString(), PointName.hmiOrder.toString()};
+	private final String staticAciAttibutes [] = new String[] {PointName.label.toString(), PointName.hmiOrder.toString()};
+	private final String staticDciAttibutes [] = new String[] {PointName.label.toString(), PointName.hmiOrder.toString(), PointName.dalValueTableLabel.toString(), PointName.dalValueTableValue.toString()};
+	private final String staticSciAttibutes [] = new String[] {PointName.label.toString(), PointName.hmiOrder.toString()};
 	
 	// Dynamic Attribute List
 	private final String dynamicAciAttibutes [] = new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.aalValueAlarmVector.toString(), PointName.afoForcedStatus.toString()};
@@ -93,7 +89,10 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	
 	private final String INSPECTOR = UIInspectorInfo_i.INSPECTOR;
 	
-	public static final String STR_EMPTY				= "";
+	public static final String STR_EMPTY                = Database_i.STR_EMPTY;
+	public static final String STR_UNDERSCORE           = Database_i.STR_UNDERSCORE;
+	public static final String STR_COLON                = Database_i.STR_COLON;
+	public static final String STR_COMMA                = Database_i.STR_COMMA;
 	
 	public static final String STR_UP					= "▲";
 	public static final String STR_SPLITER				= " / ";
@@ -101,7 +100,6 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	public static final String STR_PAGER_DEFAULT		= "1 / 1";
 	
 	private static final String STR_ATTRIBUTE_LABEL		= "ATTRIBUTE_LABEL_";
-	private static final String STR_COLON				= ":";
 	private static final String STR_ATTRIBUTE_STATUS	= "ATTRIBUTE_STATUS_";
 	private static final String STR_R					= "R";
 	
@@ -192,8 +190,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	public void connect() {
 		final String function = "connect";
 		logger.begin(className, function);
-		
-		readProperties();
+
 		ReadLabelProperties();
 
 		// Read static
@@ -528,7 +525,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		logger.end(className, function);
 	}
 	
-	private Map<String, Map<String, String>> keyAndValuesStatic	= new LinkedHashMap<String, Map<String, String>>();
+	private Map<String, Map<String, String>> keyAndValuesStatic     = new LinkedHashMap<String, Map<String, String>>();
 	private Map<String, Map<String, String>> keyAndValuesDynamic	= new LinkedHashMap<String, Map<String, String>>();
 	private Map<String, String> dbvalues = new HashMap<String, String>();
 	@Override
@@ -538,7 +535,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		logger.trace(className, function, "strClientKey[{}]", strClientKey);
 		
-		DataBaseClientKey clientKey = new DataBaseClientKey("_", strClientKey);
+		DataBaseClientKey clientKey = new DataBaseClientKey(STR_UNDERSCORE, strClientKey);
 		
 		for ( String key : keyAndValue.keySet() ) {
 			dbvalues.put(key, keyAndValue.get(key));
@@ -692,36 +689,20 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		} else {
 			value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
 			logger.trace(className, function, "value[{}]", value);
+	
+			final String dalValueTableLabel = DatabaseHelper.getAttributeValue(address, PointName.dalValueTableLabel.toString(), dbvalues);
+			logger.trace(className, function, "dalValueTableLabel[{}]", dalValueTableLabel);
+			final String labels [] = DatabaseHelper.getValueTableColumn(dalValueTableLabel);
 			
-			int iValue = -1;
+			final String dalValueTableValue = DatabaseHelper.getAttributeValue(address, PointName.dalValueTableValue.toString(), dbvalues);
+			logger.trace(className, function, "dalValueTableValue[{}]", dalValueTableValue);
+			final String values [] = DatabaseHelper.getValueTableColumn(dalValueTableValue);
 			
-			boolean isValidValue = false;
-			try {
-			
-				iValue = Integer.parseInt(value);
-				isValidValue = true;
-			} catch ( NumberFormatException ex ) {
-				logger.error(className, function, "value[{}] should be in integer type", value);
-				logger.error(className, function, "ex[{}]", ex.toString());
-			}
-			
-			if ( isValidValue ) {
-				String valueTable = DatabaseHelper.getAttributeValue(address, PointName.dalValueTable.toString(), dbvalues);
-				logger.trace(className, function, "valueTable[{}]", valueTable);
-					
-				logger.trace(className, function, "dalValueTableValueColIndex[{}] dalValueTableLabelColIndex[{}]", dalValueTableValueColIndex, dalValueTableLabelColIndex);
-					
-				for( int r = 0 ; r < dalValueTableLength ; ++r ) {
-					String v = DatabaseHelper.getArrayValues(valueTable, dalValueTableValueColIndex, r );
-					logger.trace(className, function, "getvalue r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, v, valueTable});
-					if ( 0 == v.compareTo(value) ) {
-						logger.trace(className, function, "getname r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, iValue, valueTable});
-						label = DatabaseHelper.getArrayValues(valueTable, dalValueTableLabelColIndex, iValue );
-						break;
-					}
+			for(int r=0;r<labels.length;++r){
+				if(0==value.compareTo(values[r])){
+					label = labels[r];
+					break;
 				}
-			} else {
-				logger.error(className, function, "isValidValue IS FALSE");
 			}
 		}
 		
@@ -1070,7 +1051,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				String propStr = ReadProp.readString(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME, valueKey, "");
 				logger.debug(function+" " + valueKey + "=" + propStr.toString() );
 
-				String [] propArray = propStr.split(",");
+				String [] propArray = propStr.split(STR_COMMA);
 				if (propArray.length == 2) {
 					String pattern = propArray[0].trim();
 					String valueStr = propArray[1].trim();
@@ -1087,26 +1068,6 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				}
 			}
 		}
-		logger.end(className, function);
-	}
-	
-	private void readProperties() {
-		final String function = "readProperties";
-		logger.begin(className, function);
-		
-		dalValueTableLength = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
-				, CONFIG_PREFIX+Attribute.dalValueTableLength.toString(), 12);
-		
-		dalValueTableLabelColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
-				, CONFIG_PREFIX+Attribute.dalValueTableLabelColIndex.toString(), 1);
-		dalValueTableValueColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
-				, CONFIG_PREFIX+Attribute.dalValueTableValueColIndex.toString(), 4);
-
-		logger.debug(className, function, "dalValueTableLength[{}]", dalValueTableLength);
-		
-		logger.debug(className, function, "dalValueTableLabelColIndex[{}]", dalValueTableLabelColIndex);
-		logger.debug(className, function, "dalValueTableValueColIndex[{}]", dalValueTableValueColIndex);		
-		
 		logger.end(className, function);
 	}
 }

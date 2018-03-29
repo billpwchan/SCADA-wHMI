@@ -192,6 +192,9 @@ public class Main {
         SCADAgenBA scadasoftBA = null;
         try {
             scadasoftBA = new SCADAgenBA();
+            if (s_appConfig != null) {
+            	scadasoftBA.setAppConfig(s_appConfig);
+            }
             scadasoftBA.init();
             
             // call a first dummy SCADA Op to initialize the JSONComponent Manager

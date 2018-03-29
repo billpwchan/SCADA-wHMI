@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>6</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+	</header>
+
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>Get HOM Identity Type:</label>
+	</option>
+	
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>getHOMIdentity</label>
+		<element>getHOMIdentity</element>
+	</option>
+	
+	<option key="0|2">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+	</option>
+	<option key="0|3">
+		<widget>TextBox</widget>
+		<element>resultvalue</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|4">
+		<widget>InlineLabel</widget>
+		<label>UIOPM API:</label>
+	</option>
+	<option key="0|5">
+		<widget>TextBox</widget>
+		<label>UIOpmSCADAgen</label>
+		<element>uiopmapivalue</element>
+		<maxlength>100</maxlength>
+	</option>
+
+</data-set>

@@ -235,6 +235,8 @@
 	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_GetCurrentReservationBy"><setting>195</setting></option>
 	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationLevel"><setting>196</setting></option>
 	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationAvailability"><setting>197</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationAvailabilityDbm"><setting>198</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_GetUsrIdentity"><setting>199</setting></option>
 	
 	<option key="LMC|MCS|OPM Verify"><setting>200</setting></option>
 	<option key="LMC|MCS|OPM Verify|OPM Summary"><setting>201</setting></option>
@@ -323,13 +325,17 @@
 	<option key="Verify|OPM"><setting>420</setting></option>
 	<option key="Verify|OPM|Change Password"><setting>421</setting></option>
 	<option key="Verify|OPM|Change Targe Password"><setting>422</setting></option>
+	<option key="Verify|OPM|CheckAccess"><setting>423</setting></option>
 	
-	<option key="Verify|Log"><setting>423</setting></option>
-	<option key="Verify|Log|UILogger"><setting>424</setting></option>
+	<option key="Verify|Log"><setting>425</setting></option>
+	<option key="Verify|Log|UILogger"><setting>426</setting></option>
 	
 	<option key="M100|MCS|TMS"><setting>430</setting></option>
-	<option key="M100|MCS|TMS|TrainerAdmin"><setting>431</setting></option>
-	<option key="M100|MCS|TMS|Trainer"><setting>432</setting></option>
+	<option key="M100|MCS|TMS|Admin"><setting>431</setting></option>
+	<option key="M100|MCS|TMS|Operator"><setting>432</setting></option>
+	
+	<option key="M100|MCS|AVA"><setting>440</setting></option>
+	<option key="M100|MCS|AVA|Admin"><setting>441</setting></option>
 	
 	<!-- Keep it as Default Page for not found -->
 	<option key="MenuNotFound"><setting>-1</setting></option>

@@ -1567,6 +1567,30 @@
 		<uiConf>uiCtrl=UIWidgetVerifyControlPriority&amp;uiView=Verify/ControlPriority/CheckReservationAvailability.view.xml</uiConf>
 	</option>
 	
+	<option key="198">
+		<type>P</type>
+		<name>Check Reservation Availability(Dbm)</name>
+		<title>Check Reservation Availability(Dbm)</title>
+		<tooltips>Check Reservation Availability(Dbm)</tooltips>
+
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiScreen>-1</uiScreen>
+
+		<uiConf>uiCtrl=UIWidgetVerifyControlPriority&amp;uiView=Verify/ControlPriority/CheckReservationAvailabilityDbm.view.xml</uiConf>
+	</option>
+	
+	<option key="199">
+		<type>P</type>
+		<name>Check GetUsrIdentity</name>
+		<title>Check GetUsrIdentity</title>
+		<tooltips>Check GetUsrIdentity</tooltips>
+
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiScreen>-1</uiScreen>
+
+		<uiConf>uiCtrl=UIWidgetVerifyControlPriority&amp;uiView=Verify/ControlPriority/GetUsrIdentity.view.xml</uiConf>
+	</option>
+	
 	<option key="200">
 		<type>M</type>
 		<name>Verify OPM Summary</name>
@@ -2297,12 +2321,24 @@
 	
 	
 	<option key="423">
+		<type>P</type>
+		<name>CheckAccess</name>
+		<title>CheckAccess</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Opm/UILayoutVerifyOPMSummary.view.xml</uiView>
+		<tooltips>CheckAccess</tooltips>
+	</option>
+	
+	
+	<option key="425">
 		<type>M</type>
 		<name>Log</name>
 		<title>Log</title>
 	</option>
 	
-	<option key="424">
+	<option key="426">
 		<type>P</type>
 		<name>Verify UILogger</name>
 		<title>Verify UILogger</title>
@@ -2339,6 +2375,23 @@
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>TMS/Operator/EntryPoint.view.xml</uiView>
 		<tooltips>TMS Trainer</tooltips>
+	</option>
+	
+	<option key="440">
+		<type>M</type>
+		<name>AVA</name>
+		<title>AVA</title>
+	</option>
+	
+	<option key="441">
+		<type>P</type>
+		<name>Admin</name>
+		<title>Admin</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>AVA/Admin/EntryPoint.view.xml</uiView>
+		<tooltips>AVA Admin</tooltips>
 	</option>
 	
 </data-set>

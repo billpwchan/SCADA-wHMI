@@ -83,7 +83,7 @@ public class EqpAction implements IAction {
 		    		}
 			
 			    	if (operationConnector != null) {
-			    		if (operation.getCommandContent().isIncludeCorrelationId()) {
+			    		if (operation.getCommandContent().isIncludeCorrelationId() != null && operation.getCommandContent().isIncludeCorrelationId()) {
 			    			UUID correlationId = UUID.randomUUID();
 			    			operationConnector.requestOperation(correlationId, operationRequest);
 			    		} else {

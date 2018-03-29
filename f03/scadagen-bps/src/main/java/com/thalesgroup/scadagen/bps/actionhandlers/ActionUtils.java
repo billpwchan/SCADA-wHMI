@@ -158,9 +158,13 @@ public class ActionUtils {
 				ConfiguredEntityStatusesTypeDataDescription cfgDesc = (ConfiguredEntityStatusesTypeDataDescription)desc;
 				if (cfgDesc.getEntityType().compareTo(operationConnector.getTools().getEquipmentTypeFromId(entity.getId())) == 0) {		
 					for (String attName : cfgDesc.getStatusesName()) {
-						AbstractAttributeType att = operationConnector.getTools().getDataHelper().getAttribute(entity, attName);
-						if (att != null) {
-							attMap.put(attName, att);
+						try {
+							AbstractAttributeType att = operationConnector.getTools().getDataHelper().getAttribute(entity, attName);
+							if (att != null) {
+								attMap.put(attName, att);
+							}
+						} catch (EntityManipulationException e) {
+							LOGGER.warn("Error getting attribute map [{}]", e.getMessage());
 						}
 					}
 				}
@@ -168,9 +172,13 @@ public class ActionUtils {
 				ConfiguredEntityStatusesInstancesDataDescription cfgDesc = (ConfiguredEntityStatusesInstancesDataDescription)desc;
 				if (cfgDesc.getEntityIds().contains(entity.getId())) {
 					for (String attName : cfgDesc.getStatusesName()) {
-						AbstractAttributeType att = operationConnector.getTools().getDataHelper().getAttribute(entity, attName);
-						if (att != null) {
-							attMap.put(attName, att);
+						try {
+							AbstractAttributeType att = operationConnector.getTools().getDataHelper().getAttribute(entity, attName);
+							if (att != null) {
+								attMap.put(attName, att);
+							}
+						} catch (EntityManipulationException e) {
+							LOGGER.warn("Error getting attribute map [{}]", e.getMessage());
 						}
 					}
 				}
@@ -178,9 +186,13 @@ public class ActionUtils {
 				TransientEntityDataDescription transDesc = (TransientEntityDataDescription)desc;
 				Set<String> attributeNames = operationConnector.getTools().getDataHelper().getDeclaredStatusNames(transDesc.getType());
 				for (String attName: attributeNames) {
-					AbstractAttributeType att = operationConnector.getTools().getDataHelper().getAttribute(entity, attName);
-					if (att != null) {
-						attMap.put(attName, att);
+					try {
+						AbstractAttributeType att = operationConnector.getTools().getDataHelper().getAttribute(entity, attName);
+						if (att != null) {
+							attMap.put(attName, att);
+						}
+					}  catch (EntityManipulationException e) {
+						LOGGER.warn("Error getting attribute map [{}]", e.getMessage());
 					}
 				}
 			}

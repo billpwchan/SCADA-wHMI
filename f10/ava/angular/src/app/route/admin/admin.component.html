@@ -1,13 +1,13 @@
-<div style="text-align: center; width: calc(100% - 10px); height: calc(100% - 10px);">
-  <div style="margin: 5px 5px 5px 5px; border-radius: 10px; border: 1px solid rgba(229,229,229,229); padding: 10px;">
+<div class="div-admin-root">
+  <div class="div-admin-upper">
     <app-step-edit (notifyParent)="getNotification($event)" [notifyFromParent]="notifyStepEdit"
       [updateStepEdit]="updateStepEdit" [enableStepEdit]="enableStepEdit"
       (onUpdatedStepEdit)="onUpdatedStepEdit($event)"></app-step-edit>
-    <div style="width: 100%; display: flex; flex-direction: row;">
-      <div style="width: 50%;">
+    <div class="div-admin-upper-1">
+      <div class="div-admin-upper-1-title">
         <label>{{ '&cards_title' | translate }}</label>
       </div>
-      <div style="width: 50%; display: flex; flex-direction: row-reverse;">
+      <div class="div-admin-upper-1-button">
         <div>
           <button type="button"
             class="btn btn-info btn-admin-state-enable"
@@ -40,18 +40,24 @@
       <app-rename (notifyParent)="getNotification($event)" [notifyFromParent]="notifyRename"
         [updateNames]="updateNames" [updateName]="updateName" [renameEnable]="renameEnable"
         (onUpdatedName)="onUpdatedName($event)"></app-rename>
-      <app-cards (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCards"
-        [updateCards]="updateCards" (onUpdatedCardSelection)="onUpdatedCardSelection($event)" [refreshCards]="refreshCards"
-        ></app-cards>
+      <app-card-summary (notifyParent)="getNotification($event)" [notifyFromParent]="notifyCardSummary"
+        [updateCardEnv]="updateCardEnv" [renewCardSummary]="renewCardSummary"
+        [updateCardSummary]="updateCardSummary" 
+        [config]="cardSummaryCfg"     
+        (onUpdatedAvarAlias)="onUpdatedAvarAlias($event)"
+        (onUpdatedAvasAliasList)="onUpdatedAvasAliasList($event)"
+        (onUpdatedCards)="onUpdatedCards($event)"
+        (onUpdatedCardsSelect)="onUpdatedCardsSelect($event)"
+        ></app-card-summary>
     </div>
   </div>
-  <div style="padding: 10px;">
-    <div style="width: 100%; display: flex; flex-direction: row;">
-      <div style="width: 65%;">
+  <div class="div-admin-lower">
+    <div class="div-admin-lower-1">
+      <div class="div-admin-lower-1-title">
         <app-title (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"
           [updateTitle]="updateTitle"></app-title>
       </div>
-      <div style="width: 35%; display: flex; flex-direction: row-reverse; text-align: right;">
+      <div class="div-admin-lower-1-button">
         <button type="button"
           class="btn btn-info btn-admin-deletestep"
           [disabled]="!btnEnableDeleteStep" (click)="btnClicked('deletestep', $event)"
@@ -64,11 +70,13 @@
           >{{ '&steps_btn_new_step' | translate }}</button>
       </div>
     </div>
-    <div style="padding: 10px;">
+    <div class="div-admin-lower-2">
       <app-steps (notifyParent)="getNotification($event)" [notifyFromParent]="notifySteps"
-        [updateSteps]="updateSteps" (onUpdatedStepSelection)="onUpdatedStepSelection($event)"></app-steps>
+        [updateSteps]="updateSteps" 
+        (onUpdatedSteps)="onUpdatedSteps"
+        (onUpdatedStepSelection)="onUpdatedStepSelection($event)"></app-steps>
     </div>
-    <div style="padding: 10px;">
+    <div class="div-admin-lower-3">
       <app-alarm-summary (notifyParent)="getNotification($event)" [notifyFromParent]="notifyAlarmSummary" 
         [updateAlarmEnv]="updateAlarmEnv" [updateAlarmUnivname]="updateAlarmUnivname"
         [config]="alarmSummaryCfg" [updateAlarmSummary]="updateAlarmSummary" (onUpdatedAlarmSummary)="onUpdatedAlarmSummary($event)"></app-alarm-summary>

@@ -19,6 +19,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -158,6 +159,10 @@ public class UIWidgetGeneric extends UIGeneric {
 	    	} else if ( RootWidgetType.AbsolutePanel.equalsName(strRootPanel) ) {
 
 	    		rootPanel = new AbsolutePanel();
+	    		
+	    	} else if ( RootWidgetType.FlowPanel.equalsName(strRootPanel) ) {
+
+	    		rootPanel = new FlowPanel();
 	    	}
 	    	
 	    	if ( null != strRootCss )	rootPanel.addStyleName(strRootCss);
@@ -468,6 +473,8 @@ public class UIWidgetGeneric extends UIGeneric {
 								if ( RootWidgetType.HorizontalPanel.equalsName(strRootPanel) ) {
 									rootPanel.add(w);
 								} else if ( RootWidgetType.VerticalPanel.equalsName(strRootPanel) ) {
+									rootPanel.add(w);
+								} else if ( RootWidgetType.FlowPanel.equalsName(strRootPanel) ) {	
 									rootPanel.add(w);
 								} else if ( RootWidgetType.FlexTable.equalsName(strRootPanel) ) {	
 									((FlexTable)rootPanel).setWidget(i, j, w);

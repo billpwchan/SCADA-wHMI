@@ -66,6 +66,17 @@ Define Environment {
     Run string = "scsalarmserver -l1000 -m30 -c10000 -k -T -r -j -R15"
     Init timeout = 100
   }
+  Define Server "AutoSuppressServer" {
+    Phase = 51
+    Termination = RED_SHUTDOWN_OR_RETRY
+    Snapshot = FOREGROUND
+    Notification = NO
+    Shutdown order = LAST - 3
+    Supervision = PUSH
+    Priority = NORMAL
+    Run string = "AutoSuppressServer -c %SCADA_CFG%/AutoSup/auto_suppress.cfg"
+    Init timeout = 300
+  }
   Define Server "EvtList" {
     Phase = 0 # 52
     Termination = RED_SHUTDOWN_OR_RETRY

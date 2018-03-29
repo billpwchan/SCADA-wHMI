@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { UtilsHttpModule } from '../../../utils-http/utils-http.module';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/map';
-import { DbmService } from '../../dbm.service';
 import { Card, PhasesType, Step, Execution } from '../../../../model/Scenario';
-import { DbmSettings } from '../../dbm-settings';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { UtilsHttpModule } from '../../../scadagen/utils/utils-http.module';
+import { DbmService } from '../../../scadagen/dbm/dbm.service';
+import { DbmSettings } from '../../../scadagen/dbm/dbm-settings';
+import { StepSummarySettings } from '../../../../component/step/step-summary/step-summary-settings';
 
 export class ReadWriteCEResult {
-  public method: string;
+  public key: string;
   public base: string;
   public fullpath: string;
   public value: number;
@@ -73,7 +74,7 @@ export class ReadWriteCEService {
         const subValue: string[] = ce.toString().match(/=(.*)/g);
 
         const readWriteCEREsult: ReadWriteCEResult = new ReadWriteCEResult();
-        readWriteCEREsult.method = 'readConditions';
+        readWriteCEREsult.key = StepSummarySettings.STR_READ_CONDITIONS;
         readWriteCEREsult.base = alias;
         if ( null != subFullpath && null != subValue ) {
           const fullpath: string = subFullpath[0].slice(1, subFullpath[0].length - 1);
@@ -118,11 +119,11 @@ export class ReadWriteCEService {
         const step: Step = steps[stepId];
 
         formula =
-        DbmSettings.STR_OPEN_BRACKET
-        + step.equipment.fullpath + DbmSettings.STR_ATTR_VALUE
-        + DbmSettings.STR_CLOSE_BRACKET
-        + DbmSettings.STR_EQUAL
-        + step.equipment.value;
+                  DbmSettings.STR_OPEN_BRACKET
+                  + step.equipment.fullpath + DbmSettings.STR_ATTR_VALUE
+                  + DbmSettings.STR_CLOSE_BRACKET
+                  + DbmSettings.STR_EQUAL
+                  + step.equipment.value;
 
         console.log(this.c, f, 'stepId[' + stepId + '] condpath[' + condpath + '] formula[' + formula + ']' );
 
@@ -141,7 +142,7 @@ export class ReadWriteCEService {
     Observable.forkJoin(obs).subscribe(
       () => {
         const readWriteCEREsult: ReadWriteCEResult = new ReadWriteCEResult();
-        readWriteCEREsult.method = 'writeConditions';
+        readWriteCEREsult.key = StepSummarySettings.STR_WRITE_CONDITIONS;
         this.dbmChanged([readWriteCEREsult]);
         // this.storageChanged(StorageResponse.SAVE_SUCCESS);
       },

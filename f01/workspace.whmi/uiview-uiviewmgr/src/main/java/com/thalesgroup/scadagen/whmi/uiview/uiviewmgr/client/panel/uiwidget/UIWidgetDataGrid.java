@@ -369,6 +369,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 								logger.debug(className, function, "strDataGrid is:[{}]", strDataGrid);
 								try{
 									dataGridFormatter.getCheckBoxes().isCheckBoxDisabled_ = disableFlag;
+									uiDataGridDatabase.refreshDisplays();
 								} catch (Exception e){
 									logger.warn(e.toString());
 								}								

@@ -85,7 +85,7 @@ public interface UIControlPrioritySCADAgen_i {
 		
 		private final String text;
 		private UsrIdentity(final String text) { this.text = text; }
-		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
+		public boolean equalsName(final String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
 		/* (non-Javadoc)
 		 * @see java.lang.Enum#toString()
 		 */
@@ -111,7 +111,7 @@ public interface UIControlPrioritySCADAgen_i {
 		
 		private final String text;
 		private DbAttribute(final String text) { this.text = text; }
-		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
+		public boolean equalsName(final String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
 		/* (non-Javadoc)
 		 * @see java.lang.Enum#toString()
 		 */

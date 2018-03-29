@@ -7,8 +7,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class CountdownTimer {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(CountdownTimer.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String cls = this.getClass().getName();
+	private final String className = UIWidgetUtil.getClassSimpleName(cls);
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
 	
 	private Timer timer = null;
 

@@ -306,36 +306,27 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		logger.end(className, function1);
 	}
 	
+
 	/* (non-Javadoc)
-	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#checkReservationLevel(java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i.UIControlPriorityCallback)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#checkReservationLevel(java.lang.String)
 	 */
 	@Override
-	public void checkReservationLevel(final String identity, final UIControlPriorityCallback callBack) {
-		String function1 = "checkReservationLevel";
-		logger.begin(className, function1);
-		logger.debug(className, function1, "identity[{}]", identity);
-		if ( null == identity ) {
-			if ( null != callBack ) {
-			   	JSONObject jsObject = new JSONObject();
-			   	jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONNumber(UIControlPriority_i.LEVEL_ERROR));
-			   	String jsonString = jsObject.toString();
-			   	logger.debug(className, function1, "jsonString[{}]", jsonString);
-		    	callBack.callBack(jsonString);	
-			} else {
-				logger.debug(className, function1, "callBack IS NULL");
-			}
-		} else {
-			int ret = 0;
+	public int checkReservationLevel(final String identity) {
+		String function = "checkReservationLevel";
+		logger.begin(className, function);
+		logger.debug(className, function, "identity[{}]", identity);
+		int ret = UIControlPriority_i.LEVEL_ERROR;
+		if ( null != identity ) {
 			if ( identity.isEmpty() ) {
 				ret = UIControlPriority_i.LEVEL_EMPTY;
 			} else {
 				String usrIdentity = getUsrIdentity();
-				logger.debug(className, function1, "usrIdentity[{}] identity[{}]", usrIdentity, identity);
+				logger.debug(className, function, "usrIdentity[{}] identity[{}]", usrIdentity, identity);
 				if ( identity.equals(usrIdentity) ) {
 					ret = UIControlPriority_i.LEVEL_IS_ITSELF;
 				} else {
 					int levelDiff = compareLevel(usrIdentity, identity);
-					logger.debug(className, function1, "levelDiff[{}]", levelDiff);
+					logger.debug(className, function, "levelDiff[{}]", levelDiff);
 					switch ( levelDiff ) {
 					case -1:
 						ret = UIControlPriority_i.LEVEL_HIGHER;
@@ -352,20 +343,45 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 					}
 				}
 			}
-			
-			logger.debug(className, function1, "ret[{}]", ret);
-			
-			if ( null != callBack ) {
-			   	JSONObject jsObject = new JSONObject();
-			   	jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONNumber(ret));
-			   	String jsonString = jsObject.toString();
-			   	logger.debug(className, function1, "jsonString[{}]", jsonString);
-		    	callBack.callBack(jsonString);	
-			} else {
-				logger.debug(className, function1, "callBack IS NULL");
-			}
+			logger.debug(className, function, "ret[{}]", ret);
 		}
-		logger.end(className, function1);
+		logger.end(className, function);
+		return ret;
+	}
+	
+
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#checkReservationAvailability(java.lang.String)
+	 */
+	@Override
+	public int checkReservationAvailability(String identity) {
+		String function = "checkReservationAvailability";
+		logger.begin(className, function);
+		int level = checkReservationLevel(identity);
+		int ret = UIControlPriority_i.AVAILABILITY_ERROR;
+		switch ( level ) {
+			case UIControlPriority_i.LEVEL_HIGHER:
+				ret = UIControlPriority_i.AVAILABILITY_DENIED;
+				break;
+			case UIControlPriority_i.LEVEL_EQUAL:
+				ret = UIControlPriority_i.AVAILABILITY_EQUAL;
+				break;
+			case UIControlPriority_i.LEVEL_IS_ITSELF:
+				ret = UIControlPriority_i.AVAILABILITY_RESERVED_BYSELF;
+				break;
+			case UIControlPriority_i.LEVEL_EMPTY:
+				ret = UIControlPriority_i.AVAILABILITY_EMPTY;
+				break;
+			case UIControlPriority_i.LEVEL_LOWER:
+				ret = UIControlPriority_i.AVAILABILITY_ALLOW_WITH_OVERRIDE;
+				break;
+			default:
+				ret = UIControlPriority_i.LEVEL_ERROR;
+				break;
+		}
+		logger.debug(className, function, "ret[{}]", ret);
+		logger.end(className, function);
+		return ret;
 	}
 	
 	/* (non-Javadoc)
@@ -385,8 +401,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 				logger.debug(className, function2, "strJson[{}]", strJson);
 				String value = ReadJson.readString(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, null);
 				int valid = ReadJson.readInt(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_CODE, -1);
-				logger.debug(className, function2, "value[{}]", value);
-				logger.debug(className, function2, "valid[{}]", valid);
+				logger.debug(className, function2, "value[{}] valid[{}]", value, valid);
 				
 				if ( UIControlPriority_i.GETCURRENT_READ_INVALID == valid ) {
 					if ( null != callBack ) {
@@ -401,49 +416,18 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 				}
 				
 				// Call the level checking
-				checkReservationLevel(value, new UIControlPriorityCallback() {
-					
-					@Override
-					public void callBack(String strJson) {
-						String function3 = "checkReservationAvailability:callBack:checkReservationLevel:callback";
-						logger.begin(className, function3);
-						logger.debug(className, function3, "strJson[{}]", strJson);
-						int value = ReadJson.readInt(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, UIControlPriority_i.LEVEL_ERROR);
-						int ret = UIControlPriority_i.AVAILABILITY_ERROR;
-						switch ( value ) {
-						case UIControlPriority_i.LEVEL_HIGHER:
-							ret = UIControlPriority_i.AVAILABILITY_DENIED;
-							break;
-						case UIControlPriority_i.LEVEL_EQUAL:
-							ret = UIControlPriority_i.AVAILABILITY_EQUAL;
-							break;
-						case UIControlPriority_i.LEVEL_IS_ITSELF:
-							ret = UIControlPriority_i.AVAILABILITY_RESERVED_BYSELF;
-							break;
-						case UIControlPriority_i.LEVEL_EMPTY:
-							ret = UIControlPriority_i.AVAILABILITY_EMPTY;
-							break;
-						case UIControlPriority_i.LEVEL_LOWER:
-							ret = UIControlPriority_i.AVAILABILITY_ALLOW_WITH_OVERRIDE;
-							break;
-						default:
-							ret = UIControlPriority_i.LEVEL_ERROR;
-							break;
-						}
-						
-						if ( null != callBack ) {
-						   	JSONObject jsObject = new JSONObject();
-						   	jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONNumber(ret));
-						   	String jsonString = jsObject.toString();
-						   	logger.debug(className, function3, "jsonString[{}]", jsonString);
-					    	callBack.callBack(jsonString);	
-						} else {
-							logger.debug(className, function3, "callBack IS NULL");
-						}
-						logger.end(className, function3);
-					}
-				});
+				int ret = checkReservationAvailability(value);
 				
+				if ( null != callBack ) {
+				   	JSONObject jsObject = new JSONObject();
+				   	jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONNumber(ret));
+				   	String jsonString = jsObject.toString();
+				   	logger.debug(className, function2, "jsonString[{}]", jsonString);
+			    	callBack.callBack(jsonString);	
+				} else {
+					logger.debug(className, function2, "callBack IS NULL");
+				}
+
 				logger.end(className, function2);
 			}
 		});
@@ -524,7 +508,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @param code code to find mapping
 	 * @return mapped string 
 	 */
-	public String getCheckReservationAvailabilityCodeString(int code) {
+	public String getCheckReservationAvailabilityCodeString(final int code) {
 		String function = "getCheckReservationAvailabilityCodeString";
 		logger.begin(className, function);
 		logger.debug(className, function, "code[{}]", code);
@@ -558,7 +542,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @param code code to find mapping
 	 * @return mapped string 
 	 */
-	public String getRequestReservationCodeString(int code) {
+	public String getRequestReservationCodeString(final int code) {
 		String function = "getRequestReservationCodeString";
 		logger.begin(className, function);
 		logger.debug(className, function, "code[{}]", code);
@@ -592,7 +576,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @param code code to find mapping
 	 * @return mapped string 
 	 */
-	public String getWithdrawReservationCodeString(int code) {
+	public String getWithdrawReservationCodeString(final int code) {
 		String function = "getWithdrawReservationCodeString";
 		logger.begin(className, function);
 		logger.debug(className, function, "code[{}]", code);
@@ -613,7 +597,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @param b Profile B to compare
 	 * @return a > b = 1; a < b = -1; otherwise 0
 	 */
-	private int compareLevel(String a, String b) {
+	private int compareLevel(final String a, final String b) {
 		String function = "compareLevel";
 		logger.begin(className, function);
 		int ret = 0;
@@ -655,6 +639,12 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	
 	private String usrIdentity = null;
 	public void setUsrIdentity(final String usrIdentity) { this.usrIdentity = usrIdentity; }
+	
+	/**
+	 * Get the UsrIdentity
+	 * 
+	 * @return UsrIdentity in String
+	 */
 	public String getUsrIdentity() { return usrIdentity; }
 	
 	/**
@@ -786,7 +776,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * 
 	 * @param levels Mapping in Map data type to set
 	 */
-	public void setPriorityLevels(Map<String, Integer> levels) { this.priorityLevels = levels; } 
+	public void setPriorityLevels(final Map<String, Integer> levels) { this.priorityLevels = levels; } 
 	
 	/**
 	 * Get the selected identity priority level from configuration file
@@ -794,7 +784,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @param usrIdentity Selected identity
 	 * @return Related priority level in configuration file
 	 */
-	private int getPriorityLevel(String usrIdentity) {
+	private int getPriorityLevel(final String usrIdentity) {
 		String function = "getPriorityLevel";
 		logger.begin(className, function);
 		logger.debug(className, function, "usrIdentity[{}]]", usrIdentity);
@@ -842,7 +832,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	}
 	
 	private UIOpm_i uiOpm_i = null;
-	public UIOpm_i getUIOpm(String uiOpmName) {
+	public UIOpm_i getUIOpm(final String uiOpmName) {
 		String function = "getUIOpm";
 		logger.begin(className, function);
 		if ( null == uiOpm_i ) {
@@ -872,7 +862,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	}
 	
 	private DatabaseWrite_i databaseWrite_i = null;
-	public DatabaseWrite_i getDatabaseWrite(String databaseWriteName) {
+	public DatabaseWrite_i getDatabaseWrite(final String databaseWriteName) {
 		String function = "getDatabaseWrite";
 		logger.begin(className, function);
 		// Loading the DB Reading API
@@ -904,7 +894,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	}
 	
 	private DatabaseMultiRead_i databaseMultiRead_i = null;
-	public DatabaseMultiRead_i getDatabaseMultiRead(String databaseMultiReadName) {
+	public DatabaseMultiRead_i getDatabaseMultiRead(final String databaseMultiReadName) {
 		String function = "getDatabaseMultiRead";
 		logger.begin(className, function);
 		// Loading the DB Reading API

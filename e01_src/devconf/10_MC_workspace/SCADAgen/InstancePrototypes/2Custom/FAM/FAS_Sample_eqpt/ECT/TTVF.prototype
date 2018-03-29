@@ -104,7 +104,7 @@
       <retCondTable xmi:id="struct_retCondTable_dpc_com_QXA1boJAEeeDru6gupombA_1502859814548"/>
     </DOV>
   </outputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciBTBP-BbUvolt_UgDIOYI1EeeDru6gupombA_1502855117875" nom_instance="dciECT-STATUS" label="&amp;dciECT-STATUS">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciBTBP-BbUvolt_UgDIOYI1EeeDru6gupombA_1502855117875" nom_instance="dciECT-STATUS" label="&amp;dciECT-STATUS">
     <DAC xmi:id="dac_type_dac_UgDIOoI1EeeDru6gupombA_1502855117875" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -137,7 +137,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_UgDITII1EeeDru6gupombA_1502855117875" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciBTBP-BbOvolt_UgDITYI1EeeDru6gupombA_1502855117875" nom_instance="dciECT-NISERV" label="&amp;dciECT-NISERV">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciBTBP-BbOvolt_UgDITYI1EeeDru6gupombA_1502855117875" nom_instance="dciECT-NISERV" label="&amp;dciECT-NISERV">
     <DAL xmi:id="dal_type_dal_UgDIU4I1EeeDru6gupombA_1502855117875" nom_instance="dal" valueAutomaton="DIBasic2StateLog">
       <valueAlarmVector xsi:nil="true"/>
       <valueAlarmVector xsi:nil="true"/>
@@ -161,7 +161,7 @@
     <DCO xmi:id="dco_type_Tjv-YII9EeeDru6gupombA_1502858547526" nom_instance="dco"/>
     <DFO xmi:id="dfo_type_dfo_UgDIYII1EeeDru6gupombA_1502855117875" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciBTBP-BbGPFSt1_UgDIYYI1EeeDru6gupombA_1502855117875" nom_instance="dciECT-PTW" label="&amp;dciECT-PTW">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciBTBP-BbGPFSt1_UgDIYYI1EeeDru6gupombA_1502855117875" nom_instance="dciECT-PTW" label="&amp;dciECT-PTW">
     <DAL xmi:id="dal_type_dal_UgDIZ4I1EeeDru6gupombA_1502855117875" nom_instance="dal" valueAutomaton="DIBasic2StateLog">
       <valueAlarmVector xsi:nil="true"/>
       <valueAlarmVector xsi:nil="true"/>
@@ -176,7 +176,7 @@
     <DCO xmi:id="dco_type_dco_aqD5EYNWEeevN_isMe_qRg_1502979283745" nom_instance="dco"/>
     <DFO xmi:id="dfo_type_dfo_bKZmAINWEeevN_isMe_qRg_1502979287136" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciECT-STATUS_i2rfUIPREeevN_isMe_qRg_1503032166853" nom_instance="dciECT-LRSTA" label="&amp;dciECT-LRSTA">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciECT-STATUS_i2rfUIPREeevN_isMe_qRg_1503032166853" nom_instance="dciECT-LRSTA" label="&amp;dciECT-LRSTA">
     <DAC xmi:id="dac_type_dac_i2rfUYPREeevN_isMe_qRg_1503032166853" nom_instance="dac" nature="1">
       <combineList xsi:nil="true"/>
       <combineList xsi:nil="true"/>
@@ -209,7 +209,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_i2rfY4PREeevN_isMe_qRg_1503032166853" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciECT-STATUS_LI0GYIPSEeevN_isMe_qRg_1503032437190" nom_instance="dciECT-STATUS01" label="&amp;dciECT-STATUS">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciECT-STATUS_LI0GYIPSEeevN_isMe_qRg_1503032437190" nom_instance="dciECT-STATUS01" label="&amp;dciECT-STATUS">
     <DAL xmi:id="dal_type_dal_LI0GZoPSEeevN_isMe_qRg_1503032437190" nom_instance="dal">
       <valueAlarmVector xsi:nil="true"/>
       <valueAlarmVector xsi:nil="true"/>
@@ -233,7 +233,7 @@
     <DCO xmi:id="dco_type_dco_QqPHkIPSEeevN_isMe_qRg_1503032474249" nom_instance="dco"/>
     <DFO xmi:id="dfo_type_dfo_LI0Gc4PSEeevN_isMe_qRg_1503032437190" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciECT-STATUS_Mi10YIPSEeevN_isMe_qRg_1503032446630" nom_instance="dciECT-STATUS02" label="&amp;dciECT-STATUS">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciECT-STATUS_Mi10YIPSEeevN_isMe_qRg_1503032446630" nom_instance="dciECT-STATUS02" label="&amp;dciECT-STATUS">
     <DAL xmi:id="dal_type_dal_Mi10ZoPSEeevN_isMe_qRg_1503032446630" nom_instance="dal">
       <valueAlarmVector xsi:nil="true"/>
       <valueAlarmVector xsi:nil="true"/>
@@ -257,7 +257,7 @@
     <DCO xmi:id="dco_type_dco_Q2v5kIPSEeevN_isMe_qRg_1503032475561" nom_instance="dco"/>
     <DFO xmi:id="dfo_type_dfo_Mi_laYPSEeevN_isMe_qRg_1503032446646" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciECT-STATUS_NZOp0IPSEeevN_isMe_qRg_1503032452333" nom_instance="dciECT-STATUS03" label="&amp;dciECT-STATUS">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciECT-STATUS_NZOp0IPSEeevN_isMe_qRg_1503032452333" nom_instance="dciECT-STATUS03" label="&amp;dciECT-STATUS">
     <DAL xmi:id="dal_type_dal_NZOp1oPSEeevN_isMe_qRg_1503032452333" nom_instance="dal">
       <valueAlarmVector xsi:nil="true"/>
       <valueAlarmVector xsi:nil="true"/>
@@ -281,7 +281,7 @@
     <DCO xmi:id="dco_type_dco_RDt-kIPSEeevN_isMe_qRg_1503032476921" nom_instance="dco"/>
     <DFO xmi:id="dfo_type_dfo_NZOp44PSEeevN_isMe_qRg_1503032452333" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciECT-STATUS03_RpmS0IPSEeevN_isMe_qRg_1503032480893" nom_instance="dciECT-STATUS04" label="&amp;dciECT-STATUS">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciECT-STATUS03_RpmS0IPSEeevN_isMe_qRg_1503032480893" nom_instance="dciECT-STATUS04" label="&amp;dciECT-STATUS">
     <DAL xmi:id="dal_type_dal_RpmS0YPSEeevN_isMe_qRg_1503032480893" nom_instance="dal">
       <valueAlarmVector xsi:nil="true"/>
       <valueAlarmVector xsi:nil="true"/>
@@ -305,7 +305,7 @@
     <DCO xmi:id="dco_type_dco_RpmS3oPSEeevN_isMe_qRg_1503032480893" nom_instance="dco"/>
     <DFO xmi:id="dfo_type_dfo_RpmS34PSEeevN_isMe_qRg_1503032480893" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciECT-STATUS03_S0GXEIPSEeevN_isMe_qRg_1503032488705" nom_instance="dciECT-STATUS05" label="&amp;dciECT-STATUS">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciECT-STATUS03_S0GXEIPSEeevN_isMe_qRg_1503032488705" nom_instance="dciECT-STATUS05" label="&amp;dciECT-STATUS">
     <DAL xmi:id="dal_type_dal_S0GXEYPSEeevN_isMe_qRg_1503032488705" nom_instance="dal">
       <valueAlarmVector xsi:nil="true"/>
       <valueAlarmVector xsi:nil="true"/>
@@ -329,7 +329,7 @@
     <DCO xmi:id="dco_type_dco_S0GXHoPSEeevN_isMe_qRg_1503032488705" nom_instance="dco"/>
     <DFO xmi:id="dfo_type_dfo_S0GXH4PSEeevN_isMe_qRg_1503032488705" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciECT-STATUS03_S5w6MIPSEeevN_isMe_qRg_1503032489299" nom_instance="dciECT-STATUS06" label="&amp;dciECT-STATUS">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciECT-STATUS03_S5w6MIPSEeevN_isMe_qRg_1503032489299" nom_instance="dciECT-STATUS06" label="&amp;dciECT-STATUS">
     <DAL xmi:id="dal_type_dal_S5w6MYPSEeevN_isMe_qRg_1503032489299" nom_instance="dal">
       <valueAlarmVector xsi:nil="true"/>
       <valueAlarmVector xsi:nil="true"/>
@@ -353,7 +353,7 @@
     <DCO xmi:id="dco_type_dco_S5w6PoPSEeevN_isMe_qRg_1503032489299" nom_instance="dco"/>
     <DFO xmi:id="dfo_type_dfo_S5w6P4PSEeevN_isMe_qRg_1503032489299" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciECT-STATUS03_TM1nMIPSEeevN_isMe_qRg_1503032491299" nom_instance="dciECT-STATUS07" label="&amp;dciECT-STATUS">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciECT-STATUS03_TM1nMIPSEeevN_isMe_qRg_1503032491299" nom_instance="dciECT-STATUS07" label="&amp;dciECT-STATUS">
     <DAL xmi:id="dal_type_dal_TM1nMYPSEeevN_isMe_qRg_1503032491299" nom_instance="dal">
       <valueAlarmVector xsi:nil="true"/>
       <valueAlarmVector xsi:nil="true"/>
@@ -377,7 +377,7 @@
     <DCO xmi:id="dco_type_dco_TM1nPoPSEeevN_isMe_qRg_1503032491299" nom_instance="dco"/>
     <DFO xmi:id="dfo_type_dfo_TM1nP4PSEeevN_isMe_qRg_1503032491299" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciECT-STATUS03_TWhusIPSEeevN_isMe_qRg_1503032492315" nom_instance="dciECT-STATUS08" label="&amp;dciECT-STATUS">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciECT-STATUS03_TWhusIPSEeevN_isMe_qRg_1503032492315" nom_instance="dciECT-STATUS08" label="&amp;dciECT-STATUS">
     <DAL xmi:id="dal_type_dal_TWhusYPSEeevN_isMe_qRg_1503032492315" nom_instance="dal">
       <valueAlarmVector xsi:nil="true"/>
       <valueAlarmVector xsi:nil="true"/>
@@ -401,7 +401,7 @@
     <DCO xmi:id="dco_type_dco_TWhuvoPSEeevN_isMe_qRg_1503032492315" nom_instance="dco"/>
     <DFO xmi:id="dfo_type_dfo_TWhuv4PSEeevN_isMe_qRg_1503032492315" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciECT-STATUS03_Tb4v0IPSEeevN_isMe_qRg_1503032492877" nom_instance="dciECT-STATUS09" label="&amp;dciECT-STATUS">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciECT-STATUS03_Tb4v0IPSEeevN_isMe_qRg_1503032492877" nom_instance="dciECT-STATUS09" label="&amp;dciECT-STATUS">
     <DAL xmi:id="dal_type_dal_Tb4v0YPSEeevN_isMe_qRg_1503032492877" nom_instance="dal">
       <valueAlarmVector xsi:nil="true"/>
       <valueAlarmVector xsi:nil="true"/>
@@ -425,7 +425,7 @@
     <DCO xmi:id="dco_type_dco_Tb4v3oPSEeevN_isMe_qRg_1503032492877" nom_instance="dco"/>
     <DFO xmi:id="dfo_type_dfo_Tb4v34PSEeevN_isMe_qRg_1503032492877" nom_instance="dfo"/>
   </inputs>
-  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciECT-STATUS03_Thsc4IPSEeevN_isMe_qRg_1503032493486" nom_instance="dciECT-STATUS10" label="&amp;dciECT-STATUS">
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="DCI_TYPE_dciECT-STATUS03_Thsc4IPSEeevN_isMe_qRg_1503032493486" nom_instance="dciECT-STATUS10" label="&amp;dciECT-STATUS">
     <DAL xmi:id="dal_type_dal_Thsc4YPSEeevN_isMe_qRg_1503032493486" nom_instance="dal">
       <valueAlarmVector xsi:nil="true"/>
       <valueAlarmVector xsi:nil="true"/>

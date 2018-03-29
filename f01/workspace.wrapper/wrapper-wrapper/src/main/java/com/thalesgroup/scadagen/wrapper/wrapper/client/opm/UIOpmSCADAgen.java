@@ -19,6 +19,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.GetCurrentIpAddressCallback_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.hom.UIHomFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.hom.UIHom_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.uigeneric.UIGenericMgr;
@@ -348,52 +349,76 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.begin(className, function);
 		
 		if ( null == currentIPAddress ) {
-			UIGenericMgr uiGenericMgr = new UIGenericMgr();
-			JSONObject request = new JSONObject();
-	        request.put(UIGenericServiceImpl_i.OperationAttribute3, new JSONString(UIActionOpm_i.ComponentName));
-	        request.put(UIGenericServiceImpl_i.OperationAttribute4, new JSONString(UIActionOpm_i.GetCurrentIPAddress));
 			
-			uiGenericMgr.execute(request, new UIGenericMgrEvent() {
-				
-				@Override
-				public void uiGenericMgrEventReady(JSONObject response) {
-					final String function2 = function + " uiGenericMgrEventReady";
-					logger.begin(className, function2);
-					if ( null != response ) {
-						logger.debug(className, function2, "response[{}]", response.toString());
-						JSONValue v = response.get(UIGenericServiceImpl_i.OperationParameter1);
-						if ( null != v && null != v.isObject() ) {
-							JSONObject o = v.isObject();
-							if ( null != o ) {
-								JSONValue tv = o.get(UIGenericServiceImpl_i.OperationValue1);
-								if ( null != tv && null != tv.isString() ) {
-									currentIPAddress = tv.isString().stringValue();
-								} else {
-									logger.warn(className, function2, "tv[{}] IS INVALID", tv);
-								}
-							} else {
-								logger.warn(className, function2, "o IS NULL");
-							}
-						} else {
-							logger.warn(className, function2, "v[{}] IS INVALID", v);
-						}
-						logger.debug(className, function2, "currentIPAddress[{}]", currentIPAddress);
-					} else {
-						logger.debug(className, function2, "response IS NULL");
-					}
-					logger.end(className, function2);
-				}
+			this.getCurrentIPAddress(new GetCurrentIpAddressCallback_i() {
 
 				@Override
-				public void uiGenericMgrEventFailed(JSONObject response) {
-					final String function2 = function + " uiGenericMgrEventFailed";
-					logger.beginEnd(className, function2);
+				public void callback(String ipAddress) {
+					
+					currentIPAddress = ipAddress;
 				}
+				
 			});
 		}
 		logger.debug(className, function, "currentIPAddress[{}]", currentIPAddress);
 		logger.end(className, function);
 		return currentIPAddress;
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentIPAddress(com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.GetCurrentIpAddressCallback_i)
+	 */
+	@Override
+	public void getCurrentIPAddress(final GetCurrentIpAddressCallback_i cb) {
+		final String function = "getCurrentIPAddress";
+		logger.begin(className, function);
+		
+		UIGenericMgr uiGenericMgr = new UIGenericMgr();
+		JSONObject request = new JSONObject();
+        request.put(UIGenericServiceImpl_i.OperationAttribute3, new JSONString(UIActionOpm_i.ComponentName));
+        request.put(UIGenericServiceImpl_i.OperationAttribute4, new JSONString(UIActionOpm_i.GetCurrentIPAddress));
+		
+		uiGenericMgr.execute(request, new UIGenericMgrEvent() {
+			
+			@Override
+			public void uiGenericMgrEventReady(JSONObject response) {
+				final String function2 = function + " uiGenericMgrEventReady";
+				logger.begin(className, function2);
+				if ( null != response ) {
+					logger.debug(className, function2, "response[{}]", response.toString());
+					JSONValue v = response.get(UIGenericServiceImpl_i.OperationParameter1);
+					if ( null != v && null != v.isObject() ) {
+						JSONObject o = v.isObject();
+						if ( null != o ) {
+							JSONValue tv = o.get(UIGenericServiceImpl_i.OperationValue1);
+							if ( null != tv && null != tv.isString() ) {
+								currentIPAddress = tv.isString().stringValue();
+							} else {
+								logger.warn(className, function2, "tv[{}] IS INVALID", tv);
+							}
+						} else {
+							logger.warn(className, function2, "o IS NULL");
+						}
+					} else {
+						logger.warn(className, function2, "v[{}] IS INVALID", v);
+					}
+					logger.debug(className, function2, "currentIPAddress[{}]", currentIPAddress);
+				} else {
+					logger.debug(className, function2, "response IS NULL");
+				}
+				
+				cb.callback(currentIPAddress);
+				logger.end(className, function2);
+			}
+
+			@Override
+			public void uiGenericMgrEventFailed(JSONObject response) {
+				final String function2 = function + " uiGenericMgrEventFailed";
+				logger.beginEnd(className, function2);
+			}
+		});
+
+		logger.end(className, function);
 	}
 
 
@@ -454,6 +479,14 @@ public class UIOpmSCADAgen implements UIOpm_i {
 				, resultEvent);
 	}
 	@Override
+	public boolean checkAccessWithHom(
+			String function, String location, String action, String mode
+			, int hdv) {
+		return getUIHom().checkAccessWithHom(
+				function, location, action, mode
+				, hdv, this);
+	}
+	@Override
 	public boolean isHOMAction(String action) {
 		return getUIHom().isHOMAction(action);
 	}
@@ -464,6 +497,14 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	@Override
 	public void getCurrentHOMValue(String scsEnvId, String dbAddress, GetCurrentHOMValueEvent_i event) {
 		getUIHom().getCurrentHOMValue(scsEnvId, dbAddress, event);
+	}
+	@Override
+	public String getHOMIdentityType() {
+		return getUIHom().getHOMIdentityType();
+	}	
+	@Override
+	public String getHOMIdentity() {
+		return getUIHom().getHOMIdentity(this);
 	}
 	
 	private String env=null;

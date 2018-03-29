@@ -26,6 +26,7 @@ public interface UIWidgetGeneric_i {
 		, VerticalPanel("VerticalPanel")
 		, FlexTable("FlexTable")
 		, AbsolutePanel("AbsolutePanel")
+		, FlowPanel("FlowPanel")
 		;
 		
 		private final String text;

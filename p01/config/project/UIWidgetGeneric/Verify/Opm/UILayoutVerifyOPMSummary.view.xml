@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>14</cols>
+		<cols>18</cols>
 		<rootPanel>VerticalPanel</rootPanel>
 	</header>
 	
@@ -33,62 +33,86 @@
 	
 	<option key="0|4">
 		<uiCtrl>UIWidgetVerifyOPMGetInfo</uiCtrl>
+		<uiView>Verify/Opm/GetInfo/UIWidgetVerifyOPMGetCurrentIPAddressAsync.view.xml</uiView>
+		<element>UIWidgetVerifyOPMGetCurrentIPAddressAsync</element>
+	</option>
+	
+	<option key="0|5">
+		<uiCtrl>UIWidgetVerifyOPMGetInfo</uiCtrl>
 		<uiView>Verify/Opm/GetInfo/UIWidgetVerifyOPMGetCurrentOperator.view.xml</uiView>
 		<element>UIWidgetVerifyOPMGetCurrentOperator</element>
 	</option>
 	
-	<option key="0|5">
+	<option key="0|6">
 		<uiCtrl>UIWidgetVerifyOPMGetInfo</uiCtrl>
 		<uiView>Verify/Opm/GetInfo/UIWidgetVerifyOPMGetCurrentProfile.view.xml</uiView>
 		<element>UIWidgetVerifyOPMGetCurrentProfile</element>
 	</option>
 	
-	<option key="0|6">
+	<option key="0|7">
 		<uiCtrl>UIWidgetVerifyOPMLoginLogout</uiCtrl>
 		<uiView>Verify/Opm/LoginLogout/UIWidgetVerifyOPMLogin.view.xml</uiView>
 		<element>UIWidgetVerifyOPMLogin</element>
 	</option>
 	
-	<option key="0|7">
+	<option key="0|8">
 		<uiCtrl>UIWidgetVerifyOPMLoginLogout</uiCtrl>
 		<uiView>Verify/Opm/LoginLogout/UIWidgetVerifyOPMLogout.view.xml</uiView>
 		<element>UIWidgetVerifyOPMLogout</element>
 	</option>
 	
-	<option key="0|8">
+	<option key="0|9">
 		<uiCtrl>UIWidgetVerifyOPMHom</uiCtrl>
 		<uiView>Verify/Opm/Hom/UIWidgetVerifyOPMIsHOMAction.view.xml</uiView>
 		<element>UIWidgetVerifyOPMIsHOMAction</element>
 	</option>
 	
-	<option key="0|9">
+	<option key="0|10">
 		<uiCtrl>UIWidgetVerifyOPMHom</uiCtrl>
 		<uiView>Verify/Opm/Hom/UIWidgetVerifyOPMIsByPassValue.xml</uiView>
 		<element>UIWidgetVerifyOPMIsByPassValue</element>
 	</option>
 	
-	<option key="0|10">
+	<option key="0|11">
 		<uiCtrl>UIWidgetVerifyOPMHom</uiCtrl>
 		<uiView>Verify/Opm/Hom/UIWidgetVerifyOPMGetCurrentHOMValue.view.xml</uiView>
 		<element>UIWidgetVerifyOPMGetCurrentHOMValue</element>
 	</option>
 	
-	<option key="0|11">
+	<option key="0|12">
 		<uiCtrl>UIWidgetVerifyOPMHom</uiCtrl>
 		<uiView>Verify/Opm/Hom/UIWidgetVerifyOPMCheckHom.view.xml</uiView>
 		<element>UIWidgetVerifyOPMCheckHom</element>
 	</option>
 	
-	<option key="0|12">
+	<option key="0|13">
 		<uiCtrl>UIWidgetVerifyOPMHom</uiCtrl>
 		<uiView>Verify/Opm/Hom/UIWidgetVerifyOPMCheckAccessWithHom.view.xml</uiView>
 		<element>UIWidgetVerifyOPMCheckAccessWithHom</element>
 	</option>
 	
-	<option key="0|13">
+	<option key="0|14">
+		<uiCtrl>UIWidgetVerifyOPMHom</uiCtrl>
+		<uiView>Verify/Opm/Hom/UIWidgetVerifyOPMCheckAccessWithHomHdvIdentity.view.xml</uiView>
+		<element>UIWidgetVerifyOPMCheckAccessWithHomHdvIdentity</element>
+	</option>
+	
+	<option key="0|15">
 		<uiCtrl>UIWidgetVerifyOPMHom</uiCtrl>
 		<uiView>Verify/Opm/Hom/UIWidgetVerifyOPMCheckAccessWithHomHdvValue.view.xml</uiView>
 		<element>UIWidgetVerifyOPMCheckAccessWithHomHdvValue</element>
+	</option>
+	
+	<option key="0|16">
+		<uiCtrl>UIWidgetVerifyOPMHom</uiCtrl>
+		<uiView>Verify/Opm/Hom/UIWidgetVerifyOPMGetHOMIdentityType.view.xml</uiView>
+		<element>UIWidgetVerifyOPMGetHOMIdentityType</element>
+	</option>
+	
+	<option key="0|17">
+		<uiCtrl>UIWidgetVerifyOPMHom</uiCtrl>
+		<uiView>Verify/Opm/Hom/UIWidgetVerifyOPMGetHOMIdentity.view.xml</uiView>
+		<element>UIWidgetVerifyOPMGetHOMIdentity</element>
 	</option>
 
 </data-set>

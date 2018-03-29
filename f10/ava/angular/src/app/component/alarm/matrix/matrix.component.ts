@@ -6,7 +6,6 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Card } from '../../../model/Scenario';
 import { DataScenarioHelper } from '../../../model/DataScenarioHelper';
-import { DbmReadAvaSupService } from '../../../service/scs/ava/dbm-read-ava-sup.service';
 
 @Component({
   selector: 'app-matrix',
@@ -311,8 +310,8 @@ export class MatrixComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private getCellStr(data: number[][], x: number, y: number): string {
-    const f = 'getCellStr';
-    console.log(this.c, f);
+    // const f = 'getCellStr';
+    // console.log(this.c, f);
     let ret = '';
     if ( undefined !== data && undefined !== data[x] && undefined !== data[x][y] ) {
       for ( let i = 0 ; i < this.cfg.matrixes.length ; ++i ) {

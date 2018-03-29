@@ -6,29 +6,33 @@ IF [%1] == [] SET v_strdt=%strdt%
 IF [%v_strdt%] == [] SET v_strdt=%1
 
 SET SOURCE_BASE_F10=%SOURCE_BASE%/f10
-SET NODEJS_HOME=%SOFTS_BASE%/%SOFTS_DIR%/node-v9.2.0-win-x64
+SET NODEJS_HOME=%SOFTS_BASE%/%SOFTS_DIR%/node-v8.1.3-win-x64
+SET NODEJS_7Z=%SOFTS_BASE%/%SOFTS_DIR%/node-v8.1.3-win-x64.7z
 SET PATH=%PATH%;%NODEJS_HOME%
 
 set COMPONENT=ava
 set ANGULAR=angular
 set SPRING_BOOT=spring-boot
 set NODE_MODULES=node_modules
-set NODE_MODULES_7Z=%NODE_MODULES%.7z
+set NODE_MODULES_7Z=%COMPONENT%.7z
 
 SET LOG_FILE=%LOG_HOME%\build.f10.%COMPONENT%.%v_strdt%.log
 
 echo "" > %LOG_FILE%
 
+IF EXIST %NODEJS_HOME% goto :check_node_modules
+
+ECHO Extract nodejs to %SOFTS_BASE%/%SOFTS_DIR%/
+
+CD %SOFTS_BASE%/%SOFTS_DIR%
+%PATH_7Z_BIN% x %NODEJS_7Z%
+
+:check_node_modules
 IF EXIST %SOURCE_BASE_F10%/%COMPONENT%/%ANGULAR%/%NODE_MODULES% goto :build_dist
-
-ECHO Zip and copy node_modules libraries from cots...
-
-%PATH_7Z_BIN% a %NODE_MODULES_7Z% %REPO_BASE%/%NODE_MODULES%/%COMPONENT%/*
 
 ECHO Extract node_modules to %COMPONENT% build folder
 
-%PATH_7Z_BIN% x %NODE_MODULES_7Z% -o%SOURCE_BASE_F10%/%COMPONENT%/%ANGULAR%/%NODE_MODULES%
-
+%PATH_7Z_BIN% x %REPO_BASE%/%NODE_MODULES%/%NODE_MODULES_7Z% -o%SOURCE_BASE_F10%/%COMPONENT%/%ANGULAR%/%NODE_MODULES%
 
 :build_dist
 CD /d %SOURCE_BASE_F10%/%COMPONENT%/%ANGULAR%
@@ -52,7 +56,6 @@ call mvn clean install >> %LOG_FILE%
 CD %TOOLS_BASE%
 
 :cleanup
-DEL /s /f /q %NODE_MODULES_7Z%
 
 ECHO End of build %COMPONENT%
 

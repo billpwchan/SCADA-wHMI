@@ -205,8 +205,8 @@
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>set_retry_up</OperationString1>
 		<OperationString2>set_skip_up</OperationString2>
-		<OperationString3>set_start_up</OperationString3>
-		<OperationString4>set_stop_disable</OperationString4>
+		<OperationString3>set_start_disable</OperationString3>
+		<OperationString4>set_stop_up</OperationString4>
 		<OperationString5>set_apply_disable</OperationString5>
 	</actionset>
 	

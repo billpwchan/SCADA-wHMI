@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -11,19 +10,20 @@ export class ScsTscService {
     private urlScsTsc: string;
     private tscTimeOffset = 0;
 
-    private subRoute: any;
+    constructor(private http: Http, private configService: ConfigService) {
 
-    constructor(private http: Http, private configService: ConfigService
-        , private route: ActivatedRoute) {
-
-        this.subRoute = this.route.queryParams.subscribe(params => {
-            this.urlScsTsc = params['scs_tsc_url'] || this.configService.config.getIn(['scs_tsc_url']);
-        });
+        // const httpParams = new HttpParams({ fromString: window.location.href });
+        // this.urlScsTsc = httpParams.get('scs_tsc_url');
+        // console.log('{ScsTscService}', '[constructor]', 'urlScsTsc =', this.urlScsTsc);
 
         this.tscTimeOffset = this.configService.config.getIn(['tsc_time_offset']);
 
-        console.log('{ScsTscService}', '[constructor]', 'urlScsTsc =', this.urlScsTsc);
         console.log('{ScsTscService}', '[constructor]', 'tscTimeOffset =', this.tscTimeOffset);
+    }
+
+    public setUrlScsTsc(urlScsTsc: string) {
+        this.urlScsTsc = urlScsTsc;
+        console.log('{ScsTscService}', '[setUrlScsTsc]', 'urlScsTsc =', this.urlScsTsc);
     }
 
     public getDescFilterEnable(taskNames: string[]): Observable<any> {

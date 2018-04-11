@@ -75,6 +75,8 @@ export class ScheduleService implements OnDestroy {
 
     private updateOnOffTimeDelay: number;
 
+    private loaded = false;
+
     constructor(
         private configService: ConfigService, private translate: TranslateService,
         private scsTscService: ScsTscService, private loadingService: LoadingService
@@ -82,8 +84,14 @@ export class ScheduleService implements OnDestroy {
     ngOnDestroy() {
     }
     public load() {
-        this.loadConfig();
-        this.loadData();
+        if (!this.loaded) {
+	 console.log('{ScheduleServicee}', '[load]', 'this.loaded=', this.loaded);
+            this.loadConfig();
+            this.loadData();
+            this.loaded = true;
+        } else {
+	  console.log('{ScheduleServicee}', '[load]', 'this.loaded=', this.loaded);
+	}
     }
     private loadConfig() {
         this.cutoffTime = this.configService.config.getIn(['schedule_table', 'cutoff_time']);

@@ -10,7 +10,6 @@ import { ScheduleItem, ScheduleItemFilter } from '../type/schedule-item';
 import { ConfigService } from '../service/config.service';
 import { ScheduleService } from '../service/schedule.service';
 import { UtilService } from '../service/util.service';
-import { ScsTscService } from '../service/scs-tsc.service';
 @Component({
     selector: 'app-sch-table',
     templateUrl: './schedule-table.component.html',
@@ -143,34 +142,14 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     public disableSchedulePlanning = false;
 
-    private subRouteConn: any;
-
-    private urlScsTsc = '';
-
     constructor(
         private configService: ConfigService,
         private route: ActivatedRoute,
         private scheduleService: ScheduleService,
-        private translate: TranslateService
-        , private scsTscService: ScsTscService) {
-
-        translate.onLangChange.subscribe((event: LangChangeEvent) => {
-            this.loadTranslations();
-        });
-
-        this.subRouteConn = this.route.queryParams.subscribe(params => {
-
-            this.urlScsTsc = params['scs_tsc_url']
-            console.log('{schedule-table}', '[constructor]', 'Override by URL urlScsTsc =', this.urlScsTsc);
-
-            if (!this.urlScsTsc) {
-                this.urlScsTsc = this.configService.config.getIn(['scs_tsc_url']);
-                console.log('{schedule-table}', '[constructor]', 'Load from Config File urlScsTsc =', this.urlScsTsc);
-            }
-
-            this.scsTscService.setUrlScsTsc(this.urlScsTsc);
-            this.scheduleService.load();
-        });
+        private translate: TranslateService) {
+            translate.onLangChange.subscribe((event: LangChangeEvent) => {
+                this.loadTranslations();
+            })
     }
     ngOnInit() {
         this.loadTranslations();

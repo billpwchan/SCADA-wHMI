@@ -11,19 +11,17 @@ export class ScsTscService {
     private tscTimeOffset = 0;
 
     constructor(private http: Http, private configService: ConfigService) {
-
-        // const httpParams = new HttpParams({ fromString: window.location.href });
-        // this.urlScsTsc = httpParams.get('scs_tsc_url');
-        // console.log('{ScsTscService}', '[constructor]', 'urlScsTsc =', this.urlScsTsc);
+        this.urlScsTsc = this.configService.config.getIn(['scs_tsc_url']);
+        const override = this.getUrlParameter('scs_tsc_url');
+        if (override) {
+            this.urlScsTsc = override[1];
+            console.log('{ScsTscService}', '[constructor]', 'Override by urlScsTsc =', this.urlScsTsc);
+        }
 
         this.tscTimeOffset = this.configService.config.getIn(['tsc_time_offset']);
 
+        console.log('{ScsTscService}', '[constructor]', 'urlScsTsc =', this.urlScsTsc);
         console.log('{ScsTscService}', '[constructor]', 'tscTimeOffset =', this.tscTimeOffset);
-    }
-
-    public setUrlScsTsc(urlScsTsc: string) {
-        this.urlScsTsc = urlScsTsc;
-        console.log('{ScsTscService}', '[setUrlScsTsc]', 'urlScsTsc =', this.urlScsTsc);
     }
 
     public getDescFilterEnable(taskNames: string[]): Observable<any> {
@@ -236,4 +234,19 @@ export class ScsTscService {
         }
         console.log('{ScsTscService}', '[subtractOffsetFromDateList] subtracted dateList', dateList);
     }
+    public getUrlParameter(sParam) {
+        const f = 'getUrlParameter';
+        console.log('{ScsTscService}', '[getUrlParameter] sParam=', sParam);
+        let param = null;
+        const params: string[] = decodeURIComponent(window.location.href).split('?');
+        console.log('{ScsTscService}', '[getUrlParameter] params=', params);
+        if (params && params.length > 1) {
+            param = params[1].split('&')
+            .map((v) => v.split('='))
+            .filter((v) => (v[0] === sParam) ? true : false)
+            .reduce((prev, curv, index, array) => curv, undefined);
+        }
+        console.log('{ScsTscService}', '[getUrlParameter] sParam[' + sParam + '] param[' + param + ']');
+        return param;
+      }
 }

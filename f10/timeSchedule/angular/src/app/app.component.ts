@@ -34,7 +34,7 @@ export class AppComponent {
             this.removePeriodicSchedulePlanningRoute();
             console.log('{AppComponent}', '[loadConfig]', 'disable periodic schedule planning ', disablePeriodicSchedulePlanning);
         }
-        // scheduleService.load();
+        scheduleService.load();
     }
     private getPreferedLanguage(): string {
         if (this.configService.config.getIn(['i18n', 'resolve_by_browser_lang'])) {

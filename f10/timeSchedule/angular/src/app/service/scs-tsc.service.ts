@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -10,8 +11,15 @@ export class ScsTscService {
     private urlScsTsc: string;
     private tscTimeOffset = 0;
 
-    constructor(private http: Http, private configService: ConfigService) {
-        this.urlScsTsc = this.configService.config.getIn(['scs_tsc_url']);
+    private subRoute: any;
+
+    constructor(private http: Http, private configService: ConfigService
+        , private route: ActivatedRoute) {
+
+        this.subRoute = this.route.queryParams.subscribe(params => {
+            this.urlScsTsc = params['scs_tsc_url'] || this.configService.config.getIn(['scs_tsc_url']);
+        });
+
         this.tscTimeOffset = this.configService.config.getIn(['tsc_time_offset']);
 
         console.log('{ScsTscService}', '[constructor]', 'urlScsTsc =', this.urlScsTsc);

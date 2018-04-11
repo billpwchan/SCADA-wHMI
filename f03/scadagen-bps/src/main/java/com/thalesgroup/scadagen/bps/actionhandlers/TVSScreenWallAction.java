@@ -26,10 +26,10 @@ public class TVSScreenWallAction extends AbstractActionFromOls {
 	
 	protected static final String STR_DEFAULT_LAYOUT_IDX = "1";
 
-	@Override
-	protected boolean isIncludeCorrelationId() {
-		return false;
-	}
+//	@Override
+//	protected boolean isIncludeCorrelationId() {
+//		return false;
+//	}
 
 	@Override
 	public void execute(IGenericOperationConnector operationConnector, AbstractEntityStatusesType entity,

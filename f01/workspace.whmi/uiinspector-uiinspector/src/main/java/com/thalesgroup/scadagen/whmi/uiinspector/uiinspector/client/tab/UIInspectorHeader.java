@@ -38,8 +38,9 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UIInspectorHeader implements UIInspectorTab_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorHeader.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String cls = this.getClass().getName();
+	private final String className = UIWidgetUtil.getClassSimpleName(cls);
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
 
 	private String scsEnvId		= null;
 	private String parent		= null;

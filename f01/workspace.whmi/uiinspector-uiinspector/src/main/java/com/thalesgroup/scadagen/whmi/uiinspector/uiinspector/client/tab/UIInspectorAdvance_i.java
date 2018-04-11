@@ -5,12 +5,7 @@ public interface UIInspectorAdvance_i {
 	public final static String INSPECTOR = "inspector";
 	
 	public enum Attribute {
-		
-		  dalValueTableLength("dalValueTableLength")
-		, dalValueTableValueColIndex("dalValueTableValueColIndex")
-		, dalValueTableLabelColIndex("dalValueTableLabelColIndex")
-		
-		, moApplyWithoutReset("moApplyWithoutReset")
+		moApplyWithoutReset("moApplyWithoutReset")
 		;
 		private final String text;
 		private Attribute(final String text) { this.text = text; }

@@ -1,18 +1,20 @@
 package com.thalesgroup.scadagen.whmi.uiutil.uilogger.client;
 
-public class UILoggerFactory {
+/**
+ * SCADAgen logger factory for creation
+ * @author syau
+ *
+ */
+public class UILoggerFactory implements UILoggerFactory_i {
+
 	private static UILoggerFactory instance = null;
 	private UILoggerFactory () {}
 	public static UILoggerFactory getInstance() {
 		if ( null == instance ) instance = new UILoggerFactory();
 		return instance;
 	}
-	public static String LOGGER_DEFAULT = "UILogger";
+	public UILogger getLogger(String namespace) { return new UILogger(namespace); }
 	
-	public UILogger getLogger() {
-		return getLogger(LOGGER_DEFAULT);
-	}
-	public UILogger getLogger(String logger) {
-		return new UILogger();
-	}
+	@Override
+	public UILogger_i getUILogger(String namespace) { return getLogger(namespace); }
 }

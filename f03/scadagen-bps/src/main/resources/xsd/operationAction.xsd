@@ -64,7 +64,7 @@
 		</xsd:sequence>
 
 		<xsd:attribute name="operationJavaClassName" type="notEmptyStringType" use="optional" />
-		<xsd:attribute name="includeCorrelationId" type="xsd:boolean" use="optional" default="false" />
+		<xsd:attribute name="includeCorrelationId" type="xsd:boolean" use="optional" />
 	</xsd:complexType>
 
 	<xsd:complexType name="commandParam">

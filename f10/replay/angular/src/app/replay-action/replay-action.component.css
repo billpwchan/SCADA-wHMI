@@ -1,0 +1,29 @@
+#replay-action {
+  width: 100%;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: lightgray;
+  margin-top: 2px;
+  margin-bottom: 1px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 4px;
+}
+
+#replay-action-btn1 {
+  font-family: webdings
+}
+
+#replay-action-btn2 {
+  font-family: webdings
+}
+
+.btn-group {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.select-group {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}

@@ -1,0 +1,13 @@
+<div id="record-display">
+  <div id="record-display-title">
+      {{ 'Record List' | translate }}
+  </div>
+  <ag-grid-angular #agGrid
+    class="ag-theme-bootstrap"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    (rowClicked)="onRowClicked($event)"
+    id="record-display-grid"
+  >
+  </ag-grid-angular>
+</div>

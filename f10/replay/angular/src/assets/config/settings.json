@@ -1,0 +1,61 @@
+{
+	"i18n": {
+		"default_lang": "en",
+		"resolve_by_browser_lang": true,
+		"use_culture_lang": true,
+		"resolve_by_browser_cookie": false,
+		"use_cookie_name": "iscs.webapp.Lang"
+	},
+	"AppComponent": {
+		"title": "Replay"
+	},
+	"RecordDisplayComponent": {
+		"columnDefs": [
+			{
+				"headerName": "Name",
+				"field": "fileName",
+				"width": 400
+			},
+			{
+				"headerName": "Start Time",
+				"field": "fileDateStr",
+				"width": 400
+			}
+		]
+	},
+	"RecordSearchComponent": {
+		"dateFormat": "yy-mm-dd",
+		"timeFormat": "24",
+		"firstDayOfWeek": 0
+	},
+	"ReplayActionComponent": {
+		"speeds": [
+			1,
+			2,
+			5,
+			10,
+			20
+		],
+		"btn1Caption": "&#52;",
+		"btn2Caption": "&#60;",
+		"btn1Action": {
+			"type": "REST",
+			"url": "http://localhost:9990/scs/service/ReplayComponent/Start",
+			"params": {
+				"speed": "&speed"
+			}
+		},
+		"btn2Action": {
+			"type": "REST",
+			"url": "http://localhost:9990/scs/service/ReplayComponent/Stop",
+			"params": {}
+		}
+	},
+	"ScadagenReplayService": {
+		"conn_addr": "http://localhost:9990"
+	},
+	"ReplayService": {
+		"getInfoStartDelay": 1000,
+		"getInfoPeriod": 10000
+	}
+}

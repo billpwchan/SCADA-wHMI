@@ -1,14 +1,17 @@
 <div id="replay-action">
-  <button class="btn btn-default replay-action-btn1" id="replay-action-btn1" type="button" (click)="onClickBtn1()" [innerHtml]="btn1Caption"></button>
-  <button class="btn btn-default replay-action-btn2" id="replay-action-btn2" type="button" (click)="onClickBtn2()" [innerHtml]="btn2Caption"></button>
 
-  <div>
-    <div>
+  <div class="select-group" id="action-select-speed-group">
+    <div id="action-select-speed-label">
       {{ 'Speed' | translate }}
     </div>
-    <select (change)="onSpeedChange($event.target.value)">
+    <select id="action-select-speed-value" name="speed" (change)="onSpeedChange($event.target.value)" [disabled]="!replayReady || replayRunning">
       <option *ngFor="let speed of speeds">{{ speed }}</option>
     </select>
   </div>
-  
+
+  <div class="btn-group" id="action-btn-group">
+    <button class="btn btn-primary replay-action-btn1" id="replay-action-btn1" type="button" (click)="onClickBtn1()" [innerHtml]="btn1Caption" [disabled]="!replayReady || replayRunning"></button>
+    <button class="btn btn-primary replay-action-btn2" id="replay-action-btn2" type="button" (click)="onClickBtn2()" [innerHtml]="btn2Caption" [disabled]="!replayReady || !replayRunning"></button>
+  </div>
+
 </div>

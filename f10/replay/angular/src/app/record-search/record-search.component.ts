@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { SettingsService } from '../service/settings.service';
-import { ReplayService } from '../service/replay.service';
+import { ReplayService, WorkingState } from '../service/replay.service';
 
 @Component({
   selector: 'app-record-search',
@@ -27,6 +27,11 @@ export class RecordSearchComponent implements OnInit {
 
   public filterSet = false;
 
+  public replayState: WorkingState;
+  public replayStateStr = '';
+  public replayReady = false;
+  public replayRunning = false;
+
   constructor(
     private translate: TranslateService
     , private settingsService: SettingsService
@@ -45,6 +50,8 @@ export class RecordSearchComponent implements OnInit {
     this.dateFormat = this.settingsService.getSetting(this.c, f, this.c, this.STR_DATE_FORMAT);
     this.hourFormat = this.settingsService.getSetting(this.c, f, this.c, this.STR_TIME_FORMAT);
     this.getCalendarLabels();
+
+    this.getReplayState();
   }
 
   public getCalendarLabels() {
@@ -151,5 +158,27 @@ export class RecordSearchComponent implements OnInit {
     }
 
     this.filterSet = false;
+  }
+
+  getReplayState(): void {
+    const f = 'getReplayState';
+    console.log(this.c, f);
+
+    this.replayService.getReplayState().subscribe( state => {
+      this.replayState = state;
+      this.replayStateStr = 'ReplayState_' + state;
+
+      if (this.replayState === WorkingState.WAITFORINIT) {
+        this.replayReady = false;
+        this.replayRunning = false;
+      } else if (this.replayState === WorkingState.READY) {
+        this.replayReady = true;
+        this.replayRunning = false;
+      } else if (this.replayState === WorkingState.RUNNING || this.replayState === WorkingState.FREEZE) {
+        this.replayReady = true;
+        this.replayRunning = true;
+      }
+      console.log(this.c, f, 'replayRunning =', this.replayRunning);
+    });
   }
 }

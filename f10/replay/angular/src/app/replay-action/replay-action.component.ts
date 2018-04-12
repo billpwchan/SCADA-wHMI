@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Record } from '../model/record';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsService } from '../service/settings.service';
-import { ReplayService } from '../service/replay.service';
+import { ReplayService, WorkingState } from '../service/replay.service';
 
 @Component({
   selector: 'app-replay-action',
@@ -24,6 +24,14 @@ export class ReplayActionComponent implements OnInit {
   public btn1Action: any;
   public btn2Action: any;
 
+  public replayState: WorkingState;
+  public replayStateStr = '';
+
+  public replayReady = false;
+  public replayRunning = false;
+
+  public currentSpeed = 1;
+
   constructor(
     private translate: TranslateService
     , private settingsService: SettingsService
@@ -34,15 +42,25 @@ export class ReplayActionComponent implements OnInit {
     const f = 'ngOnInit';
     this.speeds = this.settingsService.getSetting(this.c, f, this.c, this.STR_SPEEDS);
 
+    if (this.speeds && this.speeds.length > 0) {
+      this.currentSpeed = this.speeds[0];
+    } else {
+      this.currentSpeed = 1;
+    }
+
     this.btn1Caption = this.settingsService.getSetting(this.c, f, this.c, this.STR_BTN1_CAPTION);
     this.btn2Caption = this.settingsService.getSetting(this.c, f, this.c, this.STR_BTN2_CAPTION);
 
     this.btn1Action = this.settingsService.getSetting(this.c, f, this.c, this.STR_BTN1_ACTION);
     this.btn2Action = this.settingsService.getSetting(this.c, f, this.c, this.STR_BTN2_ACTION);
+
+    this.getReplayState();
   }
 
   onSpeedChange(speed: number) {
     const f = 'onSpeedChange';
+    console.log(this.c, f);
+
     this.replayService.setReplaySpeed(+speed);
   }
 
@@ -60,4 +78,35 @@ export class ReplayActionComponent implements OnInit {
     this.replayService.execAction(this.btn2Action);
   }
 
+  getReplayState(): void {
+    const f = 'getReplayState';
+    console.log(this.c, f);
+
+    this.replayService.getReplayState().subscribe( state => {
+      console.log(this.c, f, 'update state', state);
+      this.replayState = state;
+      this.replayStateStr = 'ReplayState_' + state;
+
+      if (this.replayState === WorkingState.WAITFORINIT) {
+        this.replayReady = false;
+        this.replayRunning = false;
+      } else if (this.replayState === WorkingState.READY) {
+        this.replayReady = true;
+        this.replayRunning = false;
+      } else if (this.replayState === WorkingState.RUNNING || this.replayState === WorkingState.FREEZE) {
+        this.replayReady = true;
+        this.replayRunning = true;
+      }
+    });
+  }
+
+  getReplaySpeed(): void {
+    const f = 'getReplaySpeed';
+    console.log(this.c, f);
+
+    this.replayService.getReplayState().subscribe( speed => {
+      console.log(this.c, f, 'update speed', speed);
+      this.currentSpeed = speed;
+    });
+  }
 }

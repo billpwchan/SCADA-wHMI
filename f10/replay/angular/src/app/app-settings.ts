@@ -10,4 +10,7 @@ export class AppSettings {
 
     public static readonly STR_TITLE = 'title';
 
+    public static readonly STR_GET_INFO_START_DELAY = 'getInfoStartDelay';
+
+    public static readonly STR_GET_INFO_PERIOD = 'getInfoPeriod';
 }

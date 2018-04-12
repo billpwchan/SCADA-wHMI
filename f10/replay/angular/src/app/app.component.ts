@@ -5,6 +5,7 @@ import { Cookie } from 'ng2-cookies';
 import { I18nSettings } from './service/i18n-settings';
 import { Title } from '@angular/platform-browser';
 import { AppSettings } from './app-settings';
+import { ReplayService } from './service/replay.service';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ export class AppComponent {
     private translate: TranslateService
     , private settingsService: SettingsService
     , private titleService: Title
+    , private replayService: ReplayService
   ) {
     const f = 'constructor';
     console.log(this.c, f);
@@ -50,6 +52,10 @@ export class AppComponent {
     this.loadSettings();
 
     this.titleService.setTitle(this.title);
+
+    const startDelay = this.settingsService.getSetting(this.c, f, 'ReplayService', AppSettings.STR_GET_INFO_START_DELAY);
+    const period = this.settingsService.getSetting(this.c, f, 'ReplayService', AppSettings.STR_GET_INFO_PERIOD);
+    this.replayService.load(startDelay, period);
   }
 
   private getPreferedLanguage(): string {

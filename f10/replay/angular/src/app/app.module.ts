@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
 import { RecordDisplayComponent } from './record-display/record-display.component';
 import { RecordSearchComponent } from './record-search/record-search.component';
 import { ReplayActionComponent } from './replay-action/replay-action.component';
+import { ReplayStateComponent } from './replay-state/replay-state.component';
 import { ReplayService } from './service/replay.service';
 import { SettingsService } from './service/settings.service';
 import { UtilsHttpModule } from './service/utils-http/utils-http.module';
@@ -29,7 +30,8 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     RecordDisplayComponent,
     RecordSearchComponent,
-    ReplayActionComponent
+    ReplayActionComponent,
+    ReplayStateComponent
   ],
   imports: [
     BrowserModule

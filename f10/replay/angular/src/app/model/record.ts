@@ -9,5 +9,6 @@ export class Record {
 
   public fileName: string;
   public fileDate: number;
+  public fileDateStr: string;
   public fileType: RecordType;
 }

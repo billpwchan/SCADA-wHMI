@@ -1,8 +1,16 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { timer } from 'rxjs/observable/timer';
 import { Record, RecordType } from '../model/record';
 import { ScadagenReplayService } from './scadagen/scadagen-replay.service';
+
+export enum WorkingState {
+  WAITFORINIT = 1,
+  READY,
+  RUNNING,
+  FREEZE
+}
 
 @Injectable()
 export class ReplayService {
@@ -10,44 +18,85 @@ export class ReplayService {
   readonly c = 'ReplayService';
 
   private subjRecords = new BehaviorSubject(new Array<Record>());
+  private subjStartDate = new BehaviorSubject(0);
+  private subjState = new BehaviorSubject(WorkingState.WAITFORINIT);
+  private subjSpeed = new BehaviorSubject(1);
   private records = new Array<Record>();
   private filteredRecords = new Array<Record>();
 
-  private speed: number;
-  private startDate: number;
+  private currentSpeed: number;
+  private currentStartDate: number;
   private currentState: number;
+
   private userInfo: string;
+  private startDate: number;
 
   private selectedRecord: Record = null;
   private replaySpeed = 1;
 
   constructor(
     private scgRlyService: ScadagenReplayService
-  ) { }
+  ) {}
+
+  public load(startDelay: number, period: number) {
+    this.startGetReplayInfoTimer(startDelay, period);
+  }
 
   public getRecords(): Observable<Array<Record>> {
     const f = 'getRecords';
     console.log(this.c, f);
 
+    return this.subjRecords;
+  }
+
+  public getReplayState(): Observable<number> {
+    const f = 'getReplayState';
+    console.log(this.c, f);
+
+    return this.subjState;
+  }
+
+  public startGetReplayInfoTimer(startDelay: number, updatePeriod: number) {
+    const f = 'startGetReplayInfoTimer';
+    console.log(this.c, f);
+
+    const getInfoTimer = timer(startDelay, updatePeriod);
+    const subTimer = getInfoTimer.subscribe(val => {
+        this.getReplayInfo();
+    });
+  }
+
+  public getReplayInfo() {
+    const f = 'getReplayInfo';
+    console.log(this.c, f);
+
     this.scgRlyService.getInfo().subscribe(
       res => {
         console.log(this.c, f, ' res =', JSON.stringify(res.response) );
-        this.speed = res.response.speed;
-        this.startDate = res.response.startDate;
-        this.currentState = res.response.currentState;
+        this.currentSpeed = res.response.speed;
+        this.subjSpeed.next(this.currentSpeed);
 
+        this.currentStartDate = res.response.startDate;
+        this.subjStartDate.next(this.currentStartDate);
+
+        this.currentState = res.response.currentState;
+        this.subjState.next(this.currentState);
+
+        this.records = [];
         res.response.fullSnapshots.forEach( file => {
           const rec = new Record();
           rec.fileName = file.fileName;
           rec.fileDate = file.fileDate;
+          const d = new Date();
+          d.setTime(file.fileDate * 1000);
+          const dateOptions = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+          rec.fileDateStr = d.toLocaleString('en-US', dateOptions);
           rec.fileType = RecordType.SNAPSHOT;
           this.records.push(rec);
         });
         this.subjRecords.next(this.records);
       }
     );
-
-    return this.subjRecords;
   }
 
   public filterRecords(startDate: number, endDate: number) {
@@ -82,9 +131,17 @@ export class ReplayService {
     console.log(this.c, f);
 
     this.selectedRecord = record;
+    this.startDate = record.fileDate;
 
     // init replay with record's fileDate as startDate
-    this.scgRlyService.initReplay(record.fileDate).subscribe(res => {
+    this.initReplay(this.startDate);
+  }
+
+  public initReplay(d: number) {
+    const f = 'initReplay';
+    console.log(this.c, f);
+
+    this.scgRlyService.initReplay(d).subscribe(res => {
       console.log(this.c, f, res);
     });
   }
@@ -110,6 +167,8 @@ export class ReplayService {
           if (obj[key] === '&speed') {
             params.set(key, this.replaySpeed);
             // console.log(this.c, f, 'typeof ', params.get(key), typeof(params.get(key)));
+          } else if (obj[key] === '&startDate') {
+            params.set(key, this.startDate);
           } else {
             params.set(key, obj[key]);
             // console.log(this.c, f, 'typeof ', params.get(key), typeof(params.get(key)));

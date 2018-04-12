@@ -1,0 +1,21 @@
+#record-search {
+    width: 100%;
+    /* border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: gray; */
+    margin-top: 1px;
+    margin-bottom: 1px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+}
+
+.search-time {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.btn-group {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}

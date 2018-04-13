@@ -11,10 +11,10 @@ export class ScsTscService {
     private tscTimeOffset = 0;
 
     constructor(private http: Http, private configService: ConfigService) {
-        this.urlScsTsc = this.configService.config.getIn(['scs_tsc_url']);
-        this.tscTimeOffset = this.configService.config.getIn(['tsc_time_offset']);
-
+        this.urlScsTsc = this.configService.getIn(['scs_tsc_url']);
         console.log('{ScsTscService}', '[constructor]', 'urlScsTsc =', this.urlScsTsc);
+
+        this.tscTimeOffset = this.configService.config.getIn(['tsc_time_offset']);
         console.log('{ScsTscService}', '[constructor]', 'tscTimeOffset =', this.tscTimeOffset);
     }
 

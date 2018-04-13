@@ -94,4 +94,26 @@ export class ConfigService {
         console.error('{ConfigService}', '[handleError]', error);
         return Promise.reject(error.message || error);
     }
+    public getIn(key: string[]): any {
+        let value = this.config.getIn(key);
+        const override = this.getInUrl(key.join('.'));
+        if (override && override.length > 1) {
+            value = override[1];
+            console.log('{ConfigService}', '[getIn]', 'Override by value=', value);
+        }
+        return value;
+    }
+    public getInUrl(sParam) {
+        console.log('{ConfigService}', '[getInUrl] sParam=', sParam);
+        let param = null;
+        const params: string[] = decodeURIComponent(window.location.href).split('?');
+        if (params && params.length > 1) {
+            param = params[1].split('&')
+            .map((v) => v.split('='))
+            .filter((v) => (v[0] === sParam) ? true : false)
+            .reduce((prev, curv, index, array) => curv, undefined);
+        }
+        console.log('{ConfigService}', '[getInUrl] sParam[' + sParam + '] param[' + param + ']');
+        return param;
+      }
 }

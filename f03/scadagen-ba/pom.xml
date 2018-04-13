@@ -5,7 +5,7 @@
 
     <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
     <artifactId>scadagen-ba</artifactId>
-    <version>1.7.0</version>
+    <version>1.7.1</version>
     <packaging>jar</packaging>
     <name>SCADAgen HV Connector supporting generic BPS</name>
     <description>SCADAgen connector for Hypervisor VS9</description>
@@ -15,8 +15,8 @@
         <hv.common.integ.version>1.11.0</hv.common.integ.version>
         
         <scadasoft.model.version>6.3.1_P04-HV960</scadasoft.model.version>
-        <scadasoft.hv.version>6.3.1_P08-HV960</scadasoft.hv.version>
-        <scadasoft.version>6.3.1_P08</scadasoft.version>
+        <scadasoft.hv.version>6.3.1_P07-HV960</scadasoft.hv.version>
+        <scadasoft.version>6.3.1_P07</scadasoft.version>
         
         <jcloverslf4j.version>1.7.21</jcloverslf4j.version>
         <jersey.version>2.23.2</jersey.version>

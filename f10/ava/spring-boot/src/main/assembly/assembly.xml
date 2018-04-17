@@ -22,6 +22,9 @@
       <outputDirectory>.</outputDirectory>
       <includes>
 		<include>application.yml</include>
+		<include>springboot.bat</include>
+		<include>start.bat</include>
+		<include>stop.bat</include>
       </includes>
     </fileSet>
     <fileSet>
@@ -31,7 +34,6 @@
         <include>**</include>
       </includes>
     </fileSet>
-
   </fileSets>
 
 </assembly>

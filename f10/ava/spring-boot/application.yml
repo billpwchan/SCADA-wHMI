@@ -2,4 +2,4 @@ spring:
   application:
     name: AVA
 server:
-  port: 8775
+  port: 8776

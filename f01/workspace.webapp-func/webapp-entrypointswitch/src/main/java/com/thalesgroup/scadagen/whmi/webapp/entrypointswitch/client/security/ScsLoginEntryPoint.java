@@ -8,14 +8,10 @@ import java.util.Map;
 import com.google.gwt.core.client.EntryPoint;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogger;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.WebConfigMgrEvent;
-import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ConfigurationType;
 import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.UIGwsWebConfigMgr;
-import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.security.ScsLoginEntryPoint_i.FrameworkName;
-import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.security.ScsLoginEntryPoint_i.PropertiesName;
-import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.security.factory.COCC;
-import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.security.factory.FAS;
-import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.security.factory.IScsLoginEntryPoint;
-import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.security.factory.SCADAgen;
+import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.security.factory.FrameworkFactory;
+import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.security.factory.IFramework;
+import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.security.util.Util;
 
 /**
  * Login application for MAESTRO demo.
@@ -23,109 +19,73 @@ import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.security.fac
 public class ScsLoginEntryPoint implements EntryPoint {
 	
 	/** logger */
-    private static final ClientLogger LOGGER = ClientLogger.getClientLogger();
-    private static final String LOG_PREFIX = "[ScsLoginEntryPoint] ";
+	private final String className_ = this.getClass().getSimpleName();
+    private final ClientLogger logger_ = ClientLogger.getClientLogger(this.getClass().getSimpleName());
+    private final String logPrefix_ = "["+className_+"] ";
 	
-	private final static String mode	= ConfigurationType.XMLFile.toString();
-	private final static String module	= null;
-	private final static String folder	= "UIConfig";
-    private final static String xml		= "UILauncher_ScsLoginEntryPoint.xml";
-    private final static String tag		= "header";
+	private final String mode	= IFramework.XML_MODE;
+	private final String module	= IFramework.XML_MODULE;
+	private final String folder	= IEntryPoint.STR_XML_FOLDER;
+    private final String xml	= className_+IFramework.XML_EXTENSION;
+    private final String tag	= IFramework.XML_TAG;
 	
     /**
      * Login application entry point
      */
     @Override
     public void onModuleLoad() {
+    	final String f = "onModuleLoad";
     	
-    	LOGGER.debug(LOG_PREFIX+"onModuleLoad");
+    	logger_.debug(logPrefix_+f);
 
-        List<String> keys = new LinkedList<String>();
-        for ( String properties : PropertiesName.toStrings() ) {
+        final List<String> keys = new LinkedList<String>();
+        for ( String properties : IEntryPoint.PropertiesName.toStrings() ) {
         	keys.add(properties);
         }
         
-        UIGwsWebConfigMgr web = UIGwsWebConfigMgr.getInstance();
+        final UIGwsWebConfigMgr web = UIGwsWebConfigMgr.getInstance();
         
         web.getWebConfig(mode, module, folder, xml, tag, keys, new WebConfigMgrEvent() {
 			@Override
 			public void updated(Map<String, String> keyValues) {
-				LOGGER.debug(LOG_PREFIX+"onModuleLoad updated");
+				logger_.debug(logPrefix_+f+" updated");
 				
-				Map<String, Object> params = new HashMap<String, Object>();
+				final Map<String, Object> params = new HashMap<String, Object>();
 				for ( String key : keyValues.keySet() ) {
 					params.put(key, keyValues.get(key));
         		}
 				
-				launch(params);
+				realize(params);
 			}
 			@Override
 			public void failed() {
-				LOGGER.debug(LOG_PREFIX+"onModuleLoad failed");
-				launch(null);
+				logger_.debug(logPrefix_+f+" failed");
+				realize(null);
 			}
         });
 
     }
-    
-    private String getStringParameter(Map<String, Object> params, String key) {
-    	String value = null;
-		Object obj = params.get(PropertiesName.framework.toString());
-		if ( null != obj ) {
-			if ( obj instanceof String ) {
-				value = (String)obj;
-			} else {
-				LOGGER.warn(LOG_PREFIX+"getStringParameter key["+key+"] obj IS NOT A String");
-			}
-		} else {
-			LOGGER.warn(LOG_PREFIX+"getStringParameter key["+key+"] obj IS NULL");
-		}
-		return value;
-    }
-    
-    private void launch(Map<String, Object> params) {
+
+    private void realize(final Map<String, Object> params) {
+    	final String f = "realize";
     	
-    	IScsLoginEntryPoint iScsLoginEntryPoint = null;
+    	IFramework iScsLoginEntryPoint = null;
 
     	if ( null != params ) {
-    		String framework = getStringParameter(params, PropertiesName.framework.toString());
-    		LOGGER.debug(LOG_PREFIX+"launch framework["+framework+"]");
+    		final String uiFrmw = Util.getStringParameter(params, IEntryPoint.PropertiesName.uiFrmw.toString());
+    		logger_.debug(logPrefix_+f+" uiFrmw["+uiFrmw+"]");
     		
-    		iScsLoginEntryPoint = getEntryPoint(framework);
+    		iScsLoginEntryPoint = new FrameworkFactory().getEntryPoint(uiFrmw);
     	} else {
-    		LOGGER.warn(LOG_PREFIX+"launch map IS NULL");
+    		logger_.warn(logPrefix_+f+" map IS NULL");
     	}
     	
 		if ( null != iScsLoginEntryPoint ) {
 			iScsLoginEntryPoint.launch(params);
 		} else {
-			LOGGER.warn(LOG_PREFIX+"launch iAppEntryPoint IS NULL");
+			logger_.warn(logPrefix_+f+" iAppEntryPoint IS NULL");
 		}
     }
     
-    private IScsLoginEntryPoint getEntryPoint(String key) {
-    	
-    	IScsLoginEntryPoint iScsLoginEntryPoint = null;
-    	
-    	LOGGER.debug(LOG_PREFIX+"getEntryPoint key["+key+"]");
-    	
- 		if ( null != key ) {
-        	if ( FrameworkName.SCADAgen.toString().equals(key) )  {
-        		iScsLoginEntryPoint = new SCADAgen();
-        	}
-        	else if ( FrameworkName.FAS.toString().equals(key) )  {
-        		iScsLoginEntryPoint = new FAS();
-    		}
-        	else if ( FrameworkName.COCC.toString().equals(key) )  {
-        		iScsLoginEntryPoint = new COCC();
-    		}
-        	else {
-        		iScsLoginEntryPoint = new FAS();
-    		}
-		} else {
-			LOGGER.warn(LOG_PREFIX+"getEntryPoint key IS NULL");
-		}
-    	
-		return iScsLoginEntryPoint;
-    }
+
 }

@@ -33,6 +33,12 @@
 		<!-- Timeout on Phase B in time -->
 		<TimeoutPhaseB>20</TimeoutPhaseB>
 		
+		<ChangePasswordOpm>UIOpmSCADAgen</ChangePasswordOpm>
+		<ChangePasswordFunction>UIOpmSCADAgen</ChangePasswordFunction>
+		<ChangePasswordLocation>UIOpmSCADAgen</ChangePasswordLocation>
+		<ChangePasswordAction>UIOpmSCADAgen</ChangePasswordAction>
+		<ChangePasswordMode>UIOpmSCADAgen</ChangePasswordMode>
+		
 	</header>
 	
 	<!-- Begin of life -->
@@ -114,6 +120,13 @@
 		<OperationString2>login_valid_procedure</OperationString2>
 	</actionset>
 	
+	<actionset key="login_valid_changepassword_procedure">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>login_session_start_request</OperationString1>
+		<OperationString2>login_valid_changepassword_procedure</OperationString2>
+	</actionset>	
+	
+	
 	<actionset key="login_valid_by_pass_procedure">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>login_valid_procedure</OperationString1>
@@ -154,6 +167,19 @@
 		<OperationString6>UIScreenMMI/UIScreenMMI.opts.xml</OperationString6>
 		<OperationString7>UIScreenMMI</OperationString7>
 	</action>
+	
+	<action key="login_valid_changepassword_procedure">
+		<OperationType>action</OperationType>
+		<OperationAction>uitask</OperationAction>
+		<OperationString1>UITaskLaunch_UIWidgetMgrFactory</OperationString1>
+		<OperationString2>:UIGws:UIPanelScreen</OperationString2>
+		<OperationString3>0</OperationString3>
+		<OperationString4>UILayoutSummary</OperationString4>
+		<OperationString5>ChangePassword/User/Summary.view.xml</OperationString5>
+		<OperationString6>ChangePassword/User/Summary.opts.xml</OperationString6>
+		<OperationString7>ChangePassword</OperationString7>
+	</action>	
+	
 	
 	<actionset key="login_invalid_thresthold_reach_procedure">
 		<OperationType>actionsetkey</OperationType>

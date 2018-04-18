@@ -15,6 +15,7 @@ import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UICookies;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutLogin_i.PropertiesName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionBus;
@@ -33,10 +34,10 @@ public class UILayoutLogin extends UIWidget_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UILayoutLogin.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private String strUIWidgetGeneric = "UIWidgetGeneric";
+	private final String strUIWidgetGeneric = "UIWidgetGeneric";
 	
-	private String strUIWidgetLoginInfo			= "UIWidgetLoginInfo";
-	private String strUIWidgetLoginButton		= "UIWidgetLoginButton";
+	private final String strUIWidgetLoginInfo		= "UIWidgetLoginInfo";
+	private final String strUIWidgetLoginButton		= "UIWidgetLoginButton";
 	
 	private UIWidget_i uiWidgetGenericInfo		= null;
 	private UIWidget_i uiWidgetGenericButton	= null;
@@ -51,20 +52,37 @@ public class UILayoutLogin extends UIWidget_i {
 	private final String STR_PASSWORD		= "password";
 	
 	private final String STR_LOGIN			= "login";
+	private final String STR_CHANGEPASSWORD	= "changepassword";
 	
 	private final String STR_URLFAULT_CODEKEY	= "autherr";
 	
 	private final String STR_RESULT_INVALID_PREFIX	= "set_result_value_invalid_";
 	
-	private void login() {
-		String function = "login";
-		logger.begin(className, function);
+	private void changepassword() {
+		String f = "changepassword";
+		logger.begin(className, f);
 		
-		String actionsetkey = STR_LOGIN;
-		
-		Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
+		// Write Cookies
+		final String STR_CHANGEPASSWORD = "changepassword";
+		final String changePassword = "1";
+		logger.debug(className, f, "STR_CHANGEPASSWORD[{}] changePassword[{}]", STR_CHANGEPASSWORD, changePassword);
+		UICookies.setCookies(STR_CHANGEPASSWORD, changePassword);
 
-		Map<String, Object> parameters = new HashMap<String, Object>();
+		// Login
+		login();
+		
+		logger.end(className, f);
+	}
+	
+	private void login() {
+		String f = "login";
+		logger.begin(className, f);
+		
+		final String actionsetkey = STR_LOGIN;
+		
+		final Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
+
+		final Map<String, Object> parameters = new HashMap<String, Object>();
 		
 		String operator = uiWidgetGenericInfo.getWidgetValue(STR_NAME);
 		String password = uiWidgetGenericInfo.getWidgetValue(STR_PASSWORD);
@@ -77,23 +95,23 @@ public class UILayoutLogin extends UIWidget_i {
 			operator = operator.toLowerCase();
 		}
 			
-		logger.debug(className, function, "opmApi[{}]", opmApi);
-		logger.debug(className, function, "operator[{}]", operator);
-		logger.debug(className, function, "password[{}]", password);
+		logger.debug(className, f, "opmApi[{}]", opmApi);
+		logger.debug(className, f, "operator[{}]", operator);
+		logger.debug(className, f, "password[{}]", password);
 			
 		if ( null != opmApi && null != operator && null != password ) {
 			parameters.put(ActionAttribute.OperationString2.toString(), opmApi);
 			parameters.put(ActionAttribute.OperationString3.toString(), operator);
 			parameters.put(ActionAttribute.OperationString4.toString(), password);
 		} else {
-			logger.warn(className, function, "opmApi[{}] OR operator[{}] OR password[{}] IS INVALID", new Object[]{opmApi, operator, password});
+			logger.warn(className, f, "opmApi[{}] OR operator[{}] OR password[{}] IS INVALID", new Object[]{opmApi, operator, password});
 		}
 		
 		override.put("OpmLogin", parameters);
 			
 		uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 		
-		logger.end(className, function);
+		logger.end(className, f);
 	}
 	
 	// External
@@ -107,58 +125,60 @@ public class UILayoutLogin extends UIWidget_i {
 		
 		@Override
 		public void onUIEvent(UIEvent uiEvent) {
-			String function = "onUIEvent";
-			logger.begin(className, function);
-			logger.end(className, function);
+			String f = "onUIEvent";
+			logger.begin(className, f);
+			logger.end(className, f);
 		}
 		
 		@Override
 		public void onClick(ClickEvent event) {
-			String function = "onClick";
-			logger.begin(className, function);
+			String f = "onClick";
+			logger.begin(className, f);
 			
-			logger.debug(className, function, "event[{}]", event);
+			logger.debug(className, f, "event[{}]", event);
 			
-			Widget widget = (Widget) event.getSource();
+			final Widget widget = (Widget) event.getSource();
 			
-			logger.debug(className, function, "widget[{}]", widget);
+			logger.debug(className, f, "widget[{}]", widget);
 			
-			String element = uiWidgetGenericButton.getWidgetElement(widget);
+			final String element = uiWidgetGenericButton.getWidgetElement(widget);
 			
-			logger.debug(className, function, "element[{}]", element);
+			logger.debug(className, f, "element[{}]", element);
 			
 			if ( null != element ) {
 				
 				if ( element.equals(STR_LOGIN) ) {
 					login();
+				} else if ( element.equals(STR_CHANGEPASSWORD) ) {
+					changepassword();	
 				}
 				
 			} else {
-				logger.warn(className, function, "element IS NULL");
+				logger.warn(className, f, "element IS NULL");
 			}
 			
-			logger.end(className, function);
+			logger.end(className, f);
 		}
 		
 		@Override
 		public void onActionReceived(UIEventAction uiEventAction) {
-			final String function = "onActionReceived";
-			logger.begin(className, function);
-			logger.end(className, function);
+			final String f = "onActionReceived";
+			logger.begin(className, f);
+			logger.end(className, f);
 		}
 	};
 	
 	@Override
 	public void init() {
-		final String function = "init";
+		final String f = "init";
 		
-		logger.begin(className, function);
+		logger.begin(className, f);
 		
-		String strEventBusName = getStringParameter(UIRealize_i.ParameterName.SimpleEventBus.toString());
+		final String strEventBusName = getStringParameter(UIRealize_i.ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.debug(className, function, "strEventBusName[{}]", strEventBusName);
+		logger.debug(className, f, "strEventBusName[{}]", strEventBusName);
 		
-		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
+		final DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
 			opmApi			= dictionariesCache.getStringValue(optsXMLFile, PropertiesName.OpmApi.toString(), strHeader);
 			upperCaseName	= dictionariesCache.getStringValue(optsXMLFile, PropertiesName.UpperCaseName.toString(), strHeader);
@@ -200,7 +220,7 @@ public class UILayoutLogin extends UIWidget_i {
 		handleErrorCode();
 		
 		// Handle the Entry Key in the Password Box
-		Widget password = uiWidgetGenericInfo.getWidget(STR_PASSWORD);
+		final Widget password = uiWidgetGenericInfo.getWidget(STR_PASSWORD);
 		if ( null != password ) {
 			if ( password instanceof TextBox ) {
 				TextBox txtpassword = (TextBox) password;
@@ -218,20 +238,20 @@ public class UILayoutLogin extends UIWidget_i {
 //		TextBox name = (TextBox) uiWidgetGenericInfo.getWidget(STR_NAME);
 //		if (null!=name) name.setFocus(true);
 		
-		logger.end(className, function);
+		logger.end(className, f);
 	}
 
 	// Display the login invalid message 
 	private String handleErrorCode() {
-		final String function = "handleErrorMessage";
-		logger.begin(className, function);
+		final String f = "handleErrorMessage";
+		logger.begin(className, f);
 		
 		String authErrCode = Window.Location.getParameter(STR_URLFAULT_CODEKEY);
 		if ((authErrCode != null) && (!authErrCode.isEmpty())) {
 			uiEventActionProcessor_i.executeActionSet(STR_RESULT_INVALID_PREFIX+authErrCode);
 		}
 		
-		logger.begin(className, function);
+		logger.begin(className, f);
 		
 		return authErrCode;
 	}

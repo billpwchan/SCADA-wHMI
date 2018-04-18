@@ -1,28 +1,34 @@
 package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Panel;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmgr.client.UIScreenMgr;
+import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.UIScreenMMI_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UICookies;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIPanelScreen extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelScreen.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className_ = UIPanelScreen.class.getSimpleName();
+	private UILogger logger_ = UILoggerFactory.getInstance().getLogger(UIPanelScreen.class.getName());
 	
-	private final String strCssRoot				= "project-UIPanelScreen-root";
+	private final String strUIWidgetGeneric = "UIWidgetGeneric";
+	private final String strHeader = "header";
+	
+	private final String strCssRoot				= "project-"+className_+"-root";
 	
 	private final String strCssRootContainer	= strCssRoot+"-container-";
 
@@ -41,9 +47,9 @@ public class UIPanelScreen extends UIWidget_i {
 	@Override
 	public void init() {
 		final String function = "init";
-		logger.begin(className, function);
+		logger_.begin(className_, function);
 
-		this.rootPanel = new HorizontalPanel();
+		this.rootPanel = new FlowPanel();
 		this.rootPanel.addStyleName(strCssRoot);
  
     	resetEventBus();
@@ -54,12 +60,12 @@ public class UIPanelScreen extends UIWidget_i {
 			uiCtrl = strUIScreenMMI;
 		}
 		
-		logger.debug(className, function, "UIPathUIPanelScreen[{}]", UIPathUIPanelScreen);
-		logger.debug(className, function, "uiCtrl[{}]", uiCtrl);
-		logger.debug(className, function, "viewXMLFile[{}]", viewXMLFile);
-		logger.debug(className, function, "optsXMLFile[{}]", optsXMLFile);
+		logger_.debug(className_, function, "UIPathUIPanelScreen[{}]", UIPathUIPanelScreen);
+		logger_.debug(className_, function, "uiCtrl[{}]", uiCtrl);
+		logger_.debug(className_, function, "viewXMLFile[{}]", viewXMLFile);
+		logger_.debug(className_, function, "optsXMLFile[{}]", optsXMLFile);
 		
-		UITaskLaunch uiTaskLaunch = new UITaskLaunch();
+		final UITaskLaunch uiTaskLaunch = new UITaskLaunch();
 		uiTaskLaunch.setTaskUiScreen(0);
 		uiTaskLaunch.setUiPath(UIPathUIPanelScreen);
 		uiTaskLaunch.setUiCtrl(uiCtrl);
@@ -67,36 +73,49 @@ public class UIPanelScreen extends UIWidget_i {
 		uiTaskLaunch.setUiOpts(optsXMLFile);
 		uiNameCard.getUiEventBus().fireEvent(new UIEvent(uiTaskLaunch));		
 
-    	logger.end(className, function);
+    	logger_.end(className_, function);
 	}
 	
+//	private void loadConfiguration() {
+//		final String f = "loadConfiguration";
+//		logger_.begin(className_, f);
+//		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
+//		if ( null != dictionariesCache ) {
+//			strInitdelayms = dictionariesCache.getStringValue(optsXMLFile, IUIPanelScreen.ParameterName.InitDelayMS.toString(), strHeader);
+//			logger.debug(className, f, "strInitdelayms[{}]", strInitdelayms);
+//		}
+//
+//		logger_.end(className_, f);
+//	}
+	
 	private int getNumOfScreen() {
-		final String function = "resetEventBus";
-		logger.begin(className, function);
+		final String f = "getNumOfScreen";
+		logger_.begin(className_, f);
 		
 		String strNumOfScreenValue = UICookies.getCookies(strNumOfScreen);
+		logger_.debug(className_, f, "strNumOfScreenValue[{}]", strNumOfScreenValue);
 		
 		int numOfScreen = 1;
 		if ( null != strNumOfScreenValue ) {
 			try {
 				numOfScreen = Integer.parseInt(strNumOfScreenValue);
 			} catch ( NumberFormatException ex ) {
-				logger.warn(className, function, ""+ex.toString());
+				logger_.warn(className_, f, ""+ex.toString());
 			}
 		} else {
-			logger.warn(className, function, "strNumOfScreenValue IS NULL");
+			logger_.warn(className_, f, "strNumOfScreenValue IS NULL");
 		}
 		
-		logger.debug(className, function, "strNumOfScreenValue[{}] numOfScreen[{}]", strNumOfScreenValue, numOfScreen);
+		logger_.debug(className_, f, "strNumOfScreenValue[{}] numOfScreen[{}]", strNumOfScreenValue, numOfScreen);
 		
-		logger.end(className, function);
+		logger_.end(className_, f);
 		
 		return numOfScreen;
 	}
 	
 	private void resetEventBus() {
-		final String function = "resetEventBus";
-		logger.begin(className, function);
+		final String f = "resetEventBus";
+		logger_.begin(className_, f);
 		
 		this.uiNameCard.getUiEventBus().removeHandlers();
 		
@@ -107,21 +126,21 @@ public class UIPanelScreen extends UIWidget_i {
 			}
     	});
 
-		logger.end(className, function);
+		logger_.end(className_, f);
 	}
 
 	private UIWidget_i uiWidgets [] = null;
 	private void loadTask(UITaskLaunch taskProvide) {
-		final String function = "loadTask";
-		logger.begin(className, function);
+		final String f = "loadTask";
+		logger_.begin(className_, f);
 		
 		// Clean-up
-		logger.debug(className, function, "Clean-up...");
+		logger_.debug(className_, f, "Clean-up...");
 		
 		if ( null != uiWidgets ) {
-			logger.debug(className, function, "Clean-up uiWidgets uiWidgets.length[{}]...", uiWidgets.length);
+			logger_.debug(className_, f, "Clean-up uiWidgets uiWidgets.length[{}]...", uiWidgets.length);
 			for ( int i = 0 ; i < uiWidgets.length ; ++i ) {
-				logger.debug(className, function, "Clean-up uiWidgets[{}] terminate...", i);
+				logger_.debug(className_, f, "Clean-up uiWidgets[{}] terminate...", i);
 				UIWidget_i uiWidget = uiWidgets[i];
 				if ( null != uiWidget ) {
 					uiWidget.terminate();
@@ -131,27 +150,27 @@ public class UIPanelScreen extends UIWidget_i {
 		}
 		uiWidgets = null;
 		
-		logger.debug(className, function, "Clean-up root Panel...");
+		logger_.debug(className_, f, "Clean-up root Panel...");
 		rootPanel.clear();
 		
-		logger.debug(className, function, "Clean-up event bus...");
+		logger_.debug(className_, f, "Clean-up event bus...");
 		resetEventBus();
 		
 		// Apply Number of Screen from cookies
 		int intNumOfScreen = getNumOfScreen();
 		
-		logger.debug(className, function, "strNumOfScreen[{}] intNumOfScreen[{}]", strNumOfScreen, intNumOfScreen);
+		logger_.debug(className_, f, "strNumOfScreen[{}] intNumOfScreen[{}]", strNumOfScreen, intNumOfScreen);
 		
-		UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
+		final UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
 		
-		logger.debug(className, function, "switchPanel taskLaunch.getUiCtrl()[{}]", taskLaunch.getUiCtrl());
+		logger_.debug(className_, f, "switchPanel taskLaunch.getUiCtrl()[{}]", taskLaunch.getUiCtrl());
 		
 		uiWidgets = new UIWidget_i[intNumOfScreen];
 		for ( int screen = 0 ; screen < intNumOfScreen ; ++screen ) {
 			
-			logger.debug(className, function, "Prepare screen[{}]", screen);
+			logger_.debug(className_, f, "Prepare screen[{}]", screen);
 			
-			UINameCard uiNameCard = new UINameCard(this.uiNameCard);
+			final UINameCard uiNameCard = new UINameCard(this.uiNameCard);
 			uiNameCard.setUiScreen(screen);
 		
 			String uiCtrl = taskLaunch.getUiCtrl();
@@ -159,13 +178,13 @@ public class UIPanelScreen extends UIWidget_i {
 			String uiOpts = taskLaunch.getUiOpts();
 			String uiDict = taskLaunch.getUiDict();
 			String uiElem = taskLaunch.getUiElem();
-			HashMap<String, Object> options = new HashMap<String, Object>();
+			final Map<String, Object> options = new HashMap<String, Object>();
 			
-			logger.debug(className, function, "taskLaunch data uiCtrl[{}] uiView[{}] uiOpts[{}] uiElem[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
+			logger_.debug(className_, f, "taskLaunch data uiCtrl[{}] uiView[{}] uiOpts[{}] uiElem[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
 
 			if ( screen > 0 && ( null != uiCtrl && uiCtrl.equals(strUILayoutEntryPoint) ) ) {
 				
-				logger.debug(className, function, "uiCtrl[{}] IS strUILayoutEntryPoint[{}], make another panel strUIScreenEmpty[{}]", new Object[]{uiCtrl, strUILayoutEntryPoint, strUIScreenEmpty});
+				logger_.debug(className_, f, "uiCtrl[{}] IS strUILayoutEntryPoint[{}], make another panel strUIScreenEmpty[{}]", new Object[]{uiCtrl, strUILayoutEntryPoint, strUIScreenEmpty});
 				
 				uiCtrl = strUIScreenEmpty;
 				uiView = null;
@@ -173,11 +192,11 @@ public class UIPanelScreen extends UIWidget_i {
 				uiDict = null;
 				uiElem = null;
 				
-				logger.debug(className, function, "uiCtrl[{}]", uiCtrl);
+				logger_.debug(className_, f, "uiCtrl[{}]", uiCtrl);
 			}
 
-			UIScreenMgr uiPanelFactoryMgr = UIScreenMgr.getInstance();
-			UIWidget_i uiWidget_i = uiPanelFactoryMgr.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, uiElem, uiDict, options);						
+			final UIScreenMgr uiPanelFactoryMgr = UIScreenMgr.getInstance();
+			final UIWidget_i uiWidget_i = uiPanelFactoryMgr.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, uiElem, uiDict, options);						
 			uiWidgets[screen] = uiWidget_i;
 			
 			if ( uiWidget_i != null ) {
@@ -191,33 +210,33 @@ public class UIPanelScreen extends UIWidget_i {
 					if ( null != strCssRootContainer ) {
 					
 						String cssClassName = strCssRootContainer+screen;
-						logger.debug(className, function, "strCssRootContainer[{}] cssClassName[{}]", strCssRootContainer, cssClassName);
+						logger_.debug(className_, f, "strCssRootContainer[{}] cssClassName[{}]", strCssRootContainer, cssClassName);
 						DOM.getParent(panel.getElement()).setClassName(cssClassName);
 					}
 				} else {
-					logger.warn(className, function, "uiCtrl[{}] panel IS NULL");
+					logger_.warn(className_, f, "uiCtrl[{}] panel IS NULL");
 				}
 			} else {
-				logger.warn(className, function, "uiWidget_i IS NULL");
+				logger_.warn(className_, f, "uiWidget_i IS NULL");
 			}
 		}
 		
-		logger.end(className, function);
+		logger_.end(className_, f);
 	}
 	
 	private void onUIEvent( UIEvent uiEvent ) {
-		final String function = "onUIEvent";
-		logger.begin(className, function);
+		final String f = "onUIEvent";
+		logger_.begin(className_, f);
 		
 		if ( null != uiEvent ) {
 
-			UITask_i taskProvide = uiEvent.getTaskProvide();
+			final UITask_i taskProvide = uiEvent.getTaskProvide();
 
 			if ( null != taskProvide ) {
 				
-				logger.debug(className, function, "this.uiNameCard.getUiScreen()[{}] == taskProvide.getTaskUiScreen()[{}]", this.uiNameCard.getUiScreen(), taskProvide.getTaskUiScreen());
+				logger_.debug(className_, f, "this.uiNameCard.getUiScreen()[{}] == taskProvide.getTaskUiScreen()[{}]", this.uiNameCard.getUiScreen(), taskProvide.getTaskUiScreen());
 				
-				logger.debug(className, function, "this.uiNameCard.getUiPath()[{}] == taskProvide.getUiPath()[{}]", this.uiNameCard.getUiPath(), taskProvide.getUiPath());
+				logger_.debug(className_, f, "this.uiNameCard.getUiPath()[{}] == taskProvide.getUiPath()[{}]", this.uiNameCard.getUiPath(), taskProvide.getUiPath());
 				
 				if ( this.uiNameCard.getUiScreen() == taskProvide.getTaskUiScreen()
 						&& 0 == this.uiNameCard.getUiPath().compareToIgnoreCase(taskProvide.getUiPath()) ) {
@@ -227,16 +246,16 @@ public class UIPanelScreen extends UIWidget_i {
 						loadTask((UITaskLaunch)taskProvide);
 
 					} else {
-						logger.warn(className, function, "taskProvide IS UNKNOW");
+						logger_.warn(className_, f, "taskProvide IS UNKNOW");
 					}
 				}
 			} else {
-				logger.warn(className, function, "taskProvide IS NULL");
+				logger_.warn(className_, f, "taskProvide IS NULL");
 			}
 		} else {
-			logger.warn(className, function, "uiEvent IS NULL");
+			logger_.warn(className_, f, "uiEvent IS NULL");
 		}
-		logger.end(className, function);
+		logger_.end(className_, f);
 
 	}
 

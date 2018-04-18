@@ -42,7 +42,7 @@ public class UIGwsWebConfigMgr {
 			public void onSuccess(String value) {
 				final String function = "onSuccess";
 				logger.begin(className, function);
-				Map<String, String> hashMap = new HashMap<String, String>();
+				final Map<String, String> hashMap = new HashMap<String, String>();
 				hashMap.put(key, value);
 				if ( null != webConfigMgrEvent ) {
 					webConfigMgrEvent.updated(hashMap);
@@ -77,10 +77,10 @@ public class UIGwsWebConfigMgr {
 		logger.info(className, function, "getWebConfig tag[{}]", tag);
 		
 		for ( String key : keys ) {
-			logger.info(className, function, "getWebConfig key[{}]", key);
+			logger.debug(className, function, "getWebConfig key[{}]", key);
 		}
 		
-		DictionaryMgr dictionaryMgr = new DictionaryMgr();
+		final DictionaryMgr dictionaryMgr = new DictionaryMgr();
 		
 		dictionaryMgr.getDictionary(mode, module, folder, xml, tag, new DictionaryMgrEvent() {
 			
@@ -145,49 +145,4 @@ public class UIGwsWebConfigMgr {
 		logger.end(className, function);
 	}
 	
-	public void dictionaryMgrEventReady(Dictionary dictionary) {
-//		final String function = "dictionaryMgrEventReady";
-//		
-//		if ( null != dictionary ) {
-//			
-//			for ( Object dKey : dictionary.getAttributeKeys() ) {
-//				
-//				Window.alert("getWebConfig dictionary getAttributeKeys["+dKey+"]");
-//				
-//				Window.alert("getWebConfig dictionary getAttribute["+dictionary.getAttribute(dKey)+"]");
-//				
-//			}
-//			
-//			for ( Object dKey : dictionary.getValueKeys() ) {
-//				
-//				Window.alert("getWebConfig dictionary getValueKeys["+dKey+"]");
-//				
-//				Window.alert("getWebConfig dictionary getValue["+dictionary.getValue(dKey)+"]");
-//				
-//			}
-//			
-//			for ( Object subobject : dictionary.getValueKeys() ) {
-//				
-//				Dictionary subdictionary = (Dictionary) subobject;
-//				
-//				Window.alert("getWebConfig dictionaryMgrEventReady key instanceof Dictionary");
-//				
-//				for ( Object dKey : subdictionary.getAttributeKeys() ) {
-//					
-//					Window.alert("getWebConfig subdictionary getAttributeKeys["+dKey+"]");
-//					
-//					Window.alert("getWebConfig subdictionary getAttribute["+subdictionary.getAttribute(dKey)+"]");
-//					
-//				}
-//				
-//				for ( Object dKey : subdictionary.getValueKeys() ) {
-//
-//					Window.alert("getWebConfig subdictionary getValueKeys["+dKey+"]");
-//					
-//					Window.alert("getWebConfig subdictionary getValue["+subdictionary.getValue(dKey)+"]");
-//				}
-//			}
-//		}
-
-	}
 }

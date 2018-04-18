@@ -10,6 +10,7 @@ import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UICookies;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.control.SimultaneousLogin;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.control.SimultaneousLogin_i;
@@ -19,6 +20,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAct
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UIWidgetRealize;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 
 public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
@@ -33,6 +36,12 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 	private String columnNameAlias			= "gdg_column_alias";
 	
 	private String columnNameResrReservedID	= "gdg_column_resrvreservedid";
+	
+	private String changePasswordOpm		= "UIOpmSCADAgen";
+	private String changePasswordFunction	= "";
+	private String changePasswordLocation	= "";
+	private String changePasswordAction		= "";
+	private String changePasswordMode		= "";
 
 	private int intervalPhaseA	= 500;
 	private int intervalPhaseB	= 500;
@@ -212,6 +221,41 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		logger.begin(className, function);
 		logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
 		cancelTimers();
+		
+		if(0==actionsetkey.compareTo(UIWidgetSimultaneousLoginControl_i.loginValidProcedure)) {
+			
+			final String STR_CHANGEPASSWORD = "changepassword";
+			
+			final String strChangepassword = UICookies.getCookies(STR_CHANGEPASSWORD);
+			logger.debug(className, function, "STR_CHANGEPASSWORD[{}] strChangepassword[{}]", STR_CHANGEPASSWORD, strChangepassword);
+			
+			if ( null != strChangepassword ) {
+				if(0==strChangepassword.compareTo("1")) {
+					// Reset Cookies
+					UICookies.setCookies(STR_CHANGEPASSWORD, "0");
+					
+					logger.debug(className, function, "changePasswordOpm[{}]", changePasswordOpm);
+					final UIOpm_i opm = OpmMgr.getInstance().getOpm(this.changePasswordOpm);
+					if(null!=opm){
+						logger.debug(className, function, "changePasswordOpm[{}] changePasswordFunction[{}] changePasswordLocation[{}] changePasswordAction[{}] changePasswordMode[{}]"
+								, new Object[]{changePasswordOpm, changePasswordFunction, changePasswordLocation, changePasswordAction, changePasswordMode});
+						final boolean valid = opm.checkAccess(changePasswordFunction, changePasswordLocation, changePasswordAction, changePasswordMode);
+						if(valid) {
+							// Load Change password
+							actionsetkey = UIWidgetSimultaneousLoginControl_i.loginValidChangePasswordProcedure;
+						} else {
+							logger.warn(className, function, "valid[{}] INVALID Change Password Permmission", valid);
+						}
+					} else {
+						logger.warn(className, function, "this.changePasswordOpm[{}] opm IS NULL", this.changePasswordOpm);
+					}
+				}
+			} else {
+				logger.warn(className, function, "strChangepassword IS NULL");
+			}
+		}
+		
+		logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
 		uiEventActionProcessor_i.executeActionSet(actionsetkey);
 		logger.end(className, function);
 	}
@@ -443,6 +487,12 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			
 			strTimeoutPhaseB			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.TimeoutPhaseB.toString(), strHeader);
 
+			changePasswordOpm			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.ChangePasswordOpm.toString(), strHeader);
+			changePasswordFunction		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.ChangePasswordFunction.toString(), strHeader);
+			changePasswordLocation		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.ChangePasswordLocation.toString(), strHeader);
+			changePasswordAction		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.ChangePasswordAction.toString(), strHeader);
+			changePasswordMode			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.ChangePasswordMode.toString(), strHeader);
+			
 			logger.debug(className, function, "columnNameArea[{}]", columnNameArea);
 			logger.debug(className, function, "columnNameServiceOwnerID[{}]", columnNameServiceOwnerID);
 			logger.debug(className, function, "columnNameAlias[{}]", columnNameAlias);
@@ -455,6 +505,8 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			logger.debug(className, function, "strIntervalPhaseD[{}]", strIntervalPhaseD);
 			
 			logger.debug(className, function, "strTimeoutPhaseB[{}]", strTimeoutPhaseB);
+			
+			logger.debug(className, function, "changePasswordOpm[{}]", changePasswordOpm);
 		}
 		
 		intervalPhaseA = convertIntValue(strIntervalPhaseA, intervalPhaseA);

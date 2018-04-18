@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>3</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-UILayoutLogin-inner</rootCSS>
+	</header>
+	
+	<option key="0|0">
+		<uiCtrl>UIWidgetConfiguration</uiCtrl>
+		<uiView>Login/Logo.view.xml</uiView>
+		<element>UIWidgetLoginLogo</element>
+	</option>
+	
+	<option key="0|1">
+		<uiCtrl>UIWidgetConfiguration</uiCtrl>
+		<uiView>Login/Info.view.xml</uiView>
+		<uiOpts>Login/Info.opts.xml</uiOpts>
+		<element>UIWidgetLoginInfo</element>
+	</option>
+	
+	<option key="0|2">
+		<uiCtrl>UIWidgetConfiguration</uiCtrl>
+		<uiView>Login/Button.view.xml</uiView>
+		<uiOpts>Login/Button.opts.xml</uiOpts>
+		<element>UIWidgetLoginButton</element>
+	</option>
+
+</data-set>

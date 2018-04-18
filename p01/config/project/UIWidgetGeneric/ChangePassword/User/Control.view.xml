@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>11</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCss>project-UIWidgetOPMChangeTargetUserPassword-panel-inner</rootCss>
+	</header>
+	
+	
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>&amp;UIWidgetOPMChangeTargetUserPassword_change_password_for_the_operator</label>
+		<css>project-UIWidgetOPMChangeTargetUserPassword-label-firstlabel</css>
+		<element>firstlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	
+	<option key="0|1">
+		<widget>Label</widget>
+		<label>&amp;UIWidgetOPMChangeTargetUserPassword_Operator</label>
+		<css>project-UIWidgetOPMChangeTargetUserPassword-label-operatorlabel</css>
+		<element>operatorlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|2">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetOPMChangeTargetUserPassword-textbox-operatorvalue</css>
+		<element>operatorvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetOPMChangeTargetUserPassword-container-operatorvalue</cssContainer>
+		
+	</option>
+
+	
+	<option key="0|3">
+		<widget>Label</widget>
+		<label>&amp;UIWidgetOPMChangeTargetUserPassword_Old_Password</label>
+		<css>project-UIWidgetOPMChangeTargetUserPassword-label-oldpasslabel</css>
+		<element>oldpasslabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|4">
+		<widget>PasswordTextBox</widget>
+		<label></label>
+		<css>project-UIWidgetOPMChangeTargetUserPassword-textbox-oldpassvalue</css>
+		<element>oldpassvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetOPMChangeTargetUserPassword-container-oldpassvalue</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|5">
+		<widget>Label</widget>
+		<label>&amp;UIWidgetOPMChangeTargetUserPassword_New_Password</label>
+		<css>project-UIWidgetOPMChangeTargetUserPassword-label-newpasslabel</css>
+		<element>newpasslabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|6">
+		<widget>PasswordTextBox</widget>
+		<label></label>
+		<css>project-UIWidgetOPMChangeTargetUserPassword-textbox-newpassvalue</css>
+		<element>newpassvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetOPMChangeTargetUserPassword-container-newpassvalue</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|7">
+		<widget>Label</widget>
+		<label>&amp;UIWidgetOPMChangeTargetUserPassword_Retype_New_Password</label>
+		<css>project-UIWidgetOPMChangeTargetUserPassword-label-newpasslabel2</css>
+		<element>newpasslabel2</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|8">
+		<widget>PasswordTextBox</widget>
+		<label></label>
+		<css>project-UIWidgetOPMChangeTargetUserPassword-textbox-newpassvalue2</css>
+		<element>newpassvalue2</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetOPMChangeTargetUserPassword-container-newpassvalue2</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|9">
+		<widget>Button</widget>
+		<label>&amp;UIWidgetOPMChangeTargetUserPassword_change_password</label>
+		<css>project-UIWidgetOPMChangeTargetUserPassword-button-changepassword</css>
+		<element>changepassword</element>
+		
+		<cssContainer>project-UIWidgetOPMChangeTargetUserPassword-container-changepassword</cssContainer>
+		
+		<tooltip>Change Password</tooltip>
+		
+	</option>
+	
+	<option key="0|10">
+		<widget>Button</widget>
+		<label>Logout</label>
+		<css>project-UIWidgetOPMChangeTargetUserPassword-button-changepassword</css>
+		<element>logout</element>
+		
+		<cssContainer>project-UIWidgetOPMChangeTargetUserPassword-container-changepassword</cssContainer>
+		
+		<tooltip>Logout</tooltip>
+		
+	</option>
+
+</data-set>

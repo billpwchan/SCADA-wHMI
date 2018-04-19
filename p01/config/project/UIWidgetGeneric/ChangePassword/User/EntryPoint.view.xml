@@ -4,7 +4,7 @@
 	<header key="header">
 		<rows>1</rows>
 		<cols>1</cols>
-		<rootPanel>VerticalPanel</rootPanel>
+		<rootPanel>FlowPanel</rootPanel>
 		<rootCSS>project-gwt-panel-summaryview-inner</rootCSS>
 	</header>
 	<option key="0|0">

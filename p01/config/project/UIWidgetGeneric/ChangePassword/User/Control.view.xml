@@ -4,7 +4,7 @@
 	<header key="header">
 		<rows>1</rows>
 		<cols>11</cols>
-		<rootPanel>AbsolutePanel</rootPanel>
+		<rootPanel>FlowPanel</rootPanel>
 		<rootCss>project-UIWidgetOPMChangeTargetUserPassword-panel-inner</rootCss>
 	</header>
 	
@@ -16,6 +16,7 @@
 		<element>firstlabel</element>
 		<format></format>
 		<media></media>
+		<tooltip>&amp;UIWidgetOPMChangeTargetUserPassword_change_password_for_the_operator_title</tooltip>
 	</option>
 	
 	
@@ -26,6 +27,7 @@
 		<element>operatorlabel</element>
 		<format></format>
 		<media></media>
+		<tooltip>&amp;UIWidgetOPMChangeTargetUserPassword_Operator_title</tooltip>
 	</option>
 	
 	<option key="0|2">
@@ -47,6 +49,7 @@
 		<element>oldpasslabel</element>
 		<format></format>
 		<media></media>
+		<tooltip>&amp;UIWidgetOPMChangeTargetUserPassword_Old_Password_title</tooltip>
 	</option>
 	
 	<option key="0|4">
@@ -68,6 +71,7 @@
 		<element>newpasslabel</element>
 		<format></format>
 		<media></media>
+		<tooltip>&amp;UIWidgetOPMChangeTargetUserPassword_New_Password_title</tooltip>
 	</option>
 	
 	<option key="0|6">
@@ -89,6 +93,7 @@
 		<element>newpasslabel2</element>
 		<format></format>
 		<media></media>
+		<tooltip>&amp;UIWidgetOPMChangeTargetUserPassword_Retype_New_Password_title</tooltip>
 	</option>
 	
 	<option key="0|8">
@@ -111,19 +116,19 @@
 		
 		<cssContainer>project-UIWidgetOPMChangeTargetUserPassword-container-changepassword</cssContainer>
 		
-		<tooltip>Change Password</tooltip>
+		<tooltip>&amp;UIWidgetOPMChangeTargetUserPassword_change_password_title</tooltip>
 		
 	</option>
 	
 	<option key="0|10">
 		<widget>Button</widget>
-		<label>Logout</label>
+		<label>&amp;UIWidgetOPMChangeTargetUserPassword_exit</label>
 		<css>project-UIWidgetOPMChangeTargetUserPassword-button-changepassword</css>
 		<element>logout</element>
 		
 		<cssContainer>project-UIWidgetOPMChangeTargetUserPassword-container-changepassword</cssContainer>
 		
-		<tooltip>Logout</tooltip>
+		<tooltip>&amp;UIWidgetOPMChangeTargetUserPassword_exit_title</tooltip>
 		
 	</option>
 

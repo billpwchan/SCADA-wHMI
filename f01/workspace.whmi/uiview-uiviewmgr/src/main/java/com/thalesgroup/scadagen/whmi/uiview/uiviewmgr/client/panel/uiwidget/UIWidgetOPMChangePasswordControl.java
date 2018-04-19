@@ -46,8 +46,8 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 	public void init() {
 		super.init();
 		
-		final String function = "init";
-		logger.begin(className, function);
+		final String f = "init";
+		logger.begin(className, f);
 
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
@@ -65,96 +65,91 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				final String function = "onClick";
-				
-				logger.begin(className, function);
+				final String f = "onClick";
+				logger.begin(className, f);
 				
 				if ( null != event ) {
-					Widget widget = (Widget) event.getSource();
+					final Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
-						String element = uiGeneric.getWidgetElement(widget);
-						logger.debug(className, function, "element[{}]", element);
+						final String element = uiGeneric.getWidgetElement(widget);
+						logger.debug(className, f, "element[{}]", element);
 						if ( null != element ) {
 							
-							String actionsetkey = element;
+							final String actionsetkey = element;
 							
-							Map<String, Map<String, Object>> override = null;
-							
-							uiEventActionProcessor_i.executeActionSet(actionsetkey, override, new UIExecuteActionHandler_i() {
+							uiEventActionProcessor_i.executeActionSet(actionsetkey, null, new UIExecuteActionHandler_i() {
 								
 								@Override
 								public boolean executeHandler(UIEventAction uiEventAction) {
-									// TODO Auto-generated method stub
-									String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
+
+									final String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
 									
-									logger.debug(className, function, "os1[{}]", os1);
+									logger.debug(className, f, "os1[{}]", os1);
 									
 									boolean bContinue = true;
 									
 									if ( null != os1 ) {
 										
+										final String operatorvalue		= uiGeneric.getWidgetValue(stroperatorvalue);
+										
+										logger.debug(className, f, "stroperatorvalue[{}] operatorvalue[{}]", stroperatorvalue, operatorvalue);
+										
 										if ( os1.equals("CheckOperatorIsEmpty") ) {
-											
-											String operatorvalue		= uiGeneric.getWidgetValue(stroperatorvalue);
-											
-											logger.debug(className, function, "stroperatorvalue[{}] operatorvalue[{}]", stroperatorvalue, operatorvalue);
-											
+
 											if ( null != operatorvalue && operatorvalue.trim().length() > 0 ) {
 												// Valid
 											} else {
 												
-												uiEventActionProcessor_i.executeActionSet("set_result_operator_is_empty");
+												promptUser("set_result_operator_is_empty", operatorvalue);
 												
 												bContinue = false;
 											}
 										} else if ( os1.equals("CheckNewPasswordIsEmpty") ) {
 											
-											String newpassvalue		= uiGeneric.getWidgetValue(strnewpassvalue);
+											final String newpassvalue		= uiGeneric.getWidgetValue(strnewpassvalue);
 											
-											logger.debug(className, function, "strnewpassvalue[{}] newpassvalue[{}]", strnewpassvalue, newpassvalue);
+											logger.debug(className, f, "strnewpassvalue[{}] newpassvalue[{}]", strnewpassvalue, newpassvalue);
 											
 											if ( null != newpassvalue && newpassvalue.trim().length() > 0 ) {
 												// Valid
 											} else {
 												
-												uiEventActionProcessor_i.executeActionSet("set_result_newpassword_is_empty");
+												promptUser("set_result_newpassword_is_empty", operatorvalue);
 												
 												bContinue = false;
 											}
 										} else if ( os1.equals("CheckRetypePasswordIsMatch") ) {
 
-											String newpassvalue		= uiGeneric.getWidgetValue(strnewpassvalue);
-											String newpassvalue2	= uiGeneric.getWidgetValue(strnewpassvalue2);
+											final String newpassvalue		= uiGeneric.getWidgetValue(strnewpassvalue);
+											final String newpassvalue2	= uiGeneric.getWidgetValue(strnewpassvalue2);
 											
-											logger.debug(className, function, "strnewpassvalue[{}] newpassvalue[{}]", strnewpassvalue, newpassvalue);
+											logger.debug(className, f, "strnewpassvalue[{}] newpassvalue[{}]", strnewpassvalue, newpassvalue);
 											
-											logger.debug(className, function, "strnewpassvalue2[{}] newpassvalue2[{}]", strnewpassvalue2, newpassvalue2);
+											logger.debug(className, f, "strnewpassvalue2[{}] newpassvalue2[{}]", strnewpassvalue2, newpassvalue2);
 											
 											if ( null != newpassvalue && null != newpassvalue2 && newpassvalue.equals(newpassvalue2) ) {
 												// Valid
 											} else {
 												
-												uiEventActionProcessor_i.executeActionSet("set_result_retypepassword_is_not_match");
+												promptUser("set_result_retypepassword_is_not_match", operatorvalue);
 												
 												bContinue = false;
 											}
 										} else if ( os1.equals("SendChangePasswordControl") ) {
 											
-											String uiopmapivalue	= opmApi;
+											final String uiopmapivalue	= opmApi;
 											
-											OpmMgr opmMgr = OpmMgr.getInstance();
-											UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
+											final OpmMgr opmMgr = OpmMgr.getInstance();
+											final UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 											
 											// Operator
-											String operatorvalue	= uiGeneric.getWidgetValue(stroperatorvalue);
-											String oldpassvalue		= uiGeneric.getWidgetValue(stroldpassvalue);
-											String newpassvalue		= uiGeneric.getWidgetValue(strnewpassvalue);
+											final String oldpassvalue		= uiGeneric.getWidgetValue(stroldpassvalue);
+											final String newpassvalue		= uiGeneric.getWidgetValue(strnewpassvalue);
 											
-											logger.debug(className, function, "stroperatorvalue[{}], operatorvalue[{}]", stroperatorvalue, operatorvalue);
 											
-											logger.debug(className, function, "stroldpassvalue[{}], oldpassvalue[{}]", stroldpassvalue, oldpassvalue);
+											logger.debug(className, f, "stroldpassvalue[{}], oldpassvalue[{}]", stroldpassvalue, oldpassvalue);
 											
-											logger.debug(className, function, "strnewpassvalue[{}], newpassvalue[{}]", strnewpassvalue, newpassvalue);
+											logger.debug(className, f, "strnewpassvalue[{}], newpassvalue[{}]", strnewpassvalue, newpassvalue);
 											
 											uiOpm_i.changePassword(operatorvalue, oldpassvalue, newpassvalue, new UIWrapperRpcEvent_i() {
 				
@@ -189,10 +184,13 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 															&& null != resultinstanceof
 															&& function.equalsIgnoreCase("onSuccessMwt") 
 															&& resultinstanceof.equalsIgnoreCase("OperatorActionReturn") ) {
+
+														promptUser("set_result_value_valid", operatorvalue);
 														
-														uiEventActionProcessor_i.executeActionSet("set_result_value_valid");
 													} else {
-														uiEventActionProcessor_i.executeActionSet("set_result_value_invalid");
+														
+														promptUser("set_result_value_invalid", operatorvalue);
+														
 													}
 												}
 												
@@ -207,16 +205,13 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 					}
 				}
 				
-				logger.begin(className, function);
+				logger.end(className, f);
 			}
 			
 			@Override
 			public void onActionReceived(UIEventAction uiEventAction) {
-				final String function = "onActionReceived";
-				
-				logger.begin(className, function);
-
-				logger.end(className, function);
+				final String f = "onActionReceived";
+				logger.beginEnd(className, f);
 			}
 		};
 		
@@ -224,54 +219,54 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 			
 			@Override
 			public void init() {
-				final String function = "init";
-				logger.beginEnd(className, function);
+				final String f = "init";
+				logger.beginEnd(className, f);
 			}
 		
 			@Override
 			public void envUp(String env) {
-				final String function = "envUp";
-				logger.beginEnd(className, function);
+				final String f = "envUp";
+				logger.beginEnd(className, f);
 			}
 			
 			@Override
 			public void envDown(String env) {
-				final String function = "envDown";
-				logger.beginEnd(className, function);
+				final String f = "envDown";
+				logger.beginEnd(className, f);
 			}
 			
 			@Override
 			public void terminate() {
-				final String function = "terminate";
-				logger.begin(className, function);
+				final String f = "terminate";
+				logger.begin(className, f);
 				envDown(null);
-				logger.begin(className, function);
+				logger.end(className, f);
 			};
 		};
 		
 		if ( null != fillCurrentOperator ) {
 			if ( fillCurrentOperator.equalsIgnoreCase(String.valueOf(true))) {
 				
-				String actionsetkey = "SetCurrentOperator";
-				String actionkey = "SetCurrentOperator";
+				final String actionsetkey = "SetCurrentOperator";
+				final String actionkey = "SetCurrentOperator";
 				
-				Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
+				final Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
 
-				Map<String, Object> parameters = new HashMap<String, Object>();
+				final Map<String, Object> parameters = new HashMap<String, Object>();
 
-				String uiopmapivalue	= opmApi;
+				final String uiopmapivalue	= opmApi;
 				
-				OpmMgr opmMgr = OpmMgr.getInstance();
-				UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
+				final OpmMgr opmMgr = OpmMgr.getInstance();
+				final UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 				
-				String operator = uiOpm_i.getCurrentOperator();
+				final String operator = uiOpm_i.getCurrentOperator();
 					
-				logger.debug(className, function, "Set Operator Value operator[{}]", operator);
+				logger.debug(className, f, "Set Operator Value operator[{}]", operator);
 					
 				if ( null != operator ) {
 					parameters.put(ActionAttribute.OperationString3.toString(), operator);
 				} else {
-					logger.warn(className, function, "operator IS NULL");
+					logger.warn(className, f, "operator IS NULL");
 				}
 				
 				override.put(actionkey, parameters);
@@ -279,13 +274,50 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 				uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 				
 			} else {
-				logger.debug(className, function, "fillCurrentOperator[{}] IS FALSE");
+				logger.debug(className, f, "fillCurrentOperator[{}] IS FALSE");
 			}
 		} else {
-			logger.warn(className, function, "fillCurrentOperator IS NULL");
+			logger.warn(className, f, "fillCurrentOperator IS NULL");
 		}
 		
-		logger.end(className, function);
+		logger.end(className, f);
+	}
+	
+	private void promptUser(final String actionSetKey, final String user) {
+		final String f = "promptUser";
+		logger.begin(className, f);
+		
+		final String actionKey = actionSetKey + "_event";
+		logger.debug(className, f, "actionSetKey[{}] actionKey[{}] user[{}]", new Object[]{actionSetKey, actionKey, user});
+		
+		final String STR_LOGIN_USR = "%CURRENT_LOGIN_USER%";
+		final String STR_CUR_USR = "%USER%";
+		
+		final String uiopmapivalue	= opmApi;
+		
+		final OpmMgr opmMgr = OpmMgr.getInstance();
+		final UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
+		final String operator = uiOpm_i.getCurrentOperator();
+		
+		UIEventAction uiEventAction = uiEventActionProcessor_i.getUIEventActionMgr(actionKey);
+		logger.debug(className, f, "uiEventAction[{}]", uiEventAction);
+		String msg = (String)uiEventAction.getParameter(ActionAttribute.OperationString9.toString());
+		logger.debug(className, f, "msg[{}]", msg);
+		
+		msg = msg.replace(STR_LOGIN_USR, operator);
+		logger.debug(className, f, "msg[{}] STR_LOGIN_USR[{}] operator[{}]", new Object[]{msg, STR_LOGIN_USR, operator});
+		msg = msg.replace(STR_CUR_USR, user);
+		logger.debug(className, f, "msg[{}] STR_CUR_USR[{}] user[{}]", new Object[]{msg, STR_CUR_USR, user});
+		
+		final Map<String, Object> parameter = new HashMap<String, Object>();
+		parameter.put(ActionAttribute.OperationString9.toString(), msg);
+		
+		final Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
+		override.put(actionKey, parameter);
+		
+		uiEventActionProcessor_i.executeActionSet(actionSetKey, override);
+		
+		logger.end(className, f);
 	}
 
 }

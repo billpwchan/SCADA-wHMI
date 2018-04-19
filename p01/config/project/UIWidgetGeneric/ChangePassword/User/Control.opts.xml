@@ -39,11 +39,13 @@
 	</actionset>
 	
 	<actionset key="set_result_value_valid">
-		<OperationString1>set_result_value_valid</OperationString1>
+		<OperationString1>set_result_value_valid_event</OperationString1>
+		<OperationString2>set_result_value_valid</OperationString2>
 	</actionset>
 	
 	<actionset key="set_result_value_invalid">
-		<OperationString1>set_result_value_invalid</OperationString1>
+		<OperationString1>set_result_value_invalid_event</OperationString1>
+		<OperationString2>set_result_value_invalid</OperationString2>
 	</actionset>
 	
 	<actionset key="CheckOperatorIsEmpty">
@@ -63,17 +65,20 @@
 	
 	<actionset key="set_result_operator_is_empty">
 		<OperationType>actionsetkey</OperationType>
-		<OperationString1>set_result_operator_is_empty</OperationString1>
+		<OperationString1>set_result_operator_is_empty_event</OperationString1>
+		<OperationString2>set_result_operator_is_empty</OperationString2>
 	</actionset>
 	
 	<actionset key="set_result_newpassword_is_empty">
 		<OperationType>actionsetkey</OperationType>
-		<OperationString1>set_result_newpassword_is_empty</OperationString1>
+		<OperationString1>set_result_newpassword_is_empty_event</OperationString1>
+		<OperationString2>set_result_newpassword_is_empty</OperationString2>
 	</actionset>
 	
 	<actionset key="set_result_retypepassword_is_not_match">
 		<OperationType>actionsetkey</OperationType>
-		<OperationString1>set_result_retypepassword_is_not_match</OperationString1>
+		<OperationString1>set_result_retypepassword_is_not_match_event</OperationString1>
+		<OperationString2>set_result_retypepassword_is_not_match</OperationString2>
 	</actionset>
 	
 	<action key="set_result_value_empty">
@@ -118,6 +123,21 @@
 		<OperationString4>&amp;UIWidgetOPMChangeTargetUserPasswordControl_message_valid</OperationString4>
 	</action>
 	
+	<action key="set_result_value_valid_event">
+		<OperationType>action</OperationType>
+		<OperationAction>alm</OperationAction>
+		<OperationString1>NotifyExternalEvent</OperationString1>
+		<OperationString2>Key</OperationString2>
+		<OperationString3>%GETENV%</OperationString3>
+		<OperationString4>scsAlmExt.cnf</OperationString4>
+		<OperationString5>1</OperationString5>
+		<OperationString6>%GETALIAS%</OperationString6>
+		<OperationString7>1</OperationString7>
+		<OperationString8>1</OperationString8>
+		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||%CURRENT_LOGIN_USER% &amp;change_password_of %USER% &amp;successful||||||</OperationString9>
+		<OperationString10>UIOpmSCADAgen</OperationString10>
+	</action>
+	
 	<action key="set_result_value_invalid">
 		<OperationType>action</OperationType>
 		<OperationAction>dialogmsg</OperationAction>
@@ -125,6 +145,21 @@
 		<OperationString2>DLG_ERR</OperationString2>
 		<OperationString3>&amp;UIWidgetOPMChangeTargetUserPasswordControl_title_invalid</OperationString3>
 		<OperationString4>&amp;UIWidgetOPMChangeTargetUserPasswordControl_message_invalid</OperationString4>
+	</action>
+	
+	<action key="set_result_value_invalid_event">
+		<OperationType>action</OperationType>
+		<OperationAction>alm</OperationAction>
+		<OperationString1>NotifyExternalEvent</OperationString1>
+		<OperationString2>Key</OperationString2>
+		<OperationString3>%GETENV%</OperationString3>
+		<OperationString4>scsAlmExt.cnf</OperationString4>
+		<OperationString5>1</OperationString5>
+		<OperationString6>%GETALIAS%</OperationString6>
+		<OperationString7>1</OperationString7>
+		<OperationString8>1</OperationString8>
+		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||%CURRENT_LOGIN_USER% &amp;change_password_of %USER% &amp;unsuccessful||||||</OperationString9>
+		<OperationString10>UIOpmSCADAgen</OperationString10>
 	</action>
 	
 	<action key="set_result_operator_is_empty">
@@ -136,6 +171,21 @@
 		<OperationString4>&amp;UIWidgetOPMChangeTargetUserPasswordControl_message_operatorisempty</OperationString4>
 	</action>
 	
+	<action key="set_result_operator_is_empty_event">
+		<OperationType>action</OperationType>
+		<OperationAction>alm</OperationAction>
+		<OperationString1>NotifyExternalEvent</OperationString1>
+		<OperationString2>Key</OperationString2>
+		<OperationString3>%GETENV%</OperationString3>
+		<OperationString4>scsAlmExt.cnf</OperationString4>
+		<OperationString5>1</OperationString5>
+		<OperationString6>%GETALIAS%</OperationString6>
+		<OperationString7>1</OperationString7>
+		<OperationString8>1</OperationString8>
+		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||%CURRENT_LOGIN_USER% &amp;change_password_of %USER% &amp;unsuccessful||||||</OperationString9>
+		<OperationString10>UIOpmSCADAgen</OperationString10>
+	</action>
+	
 	<action key="set_result_newpassword_is_empty">
 		<OperationType>action</OperationType>
 		<OperationAction>dialogmsg</OperationAction>
@@ -145,6 +195,21 @@
 		<OperationString4>&amp;UIWidgetOPMChangeTargetUserPasswordControl_message_newpasswordisempty</OperationString4>
 	</action>
 	
+	<action key="set_result_newpassword_is_empty_event">
+		<OperationType>action</OperationType>
+		<OperationAction>alm</OperationAction>
+		<OperationString1>NotifyExternalEvent</OperationString1>
+		<OperationString2>Key</OperationString2>
+		<OperationString3>%GETENV%</OperationString3>
+		<OperationString4>scsAlmExt.cnf</OperationString4>
+		<OperationString5>1</OperationString5>
+		<OperationString6>%GETALIAS%</OperationString6>
+		<OperationString7>1</OperationString7>
+		<OperationString8>1</OperationString8>
+		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||%CURRENT_LOGIN_USER% &amp;change_password_of %USER% &amp;unsuccessful||||||</OperationString9>
+		<OperationString10>UIOpmSCADAgen</OperationString10>
+	</action>
+	
 	<action key="set_result_retypepassword_is_not_match">
 		<OperationType>action</OperationType>
 		<OperationAction>dialogmsg</OperationAction>
@@ -152,6 +217,21 @@
 		<OperationString2>DLG_ERR</OperationString2>
 		<OperationString3>&amp;UIWidgetOPMChangeTargetUserPasswordControl_title_retypepassword_is_not_match</OperationString3>
 		<OperationString4>&amp;UIWidgetOPMChangeTargetUserPasswordControl_message_retypepassword_is_not_match</OperationString4>
+	</action>
+	
+	<action key="set_result_retypepassword_is_not_match_event">
+		<OperationType>action</OperationType>
+		<OperationAction>alm</OperationAction>
+		<OperationString1>NotifyExternalEvent</OperationString1>
+		<OperationString2>Key</OperationString2>
+		<OperationString3>%GETENV%</OperationString3>
+		<OperationString4>scsAlmExt.cnf</OperationString4>
+		<OperationString5>1</OperationString5>
+		<OperationString6>%GETALIAS%</OperationString6>
+		<OperationString7>1</OperationString7>
+		<OperationString8>1</OperationString8>
+		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||%CURRENT_LOGIN_USER% &amp;change_password_of %USER% &amp;unsuccessful||||||</OperationString9>
+		<OperationString10>UIOpmSCADAgen</OperationString10>
 	</action>
 	
 	<actionset key="logout">
@@ -173,8 +253,7 @@
 	<actionset key="logout_process">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>simultaneous_logout_request</OperationString1>
-		<OperationString2>logout_event</OperationString2>
-		<OperationString3>logout_opm</OperationString3>
+		<OperationString2>logout_opm</OperationString2>
 	</actionset>
 	
 	<actionset key="simultaneous_logout_request">
@@ -203,26 +282,12 @@
 		<OperationString4>1</OperationString4>
 	</action>
 	
-	<actionset key="logout_event">
-		<OperationType>actionsetkey</OperationType>
-		<OperationString1>logout_event</OperationString1>
-	</actionset>
-	
-	<action key="logout_event">
+	<action key="logout_opm">
 		<OperationType>action</OperationType>
-		<OperationAction>alm</OperationAction>
-		<OperationString1>NotifyExternalEvent</OperationString1>
-		<OperationString2>Key_NotifyExternalEvent_Logout</OperationString2>
-		<OperationString3>%GETENV%</OperationString3>
-		<OperationString4>scsAlmExt.cnf</OperationString4>
-		<OperationString5>14</OperationString5>
-		<OperationString6>%GETALIAS%</OperationString6>
-		<OperationString7>1</OperationString7>
-		<OperationString8>1</OperationString8>
-		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||&amp;Logout||||||</OperationString9>
-		<OperationString10>UIOpmSCADAgen</OperationString10>
-		<OperationString11>M100CONN</OperationString11>
-		<OperationString12>:SYS:M100000:GWS_0003</OperationString12>
+		<OperationAction>opm</OperationAction>
+		<OperationString1>OpmLogout</OperationString1>
+		<OperationString2>UIOpmSCADAgen</OperationString2>
+		<OperationString3>1000</OperationString3>
 	</action>
 	
 </data-set>

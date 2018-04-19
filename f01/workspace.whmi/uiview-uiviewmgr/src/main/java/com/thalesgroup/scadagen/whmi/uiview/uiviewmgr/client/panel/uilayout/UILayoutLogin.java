@@ -34,25 +34,26 @@ public class UILayoutLogin extends UIWidget_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UILayoutLogin.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private final String strUIWidgetGeneric = "UIWidgetGeneric";
+	private final String strUIWidgetGeneric		= "UIWidgetGeneric";
 	
-	private final String strUIWidgetLoginInfo		= "UIWidgetLoginInfo";
-	private final String strUIWidgetLoginButton		= "UIWidgetLoginButton";
+	private final String strUIWidgetLoginInfo	= "UIWidgetLoginInfo";
+	private final String strUIWidgetLoginButton	= "UIWidgetLoginButton";
 	
 	private UIWidget_i uiWidgetGenericInfo		= null;
 	private UIWidget_i uiWidgetGenericButton	= null;
 	
-	private String opmApi					= null;
-	private String upperCaseName			= null;
-	private String lowerCaseName			= null;
+	private String opmApi						= null;
+	private String upperCaseName				= null;
+	private String lowerCaseName				= null;
 
-	private final String strHeader			= "header";
+	private final String strHeader				= "header";
 	
-	private final String STR_NAME			= "name";
-	private final String STR_PASSWORD		= "password";
+	private final String STR_NAME				= "name";
+	private final String STR_PASSWORD			= "password";
 	
-	private final String STR_LOGIN			= "login";
-	private final String STR_CHANGEPASSWORD	= "changepassword";
+	private final String STR_LOGIN				= "login";
+	
+	private final String STR_CHGPWD 			= "changepassword";
 	
 	private final String STR_URLFAULT_CODEKEY	= "autherr";
 	
@@ -126,8 +127,7 @@ public class UILayoutLogin extends UIWidget_i {
 		@Override
 		public void onUIEvent(UIEvent uiEvent) {
 			String f = "onUIEvent";
-			logger.begin(className, f);
-			logger.end(className, f);
+			logger.beginEnd(className, f);
 		}
 		
 		@Override
@@ -149,7 +149,7 @@ public class UILayoutLogin extends UIWidget_i {
 				
 				if ( element.equals(STR_LOGIN) ) {
 					login();
-				} else if ( element.equals(STR_CHANGEPASSWORD) ) {
+				} else if ( element.equals(STR_CHGPWD) ) {
 					changepassword();	
 				}
 				
@@ -242,18 +242,19 @@ public class UILayoutLogin extends UIWidget_i {
 	}
 
 	// Display the login invalid message 
-	private String handleErrorCode() {
+	private void handleErrorCode() {
 		final String f = "handleErrorMessage";
 		logger.begin(className, f);
 		
-		String authErrCode = Window.Location.getParameter(STR_URLFAULT_CODEKEY);
+		// Spring Message
+		final String authErrCode = Window.Location.getParameter(STR_URLFAULT_CODEKEY);
 		if ((authErrCode != null) && (!authErrCode.isEmpty())) {
-			uiEventActionProcessor_i.executeActionSet(STR_RESULT_INVALID_PREFIX+authErrCode);
+			final String actionset = STR_RESULT_INVALID_PREFIX+authErrCode;
+			logger.debug(className, f, "actionset[{}]", actionset);
+			uiEventActionProcessor_i.executeActionSet(actionset);
 		}
-		
-		logger.begin(className, f);
-		
-		return authErrCode;
+
+		logger.end(className, f);
 	}
 	
 }

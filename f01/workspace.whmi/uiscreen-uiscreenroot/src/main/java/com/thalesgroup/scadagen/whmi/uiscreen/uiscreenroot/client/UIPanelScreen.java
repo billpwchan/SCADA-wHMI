@@ -201,7 +201,7 @@ public class UIPanelScreen extends UIWidget_i {
 			
 			if ( uiWidget_i != null ) {
 				
-				Panel panel = uiWidget_i.getMainPanel();
+				final Panel panel = uiWidget_i.getMainPanel();
 				
 				if ( null != panel ) {
 					

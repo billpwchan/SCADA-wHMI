@@ -246,7 +246,7 @@ public class UIPanelMenus extends UIWidget_i {
 				String enableHTMLName = taskLaunchs.get(i).getEnableHTMLName();
 				logger.debug(className, function, "enableHTMLName[{}]", enableHTMLName);
 				if (null != enableHTMLName && 0 == enableHTMLName.compareTo(Boolean.TRUE.toString())) {
-					name = backwardConvertXMLTag(name);
+					name = UIPanelMenuUtil.backwardConvertXMLTag(name);
 				}
 				
 				String css = taskLaunchs.get(i).getCss();

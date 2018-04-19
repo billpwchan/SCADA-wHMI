@@ -26,26 +26,27 @@ public class UITaskLaunch extends UITaskDictionary {
 	public UITaskLaunch(Task task) {
 		super.setUiScreen(task.getParameter(TaskAttribute.UIScreen.toString()));
 		super.setUiPath(task.getParameter(TaskAttribute.UIPath.toString()));
-		setValue(UITaskLaunchAttribute.Key.toString()		, task.getParameter(TaskAttribute.Key.toString()));
+		setValue(UITaskLaunchAttribute.Key.toString()					, task.getParameter(TaskAttribute.Key.toString()));
 		
-		setValue(UITaskLaunchAttribute.Type.toString()		, task.getParameter(TaskAttribute.Type.toString()));
-		setValue(UITaskLaunchAttribute.Name.toString()		, task.getParameter(TaskAttribute.Name.toString()));
-		setValue(UITaskLaunchAttribute.Title.toString()		, task.getParameter(TaskAttribute.Title.toString()));
+		setValue(UITaskLaunchAttribute.Type.toString()					, task.getParameter(TaskAttribute.Type.toString()));
+		setValue(UITaskLaunchAttribute.Name.toString()					, task.getParameter(TaskAttribute.Name.toString()));
+		setValue(UITaskLaunchAttribute.EnableHTMLName.toString()		, task.getParameter(TaskAttribute.EnableHTMLName.toString()));
+		setValue(UITaskLaunchAttribute.Title.toString()					, task.getParameter(TaskAttribute.Title.toString()));
 		
-		setValue(UITaskLaunchAttribute.Enable.toString()	, task.getParameter(TaskAttribute.Enable.toString()));
-		setValue(UITaskLaunchAttribute.Visible.toString()	, task.getParameter(TaskAttribute.Visible.toString()));
+		setValue(UITaskLaunchAttribute.Enable.toString()				, task.getParameter(TaskAttribute.Enable.toString()));
+		setValue(UITaskLaunchAttribute.Visible.toString()				, task.getParameter(TaskAttribute.Visible.toString()));
 		
-		setValue(UITaskLaunchAttribute.Css.toString()		, task.getParameter(TaskAttribute.Css.toString()));
-		setValue(UITaskLaunchAttribute.Tooltips.toString()	, task.getParameter(TaskAttribute.Tooltips.toString()));
+		setValue(UITaskLaunchAttribute.Css.toString()					, task.getParameter(TaskAttribute.Css.toString()));
+		setValue(UITaskLaunchAttribute.Tooltips.toString()				, task.getParameter(TaskAttribute.Tooltips.toString()));
+
+		setValue(UITaskLaunchAttribute.UIConf.toString()				, task.getParameter(TaskAttribute.UIConf.toString()));
 		
-		setValue(UITaskLaunchAttribute.UIConf.toString()	, task.getParameter(TaskAttribute.UIConf.toString()));
-		
-		setValue(UITaskLaunchAttribute.UICtrl.toString()	, task.getParameter(TaskAttribute.UICtrl.toString()));
-		setValue(UITaskLaunchAttribute.UIView.toString()	, task.getParameter(TaskAttribute.UIView.toString()));
-		setValue(UITaskLaunchAttribute.UIOpts.toString()	, task.getParameter(TaskAttribute.UIOpts.toString()));
-		setValue(UITaskLaunchAttribute.UIDict.toString()	, task.getParameter(TaskAttribute.UIDict.toString()));
-		setValue(UITaskLaunchAttribute.UIElem.toString()	, task.getParameter(TaskAttribute.UIElem.toString()));
-		setValue(UITaskLaunchAttribute.UISvId.toString()	, task.getParameter(TaskAttribute.UISvId.toString()));
+		setValue(UITaskLaunchAttribute.UICtrl.toString()				, task.getParameter(TaskAttribute.UICtrl.toString()));
+		setValue(UITaskLaunchAttribute.UIView.toString()				, task.getParameter(TaskAttribute.UIView.toString()));
+		setValue(UITaskLaunchAttribute.UIOpts.toString()				, task.getParameter(TaskAttribute.UIOpts.toString()));
+		setValue(UITaskLaunchAttribute.UIDict.toString()				, task.getParameter(TaskAttribute.UIDict.toString()));
+		setValue(UITaskLaunchAttribute.UIElem.toString()				, task.getParameter(TaskAttribute.UIElem.toString()));
+		setValue(UITaskLaunchAttribute.UISvId.toString()				, task.getParameter(TaskAttribute.UISvId.toString()));
 	}
 
 	public UITaskLaunch(UITaskLaunch taskLaunch) {
@@ -104,12 +105,12 @@ public class UITaskLaunch extends UITaskDictionary {
 	}
 	
 
-	private HashMap<String, String> options = new HashMap<String, String>();
+	private Map<String, String> options = new HashMap<String, String>();
 	public String getOption(String key) { return this.options.get(key); }
 	public void setOption(String key, String value) { this.options.put(key, value); }
 	
-	public HashMap<String, String> getOptions() { 
-		HashMap<String, String> options = new HashMap<String, String>();
+	public Map<String, String> getOptions() { 
+		Map<String, String> options = new HashMap<String, String>();
 		for ( Entry<String, String> option : this.options.entrySet() ) {
 			String key = option.getKey();
 			String value = option.getValue();
@@ -189,6 +190,9 @@ public class UITaskLaunch extends UITaskDictionary {
 
 		return element;
 	}
+	
+	public void setEnableHTMLName(String enableHTMLName) { setValue(UITaskLaunchAttribute.EnableHTMLName.toString(), enableHTMLName); }
+	public String getEnableHTMLName() { return (String) getValue(UITaskLaunchAttribute.EnableHTMLName.toString()); }
 
 	public void setCss(String css) { setValue(UITaskLaunchAttribute.Css.toString(), css); }
 	public String getCss() { return (String) getValue(UITaskLaunchAttribute.Css.toString()); }

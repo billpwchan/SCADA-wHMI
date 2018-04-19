@@ -32,6 +32,8 @@ public interface UITaskLaunch_i {
 //		, Order("order")
 		
 		, Name("name")
+		, EnableHTMLName("enableHTMLName")
+	
 		, Css("css")
 		
 		, Title("title")

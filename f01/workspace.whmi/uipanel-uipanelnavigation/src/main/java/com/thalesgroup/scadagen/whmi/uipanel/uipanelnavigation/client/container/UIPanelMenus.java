@@ -225,7 +225,7 @@ public class UIPanelMenus extends UIWidget_i {
 		
 		logger.end(className, function);
 	}
-
+	
 	private void addTaskToMenu(int level, String header, ArrayList<UITaskLaunch> taskLaunchs, String launchHeader, boolean executeTask) {
 		final String function = "addTaskToMenu";
 		
@@ -242,6 +242,13 @@ public class UIPanelMenus extends UIWidget_i {
 			for (int i = 0; i < taskLaunchs.size(); i++) {
 				UITaskLaunch taskLaunch = taskLaunchs.get(i);
 				String name = taskLaunchs.get(i).getName();
+				
+				String enableHTMLName = taskLaunchs.get(i).getEnableHTMLName();
+				logger.debug(className, function, "enableHTMLName[{}]", enableHTMLName);
+				if (null != enableHTMLName && 0 == enableHTMLName.compareTo(Boolean.TRUE.toString())) {
+					name = backwardConvertXMLTag(name);
+				}
+				
 				String css = taskLaunchs.get(i).getCss();
 				String tooltips = taskLaunchs.get(i).getTooltip();
 				

@@ -134,7 +134,7 @@
 		<OperationString6>%GETALIAS%</OperationString6>
 		<OperationString7>1</OperationString7>
 		<OperationString8>1</OperationString8>
-		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||%CURRENT_LOGIN_USER% &amp;change_password_of %USER% &amp;successful||||||</OperationString9>
+		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||%CURRENT_LOGIN_USER% &amp;UIWidgetOPMChangeTargetUserPassword_change_password_of %USER% &amp;UIWidgetOPMChangeTargetUserPassword_successful||||||</OperationString9>
 		<OperationString10>UIOpmSCADAgen</OperationString10>
 	</action>
 	
@@ -158,7 +158,7 @@
 		<OperationString6>%GETALIAS%</OperationString6>
 		<OperationString7>1</OperationString7>
 		<OperationString8>1</OperationString8>
-		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||%CURRENT_LOGIN_USER% &amp;change_password_of %USER% &amp;unsuccessful||||||</OperationString9>
+		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||%CURRENT_LOGIN_USER% &amp;UIWidgetOPMChangeTargetUserPassword_change_password_of %USER% &amp;UIWidgetOPMChangeTargetUserPassword_unsuccessful||||||</OperationString9>
 		<OperationString10>UIOpmSCADAgen</OperationString10>
 	</action>
 	
@@ -182,7 +182,7 @@
 		<OperationString6>%GETALIAS%</OperationString6>
 		<OperationString7>1</OperationString7>
 		<OperationString8>1</OperationString8>
-		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||%CURRENT_LOGIN_USER% &amp;change_password_of %USER% &amp;unsuccessful||||||</OperationString9>
+		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||%CURRENT_LOGIN_USER% &amp;UIWidgetOPMChangeTargetUserPassword_change_password_of %USER% &amp;UIWidgetOPMChangeTargetUserPassword_unsuccessful||||||</OperationString9>
 		<OperationString10>UIOpmSCADAgen</OperationString10>
 	</action>
 	
@@ -206,7 +206,7 @@
 		<OperationString6>%GETALIAS%</OperationString6>
 		<OperationString7>1</OperationString7>
 		<OperationString8>1</OperationString8>
-		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||%CURRENT_LOGIN_USER% &amp;change_password_of %USER% &amp;unsuccessful||||||</OperationString9>
+		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||%CURRENT_LOGIN_USER% &amp;UIWidgetOPMChangeTargetUserPassword_change_password_of %USER% &amp;UIWidgetOPMChangeTargetUserPassword_unsuccessful||||||</OperationString9>
 		<OperationString10>UIOpmSCADAgen</OperationString10>
 	</action>
 	
@@ -230,7 +230,7 @@
 		<OperationString6>%GETALIAS%</OperationString6>
 		<OperationString7>1</OperationString7>
 		<OperationString8>1</OperationString8>
-		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||%CURRENT_LOGIN_USER% &amp;change_password_of %USER% &amp;unsuccessful||||||</OperationString9>
+		<OperationString9>|HMI_LOG|||||||%GETIPADDRESS%|%GETOPERATOR%|%GETPROFILE%||%CURRENT_LOGIN_USER% &amp;UIWidgetOPMChangeTargetUserPassword_change_password_of %USER% &amp;UIWidgetOPMChangeTargetUserPassword_unsuccessful||||||</OperationString9>
 		<OperationString10>UIOpmSCADAgen</OperationString10>
 	</action>
 	

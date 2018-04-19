@@ -11,13 +11,11 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmgr.client.UIScreenMgr;
-import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.UIScreenMMI_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UICookies;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIPanelScreen extends UIWidget_i {
@@ -29,8 +27,7 @@ public class UIPanelScreen extends UIWidget_i {
 	private final String strHeader = "header";
 	
 	private final String strCssRoot				= "project-"+className_+"-root";
-	
-	private final String strCssRootContainer	= strCssRoot+"-container-";
+	private final String strCssContainer		= strCssRoot+"-container-";
 
 	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
 	
@@ -43,6 +40,11 @@ public class UIPanelScreen extends UIWidget_i {
 	private final String strUIScreenMMIPath		= "UIScreenMMI/UIScreenMMI.view.xml";
 	
 	private final String strUIScreenMMI			= "UIScreenMMI";
+	
+	private String singleScreenViews = "";
+	private String singleScreenCtrls = "";
+	
+	private UIWidget_i uiWidgets [] = null;
 
 	@Override
 	public void init() {
@@ -75,18 +77,26 @@ public class UIPanelScreen extends UIWidget_i {
 
     	logger_.end(className_, function);
 	}
-	
-//	private void loadConfiguration() {
-//		final String f = "loadConfiguration";
-//		logger_.begin(className_, f);
-//		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
-//		if ( null != dictionariesCache ) {
-//			strInitdelayms = dictionariesCache.getStringValue(optsXMLFile, IUIPanelScreen.ParameterName.InitDelayMS.toString(), strHeader);
-//			logger.debug(className, f, "strInitdelayms[{}]", strInitdelayms);
-//		}
-//
-//		logger_.end(className_, f);
-//	}
+
+	private void loadConfiguration() {
+		final String f = "loadConfiguration";
+		logger_.begin(className_, f);
+		
+		final String strOptsXml = className_+"/"+className_+".opts.xml";
+		logger_.debug(className_, f, "strOptsXml[{}]", new Object[]{strOptsXml});
+		
+		final DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
+		if ( null != dictionariesCache ) {
+			logger_.debug(className_, f, "SINGLE_SCREEN_VIEWS[{}] strOptsXml[{}]", IUIPanelScreen.ParameterName.SINGLE_SCREEN_VIEWS.toString(), strOptsXml);
+			singleScreenViews = dictionariesCache.getStringValue(strOptsXml, IUIPanelScreen.ParameterName.SINGLE_SCREEN_VIEWS.toString(), strHeader);
+			logger_.debug(className_, f, "singleScreenViews[{}]", singleScreenViews);
+			
+			logger_.debug(className_, f, "SINGLE_SCREEN_CTRLS[{}] strOptsXml[{}]", IUIPanelScreen.ParameterName.SINGLE_SCREEN_CTRLS.toString(), strOptsXml);
+			singleScreenCtrls = dictionariesCache.getStringValue(strOptsXml, IUIPanelScreen.ParameterName.SINGLE_SCREEN_CTRLS.toString(), strHeader);
+			logger_.debug(className_, f, "singleScreenCtrls[{}]", singleScreenCtrls);
+		}
+		logger_.end(className_, f);
+	}
 	
 	private int getNumOfScreen() {
 		final String f = "getNumOfScreen";
@@ -128,8 +138,27 @@ public class UIPanelScreen extends UIWidget_i {
 
 		logger_.end(className_, f);
 	}
-
-	private UIWidget_i uiWidgets [] = null;
+	
+	private boolean inSingleScreenList(final String items, final String item) {
+		final String f = "inSingleScreenList";
+		boolean ret = false;
+		logger_.debug(className_, f, "items[{}] item[{}]", new Object[]{items, item});
+		if(null!=item&&!item.isEmpty()) {
+			if (null!=items&&!items.isEmpty()) {
+				String [] vs = items.split(",");
+				for(int i=0;i<vs.length;++i){
+					String v = vs[i];
+					logger_.debug(className_, f, "v[{}] view[{}]", v, item);
+					if(0==v.compareTo(item)){
+						ret = true;
+					}
+				}
+			}
+		}
+		logger_.debug(className_, f, "items[{}] item[{}] ret[{}]", new Object[]{items, item, ret});
+		return ret;
+	}
+	
 	private void loadTask(UITaskLaunch taskProvide) {
 		final String f = "loadTask";
 		logger_.begin(className_, f);
@@ -159,6 +188,9 @@ public class UIPanelScreen extends UIWidget_i {
 		// Apply Number of Screen from cookies
 		int intNumOfScreen = getNumOfScreen();
 		
+		// Load Configuration
+		loadConfiguration();
+		
 		logger_.debug(className_, f, "strNumOfScreen[{}] intNumOfScreen[{}]", strNumOfScreen, intNumOfScreen);
 		
 		final UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
@@ -180,11 +212,19 @@ public class UIPanelScreen extends UIWidget_i {
 			String uiElem = taskLaunch.getUiElem();
 			final Map<String, Object> options = new HashMap<String, Object>();
 			
-			logger_.debug(className_, f, "taskLaunch data uiCtrl[{}] uiView[{}] uiOpts[{}] uiElem[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
+			logger_.debug(className_, f, "taskLaunch uiCtrl[{}] uiView[{}] uiOpts[{}] uiElem[{}] uiDict[{}]"
+					, new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
 
-			if ( screen > 0 && ( null != uiCtrl && uiCtrl.equals(strUILayoutEntryPoint) ) ) {
-				
-				logger_.debug(className_, f, "uiCtrl[{}] IS strUILayoutEntryPoint[{}], make another panel strUIScreenEmpty[{}]", new Object[]{uiCtrl, strUILayoutEntryPoint, strUIScreenEmpty});
+			if ( 
+				screen > 0 
+				&& 
+				(
+					inSingleScreenList(singleScreenCtrls, uiCtrl) 
+					|| inSingleScreenList(singleScreenViews, uiView )
+				)
+			) {
+				logger_.debug(className_, f, "uiCtrl[{}] uiView[{}] Is Single Screen, make another panel strUIScreenEmpty[{}]"
+						, new Object[]{uiCtrl, uiView, strUIScreenEmpty});
 				
 				uiCtrl = strUIScreenEmpty;
 				uiView = null;
@@ -207,12 +247,10 @@ public class UIPanelScreen extends UIWidget_i {
 					
 					rootPanel.add(panel);
 					
-					if ( null != strCssRootContainer ) {
-					
-						String cssClassName = strCssRootContainer+screen;
-						logger_.debug(className_, f, "strCssRootContainer[{}] cssClassName[{}]", strCssRootContainer, cssClassName);
-						DOM.getParent(panel.getElement()).setClassName(cssClassName);
-					}
+					String cssContainer = strCssContainer+screen;
+					logger_.debug(className_, f, "cssClassName[{}]", cssContainer);
+					if(null!=DOM.getParent(panel.getElement())) DOM.getParent(panel.getElement()).setClassName(cssContainer);
+
 				} else {
 					logger_.warn(className_, f, "uiCtrl[{}] panel IS NULL");
 				}

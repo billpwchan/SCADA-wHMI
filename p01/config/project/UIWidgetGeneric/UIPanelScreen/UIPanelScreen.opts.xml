@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<singleScreenCtrls>UILayoutEntryPoint</singleScreenCtrls>
+		<singleScreenViews>Login/EntryPoint.view.xml,ChangePassword/User/Summary.view.xml</singleScreenViews>
+	</header>
+</data-set>

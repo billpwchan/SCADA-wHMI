@@ -88,12 +88,12 @@
 	
 	<option key="0|7">
 		<widget>Label</widget>
-		<label>&amp;UIWidgetOPMChangeTargetUserPassword_Retype_New_Password</label>
+		<label>&amp;UIWidgetOPMChangeTargetUserPassword_Confirm_Password</label>
 		<css>project-UIWidgetOPMChangeTargetUserPassword-label-newpasslabel2</css>
 		<element>newpasslabel2</element>
 		<format></format>
 		<media></media>
-		<tooltip>&amp;UIWidgetOPMChangeTargetUserPassword_Retype_New_Password_title</tooltip>
+		<tooltip>&amp;UIWidgetOPMChangeTargetUserPassword_Confirm_Password_title</tooltip>
 	</option>
 	
 	<option key="0|8">

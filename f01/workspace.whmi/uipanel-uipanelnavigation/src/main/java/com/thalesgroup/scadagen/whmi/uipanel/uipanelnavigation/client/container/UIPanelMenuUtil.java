@@ -2,12 +2,11 @@ package com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.container
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class UIPanelMenuUtil {
 
 	private final static String className = UIPanelMenuUtil.class.getSimpleName();
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(UIPanelMenuUtil.class.get=Name());
+	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(UIPanelMenuUtil.class.getName());
 	
 	//	Char	Escape String
 	//	<	&lt;

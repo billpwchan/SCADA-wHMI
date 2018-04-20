@@ -3,6 +3,8 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 public interface UIWidgetSimultaneousLoginControl_i {
 	
 	public static final String loginValidProcedure					= "login_valid_procedure";
+	public static final String loginValidChangePasswordProcedure	= "login_valid_changepassword_procedure";
+	public static final String loginInvalidChangePasswordProcedure	= "login_invalid_changepassword_procedure";
 	public static final String loginValidByPassProcedure			= "login_valid_by_pass_procedure";
 	public static final String loginInvalidThresHoldReachProcedure	= "login_invalid_thresthold_reach_procedure";
 	public static final String loginInvalidSelfIdentityProcedure	= "login_invalid_self_identity_procedure";
@@ -35,6 +37,12 @@ public interface UIWidgetSimultaneousLoginControl_i {
 		, IntervalPhaseC("IntervalPhaseC")
 		, IntervalPhaseD("IntervalPhaseD")
 		, TimeoutPhaseB("TimeoutPhaseB")
+		
+		, ChangePasswordOpm			("ChangePasswordOpm")
+		, ChangePasswordFunction	("ChangePasswordFunction")
+		, ChangePasswordLocation	("ChangePasswordLocation")
+		, ChangePasswordAction		("ChangePasswordAction")
+		, ChangePasswordMode		("ChangePasswordMode")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

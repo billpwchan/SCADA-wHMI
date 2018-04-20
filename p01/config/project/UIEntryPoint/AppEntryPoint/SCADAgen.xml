@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<!-- Disable Default Context Menu: true | false -->
+		<uiMenu>true</uiMenu>
+		
+		<!-- Dictionary Folder -->
+		<uiDict>UIWidgetGeneric</uiDict>
+		<!-- Property Folder -->
+		<uiProp>UIInspectorPanel</uiProp>
+		<!-- Json Folder -->
+		<uiJson>UIJson</uiJson>
+
+		<uiCtrl>UIPanelScreen</uiCtrl>
+		<uiView>SimultaneousLogin/EntryPoint.view.xml</uiView>
+		<uiElem>UIPanelScreen</uiElem>
+	</header>
+</data-set>

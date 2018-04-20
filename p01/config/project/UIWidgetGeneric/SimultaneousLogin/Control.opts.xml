@@ -33,6 +33,12 @@
 		<!-- Timeout on Phase B in time -->
 		<TimeoutPhaseB>20</TimeoutPhaseB>
 		
+		<ChangePasswordOpm>UIOpmSCADAgen</ChangePasswordOpm>
+		<ChangePasswordFunction>1</ChangePasswordFunction>
+		<ChangePasswordLocation>1</ChangePasswordLocation>
+		<ChangePasswordAction>c</ChangePasswordAction>
+		<ChangePasswordMode>1</ChangePasswordMode>
+		
 	</header>
 	
 	<!-- Begin of life -->
@@ -114,6 +120,13 @@
 		<OperationString2>login_valid_procedure</OperationString2>
 	</actionset>
 	
+	<actionset key="login_valid_changepassword_procedure">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>login_session_start_request</OperationString1>
+		<OperationString2>login_valid_changepassword_procedure</OperationString2>
+	</actionset>	
+	
+	
 	<actionset key="login_valid_by_pass_procedure">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>login_valid_procedure</OperationString1>
@@ -154,6 +167,19 @@
 		<OperationString6>UIScreenMMI/UIScreenMMI.opts.xml</OperationString6>
 		<OperationString7>UIScreenMMI</OperationString7>
 	</action>
+	
+	<action key="login_valid_changepassword_procedure">
+		<OperationType>action</OperationType>
+		<OperationAction>uitask</OperationAction>
+		<OperationString1>UITaskLaunch_UIWidgetMgrFactory</OperationString1>
+		<OperationString2>:UIGws:UIPanelScreen</OperationString2>
+		<OperationString3>0</OperationString3>
+		<OperationString4>UILayoutSummary</OperationString4>
+		<OperationString5>ChangePassword/User/Summary.view.xml</OperationString5>
+		<OperationString6>ChangePassword/User/Summary.opts.xml</OperationString6>
+		<OperationString7>ChangePassword</OperationString7>
+	</action>	
+	
 	
 	<actionset key="login_invalid_thresthold_reach_procedure">
 		<OperationType>actionsetkey</OperationType>
@@ -218,12 +244,27 @@
 		<OperationString5>forward_invalid_procedure</OperationString5>
 		<OperationString7>&amp;UILayoutEntryPointSimultaneousLogin_reserve_by_other_opt1_lbl</OperationString7>
 	</action>
+	
+	<actionset key="login_invalid_changepassword_procedure">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>confirm_msg_changepassword_insufficient_right</OperationString1>
+	</actionset>
+	
+	<action key="confirm_msg_changepassword_insufficient_right">
+		<OperationType>confirm_msg</OperationType>
+		<OperationAction>dialogmsg</OperationAction>
+		<OperationString1>UIDialogMsg</OperationString1>
+		<OperationString2>DLG_WAR</OperationString2>
+		<OperationString3>&amp;UILayoutEntryPointSimultaneousLogin_insufficient_right_change_password_title</OperationString3>
+		<OperationString4>&amp;UILayoutEntryPointSimultaneousLogin_insufficient_right_change_password_msg</OperationString4>
+		<OperationString5>forward_invalid_procedure</OperationString5>
+		<OperationString7>&amp;UILayoutEntryPointSimultaneousLogin_insufficient_right_change_password_lbl</OperationString7>
+	</action>
 
 	<actionset key="forward_invalid_procedure">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>login_session_end</OperationString1>
-		<OperationString2>logout_event</OperationString2>
-		<OperationString3>logout_opm</OperationString3>
+		<OperationString2>logout_opm</OperationString2>
 	</actionset>
 
 	<action key="login_session_end">
@@ -233,21 +274,6 @@
 		<OperationString2>SessionEnd</OperationString2>
 	</action>
 
-	<action key="logout_event">
-		<OperationType>action</OperationType>
-		<OperationAction>alm</OperationAction>
-		<OperationString1>NotifyExternalEvent</OperationString1>
-		<OperationString2>Key</OperationString2>
-		<OperationString3>OCCENVCONN</OperationString3>
-		<OperationString4>ConfigFileName</OperationString4>
-		<OperationString5>1</OperationString5>
-		<OperationString6>PointAlias</OperationString6>
-		<OperationString7>1</OperationString7>
-		<OperationString8>1</OperationString8>
-		<OperationString9>%GETOPERATOR% : Logout on %GETIPADDRESS%</OperationString9>
-		<OperationString10>UIOpmSCADAgen</OperationString10>
-	</action>
-	
 	<action key="logout_opm">
 		<OperationType>action</OperationType>
 		<OperationAction>opm</OperationAction>

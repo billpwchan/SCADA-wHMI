@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<!-- Disable Default Context Menu: true | false -->
+		<uiMenu>true</uiMenu>
+		
+		<!-- Dictionary Folder -->
+		<uiDict>UIWidgetGeneric</uiDict>
+		<!-- Property Folder -->
+		<uiProp>UIInspectorPanel</uiProp>
+		<!-- Json Folder -->
+		<uiJson>UIJson</uiJson>
+		
+		<!-- UIWidget Option uiCtrl -->
+		<uiCtrl>UIPanelScreen</uiCtrl>
+		<!-- UIWidget Option uiView -->
+		<uiView>Login/EntryPoint.view.xml</uiView>
+		<!-- UIWidget Option uiOpts -->
+		<!--<uiOpts>Login/EntryPoint.opts.xml</uiOpts>-->
+		<!-- UIWidget Option element -->
+		<uiElem>UIPanelScreen</uiElem>
+	</header>
+</data-set>

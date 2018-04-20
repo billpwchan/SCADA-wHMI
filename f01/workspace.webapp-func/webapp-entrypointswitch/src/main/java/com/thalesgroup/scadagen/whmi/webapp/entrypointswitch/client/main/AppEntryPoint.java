@@ -12,9 +12,9 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.entry.base.MwtE
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.entry.event.AppContextReadyEvent;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.WebConfigMgrEvent;
 import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.UIGwsWebConfigMgr;
-import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.main.AppEntryPoint_i.PropertiesName;
-import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.main.factory.IAppEntryPoint;
-import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.main.factory.IAppEntryPointFactory;
+import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.main.factory.FrameworkFactory;
+import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.main.factory.IFramework;
+import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.main.util.Util;
 
 /**
  * Hypervisor showcase's entry point : everything starts here !
@@ -22,8 +22,9 @@ import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.main.factory
 public class AppEntryPoint extends MwtEntryPointApp {
 	
 	/** logger */
-    private static final ClientLogger LOGGER = ClientLogger.getClientLogger();
-    private static final String LOG_PREFIX = "[AppEntryPoint] ";
+	private final String className_ = this.getClass().getSimpleName();
+    private final ClientLogger logger_ = ClientLogger.getClientLogger(this.getClass().getName());
+    private final String logPrefix_ = "["+className_+"] ";
 
 	/**
      * Constructor.
@@ -37,71 +38,73 @@ public class AppEntryPoint extends MwtEntryPointApp {
      */
     @Override
     protected void onContextReadyEventAfter(final AppContextReadyEvent event) {
+    	final String f = "onContextReadyEventAfter";
+    	final Map<String, Object> params = new HashMap<String, Object>();
     	
-    	Map<String, Object> params = new HashMap<String, Object>();
+    	// Load Parameter from URL
     	for ( Entry<String, List<String>> entry : Window.Location.getParameterMap().entrySet() ) {
     		params.put(entry.getKey(), entry.getValue());
     	}
 
-    	String framework = Util.getStringParameter(params, PropertiesName.framework.toString());
-		if ( null != framework ) {
+    	final String uiFrmw = Util.getStringParameter(params, IEntryPoint.PropertiesName.uiFrmw.toString());
+		if ( null != uiFrmw ) {
 			
-			launch(params);
+			realize(params);
 		} else {
 			
-			final String mode	= "XMLFile";
-			final String module	= null;
-			final String folder	= "UIConfig";
-		    final String xml	= "UILauncher_AppEntryPoint.xml";
-		    final String tag	= "header";
+			final String mode	= IFramework.XML_MODE;
+			final String module	= IFramework.XML_MODULE;
+			final String folder	= IFramework.XML_FOLDER;
+		    final String xml	= this.getClass().getSimpleName()+IFramework.XML_EXTENSION;
+		    final String tag	= IFramework.XML_TAG;
 			
-	        List<String> keys = new LinkedList<String>();
-	        for ( String properties : PropertiesName.toStrings() ) {
+		    final List<String> keys = new LinkedList<String>();
+	        for ( String properties : IEntryPoint.PropertiesName.toStrings() ) {
 	        	keys.add(properties);
 	        }
 	        
-	        UIGwsWebConfigMgr web = UIGwsWebConfigMgr.getInstance();
+	        final UIGwsWebConfigMgr web = UIGwsWebConfigMgr.getInstance();
 	        
 	        web.getWebConfig( mode,  module, folder, xml, tag, keys, new WebConfigMgrEvent() {
 				@Override
 				public void updated(Map<String, String> keyValues) {
-					LOGGER.debug(LOG_PREFIX+"onContextReadyEventAfter getWebConfig updated");
+					logger_.debug(logPrefix_+f+" getWebConfig updated");
 					
-					Map<String, Object> params = new HashMap<String, Object>();
+					final Map<String, Object> params = new HashMap<String, Object>();
 					for ( String key : keyValues.keySet() ) {
 						params.put(key, keyValues.get(key));
 	        		}
 					
-					launch(params);
+					realize(params);
 				}
 				@Override
 				public void failed() {
-					LOGGER.debug(LOG_PREFIX+"onContextReadyEventAfter getWebConfig failed");
-					launch(null);
+					logger_.debug(logPrefix_+f+" getWebConfig failed");
+					realize(null);
 				}
 	        });
 		}
     }
     
-    private void launch(final Map<String, Object> params) {
-    	
-    	IAppEntryPoint iAppEntryPoint = null;
+    private void realize(final Map<String, Object> params) {
+    	final String f = "realize";
+    	IFramework iAppEntryPoint = null;
 
     	if ( null != params ) {
 
-    		String framework = Util.getStringParameter(params, PropertiesName.framework.toString());
+    		final String uiFrmw = Util.getStringParameter(params, IEntryPoint.PropertiesName.uiFrmw.toString());
     		
-    		LOGGER.debug(LOG_PREFIX+"launch framework["+framework+"]");
+    		logger_.debug(logPrefix_+f+ "uiFrmw["+uiFrmw+"]");
 
-    		iAppEntryPoint = IAppEntryPointFactory.getEntryPoint(framework);
+    		iAppEntryPoint = new FrameworkFactory().getEntryPoint(uiFrmw);
     		
     		if ( null != iAppEntryPoint ) {
     			iAppEntryPoint.launch(params);
     		} else {
-    			LOGGER.warn(LOG_PREFIX+"launch framework["+framework+"] iAppEntryPoint IS NULL");
+    			logger_.warn(logPrefix_+f+" uiFrmw["+uiFrmw+"] iAppEntryPoint IS NULL");
     		}
     	} else {
-    		LOGGER.warn(LOG_PREFIX+"launch map IS NULL");
+    		logger_.warn(logPrefix_+f+" map IS NULL");
     	}
     }
 }

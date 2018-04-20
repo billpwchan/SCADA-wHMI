@@ -22,8 +22,9 @@ import com.thalesgroup.scadagen.wrapper.wrapper.shared.opm.SCADAgenChangePasswor
 public class SCADAgenLdapChangePassword implements IPasswordChange {
     
     /** logger */
-    private static final Logger logger = LoggerFactory.getLogger(SCADAgenLdapChangePassword.class);
-    private static final String LOG_PREFIX = "[SCADAgenLdapChangePassword] ";
+	private static final String CLASSNAME_ = SCADAgenLdapChangePassword.class.getSimpleName();
+    private static final Logger LOGGER_ = LoggerFactory.getLogger(SCADAgenLdapChangePassword.class.getName());
+    private static final String LOG_PREFIX_ = "["+CLASSNAME_+"] ";
 
     private static final String SEARCH_FILTER_DEFAULT = "(uid={0})";
 
@@ -80,15 +81,15 @@ public class SCADAgenLdapChangePassword implements IPasswordChange {
         
     	String targetUserId = userId;
     	if ( action instanceof SCADAgenChangePasswordAction ) {
-    		logger.info(LOG_PREFIX + "action instanceof SCADAgenChangePasswordAction IS TRUE");
+    		LOGGER_.info(LOG_PREFIX_ + "action instanceof SCADAgenChangePasswordAction IS TRUE");
     		String tmp = ((SCADAgenChangePasswordAction)action).getUserId();
     		if ( null != tmp ) {
     			targetUserId = tmp;
     		} else {
-    			logger.info(LOG_PREFIX + "action.getUserId() IS NULL, using currentPassword");
+    			LOGGER_.info(LOG_PREFIX_ + "action.getUserId() IS NULL, using currentPassword");
     		}
     	} else {
-    		logger.info(LOG_PREFIX + "action instanceof SCADAgenChangePasswordAction IS FALSE");
+    		LOGGER_.info(LOG_PREFIX_ + "action instanceof SCADAgenChangePasswordAction IS FALSE");
     	}
     	
         final String oldPassword = action.getOldPassword();
@@ -117,7 +118,7 @@ public class SCADAgenLdapChangePassword implements IPasswordChange {
 	        }
         } catch (CommunicationException e) {
         	String m = e.getMessage();
-        	logger.error(LOG_PREFIX + m, e);
+        	LOGGER_.error(LOG_PREFIX_ + m, e);
         }
     }
     
@@ -130,7 +131,7 @@ public class SCADAgenLdapChangePassword implements IPasswordChange {
             
         final String base = searchBase_ != null ? searchBase_ : "";
         
-        logger.info("Search for user : base=[{}] - filter=[{}]", new Object[] { base, filter });
+        LOGGER_.info("Search for user : base=[{}] - filter=[{}]", new Object[] { base, filter });
 
         return ldapTemplate_.search(base, filter, new AbstractContextMapper() {
 

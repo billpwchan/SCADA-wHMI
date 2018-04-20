@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>1</cols>
+		<rootPanel>FlowPanel</rootPanel>
+		<rootCSS>project-UILayoutOPMChangeTargetUserPasswordSummary-root</rootCSS>
+	</header>
+	<option key="0|0">
+		<uiCtrl>UIWidgetOPMChangePasswordControl</uiCtrl>
+		<uiView>ChangePassword/User/Control.view.xml</uiView>
+		<uiOpts>ChangePassword/User/Control.opts.xml</uiOpts>
+		<element>UIWidgetOPMChangeTargetUserPasswordControl</element>
+	</option>
+</data-set>

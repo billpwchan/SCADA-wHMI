@@ -1,5 +1,6 @@
 .project-UILayoutEntryPointLoginSummary-container {
 	vertical-align: middle !important;
-	width: 100%;
+	width: 1920px;
 	height: 100%;
+	background-image:url('../../../img/project/background/ERL_system_map.png');
 }

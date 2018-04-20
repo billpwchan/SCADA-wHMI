@@ -43,6 +43,8 @@ public class ProfileRESTController {
     @Resource
     private ActionService actionService;
     
+    Map<Character, Action> actionsMap = null;
+    
     @Autowired
     ProfileRESTController(final CounterService counterService) {
         this.counterService = counterService;
@@ -67,6 +69,7 @@ public class ProfileRESTController {
     public String dumpAllProfiles() {
         this.counterService.increment("com.thalesgroup.scadasoft.profilemgt.restcall.dumpAllProfiles");
         StringBuilder sbuilder = new StringBuilder();
+        getHVActions();
         dumpHVOPMHeader(sbuilder);
         Collection<Profile> profList = this.profileService.getAllProfiles();
         
@@ -204,16 +207,18 @@ public class ProfileRESTController {
     // 'C' => COMMAND_ENTITY
     // 'D' => VIEW_ENTITY_TYPE_ALARM
     // 'A' => COMMAND_ENTITY_TYPE_ALARM
-    private String getHVAction(char c) {
+    private void getHVActions() {
     	Collection<Action> actions = this.actionService.getAllActions();
-    	Map<Character, Action> actionsMap = new HashMap<Character, Action>();
+    	actionsMap = new HashMap<Character, Action>();
     	for (Action a : actions) {
     		String abbrev = a.getAbbrev();
     		if (abbrev != null && !abbrev.isEmpty()) {
         		actionsMap.put(new Character(abbrev.charAt(0)), a);
     		}
     	}
-		
+	}
+    
+    private String getHVAction(char c) {
     	String retVal = "ACTION '" + c + "' (abbrev) NOT FOUND !!";
     	if (actionsMap.containsKey(c)) {
     		retVal = actionsMap.get(c).getName();

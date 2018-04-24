@@ -7,7 +7,6 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventSenderAttribute;
@@ -21,8 +20,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
 
 public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i {
 
-	private static final String className = UIWidgetUtil.getClassSimpleName(UIEventActionProcessorCore.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private static final String className = UIEventActionProcessorCore.class.getSimpleName();
+	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(UIEventActionProcessorCore.class.getName());
 	
 	protected String prefix = null;
 	public void setPrefix(String prefix) { this.prefix = prefix; }

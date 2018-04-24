@@ -1,17 +1,17 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.test;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIOptionCaches;
 
 public class UIOptionCachesTest {
-	private final String className = UIWidgetUtil.getClassSimpleName(UIOptionCachesTest.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+//	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private String dictionariesCacheName = null;
 	private String filename = null;
@@ -40,34 +40,34 @@ public class UIOptionCachesTest {
 	}
 	public void test() {
 		final String function = "test";
-		String className = UIWidgetUtil.getClassSimpleName(UIOptionCaches.class.getName());
-		logger.info(className, function, "Testing [{}] Begin", className);
+		String className = UIOptionCachesTest.class.getSimpleName();
+		logger.debug(className, function, "Testing [{}] Begin", className);
 		
-		UIOptionCaches optionCaches = new UIOptionCaches(className, dictionariesCacheName, filename, tag);
+		final UIOptionCaches optionCaches = new UIOptionCaches(className, dictionariesCacheName, filename, tag);
 		
 		optionCaches.init();
 	
 		String [] optionKeys = optionCaches.getKeys();
 		if ( null != optionKeys ) {
 			for (String optionKey : optionKeys ) {
-				logger.info(className, function, "optionKey[{}]", optionKey);
+				logger.debug(className, function, "optionKey[{}]", optionKey);
 			}
 		} else {
 			logger.warn(className, function, "optionKeys IS NULL");
 		}
 		
-		Set<Entry<String, HashMap<String, String>>> options = optionCaches.getOptions();
+		final Set<Entry<String, Map<String, String>>> options = optionCaches.getOptions();
 		if ( null != options ) {
-			for ( Entry<String, HashMap<String, String>> entry : options ) {
+			for ( Entry<String, Map<String, String>> entry : options ) {
 				if ( null != entry ) {
-					String optionKey = entry.getKey();
-					HashMap<String, String> option = entry.getValue();
-					logger.info(className, function, "key[{}]", optionKey);
+					final String optionKey = entry.getKey();
+					final Map<String, String> option = entry.getValue();
+					logger.debug(className, function, "key[{}]", optionKey);
 					if ( null != option ) {
 						for ( String elementKey : option.keySet() ) {
-							logger.info(className, function, "key[{}] elementKey[{}]", optionKey, elementKey);
+							logger.debug(className, function, "key[{}] elementKey[{}]", optionKey, elementKey);
 							String value = option.get(elementKey);
-							logger.info(className, function, "key[{}] elementKey[{}] value[{}]", new Object[]{optionKey, elementKey, value});
+							logger.debug(className, function, "key[{}] elementKey[{}] value[{}]", new Object[]{optionKey, elementKey, value});
 						}
 					} else {
 						logger.warn(className, function, "option IS NULL");
@@ -79,6 +79,6 @@ public class UIOptionCachesTest {
 		} else {
 			logger.warn(className, function, "optionKeys IS NULL");
 		}
-		logger.info(className, function, "Testing [{}] End", className);
+		logger.debug(className, function, "Testing [{}] End", className);
 	}
 }

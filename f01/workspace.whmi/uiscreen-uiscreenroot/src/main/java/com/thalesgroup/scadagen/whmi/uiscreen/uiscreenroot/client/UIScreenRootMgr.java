@@ -11,8 +11,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFact
 
 public class UIScreenRootMgr implements UIWidgetMgrFactory {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIScreenRootMgr.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private UIScreenRootMgr() {}
 	private static UIScreenRootMgr instance = null;
@@ -24,14 +24,12 @@ public class UIScreenRootMgr implements UIWidgetMgrFactory {
 	}
 	
 	@Override
-	public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiElem
-			, String uiDict
-			, Map<String, Object> options) {
+	public UIWidget_i getUIWidget(final String uiCtrl, final String uiView, final UINameCard uiNameCard, final String uiOpts, final String uiElem
+			, final String uiDict
+			, final Map<String, Object> options) {
 		final String function = "getUIWidget";
-		
 		logger.begin(className, function);
-		
-		logger.info(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] uiElem[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
+		logger.debug(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] uiElem[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
 
 		UIWidget_i uiWidget_i = null;
 
@@ -39,7 +37,6 @@ public class UIScreenRootMgr implements UIWidgetMgrFactory {
 		.equals(uiCtrl) ) {
 
 			uiWidget_i = new UIPanelScreen();
-
 		}
 
 		if ( null != uiWidget_i ) {
@@ -54,9 +51,6 @@ public class UIScreenRootMgr implements UIWidgetMgrFactory {
 		}
 
 		logger.end(className, function);
-
 		return uiWidget_i;
-		
 	}
-
 }

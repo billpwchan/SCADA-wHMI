@@ -6,8 +6,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class ReadPropTest {
-	private final String className = UIWidgetUtil.getClassSimpleName(ReadPropTest.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private final String dictionariesCacheName = "UIInspectorPanel";
 	private final String propPrefix = "properties_test.";
@@ -25,7 +26,7 @@ public class ReadPropTest {
 	
 	public void testReadBoolean() {
 		final String function = "test";
-		String targetClass = UIWidgetUtil.getClassSimpleName(ReadProp.class.getName());
+		String targetClass = ReadProp.class.getSimpleName();
 		String targetFunction = "readBoolean";
 		logger.debug(className, function, "Testing [{}] [{}] Begin", targetClass, targetFunction);
 		

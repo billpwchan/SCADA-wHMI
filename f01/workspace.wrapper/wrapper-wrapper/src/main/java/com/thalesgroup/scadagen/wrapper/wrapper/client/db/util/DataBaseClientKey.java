@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.db.util;
 
+import java.util.Objects;
+
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.API;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.ClientKeyIndex;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.Stability;
@@ -84,6 +86,11 @@ public class DataBaseClientKey {
 		if ( null == this.env 		? null != other.env		: ! this.env.equalsIgnoreCase(other.env) ) return false;
 		if ( null == this.address 	? null != other.address		: ! this.address.equalsIgnoreCase(other.address) ) return false;
 		return true;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.api, this.widget, this.stability, this.screen, this.env , this.address);
 	}
 	
 	@Override

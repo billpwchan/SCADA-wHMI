@@ -635,6 +635,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 			}
 		}
 		
+		updateBtn(dbvalues);
 		updateMsgBox(dbvalues);
 		
 		logger.end(className, function);
@@ -1158,6 +1159,8 @@ public class UIInspectorTag implements UIInspectorTab_i {
 							
 							if ( ! sDbAddress.startsWith(STR_ALIAS) ) sDbAddress = STR_ALIAS + sDbAddress;
 							
+							btnExecute.setEnabled(false);
+							
 							if ( 0 == sPoint.compareTo(PointType.dio.toString()) ) {
 								
 								String sValue		= controlPoint.getValue(ControlPoint.VALUE);
@@ -1225,6 +1228,34 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	@Override
 	public void setUIInspectorTabClickEvent(UIInspectorTabClickEvent uiInspectorTabClickEvent) {
 		this.uiInspectorTabClickEvent = uiInspectorTabClickEvent;
+	}
+	
+	private void updateBtn(Map<String, String> keyAndValue) {
+		final String function = "updateMsgBox";
+		logger.begin(className, function);
+		for ( Entry<String, String> entry : keyAndValue.entrySet() ) {
+			String key = entry.getKey();
+			String value = entry.getValue();
+			if ( null != key && null != value ) {
+				if ( key.endsWith(PointName.execStatus.toString()) ) {
+					logger.debug(className, function, "key[{}] value[{}]", key, value);
+					if ( null != value && value.length() > 0 ) {
+						int intValue = Integer.parseInt(value);
+						switch (intValue) {
+						case 0: 
+						case 1: btnExecute.setEnabled(false);	break;
+						case 2: btnExecute.setEnabled(false);	break;
+						case 3: btnExecute.setEnabled(true);	break;
+						case 4:
+						case 5:
+						case 6: btnExecute.setEnabled(true);
+								break;
+						}
+					}
+				}
+			}
+		}
+		logger.end(className, function);
 	}
 	
 	private void updateMsgBox(Map<String, String> keyAndValue) {

@@ -5,14 +5,13 @@ import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecuteMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
 
 public class UIEventActionExecuteMgr {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionExecuteMgr.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private static UIEventActionExecuteMgr instance = null;
 	public static UIEventActionExecuteMgr getInstance() { 

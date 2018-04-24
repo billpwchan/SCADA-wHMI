@@ -108,8 +108,6 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 											
 											final String newpassvalue		= uiGeneric.getWidgetValue(strnewpassvalue);
 											
-											logger.debug(className, f, "strnewpassvalue[{}] newpassvalue[{}]", strnewpassvalue, newpassvalue);
-											
 											if ( null != newpassvalue && newpassvalue.trim().length() > 0 ) {
 												// Valid
 											} else {
@@ -122,10 +120,6 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 
 											final String newpassvalue		= uiGeneric.getWidgetValue(strnewpassvalue);
 											final String newpassvalue2	= uiGeneric.getWidgetValue(strnewpassvalue2);
-											
-											logger.debug(className, f, "strnewpassvalue[{}] newpassvalue[{}]", strnewpassvalue, newpassvalue);
-											
-											logger.debug(className, f, "strnewpassvalue2[{}] newpassvalue2[{}]", strnewpassvalue2, newpassvalue2);
 											
 											if ( null != newpassvalue && null != newpassvalue2 && newpassvalue.equals(newpassvalue2) ) {
 												// Valid
@@ -145,11 +139,6 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 											// Operator
 											final String oldpassvalue		= uiGeneric.getWidgetValue(stroldpassvalue);
 											final String newpassvalue		= uiGeneric.getWidgetValue(strnewpassvalue);
-											
-											
-											logger.debug(className, f, "stroldpassvalue[{}], oldpassvalue[{}]", stroldpassvalue, oldpassvalue);
-											
-											logger.debug(className, f, "strnewpassvalue[{}], newpassvalue[{}]", strnewpassvalue, newpassvalue);
 											
 											uiOpm_i.changePassword(operatorvalue, oldpassvalue, newpassvalue, new UIWrapperRpcEvent_i() {
 				

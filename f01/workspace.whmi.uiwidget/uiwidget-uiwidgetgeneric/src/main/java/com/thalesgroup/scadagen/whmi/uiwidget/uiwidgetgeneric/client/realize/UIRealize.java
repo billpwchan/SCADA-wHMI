@@ -3,7 +3,6 @@ package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
@@ -16,8 +15,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttri
 
 public class UIRealize extends UIWidget_i implements UIRealize_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIRealize.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	protected SimpleEventBus eventBus 	= null;
 

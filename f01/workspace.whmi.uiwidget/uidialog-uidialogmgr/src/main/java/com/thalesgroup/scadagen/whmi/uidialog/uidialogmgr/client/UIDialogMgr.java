@@ -50,7 +50,7 @@ public class UIDialogMgr {
 			if ( null != uiDialog_i ) break;
 		}
 		if ( null == uiDialog_i ) {
-			logger.warn(className, function, "uiEventActionProcessor_i IS NULL");
+			logger.warn(className, function, "uiDialog_i IS NULL");
 		}
 		
 		logger.begin(className, function);

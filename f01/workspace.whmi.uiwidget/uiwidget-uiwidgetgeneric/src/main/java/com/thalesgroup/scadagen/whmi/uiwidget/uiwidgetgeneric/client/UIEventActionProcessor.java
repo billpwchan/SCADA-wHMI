@@ -4,13 +4,12 @@ import java.util.Map;
 import com.google.gwt.user.client.Timer;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
 
 public class UIEventActionProcessor extends UIEventActionProcessorCore implements UIEventActionProcessor_i {
 
-	private static final String className = UIWidgetUtil.getClassSimpleName(UIEventActionProcessorCore.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private static final String className = UIEventActionProcessor.class.getSimpleName();
+	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(UIEventActionProcessor.class.getName());
 	
 	/**
 	 * Load and Execute the Local Init Action Set

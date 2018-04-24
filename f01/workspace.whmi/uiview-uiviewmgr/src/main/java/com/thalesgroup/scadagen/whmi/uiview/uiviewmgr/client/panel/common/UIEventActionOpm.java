@@ -199,17 +199,6 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 						} else {
 							uiEventActionProcessorCore_i.executeActionSet("set_result_value_invalid");
 						}
-
-						// UIEventAction action = new UIEventAction();
-						//
-						// if ( null != simpleEventBus ) {
-						// action.setParameter(UIActionEventAttribute_i.UIActionEventTargetAttribute.OperationElement.toString(),
-						// value);
-						// action.setParameter(UIActionEventAttribute_i.ActionAttribute.OperationString1.toString(),
-						// value);
-						// action.setParameter(UIActionEventAttribute_i.ActionAttribute.OperationString1.toString(),
-						// value);
-						// }
 					}
 				});
 			} else {

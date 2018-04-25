@@ -41,7 +41,7 @@ public class SimultaneousLogin {
 	private final String defaultUsrIdentityType = "IpAddress";
 	private final String defaultGwsIdentityType = "Profile";
 	
-	private final int defaultRecordThreshold = 0;
+	private final int defaultGroupThreshold = 0;
 
 	private String opmApi = null;
 	public String getOpmApi() { return this.opmApi; }
@@ -70,9 +70,9 @@ public class SimultaneousLogin {
 	private String dbAttrResrvUnreserveReqID = null;
 	public String getDbAttriuteUnreserveReqID() { return this.dbAttrResrvUnreserveReqID; }
 	
-	private int recordThreshold = 1;
-	public int getRecordThreshold() { return this.recordThreshold; }
-	public void setRecordThreshold(int recordThreshold) { this.recordThreshold = recordThreshold; }
+	private int groupThreshold = 1;
+	public int getGroupThreshold() { return this.groupThreshold; }
+	public void setGroupThreshold(int groupThreshold) { this.groupThreshold = groupThreshold; }
 	
 	private String [] byPassUsrIdentity = null;
 	public String [] getByPassUsrIdentities() { return this.byPassUsrIdentity; }
@@ -81,7 +81,7 @@ public class SimultaneousLogin {
 	public boolean getByPassUsrIdentityIgnoreCase() { return this.byPassUsrIdentityIgnoreCase; }
 
 	private Map<String, Map<String, String>> storage = new HashMap<String, Map<String, String>>();
-	public Map<String, Map<String, String>> getStorage(String key) { return storage; }
+	public Map<String, Map<String, String>> getStorage() { return storage; }
 	public void setStorage(String key, Map<String, String> entities) {
 		storage.put(key, entities); 
 		if ( logger.isDebugEnabled() ) dumpStorage();
@@ -131,9 +131,9 @@ public class SimultaneousLogin {
 		dbAttrResrvUnreserveReqID = ReadJson.readString(jsonObject, ParameterAttribute.DbAttrResrvUnreserveReqID.toString(), defaultDbAttrResrvUnreserveReqID);
 		logger.debug(className, function, "DbAttrResrvUnreserveReqID[{}]  dbAttrResrvUnreserveReqID[{}]", ParameterAttribute.DbAttrResrvUnreserveReqID.toString(), dbAttrResrvUnreserveReqID);
 
-		recordThreshold = defaultRecordThreshold;
-//		recordThreshold = ReadJson.readInt(jsonObject, ParameterAttribute.RecordThreshold.toString(), defaultRecordThreshold);
-//		logger.debug(className, function, "RecordThreshold[{}]  recordThreshold[{}]", ParameterAttribute.RecordThreshold.toString(), recordThreshold);
+		groupThreshold = defaultGroupThreshold;
+//		groupThreshold = ReadJson.readInt(jsonObject, ParameterAttribute.GroupThreshold.toString(), defaultGroupThreshold);
+//		logger.debug(className, function, "GroupThreshold[{}]  groupThreshold[{}]", ParameterAttribute.GroupThreshold.toString(), groupThreshold);
 		
 		byPassUsrIdentity = ReadJson.readStringArray(jsonObject, ParameterAttribute.ByPassUsrIdentity.toString());
 		logger.debug(className, function, "ByPassUsrIdentity[{}]  byPassUsrIdentity[{}]", ParameterAttribute.ByPassUsrIdentity.toString(), byPassUsrIdentity);
@@ -485,10 +485,10 @@ public class SimultaneousLogin {
 		String selfGwsArea		= getSelfArea();
 		String selfUsrIdentity	= getUsrIdentity();
 		
-		int recordThreshold 	= getRecordThreshold();
+		int groupThreshold 	= getGroupThreshold();
 		
-		logger.debug(className, function, "selfGwsIdentity[{}] selfGwsArea[{}] selfUsrIdentity[{}] recordThreshold[{}]"
-				, new Object[]{selfGwsIdentity, selfGwsArea, selfUsrIdentity, recordThreshold});
+		logger.debug(className, function, "selfGwsIdentity[{}] selfGwsArea[{}] selfUsrIdentity[{}] groupThreshold[{}]"
+				, new Object[]{selfGwsIdentity, selfGwsArea, selfUsrIdentity, groupThreshold});
 		
 		int result = 0;
 
@@ -536,7 +536,7 @@ public class SimultaneousLogin {
 					logger.debug(className, function, "reservedBySelf IS TRUE result[{}]", result);
 				}
 
-				if ( reservedInOtherArea(selfGwsArea, selfUsrIdentity, recordThreshold)) {
+				if ( reservedInOtherArea(selfGwsArea, selfUsrIdentity, groupThreshold)) {
 					
 					result = result | SimultaneousLogin_i.Bit_Pos_ReservedInOtherArea;
 					

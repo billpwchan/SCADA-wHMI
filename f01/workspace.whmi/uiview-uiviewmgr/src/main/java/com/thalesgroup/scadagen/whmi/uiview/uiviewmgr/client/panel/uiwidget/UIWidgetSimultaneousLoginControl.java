@@ -44,10 +44,13 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 
 	private int intervalPhaseA	= 500;
 	private int intervalPhaseB	= 500;
-	private int intervalPhaseC	= 10000;
+	private int intervalPhaseC	= 500;
 	private int intervalPhaseD	= 5000;
 	
 	private int timeoutPhaseB	= 20;
+	private int timeoutPhaseC	= 5;
+	
+	private int recordThreshold = 5;
 	
 	private void loginRequest() {
 		final String function = "loginRequest";
@@ -296,6 +299,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 	}
 
 	private int phaseBCounter = 0;
+	private int phaseCCounter = 0;
 	private boolean isDuplicatePassed = false;
 	private void login() {
 		final String f = "login";
@@ -341,30 +345,48 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 									t3 = new Timer() {
 										public void run() {
 											logger.debug(className, f, "Phase C running...");
-
-											if ( ! isReservedByOther() ) {
-												if ( ! isReservedInOtherArea() ) {
-													if ( ! isReservedBySelf() ) {
-														isDuplicatePassed = true;
-														loginRequest();
-														
-														// Reserve Timeout
-														logger.debug(className, f, "Phase D intervalPhaseD[{}] start...", intervalPhaseD);
-														t4 = new Timer() {
-															public void run() {
-																logger.debug(className, f, "Phase D running...");
-																
-																// Exit
-																exit(UIWidgetSimultaneousLoginControl_i.loginInvalidReserveTimeoutProcedure);
-															} // t4 run
-														};
-														t4.schedule(intervalPhaseD);
-													} // Reserved By Self
-												} // Reserved In Other Area
-											} // Reserved By Other
+											
+											final Map<String, Map<String, String>> entity = SimultaneousLogin.getInstance().getStorage();
+											logger.debug(className, f, "Phase C phaseCCounter[{}] > timeoutPhaseC[{}]", phaseCCounter, timeoutPhaseC);
+											
+											int recordCounter = -1;
+											if(null != entity) recordCounter = entity.size();
+											logger.debug(className, f, "Phase C recordCounter[{}] > recordThreshold[{}]", recordCounter, recordThreshold);
+											logger.debug(className, f, "Phase C phaseCCounter[{}] > timeoutPhaseC[{}] Timeout reach", phaseCCounter, timeoutPhaseC);
+											if(
+													-1 != recordCounter && recordCounter >= recordThreshold
+												||
+													phaseCCounter > timeoutPhaseC
+												) {
+												logger.debug(className, f, "Phase C stop...");
+												t3.cancel();
+												
+												if ( ! isReservedByOther() ) {
+													if ( ! isReservedInOtherArea() ) {
+														if ( ! isReservedBySelf() ) {
+															isDuplicatePassed = true;
+															loginRequest();
+															
+															// Reserve Timeout
+															logger.debug(className, f, "Phase D intervalPhaseD[{}] start...", intervalPhaseD);
+															t4 = new Timer() {
+																public void run() {
+																	logger.debug(className, f, "Phase D running...");
+																	
+																	// Exit
+																	exit(UIWidgetSimultaneousLoginControl_i.loginInvalidReserveTimeoutProcedure);
+																} // t4 run
+															};
+															t4.schedule(intervalPhaseD);
+														} // Reserved By Self
+													} // Reserved In Other Area
+												} // Reserved By Other
+											}
+											
+											phaseCCounter++;
 										}// t3 run
 									};
-									t3.schedule(intervalPhaseC);
+									t3.scheduleRepeating(intervalPhaseC);
 								} // if getWkstInfo
 							} // t2 run
 						};
@@ -377,28 +399,6 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 
 		logger.end(className, f);
 	}
-	
-//	private void elementAction(String element) {
-//		final String function = "elementAction";
-//		logger.begin(className, function);
-//		
-//		logger.debug(className, function, "element[{}]", element);
-//		
-//		if ( UIWidgetSimultaneousLoginControl_i.strLoginRequest.equals(element) ) {
-//			
-//			loginRequest();
-//		}
-//		else if ( UIWidgetSimultaneousLoginControl_i.strLogoutRequest.equals(element) ) {							
-//			
-//			logoutRequest();
-//		}
-//		else if ( UIWidgetSimultaneousLoginControl_i.strValidateLogin.equals(element) ) {
-//
-//			validateLogin(true);
-//		}
-//		
-//		logger.end(className, function);
-//	}
 	
 	private void storeData(Set<Map<String, String>> rowUpdated) {
 		final String f = "storeData";
@@ -472,6 +472,9 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		String strIntervalPhaseD 		= null;
 		
 		String strTimeoutPhaseB 		= null;
+		String strTimeoutPhaseC 		= null;
+		
+		String strRecordThreshold		= null;
 
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -490,6 +493,9 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			strIntervalPhaseD			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.IntervalPhaseD.toString(), strHeader);
 			
 			strTimeoutPhaseB			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.TimeoutPhaseB.toString(), strHeader);
+			strTimeoutPhaseC			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.TimeoutPhaseC.toString(), strHeader);
+			
+			strRecordThreshold			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.RecordThreshold.toString(), strHeader);
 
 			changePasswordOpm			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.ChangePasswordOpm.toString(), strHeader);
 			changePasswordFunction		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.ChangePasswordFunction.toString(), strHeader);
@@ -506,8 +512,14 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			logger.debug(className, f, "strIntervalPhaseA[{}] strIntervalPhaseB[{}] strIntervalPhaseC[{}] strIntervalPhaseD[{}]"
 					, new Object[]{strIntervalPhaseA, strIntervalPhaseB, strIntervalPhaseC, strIntervalPhaseD});
 			
-			logger.debug(className, f, "changePasswordOpm[{}] changePasswordFunction[{}] changePasswordLocation[{}] changePasswordAction[{}] changePasswordMode[{}]"
-					, new Object[]{changePasswordOpm, changePasswordFunction,changePasswordLocation, changePasswordAction, changePasswordMode});
+			logger.debug(className, f, "strIntervalPhaseA[{}] strIntervalPhaseB[{}] strIntervalPhaseC[{}] strIntervalPhaseD[{}]"
+					, new Object[]{strIntervalPhaseA, strIntervalPhaseB, strIntervalPhaseC, strIntervalPhaseD});
+			
+			logger.debug(className, f, "strTimeoutPhaseB[{}] strTimeoutPhaseC[{}]"
+					, new Object[]{strTimeoutPhaseB, strTimeoutPhaseC});
+			
+			logger.debug(className, f, "strRecordThreshold[{}]"
+					, new Object[]{strRecordThreshold});
 		}
 		
 		intervalPhaseA = convertIntValue(strIntervalPhaseA, intervalPhaseA);
@@ -516,6 +528,9 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		intervalPhaseD = convertIntValue(strIntervalPhaseD, intervalPhaseD);
 		
 		timeoutPhaseB = convertIntValue(strTimeoutPhaseB, timeoutPhaseB);
+		timeoutPhaseC = convertIntValue(strTimeoutPhaseC, timeoutPhaseC);
+		
+		recordThreshold = convertIntValue(strRecordThreshold, recordThreshold);
 		
 		logger.end(className, f);
 	}
@@ -583,21 +598,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			@Override
 			public void onClick(ClickEvent event) {
 				final String f = "onClick";
-				logger.begin(className, f);
-				
-//				if ( null != event ) {
-//					Widget widget = (Widget) event.getSource();
-//					if ( null != widget ) {
-//						String element = uiGeneric.getWidgetElement(widget);
-//						logger.debug(className, function, "element[{}]", element);
-//						if ( null != element ) {
-//							
-//							elementAction(element);
-//
-//						}
-//					}
-//				}
-				logger.end(className, f);
+				logger.beginEnd(className, f);
 			}
 			
 			@Override

@@ -19,19 +19,24 @@
 		<ColumnNameResrReservedID>gdg_column_resrvreservedid</ColumnNameResrReservedID>
 		
 		<!-- Receive the Self Identity from Server Side in MS-->
-		<IntervalPhaseA>1000</IntervalPhaseA>
+		<IntervalPhaseA>250</IntervalPhaseA>
 		
 		<!-- Receive Self Wkst from GDG in MS-->
-		<IntervalPhaseB>1000</IntervalPhaseB>
+		<IntervalPhaseB>250</IntervalPhaseB>
 		
 		<!-- Receive Duplicate Area in MS -->
-		<IntervalPhaseC>5000</IntervalPhaseC>
+		<IntervalPhaseC>1000</IntervalPhaseC>
 		
 		<!-- Waiting reserve timeout in MS -->
 		<IntervalPhaseD>10000</IntervalPhaseD>
 		
 		<!-- Timeout on Phase B in time -->
 		<TimeoutPhaseB>20</TimeoutPhaseB>
+		
+		<!-- Timeout on Phase C in time -->
+		<TimeoutPhaseC>10</TimeoutPhaseC>
+		
+		<RecordThreshold>3</RecordThreshold>
 		
 		<ChangePasswordOpm>UIOpmSCADAgen</ChangePasswordOpm>
 		<ChangePasswordFunction>1</ChangePasswordFunction>

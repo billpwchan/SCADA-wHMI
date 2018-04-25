@@ -36,7 +36,11 @@ public interface UIWidgetSimultaneousLoginControl_i {
 		, IntervalPhaseB("IntervalPhaseB")
 		, IntervalPhaseC("IntervalPhaseC")
 		, IntervalPhaseD("IntervalPhaseD")
+		
 		, TimeoutPhaseB("TimeoutPhaseB")
+		, TimeoutPhaseC("TimeoutPhaseC")
+		
+		, RecordThreshold("RecordThreshold")
 		
 		, ChangePasswordOpm			("ChangePasswordOpm")
 		, ChangePasswordFunction	("ChangePasswordFunction")

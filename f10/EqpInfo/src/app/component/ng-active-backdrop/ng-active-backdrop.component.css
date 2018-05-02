@@ -1,0 +1,29 @@
+.badge.statusBackdrop-1024 {
+    color: white;
+    background: grey;
+}
+
+.badge.statusBackdrop-0 {
+    color: white;
+    background: red;
+}
+
+.badge.statusBackdrop-1 {
+    color: white;
+    background: green;
+}
+
+.badge.statusBackdrop-2 {
+    color: white;
+    background: blue;
+}
+
+.badge.statusBackdrop-8 {
+    color: white;
+    background: blue;
+}
+
+.badge.statusBackdrop-512 {
+    color: white;
+    background: blue;
+}

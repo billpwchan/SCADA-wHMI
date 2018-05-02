@@ -1,0 +1,15 @@
+{
+  "i18n": {
+    "default_lang": "en"
+    , "resolve_by_browser_lang": true
+    , "use_culture_lang": true
+    , "resolve_by_browser_cookie": false
+    , "use_cookie_name": "iscs.webapp.Lang"
+  }
+  , "AppComponent": {
+    "title": "EqpInfo"
+  }
+  , "DbmPollingService": {
+    "interval": 5000
+  }
+}

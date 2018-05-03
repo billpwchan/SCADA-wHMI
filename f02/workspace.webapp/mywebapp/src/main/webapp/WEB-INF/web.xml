@@ -8,7 +8,7 @@
     <param-value>
   		/WEB-INF/applicationContext.xml
   		/WEB-INF/applicationContext-project.xml
-  		/WEB-INF/applicationContext-security.xml
+  		classpath:applicationContext-security.xml
     </param-value>
   </context-param>
   

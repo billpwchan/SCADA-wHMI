@@ -1,13 +1,17 @@
 package com.thalesgroup.scadasoft.opmmgt.db;
 
-import com.thalesgroup.scadasoft.opmmgt.api.ProfileService;
+import java.util.Collection;
+
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
+import com.thalesgroup.scadasoft.opmmgt.api.ProfileService;
+import com.thalesgroup.scadasoft.opmmgt.util.UtilService;
 
 @Service(value = "profileService")
 @Transactional
@@ -21,6 +25,8 @@ public class ProfileDBServiceImpl implements ProfileService {
     // Database access
     private final ProfileRepository profileRepository;
 
+    @Resource
+    private UtilService utilService;
 
     @Autowired
     public ProfileDBServiceImpl(ProfileRepository profileRepository) {
@@ -35,8 +41,11 @@ public class ProfileDBServiceImpl implements ProfileService {
 
     @Override
     public synchronized Profile createProfile(final Profile Profile) {
-
-        return this.profileRepository.save(Profile);
+    	Profile p = this.profileRepository.save(Profile);
+    	if (p != null) {
+        	this.utilService.setLastModifiedTime();
+        }
+        return p;
     }
 
     @Override
@@ -45,7 +54,10 @@ public class ProfileDBServiceImpl implements ProfileService {
         if (u != null) {
             u.setName(profile.getName());
             u.setDescription(profile.getDescription());
-            this.profileRepository.save(u);
+            Profile p = this.profileRepository.save(u);
+            if (p != null) {
+            	this.utilService.setLastModifiedTime();
+            }
             return u;
         }
 
@@ -57,6 +69,8 @@ public class ProfileDBServiceImpl implements ProfileService {
         if (this.profileRepository.exists(id)) {
 
             this.profileRepository.delete(id);
+            this.utilService.setLastModifiedTime();
+            
         }
     }
 

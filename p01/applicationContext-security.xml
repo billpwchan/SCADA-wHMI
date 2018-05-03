@@ -45,8 +45,14 @@
     </beans:bean>
 
     <!-- Session Authentication Strategy -->
-    <beans:bean id="sas"
+    <!--<beans:bean id="sas"
 	      class="com.thalesgroup.hvpp.opmgate.OpmAuthentifier">
+		<beans:constructor-arg name="sessionRegistry" ref="sessionRegistry" />
+        <beans:property name="maximumSessions" value="-1" />
+        <beans:property name="exceptionIfMaximumExceeded" value="true" />
+    </beans:bean>-->
+	<beans:bean id="sas"
+	      class="com.thalesgroup.scadagen.whmi.opm.OpmLoader">
 		<beans:constructor-arg name="sessionRegistry" ref="sessionRegistry" />
         <beans:property name="maximumSessions" value="-1" />
         <beans:property name="exceptionIfMaximumExceeded" value="true" />

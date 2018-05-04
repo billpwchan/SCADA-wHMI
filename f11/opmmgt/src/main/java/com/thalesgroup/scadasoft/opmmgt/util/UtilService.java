@@ -7,10 +7,13 @@ import org.springframework.stereotype.Service;
 @Service(value = "utilService")
 public class UtilService {
 	
-	private Date lastUpdateTime = new Date(86400000);
+	private Date lastUpdateTime = new Date();
+	
+	private boolean opmDumpCacheIsUpdated = false;
     
     public void setLastModifiedTime() {
     	setLastUpdateTime(new Date());
+    	opmDumpCacheIsUpdated = false;
     }
     
     public void setLastUpdateTime(Date modifyDate) {
@@ -19,6 +22,14 @@ public class UtilService {
     
     public Date getLastUpdateTime() {
     	return lastUpdateTime;
+    }
+
+    public boolean isOpmDumpCacheUpdated() {
+    	return opmDumpCacheIsUpdated;
+    }
+    
+    public void setOpmDumpCacheUpdated() {
+    	opmDumpCacheIsUpdated = true;
     }
 
 }

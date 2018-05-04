@@ -1,5 +1,7 @@
 package com.thalesgroup.scadasoft.opmmgt;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -10,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.xml.bind.DatatypeConverter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,9 +65,17 @@ public class ProfileRESTController {
     private UtilService utilService;
     
     Map<Character, Action> actionsMap = null;
+    
+    @Value("${opm.checksumAlgorithm:MD5}")
+    private String checksumAlgorithm;
 
     @Value("${opm.dumpPermissionWithEmptyMaskValue:true}")
     private boolean dumpPermissionWithEmptyMaskValue;
+    
+    @Value("${opm.cacheDumpFile:true}")
+    private boolean cacheDumpFile;
+    
+    private String dumpFile = "";
     
     @Autowired
     ProfileRESTController(final CounterService counterService) {
@@ -90,6 +101,11 @@ public class ProfileRESTController {
     public String dumpAllProfiles() {
     	LOGGER.debug("start dumpAllProfiles");
         this.counterService.increment("com.thalesgroup.scadasoft.profilemgt.restcall.dumpAllProfiles");
+        
+        if (cacheDumpFile && this.utilService.isOpmDumpCacheUpdated()) {
+        	LOGGER.debug("dumpAllProfiles return cached dumpFile");
+        	return dumpFile;
+        }
         StringBuilder sbuilder = new StringBuilder();
         getHVActions();
         
@@ -129,8 +145,16 @@ public class ProfileRESTController {
 
         LOGGER.debug("dumpHVOPMFooter");
         dumpHVOPMFooter(sbuilder);
+
+        if (cacheDumpFile) {
+        	dumpFile = sbuilder.toString();
+        	utilService.setOpmDumpCacheUpdated();
+        	LOGGER.debug("dumpAllProfiles dumpFile cache updated");
+        }
         LOGGER.debug("finish dumpAllProfiles");
+
         return sbuilder.toString();
+     
     }
 
 	@CrossOrigin()
@@ -345,7 +369,26 @@ public class ProfileRESTController {
 	@CrossOrigin()
     @RequestMapping(value = "/lastUpdateTime", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public String lastUpdateTime() {
+		this.counterService.increment("com.thalesgroup.scadasoft.profilemgt.restcall.lastUpdateTime");
 		return Long.toString(this.utilService.getLastUpdateTime().getTime());
+	}
+	
+	@CrossOrigin()
+    @RequestMapping(value = "/checksum", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public String checksum() {
+		this.counterService.increment("com.thalesgroup.scadasoft.profilemgt.restcall.checksum");
+		String cksum = "";
+		
+		try {
+			MessageDigest md = MessageDigest.getInstance(checksumAlgorithm);
+			byte [] digest = md.digest(dumpAllProfiles().getBytes());
+			
+			cksum = DatatypeConverter.printHexBinary(digest).toUpperCase();
+		} catch (NoSuchAlgorithmException e) {
+			LOGGER.error("Error getting checksum {}", e.getMessage());
+		}
+		
+		return cksum;
 	}
 
 	private List<Mask> sort(Set<Mask> masks) {

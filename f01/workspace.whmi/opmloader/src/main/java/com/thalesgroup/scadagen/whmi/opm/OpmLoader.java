@@ -13,11 +13,14 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.DatatypeConverter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +38,11 @@ public class OpmLoader extends MwtSessionAuthenticationStrategy {
 
 	private String newLastUpdateTime = "";
 	private String lastUpdateTime = "";
+	private String opmChecksum = "";
+	private String checksumAlgorithm = "MD5";
+
+	private enum CheckModificationBy { LAST_UPDATE_TIME, CHECKSUM };
+	CheckModificationBy checkMethod = CheckModificationBy.LAST_UPDATE_TIME;
 	
 	private String opmManagerHostname_ = null;
 	private int opmManagerPort_ = 0;
@@ -72,6 +80,15 @@ public class OpmLoader extends MwtSessionAuthenticationStrategy {
 			
 				if (opmManagerPortStr != null)
 					opmManagerPort_ = Integer.parseInt(opmManagerPortStr);
+				
+				String method = scadasoftProperties.getProperty("scs.opm.checkModificationMethod");
+				if (method != null) {
+					if (method.equalsIgnoreCase("LastUpdateTime")) {
+						checkMethod = CheckModificationBy.LAST_UPDATE_TIME;
+					} else if (method.equalsIgnoreCase("Checksum")) {
+						checkMethod = CheckModificationBy.CHECKSUM;
+					}
+				}
 			}	
 		}
 		catch (IOException e)
@@ -422,7 +439,9 @@ public class OpmLoader extends MwtSessionAuthenticationStrategy {
 
 	protected boolean retrieveOpmFile()
 	{
-		retrievePermissionsFilesPath();
+		if (downloadedFile_ == null) {
+			retrievePermissionsFilesPath();
+		}
 		
 		if (!downloadOpmFile())
 			return false;
@@ -479,12 +498,72 @@ public class OpmLoader extends MwtSessionAuthenticationStrategy {
 		return ret;
 	}
 	
-	protected boolean isOpmPermissionModified() {
-		logger.debug("isOpmPermissionModified lastUpdateTime = {}", lastUpdateTime);
+	protected boolean getChecksum() {
+		logger.debug("getChecksum");
+		boolean ret = false;
+
+		if (this.opmManagerHostname_ == null)
+			retrieveHostnameAndPort();					
+
+		try
+		{
+			URL url = new URL("http://" + this.opmManagerHostname_ + ":" + this.opmManagerPort_ + "/opm/checksum");
+			BufferedReader in = new BufferedReader(
+			        new InputStreamReader(url.openStream()));
+
+	        String inputLine;
+	        StringBuilder sb = new StringBuilder();
+	        while ((inputLine = in.readLine()) != null)
+	        	sb.append(inputLine);
+	        opmChecksum = sb.toString();
+	        logger.debug("OPM Manager return checksum = {}", opmChecksum);
+	        in.close();
+	        ret = true;
+		} 
+		catch (MalformedURLException e)
+		{
+			throw new AuthenticationServiceException("Malformed URL exception while trying to retrieve the OPM file: " + e.getMessage());
+		}
+		catch (IOException e)
+		{
+			// Do not throw an exception, use the OPM file that already exists.
+			// throw new AuthenticationServiceException("Cannot retrieve the OPM file from OPM Manager: " + e.getMessage());
+			logger.error("Cannot retrieve the OPM file from OPM Manager: " + e.getMessage());
+		}
+
+		return ret;
+	}
+	
+	protected String getLocalOpmChecksum() {
+		String cksum = "";
+		
+		if (downloadedFile_ == null) {
+			retrievePermissionsFilesPath();
+		}
+		
+		try {
+			MessageDigest md = MessageDigest.getInstance(checksumAlgorithm);
+			md.update(Files.readAllBytes(downloadedFile_.toPath()));
+			byte [] digest = md.digest();
+			
+			cksum = DatatypeConverter.printHexBinary(digest).toUpperCase();
+
+		} catch (NoSuchAlgorithmException e) {
+			logger.error("Error getting checksum {}", e.getMessage());
+		} catch (IOException e1) {
+			logger.error("Error reading downloaded permission file {}", e1.getMessage());
+		}
+
+		return cksum;
+	}
+	
+	protected boolean isLastUpdateTimeModified() {
+		
 		if (getLastUpdateTime()) {
+			logger.debug("isLastUpdateTimeModified lastUpdateTime downloaded=[{}]  local=[{}]", newLastUpdateTime, lastUpdateTime);
 			if (!newLastUpdateTime.isEmpty() && newLastUpdateTime.equals(lastUpdateTime)) {
 				
-				logger.debug("lastUpdateTime not modified {}", lastUpdateTime);
+				logger.info("OPM permission file is not modified. File lastUpdateTime {} is the same", lastUpdateTime);
 				return false;
 			}
 		}
@@ -492,8 +571,38 @@ public class OpmLoader extends MwtSessionAuthenticationStrategy {
 		if (!newLastUpdateTime.isEmpty()) {
 			lastUpdateTime = newLastUpdateTime;
 		}
-		logger.debug("lastUpdateTime is modified");
+		logger.info("OPM permission file is modified. File lastUpdateTime is different");
 		return true;
+	}
+	
+	protected boolean isChecksumModified() {
+		logger.debug("isChecksumModified");
+		if (getChecksum()) {
+			String localcksum = getLocalOpmChecksum();
+			logger.debug("isChecksumModified checksum downloaded=[{}]  local=[{}]", opmChecksum, localcksum);
+			if (!opmChecksum.isEmpty() && !localcksum.isEmpty()) {
+				if (opmChecksum.equals(localcksum)) {
+					logger.info("OPM permission file is not modified. File checksum is the same");
+					return false;
+				}
+			}
+		}
+		logger.info("OPM permission file is modified. File checksum is different");
+		return true;
+	}
+	
+	protected boolean isOpmPermissionModified() {
+		if (this.opmManagerHostname_ == null) {
+			retrieveHostnameAndPort();
+		}
+
+		logger.debug("isOpmPermissionModified check modification by {}", checkMethod);
+		
+		if (checkMethod == CheckModificationBy.CHECKSUM) {
+			return isChecksumModified();
+		}
+		
+		return isLastUpdateTimeModified();
 	}
 
 	@Override

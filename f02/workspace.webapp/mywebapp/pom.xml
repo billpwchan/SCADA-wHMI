@@ -10,7 +10,7 @@
 
     <properties>
         <!-- Version of the SCADAgen WHMI -->
-        <scadagen.whmi.version>1.7.1</scadagen.whmi.version>
+        <scadagen.whmi.version>1.7.2-SNAPSHOT</scadagen.whmi.version>
 	
         <scadasoft.mwt.version>6.3.1_P07-HV960P01</scadasoft.mwt.version>
         <jackson.version>2.8.8</jackson.version>
@@ -184,10 +184,15 @@
         </dependency>
 		<!-- HV - OPM dependencies -->
 		<dependency>
+            <groupId>com.thalesgroup.scadagen.whmi.opm</groupId>
+            <artifactId>opmloader</artifactId>
+            <version>1.7.2-SNAPSHOT</version>
+		</dependency>
+		<!--<dependency>
             <groupId>com.thalesgroup.hvpp</groupId>
             <artifactId>opmaddon</artifactId>
             <version>1.2.0</version>
-		</dependency>
+		</dependency>-->
         <!-- GWT dependencies -->
         <dependency>
             <groupId>com.google.gwt</groupId>

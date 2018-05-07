@@ -1,14 +1,18 @@
 package com.thalesgroup.scadasoft.opmmgt.db;
 
-import com.thalesgroup.scadasoft.opmmgt.api.MaskService;
+import java.util.Collection;
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-import java.util.List;
+import com.thalesgroup.scadasoft.opmmgt.api.MaskService;
+import com.thalesgroup.scadasoft.opmmgt.util.UtilService;
 
 @Service(value = "maskService")
 @Transactional
@@ -24,6 +28,9 @@ public class MaskDBServiceImpl implements MaskService {
     private final FunctionRepository functionRepository;
     private final LocationRepository locationRepository;
     private final ProfileRepository profileRepository;
+    
+    @Resource
+    private UtilService utilService;
 
     @Autowired
     public MaskDBServiceImpl(MaskRepository maskRepository, FunctionRepository functionRepository,
@@ -109,6 +116,9 @@ public class MaskDBServiceImpl implements MaskService {
         try {
             connectToEntities(mask);
             m = this.maskRepository.save(mask);
+            if (m != null) {
+            	this.utilService.setLastModifiedTime();
+            }
         } catch(Exception e) {
             LOGGER.error("CreateMask failure: {}", e.getMessage());
         }
@@ -138,7 +148,10 @@ public class MaskDBServiceImpl implements MaskService {
                 u.setProfile(prof);
             }
 
-            this.maskRepository.save(u);
+            Mask m = this.maskRepository.save(u);
+            if (m != null) {
+            	this.utilService.setLastModifiedTime();
+            }
             return u;
         }
 
@@ -149,6 +162,7 @@ public class MaskDBServiceImpl implements MaskService {
     public synchronized void deleteMask(final int id) {
 
             this.maskRepository.delete(id);
+            this.utilService.setLastModifiedTime();
 
     }
 

@@ -1,13 +1,17 @@
 package com.thalesgroup.scadasoft.opmmgt.db;
 
-import com.thalesgroup.scadasoft.opmmgt.api.ActionService;
+import java.util.Collection;
+
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
+import com.thalesgroup.scadasoft.opmmgt.api.ActionService;
+import com.thalesgroup.scadasoft.opmmgt.util.UtilService;
 
 @Service(value = "actionService")
 @Transactional
@@ -20,6 +24,9 @@ public class ActionDBServiceImpl implements ActionService {
 
     // Database access
     private final ActionRepository actionRepository;
+    
+    @Resource
+    private UtilService utilService;
 
     @Autowired
     public ActionDBServiceImpl(ActionRepository actionRepository) {
@@ -34,8 +41,12 @@ public class ActionDBServiceImpl implements ActionService {
 
     @Override
     public synchronized Action createAction(final Action Action) {
-
-        return this.actionRepository.save(Action);
+    	Action a = this.actionRepository.save(Action);
+    	LOGGER.debug("Action createAction {}", a.toString());
+    	if (a != null) {
+    		this.utilService.setLastModifiedTime();
+    	}
+        return a;
     }
 
     @Override
@@ -54,7 +65,11 @@ public class ActionDBServiceImpl implements ActionService {
             if (action.getAbbrev() != null) {
                 u.setAbbrev(action.getAbbrev());
             }
-            this.actionRepository.save(u);
+            Action a = this.actionRepository.save(u);
+            LOGGER.debug("Action updateAction {}", a.toString());
+            if (a != null) {
+            	this.utilService.setLastModifiedTime();
+            }
             return u;
         }
 
@@ -66,6 +81,7 @@ public class ActionDBServiceImpl implements ActionService {
         if (this.actionRepository.exists(id)) {
 
             this.actionRepository.delete(id);
+            this.utilService.setLastModifiedTime();
         }
     }
 

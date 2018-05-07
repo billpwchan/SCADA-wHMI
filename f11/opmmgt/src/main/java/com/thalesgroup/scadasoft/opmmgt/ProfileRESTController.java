@@ -1,21 +1,7 @@
 package com.thalesgroup.scadasoft.opmmgt;
 
-import com.thalesgroup.scadasoft.opmmgt.api.ActionService;
-import com.thalesgroup.scadasoft.opmmgt.api.FunctionService;
-import com.thalesgroup.scadasoft.opmmgt.api.LocationService;
-import com.thalesgroup.scadasoft.opmmgt.api.ProfileService;
-import com.thalesgroup.scadasoft.opmmgt.db.Action;
-import com.thalesgroup.scadasoft.opmmgt.db.Function;
-import com.thalesgroup.scadasoft.opmmgt.db.Location;
-import com.thalesgroup.scadasoft.opmmgt.db.Mask;
-import com.thalesgroup.scadasoft.opmmgt.db.Profile;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.metrics.CounterService;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -25,9 +11,38 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Resource;
+import javax.xml.bind.DatatypeConverter;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.metrics.CounterService;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.thalesgroup.scadasoft.opmmgt.api.ActionService;
+import com.thalesgroup.scadasoft.opmmgt.api.FunctionService;
+import com.thalesgroup.scadasoft.opmmgt.api.LocationService;
+import com.thalesgroup.scadasoft.opmmgt.api.MaskService;
+import com.thalesgroup.scadasoft.opmmgt.api.ProfileService;
+import com.thalesgroup.scadasoft.opmmgt.db.Action;
+import com.thalesgroup.scadasoft.opmmgt.db.Function;
+import com.thalesgroup.scadasoft.opmmgt.db.Location;
+import com.thalesgroup.scadasoft.opmmgt.db.Mask;
+import com.thalesgroup.scadasoft.opmmgt.db.Profile;
+import com.thalesgroup.scadasoft.opmmgt.util.UtilService;
+
 @RestController
 @RequestMapping("/opm")
 public class ProfileRESTController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProfileRESTController.class);
 
     private final CounterService counterService;
 
@@ -42,6 +57,25 @@ public class ProfileRESTController {
     
     @Resource
     private ActionService actionService;
+    
+    @Resource
+    private MaskService maskService;
+    
+    @Resource
+    private UtilService utilService;
+    
+    Map<Character, Action> actionsMap = null;
+    
+    @Value("${opm.checksumAlgorithm:MD5}")
+    private String checksumAlgorithm;
+
+    @Value("${opm.dumpPermissionWithEmptyMaskValue:true}")
+    private boolean dumpPermissionWithEmptyMaskValue;
+    
+    @Value("${opm.cacheDumpFile:true}")
+    private boolean cacheDumpFile;
+    
+    private String dumpFile = "";
     
     @Autowired
     ProfileRESTController(final CounterService counterService) {
@@ -65,11 +99,21 @@ public class ProfileRESTController {
     @CrossOrigin()
     @RequestMapping(value = "/dump", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
     public String dumpAllProfiles() {
+    	LOGGER.debug("start dumpAllProfiles");
         this.counterService.increment("com.thalesgroup.scadasoft.profilemgt.restcall.dumpAllProfiles");
+        
+        if (cacheDumpFile && this.utilService.isOpmDumpCacheUpdated()) {
+        	LOGGER.debug("dumpAllProfiles return cached dumpFile");
+        	return dumpFile;
+        }
         StringBuilder sbuilder = new StringBuilder();
+        getHVActions();
+        
+        LOGGER.debug("dumpHVOPMHeader");
         dumpHVOPMHeader(sbuilder);
         Collection<Profile> profList = this.profileService.getAllProfiles();
-        
+
+        LOGGER.debug("dumpHVOPMProfiles");
         sbuilder.append("  <!-- List of ROLES -->\n");
         for(Profile prof : profList) {
         	if (prof.getMasks().size() > 0) {
@@ -83,24 +127,34 @@ public class ProfileRESTController {
 	        	sbuilder.append("  <!-- PERMISSIONS for ").append(prof.getName()).append(" -->\n");
 	        	List<Mask> masks = sort(prof.getMasks());
 	        	for(Mask m : masks) {
-	        		if (! "0".equals(m.getMask1())) {
+	        		if ((m.getMask1().isEmpty() && this.dumpPermissionWithEmptyMaskValue) || (!m.getMask1().isEmpty() && ! "0".equals(m.getMask1()))) {
 	        			dumpHVOPMPermission(sbuilder, prof, m, m.getMask1(), 1);
 	        		}
-	        		if (! "0".equals(m.getMask2())) {
+	        		if ((m.getMask2().isEmpty() && this.dumpPermissionWithEmptyMaskValue) || (!m.getMask2().isEmpty() && ! "0".equals(m.getMask2()))) {
 	        			dumpHVOPMPermission(sbuilder, prof, m, m.getMask2(), 2);
 	        		}
-	        		if (! "0".equals(m.getMask3())) {
+	        		if ((m.getMask3().isEmpty() && this.dumpPermissionWithEmptyMaskValue) || (!m.getMask3().isEmpty() && ! "0".equals(m.getMask3()))) {
 	        			dumpHVOPMPermission(sbuilder, prof, m, m.getMask3(), 3);
 	        		}
-	        		if (! "0".equals(m.getMask4())) {
+	        		if ((m.getMask4().isEmpty() && this.dumpPermissionWithEmptyMaskValue) || (!m.getMask4().isEmpty() && ! "0".equals(m.getMask4()))) {
 	        			dumpHVOPMPermission(sbuilder, prof, m, m.getMask4(), 4);
 	        		}
 	        	}
         	}
         }
-        
+
+        LOGGER.debug("dumpHVOPMFooter");
         dumpHVOPMFooter(sbuilder);
+
+        if (cacheDumpFile) {
+        	dumpFile = sbuilder.toString();
+        	utilService.setOpmDumpCacheUpdated();
+        	LOGGER.debug("dumpAllProfiles dumpFile cache updated");
+        }
+        LOGGER.debug("finish dumpAllProfiles");
+
         return sbuilder.toString();
+     
     }
 
 	@CrossOrigin()
@@ -144,16 +198,16 @@ public class ProfileRESTController {
 		List<Mask> masks = sort(prof.getMasks());
     	sbuilder.append("  <role id='").append(prof.getName()).append("'>\n");
     	for(Mask m : masks) {
-    		if (! "0".equals(m.getMask1())) {
+    		if ((m.getMask1().isEmpty() && this.dumpPermissionWithEmptyMaskValue) || (!m.getMask1().isEmpty() && ! "0".equals(m.getMask1()))) {
     			sbuilder.append("    <permissionAllowList>permission_").append(prof.getName()).append("_").append(m.getId()).append(1).append("</permissionAllowList>\n");
     		}
-    		if (! "0".equals(m.getMask2())) {
+    		if ((m.getMask2().isEmpty() && this.dumpPermissionWithEmptyMaskValue) || (!m.getMask2().isEmpty() && ! "0".equals(m.getMask2()))) {
     			sbuilder.append("    <permissionAllowList>permission_").append(prof.getName()).append("_").append(m.getId()).append(2).append("</permissionAllowList>\n");
     		}
-    		if (! "0".equals(m.getMask3())) {
+    		if ((m.getMask3().isEmpty() && this.dumpPermissionWithEmptyMaskValue) || (!m.getMask3().isEmpty() && ! "0".equals(m.getMask3()))) {
     			sbuilder.append("    <permissionAllowList>permission_").append(prof.getName()).append("_").append(m.getId()).append(3).append("</permissionAllowList>\n");
     		}
-    		if (! "0".equals(m.getMask4())) {
+    		if ((m.getMask4().isEmpty() && this.dumpPermissionWithEmptyMaskValue) || (!m.getMask4().isEmpty() && ! "0".equals(m.getMask4()))) {
     			sbuilder.append("    <permissionAllowList>permission_").append(prof.getName()).append("_").append(m.getId()).append(4).append("</permissionAllowList>\n");
     		}
     	}
@@ -204,16 +258,18 @@ public class ProfileRESTController {
     // 'C' => COMMAND_ENTITY
     // 'D' => VIEW_ENTITY_TYPE_ALARM
     // 'A' => COMMAND_ENTITY_TYPE_ALARM
-    private String getHVAction(char c) {
+    private void getHVActions() {
     	Collection<Action> actions = this.actionService.getAllActions();
-    	Map<Character, Action> actionsMap = new HashMap<Character, Action>();
+    	actionsMap = new HashMap<Character, Action>();
     	for (Action a : actions) {
     		String abbrev = a.getAbbrev();
     		if (abbrev != null && !abbrev.isEmpty()) {
         		actionsMap.put(new Character(abbrev.charAt(0)), a);
     		}
     	}
-		
+	}
+    
+    private String getHVAction(char c) {
     	String retVal = "ACTION '" + c + "' (abbrev) NOT FOUND !!";
     	if (actionsMap.containsKey(c)) {
     		retVal = actionsMap.get(c).getName();
@@ -310,6 +366,31 @@ public class ProfileRESTController {
         return sbuilder.toString();
     }
 	
+	@CrossOrigin()
+    @RequestMapping(value = "/lastUpdateTime", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public String lastUpdateTime() {
+		this.counterService.increment("com.thalesgroup.scadasoft.profilemgt.restcall.lastUpdateTime");
+		return Long.toString(this.utilService.getLastUpdateTime().getTime());
+	}
+	
+	@CrossOrigin()
+    @RequestMapping(value = "/checksum", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public String checksum() {
+		this.counterService.increment("com.thalesgroup.scadasoft.profilemgt.restcall.checksum");
+		String cksum = "";
+		
+		try {
+			MessageDigest md = MessageDigest.getInstance(checksumAlgorithm);
+			byte [] digest = md.digest(dumpAllProfiles().getBytes());
+			
+			cksum = DatatypeConverter.printHexBinary(digest).toUpperCase();
+		} catch (NoSuchAlgorithmException e) {
+			LOGGER.error("Error getting checksum {}", e.getMessage());
+		}
+		
+		return cksum;
+	}
+
 	private List<Mask> sort(Set<Mask> masks) {
 		List<Mask> retVal = new ArrayList<Mask>(masks);
 		Collections.sort(retVal, new Comparator<Mask>() {

@@ -1,13 +1,17 @@
 package com.thalesgroup.scadasoft.opmmgt.db;
 
-import com.thalesgroup.scadasoft.opmmgt.api.FunctionService;
+import java.util.Collection;
+
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
+import com.thalesgroup.scadasoft.opmmgt.api.FunctionService;
+import com.thalesgroup.scadasoft.opmmgt.util.UtilService;
 
 @Service(value = "functionService")
 @Transactional
@@ -20,6 +24,9 @@ public class FunctionDBServiceImpl implements FunctionService {
 
     // Database access
     private final FunctionRepository functionRepository;
+    
+    @Resource
+    private UtilService utilService;
 
     @Autowired
     public FunctionDBServiceImpl(FunctionRepository functionRepository) {
@@ -34,8 +41,12 @@ public class FunctionDBServiceImpl implements FunctionService {
 
     @Override
     public synchronized Function createFunction(final Function Function) {
-
-        return this.functionRepository.save(Function);
+    	Function f = this.functionRepository.save(Function);
+    	
+    	if (f != null) {
+    		this.utilService.setLastModifiedTime();
+    	}
+        return f;
     }
 
     @Override
@@ -46,7 +57,10 @@ public class FunctionDBServiceImpl implements FunctionService {
             u.setDescription(function.getDescription());
             u.setCategory(function.getCategory());
             u.setFamily(function.getFamily());
-            this.functionRepository.save(u);
+            Function f = this.functionRepository.save(u);
+            if (f != null) {
+        		this.utilService.setLastModifiedTime();
+        	}
             return u;
         }
 
@@ -57,6 +71,7 @@ public class FunctionDBServiceImpl implements FunctionService {
     public synchronized void deleteFunction(final int id) {
         if (this.functionRepository.exists(id)) {
             this.functionRepository.delete(id);
+            this.utilService.setLastModifiedTime();
         }
     }
 

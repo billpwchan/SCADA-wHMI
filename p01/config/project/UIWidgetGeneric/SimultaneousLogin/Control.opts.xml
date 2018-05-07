@@ -18,20 +18,19 @@
 		<!-- Column Name to retrive the Current Workstation Reserved ID -->
 		<ColumnNameResrReservedID>gdg_column_resrvreservedid</ColumnNameResrReservedID>
 		
-		<!-- Receive the Self Identity from Server Side in MS-->
-		<IntervalPhaseA>1000</IntervalPhaseA>
-		
-		<!-- Receive Self Wkst from GDG in MS-->
-		<IntervalPhaseB>1000</IntervalPhaseB>
-		
-		<!-- Receive Duplicate Area in MS -->
-		<IntervalPhaseC>5000</IntervalPhaseC>
-		
-		<!-- Waiting reserve timeout in MS -->
-		<IntervalPhaseD>10000</IntervalPhaseD>
-		
-		<!-- Timeout on Phase B in time -->
-		<TimeoutPhaseB>20</TimeoutPhaseB>
+		<!-- 
+		Receive the Self ID, Self WS and Duplicate from Server Side timeout interval in MS
+		Timeout = Phase1TimeoutInterval * Phase1TimeoutCount
+		-->
+		<!-- Timeout interval in MS-->
+		<Phase1TimeoutInterval>250</Phase1TimeoutInterval>
+		<!-- Timeout count-->
+		<Phase1TimeoutCount>40</Phase1TimeoutCount>
+
+		<!-- Waiting Receive Reserve WS timeout MS -->
+		<Phase2Timeout>5000</Phase2Timeout>
+
+		<Phase1RecordThreshold>3</Phase1RecordThreshold>
 		
 		<ChangePasswordOpm>UIOpmSCADAgen</ChangePasswordOpm>
 		<ChangePasswordFunction>1</ChangePasswordFunction>
@@ -212,6 +211,23 @@
 		<OperationString5>forward_invalid_procedure</OperationString5>
 		<OperationString7>&amp;UILayoutEntryPointSimultaneousLogin_cannot_connect_server_opt1_lbl</OperationString7>
 	</action>
+	
+	<actionset key="login_invalid_self_workstation_identity_procedure">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>confirm_msg_self_workstation_identity</OperationString1>
+	</actionset>
+	
+	<action key="confirm_msg_self_workstation_identity">
+		<OperationType>confirm_msg</OperationType>
+		<OperationAction>dialogmsg</OperationAction>
+		<OperationString1>UIDialogMsg</OperationString1>
+		<OperationString2>DLG_WAR</OperationString2>
+		<OperationString3>&amp;UILayoutEntryPointSimultaneousLogin_cannot_connect_server_title</OperationString3>
+		<OperationString4>&amp;UILayoutEntryPointSimultaneousLogin_cannot_connect_server_msg</OperationString4>
+		<OperationString5>forward_invalid_procedure</OperationString5>
+		<OperationString7>&amp;UILayoutEntryPointSimultaneousLogin_cannot_connect_server_opt1_lbl</OperationString7>
+	</action>
+	
 	
 	<actionset key="login_invalid_reserve_timeout_procedure">
 		<OperationType>actionsetkey</OperationType>

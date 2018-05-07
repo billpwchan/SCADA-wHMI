@@ -11,7 +11,7 @@
 	<List>
 		<Attribute name="GEN_POST!operatorIP"></Attribute>
 		<Attribute name="BasicEquipment!^.name"></Attribute>
-		<Attribute name="GEN_POST!operatorMessage"></Attribute>
+		<Attribute name="GEN_POST!area"></Attribute>
 		<Attribute name="BasicEquipment!^.resrvReservedID"></Attribute>
 		
 		<Condition value='STATIC (GEN_POST!nom_instance == "WKST")'></Condition>

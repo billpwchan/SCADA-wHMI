@@ -2,14 +2,15 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 public interface UIWidgetSimultaneousLoginControl_i {
 	
-	public static final String loginValidProcedure					= "login_valid_procedure";
-	public static final String loginValidChangePasswordProcedure	= "login_valid_changepassword_procedure";
-	public static final String loginInvalidChangePasswordProcedure	= "login_invalid_changepassword_procedure";
-	public static final String loginValidByPassProcedure			= "login_valid_by_pass_procedure";
-	public static final String loginInvalidThresHoldReachProcedure	= "login_invalid_thresthold_reach_procedure";
-	public static final String loginInvalidSelfIdentityProcedure	= "login_invalid_self_identity_procedure";
-	public static final String loginInvalidReserveTimeoutProcedure	= "login_invalid_reserve_timeout_procedure";
-	public static final String loginInvalidReservedByOtherProcedure	= "login_invalid_reserved_by_other_procedure";
+	public static final String loginValidProcedure							= "login_valid_procedure";
+	public static final String loginValidChangePasswordProcedure			= "login_valid_changepassword_procedure";
+	public static final String loginInvalidChangePasswordProcedure			= "login_invalid_changepassword_procedure";
+	public static final String loginValidByPassProcedure					= "login_valid_by_pass_procedure";
+	public static final String loginInvalidThresHoldReachProcedure			= "login_invalid_thresthold_reach_procedure";
+	public static final String loginInvalidSelfIdentityProcedure			= "login_invalid_self_identity_procedure";
+	public static final String loginInvalidSelfWorkStationIdentityProcedure	= "login_invalid_self_workstation_identity_procedure";
+	public static final String loginInvalidReserveTimeoutProcedure			= "login_invalid_reserve_timeout_procedure";
+	public static final String loginInvalidReservedByOtherProcedure			= "login_invalid_reserved_by_other_procedure";
 	
 	public static final String strSimultaneousLoginRequest	= "simultaneous_login_request";
 	public static final String strSimultaneousLogoutRequest	= "simultaneous_logout_request";
@@ -31,12 +32,13 @@ public interface UIWidgetSimultaneousLoginControl_i {
 		
 		, DbAttrNameResrvReserveReqID("DbAttrNameResrvReserveReqID")
 		, DbAttrNameResrvUnreserveReqID("DbAttrNameResrvUnreserveReqID")
+		
+		, Phase1TimeoutInterval		("Phase1TimeoutInterval")
+		, Phase1TimeoutCount		("Phase1TimeoutCount")
+		
+		, Phase2Timeout				("Phase2Timeout")
 
-		, IntervalPhaseA("IntervalPhaseA")
-		, IntervalPhaseB("IntervalPhaseB")
-		, IntervalPhaseC("IntervalPhaseC")
-		, IntervalPhaseD("IntervalPhaseD")
-		, TimeoutPhaseB("TimeoutPhaseB")
+		, Phase1RecordThreshold		("Phase1RecordThreshold")
 		
 		, ChangePasswordOpm			("ChangePasswordOpm")
 		, ChangePasswordFunction	("ChangePasswordFunction")

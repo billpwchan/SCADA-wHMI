@@ -3,6 +3,7 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
 import java.util.Map;
 
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.GetCurrentIpAddressCallback_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.IGetCurrentHostNameCallback;
 
 /**
  * UIOpm_i is the interface of the WHMI OPM API, it define the Function Signature of each OPM function.
@@ -188,9 +189,16 @@ public interface UIOpm_i {
 	/**
 	 * Get the current client Host Name
 	 * 
-	 * @return Current Host Name
+	 * @return Current client Host Name
 	 */
 	String getCurrentHostName();
+	
+	/**
+	 * Get the current client Host Name
+	 * 
+	 * @param cb    Callback for the Async result: Current Client Host Name
+	 */
+	void getCurrentHostName(IGetCurrentHostNameCallback cb);
 	
 	/**
 	 * Get the current client IP Address
@@ -202,7 +210,7 @@ public interface UIOpm_i {
 	/**
 	 * Get the current client IP Address
 	 * 
-	 * @param cb    Callback for the Async result:  Current Client IP Address
+	 * @param cb    Callback for the Async result: Current Client IP Address
 	 */
 	void getCurrentIPAddress(GetCurrentIpAddressCallback_i cb);
 	

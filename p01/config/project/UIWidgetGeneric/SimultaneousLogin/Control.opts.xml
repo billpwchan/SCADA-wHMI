@@ -18,12 +18,16 @@
 		<!-- Column Name to retrive the Current Workstation Reserved ID -->
 		<ColumnNameResrReservedID>gdg_column_resrvreservedid</ColumnNameResrReservedID>
 		
-		<!-- Receive the Self ID, Self WS and Duplicate from Server Side timeout interval in MS-->
-		<Phase1TimeoutInterval>1000</Phase1TimeoutInterval>
-		<!-- Receive the Self ID, Self WS and Duplicate from Server Side timeout count-->
-		<Phase1TimeoutCount>15</Phase1TimeoutCount>
+		<!-- 
+		Receive the Self ID, Self WS and Duplicate from Server Side timeout interval in MS
+		Timeout = Phase1TimeoutInterval * Phase1TimeoutCount
+		-->
+		<!-- Timeout interval in MS-->
+		<Phase1TimeoutInterval>250</Phase1TimeoutInterval>
+		<!-- Timeout count-->
+		<Phase1TimeoutCount>40</Phase1TimeoutCount>
 
-		<!-- Waiting Receive Reserve WS timeout S -->
+		<!-- Waiting Receive Reserve WS timeout MS -->
 		<Phase2Timeout>5000</Phase2Timeout>
 
 		<Phase1RecordThreshold>3</Phase1RecordThreshold>

@@ -5,7 +5,6 @@ import java.util.Map;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
 
@@ -24,17 +23,22 @@ public class UIScreenRootMgr implements UIWidgetMgrFactory {
 	}
 	
 	@Override
-	public UIWidget_i getUIWidget(final String uiCtrl, final String uiView, final UINameCard uiNameCard, final String uiOpts, final String uiElem
+	public UIWidget_i getUIWidget(
+			final String uiCtrl
+			, final String uiView
+			, final UINameCard uiNameCard
+			, final String uiOpts
+			, final String uiElem
 			, final String uiDict
 			, final Map<String, Object> options) {
 		final String function = "getUIWidget";
 		logger.begin(className, function);
-		logger.debug(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] uiElem[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
+		logger.debug(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] uiElem[{}] uiDict[{}]"
+				, new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
 
 		UIWidget_i uiWidget_i = null;
 
-		if ( UIWidgetUtil.getClassSimpleName(UIPanelScreen.class.getName())
-		.equals(uiCtrl) ) {
+		if ( UIPanelScreen.class.getSimpleName().equals(uiCtrl) ) {
 
 			uiWidget_i = new UIPanelScreen();
 		}
@@ -47,7 +51,8 @@ public class UIScreenRootMgr implements UIWidgetMgrFactory {
 			uiWidget_i.setOptsXMLFile(uiOpts);
 			uiWidget_i.init();
 		} else {
-			logger.warn(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] uiElem[{}] uiDict[{}] widget IS NULL!", new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
+			logger.warn(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] uiElem[{}] uiDict[{}] widget IS NULL!"
+					, new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
 		}
 
 		logger.end(className, function);

@@ -14,12 +14,17 @@ public interface UIEventActionProcessorCore_i {
 	void setUINameCard(UINameCard uiNameCard);
 	void setPrefix(String className);
 	void setElement(String element);
+	String getElementName();
 	void setDictionariesCacheName(String strUIWidgetGeneric);
 	void setEventBus(SimpleEventBus eventBus);
+	SimpleEventBus getEventBus();
 	void setOptsXMLFile(String optsXMLFile);
+	String getOptsXMLFile();
 	void setUIGeneric(UIGeneric uiGeneric);
 	void setActionSetTagName(String actionset);
+	String getActionSetTagName();
 	void setActionTagName(String action);
+	String getActionTagName();
 	void init();
 	
 	UIEventAction getUIEventActionSetMgr(String actionsetkey);

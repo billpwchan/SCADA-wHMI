@@ -10,7 +10,6 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventSenderAttribute;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
@@ -20,8 +19,10 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
 
 public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i {
 
-	private static final String className = UIEventActionProcessorCore.class.getSimpleName();
-	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(UIEventActionProcessorCore.class.getName());
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	
+	UIEventActionProcessorCoreUtil uiEventActionProcessorCoreUtil = new UIEventActionProcessorCoreUtil();
 	
 	protected String prefix = null;
 	public void setPrefix(String prefix) { this.prefix = prefix; }
@@ -57,6 +58,8 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 			logger.warn(className, function, "setElement IS NULL");
 		}
 	}
+	@Override
+	public String getElementName() { return this.element; }
 	
 	protected SimpleEventBus simpleEventBus = null;
 	@Override
@@ -68,6 +71,8 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 			logger.warn(className, function, "simpleEventBus IS NULL");
 		}
 	}
+	@Override
+	public SimpleEventBus getEventBus() { return this.simpleEventBus; }
 	
 	protected UIGeneric uiGeneric = null;
 	@Override
@@ -80,26 +85,26 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 		}
 	}
 
-	private String optsXMLFile;
+	protected String optsXMLFile;
 	@Override
-	public void setOptsXMLFile(final String optsXMLFile) {
-		this.optsXMLFile=optsXMLFile;
-	}
-	
-	private String actionSetTagName = null;
+	public void setOptsXMLFile(final String optsXMLFile) { this.optsXMLFile = optsXMLFile; }
 	@Override
-	public void setActionSetTagName(final String actionSetTagName) {
-		this.actionSetTagName = actionSetTagName;
-	}
+	public String getOptsXMLFile() { return this.optsXMLFile; }
 	
-	private String actionTagName = null;
+	protected String actionSetTagName = null;
 	@Override
-	public void setActionTagName(final String actionTagName ) {
-		this.actionTagName = actionTagName;
-	}
+	public void setActionSetTagName(final String actionSetTagName) { this.actionSetTagName = actionSetTagName; }
+	@Override
+	public String getActionSetTagName() { return this.actionSetTagName; }
 	
-	private UIEventActionMgr uiEventActionSetMgr = null;
-	private UIEventActionMgr uiEventActionMgr = null;
+	protected String actionTagName = null;
+	@Override
+	public void setActionTagName(final String actionTagName) { this.actionTagName = actionTagName; }
+	@Override
+	public String getActionTagName() { return this.actionTagName; }
+	
+	protected UIEventActionMgr uiEventActionSetMgr = null;
+	protected UIEventActionMgr uiEventActionMgr = null;
 	@Override
 	public void init() {
 		final String function = prefix+" init";
@@ -123,7 +128,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	
 	@Override
 	public boolean executeActionSet(final String actionsetkey) {
-		final String function = prefix+" executeActionSet";
+		final String function = prefix+" executeActionSet optsXMLFile["+optsXMLFile+"]";
 		logger.begin(className, function);
 		logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
 		boolean bContinue = true;
@@ -135,7 +140,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	
 	@Override
 	public boolean executeActionSet(final String actionsetkey, final Map<String, Map<String, Object>> override) {
-		final String function = prefix+" executeActionSet";
+		final String function = prefix+" executeActionSet optsXMLFile["+optsXMLFile+"]";
 		logger.begin(className, function);
 		logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
 		boolean bContinue = true;
@@ -152,7 +157,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	 */
 	@Override
 	public boolean executeActionSet(final String actionsetkey, final Map<String, Map<String, Object>> override, final UIExecuteActionHandler_i executeActionHandler) {
-		final String function = prefix+" executeActionSet";
+		final String function = prefix+" executeActionSet optsXMLFile["+optsXMLFile+"]";
 		logger.begin(className, function);
 		logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
 		
@@ -204,7 +209,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	
 	@Override
 	public boolean executeActionSet(final UIEventAction action, final Map<String, Map<String, Object>> override) {
-		final String function = prefix+" executeAction";
+		final String function = prefix+" executeActionSet optsXMLFile["+optsXMLFile+"]";
 		logger.begin(className, function);
 		boolean bContinue = true;
 		bContinue = executeActionSet(action, override, null);
@@ -214,7 +219,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	
 	@Override
 	public boolean executeActionSet(final UIEventAction action, final Map<String, Map<String, Object>> override, final UIExecuteActionHandler_i executeActionHandler) {
-		final String function = prefix+" executeActionSet";
+		final String function = prefix+" executeActionSet optsXMLFile["+optsXMLFile+"]";
 		logger.begin(className, function);
 		boolean bContinue = true;
 		if ( null != action ) {
@@ -242,7 +247,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	
 	@Override
 	public boolean executeAction(final String actionkey, final Map<String, Map<String, Object>> override) {
-		final String function = prefix+" executeAction";
+		final String function = prefix+" executeAction optsXMLFile["+optsXMLFile+"]";
 		logger.begin(className, function);
 		logger.debug(className, function, "actionkey[{}]", actionkey);
 		boolean bContinue = true;
@@ -257,7 +262,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	 */
 	@Override
 	public boolean executeAction(final String actionkey, final Map<String, Map<String, Object>> override, final UIExecuteActionHandler_i executeActionHandler) {
-		final String function = prefix+" executeAction";
+		final String function = prefix+" executeAction optsXMLFile["+optsXMLFile+"]";
 		logger.begin(className, function);
 		logger.debug(className, function, "actionkey[{}]", actionkey);
 		boolean bContinue = true;
@@ -274,7 +279,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	
 	@Override
 	public boolean executeAction(final UIEventAction action, final Map<String, Map<String, Object>> override) {
-		final String function = prefix+" executeAction";
+		final String function = prefix+" executeAction optsXMLFile["+optsXMLFile+"]";
 		logger.begin(className, function);
 		boolean bContinue = true;
 		bContinue = executeAction(action, override, null);
@@ -288,14 +293,14 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	 */
 	@Override
 	public boolean executeAction(final UIEventAction action, final Map<String, Map<String, Object>> override, final UIExecuteActionHandler_i executeActionHandler) {
-		final String function = prefix+" executeAction";
+		final String function = prefix+" executeAction optsXMLFile["+optsXMLFile+"]";
 		logger.begin(className, function);
 		
 		boolean bContinue = true;
 		
 		if ( null != action ) {
 			
-			dumpUIEventAction(prefix, action);
+			uiEventActionProcessorCoreUtil.dumpUIEventAction(prefix, action);
 
 			if ( null != executeActionHandler ) bContinue = executeActionHandler.executeHandler(action);
 			
@@ -307,7 +312,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 				
 				if ( null != spt && spt.equals(UIActionEventType.event.toString()) ) {
 					logger.debug(className, function, "spt[{}] IS event", spt);
-					String operationElement = UIEventActionProcessorCore.getOperationElement(prefix, action);
+					String operationElement = uiEventActionProcessorCoreUtil.getOperationElement(prefix, action);
 					logger.debug(className, function, "operationElement[{}] == element[{}]", operationElement, element);
 					if ( null == operationElement || ( null != operationElement && ! operationElement.equals(element)) ) {
 						if ( null != simpleEventBus ) {
@@ -361,46 +366,4 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 		return bContinue;
 	}
 
-	private static String getParameter(final String prefix, final UIEventAction uiEventAction, final String parameter) {
-		final String function = prefix+" getParameter";
-		logger.begin(className, function);
-		logger.debug(className, function, "parameter[{}]", parameter);
-		String parameterValue = null;
-		if ( null != uiEventAction ) {
-			parameterValue = (String) uiEventAction.getParameter(parameter);
-		} else {
-			logger.warn(className, function, "uiEventAction IS NULL");
-		}
-		logger.debug(className, function, "parameter[{}] parameterValue[{}]", parameter, parameterValue);
-		logger.end(className, function);
-		return parameterValue;
-	}
-	
-	private static String getOperationElement(final String prefix, final UIEventAction uiEventAction) {
-		final String function = prefix+" getOperationElement";
-		logger.begin(className, function);
-		String operationElement = getParameter(prefix, uiEventAction, UIActionEventTargetAttribute.OperationElement.toString());
-		logger.end(className, function);
-		return operationElement;
-	}
-	
-	public static void dumpUIEventAction(final String prefix, final UIEventAction uiEventAction) {
-		final String function = prefix+" dumpUIEventAction";
-		logger.begin(className, function);
-		if ( null != uiEventAction ) {
-			for ( String key : uiEventAction.getParameterKeys() ) {
-				Object object = uiEventAction.getParameter(key);
-				if ( object instanceof String ) {
-					String string = (String)object;
-					logger.debug(className, function, "string[{}]", string);
-				} else {
-					logger.debug(className, function, "object[{}]", object);
-				}
-			}
-		} else {
-			logger.warn(className, function, "uiEventAction IS NULL", prefix);
-		}
-		logger.end(className, function);
-	}
-	
 }

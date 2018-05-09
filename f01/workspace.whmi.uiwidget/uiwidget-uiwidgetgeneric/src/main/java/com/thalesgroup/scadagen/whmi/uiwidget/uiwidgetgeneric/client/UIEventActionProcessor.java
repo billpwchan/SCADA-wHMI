@@ -8,15 +8,15 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProce
 
 public class UIEventActionProcessor extends UIEventActionProcessorCore implements UIEventActionProcessor_i {
 
-	private static final String className = UIEventActionProcessor.class.getSimpleName();
-	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(UIEventActionProcessor.class.getName());
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	/**
 	 * Load and Execute the Local Init Action Set
 	 */
 	@Override
 	public boolean executeActionSetInit() {
-		final String function = prefix+" executeActionSetInit";
+		final String function = prefix+" executeActionSetInit optsXMLFile["+optsXMLFile+"]";
 		logger.begin(className, function);
 		boolean bContinue = true;
 		bContinue = executeActionSet(init, null, null);
@@ -29,7 +29,7 @@ public class UIEventActionProcessor extends UIEventActionProcessorCore implement
 	 */
 	@Override
 	public void executeActionSet(final String actionsetkey, final int delayMillis, final Map<String, Map<String, Object>> override) {
-		final String function = prefix+" executeActionSet";
+		final String function = prefix+" executeActionSet optsXMLFile["+optsXMLFile+"]";
 		logger.begin(className, function);
 		logger.info(className, function, "delayMillis[{}]", delayMillis);
 		if ( delayMillis >= 0 ) {

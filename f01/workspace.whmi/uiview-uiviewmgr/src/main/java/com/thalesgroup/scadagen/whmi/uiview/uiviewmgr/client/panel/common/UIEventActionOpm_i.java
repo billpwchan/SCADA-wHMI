@@ -6,6 +6,7 @@ public interface UIEventActionOpm_i {
 		  OpmLogin("OpmLogin")
 		, OpmLogout("OpmLogout")
 		, OpmChangePassword("OpmChangePassword")
+		, OpmReloadPage("OpmReloadPage")
 		;
 		private final String text;
 		private UIEventActionOpmAction(final String text) { this.text = text; }

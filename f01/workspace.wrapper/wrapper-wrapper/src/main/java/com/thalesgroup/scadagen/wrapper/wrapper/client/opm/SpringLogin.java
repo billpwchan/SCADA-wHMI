@@ -26,7 +26,7 @@ public class SpringLogin {
 	private FormPanel form = null;
 	private Hidden field1 = null, field2 = null;
 
-	public SpringLogin(String actionUrl, String name1, String name2) {
+	public SpringLogin(final String actionUrl, final String name1, final String name2) {
 		String function = "SpringLogin";
 		logger.begin(className, function);
 		
@@ -75,14 +75,14 @@ public class SpringLogin {
         logger.end(className, function);
 	}
 
-	public void login(String value1, String value2) {
+	public void login(final String operator, final String password) {
 		String function = "login";
 		logger.begin(className, function);
 		
-		logger.debug(className, function, "value1[{}] value2[{}]", value1, value2);
+		logger.debug(className, function, "operator[{}]", operator);
 		
-		field1.setValue(value1);
-		field2.setValue(value2);
+		field1.setValue(operator);
+		field2.setValue(password);
 		form.submit();
 		
 		logger.end(className, function);

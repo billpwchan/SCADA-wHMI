@@ -1,5 +1,8 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.server.opm.uiaction;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +10,10 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.RoleDto;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.OpmMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.UIOpmRoleSelect;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.UIGenericServiceImpl_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.factory.UIAction_i;
 
@@ -52,7 +58,8 @@ public class UIActionOpm implements UIAction_i {
 				
 				// build param list
 				jsparam.put(UIGenericServiceImpl_i.OperationValue1, host);
-			} else if ( ot4.equalsIgnoreCase(UIActionOpm_i.GetCurrentIPAddress) ) {
+			}
+			else if ( ot4.equalsIgnoreCase(UIActionOpm_i.GetCurrentIPAddress) ) {
 				jsparam = s_json_factory.objectNode();
 				
 				jsdata.put(UIGenericServiceImpl_i.OperationAttribute4, UIActionOpm_i.GetCurrentIPAddress);
@@ -64,7 +71,35 @@ public class UIActionOpm implements UIAction_i {
 				
 				// build param list
 				jsparam.put(UIGenericServiceImpl_i.OperationValue1, ip);		
-			} else {
+			}
+			else if ( ot4.equalsIgnoreCase(UIActionOpm_i.SelectRole) ) {
+				jsparam = s_json_factory.objectNode();
+				
+				jsdata.put(UIGenericServiceImpl_i.OperationAttribute4, UIActionOpm_i.SelectRole);
+				
+				String ot5 = null;
+				if ( null != request ) {
+					JsonNode m = request.get(UIGenericServiceImpl_i.OperationAttribute5);
+			        if (m != null && m.isTextual()) {
+			        	ot5 = m.asText();
+			        }
+				}
+				
+				logger.debug("ot5[{}]", ot5);
+				
+				OperatorOpmInfo operatorOpmInfo = new UIOpmRoleSelect().update(ot5);
+			
+				String role = null;
+				Map<String, RoleDto> map = operatorOpmInfo.getOperator().getRoleId();
+				for(Entry<String, RoleDto> keyValue: map.entrySet()) {
+					logger.debug("key[{}] value[{}]", keyValue.getKey(), keyValue.getValue());
+					role = keyValue.getKey();
+				}
+				
+				// build param list
+				jsparam.put(UIGenericServiceImpl_i.OperationValue1, role);		
+			}
+			else {
 				logger.warn("ot4[{}] OPERATION IS UNKNOW", ot4);
 			}
 			

@@ -5,9 +5,9 @@ import java.util.Map;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.entrypoint.UILayoutEntryPoint;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutLogin;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutProfileSelect;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutSoc;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UILayoutConfiguration;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetBlackboard;
@@ -43,286 +43,200 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.matrix.ScsMatrixP
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel;
 
 public class InitUIWidgetFactorys {
-	
+
 	private final static String name = InitUIWidgetFactorys.class.getName();
-	private final static String className = UIWidgetUtil.getClassSimpleName(name);
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
+	private final static String className = InitUIWidgetFactorys.class.getSimpleName();
+	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(name);
+
 	public static void init(final Map<String, String> parameters) {
 		String function = "init";
 		logger.begin(className, function);
-	
+
 		UIWidgetMgr uiWidgetMgr = UIWidgetMgr.getInstance();
 		uiWidgetMgr.removeUIWidgetFactory(name);
 		uiWidgetMgr.addUIWidgetFactory(name, new UIWidgetMgrFactory() {
 			@Override
-			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiElement
-					, String uiDict
-					, Map<String, Object> options) {
+			public UIWidget_i getUIWidget(final String uiCtrl, final String uiView, final UINameCard uiNameCard, final String uiOpts, final String uiElement
+					, final String uiDict
+					, final Map<String, Object> options) {
 				final String function = "getUIWidget";
-	
-				logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
-	
+
+				logger.debug(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
+
 				if (null != uiNameCard) {
-					logger.info(className, function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(),
-							uiNameCard.getUiScreen());
+					logger.debug(className, function, "uiNameCard UIPath[{}] UIScreen[{}]"
+							, uiNameCard.getUiPath(), uiNameCard.getUiScreen());
 				} else {
 					logger.warn(className, function, "uiNameCard IS NULL");
 				}
-				logger.info(className, function, "options IS NULL[{}]", null == options);
-	
-				UIWidget_i uiWidget_i = null;
-	
-				if ( UIWidgetUtil.getClassSimpleName(
-						UILayoutEntryPoint.class.getName()).equals(uiCtrl) ) {
-					
-					uiWidget_i = new UILayoutEntryPoint();
+				logger.debug(className, function, "options IS NULL[{}]", null == options);
 
-				}
-				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetConfiguration.class.getName())
-						.equals(uiCtrl)
-						) {
-	
-					uiWidget_i = new UIWidgetConfiguration();
-	
-				}
-				else if (
-						UIWidgetUtil.getClassSimpleName(UILayoutConfiguration.class.getName())
-						.equals(uiCtrl)
-						) {
-	
-					uiWidget_i = new UILayoutConfiguration();
-	
-				}
-				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetViewer.class.getName())
-						.equals(uiCtrl)
-						) {
-	
-					uiWidget_i = new UIWidgetViewer();
-	
-				}
-				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetViewerPager.class.getName())
-						.equals(uiCtrl)
-						) {
-	
-					uiWidget_i = new UIWidgetViewerPager();
-					
-				}
-				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetMatrixViewer.class.getName())
-						.equals(uiCtrl)
-						) {
-	
-					uiWidget_i = new UIWidgetMatrixViewer();
-	
+				UIWidget_i uiWidget_i = null;
+
+				if ( 
+						UILayoutEntryPoint.class.getSimpleName().equals(uiCtrl) ) {
+
+					uiWidget_i = new UILayoutEntryPoint();
 				}
 				else if ( 
-						UIWidgetUtil.getClassSimpleName(UIWidgetCtlControl.class.getName())
-						.equals(uiCtrl) ) {
-					
+						UIWidgetConfiguration.class.getSimpleName().equals(uiCtrl) ) {
+
+					uiWidget_i = new UIWidgetConfiguration();
+				}
+				else if (
+						UILayoutConfiguration.class.getSimpleName().equals(uiCtrl)) {
+
+					uiWidget_i = new UILayoutConfiguration();
+				}
+				else if (
+						UIWidgetViewer.class.getSimpleName().equals(uiCtrl)) {
+
+					uiWidget_i = new UIWidgetViewer();
+				}
+				else if (
+						UIWidgetViewerPager.class.getSimpleName().equals(uiCtrl)) {
+
+					uiWidget_i = new UIWidgetViewerPager();
+				}
+				else if (
+						UIWidgetMatrixViewer.class.getSimpleName().equals(uiCtrl)) {
+
+					uiWidget_i = new UIWidgetMatrixViewer();
+				}
+				else if ( 
+						UIWidgetCtlControl.class.getSimpleName().equals(uiCtrl) ) {
+
 					uiWidget_i = new UIWidgetCtlControl();
-						
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetDpcControl.class.getName())
-						.equals(uiCtrl)
-						) {
-					
+						UIWidgetDpcControl.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetDpcControl();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetDioBtnsControl.class.getName())
-						.equals(uiCtrl)
-						) {
-					
+						UIWidgetDioBtnsControl.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetDioBtnsControl();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetDpcTagControl.class.getName())
-						.equals(uiCtrl)
-						) {
-					
+						UIWidgetDpcTagControl.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetDpcTagControl();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetDpcScanSuspendControl.class.getName())
-						.equals(uiCtrl)
-						) {
-					
+						UIWidgetDpcScanSuspendControl.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetDpcScanSuspendControl();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetDpcManualOverrideControl.class.getName())
-						.equals(uiCtrl)
-						) {
-					
+						UIWidgetDpcManualOverrideControl.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetDpcManualOverrideControl();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetFilter.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UIWidgetFilter.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetFilter();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetPrint.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UIWidgetPrint.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetPrint();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(ScsOlsListPanel.class.getName())
-						.equals(uiCtrl)
-						) {
-					
+						ScsOlsListPanel.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new ScsOlsListPanel();
-					
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(ScsMatrixPanel.class.getName())
-						.equals(uiCtrl)
-						) {
-					
+						ScsMatrixPanel.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new ScsMatrixPanel();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSelection.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UIWidgetCSSSelection.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetCSSSelection();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSwitch.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UIWidgetCSSSwitch.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetCSSSwitch();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetBlackboard.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UIWidgetBlackboard.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetBlackboard();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetBox.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UIWidgetBox.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetBox();
-					
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetOPMChangePasswordControl.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UIWidgetOPMChangePasswordControl.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetOPMChangePasswordControl();
-					
-					
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UILayoutLogin.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UILayoutLogin.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UILayoutLogin();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UILayoutSoc.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UILayoutSoc.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UILayoutSoc();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetDataGrid.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UIWidgetDataGrid.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetDataGrid();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetSocControl.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UIWidgetSocControl.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetSocControl();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetSocDelayControl.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UIWidgetSocDelayControl.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetSocDelayControl();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetSocAutoManuControl.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UIWidgetSocAutoManuControl.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetSocAutoManuControl();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetSocTitle.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UIWidgetSocTitle.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetSocTitle();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetSocGrcPoint.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UIWidgetSocGrcPoint.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetSocGrcPoint();
-					
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetSocFilterControl.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UIWidgetSocFilterControl.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetSocFilterControl();
-	
 				}
 				else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetSimultaneousLoginControl.class.getName())
-						.equals(uiCtrl)
-						) {
-	
+						UIWidgetSimultaneousLoginControl.class.getSimpleName().equals(uiCtrl)) {
+
 					uiWidget_i = new UIWidgetSimultaneousLoginControl();
-	
+				}
+				else if (
+						UILayoutProfileSelect.class.getSimpleName().equals(uiCtrl)) {
+
+					uiWidget_i = new UILayoutProfileSelect();
 				}
 				else {
 					logger.warn(className, function, "uiCtrl[{}] type for UIWidget IS UNKNOW", uiCtrl);
 				}
-				
+
 				if ( null != uiWidget_i ) {
 					uiWidget_i.setParameter(WidgetParameterName.SimpleEventBus.toString(), parameters.get(WidgetParameterName.SimpleEventBus.toString()));
 					uiWidget_i.setParameter(WidgetParameterName.ScsEnvIds.toString(), parameters.get(WidgetParameterName.ScsEnvIds.toString()));
@@ -335,7 +249,7 @@ public class InitUIWidgetFactorys {
 				} else {
 					logger.warn(className, function, "uiCtrl[{}] uiWidget IS NULL", uiCtrl);
 				}
-	
+
 				return uiWidget_i;
 			}
 		});	

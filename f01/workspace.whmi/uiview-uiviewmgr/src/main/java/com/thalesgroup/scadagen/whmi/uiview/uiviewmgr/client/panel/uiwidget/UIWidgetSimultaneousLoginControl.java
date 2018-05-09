@@ -214,6 +214,14 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		logger.end(className, function);
 	}
 	
+	@Override
+	public void terminate() {
+		super.terminate();
+		final String f = "terminate";
+		logger.begin(className, f);
+		logger.end(className, f);
+	}
+	
 	private void exit(String actionsetkey) {
 		final String function = "exit";
 		logger.begin(className, function);
@@ -340,6 +348,8 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 									if ( ! isReservedInOtherArea() ) {
 										if ( ! isReservedBySelf() ) {
 											isDuplicatePassed = true;
+											logger.debug(className, f, "Phase 2 isDuplicatePassed[{}]", isDuplicatePassed);
+											
 											loginRequest();
 											
 											// Reserve Timeout

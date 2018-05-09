@@ -96,16 +96,14 @@ public class UILayoutLogin extends UIWidget_i {
 			operator = operator.toLowerCase();
 		}
 			
-		logger.debug(className, f, "opmApi[{}]", opmApi);
-		logger.debug(className, f, "operator[{}]", operator);
-		logger.debug(className, f, "password[{}]", password);
+		logger.debug(className, f, "opmApi[{}] operator[{}]", opmApi, operator);
 			
 		if ( null != opmApi && null != operator && null != password ) {
 			parameters.put(ActionAttribute.OperationString2.toString(), opmApi);
 			parameters.put(ActionAttribute.OperationString3.toString(), operator);
 			parameters.put(ActionAttribute.OperationString4.toString(), password);
 		} else {
-			logger.warn(className, f, "opmApi[{}] OR operator[{}] OR password[{}] IS INVALID", new Object[]{opmApi, operator, password});
+			logger.warn(className, f, "opmApi[{}] OR operator[{}] OR password IS INVALID", new Object[]{opmApi, operator});
 		}
 		
 		override.put("OpmLogin", parameters);

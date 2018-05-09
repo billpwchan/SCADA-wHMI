@@ -81,15 +81,15 @@ public class SCADAgenLdapChangePassword implements IPasswordChange {
         
     	String targetUserId = userId;
     	if ( action instanceof SCADAgenChangePasswordAction ) {
-    		LOGGER_.info(LOG_PREFIX_ + "action instanceof SCADAgenChangePasswordAction IS TRUE");
+    		LOGGER_.debug(LOG_PREFIX_ + "action instanceof SCADAgenChangePasswordAction IS TRUE");
     		String tmp = ((SCADAgenChangePasswordAction)action).getUserId();
     		if ( null != tmp ) {
     			targetUserId = tmp;
     		} else {
-    			LOGGER_.info(LOG_PREFIX_ + "action.getUserId() IS NULL, using currentPassword");
+    			LOGGER_.debug(LOG_PREFIX_ + "action.getUserId() IS NULL, using currentPassword");
     		}
     	} else {
-    		LOGGER_.info(LOG_PREFIX_ + "action instanceof SCADAgenChangePasswordAction IS FALSE");
+    		LOGGER_.debug(LOG_PREFIX_ + "action instanceof SCADAgenChangePasswordAction IS FALSE");
     	}
     	
         final String oldPassword = action.getOldPassword();
@@ -131,7 +131,7 @@ public class SCADAgenLdapChangePassword implements IPasswordChange {
             
         final String base = searchBase_ != null ? searchBase_ : "";
         
-        LOGGER_.info("Search for user : base=[{}] - filter=[{}]", new Object[] { base, filter });
+        LOGGER_.debug("Search for user : base=[{}] - filter=[{}]", new Object[] { base, filter });
 
         return ldapTemplate_.search(base, filter, new AbstractContextMapper() {
 

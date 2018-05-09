@@ -8,6 +8,7 @@ import java.util.Set;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
+import com.google.gwt.user.client.Window;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.config.client.ConfigProvider;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.checker.AuthorizationCheckerC;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.checker.IAuthorizationCheckerC;
@@ -20,6 +21,8 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.GetCurrentIpAddressCallback_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.IGetCurrentHostNameCallback;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.ISetCurrentProfileCallback;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.hom.UIHomFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.hom.UIHom_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.uigeneric.UIGenericMgr;
@@ -246,6 +249,32 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	
 	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#setCurrentProfile()
+	 */
+	@Override
+	public String setCurrentProfile(final String profile) {
+		final String f = "setCurrentProfile";
+		logger.begin(className, f);
+		
+		logger.debug(className, f, "profile[{}]", profile);
+
+		this.setCurrentProfile(profile, new ISetCurrentProfileCallback() {
+
+			@Override
+			public void callback(final String profile) {
+				
+				logger.debug(className, f, "callback profile[{}]", profile);
+				
+				new UIOpmRoleSelect().update(profile);
+			}
+			
+		});
+
+		logger.end(className, f);
+		return profile;
+	}	
+	
+	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentProfiles()
 	 */
 	@Override
@@ -281,11 +310,37 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	
 	private String currentHostName = null;
+
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentHostName()
 	 */
 	@Override
 	public String getCurrentHostName() {
+		final String function = "getCurrentHostName";
+		logger.begin(className, function);
+		
+		if ( null == currentHostName ) {
+			
+			this.getCurrentHostName(new IGetCurrentHostNameCallback() {
+
+				@Override
+				public void callback(String hostName) {
+					
+					currentHostName = hostName;
+				}
+				
+			});
+		}
+		logger.debug(className, function, "currentHostName[{}]", currentHostName);
+		logger.end(className, function);
+		return currentIPAddress;
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentHostName(com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.IGetCurrentHostNameCallback)
+	 */
+	@Override
+	public void getCurrentHostName(final IGetCurrentHostNameCallback cb) {
 		final String function = "getCurrentHostName";
 		logger.begin(className, function);
 		
@@ -323,6 +378,8 @@ public class UIOpmSCADAgen implements UIOpm_i {
 					} else {
 						logger.warn(className, function2, "response IS NULL");
 					}
+					
+					cb.callback(currentHostName);
 					logger.end(className, function2);
 				}
 	
@@ -335,7 +392,6 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		}
 		logger.debug(className, function, "currentHostName[{}]", currentHostName);
 		logger.end(className, function);
-		return currentHostName;
 	}
 	
 	private String currentIPAddress = null;
@@ -420,6 +476,68 @@ public class UIOpmSCADAgen implements UIOpm_i {
 
 		logger.end(className, function);
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentIPAddress(com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.GetCurrentIpAddressCallback_i)
+	 */
+	@Override
+	public void setCurrentProfile(final String role, final ISetCurrentProfileCallback cb) {
+		final String function = "setCurrentProfile";
+		logger.begin(className, function);
+		
+		UIGenericMgr uiGenericMgr = new UIGenericMgr();
+		JSONObject request = new JSONObject();
+        request.put(UIGenericServiceImpl_i.OperationAttribute3, new JSONString(UIActionOpm_i.ComponentName));
+        request.put(UIGenericServiceImpl_i.OperationAttribute4, new JSONString(UIActionOpm_i.SelectRole));
+        request.put(UIGenericServiceImpl_i.OperationAttribute5, new JSONString(role));
+		
+		uiGenericMgr.execute(request, new UIGenericMgrEvent() {
+			
+			@Override
+			public void uiGenericMgrEventReady(JSONObject response) {
+				final String function2 = function + " uiGenericMgrEventReady";
+				logger.begin(className, function2);
+				
+				String currentProfile = null;
+				
+				if ( null != response ) {
+					logger.debug(className, function2, "response[{}]", response.toString());
+					JSONValue v = response.get(UIGenericServiceImpl_i.OperationParameter1);
+					if ( null != v && null != v.isObject() ) {
+						JSONObject o = v.isObject();
+						if ( null != o ) {
+							JSONValue tv = o.get(UIGenericServiceImpl_i.OperationValue1);
+							if ( null != tv && null != tv.isString() ) {
+								currentProfile = tv.isString().stringValue();
+							} else {
+								logger.warn(className, function2, "tv[{}] IS INVALID", tv);
+							}
+						} else {
+							logger.warn(className, function2, "o IS NULL");
+						}
+					} else {
+						logger.warn(className, function2, "v[{}] IS INVALID", v);
+					}
+					logger.debug(className, function2, "currentProfile[{}]", currentProfile);
+				} else {
+					logger.debug(className, function2, "response IS NULL");
+				}
+				
+				if(null!=currentProfile) new UIOpmRoleSelect().update(currentProfile);
+				
+				cb.callback(currentProfile);
+				logger.end(className, function2);
+			}
+
+			@Override
+			public void uiGenericMgrEventFailed(JSONObject response) {
+				final String function2 = function + " uiGenericMgrEventFailed";
+				logger.beginEnd(className, function2);
+			}
+		});
+
+		logger.end(className, function);
+	}
 
 
 	/* (non-Javadoc)
@@ -449,6 +567,19 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		String SPRING_SEC_LOGOUT_URL = "j_spring_security_logout";
 		
 		new SpringLogout(SPRING_SEC_LOGOUT_URL).logout();
+		
+		logger.end(className, function);
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#reloadPage()
+	 */
+	@Override
+	public void reloadPage() {
+		String function = "reloadPage";
+		logger.begin(className, function);
+		
+		Window.Location.reload();
 		
 		logger.end(className, function);
 	}

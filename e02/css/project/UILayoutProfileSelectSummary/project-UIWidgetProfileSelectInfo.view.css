@@ -1,0 +1,17 @@
+.project-UIWidgetProfileSelectInfo-inner {
+	margin-top: 10px;
+	margin-left: 50px;
+	margin-bottom: 20px;
+}
+.project-UIWidgetProfileSelectInfo-profilelabel {
+	font-size: 16px;
+	width: 150px;
+}
+.project-UIWidgetProfileSelectInfo-profile {
+	font-size: 16px;
+	width: 210px;
+	height: 24px !important;
+	color: black !important;
+	background-color: white !important;
+	border: thin solid black !important;
+}

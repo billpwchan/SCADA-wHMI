@@ -63,6 +63,8 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 //		
 //		logger.end(className, function);
 	}
+	@Override
+	public String getElementName() { return null; }
 	
 	private UINameCard uiNameCard = null;
 	@Override
@@ -75,6 +77,10 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 		
 		logger.end(className, function);
 	}
+
+	@Override
+	public UINameCard getUINameCard() { return this.uiNameCard; }
+
 	
 	public void setHvInfo(String hvid, String hvType) {
 		this.hvid = hvid;
@@ -83,15 +89,15 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	
 	private String viewXMLFile = null;
 	@Override
-	public void setViewXMLFile(String viewXMLFile) {
-		this.viewXMLFile = viewXMLFile;
-	}
+	public void setViewXMLFile(String viewXMLFile) { this.viewXMLFile = viewXMLFile; }
+	@Override
+	public String getViewXMLFile() { return this.viewXMLFile; }
 	
 	private String optsXMLFile = null;
 	@Override
-	public void setOptsXMLFile(String optsXMLFile) {
-		this.optsXMLFile = optsXMLFile;
-	}
+	public void setOptsXMLFile(String optsXMLFile) {this.optsXMLFile = optsXMLFile;}
+	@Override
+	public String getOptsXMLFile() { return this.optsXMLFile; }
 	
 	@Override
 	public void init() {
@@ -270,5 +276,4 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 		if ( null != this.uiInspectorDialogBoxEvent ) uiInspectorDialogBoxEvent.onClose();
 		logger.end(className, function);
 	}
-
 }

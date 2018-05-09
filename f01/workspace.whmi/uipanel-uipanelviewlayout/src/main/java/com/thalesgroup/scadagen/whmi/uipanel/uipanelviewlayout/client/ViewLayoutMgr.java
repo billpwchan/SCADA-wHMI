@@ -20,6 +20,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessor;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorCoreUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
@@ -287,7 +288,7 @@ public class ViewLayoutMgr {
 				
 				logger.debug(className, function, "uiEventAction IS NOT NULL");
 				
-				UIEventActionProcessor.dumpUIEventAction(className, uiEventAction);
+				new UIEventActionProcessorCoreUtil().dumpUIEventAction(className, uiEventAction);
 				
 				logger.debug(className, function, "Launch the uiEventAction...");
 				

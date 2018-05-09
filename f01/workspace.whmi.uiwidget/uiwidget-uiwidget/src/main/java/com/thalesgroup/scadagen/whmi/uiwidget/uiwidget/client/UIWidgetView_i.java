@@ -15,10 +15,14 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 public interface UIWidgetView_i {
 	
 	void setElement(String element);
+	String getElementName();
 	void setUINameCard(UINameCard uiNameCard);
+	UINameCard getUINameCard();
 	void setCtrlHandler(String ctrlHandler);
 	void setViewXMLFile(String viewXMLFile);
+	String getViewXMLFile();
 	void setOptsXMLFile(String optsXMLFile);
+	String getOptsXMLFile();
 	void init();
 	void terminate();
 	Panel getMainPanel();

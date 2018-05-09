@@ -7,7 +7,6 @@ import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenempty.client.UIScreenEmpty
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.UIScreenMMI;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.entrypoint.UILayoutEntryPoint;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
@@ -15,8 +14,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFact
 
 public class UIScreenMgr implements UIWidgetMgrFactory {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIScreenMgr.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private UIScreenMgr() {}
 	private static UIScreenMgr instance = null;
@@ -39,29 +38,25 @@ public class UIScreenMgr implements UIWidgetMgrFactory {
 
 		UIWidget_i uiWidget_i = null;
 
-		if ( UIWidgetUtil.getClassSimpleName(UIScreenMMI.class.getName())
-		.equals(uiCtrl) ) {
+		if ( 
+				UIScreenMMI.class.getSimpleName().equals(uiCtrl) ) {
 
 			uiWidget_i = new UIScreenMMI();
-
 		}
-		else if ( UIWidgetUtil.getClassSimpleName(
-				UIScreenEmpty.class.getName()).equals(uiCtrl) ) {
+		else if (
+				UIScreenEmpty.class.getSimpleName().equals(uiCtrl) ) {
 			
 			uiWidget_i = new UIScreenEmpty();
-
 		}
-		else if ( UIWidgetUtil.getClassSimpleName(
-				UILayoutEntryPoint.class.getName()).equals(uiCtrl) ) {
+		else if (
+				UILayoutEntryPoint.class.getSimpleName().equals(uiCtrl) ) {
 			
 			uiWidget_i = new UILayoutEntryPoint();
-			
 		}
-		else if ( UIWidgetUtil.getClassSimpleName(
-				UILayoutSummary.class.getName()).equals(uiCtrl) ) {
+		else if (
+				UILayoutSummary.class.getSimpleName().equals(uiCtrl) ) {
 			
-			uiWidget_i = new UILayoutSummary();
-			
+			uiWidget_i = new UILayoutSummary();	
 		}
 
 		if ( null != uiWidget_i ) {
@@ -78,7 +73,5 @@ public class UIScreenMgr implements UIWidgetMgrFactory {
 		logger.end(className, function);
 
 		return uiWidget_i;
-		
 	}
-
 }

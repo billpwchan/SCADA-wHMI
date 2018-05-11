@@ -8,13 +8,14 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class SCADAgenConfManager {
-	private static final Logger s_logger = org.slf4j.LoggerFactory.getLogger(SCADAgenConfManager.class);
+	private static final Logger s_logger = LoggerFactory.getLogger(SCADAgenConfManager.class);
 	private static final String LOG_PREFIX = "[SCADAgenConfManager] ";
 	private static volatile SCADAgenConfManager s_instance;
 	private static final String CONFIGURATION_NODE_NAME = "scsbamapping";

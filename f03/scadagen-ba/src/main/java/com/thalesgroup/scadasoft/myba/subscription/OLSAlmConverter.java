@@ -1,19 +1,37 @@
 package com.thalesgroup.scadasoft.myba.subscription;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.thalesgroup.hv.common.tools.DateUtils;
 import com.thalesgroup.hv.data_v1.alarm.AbstractAlarmType;
 import com.thalesgroup.hv.data_v1.alarm.attribute.Alarm4StateEnum;
+import com.thalesgroup.hv.data_v1.alarm.attribute.PriorityAttributeType;
+import com.thalesgroup.hv.data_v1.alarm.attribute.StateAttributeType;
+import com.thalesgroup.hv.data_v1.attribute.AbstractAttributeType;
+import com.thalesgroup.hv.data_v1.attribute.BooleanAttributeType;
+import com.thalesgroup.hv.data_v1.attribute.DateTimeAttributeType;
+import com.thalesgroup.hv.data_v1.attribute.DoubleAttributeType;
+import com.thalesgroup.hv.data_v1.attribute.FloatAttributeType;
+import com.thalesgroup.hv.data_v1.attribute.IntAttributeType;
+import com.thalesgroup.hv.data_v1.attribute.LongAttributeType;
+import com.thalesgroup.hv.data_v1.attribute.StringAttributeType;
 import com.thalesgroup.hv.data_v1.entity.AbstractEntityStatusesType;
 import com.thalesgroup.hv.sdk.connector.Connector;
 import com.thalesgroup.scadasoft.datatypes.ScsFieldMap;
 import com.thalesgroup.scadasoft.datatypes.client.ScsData;
 import com.thalesgroup.scadasoft.hvconnector.configuration.SCSConfManager;
+import com.thalesgroup.scadasoft.hvconnector.configuration.SCSConfManager.StatusMapping;
 import com.thalesgroup.scadasoft.hvconnector.subscription.OLSConverter;
 
 public class OLSAlmConverter extends OLSConverter {
+	
+	private static final Logger s_logger = LoggerFactory.getLogger(OLSAlmConverter.class);
 
 	private String m_className = null;
 	
@@ -22,7 +40,7 @@ public class OLSAlmConverter extends OLSConverter {
     }
 
     public OLSAlmConverter(String className, Connector connector) {
-    	super(connector);
+    	super(className, connector);
         m_className = className;
     }
     
@@ -75,27 +93,6 @@ public class OLSAlmConverter extends OLSConverter {
         // map for bean editor
         Map<String, Object> attributes = new HashMap<String, Object>();
 
-        // HV standard field
-        attributes.put("serviceOwnerID", SCSConfManager.instance().getServiceOwnerID());
-        attributes.put("sourceID", getEqpFromOLS(olsrow));
-        attributes.put("areaID", getAreaIDFromOLS(olsrow));
-        attributes.put("state", getStateFromOLS(olsrow));
-        attributes.put("priority", getPriorityFromOLS(olsrow));
-
-        attributes.put("apparitionDate", getDateAttFromOLS(olsrow, "EquipmentDate"));
-        attributes.put("lastUpdateDate", getDateAttFromOLS(olsrow, "SCSTime"));
-        attributes.put("isShelved", getIsShelvedFromOLS(olsrow));
-        attributes.put("isInService", true);
-        if (previousEntity == null) {
-            attributes.put("previousState", Alarm4StateEnum.NPA);
-        } else {
-            attributes.put("previousState", getAlarmStateFromEntity(previousEntity));
-        }
-
-        // the following fields will be encoded in OLS Message set default value
-        attributes.put("ackOperatorID", "");
-        attributes.put("comment", "");
-
         // get fields from message
         String rawMessage = "";
         ScsData d = olsrow.get("Message");
@@ -135,14 +132,154 @@ public class OLSAlmConverter extends OLSConverter {
         // create alarm object
         AbstractEntityStatusesType entity = SCSConfManager.instance().createEntity(m_connector.getDataHelper(),
                 almClass, olsid, attributes, curTimeStamp);
-        AbstractAlarmType alarmEntity = (entity instanceof AbstractAlarmType ? (AbstractAlarmType) entity : null);
 
-        fillRemainingFields(entity, olsrow, curTimeStamp);
+        AbstractAlarmType alarmEntity = null;
+        if (entity instanceof AbstractAlarmType) {
+            alarmEntity = (AbstractAlarmType) entity;
+
+            // Alarm field
+            StringAttributeType serviceOwnerIDValue = new StringAttributeType();
+            serviceOwnerIDValue.setValid(true);
+            serviceOwnerIDValue.setTimestamp(curTimeStamp);
+            serviceOwnerIDValue.setValue(SCSConfManager.instance().getServiceOwnerID());
+            alarmEntity.setServiceOwnerID(serviceOwnerIDValue);
+
+            StringAttributeType sourceIDValue = new StringAttributeType();
+            sourceIDValue.setValid(true);
+            sourceIDValue.setTimestamp(curTimeStamp);
+            sourceIDValue.setValue(getEqpFromOLS(olsrow));
+            alarmEntity.setSourceID(sourceIDValue);
+
+            StringAttributeType areaIDValue = new StringAttributeType();
+            areaIDValue.setValid(true);
+            areaIDValue.setTimestamp(curTimeStamp);
+            areaIDValue.setValue(getAreaIDFromOLS(olsrow));
+            alarmEntity.setAreaID(areaIDValue);
+
+            StateAttributeType stateValue = new StateAttributeType();
+            stateValue.setValid(true);
+            stateValue.setTimestamp(curTimeStamp);
+            stateValue.setValue(getStateFromOLS(olsrow).value());
+            alarmEntity.setState(stateValue);
+
+            PriorityAttributeType priorityValue = new PriorityAttributeType();
+            priorityValue.setValid(true);
+            priorityValue.setTimestamp(curTimeStamp);
+            priorityValue.setValue(getPriorityFromOLS(olsrow).value());
+            alarmEntity.setPriority(priorityValue);
+
+            DateTimeAttributeType equipmentDateValue = new DateTimeAttributeType();
+            equipmentDateValue.setValid(true);
+            equipmentDateValue.setTimestamp(curTimeStamp);
+            if (!mapOlsFieldtoHVField(olsrow, almClass, "equipmentdate", equipmentDateValue)) {
+            	equipmentDateValue.setValue(getDateAttFromOLS(olsrow, "EquipmentDate"));
+            }
+            alarmEntity.setApparitionDate(equipmentDateValue);
+
+            DateTimeAttributeType scsTimeValue = new DateTimeAttributeType();
+            scsTimeValue.setValid(true);
+            scsTimeValue.setTimestamp(curTimeStamp);
+            if (!mapOlsFieldtoHVField(olsrow, almClass, "scstime", scsTimeValue)) {
+            	scsTimeValue.setValue(getDateAttFromOLS(olsrow, "SCSTime"));
+            }
+            alarmEntity.setLastUpdateDate(scsTimeValue);
+
+            BooleanAttributeType isShelvedValue = new BooleanAttributeType();
+            isShelvedValue.setValid(true);
+            isShelvedValue.setTimestamp(curTimeStamp);
+            isShelvedValue.setValue(getIsShelvedFromOLS(olsrow));
+            alarmEntity.setIsShelved(isShelvedValue);
+
+            BooleanAttributeType isInService = new BooleanAttributeType();
+            isInService.setValid(true);
+            isInService.setTimestamp(curTimeStamp);
+            isInService.setValue(true);
+            alarmEntity.setIsInService(isInService);
+
+            StateAttributeType previousStateValue = new StateAttributeType();
+            previousStateValue.setValid(true);
+            previousStateValue.setTimestamp(curTimeStamp);
+            if (previousEntity == null) {
+                previousStateValue.setValue(Alarm4StateEnum.NPA.value());
+            } else {
+                previousStateValue.setValue(getAlarmStateFromEntity(previousEntity).value());
+            }
+            alarmEntity.setPreviousState(previousStateValue);
+
+            // the following fields will be encoded in OLS Message set default value
+            StringAttributeType stringValue = new StringAttributeType();
+            stringValue.setValid(true);
+            stringValue.setTimestamp(curTimeStamp);        	        	
+            stringValue.setValue("");
+            alarmEntity.setAckOperatorID(stringValue);
+            alarmEntity.setComment(stringValue);
+            
+            fillRemainingFields(entity, olsrow, curTimeStamp);
+        }
 
         return alarmEntity;
     }
 
-    protected Boolean getIsShelvedFromOLS(ScsFieldMap olsrow) {
+    private boolean mapOlsFieldtoHVField(ScsFieldMap olsrow, String hvClass, String attributeName,
+			AbstractAttributeType attribute) {
+    	boolean result = false;
+    	
+        StatusMapping mapping = SCSConfManager.instance().getSCSFieldFromHVField(hvClass, attributeName);
+        s_logger.trace("mapOlsFieldtoHVField hvClass {} attribute {}", hvClass, attributeName);
+        if (mapping != null && mapping.m_scsRelativePathList != null) {
+        	List<String> scsvalueList = mapping.m_scsRelativePathList;
+
+        	if (scsvalueList.size() > 0 && scsvalueList.get(0) != null) {
+        		String scsvalue = scsvalueList.get(0);
+        		ScsData scsdata = olsrow.get(scsvalue);
+
+        		if (scsdata != null) {
+        			short scsdataType = scsdata.getType();
+
+        			if (scsdataType == 1 || scsdataType == 12) {			// Integer or Long
+        				if (attribute instanceof IntAttributeType) {
+        					((IntAttributeType) attribute).setValue(scsdata.getIntValue());
+        					result = true;
+        				} else if (attribute instanceof LongAttributeType) {
+        					((LongAttributeType) attribute).setValue((long) scsdata.getIntValue());
+        					result = true;
+        				} else if (attribute instanceof FloatAttributeType) {
+        					((FloatAttributeType) attribute).setValue((float) scsdata.getIntValue());
+        					result = true;
+        				} else if (attribute instanceof DoubleAttributeType) {
+        					((DoubleAttributeType) attribute).setValue((double) scsdata.getIntValue());
+        					result = true;
+        				}
+        				s_logger.trace("scsdata int value {}", scsdata.getIntValue());
+        			} else if (scsdataType == 2 || scsdataType == 13) {		// Float or Double
+        				if (attribute instanceof FloatAttributeType) {
+        					((FloatAttributeType) attribute).setValue(scsdata.getFloatValue());
+        					result = true;
+        				} else if (attribute instanceof DoubleAttributeType) {
+        					((DoubleAttributeType) attribute).setValue((double) scsdata.getFloatValue());
+        					result = true;
+        				}
+        				s_logger.trace("scsdata float value {}", scsdata.getFloatValue());
+        			} else if (scsdataType == 3 || scsdataType == 4) {		// String or WString
+        				if (attribute instanceof StringAttributeType) {
+        					((StringAttributeType) attribute).setValue(scsdata.getStringValue());
+        					result = true;
+        				}
+        				s_logger.trace("scsdata string value {}", scsdata.getStringValue());
+        			} else if (scsdataType == 5) {							// Time
+        				if (attribute instanceof DateTimeAttributeType) {
+            				((DateTimeAttributeType) attribute).setValue(DateUtils.convertToXMLGregorianCalendar(scsdata.getDateValue()));
+        					result = true;
+        				}
+        				s_logger.trace("scsdata time value {} {}", scsdata.getDateValue().getTime(), scsdata.getDateValue().toString());
+        			}
+        		}
+        	}
+        }
+		return result;
+	}
+
+	protected Boolean getIsShelvedFromOLS(ScsFieldMap olsrow) {
         String key = "Shelve";
         ScsData d = olsrow.remove(key);
         if (d != null) {

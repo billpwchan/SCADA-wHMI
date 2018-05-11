@@ -320,7 +320,6 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.begin(className, function);
 		
 		if ( null == currentHostName ) {
-			
 			this.getCurrentHostName(new IGetCurrentHostNameCallback() {
 
 				@Override
@@ -328,12 +327,11 @@ public class UIOpmSCADAgen implements UIOpm_i {
 					
 					currentHostName = hostName;
 				}
-				
 			});
 		}
 		logger.debug(className, function, "currentHostName[{}]", currentHostName);
 		logger.end(className, function);
-		return currentIPAddress;
+		return currentHostName;
 	}
 	
 	/* (non-Javadoc)

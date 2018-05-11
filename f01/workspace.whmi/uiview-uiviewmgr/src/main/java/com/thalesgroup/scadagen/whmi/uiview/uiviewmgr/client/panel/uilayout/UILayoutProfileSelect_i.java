@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout;
 
-public class IUILayoutProfileSelect {
+public class UILayoutProfileSelect_i {
 	public enum PropertiesName {
 		  OpmApi("OpmApi")
 		, DelayMillis("DelayMillis")

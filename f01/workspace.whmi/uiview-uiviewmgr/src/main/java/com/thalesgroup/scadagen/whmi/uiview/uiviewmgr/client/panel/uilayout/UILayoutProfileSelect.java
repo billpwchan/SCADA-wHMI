@@ -8,7 +8,7 @@ import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.IUILayoutProfileSelect.PropertiesName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutProfileSelect_i.PropertiesName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
@@ -20,7 +20,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.ISetCurrentProfileCallback;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.SetCurrentProfileCallback_i;
 
 public class UILayoutProfileSelect extends UIWidget_i {
 	
@@ -62,7 +62,7 @@ public class UILayoutProfileSelect extends UIWidget_i {
 				
 				logger.debug(className, f, "index[{}] profile[{}]", index, profile);
 				
-				opm.setCurrentProfile(profile, new ISetCurrentProfileCallback() {
+				opm.setCurrentProfile(profile, new SetCurrentProfileCallback_i() {
 					
 					@Override
 					public void callback(final String profile) {

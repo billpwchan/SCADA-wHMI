@@ -24,14 +24,38 @@ public interface UIHom_i {
 			final String function, final String location, final String action, final String mode
 			, final int hdvValue, final UIOpm_i uiOpm_i);
 
+	/**
+	 * Get Current HOM value from the RTDB
+	 * 
+	 * @param scsEnvId  RTDB ScsEnvId to read the hdv.
+	 * @param dbAddress RTDB Alias to read the hdv.
+	 * @param event     Return the Integer value
+	 */
 	void getCurrentHOMValue(final String scsEnvId, final String alias, final GetCurrentHOMValueEvent_i getCurrentHOMValueEvent_i);
 	
+	/**
+	 * Check the action value is HOM action
+	 * 
+	 * @param action Action key to check
+	 * @return Return ture if the action is HOM Action, otherwise return false
+	 */
 	boolean isHOMAction(String action);
 	
+	/**
+	 * Check the action value is By Pass Value
+	 * @param value
+	 * @return Return true if the action is by pass value, otherwise return false
+	 */
 	boolean isBypassValue(int value);
 	
+	/**
+	 * @return Current HOM Identity
+	 */
 	String getHOMIdentityType();
 	
+	/**
+	 * @return Current HOM Identity
+	 */
 	String getHOMIdentity(final UIOpm_i uiOpm_i);
 
 	/**

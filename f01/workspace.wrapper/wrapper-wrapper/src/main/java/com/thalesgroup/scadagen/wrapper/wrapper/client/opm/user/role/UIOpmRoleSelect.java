@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
+package com.thalesgroup.scadagen.wrapper.wrapper.client.opm.user.role;
 
 import java.util.Iterator;
 import java.util.Map;

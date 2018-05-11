@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
+package com.thalesgroup.scadagen.wrapper.wrapper.client.opm.page.spring;
 
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Hidden;
@@ -8,12 +8,11 @@ import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UICookies;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class SpringLogin {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(SpringLogin.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private final String strCssForm = "project-SpringLogin-from";
 	private final String strCssPanel = "project-SpringLogin-panel";

@@ -1,10 +1,9 @@
-package com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init;
+package com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.opm;
 
 import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.Init_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriorityFactory;
@@ -14,8 +13,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UICon
 
 public class InitControlPriority implements Init_i {
 
-	private final String className = UIWidgetUtil.getClassSimpleName(InitControlPriority.class.getName());
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private InitControlPriority() {}
 	private static InitControlPriority instance = null;
@@ -42,9 +41,7 @@ public class InitControlPriority implements Init_i {
 				UIControlPriority_i uiControlPriority_i = null;
 				if ( null != key ) {
 					
-					String uiControlPrioritySCADAgenName = UIWidgetUtil.getClassSimpleName(UIControlPrioritySCADAgen.class.getName());
-					
-					if ( key.equalsIgnoreCase(uiControlPrioritySCADAgenName) ) {
+					if ( UIControlPrioritySCADAgen.class.getSimpleName().equalsIgnoreCase(key) ) {
 						uiControlPriority_i = UIControlPrioritySCADAgen.getInstance();
 					}
 				}

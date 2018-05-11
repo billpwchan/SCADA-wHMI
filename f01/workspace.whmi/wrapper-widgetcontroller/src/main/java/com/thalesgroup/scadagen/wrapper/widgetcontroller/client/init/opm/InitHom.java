@@ -1,10 +1,9 @@
-package com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init;
+package com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.opm;
 
 import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.Init_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.hom.UIHomFactory;
@@ -14,8 +13,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.hom.UIHom_i;
 
 public class InitHom implements Init_i {
 
-	private final String className = UIWidgetUtil.getClassSimpleName(InitHom.class.getName());
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private InitHom() {}
 	private static InitHom instance = null;
@@ -41,10 +40,8 @@ public class InitHom implements Init_i {
 			public UIHom_i get(String key) {
 				UIHom_i uiHom_i = null;
 				if ( null != key ) {
-					
-					String uiHomSCADAgenName = UIWidgetUtil.getClassSimpleName(UIHomSCADAgen.class.getName());
-					
-					if ( key.equalsIgnoreCase(uiHomSCADAgenName) ) {
+
+					if ( UIHomSCADAgen.class.getSimpleName().equalsIgnoreCase(key) ) {
 						uiHom_i = UIHomSCADAgen.getInstance();
 					}
 				}

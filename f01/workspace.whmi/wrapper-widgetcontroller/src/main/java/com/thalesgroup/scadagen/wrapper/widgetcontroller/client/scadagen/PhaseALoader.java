@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitProcess_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCacheJsonsFile;
@@ -14,8 +13,8 @@ import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCacheXM
 
 public class PhaseALoader implements Loader_i {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(PhaseALoader.class.getName());
-	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private static PhaseALoader instance = null; 
 	public static PhaseALoader getInstance() {

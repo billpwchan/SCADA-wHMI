@@ -1,14 +1,13 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
+package com.thalesgroup.scadagen.wrapper.wrapper.client.opm.page.spring;
 
 import com.google.gwt.user.client.Window;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class SpringLogout {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(SpringLogout.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private String actionUrl = null;
 	

@@ -22,7 +22,7 @@ import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.factory.FASLayoutWidgetFactory_i.FASWidgetArgs;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCacheJsonsFile;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCacheXMLFile;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitOpm;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.opm.InitOpm;
 
 public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidgetController {
 	

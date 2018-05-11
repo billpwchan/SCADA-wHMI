@@ -3,8 +3,8 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
 import java.util.Map;
 
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.GetCurrentIpAddressCallback_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.IGetCurrentHostNameCallback;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.ISetCurrentProfileCallback;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.GetCurrentHostNameCallback_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.SetCurrentProfileCallback_i;
 
 /**
  * UIOpm_i is the interface of the WHMI OPM API, it define the Function Signature of each OPM function.
@@ -192,7 +192,7 @@ public interface UIOpm_i {
 	 * 
 	 * @param cb    Callback for the Async result: Current Profile
 	 */
-	void setCurrentProfile(String profile, ISetCurrentProfileCallback cb);
+	void setCurrentProfile(String profile, SetCurrentProfileCallback_i cb);
 
 	/**
 	 * Set the Current profile.
@@ -213,7 +213,7 @@ public interface UIOpm_i {
 	 * 
 	 * @param cb    Callback for the Async result: Current Client Host Name
 	 */
-	void getCurrentHostName(IGetCurrentHostNameCallback cb);
+	void getCurrentHostName(GetCurrentHostNameCallback_i cb);
 	
 	/**
 	 * Get the current client IP Address

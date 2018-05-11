@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.hilc;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
@@ -8,17 +9,16 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.e
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.fascomponent.hilc.FasHILCComponentAccess;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.fascomponent.hilc.IHILCComponentClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 
 public class HILCMgr {
 
-	private final String className = UIWidgetUtil.getClassSimpleName(HILCMgr.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 
-	private static HashMap<String, HILCMgr> instances = new HashMap<String, HILCMgr>();
+	private static Map<String, HILCMgr> instances = new HashMap<String, HILCMgr>();
 	public static HILCMgr getInstance(String key) {
 		if ( ! instances.containsKey(key) ) {	instances.put(key, new HILCMgr()); }
 		HILCMgr instance = instances.get(key);

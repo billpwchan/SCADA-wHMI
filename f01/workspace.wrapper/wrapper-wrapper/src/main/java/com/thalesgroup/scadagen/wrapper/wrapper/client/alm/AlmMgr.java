@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.alm;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
@@ -8,7 +9,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.Hyperv
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.alm.IALMComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.alm.ScsALMComponentAccess;
@@ -22,10 +22,10 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.alm.ScsALMCompon
  */
 public class AlmMgr {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(AlmMgr.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 
-	private static HashMap<String, AlmMgr> instances = new HashMap<String, AlmMgr>();
+	private static Map<String, AlmMgr> instances = new HashMap<String, AlmMgr>();
 	public static AlmMgr getInstance(String key) {
 		if ( ! instances.containsKey(key) ) {	instances.put(key, new AlmMgr()); }
 		AlmMgr instance = instances.get(key);

@@ -2,7 +2,6 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.DatabasePolling;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.DatabasePollingSingleton;
@@ -21,8 +20,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group
  */
 public class DatabaseSubscribeFactory {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(DatabaseSubscribeFactory.class.getName());
-	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private static final String className = DatabaseSubscribeFactory.class.getSimpleName();
+	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(DatabaseSubscribeFactory.class.getName());
 	
 	/**
 	 * Factory Method to return the instance of the Database Subscribe Object
@@ -37,41 +36,29 @@ public class DatabaseSubscribeFactory {
 		DatabaseSubscribe_i databaseSubscribe_i = null;
 		
 		if ( null != key ) {
-			
-			String strDatabaseSubscription				= UIWidgetUtil.getClassSimpleName(DatabaseSubscription.class.getName());
-			String strDatabaseSubscriptionSingleton		= UIWidgetUtil.getClassSimpleName(DatabaseSubscriptionSingleton.class.getName());
-			
-			String strDatabasePolling					= UIWidgetUtil.getClassSimpleName(DatabasePolling.class.getName());
-			String strDatabasePollingSingleton			= UIWidgetUtil.getClassSimpleName(DatabasePollingSingleton.class.getName());
-			
-			String strDatabaseGroupPolling				= UIWidgetUtil.getClassSimpleName(DatabaseGroupPolling.class.getName());
-			String strDatabaseGroupPollingSingleton		= UIWidgetUtil.getClassSimpleName(DatabaseGroupPollingSingleton.class.getName());
-			
-			String strDatabaseGroupPollingDiff			= UIWidgetUtil.getClassSimpleName(DatabaseGroupPollingDiff.class.getName());
-			String strDatabaseGroupPollingDiffSingleton	= UIWidgetUtil.getClassSimpleName(DatabaseGroupPollingDiffSingleton.class.getName());
-			
-			if ( 0 == key.compareTo(strDatabaseSubscription) ) {
+
+			if ( 0 == DatabaseSubscription.class.getSimpleName().compareTo(key) ) {
 				databaseSubscribe_i = new DatabaseSubscription();
 			}
-			else if ( 0 == key.compareTo(strDatabaseSubscriptionSingleton) ) {
+			else if ( 0 == DatabaseSubscriptionSingleton.class.getSimpleName().compareTo(key) ) {
 				databaseSubscribe_i = DatabaseSubscriptionSingleton.getInstance();
 			}
-			else if ( 0 == key.compareTo(strDatabasePolling) ) {
+			else if ( 0 == DatabasePolling.class.getSimpleName().compareTo(key) ) {
 				databaseSubscribe_i = new DatabasePolling();
 			}
-			else if ( 0 == key.compareTo(strDatabasePollingSingleton) ) {
+			else if ( 0 == DatabasePollingSingleton.class.getSimpleName().compareTo(key) ) {
 				databaseSubscribe_i = DatabasePollingSingleton.getInstance();
 			} 
-			else if ( 0 == key.compareTo(strDatabaseGroupPolling) ) {
+			else if ( 0 == DatabaseGroupPolling.class.getSimpleName().compareTo(key) ) {
 				databaseSubscribe_i = new DatabaseGroupPolling();
 			}
-			else if ( 0 == key.compareTo(strDatabaseGroupPollingSingleton) ) {
+			else if ( 0 == DatabaseGroupPollingSingleton.class.getSimpleName().compareTo(key) ) {
 				databaseSubscribe_i = DatabaseGroupPollingSingleton.getInstance();
 			}
-			else if ( 0 == key.compareTo(strDatabaseGroupPollingDiff) ) {
+			else if ( 0 == DatabaseGroupPollingDiff.class.getSimpleName().compareTo(key) ) {
 				databaseSubscribe_i = new DatabaseGroupPollingDiff();
 			}
-			else if ( 0 == key.compareTo(strDatabaseGroupPollingDiffSingleton) ) {
+			else if ( 0 == DatabaseGroupPollingDiffSingleton.class.getSimpleName().compareTo(key) ) {
 				databaseSubscribe_i = DatabaseGroupPollingDiffSingleton.getInstance();
 			}
 		}

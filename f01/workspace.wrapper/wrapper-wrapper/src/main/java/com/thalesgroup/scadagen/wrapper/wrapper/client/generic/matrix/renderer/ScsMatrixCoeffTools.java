@@ -7,13 +7,12 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.Ent
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.matrix.update.MxIntersectionState;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class ScsMatrixCoeffTools {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(ScsMatrixCoeffTools.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private static final String className = ScsMatrixCoeffTools.class.getSimpleName();
+	private static UILogger logger = UILoggerFactory.getInstance().getLogger(ScsMatrixCoeffTools.class.getName());
 	
 	private static final String EMPTY_COEFFICIENT = "";
 

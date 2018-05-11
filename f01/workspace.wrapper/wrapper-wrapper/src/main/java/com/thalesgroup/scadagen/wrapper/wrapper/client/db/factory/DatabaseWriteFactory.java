@@ -2,7 +2,6 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseWrite_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.write.DatabaseWriting;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.write.DatabaseWritingSingleton;
@@ -15,8 +14,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.write.DatabaseW
  */
 public class DatabaseWriteFactory {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(DatabaseWriteFactory.class.getName());
-	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private static final String className = DatabaseWriteFactory.class.getSimpleName();
+	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(DatabaseWriteFactory.class.getName());
 	
 	/**
 	 * Factory Method to return the instance of the Database Writing Object
@@ -31,13 +30,10 @@ public class DatabaseWriteFactory {
 		DatabaseWrite_i databaseWrite_i = null;
 		
 		if ( null != key ) {
-			
-			String strDatabaseWriting				= UIWidgetUtil.getClassSimpleName(DatabaseWriting.class.getName());
-			String strDatabaseWritingSingleton		= UIWidgetUtil.getClassSimpleName(DatabaseWritingSingleton.class.getName());
-			
-			if ( 0 == key.compareTo(strDatabaseWriting) ) {
+
+			if ( 0 == DatabaseWriting.class.getSimpleName().compareTo(key) ) {
 				databaseWrite_i = new DatabaseWriting();
-			} else if ( 0 == key.compareTo(strDatabaseWritingSingleton) ) {
+			} else if ( 0 == DatabaseWritingSingleton.class.getSimpleName().compareTo(key) ) {
 				databaseWrite_i = DatabaseWritingSingleton.getInstance();
 			}
 		}

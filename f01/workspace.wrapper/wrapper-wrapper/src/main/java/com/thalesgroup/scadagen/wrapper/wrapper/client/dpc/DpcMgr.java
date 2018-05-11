@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.dpc;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
@@ -8,7 +9,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.e
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DCP_i.TaggingStatus;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dpc.IDPCComponentClient;
@@ -20,12 +20,12 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dpc.ScsDPCCompon
  */
 public class DpcMgr {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(DpcMgr.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 
-	private static HashMap<String, DpcMgr> instances = new HashMap<String, DpcMgr>();
+	private static Map<String, DpcMgr> instances = new HashMap<String, DpcMgr>();
 	public static DpcMgr getInstance(String key) {
-		if ( ! instances.containsKey(key) ) {	instances.put(key, new DpcMgr()); }
+		if ( ! instances.containsKey(key) ) { instances.put(key, new DpcMgr()); }
 		DpcMgr instance = instances.get(key);
 		return instance;
 	}

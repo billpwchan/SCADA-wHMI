@@ -5,12 +5,11 @@ import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class UIHomFactory implements UIHomFactory_i {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(UIHomFactory.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private Map<String, UIHomFactory_i> factorys = new HashMap<String, UIHomFactory_i>();
 	public void addFactory(String className, UIHomFactory_i uiHomFactory) { this.factorys.put(className, uiHomFactory); }

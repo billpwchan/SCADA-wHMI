@@ -2,7 +2,6 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.cac
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleton_i;
 
 /**
@@ -13,8 +12,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSinglet
  */
 public class DatabaseMultiReadingProxySingleton extends DatabaseMultiReadingProxy implements DatabaseSingleton_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseMultiReadingProxySingleton.class.getName());
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private static DatabaseMultiReadingProxySingleton instance = null;
 	private DatabaseMultiReadingProxySingleton() {}

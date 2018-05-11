@@ -11,16 +11,14 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.H
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.IRTDBComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess.ScsClassAttInfo;
 
 public class WrapperScsRTDBAccess {
 	
-	//private static Logger logger = Logger.getLogger(WrapperScsRTDBAccess.class.getName());
-	private static final String className = UIWidgetUtil.getClassSimpleName(WrapperScsRTDBAccess.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);	
+	private static final String className = WrapperScsRTDBAccess.class.getSimpleName();
+	private static UILogger logger = UILoggerFactory.getInstance().getLogger(WrapperScsRTDBAccess.class.getName());	
 	
 	private final String strWaitingList		= "waitingList";
 	private final String strSubscriptions	= "subscriptions";

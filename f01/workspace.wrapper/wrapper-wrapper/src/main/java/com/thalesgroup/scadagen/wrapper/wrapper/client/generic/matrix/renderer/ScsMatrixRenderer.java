@@ -16,12 +16,11 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.matrix.update.M
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.matrix.update.MxItemStyleServer;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class ScsMatrixRenderer implements IMatrixRenderer {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(ScsMatrixRenderer.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private static final String defaultCounterCssPrefix = "scsmx";
 

@@ -2,10 +2,10 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.cac
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.Multi2MultiResponsible_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.DatabaseMultiReading;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
@@ -19,8 +19,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEve
  */
 public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, Multi2MultiResponsible_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseMultiReadingProxy.class.getName());
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 
 	protected HashMap<String, ReadingRequest> requests = new HashMap<String, ReadingRequest>();
 	
@@ -86,11 +86,11 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, Multi2Mul
 			ReadingRequest rq = new ReadingRequest(clientKey, scsEnvId, dbAddresses, databaseEvent);
 			requests.put(clientKey, rq);
 			
-			HashMap<String, HashMap<String, String>> caches = DatabaseMultiReadingCache.getInstance().getCache();
+			Map<String, Map<String, String>> caches = DatabaseMultiReadingCache.getInstance().getCache();
 			if ( ! caches.containsKey(scsEnvId) ) {
 				caches.put(scsEnvId, new HashMap<String, String>());
 			}
-			HashMap<String, String> cache = caches.get(scsEnvId);
+			Map<String, String> cache = caches.get(scsEnvId);
 			
 			LinkedList<String> vl = new LinkedList<String>();
 			
@@ -117,8 +117,8 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, Multi2Mul
 					@Override
 					public void update(String key, String [] addresses, String[] values) {
 						ReadingRequest rq = requests.get(key);
-						HashMap<String, HashMap<String, String>> caches = DatabaseMultiReadingCache.getInstance().getCache();
-						HashMap<String, String> vs = caches.get(rq.scsEnvId);
+						Map<String, Map<String, String>> caches = DatabaseMultiReadingCache.getInstance().getCache();
+						Map<String, String> vs = caches.get(rq.scsEnvId);
 						String [] dbaddresses = rq.dbAddresses;
 						for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
 							String a = dbaddresses[i];

@@ -17,7 +17,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OpmRequest
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.RoleDto;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.GetCurrentIpAddressCallback_i;
@@ -38,8 +37,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.UIGenericServic
  */
 public class UIOpmSCADAgen implements UIOpm_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIOpmSCADAgen.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private static UIOpm_i instance = null;
 	public static UIOpm_i getInstance() { 

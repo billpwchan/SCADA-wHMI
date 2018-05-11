@@ -2,7 +2,6 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.write;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleton_i;
 
 /**
@@ -13,8 +12,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSinglet
  */
 public class DatabaseWritingSingleton extends DatabaseWriting implements DatabaseSingleton_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseWritingSingleton.class.getName());
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 
 	private static DatabaseWritingSingleton instance = null;
 	private DatabaseWritingSingleton() {}

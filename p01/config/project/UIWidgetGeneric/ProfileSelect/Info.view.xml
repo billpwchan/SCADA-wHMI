@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>2</cols>
+		<rootPanel>FlexTable</rootPanel>
+		<rootCss>project-UIWidgetProfileSelectInfo-inner</rootCss>
+	</header>
+
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>Profile:</label>
+		<element>profilelabel</element>
+		<css>project-UIWidgetProfileSelectInfo-profilelabel</css>
+		<cssDown>project-UIWidgetProfileSelectInfo-profilelabel-down</cssDown>
+		<cssDisable>project-UIWidgetProfileSelectInfo-profilelabel-disable</cssDisable>
+	</option>
+	<option key="0|1">
+		<widget>ListBox</widget>
+		<label></label>
+		<css>project-UIWidgetProfileSelectInfo-profile</css>
+		<element>profile</element>
+		<visibleitemcount>1</visibleitemcount>
+	</option>
+
+</data-set>

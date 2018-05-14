@@ -2,7 +2,7 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
-		<rows>3</rows>
+		<rows>2</rows>
 		<cols>2</cols>
 		<rootPanel>FlexTable</rootPanel>
 		<rootCss>project-UIWidgetLoginInfo-inner</rootCss>
@@ -21,7 +21,7 @@
 		<element>name</element>
 		<maxlength>16</maxlength>
 	</option>
-	
+<!--
 	<option key="1|0">
 		<widget>InlineLabel</widget>
 		<label>Profile:</label>
@@ -37,14 +37,14 @@
 		<element>profile</element>
 		<visibleitemcount>1</visibleitemcount>
 	</option>
-	
-	<option key="2|0">
+-->
+	<option key="1|0">
 		<widget>InlineLabel</widget>
 		<label>Password:</label>
 		<element>passwordlabel</element>
 		<css>project-UIWidgetLoginInfo-passwordlabel</css>
 	</option>
-	<option key="2|1">
+	<option key="1|1">
 		<widget>PasswordTextBox</widget>
 		<label></label>
 		<css>project-UIWidgetLoginInfo-password</css>

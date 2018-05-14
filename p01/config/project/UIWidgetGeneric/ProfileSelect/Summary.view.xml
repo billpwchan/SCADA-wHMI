@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-UILayoutProfileSelectSummary-container</rootCSS>
+	</header>
+	<option key="0|0">
+		<uiCtrl>UILayoutProfileSelect</uiCtrl>
+		<uiView>ProfileSelect/ProfileSelect.view.xml</uiView>
+		<uiOpts>ProfileSelect/ProfileSelect.opts.xml</uiOpts>
+		<element>UILayoutProfileSelect</element>
+		<csscontainer>project-UILayoutProfileSelectSummary-container-UILayoutProfileSelect</csscontainer>
+	</option>
+</data-set>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>3</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-UILayoutProfileSelect-inner</rootCSS>
+	</header>
+	
+	<option key="0|0">
+		<uiCtrl>UIWidgetConfiguration</uiCtrl>
+		<uiView>ProfileSelect/Logo.view.xml</uiView>
+		<element>UIWidgetProfileSelectLogo</element>
+	</option>
+	
+	<option key="0|1">
+		<uiCtrl>UIWidgetConfiguration</uiCtrl>
+		<uiView>ProfileSelect/Info.view.xml</uiView>
+		<uiOpts>ProfileSelect/Info.opts.xml</uiOpts>
+		<element>UIWidgetProfileSelectInfo</element>
+	</option>
+	
+	<option key="0|2">
+		<uiCtrl>UIWidgetConfiguration</uiCtrl>
+		<uiView>ProfileSelect/Button.view.xml</uiView>
+		<uiOpts>ProfileSelect/Button.opts.xml</uiOpts>
+		<element>UIWidgetProfileSelectButton</element>
+	</option>
+
+</data-set>

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,13 +15,8 @@ import com.thalesgroup.hv.data_v1.alarm.AbstractAlarmType;
 import com.thalesgroup.hv.data_v1.alarm.attribute.Alarm4StateEnum;
 import com.thalesgroup.hv.data_v1.alarm.attribute.PriorityAttributeType;
 import com.thalesgroup.hv.data_v1.alarm.attribute.StateAttributeType;
-import com.thalesgroup.hv.data_v1.attribute.AbstractAttributeType;
 import com.thalesgroup.hv.data_v1.attribute.BooleanAttributeType;
 import com.thalesgroup.hv.data_v1.attribute.DateTimeAttributeType;
-import com.thalesgroup.hv.data_v1.attribute.DoubleAttributeType;
-import com.thalesgroup.hv.data_v1.attribute.FloatAttributeType;
-import com.thalesgroup.hv.data_v1.attribute.IntAttributeType;
-import com.thalesgroup.hv.data_v1.attribute.LongAttributeType;
 import com.thalesgroup.hv.data_v1.attribute.StringAttributeType;
 import com.thalesgroup.hv.data_v1.entity.AbstractEntityStatusesType;
 import com.thalesgroup.hv.sdk.connector.Connector;
@@ -168,21 +165,47 @@ public class OLSAlmConverter extends OLSConverter {
             priorityValue.setValue(getPriorityFromOLS(olsrow).value());
             alarmEntity.setPriority(priorityValue);
 
-            DateTimeAttributeType equipmentDateValue = new DateTimeAttributeType();
-            equipmentDateValue.setValid(true);
-            equipmentDateValue.setTimestamp(curTimeStamp);
-            if (!mapOlsFieldtoHVField(olsrow, almClass, "equipmentdate", equipmentDateValue)) {
-            	equipmentDateValue.setValue(getDateAttFromOLS(olsrow, "EquipmentDate"));
+            DateTimeAttributeType apparitionDateValue = new DateTimeAttributeType();
+            apparitionDateValue.setValid(true);
+            apparitionDateValue.setTimestamp(curTimeStamp);
+            String scsApparitionField = getOlsFieldFromHVField(almClass, "apparitionDate");
+            if (!scsApparitionField.isEmpty()) {
+            	XMLGregorianCalendar cal = getDateAttFromOLSNoRemove(olsrow, scsApparitionField);
+            	if (cal != null) {
+            		apparitionDateValue.setValue(cal);
+            	} else {
+            		s_logger.warn("ApparitionDate mapping is invalid. Use default EquipmentDate value for mapping");
+            		apparitionDateValue.setValue(getDateAttFromOLSNoRemove(olsrow, "EquipmentDate"));
+            	}
+            } else {
+            	// Use EquipmentDate from SCADA as default if no scs2hv mapping is found
+            	apparitionDateValue.setValue(getDateAttFromOLSNoRemove(olsrow, "EquipmentDate"));
             }
-            alarmEntity.setApparitionDate(equipmentDateValue);
+            alarmEntity.setApparitionDate(apparitionDateValue);
 
-            DateTimeAttributeType scsTimeValue = new DateTimeAttributeType();
-            scsTimeValue.setValid(true);
-            scsTimeValue.setTimestamp(curTimeStamp);
-            if (!mapOlsFieldtoHVField(olsrow, almClass, "scstime", scsTimeValue)) {
-            	scsTimeValue.setValue(getDateAttFromOLS(olsrow, "SCSTime"));
+            DateTimeAttributeType lastUpdateDateValue = new DateTimeAttributeType();
+            lastUpdateDateValue.setValid(true);
+            lastUpdateDateValue.setTimestamp(curTimeStamp);
+            String scsLastUpdateDateField = getOlsFieldFromHVField(almClass, "lastUpdateDate");
+            if (!scsLastUpdateDateField.isEmpty()) {
+            	XMLGregorianCalendar cal = getDateAttFromOLSNoRemove(olsrow, scsLastUpdateDateField);
+            	if (cal != null) {
+            		lastUpdateDateValue.setValue(cal);
+            	} else {
+            		s_logger.warn("LastUpdateDate mapping is invalid. Use default SCSTime value for mapping");
+            		lastUpdateDateValue.setValue(getDateAttFromOLSNoRemove(olsrow, "SCSTime"));
+            	}
+            } else {
+            	// Use SCSTime from SCADA as default if no scs2hv mapping is found
+            	lastUpdateDateValue.setValue(getDateAttFromOLSNoRemove(olsrow, "SCSTime"));
             }
-            alarmEntity.setLastUpdateDate(scsTimeValue);
+            alarmEntity.setLastUpdateDate(lastUpdateDateValue);
+            
+            // Remove scsApparitionField and scsLastUpdateDateField from olsrow
+            if (!scsApparitionField.isEmpty())
+            	olsrow.remove(scsApparitionField);
+            if (!scsLastUpdateDateField.isEmpty())
+            	olsrow.remove(scsLastUpdateDateField);
 
             BooleanAttributeType isShelvedValue = new BooleanAttributeType();
             isShelvedValue.setValid(true);
@@ -219,65 +242,19 @@ public class OLSAlmConverter extends OLSConverter {
 
         return alarmEntity;
     }
-
-    private boolean mapOlsFieldtoHVField(ScsFieldMap olsrow, String hvClass, String attributeName,
-			AbstractAttributeType attribute) {
-    	boolean result = false;
+    
+    protected String getOlsFieldFromHVField(String hvClass, String attributeName) {
+    	String olsField = "";
     	
-        StatusMapping mapping = SCSConfManager.instance().getSCSFieldFromHVField(hvClass, attributeName);
-        s_logger.trace("mapOlsFieldtoHVField hvClass {} attribute {}", hvClass, attributeName);
-        if (mapping != null && mapping.m_scsRelativePathList != null) {
-        	List<String> scsvalueList = mapping.m_scsRelativePathList;
-
-        	if (scsvalueList.size() > 0 && scsvalueList.get(0) != null) {
-        		String scsvalue = scsvalueList.get(0);
-        		ScsData scsdata = olsrow.get(scsvalue);
-
-        		if (scsdata != null) {
-        			short scsdataType = scsdata.getType();
-
-        			if (scsdataType == 1 || scsdataType == 12) {			// Integer or Long
-        				if (attribute instanceof IntAttributeType) {
-        					((IntAttributeType) attribute).setValue(scsdata.getIntValue());
-        					result = true;
-        				} else if (attribute instanceof LongAttributeType) {
-        					((LongAttributeType) attribute).setValue((long) scsdata.getIntValue());
-        					result = true;
-        				} else if (attribute instanceof FloatAttributeType) {
-        					((FloatAttributeType) attribute).setValue((float) scsdata.getIntValue());
-        					result = true;
-        				} else if (attribute instanceof DoubleAttributeType) {
-        					((DoubleAttributeType) attribute).setValue((double) scsdata.getIntValue());
-        					result = true;
-        				}
-        				s_logger.trace("scsdata int value {}", scsdata.getIntValue());
-        			} else if (scsdataType == 2 || scsdataType == 13) {		// Float or Double
-        				if (attribute instanceof FloatAttributeType) {
-        					((FloatAttributeType) attribute).setValue(scsdata.getFloatValue());
-        					result = true;
-        				} else if (attribute instanceof DoubleAttributeType) {
-        					((DoubleAttributeType) attribute).setValue((double) scsdata.getFloatValue());
-        					result = true;
-        				}
-        				s_logger.trace("scsdata float value {}", scsdata.getFloatValue());
-        			} else if (scsdataType == 3 || scsdataType == 4) {		// String or WString
-        				if (attribute instanceof StringAttributeType) {
-        					((StringAttributeType) attribute).setValue(scsdata.getStringValue());
-        					result = true;
-        				}
-        				s_logger.trace("scsdata string value {}", scsdata.getStringValue());
-        			} else if (scsdataType == 5) {							// Time
-        				if (attribute instanceof DateTimeAttributeType) {
-            				((DateTimeAttributeType) attribute).setValue(DateUtils.convertToXMLGregorianCalendar(scsdata.getDateValue()));
-        					result = true;
-        				}
-        				s_logger.trace("scsdata time value {} {}", scsdata.getDateValue().getTime(), scsdata.getDateValue().toString());
-        			}
-        		}
-        	}
-        }
-		return result;
-	}
+    	StatusMapping mapping = SCSConfManager.instance().getSCSFieldFromHVField(hvClass, attributeName);
+    	if (mapping != null && mapping.m_scsRelativePathList != null) {
+    		List<String> scsvalueList = mapping.m_scsRelativePathList;
+    		if (scsvalueList.size() > 0 && scsvalueList.get(0) != null) {
+    			olsField = scsvalueList.get(0);
+    		}
+    	}
+    	return olsField;
+    }
 
 	protected Boolean getIsShelvedFromOLS(ScsFieldMap olsrow) {
         String key = "Shelve";
@@ -288,5 +265,21 @@ public class OLSAlmConverter extends OLSConverter {
 
         return false;
     }
+
+	protected XMLGregorianCalendar getDateAttFromOLSNoRemove(ScsFieldMap olsrow, String key) {
+		ScsData d = (ScsData)olsrow.get(key);
+		if (d != null) {
+			return DateUtils.convertToXMLGregorianCalendar(d.getDateValue());
+		}
+		return null;
+	}
+	
+	protected XMLGregorianCalendar removeDateAttFromOLS(ScsFieldMap olsrow, String key) {
+		ScsData d = (ScsData)olsrow.get(key);
+		if (d != null) {
+			return DateUtils.convertToXMLGregorianCalendar(d.getDateValue());
+		}
+		return null;
+	}
 
 }

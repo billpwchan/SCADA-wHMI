@@ -11,7 +11,6 @@ import com.google.gwt.json.client.JSONString;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.UIGenericServiceImpl_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.shared.UIGenericDto;
 import com.thalesgroup.scadagen.wrapper.wrapper.shared.UIGenericDto_i;
@@ -25,8 +24,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.shared.UIGenericDto_i;
  */
 public class UIGenericMgr implements AsyncCallback<UIGenericDto_i> {
 
-	private final String className = UIWidgetUtil.getClassSimpleName(UIGenericMgr.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private final UIGenericServiceAsync uiGenericService = GWT.create(UIGenericService.class);
 	

@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.ctl;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONNumber;
@@ -12,7 +13,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.e
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.ctl.ICTLComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.ctl.ScsCTLComponentAccess;
@@ -23,10 +23,10 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.ctl.ScsCTLCompon
  */
 public class CtlMgr {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(CtlMgr.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
-	private static HashMap<String, CtlMgr> instances = new HashMap<String, CtlMgr>();
+	private static Map<String, CtlMgr> instances = new HashMap<String, CtlMgr>();
 	public static CtlMgr getInstance(String key) {
 		if ( ! instances.containsKey(key) ) {	instances.put(key, new CtlMgr()); }
 		CtlMgr instance = instances.get(key);

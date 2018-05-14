@@ -12,7 +12,6 @@ import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIGene
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIWidgetUIScreenMMIFactorys;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
@@ -26,8 +25,9 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGen
  */
 public class UIScreenMMI extends UIWidget_i {
 
-	private final String className = UIWidgetUtil.getClassSimpleName(UIScreenMMI.class.getName());
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String cls = this.getClass().getName();
+	private final String className = this.getClass().getSimpleName();;
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(cls);
 
 	private UILayoutGeneric uiLayoutGeneric = null;
 	

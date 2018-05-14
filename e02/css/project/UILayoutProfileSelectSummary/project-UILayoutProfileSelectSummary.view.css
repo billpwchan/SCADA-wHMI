@@ -1,0 +1,18 @@
+.project-UILayoutProfileSelectSummary-container {
+	vertical-align: middle !important;
+	width: 100%;
+	height: 100%;
+}
+
+.project-UILayoutProfileSelectSummary-container-UILayoutProfileSelect {
+	vertical-align: middle !important;
+	width: 100%;
+	height: 100%;
+}
+
+.project-UILayoutProfileSelectSummary-inner {
+	background-color: #BEBEBE;
+    border: 2px solid dimgrey;
+    margin: auto;
+    vertical-align: middle;
+}

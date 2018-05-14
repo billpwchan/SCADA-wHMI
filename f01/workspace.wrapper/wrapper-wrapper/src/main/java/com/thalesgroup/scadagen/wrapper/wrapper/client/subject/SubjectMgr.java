@@ -13,8 +13,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 
 public class SubjectMgr {
 	
-//	protected String className = UIWidgetUtil.getClassSimpleName(SubjectMgr.class.getName());
-//	protected UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+//	private String className = this.getClass().getSimpleName());
+//	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private String classNamePrefix = null;
 	public void setPrefix(String prefix) { this.classNamePrefix = prefix; }

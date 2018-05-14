@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 /**
  * @author syau
@@ -13,8 +12,8 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
  */
 public class UIControlPriorityFactory {
 
-	private static final String className = UIWidgetUtil.getClassSimpleName(UIControlPriorityFactory.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private Map<String, UIControlPriorityFactory_i> factorys = new HashMap<String, UIControlPriorityFactory_i>();
 	public void addFactory(String className, UIControlPriorityFactory_i uiControlPriorityFactory) { this.factorys.put(className, uiControlPriorityFactory); }

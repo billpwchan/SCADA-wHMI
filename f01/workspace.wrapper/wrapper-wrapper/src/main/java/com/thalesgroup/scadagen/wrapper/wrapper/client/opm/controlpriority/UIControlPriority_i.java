@@ -16,6 +16,26 @@ public interface UIControlPriority_i {
 	 */
 	public final static String FIELD_CODE	= "code";
 	
+    /**
+     * Check Reservation LEVEL Return Code
+     */
+    public enum ReservationLevelRet {
+    	LEVEL_ERROR					(0) // Availability checking return error
+    	, LEVEL_HIGHER				(1) // Compare Level with higher level
+    	, LEVEL_EQUAL				(2) // Compare Level with same level
+    	, LEVEL_IS_ITSELF			(3) // Compare Level with itself level
+    	, LEVEL_EMPTY				(4) // Compare Level with empty level
+    	, LEVEL_LOWER				(5) // Compare Level with lower level
+    	;
+
+		private final int value;
+		private ReservationLevelRet(final int value) { this.value = value; }
+		public int getValue() { return this.value; }
+//		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
+		@Override
+		public String toString() { return Integer.toString(this.value); }
+    }
+	
 	/* 
 	 * Check Reservation LEVEL Return Code
 	 */
@@ -25,7 +45,10 @@ public interface UIControlPriority_i {
 	public final static int LEVEL_IS_ITSELF				= 3; // Compare Level with itself level
 	public final static int LEVEL_EMPTY					= 4; // Compare Level with empty level
 	public final static int LEVEL_LOWER					= 5; // Compare Level with lower level
-	
+
+	/* 
+	 * Check Reservation Availability Return Code
+	 */
 	/* 
 	 * Check Reservation Availability Return Code
 	 */
@@ -35,6 +58,26 @@ public interface UIControlPriority_i {
 	public final static int AVAILABILITY_RESERVED_BYSELF		= 3; // Reserved by self
 	public final static int AVAILABILITY_EMPTY					= 4; // Non-reserved status
 	public final static int AVAILABILITY_ALLOW_WITH_OVERRIDE	= 5; // Reserved by other
+    /**
+     * Check Reservation AVAILABILITY Return Code
+     */
+    public enum ReservationAvailabilityRet {
+    	AVAILABILITY_ERROR					(UIControlPriority_i.AVAILABILITY_ERROR) // Availability checking return error
+    	, AVAILABILITY_DENIED				(UIControlPriority_i.AVAILABILITY_DENIED) // Reserved by other with higher level 
+    	, AVAILABILITY_EQUAL				(UIControlPriority_i.AVAILABILITY_EQUAL) // Reserved by other at same level
+    	, AVAILABILITY_RESERVED_BYSELF		(UIControlPriority_i.AVAILABILITY_RESERVED_BYSELF) // Reserved by self
+    	, AVAILABILITY_EMPTY				(UIControlPriority_i.AVAILABILITY_EMPTY) // Non-reserved status
+    	, AVAILABILITY_ALLOW_WITH_OVERRIDE	(UIControlPriority_i.AVAILABILITY_ALLOW_WITH_OVERRIDE) // Reserved by other
+    	;
+
+		private final int value;
+		private ReservationAvailabilityRet(final int value) { this.value = value; }
+		public int getValue() { return this.value; }
+//		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
+		@Override
+		public String toString() { return Integer.toString(this.value); }
+    }
+
 	/*
 	 * Check Reservation Availability Return Code Mapping in String Value
 	 */
@@ -54,6 +97,25 @@ public interface UIControlPriority_i {
 	public final static int REQUEST_OVERRIDE_WITH_FORCE_WITHDRAW			= 2;
 	public final static int REQUEST_REJECTED_AT_LOWER_LEVEL					= 3;
 	public final static int REQUEST_REJECTED_AT_SAME_LEVEL					= 4;
+    /**
+     * Request Reservation Return Code
+     */
+    public enum RequestReservationRet {
+    	REQUEST_ERROR_UNKNOW					(UIControlPriority_i.REQUEST_ERROR_UNKNOW)
+    	, REQUEST_ERROR_CHECKING				(UIControlPriority_i.REQUEST_ERROR_CHECKING)
+    	, REQUEST_REQUESTED						(UIControlPriority_i.REQUEST_REQUESTED)
+    	, REQUEST_OVERRIDE_WITH_FORCE_WITHDRAW	(UIControlPriority_i.REQUEST_OVERRIDE_WITH_FORCE_WITHDRAW)
+    	, REQUEST_REJECTED_AT_LOWER_LEVEL		(UIControlPriority_i.REQUEST_REJECTED_AT_LOWER_LEVEL)
+    	, REQUEST_REJECTED_AT_SAME_LEVEL		(UIControlPriority_i.REQUEST_REJECTED_AT_SAME_LEVEL)
+    	;
+
+		private final int value;
+		private RequestReservationRet(final int value) { this.value = value; }
+		public int getValue() { return this.value; }
+//		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
+		@Override
+		public String toString() { return Integer.toString(this.value); }
+    }
 	/*
 	 * Check Request Reservation Return Code Mapping in String Value
 	 */
@@ -78,6 +140,21 @@ public interface UIControlPriority_i {
 	 */
 	public final static int GETCURRENT_READ_INVALID							= 0;
 	public final static int GETCURRENT_VALID								= 1;
+    /**
+     * Check Withdraw Request Return Code
+     */
+    public enum WithdrawReservationRet {
+    	GETCURRENT_READ_INVALID					(UIControlPriority_i.GETCURRENT_READ_INVALID)
+    	, GETCURRENT_VALID						(UIControlPriority_i.GETCURRENT_VALID)
+    	;
+
+		private final int value;
+		private WithdrawReservationRet(final int value) { this.value = value; }
+		public int getValue() { return this.value; }
+//		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
+		@Override
+		public String toString() { return Integer.toString(this.value); }
+    }
 	/*
 	 * Check Withdraw Request Return Code Mapping in String Value
 	 */
@@ -89,6 +166,21 @@ public interface UIControlPriority_i {
 	 */
 	public final static int FORCE_WITHDRAW_INVALID							= 0;
 	public final static int FORCE_WITHDRAW_VALID							= 1;
+    /**
+     * Check Force Withdraw Request Return Code
+     */
+    public enum ForceWithdrawRet {
+    	FORCE_WITHDRAW_INVALID					(UIControlPriority_i.FORCE_WITHDRAW_INVALID)
+    	, FORCE_WITHDRAW_VALID					(UIControlPriority_i.FORCE_WITHDRAW_VALID)
+    	;
+
+		private final int value;
+		private ForceWithdrawRet(final int value) { this.value = value; }
+		public int getValue() { return this.value; }
+//		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
+		@Override
+		public String toString() { return Integer.toString(this.value); }
+    }
 	/*
 	 * Check Withdraw Request Return Code Mapping in String Value
 	 */

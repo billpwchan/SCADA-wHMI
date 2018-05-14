@@ -6,20 +6,23 @@ import java.util.Map;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitProcess_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitControlPriority;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitDatabase;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitHom;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitOpm;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitTranslation;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.opm.InitAccess;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.opm.InitControlPriority;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.opm.InitHom;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.opm.InitNetwork;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.opm.InitOpm;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.opm.InitPage;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.opm.InitUser;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class PhaseBLoader implements Loader_i{
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(PhaseBLoader.class.getName());
-	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private static PhaseBLoader instance = null; 
 	public static PhaseBLoader getInstance() {
@@ -32,8 +35,20 @@ public class PhaseBLoader implements Loader_i{
 	public final static String strUIOpmSCADAgenKey							= "UIOpmSCADAgenKey";
 	public final static String strUIOpmSCADAgen								= "UIOpmSCADAgen";
 	
+	public final static String strUINetworkSCADAgenKey						= "UINetworkSCADAgenKey";
+	public final static String strUINetworkSCADAgen							= "UINetworkSCADAgen";
+	
 	public final static String strUIControlPrioritySCADAgenKey				= "UIControlPrioritySCADAgenKey";
 	public final static String strUIControlPrioritySCADAgen					= "UIControlPrioritySCADAgen";
+	
+	public final static String strUIAccessSCADAgenKey						= "UIAccessSCADAgenKey";
+	public final static String strUIAccessSCADAgen							= "UIAccessSCADAgen";
+	
+	public final static String strUIPageSCADAgenKey							= "UIPageSCADAgenKey";
+	public final static String strUIPageSCADAgen							= "UIPageSCADAgen";
+	
+	public final static String strUIUserSCADAgenKey							= "UIUserSCADAgenKey";
+	public final static String strUIUserSCADAgen							= "UIUserSCADAgen";
 	
 	public final static String strDatabaseReadingSingletonKey				= "DatabaseReadingSingletonKey";
 	public final static String strDatabaseSubscribeSingletonKey				= "DatabaseSubscribeSingletonKey";
@@ -47,11 +62,15 @@ public class PhaseBLoader implements Loader_i{
 	public final static String strDatabaseWritingSingleton					= "DatabaseWritingSingleton";
 	public final static String strDatabaseGetFullPathSingleton				= "DatabaseGetFullPathSingleton";
 	
-	
 	@Override
 	public void iniDefaultParameterName() {
 		parameters.put(strUIOpmSCADAgenKey, strUIOpmSCADAgen);
 		parameters.put(strUIControlPrioritySCADAgenKey, strUIControlPrioritySCADAgen);
+		parameters.put(strUIAccessSCADAgenKey, strUIAccessSCADAgen);
+		parameters.put(strUIPageSCADAgenKey, strUIPageSCADAgen);
+		parameters.put(strUINetworkSCADAgenKey, strUINetworkSCADAgen);
+		parameters.put(strUIUserSCADAgenKey, strUIUserSCADAgen);
+		
 		parameters.put(strDatabaseReadingSingletonKey, strDatabaseMultiReadingProxySingleton);
 		parameters.put(strDatabaseSubscribeSingletonKey, strDatabaseGroupPollingDiffSingleton);
 		parameters.put(strDatabaseSubscribeSingletonPeriodMillisKey, strDatabaseSubscribePeriodMillis);
@@ -79,6 +98,8 @@ public class PhaseBLoader implements Loader_i{
 				final String function = "process";
 				logger.begin(className, function);
 
+				initOpmSub();
+				
 				boolean opmInitInValid = false;
 				// Loading SCADAgen OPM Factory
 				InitOpm.getInstance().initFactory();
@@ -137,7 +158,6 @@ public class PhaseBLoader implements Loader_i{
 			        } else {
 			        	logger.warn(className, function, "translationMgr IS NULL", translationMgr);
 			        }
-
 			        
 					// Loading SCADAgen Control Priority Factory
 					InitControlPriority.getInstance().initFactory();
@@ -145,7 +165,7 @@ public class PhaseBLoader implements Loader_i{
 				        // Init the SCADAgen Control Priority API
 				        InitControlPriority.getInstance().initControlPriority(parameters.get(strUIControlPrioritySCADAgenKey));
 					} catch (Exception ex) {
-						logger.warn(className, function, "uiControlPriority_i init Exception:"+ex.toString());
+						logger.warn(className, function, "InitControlPriority init Exception:"+ex.toString());
 					}
 					
 					// Loading SCADAgen Handover Management Factory
@@ -154,9 +174,9 @@ public class PhaseBLoader implements Loader_i{
 				        // Init the SCADAgen Control Priority API
 				        InitHom.getInstance().initHom(parameters.get(strUIControlPrioritySCADAgenKey));
 					} catch (Exception ex) {
-						logger.warn(className, function, "uiControlPriority_i init Exception:"+ex.toString());
+						logger.warn(className, function, "InitHom init Exception:"+ex.toString());
 					}
-			
+
 				} else {
 					logger.warn(className, function, "opmInitInValid[{}] bypass RPC init", opmInitInValid);
 				}
@@ -171,6 +191,41 @@ public class PhaseBLoader implements Loader_i{
 			}
 		};
 		
+		logger.end(className, function);
+	}
+	
+	private void initOpmSub() {
+		final String function = "initOpms";
+		logger.begin(className, function);
+
+		InitNetwork.getInstance().initFactory();
+		try {
+	        // Init the SCADAgen Control Priority API
+	        InitNetwork.getInstance().initNetwork(parameters.get(strUINetworkSCADAgenKey));
+		} catch (Exception ex) {
+			logger.warn(className, function, "InitNetwork init Exception:"+ex.toString());
+		}
+		
+		InitAccess.getInstance().initFactory();
+		try {
+			InitAccess.getInstance().initAccess(parameters.get(strUIAccessSCADAgenKey));
+		} catch (Exception ex) {
+			logger.warn(className, function, "InitAccess init Exception:"+ex.toString());
+		}
+		
+		InitPage.getInstance().initFactory();
+		try {
+			InitPage.getInstance().initPage(parameters.get(strUIPageSCADAgenKey));
+		} catch (Exception ex) {
+			logger.warn(className, function, "InitPage init Exception:"+ex.toString());
+		}
+		
+		InitUser.getInstance().initFactory();
+		try {
+			InitUser.getInstance().initUser(parameters.get(strUIUserSCADAgenKey));
+		} catch (Exception ex) {
+			logger.warn(className, function, "InitUser init Exception:"+ex.toString());
+		}
 		logger.end(className, function);
 	}
 	

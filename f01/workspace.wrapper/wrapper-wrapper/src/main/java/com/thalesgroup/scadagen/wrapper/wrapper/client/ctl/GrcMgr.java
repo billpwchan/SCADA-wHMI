@@ -14,7 +14,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.H
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.qf.ScsGRCComponentAccessQF;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.ctl.IGRCComponentClient;
@@ -25,10 +24,10 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.ctl.IGRCComponen
  */
 public class GrcMgr {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(GrcMgr.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
-	private static HashMap<String, GrcMgr> instances = new HashMap<String, GrcMgr>();
+	private static Map<String, GrcMgr> instances = new HashMap<String, GrcMgr>();
 	public static GrcMgr getInstance(String key) {
 		if ( ! instances.containsKey(key) ) {
 			GrcMgr grcMgr = new GrcMgr();

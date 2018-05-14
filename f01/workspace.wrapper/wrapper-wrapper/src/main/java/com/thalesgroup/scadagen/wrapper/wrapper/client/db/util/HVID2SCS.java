@@ -5,13 +5,12 @@ import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.HVID2SCS_i.Pattern;
 
 public class HVID2SCS {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(HVID2SCS.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	public final static String STR_SPLITER = "_";
 	public final static String STR_ALIAS = "<alias>";

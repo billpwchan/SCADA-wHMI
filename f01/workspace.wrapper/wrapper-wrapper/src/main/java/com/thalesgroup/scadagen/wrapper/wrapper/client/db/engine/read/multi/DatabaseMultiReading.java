@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Database.ScsRTDBComponentAccessResult;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
@@ -19,8 +18,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEve
  */
 public class DatabaseMultiReading implements DatabaseMultiRead_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseMultiReading.class.getName());
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	/**
 	 * Operation Request Storage

@@ -21,7 +21,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.e
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.matrix.ScsMatrixPanel_i.ParameterName;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.matrix.renderer.ScsMatrixRenderer;
@@ -30,8 +29,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsMatr
 
 public class ScsMatrixPanel extends UIWidget_i {
 
-	private static final String className = UIWidgetUtil.getClassSimpleName(ScsMatrixPanel.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 
     /**
      * Client presenter of this matrix widget

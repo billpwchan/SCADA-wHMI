@@ -11,7 +11,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.e
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.IRTDBComponentClient;
@@ -30,8 +29,8 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBCompo
  */
 public class Database implements Connectable_i {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(Database.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private static final String className = Database.class.getSimpleName();
+	private static UILogger logger = UILoggerFactory.getInstance().getLogger(Database.class.getName());
 
 	private String scsEnvId;
 	private String parent;

@@ -1,0 +1,21 @@
+.project-UIWidgetProfileSelectButton-inner {
+	
+}
+.project-UIWidgetProfileSelectButton-select {
+	width: 200px;
+	height: 30px;
+	font-weight: bold;
+	font-size: 16px !important;
+	color: black;
+	margin-left: 3px !important;
+	margin-bottom: 3px !important;
+}
+.project-UIWidgetProfileSelectButton-logout {
+	width: 200px;
+	height: 30px;
+	font-weight: bold;
+	font-size: 16px !important;
+	color: black;
+	margin-left: 3px !important;
+	margin-bottom: 3px !important;
+}

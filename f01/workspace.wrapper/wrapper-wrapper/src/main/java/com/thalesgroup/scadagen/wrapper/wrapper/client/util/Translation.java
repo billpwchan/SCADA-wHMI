@@ -9,7 +9,6 @@ import com.google.gwt.regexp.shared.RegExp;
 //import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 /**
  * Class to handle the i18n translation in client side
@@ -20,8 +19,8 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
  */
 public class Translation {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(Translation.class.getName());
-	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private static final String className = Translation.class.getSimpleName();
+	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(Translation.class.getName());
 	
 	private static final String JS_DICTIONARY_VAR_NAME = "table";
 	private static final Dictionary dictionary = Dictionary.getDictionary(JS_DICTIONARY_VAR_NAME);

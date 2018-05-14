@@ -5,13 +5,12 @@ import com.google.gwt.view.client.HasRows;
 import com.google.gwt.view.client.Range;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.SCADAgenPager_i.ParameterName;
 
 public class SCADAgenPager extends SimplePager {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(SCADAgenPager.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private int fastForwardRows = 0;
 	public void setFastForwardRows(int fastForwardRows) {

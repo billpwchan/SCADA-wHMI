@@ -11,13 +11,12 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.l
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.life.state.HypLifeCycleStateClientAbstract;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.presenter.AScsComponentPresenterClient;
 
 public class HVLifeCycleState {
 	
-	private final static String className = UIWidgetUtil.getClassSimpleName(HVLifeCycleState.class.getName());
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final static String className = HVLifeCycleState.class.getSimpleName();
+	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(HVLifeCycleState.class.getName());
 	
 	public static String getCurrentState(String prefix1, String prefix2, AScsComponentPresenterClient<?> aScsComponentPresenterClient) {
 		String function = "getCurrentState";
@@ -36,31 +35,31 @@ public class HVLifeCycleState {
 		String state = null;
 		if ( null != hypLifeCycleStateClient ) {
 			if ( hypLifeCycleStateClient instanceof HLCStateActivatedClient ) {
-				state = UIWidgetUtil.getClassSimpleName(HLCStateActivatedClient.class.getName());	
+				state = HLCStateActivatedClient.class.getSimpleName();	
 			}
 			else
 			if ( hypLifeCycleStateClient instanceof HLCStateInitialClient ) {
-				state = UIWidgetUtil.getClassSimpleName(HLCStateInitialClient.class.getName());	
+				state = HLCStateInitialClient.class.getSimpleName();	
 			}
 			else
 			if ( hypLifeCycleStateClient instanceof HLCStateInitializedClient ) {
-				state = UIWidgetUtil.getClassSimpleName(HLCStateInitializedClient.class.getName());	
+				state = HLCStateInitializedClient.class.getSimpleName();	
 			}
 			else
 			if ( hypLifeCycleStateClient instanceof HLCStatePassivatedClient ) {
-				state = UIWidgetUtil.getClassSimpleName(HLCStatePassivatedClient.class.getName());	
+				state = HLCStatePassivatedClient.class.getSimpleName();	
 			}
 			else
 			if ( hypLifeCycleStateClient instanceof HLCStateStartedClient ) {
-				state = UIWidgetUtil.getClassSimpleName(HLCStateStartedClient.class.getName());	
+				state = HLCStateStartedClient.class.getSimpleName();	
 			}
 			else
 			if ( hypLifeCycleStateClient instanceof HLCStateStoppedClient ) {
-				state = UIWidgetUtil.getClassSimpleName(HLCStateStoppedClient.class.getName());	
+				state = HLCStateStoppedClient.class.getSimpleName();	
 			}
 			else
 			if ( hypLifeCycleStateClient instanceof HLCStateTerminatedClient ) {
-				state = UIWidgetUtil.getClassSimpleName(HLCStateTerminatedClient.class.getName());	
+				state = HLCStateTerminatedClient.class.getSimpleName();	
 			}
 		} else {
 			logger.debug(className, function, "hypLifeCycleStateClient IS NULL");
@@ -73,7 +72,7 @@ public class HVLifeCycleState {
 	public static void ensureIsActivated(String prefix1, String prefix2, AScsComponentPresenterClient<?> aScsComponentPresenterClient) {
 		String function = "ensureIsActivated";
 		String state = null;
-		if ( getCurrentState(prefix1, prefix2, aScsComponentPresenterClient) != UIWidgetUtil.getClassSimpleName(HLCStateActivatedClient.class.getName()) ) {
+		if ( getCurrentState(prefix1, prefix2, aScsComponentPresenterClient) != HLCStateActivatedClient.class.getSimpleName() ) {
 			try {
 				aScsComponentPresenterClient.activate();
 			} catch (IllegalStatePresenterException e) {

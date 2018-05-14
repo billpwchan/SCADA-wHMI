@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.tsc;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -12,7 +13,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.H
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.common.Mgr_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.subject.SubjectMgr;
@@ -23,10 +23,10 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.tsc.ScsTSCCompon
 
 public class TscMgr implements Mgr_i {
 	
-	private String className = UIWidgetUtil.getClassSimpleName(TscMgr.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
-	private static HashMap<String, Mgr_i> instances = new HashMap<String, Mgr_i>();
+	private static Map<String, Mgr_i> instances = new HashMap<String, Mgr_i>();
 	public static Mgr_i getInstance(String key) {
 		if ( ! instances.containsKey(key) ) {
 			Mgr_i mgr = new TscMgr();

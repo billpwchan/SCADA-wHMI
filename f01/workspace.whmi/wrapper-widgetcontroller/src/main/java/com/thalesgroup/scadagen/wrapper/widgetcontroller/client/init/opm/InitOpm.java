@@ -1,10 +1,9 @@
-package com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init;
+package com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.opm;
 
 import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.Init_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
@@ -14,8 +13,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 
 public class InitOpm implements Init_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(InitOpm.class.getName());
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private InitOpm() {}
 	private static InitOpm instance = null;
@@ -41,10 +40,8 @@ public class InitOpm implements Init_i {
 			public UIOpm_i getOpm(String key) {
 				UIOpm_i uiOpm_i = null;
 				if ( null != key ) {
-					
-					String UIOpmSCADAgenClassName = UIWidgetUtil.getClassSimpleName(UIOpmSCADAgen.class.getName());
-					
-					if ( key.equalsIgnoreCase(UIOpmSCADAgenClassName) ) {
+
+					if ( UIOpmSCADAgen.class.getSimpleName().equalsIgnoreCase(key) ) {
 						uiOpm_i = UIOpmSCADAgen.getInstance();
 					}
 				}

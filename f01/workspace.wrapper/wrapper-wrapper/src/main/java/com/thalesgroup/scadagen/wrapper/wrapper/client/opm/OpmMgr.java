@@ -1,17 +1,17 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class OpmMgr {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(OpmMgr.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
-	private HashMap<String, UIOpmFactory> uiOpmFactorys = new HashMap<String, UIOpmFactory>();
+	private Map<String, UIOpmFactory> uiOpmFactorys = new HashMap<String, UIOpmFactory>();
 	public void addUIOpmFactory(String className, UIOpmFactory uiOpmFactory) { this.uiOpmFactorys.put(className, uiOpmFactory); }
 	public void cleanUIOpmFactory() { this.uiOpmFactorys.clear(); };
 	

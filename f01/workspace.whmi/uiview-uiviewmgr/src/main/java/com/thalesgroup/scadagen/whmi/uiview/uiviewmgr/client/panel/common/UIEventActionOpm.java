@@ -27,6 +27,7 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 				UIEventActionOpmAction.OpmLogin.toString()
 				, UIEventActionOpmAction.OpmLogout.toString()
 				, UIEventActionOpmAction.OpmChangePassword.toString()
+				, UIEventActionOpmAction.OpmReloadPage.toString()
 				};
 	}
 
@@ -107,7 +108,6 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 			} else {
 				logger.warn(className, function, logPrefix + "opmapi[{}] instance IS NULL", opmApi);
 			}
-
 		}
 		else if (action.equals(UIEventActionOpmAction.OpmLogin.toString())) {
 
@@ -134,7 +134,6 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 			} else {
 				logger.warn(className, function, logPrefix + "opmapi[{}] instance IS NULL", opmApi);
 			}
-
 		}
 		else if (action.equals(UIEventActionOpmAction.OpmChangePassword.toString())) {
 
@@ -204,12 +203,22 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 			} else {
 				logger.warn(className, function, logPrefix + "opmapi[{}] instance IS NULL", opmApi);
 			}
+		}
+		else if (action.equals(UIEventActionOpmAction.OpmReloadPage.toString())) {
 
+			logger.debug(className, function, logPrefix + "OpmReloadPage");
+			OpmMgr opmMgr = OpmMgr.getInstance();
+			UIOpm_i uiOpm_i = opmMgr.getOpm(opmApi);
+			if (null != uiOpm_i) {
+				logger.debug(className, function, "call opm_i reloadPage");
+				uiOpm_i.reloadPage();
+			} else {
+				logger.warn(className, function, logPrefix + "opmapi[{}] instance IS NULL", opmApi);
+			}
 		}
 		else {
 
 			logger.warn(className, function, logPrefix + "action[{}] IS UNKNOW", action);
-
 		}
 
 		logger.end(className, function);

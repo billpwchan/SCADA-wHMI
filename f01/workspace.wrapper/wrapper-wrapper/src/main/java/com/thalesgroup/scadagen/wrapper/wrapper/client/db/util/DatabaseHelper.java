@@ -4,14 +4,13 @@ import java.util.HashMap;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DatabaseHelper_i.PointType;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DatabaseHelper_i.ValidityStatus;
 
 public class DatabaseHelper {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(DatabaseHelper.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private static final String className = DatabaseHelper.class.getSimpleName();
+	private static UILogger logger = UILoggerFactory.getInstance().getLogger(DatabaseHelper.class.getName());
 	
 	public static String getPointFromDbAddress(String dbaddress) {
 		final String function = "getPointFromDbAddress";

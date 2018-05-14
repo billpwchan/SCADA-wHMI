@@ -8,4 +8,6 @@ public interface UIActionOpm_i {
 	
 	public final static String GetCurrentIPAddress = "getCurrentIPAddress";
 	
+	public final static String SelectRole = "SelectRole";
+	
 }

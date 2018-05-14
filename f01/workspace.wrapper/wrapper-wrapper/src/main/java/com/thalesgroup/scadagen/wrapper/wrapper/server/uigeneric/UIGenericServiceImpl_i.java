@@ -9,6 +9,7 @@ public interface UIGenericServiceImpl_i {
 	final static String OperationAttribute2 = "OperationAttribute2";
 	final static String OperationAttribute3 = "OperationAttribute3";
 	final static String OperationAttribute4 = "OperationAttribute4";
+	final static String OperationAttribute5 = "OperationAttribute5";
 	
 	final static String OperationParameter1 = "OperationParameter1";
 	

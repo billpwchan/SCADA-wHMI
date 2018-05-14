@@ -9,7 +9,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnKeyPressHandler;
@@ -18,19 +17,21 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEven
 
 public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 	
-	protected String className = UIWidgetUtil.getClassSimpleName(UIWidget_i.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	protected String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	protected String element = null;
 	@Override
 	public void setElement(String element) {
 		final String function = "setElement";
 		this.element = element;
-		logger.info(className, function, "element[{}]", this.element);
+		logger.debug(className, function, "element[{}]", this.element);
 		if ( null == this.element ) {
 			logger.warn(className, function, "element IS NULL");
 		}
 	}
+	@Override
+	public String getElementName() { return this.element; }
 
 	protected UINameCard uiNameCard = null;
 	@Override
@@ -42,13 +43,15 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 			logger.warn(className, "setUINameCard", "uiNameCard IS NULL");
 		}
 	}
+	@Override
+	public UINameCard getUINameCard() { return this.uiNameCard; }
 	
 	protected UIWidgetCtrl_i ctrlHandler = null;
 	@Override
 	public void setCtrlHandler(UIWidgetCtrl_i ctrlHandler) {
 		final String function = "setCtrlHandler";
 		this.ctrlHandler = ctrlHandler;
-		logger.info(className, function, "ctrlHandler[{}]", this.ctrlHandler);
+		logger.debug(className, function, "ctrlHandler[{}]", this.ctrlHandler);
 		if ( null == this.ctrlHandler ) {
 			logger.warn(className, function, "ctrlHandler IS NULL");
 		}
@@ -59,7 +62,7 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 	public void setCtrlHandler(String strCtrlHandler) {
 		final String function = "setCtrlHandler";
 		this.strCtrlHandler = strCtrlHandler;
-		logger.info(className, function, "ctrlHandler[{}]", this.strCtrlHandler);
+		logger.debug(className, function, "ctrlHandler[{}]", this.strCtrlHandler);
 		if ( null == this.strCtrlHandler ) {
 			logger.warn(className, function, "ctrlHandler IS NULL");
 		}
@@ -70,7 +73,7 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 	public void setDictionaryFolder ( String dictionaryFolder ) {
 		final String function = "setDictionaryFolder";
 		this.dictionaryFolder = dictionaryFolder;
-		logger.info(className, function, "dictionaryFolder[{}]", this.dictionaryFolder);
+		logger.debug(className, function, "dictionaryFolder[{}]", this.dictionaryFolder);
 		if ( null == this.dictionaryFolder ) {
 			logger.warn(className, function, "dictionaryFolder IS NULL");
 		}
@@ -81,7 +84,7 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 	public void setPropertyFolder ( String propertyFolder ) {
 		final String function = "setPropertyFolder";
 		this.propertyFolder = propertyFolder;
-		logger.info(className, function, "propertyFolder[{}]", this.propertyFolder);
+		logger.debug(className, function, "propertyFolder[{}]", this.propertyFolder);
 		if ( null == this.propertyFolder ) {
 			logger.warn(className, function, "propertyFolder IS NULL");
 		}
@@ -92,22 +95,24 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 	public void setViewXMLFile(String viewXMLFile) {
 		final String function = "setViewXMLFile";
 		this.viewXMLFile = viewXMLFile;
-		logger.info(className, function, "viewXMLFile[{}]", this.viewXMLFile);
+		logger.debug(className, function, "viewXMLFile[{}]", this.viewXMLFile);
 		if ( null == this.viewXMLFile ) {
 			logger.warn(className, function, "viewXMLFile IS NULL");
 		}
 	}
+	public String getViewXMLFile() { return this.viewXMLFile; }
 	
 	protected String optsXMLFile = null;
 	@Override
 	public void setOptsXMLFile(String optsXMLFile) {
 		final String function = "setOptXMLFile";
 		this.optsXMLFile = optsXMLFile;
-		logger.info(className, function, "optXMLFile[{}]", this.optsXMLFile);
+		logger.debug(className, function, "optXMLFile[{}]", this.optsXMLFile);
 		if ( null == this.optsXMLFile ) {
 			logger.warn(className, function, "optXMLFile IS NULL");
 		}
 	}
+	public String getOptsXMLFile() { return this.optsXMLFile; }
 	
 	protected Panel rootPanel = null;
 	@Override
@@ -121,7 +126,7 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 	protected HashMap<String, Object> parameters = new HashMap<String, Object>();
     @Override
     public void setParameter(String key, Object value) {
-    	logger.info(className, "setParameter", "key[{}] value[{}]", key, value);
+    	logger.debug(className, "setParameter", "key[{}] value[{}]", key, value);
     	parameters.put(key, value);
     }
     public Object getParameter(String key) {
@@ -132,7 +137,7 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
     }
     public String getStringParameter( String key ) {
     	final String function = "function";
-    	logger.info(className, function, "key[{}]", key);
+    	logger.debug(className, function, "key[{}]", key);
     	String result = null;
 		if ( containsParameterKey(key) ) {
 			Object o = parameters.get(key);

@@ -8,7 +8,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.H
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.poller.SubscribeResult;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.poller.UnSubscribeResult;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.poller.IPollerComponentClient;
@@ -16,8 +15,8 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.poller.ScsPoller
 
 public class WrapperScsPollerAccess {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(WrapperScsPollerAccess.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private static final String className = WrapperScsPollerAccess.class.getSimpleName();
+	private static UILogger logger = UILoggerFactory.getInstance().getLogger(WrapperScsPollerAccess.class.getName());
 
 	private static WrapperScsPollerAccess instance = null;
 	public static WrapperScsPollerAccess getInstance() {

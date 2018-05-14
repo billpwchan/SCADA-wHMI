@@ -1,31 +1,23 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONString;
-import com.google.gwt.json.client.JSONValue;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.config.client.ConfigProvider;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.checker.AuthorizationCheckerC;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.checker.IAuthorizationCheckerC;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OpmRequestDto;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.RoleDto;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.GetCurrentIpAddressCallback_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.access.UIAccessFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.access.UIAccess_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.GetCurrentHostNameCallback_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.SetCurrentProfileCallback_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.hom.UIHomFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.hom.UIHom_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.uigeneric.UIGenericMgr;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.uigeneric.UIGenericMgrEvent;
-import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.uiaction.UIActionOpm_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.UIGenericServiceImpl_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.network.UINetwork_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.page.UIPageFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.page.UIPage_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.user.UIUserFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.user.UIUser_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.network.UINetworkFactory;
 
 /**
  * SCADAgen is the subclass of UIOpm_i, it implement the OPM functionality for SCADAgen WHMI.
@@ -35,8 +27,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.UIGenericServic
  */
 public class UIOpmSCADAgen implements UIOpm_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIOpmSCADAgen.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private static UIOpm_i instance = null;
 	public static UIOpm_i getInstance() { 
@@ -44,6 +36,42 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return instance;
 	}
 	private UIOpmSCADAgen () {}
+	
+	private final String STR_UIACCESS_SCADAGEN = "UIAccessSCADAgen";
+	private UIAccess_i uiAccess_i = null;
+	private UIAccess_i getUIAccess() {
+		if ( null == uiAccess_i ) {
+			uiAccess_i = UIAccessFactory.getInstance().get(STR_UIACCESS_SCADAGEN);
+		}
+		return uiAccess_i;
+	}
+	
+	private final String STR_UIPAGE_SCADAGEN = "UIPageSCADAgen";
+	private UIPage_i uiPage_i = null;
+	private UIPage_i getUIPage() {
+		if ( null == uiPage_i ) {
+			uiPage_i = UIPageFactory.getInstance().get(STR_UIPAGE_SCADAGEN);
+		}
+		return uiPage_i;
+	}
+	
+	private final String STR_UIUSER_SCADAGEN = "UIUserSCADAgen";
+	private UIUser_i uiUser_i = null;
+	private UIUser_i getUIUser() {
+		if ( null == uiUser_i ) {
+			uiUser_i = UIUserFactory.getInstance().get(STR_UIUSER_SCADAGEN);
+		}
+		return uiUser_i;
+	}	
+
+	private final String STR_UINetwork_SCADAGEN = "UINetworkSCADAgen";
+	private UINetwork_i uiNetwork_i = null;
+	private UINetwork_i getUINetwork() {
+		if ( null == uiNetwork_i ) {
+			uiNetwork_i = UINetworkFactory.getInstance().get(STR_UINetwork_SCADAGEN);
+		}
+		return uiNetwork_i;
+	}
 	
 	private final String STR_UIHOM_SCADAGEN = "UIHomSCADAgen";
 	private UIHom_i uiHom_i = null;
@@ -55,9 +83,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 
 	private DatabaseMultiRead_i databaseMultiRead_i = null;
-	
-	private String [] profileNames	= null;
-	
+
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#init()
 	 */
@@ -75,8 +101,6 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			logger.warn(className, function, "multiReadMethod1[{}] databaseMultiRead_i IS NULL", multiReadMethod1);
 		}
 		
-		profileNames = null;
-		
 		// Prepare HostName
 		getCurrentHostName();
 		
@@ -91,35 +115,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	 */
 	@Override
 	public boolean checkAccess(Map<String, String> parameter) {
-		String function = "checkAccess";
-		logger.begin(className, function);
-		
-		boolean ret = false;
-		
-		if ( null != parameter ) {
-			
-			if ( logger.isTraceEnabled() ) {
-				for ( Map.Entry<String, String> entry : parameter.entrySet() ) {
-					String k = entry.getKey();
-					String v = entry.getValue();
-					logger.trace(className, function, "k[{}] v[{}]", k, v);
-					if ( k == null || k.isEmpty() || v == null || v.isEmpty() ) {
-						logger.warn(className, function, "k[{}] OR v[{}] is INVALID", k, v);
-					}
-				}
-			}
-
-			OpmRequestDto dto = new OpmRequestDto();
-			dto.setRequestParameters(parameter);
-			OperatorOpmInfo operatorOpmInfo = ConfigProvider.getInstance().getOperatorOpmInfo();
-			IAuthorizationCheckerC checker = new AuthorizationCheckerC();
-			ret = checker.checkOperationIsPermitted( operatorOpmInfo, dto );
-
-		} else {
-			logger.warn(className, function,  "parameter IS NULL");
-		}
-		logger.debug(className, function, "ret[{}]", ret);
-		return ret;
+		return getUIAccess().checkAccess(parameter);
 	}
 	
 	/* (non-Javadoc)
@@ -131,71 +127,19 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			, String opmName2, String opmValue2
 			, String opmName3, String opmValue3
 			, String opmName4, String opmValue4) {
-		String function = "checkAccess";
-		logger.begin(className, function);
-		
-		logger.debug(className, function, "opmName1[{}] opmValue1[{}]", opmName1, opmValue1);
-		logger.debug(className, function, "opmName2[{}] opmValue2[{}]", opmName2, opmValue2);
-		logger.debug(className, function, "opmName3[{}] opmValue3[{}]", opmName3, opmValue3);
-		logger.debug(className, function, "opmName4[{}] opmValue4[{}]", opmName4, opmValue4);
-		
-		boolean ret = false;
-		
-		if ( 
-				   opmName1 != null && ! opmName1.isEmpty() 
-				&& opmValue1 != null && !opmValue1.isEmpty()
-				
-				&& opmName2 != null && !opmName2.isEmpty()
-				&& opmValue2 != null && !opmValue2.isEmpty()
-				
-				&& opmName3 != null && !opmName3.isEmpty()
-				&& opmValue3 != null && !opmValue3.isEmpty()
-				
-				&& opmName4 != null && !opmName4.isEmpty()
-				&& opmValue4 != null && !opmValue4.isEmpty()
-		) {
-			OpmRequestDto dto = new OpmRequestDto();
-			dto.addParameter( opmName1, opmValue1 );
-			dto.addParameter( opmName2, opmValue2 );
-			dto.addParameter( opmName3, opmValue3 );
-			dto.addParameter( opmName4, opmValue4 );
-		
-			OperatorOpmInfo operatorOpmInfo = ConfigProvider.getInstance().getOperatorOpmInfo();
-			
-			// TO: remove the non target role in here
-		
-			IAuthorizationCheckerC checker = new AuthorizationCheckerC();
-			ret = checker.checkOperationIsPermitted( operatorOpmInfo, dto );
-		} else {
-			logger.warn(className, function, "args null, or empty - " 
-				+ "  "+opmName1+"=" + opmValue1 
-				+ ", "+opmName2+"=" + opmValue2 
-				+ ", "+opmName3+"=" + opmValue3 
-				+ ", "+opmName4+"=" + opmValue4
-				+ " - checkAccess return 'false'" );
-		}
-		logger.debug(className, function, "ret[{}]", ret);
-		return ret;
+		return getUIAccess().checkAccess(
+				opmName1, opmValue1
+				, opmName2, opmValue2
+				, opmName3, opmValue3
+				, opmName4, opmValue4);
 	}
 	
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#checkAccess(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public boolean checkAccess(String functionValue, String locationValue, String actionValue, String modeValue) {
-		final String function = "checkAccess";
-		logger.begin(className, function);
-		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}]  ", new Object[]{functionValue, locationValue, actionValue, modeValue});
-
-		boolean ret = checkAccess(
-								  FUNCTION, functionValue
-								, LOCATION, locationValue
-								, ACTION, actionValue
-								, MODE, modeValue
-								);
-		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}] ret[{}] ", new Object[]{functionValue, locationValue, actionValue, modeValue, ret});
-		logger.end(className, function);
-		return ret;
+	public boolean checkAccess(String function, String location, String action, String mode) {
+		return getUIAccess().checkAccess(function, location, action, mode);
 	}
 	
 	/* (non-Javadoc)
@@ -203,14 +147,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	 */
 	@Override
 	public void changePassword(String operator, String oldPass, String newPass, UIWrapperRpcEvent_i uiWrapperRpcEvent_i) {
-		String function = "changePassword";
-		logger.begin(className, function);
-		
-		logger.debug(className, function, "operator[{}]", operator);
-
-		new SpringChangePassword().changePassword(operator, oldPass, newPass, uiWrapperRpcEvent_i); 
-		
-		logger.end(className, function);
+		getUIUser().changePassword(operator, oldPass, newPass, uiWrapperRpcEvent_i);
 	}
 	
 	/* (non-Javadoc)
@@ -218,12 +155,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	 */
 	@Override
 	public String getCurrentOperator() {
-		String function = "getCurrentOperator";
-		logger.begin(className, function);
-		String operatorId = null;
-		operatorId = ConfigProvider.getInstance().getOperatorOpmInfo().getOperator().getId();
-		logger.debug(className, function, "operatorId[{}]", operatorId);
-		return operatorId;
+		return getUIUser().getCurrentOperator();
 	}
 	
 	/* (non-Javadoc)
@@ -231,138 +163,55 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	 */
 	@Override
 	public String getCurrentProfile() {
-		String function = "getCurrentProfile";
-		logger.begin(className, function);
-		String profile = null;
-		if ( null == profileNames ) {
-			getCurrentProfiles();
-		}
-		if ( null != profileNames && profileNames.length > 0 ) {
-			profile = profileNames[0];
-		}
-		logger.debug(className, function, "profile[{}]", profile);
-		logger.end(className, function);
-		return profile;
+		return getUIUser().getCurrentProfile();
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#setCurrentProfile()
+	 */
+	@Override
+	public String setCurrentProfile(final String profile) {
+		return getUIUser().setCurrentProfile(profile);
+	}	
 	
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentProfiles()
 	 */
 	@Override
 	public String[] getCurrentProfiles() {
-		String function = "getCurrentProfiles";
-		logger.begin(className, function);
-		
-		if ( null == profileNames ) {
-			List<String> roleIds = null;
-			Map<String, RoleDto> roles = ConfigProvider.getInstance().getOperatorOpmInfo().getOperator().getRoleId();
-			if ( null != roles ) {
-				Set<String> keys = roles.keySet();
-				
-				if ( null == roleIds ) roleIds = new LinkedList<String>();
-				for ( String key : keys ) {
-					logger.debug(className, function, "key[{}]", key);
-					
-					String roleId = roles.get(key).getId();
-					logger.debug(className, function, "roleId[{}]", roleId);
-
-					roleIds.add(roleId);
-				}
-				
-				profileNames = roleIds.toArray(new String[0]);
-			} else {
-				logger.warn(className, function, "roleId IS NULL");
-			}
-		}
-		
-		logger.debug(className, function, "profileNames[{}]", profileNames);
-		logger.end(className, function);
-		return profileNames;
+		return getUIUser().getCurrentProfiles();
 	}
 	
-	private String currentHostName = null;
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentIPAddress(com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.GetCurrentIpAddressCallback_i)
+	 */
+	@Override
+	public void setCurrentProfile(final String role, final SetCurrentProfileCallback_i cb) {
+		getUIUser().setCurrentProfile(role, cb);
+	}
+
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentHostName()
 	 */
 	@Override
 	public String getCurrentHostName() {
-		final String function = "getCurrentHostName";
-		logger.begin(className, function);
-		
-		if ( null == currentHostName ) {
-			JSONObject request = new JSONObject();
-	        request.put(UIGenericServiceImpl_i.OperationAttribute3, new JSONString(UIActionOpm_i.ComponentName));
-	        request.put(UIGenericServiceImpl_i.OperationAttribute4, new JSONString(UIActionOpm_i.GetCurrentHostName));
-			
-			UIGenericMgr uiGenericMgr = new UIGenericMgr();
-			uiGenericMgr.execute(request, new UIGenericMgrEvent() {
-				
-				@Override
-				public void uiGenericMgrEventReady(JSONObject response) {
-					final String function2 = function + " uiGenericMgrEventReady";
-					logger.begin(className, function2);
-					if ( null != response ) {
-						logger.debug(className, function2, "response[{}]", response.toString());
-						JSONValue v = response.get(UIGenericServiceImpl_i.OperationParameter1);
-						if ( null != v && null != v.isObject() ) {
-							JSONObject o = v.isObject();
-							if ( null != o ) {
-								JSONValue tv = o.get(UIGenericServiceImpl_i.OperationValue1);
-								if ( null != tv && null != tv.isString() ) {
-									currentHostName = tv.isString().stringValue();
-								} else {
-									logger.warn(className, function2, "tv[{}] IS INVALID", tv);
-								}
-							} else {
-								logger.warn(className, function2, "o IS NULL");
-							}
-						} else {
-							logger.warn(className, function2, "v[{}] IS INVALID", v);
-						}
-						logger.debug(className, function2, "currentHostName[{}]", currentHostName);
-					} else {
-						logger.warn(className, function2, "response IS NULL");
-					}
-					logger.end(className, function2);
-				}
-	
-				@Override
-				public void uiGenericMgrEventFailed(JSONObject response) {
-					final String function2 = function + " uiGenericMgrEventFailed";
-					logger.beginEnd(className, function2);
-				}
-			});			
-		}
-		logger.debug(className, function, "currentHostName[{}]", currentHostName);
-		logger.end(className, function);
-		return currentHostName;
+		return getUINetwork().getCurrentHostName();
 	}
 	
-	private String currentIPAddress = null;
-	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentHostName(com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.IGetCurrentHostNameCallback)
+	 */
+	@Override
+	public void getCurrentHostName(final GetCurrentHostNameCallback_i cb) {
+		getUINetwork().getCurrentHostName(cb);
+	}
+
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentIPAddress()
 	 */
 	@Override
 	public String getCurrentIPAddress() {
-		final String function = "getCurrentIPAddress";
-		logger.begin(className, function);
-		
-		if ( null == currentIPAddress ) {
-			
-			this.getCurrentIPAddress(new GetCurrentIpAddressCallback_i() {
-
-				@Override
-				public void callback(String ipAddress) {
-					
-					currentIPAddress = ipAddress;
-				}
-				
-			});
-		}
-		logger.debug(className, function, "currentIPAddress[{}]", currentIPAddress);
-		logger.end(className, function);
-		return currentIPAddress;
+		return getUINetwork().getCurrentIPAddress();
 	}
 	
 	/* (non-Javadoc)
@@ -370,87 +219,30 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	 */
 	@Override
 	public void getCurrentIPAddress(final GetCurrentIpAddressCallback_i cb) {
-		final String function = "getCurrentIPAddress";
-		logger.begin(className, function);
-		
-		UIGenericMgr uiGenericMgr = new UIGenericMgr();
-		JSONObject request = new JSONObject();
-        request.put(UIGenericServiceImpl_i.OperationAttribute3, new JSONString(UIActionOpm_i.ComponentName));
-        request.put(UIGenericServiceImpl_i.OperationAttribute4, new JSONString(UIActionOpm_i.GetCurrentIPAddress));
-		
-		uiGenericMgr.execute(request, new UIGenericMgrEvent() {
-			
-			@Override
-			public void uiGenericMgrEventReady(JSONObject response) {
-				final String function2 = function + " uiGenericMgrEventReady";
-				logger.begin(className, function2);
-				if ( null != response ) {
-					logger.debug(className, function2, "response[{}]", response.toString());
-					JSONValue v = response.get(UIGenericServiceImpl_i.OperationParameter1);
-					if ( null != v && null != v.isObject() ) {
-						JSONObject o = v.isObject();
-						if ( null != o ) {
-							JSONValue tv = o.get(UIGenericServiceImpl_i.OperationValue1);
-							if ( null != tv && null != tv.isString() ) {
-								currentIPAddress = tv.isString().stringValue();
-							} else {
-								logger.warn(className, function2, "tv[{}] IS INVALID", tv);
-							}
-						} else {
-							logger.warn(className, function2, "o IS NULL");
-						}
-					} else {
-						logger.warn(className, function2, "v[{}] IS INVALID", v);
-					}
-					logger.debug(className, function2, "currentIPAddress[{}]", currentIPAddress);
-				} else {
-					logger.debug(className, function2, "response IS NULL");
-				}
-				
-				cb.callback(currentIPAddress);
-				logger.end(className, function2);
-			}
-
-			@Override
-			public void uiGenericMgrEventFailed(JSONObject response) {
-				final String function2 = function + " uiGenericMgrEventFailed";
-				logger.beginEnd(className, function2);
-			}
-		});
-
-		logger.end(className, function);
+		getUINetwork().getCurrentIPAddress(cb);
 	}
-
 
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#login(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public void login(String operator, String password) {
-		String function = "login";
-		logger.begin(className, function);
-		String SPRING_SEC_CHECK_URL = "j_spring_security_check";
-		
-		String user_name = "j_username";
-		String pass_name = "j_password";
-		
-		new SpringLogin(SPRING_SEC_CHECK_URL, user_name, pass_name).login(operator, password);
-		
-		logger.end(className, function);
+		getUIPage().login(operator, password);
 	}
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#logout()
 	 */
 	@Override
 	public void logout() {
-		String function = "logout";
-		logger.begin(className, function);
-		
-		String SPRING_SEC_LOGOUT_URL = "j_spring_security_logout";
-		
-		new SpringLogout(SPRING_SEC_LOGOUT_URL).logout();
-		
-		logger.end(className, function);
+		getUIPage().logout();
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#reloadPage()
+	 */
+	@Override
+	public void reloadPage() {
+		getUIPage().reloadPage();
 	}
 	
 	@Override
@@ -525,5 +317,4 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	public void setCurrentAlias(String alias) {
 		this.alias=alias;
 	}
-
 }

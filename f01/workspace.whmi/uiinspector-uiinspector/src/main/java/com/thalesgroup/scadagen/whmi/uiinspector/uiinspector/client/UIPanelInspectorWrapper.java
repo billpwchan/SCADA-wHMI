@@ -208,12 +208,21 @@ public class UIPanelInspectorWrapper implements UIInspector_i, EqptSelectionEven
 			uiPanelInspector_.setElement(element);
 		}
 	}
+	
+
+	@Override
+	public String getElementName() { return uiPanelInspector_.getElementName(); }
+
+
 
 	@Override
 	public void setUINameCard(UINameCard uiNameCard) {
 		logger.debug("UIPanelInspectorWrapper setUINameCard");
 		uiNameCard_ = new UINameCard(uiNameCard);
 	}
+	
+	@Override
+	public UINameCard getUINameCard() { return uiNameCard_; }
 
 	@Override
 	public void setCtrlHandler(String ctrlHandler) {
@@ -228,6 +237,9 @@ public class UIPanelInspectorWrapper implements UIInspector_i, EqptSelectionEven
 			uiPanelInspector_.setViewXMLFile(viewXMLFile);
 		}
 	}
+	
+	@Override
+	public String getViewXMLFile() { return uiPanelInspector_.getViewXMLFile(); }
 
 	@Override
 	public void setOptsXMLFile(String optsXMLFile) {
@@ -235,6 +247,9 @@ public class UIPanelInspectorWrapper implements UIInspector_i, EqptSelectionEven
 			uiPanelInspector_.setOptsXMLFile(optsXMLFile);
 		}
 	}
+	
+	@Override
+	public String getOptsXMLFile() { return uiPanelInspector_.getOptsXMLFile(); }
 
 	public void setUIInspectorEvent(UIPanelInspectorEvent uiPanelInspectorEvent) {
 		uiPanelInspectorEvent_ = uiPanelInspectorEvent;

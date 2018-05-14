@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseReadSingle2MultiEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingle2MultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Database;
@@ -19,8 +18,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Databas
  */
 public class DatabaseGetChildren implements DatabaseSingle2MultiRead_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseGetChildren.class.getName());
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private Map<String, DatabaseReadSingle2MultiEvent_i> databaseReadEvents = new HashMap<String, DatabaseReadSingle2MultiEvent_i>();
 	

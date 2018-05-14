@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
+package com.thalesgroup.scadagen.wrapper.wrapper.client.opm.page.spring;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONObject;
@@ -14,13 +14,13 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.rpc.action.
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.rpc.action.OperatorActionReturn;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIWrapperRpcEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.shared.opm.SCADAgenChangePasswordAction;
 
 public class SpringChangePassword {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(SpringChangePassword.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	public static final String OPERATOR_ACTION_SERVLET_URL = "OperatorAction";
 	

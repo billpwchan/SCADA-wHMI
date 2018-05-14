@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group.DatabaseGroupPolling;
 
 /**
@@ -15,8 +14,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group
  */
 public class DatabaseGroupPollingDiff extends DatabaseGroupPolling {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseGroupPollingDiff.class.getName());
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group.DatabaseGroupPolling#buildRespond(java.lang.String, java.lang.String[], java.lang.String[])

@@ -6,12 +6,11 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.TimeZone;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class DatabaseKey {
 	
-	private final static String className = UIWidgetUtil.getClassSimpleName(DatabaseKey.class.getName());
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final static String className = DatabaseKey.class.getSimpleName();
+	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(DatabaseKey.class.getName());
 	
 	private String strDateFormat = "yyyyMMddHHmmssSSS";
 	public void setDateTimeFormat(String strDateFormat) { this.strDateFormat = strDateFormat; }

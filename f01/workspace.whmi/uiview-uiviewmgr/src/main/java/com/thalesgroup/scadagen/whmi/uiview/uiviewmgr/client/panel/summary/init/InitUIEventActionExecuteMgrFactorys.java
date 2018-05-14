@@ -2,7 +2,6 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.init
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventType_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionAlm;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBusFire;
@@ -22,24 +21,24 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecu
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionExecuteMgr;
 
 public class InitUIEventActionExecuteMgrFactorys {
-	
+
 	private final static String name = InitUIEventActionExecuteMgrFactorys.class.getName();
-	private final static String className = UIWidgetUtil.getClassSimpleName(name);
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
+	private final static String className = InitUIEventActionExecuteMgrFactorys.class.getSimpleName();
+	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(name);
+
 	public static void init() {
 		String function = "init";
 		logger.begin(className, function);
-	
+
 		UIEventActionExecuteMgr uiEventActionExecuteMgr = UIEventActionExecuteMgr.getInstance();
 		uiEventActionExecuteMgr.removeUIEventActionExecuteMgrFactory(name);
 		uiEventActionExecuteMgr.addUIEventActionExecute(name, new UIEventActionExecuteMgrFactory() {
-			
+
 			@Override
 			public UIEventActionExecute_i getUIEventActionExecute(String key) {
 				final String function = "getUIEventActionExecute";
 				logger.info(className, function, "key[{}]", key);
-				
+
 				UIEventActionExecute_i uiEventActionExecute_i = null;
 				
 				if ( key.equals(UIActionEventType_i.UIActionEventType.alm.toString()) ) {
@@ -81,12 +80,12 @@ public class InitUIEventActionExecuteMgrFactorys {
 				else if ( key.equals(UIActionEventType_i.UIActionEventType.ols.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionOls();
 				}
-				
+
 				if ( null == uiEventActionExecute_i ) logger.warn(className, function, "key[{}] uiEventActionExecute_i IS NULL", key);
-				
+
 				return uiEventActionExecute_i;
 			}
 		});
-	
+
 	}
 }

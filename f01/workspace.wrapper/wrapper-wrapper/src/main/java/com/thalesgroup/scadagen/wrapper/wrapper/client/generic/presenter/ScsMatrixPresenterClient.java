@@ -20,16 +20,14 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.matrix.view.IGe
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.life.StateTransitionReturn;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.matrix.ScsMatrixMultipleSelectionManager;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.matrix.renderer.ScsMatrixRenderer;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.SelectionEvent;
 
 public class ScsMatrixPresenterClient extends GenericMatrixPresenterClient {
 
-	private static final String className = UIWidgetUtil.getClassSimpleName(ScsMatrixPresenterClient.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
+	private final String className = this.getClass().getSimpleName();
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 	
 	private SelectionEvent selectionEvent = null;
 	public SelectionEvent getSelectionEvent() { return selectionEvent; }

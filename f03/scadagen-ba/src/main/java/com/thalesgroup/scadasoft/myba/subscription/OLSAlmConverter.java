@@ -273,13 +273,5 @@ public class OLSAlmConverter extends OLSConverter {
 		}
 		return null;
 	}
-	
-	protected XMLGregorianCalendar removeDateAttFromOLS(ScsFieldMap olsrow, String key) {
-		ScsData d = (ScsData)olsrow.get(key);
-		if (d != null) {
-			return DateUtils.convertToXMLGregorianCalendar(d.getDateValue());
-		}
-		return null;
-	}
 
 }

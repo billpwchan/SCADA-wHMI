@@ -71,11 +71,11 @@ public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidge
 		final String f = "realize";
 		logger_.begin(className_, f);
 		
-		this.uiCtrl = params.get(FASWidgetArgs.uiCtrl.toString()).toString();
-		this.uiView = params.get(FASWidgetArgs.uiView.toString()).toString();
-		this.uiOpts = params.get(FASWidgetArgs.uiOpts.toString()).toString();
-		this.uiElem = params.get(FASWidgetArgs.uiElem.toString()).toString();
-		this.uiDict = params.get(FASWidgetArgs.uiDict.toString()).toString();
+		if(null!=params.get(FASWidgetArgs.uiCtrl.toString())) this.uiCtrl = params.get(FASWidgetArgs.uiCtrl.toString()).toString();
+		if(null!=params.get(FASWidgetArgs.uiView.toString())) this.uiView = params.get(FASWidgetArgs.uiView.toString()).toString();
+		if(null!=params.get(FASWidgetArgs.uiOpts.toString())) this.uiOpts = params.get(FASWidgetArgs.uiOpts.toString()).toString();
+		if(null!=params.get(FASWidgetArgs.uiElem.toString())) this.uiElem = params.get(FASWidgetArgs.uiElem.toString()).toString();
+		if(null!=params.get(FASWidgetArgs.uiDict.toString())) this.uiDict = params.get(FASWidgetArgs.uiDict.toString()).toString();
 
 		logger_.debug(className_, f, " uiCtrl[{}] uiView[{}] uiOpts[{}] uiOpts[{}] uiDict[{}]"
 				, new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});

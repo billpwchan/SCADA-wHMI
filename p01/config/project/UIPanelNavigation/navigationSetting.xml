@@ -2333,6 +2333,16 @@
 		<tooltips>CheckAccess</tooltips>
 	</option>
 	
+	<option key="424">
+		<type>P</type>
+		<name>Profile Select</name>
+		<title>Profile Select</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>ProfileSelect/EntryPoint.view.xml</uiView>
+		<tooltips>Profile Select</tooltips>
+	</option>
 	
 	<option key="425">
 		<type>M</type>

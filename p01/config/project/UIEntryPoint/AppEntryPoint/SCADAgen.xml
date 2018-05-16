@@ -13,7 +13,8 @@
 		<uiJson>UIJson</uiJson>
 
 		<uiCtrl>UIPanelScreen</uiCtrl>
-		<uiView>SimultaneousLogin/EntryPoint.view.xml</uiView>
+		<!--<uiView>SimultaneousLogin/EntryPoint.view.xml</uiView>-->
+		<uiView>ProfileSelect/EntryPoint.view.xml</uiView>
 		<uiElem>UIPanelScreen</uiElem>
 	</header>
 </data-set>

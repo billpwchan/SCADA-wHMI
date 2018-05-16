@@ -326,6 +326,7 @@
 	<option key="Verify|OPM|Change Password"><setting>421</setting></option>
 	<option key="Verify|OPM|Change Targe Password"><setting>422</setting></option>
 	<option key="Verify|OPM|CheckAccess"><setting>423</setting></option>
+	<option key="Verify|OPM|Profile Select"><setting>424</setting></option>
 	
 	<option key="Verify|Log"><setting>425</setting></option>
 	<option key="Verify|Log|UILogger"><setting>426</setting></option>

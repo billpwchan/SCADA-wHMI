@@ -2,5 +2,8 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
+		<delayMillis>0</delayMillis>
+		<singleScreenViews>Login/EntryPoint.view.xml,ChangePassword/User/Summary.view.xml,ProfileSelect/Summary.view.xml,SimultaneousLogin/EntryPoint.view.xml</singleScreenViews>
+		<terminateTimerViews>SimultaneousLogin/EntryPoint.view.xml</terminateTimerViews>
 	</header>
 </data-set>

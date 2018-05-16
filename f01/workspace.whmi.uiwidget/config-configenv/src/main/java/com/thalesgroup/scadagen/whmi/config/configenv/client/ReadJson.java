@@ -283,6 +283,65 @@ public class ReadJson {
 		return object;
 	}
 	
+	
+	public static Map<String, String> readObjectEntrySetStrStr(JSONArray jsonArray) {
+		String f = "readObjectEntrySetStrStr";
+		logger.begin(f);
+		
+		Map<String, String> map = null;
+
+		if(null!=jsonArray) {
+			map = new LinkedHashMap<String, String>();
+			for (int i = 0; i < jsonArray.size(); ++i) {
+				JSONValue jsonValue = jsonArray.get(i);
+				if (null != jsonValue) {
+					JSONObject tJsonObect = jsonValue.isObject();
+					if (null != tJsonObect) {
+						Set<String> set = tJsonObect.keySet();
+						if(null!=set) {
+							Iterator<String> iter = set.iterator();
+							if(null!=iter) {
+								while(iter.hasNext()) {
+									String k = iter.next();
+									if(null!=k) {
+										JSONValue jv = tJsonObect.get(k);
+										if(null!=jv) {
+											JSONString jn = jv.isString();
+											if(null!=jn) {
+												String v = jn.stringValue();
+												logger.info(f, "k[{}] v[{}]", k, v);
+												map.put(k, v);
+											} else {
+												logger.warn(f, "k IS NULL");
+											}
+										} else {
+											logger.warn(f, "jv IS NULL");
+										}
+									} else {
+										logger.warn(f, "k IS NULL");
+									}
+								}
+							} else {
+								logger.warn(f, "iter IS NULL");
+							}
+						} else {
+							logger.warn(f, "set IS NULL");
+						}
+					} else {
+						logger.warn(f, "tJsonObect IS NULL");
+					}
+				} else {
+					logger.warn(f, "jsonValue IS NULL");
+				}
+			}
+		} else {
+			logger.warn(f, "jsonArray IS NULL");
+		}
+
+		logger.end(f);
+		return map;
+	}
+	
 	public static Map<String, Integer> readObjectEntrySetStrInt(JSONArray jsonArray) {
 		String f = "readObjectEntrySetStrInt";
 		logger.begin(f);

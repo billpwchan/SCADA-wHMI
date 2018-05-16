@@ -21,31 +21,31 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.util.UILoggerUtil;
  */
 public class UILoggerEx implements UILogger_i {
 	
-	private final static String STR_OB		= "[";
-	private final static String STR_CB		= "] ";
-	private final static String STR_EMPTY	= " ";
+	private static String STR_PREFIX    = UILoggerExConfig.getInstance().LOG_STR_PREFIX;
 	
-	private final static String STR_OCB		= "{}";
+	private static String STR_MSG       = UILoggerExConfig.getInstance().LOG_STR_MSG;
 	
-	private final static String BEGIN		= "Begin";
-	private final static String END			= "End";
+	private static String STR_OCB       = UILoggerExConfig.getInstance().LOG_STR_OCB;
 	
-	private final static String STR_NULL	= "null";
+	private static String STR_BEGIN     = UILoggerExConfig.getInstance().LOG_STR_BEGIN;
+	private static String STR_END       = UILoggerExConfig.getInstance().LOG_STR_END;
+	
+	private static String STR_NULL      = UILoggerExConfig.getInstance().LOG_STR_NULL;
 
-	public static int LOG_LEVEL_TRACE		= UILoggerExConfig.getInstance().LOG_LEVEL_TRACE;
-	public static int LOG_LEVEL_DEBUG		= UILoggerExConfig.getInstance().LOG_LEVEL_DEBUG;
-	public static int LOG_LEVEL_INFO		= UILoggerExConfig.getInstance().LOG_LEVEL_INFO;
-	public static int LOG_LEVEL_WARN		= UILoggerExConfig.getInstance().LOG_LEVEL_WARN;
-	public static int LOG_LEVEL_ERROR		= UILoggerExConfig.getInstance().LOG_LEVEL_ERROR;
-	public static int LOG_LEVEL_FATAL		= UILoggerExConfig.getInstance().LOG_LEVEL_FATAL;
-	public static int LOG_LEVEL_OFF			= UILoggerExConfig.getInstance().LOG_LEVEL_OFF;
+	public static int LOG_LEVEL_TRACE   = UILoggerExConfig.getInstance().LOG_LEVEL_TRACE;
+	public static int LOG_LEVEL_DEBUG   = UILoggerExConfig.getInstance().LOG_LEVEL_DEBUG;
+	public static int LOG_LEVEL_INFO    = UILoggerExConfig.getInstance().LOG_LEVEL_INFO;
+	public static int LOG_LEVEL_WARN    = UILoggerExConfig.getInstance().LOG_LEVEL_WARN;
+	public static int LOG_LEVEL_ERROR   = UILoggerExConfig.getInstance().LOG_LEVEL_ERROR;
+	public static int LOG_LEVEL_FATAL   = UILoggerExConfig.getInstance().LOG_LEVEL_FATAL;
+	public static int LOG_LEVEL_OFF     = UILoggerExConfig.getInstance().LOG_LEVEL_OFF;
 
-	private Logger logger					= UILoggerCoreFactory.getInstance().getLogger();
+	private Logger logger               = UILoggerCoreFactory.getInstance().getLogger();
 
-	private UILoggerExConfig config			= UILoggerExConfig.getInstance();
+	private UILoggerExConfig config     = UILoggerExConfig.getInstance();
 	
-	private String name                     = null;
-	private String simpleName               = null;
+	private String name                 = null;
+	private String simpleName           = null;
 	
 	public UILoggerEx(final String name) { 
 		this.name = name; 
@@ -82,8 +82,8 @@ public class UILoggerEx implements UILogger_i {
 	
 	private String getClassName(String className) { return !getConfig().isFullClassName() ? className : name; }
 	
-	private String msg(final String className, final String function, final String log, final Object[] arguments) {
-		String message = STR_OB+getClassName(className)+STR_CB+STR_EMPTY+function+STR_EMPTY+log;
+	private String format(final String log, final Object[] arguments) {
+		String message = log;
 		if ( null != arguments ) {
 			String [] splits = message.split(STR_OCB);
 			final StringBuffer buffer = new StringBuffer();
@@ -98,12 +98,16 @@ public class UILoggerEx implements UILogger_i {
 		return message;
 	}
 	
-	public void begin(final String className, final String function) {
-		addLog(LOG_LEVEL_TRACE, STR_OB+getClassName(className)+STR_CB+STR_EMPTY+function+STR_EMPTY+BEGIN);
+	private String msgPrefix(final String className, final String function)	{ return format(STR_PREFIX, new Object[]{getClassName(className), function}); }
+	private String msgContent(final String log, final Object[] arguments)	{ return format(log, arguments); }
+
+	private String msg(final String className, final String function, final String log, final Object[] arguments) {
+		return msgPrefix(className, function) + format(log, arguments);
+//		return format(STR_MSG, new Object[]{msgPrefix(className, function), msgContent(log, arguments)});
 	}
-	public void end(final String className, final String function) {
-		addLog(LOG_LEVEL_TRACE, STR_OB+getClassName(className)+STR_CB+STR_EMPTY+function+STR_EMPTY+END);
-	}
+	
+	public void begin(final String className, final String function)	{ addLog(LOG_LEVEL_TRACE, msgPrefix(className, function)+STR_BEGIN); }
+	public void end(final String className, final String function)		{ addLog(LOG_LEVEL_TRACE, msgPrefix(className, function)+STR_END); }
 
 	@Override
 	public void beginEnd(final String className, final String function) {

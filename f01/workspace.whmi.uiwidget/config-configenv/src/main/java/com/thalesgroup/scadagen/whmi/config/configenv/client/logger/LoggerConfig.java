@@ -13,6 +13,34 @@ public class LoggerConfig {
 
 	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger("UILogger", this.getClass().getName());
 
+	public Map<String, String> getMapEntrySetStrStr(String strLoggerNameFilterString) {
+		final String f = "getMapEntrySetStrStr";
+		logger.begin(f);
+		Map<String, String> map = null;
+		logger.info(f, "strLoggerNameFilterString[{}]", strLoggerNameFilterString);
+		if(null!=strLoggerNameFilterString) {
+			map = new LinkedHashMap<String, String>();
+			String strLoggerNameFilters[] = strLoggerNameFilterString.split(LoggerConfigLoader_i.STR_COMMA);
+			if(null!=strLoggerNameFilters&&strLoggerNameFilters.length>0) {
+				for(String strLoggerNameFilter: strLoggerNameFilters) {
+					logger.info(f, "strLoggerNameFilter[{}]", strLoggerNameFilter);
+					if(null!=strLoggerNameFilter) {
+						String strLoggerNameFilterElements[] = strLoggerNameFilter.split(LoggerConfigLoader_i.STR_SPLITER);
+						if(null!=strLoggerNameFilterElements&&strLoggerNameFilterElements.length>1) {
+							String strLoggerNameSpace = strLoggerNameFilterElements[0];
+							String strLoggerNameSpaceLevel = strLoggerNameFilterElements[1];
+							logger.info(f, "strLoggerNameSpaceLevel[{}] strLoggerNameSpace[{}]", strLoggerNameSpaceLevel, strLoggerNameSpace);
+							map.put(strLoggerNameSpace, strLoggerNameSpace);
+						}
+					}
+				}
+			}
+		}
+
+		logger.end(f);
+		return map;
+	}
+	
 	public Map<String, Integer> getMapEntrySetStrInt(String strLoggerNameFilterString) {
 		final String f = "getMapEntrySetStrInt";
 		logger.begin(f);
@@ -56,6 +84,22 @@ public class LoggerConfig {
 				int filterLevel = entry.getValue();
 				logger.info(f, "filterName[{}] filterLevel[{}]", filterName, filterLevel);
 				UILoggerExConfig.getInstance().addFilter(filterLevel, filterName);
+			}
+		}
+
+		logger.end(f);
+	}
+	
+	public void setLoggerMsg(Map<String, String> map) {
+		final String f = "setLoggerMsg";
+		logger.begin(f);
+		
+		if(null!=map) {
+			for(Entry<String, String> entry: map.entrySet()) {
+				String logmsgname = entry.getKey();
+				String logmsg = entry.getValue();
+				logger.info(f, "logmsgname[{}] logmsg[{}]", logmsgname, logmsg);
+				UILoggerExConfig.getInstance().setMsg(logmsgname, logmsg);
 			}
 		}
 

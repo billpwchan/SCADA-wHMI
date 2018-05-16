@@ -32,6 +32,27 @@ public class LoggerConfigFolderLoader {
 		return map;
 	}
 	
+	public Map<String, String> getLoggerMsg() {
+		String f = "getLoggerMsg";
+		logger.begin(f);
+		
+		Map<String, String> map = null;
+		JSONArray jsonArray = ReadJsonFile.readArray(
+				LoggerConfigLoader_i.CACHE_NAME_DICTIONARYIES
+				, LoggerConfigLoader_i.FILE_NAME_ATTRIBUTE
+				, LoggerConfigLoader_i.Attribute.loggermsg.toString());
+		logger.info(f, "jsonArray[{}]", jsonArray);
+		
+		if(null!=jsonArray) {
+			map = ReadJson.readObjectEntrySetStrStr(jsonArray);
+		} else {
+			logger.warn(f, "jsonArray IS NULL");
+		}
+
+		logger.end(f);
+		return map;
+	}
+	
 	public Map<String, Integer> getLoggerLevel() {
 		String f = "getLoggerLevel";
 		logger.begin(f);

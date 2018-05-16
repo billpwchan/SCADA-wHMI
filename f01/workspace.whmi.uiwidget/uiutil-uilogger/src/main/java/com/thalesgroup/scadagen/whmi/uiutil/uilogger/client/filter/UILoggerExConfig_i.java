@@ -2,6 +2,24 @@ package com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.filter;
 
 public interface UILoggerExConfig_i {
 	
+	public enum AttributeMsg {
+		PREFIX("PREFIX")
+		, MSG("MSG")
+		, BEGIN("BEGIN")
+		, END("END")
+		, NULL("NULL")
+		;
+		
+		private final String text;
+		private AttributeMsg(final String text) { this.text = text; }
+		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
+		/* (non-Javadoc)
+		 * @see java.lang.Enum#toString()
+		 */
+		@Override
+		public String toString() { return this.text; }
+	}
+	
 	public enum AttributeLevel {
 		TRACE("TRACE")
 		, DEBUG("DEBUG")

@@ -11,6 +11,8 @@ public class LoggerConfigLoader {
 
 	private final String STR_LOGGER_CORE_NAME			= LoggerConfigLoader_i.Attribute.loggercorename.toString();
 	
+	private final String STR_LOGGER_MSG					= LoggerConfigLoader_i.Attribute.loggermsg.toString();
+	
 	private final String STR_LOGGER_LEVEL				= LoggerConfigLoader_i.Attribute.loggerlevel.toString();
 	
 	private final String STR_LOGGER_IS_FULLCLASSNAME	= LoggerConfigLoader_i.Attribute.loggerisfullclassname.toString();
@@ -30,6 +32,14 @@ public class LoggerConfigLoader {
 			logCfg.setLoggerCore(strNewLoggerCoreName);
 		} else {
 			logCfg.setLoggerCore(logCfgFile.getLoggerCoreName());
+		}
+		
+		String strLoggerMsgString = settings.get(STR_LOGGER_MSG);
+		logger.info(f, "strLoggerMsgString[{}]", strLoggerMsgString);
+		if(null!=strLoggerMsgString) {
+			logCfg.setLoggerMsg(logCfg.getMapEntrySetStrStr(strLoggerMsgString));
+		} else {
+			logCfg.setLoggerMsg(logCfgFile.getLoggerMsg());
 		}
 		
 		String strLoggerLevelString = settings.get(STR_LOGGER_LEVEL);

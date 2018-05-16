@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 import com.allen_sauer.gwt.log.client.Log;
 
 public class UILoggerExConfig {
-	
+
 	private UILoggerExConfig() {}
 	private static UILoggerExConfig instance = null;
 	public static UILoggerExConfig getInstance() { 
@@ -25,13 +25,31 @@ public class UILoggerExConfig {
 	public void setCurrentLogLevel(int level) { this.currentLogLevel = level; }
 	public int getCurrentLogLevel() { return this.currentLogLevel; }
 	
-	public int LOG_LEVEL_TRACE	= Log.LOG_LEVEL_TRACE;
-	public int LOG_LEVEL_DEBUG	= Log.LOG_LEVEL_DEBUG;
-	public int LOG_LEVEL_INFO	= Log.LOG_LEVEL_INFO;
-	public int LOG_LEVEL_WARN	= Log.LOG_LEVEL_WARN;
-	public int LOG_LEVEL_ERROR	= Log.LOG_LEVEL_ERROR;
-	public int LOG_LEVEL_FATAL	= Log.LOG_LEVEL_FATAL;
-	public int LOG_LEVEL_OFF	= Log.LOG_LEVEL_OFF;
+	public int LOG_LEVEL_TRACE	 = Log.LOG_LEVEL_TRACE;
+	public int LOG_LEVEL_DEBUG	 = Log.LOG_LEVEL_DEBUG;
+	public int LOG_LEVEL_INFO	 = Log.LOG_LEVEL_INFO;
+	public int LOG_LEVEL_WARN	 = Log.LOG_LEVEL_WARN;
+	public int LOG_LEVEL_ERROR	 = Log.LOG_LEVEL_ERROR;
+	public int LOG_LEVEL_FATAL	 = Log.LOG_LEVEL_FATAL;
+	public int LOG_LEVEL_OFF	 = Log.LOG_LEVEL_OFF;
+	
+	public String LOG_STR_PREFIX = "[{}] {}";
+	public String LOG_STR_MSG    = "{} {} ";
+	
+	public String LOG_STR_OCB    = "{}";
+	
+	public String LOG_STR_BEGIN  = "Begin";
+	public String LOG_STR_END    = "End";
+	
+	public String LOG_STR_NULL   = "NULL";
+
+	public void setMsg(String msgname, String msg) {
+		if(0==UILoggerExConfig_i.AttributeMsg.PREFIX.toString().compareTo(msgname))		{	LOG_STR_PREFIX	= msg; }
+		else if(0==UILoggerExConfig_i.AttributeMsg.MSG.toString().compareTo(msgname))	{	LOG_STR_MSG		= msg; }
+		else if(0==UILoggerExConfig_i.AttributeMsg.BEGIN.toString().compareTo(msgname))	{	LOG_STR_BEGIN	= msg; }
+		else if(0==UILoggerExConfig_i.AttributeMsg.END.toString().compareTo(msgname))	{	LOG_STR_END		= msg; }
+		else if(0==UILoggerExConfig_i.AttributeMsg.NULL.toString().compareTo(msgname))	{	LOG_STR_NULL	= msg; }
+	}
 	
 	public void setLevel(String levelname, int level) {
 		if(0==UILoggerExConfig_i.AttributeLevel.TRACE.toString().compareTo(levelname))		{	LOG_LEVEL_TRACE	= level; }

@@ -15,6 +15,7 @@ public interface LoggerConfigLoader_i {
 	 */
 	public enum Attribute {
 		loggercorename("loggercorename")
+		, loggermsg("loggermsg")
 		, loggerlevel("loggerlevel")
 		, loggername("loggername")
 		, loggercategory("loggercategory")

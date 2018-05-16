@@ -48,6 +48,11 @@
   <!-- Simultaneouse Login -->
   <ols scsservername="LstServer" scslistname="SCADAgenWkstMgn" scsfilter=""
          hvclass="com.thalesgroup.scadasoft.data.exchange.entity.alarm.ScsListType"/>
+		 
+  <classdesc hv="com.thalesgroup.scadasoft.data.exchange.entity.alarm.SCADAsoftAlarmType">
+    <statusdesc hv="apparitionDate" scsvalue="EquipmentDate" />
+	<statusdesc hv="lastUpdateDate" scsvalue="SCSTime" />
+  </classdesc>
 
   <classdesc hv="com.thalesgroup.scadagen.data.config.equipment.common.SGEQPT8StatusesType">
   

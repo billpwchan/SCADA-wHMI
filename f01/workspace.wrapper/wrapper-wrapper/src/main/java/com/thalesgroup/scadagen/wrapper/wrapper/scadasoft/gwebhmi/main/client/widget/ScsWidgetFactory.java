@@ -3,12 +3,8 @@ package com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.w
 import java.util.HashMap;
 import java.util.Map;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogger;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.description.SymbolsPoolClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.description.symbol.SymbolClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.update.SymbolInsert;
@@ -16,6 +12,8 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.widget.SymbolWidget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.widget.WidgetFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.zoom.strategy.IZoomStrategy;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.SCADAgenSituationViewPanelEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.util.ConfigurationConstantUtil;
 
@@ -23,8 +21,9 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.util.Configuratio
  * SCADAsoft custom WidgetFactory
  */
 public class ScsWidgetFactory extends WidgetFactory {
-    private static final ClientLogger s_logger = ClientLogger.getClientLogger();
-    private static Logger logger = Logger.getLogger(ScsWidgetFactory.class.getName());
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
+
 	private SCADAgenSituationViewPanelEvent wrapperScsSituationViewPanelEvent = null;
 	
 	public ScsWidgetFactory(SCADAgenSituationViewPanelEvent wrapperScsSituationViewPanelEvent) {
@@ -37,8 +36,10 @@ public class ScsWidgetFactory extends WidgetFactory {
     @Override
     public SymbolWidget getSymbolWidget(final SymbolInsert insert, final SymbolsPoolClient symbolPool)
             throws Exception {
+    	final String f = "getSymbolWidget";
+    	logger.begin(f);
 
-        s_logger.debug("Factory called for " + insert.getSymbolId() + ")");
+        logger.debug(f, "Factory called for " + insert.getSymbolId() + ")");
 
         final String symbolId = insert.getSymbolId();
         final SymbolClient symbolClient = symbolPool.getSymbols().get(insert.getSymbolId());
@@ -73,28 +74,30 @@ public class ScsWidgetFactory extends WidgetFactory {
 			@Override
 			public void onClick(ClickEvent event) {
 				
-				logger.log(Level.FINE, "getSymbolWidget onClick Begin");
+				String f2 = f + " onClick";
+				
+				logger.begin(f2);
 				
 				SymbolWidget symbolWidget = (SymbolWidget)event.getSource();
 				
-				logger.log(Level.FINE, "getSymbolWidget getSource()");
+				logger.debug(f2, "getSource()");
 				
 				if ( null != symbolWidget ) {
 					
-					logger.log(Level.FINE, "getSymbolWidget symbolWidget is not null");
+					logger.debug(f2, "symbolWidget is not null");
 					
 					String hv_id = symbolWidget.getEntityId();
 					
 					String hv_type = symbolWidget.getEntityClassName();
 					
-					logger.log(Level.FINE, "getSymbolWidget symbolWidget is hv_id["+hv_id+"]  hv_type["+hv_type+"]");
+					logger.debug(f2, "symbolWidget is hv_id["+hv_id+"]  hv_type["+hv_type+"]");
 					
 					if ( null != wrapperScsSituationViewPanelEvent ) {
 						
 						int mouseX = event.getClientX();
 						int mouseY = event.getClientY();
 						
-						HashMap<String, String> options = new HashMap<String, String>();
+						Map<String, String> options = new HashMap<String, String>();
 						
 						options.put("hv_id", hv_id);
 						options.put("hv_type", hv_type);
@@ -107,15 +110,15 @@ public class ScsWidgetFactory extends WidgetFactory {
 					
 				} else {
 					
-					logger.log(Level.FINE, "getSymbolWidget symbolWidget is NULL");
+					logger.debug(f2, "symbolWidget is NULL");
 				}
 				
-				logger.log(Level.FINE, "getSymbolWidget onClick End");
+				logger.end(f2);
 				
 			}
 		});
         
-        logger.log(Level.FINE, "getSymbolWidget End");
+        logger.end(f);
 
         return w;
     }

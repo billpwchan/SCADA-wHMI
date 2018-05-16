@@ -11,7 +11,6 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogger;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.AlarmSelectionChangeEvent;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.EntityClient;
@@ -34,13 +33,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDa
  * A widget displaying an alamm list panel.
  */
 public class ScsOlsListPanel extends UIWidget_i {
-	
-	private static final String className = ScsOlsListPanel.class.getSimpleName();
-	private static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(ScsOlsListPanel.class.getName());
 
-    /** Logger */
-    private static final ClientLogger LOGGER = ClientLogger.getClientLogger();
-    private static final String LOG_PREFIX = "["+className+"] ";
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private String strOlsCssPrefix = "OLS_LIST_";
 	private String strDefaultDateTimeValue = "Sat Jan 01 00:00:00 GMT+800 2000";
@@ -122,12 +116,13 @@ public class ScsOlsListPanel extends UIWidget_i {
     }
     
     private void setDebugId(ScsGenericDataGridView gridView_) {
-        LOGGER.debug(LOG_PREFIX + "setDebugId debugId["+debugId+"]");
+    	String f = "setDebugId";
+        logger.debug(f, "setDebugId debugId[{}]", debugId);
         String strDebugId = uiNameCard.getUiPath()+uiNameCard.getUiScreen();
         if ( null != debugId ) {
         	strDebugId = debugId;
         }
-        LOGGER.debug(LOG_PREFIX + "setDebugId strDebugId["+strDebugId+"]");
+        logger.debug(f, "setDebugId strDebugId[{}]", strDebugId);
         gridView_.ensureDebugId(strDebugId);
     }
 
@@ -136,6 +131,8 @@ public class ScsOlsListPanel extends UIWidget_i {
      * context menu and Handlers
      */
     private void initPresenter() {
+    	String f = "initPresenter";
+    	
         if (listConfigId_ != null && gridView_ != null && eventBus != null ) {
             gridPresenter_ = new ScsAlarmDataGridPresenterClient(listConfigId_, gridView_, eventBus);
             
@@ -144,28 +141,29 @@ public class ScsOlsListPanel extends UIWidget_i {
             if ( null != iSelectionModel ) {
             	gridPresenter_.setSelectionModel(iSelectionModel);
             } else {
-            	LOGGER.debug(LOG_PREFIX + " initPresenter : iSelectionModel IS null");
+            	logger.debug(f, "iSelectionModel IS null");
             }
             
             if ( null != contextMenu_) {
             	gridPresenter_.setMenu(contextMenu_);
             } else {
-            	LOGGER.debug(LOG_PREFIX + " initPresenter : contextMenu_ IS null");
+            	logger.debug(f, "contextMenu_ IS null");
             }
 
             initHandler();
         } else {
-            LOGGER.warn(LOG_PREFIX + " initPresenter : listConfigId_ gridView_ eventBus_ should not be null");
+            logger.warn(f, "listConfigId_ gridView_ eventBus_ should not be null");
         }
     }
 
     private void initHandler() {
+    	String f = "initHandler";
         if (eventBus != null) {
             handlerRegistrations_ = new ArrayList<HandlerRegistration>();
             handlerRegistrations_.add(eventBus.addHandler(AlarmSelectionChangeEvent.TYPE, gridPresenter_));
             handlerRegistrations_.add(eventBus.addHandler(FilterChangeEventAbstract.TYPE, gridPresenter_));
         } else {
-            LOGGER.warn(LOG_PREFIX + " eventBus IS null");
+            logger.warn(f, " eventBus IS null");
         }
     }
     
@@ -184,12 +182,13 @@ public class ScsOlsListPanel extends UIWidget_i {
      * Create the main container with a Caption or not
      */
     private void initMainPanel() {
+    	String f = "initMainPanel";
 
         rootPanel = new DockLayoutPanel(Unit.PX);
         rootPanel.addStyleName("project-gwt-panel-scsolslistpanel");
         
         String cssWithElement = "project-"+className+"-"+element;
-        LOGGER.debug(LOG_PREFIX + "getStyleNames className["+className+"] element["+element+"] cssWithElement["+cssWithElement+"]");
+        logger.debug(f, "getStyleNames className[{}] element[{}] cssWithElement[{}]", new Object[]{className, element, cssWithElement});
         rootPanel.addStyleName(cssWithElement);
         
         Widget gridWidget = gridView_.asWidget();
@@ -203,6 +202,7 @@ public class ScsOlsListPanel extends UIWidget_i {
      * Create the datagrid view and customize the CSS rules
      */
     private void initDataGridView() {
+    	final String f = "initDataGridView";
 
         gridView_ = new ScsGenericDataGridView();
         
@@ -215,6 +215,7 @@ public class ScsOlsListPanel extends UIWidget_i {
 
             @Override
             public String getStyleNames(EntityClient row, int rowIndex) {
+            	final String f2 = f + " getStyleNames";
 
         		String strCssResult = strOlsCssPrefix + listConfigId_;
         		
@@ -223,16 +224,16 @@ public class ScsOlsListPanel extends UIWidget_i {
         			
         			String strGDGAttribute = it.next();
         			
-                	LOGGER.debug(LOG_PREFIX + "getStyleNames rowIndex["+rowIndex+"] strGDGAttribute["+strGDGAttribute+"]");
+                	logger.debug(f2, "rowIndex[{}] strGDGAttribute[{}]", rowIndex, strGDGAttribute);
                 	
                 	strCssResult += " " + strOlsCssPrefix + strGDGAttribute;
                 			
 					AttributeClientAbstract<?> gdgAttribute = row.getAttribute(strGDGAttribute);
 					if ( null != gdgAttribute && gdgAttribute.isValid() ) {
 						if ( gdgAttribute.getValue() instanceof Date ) {
-							LOGGER.debug(LOG_PREFIX + " gdgAttribute.getValue() [Date] is:" + gdgAttribute.getValue());
+							logger.debug(f2, "gdgAttribute.getValue() [Date] is:" + gdgAttribute.getValue());
 							if( gdgAttribute.getValue().toString().equals(strDefaultDateTimeValue)){
-								LOGGER.debug(LOG_PREFIX + " date value is default value!!!");
+								logger.debug(f2, " date value is default value!!!");
 								strCssResult += "_" + strDateTimeCssSubfix;
 							}
 						} else {
@@ -241,7 +242,7 @@ public class ScsOlsListPanel extends UIWidget_i {
 					}
         		}
 
-                LOGGER.debug(LOG_PREFIX + "getStyleNames strCssResult["+strCssResult+"]");
+                logger.debug(f2, "strCssResult[{}]", strCssResult);
                 
                 return strCssResult;
  
@@ -251,6 +252,7 @@ public class ScsOlsListPanel extends UIWidget_i {
     
 	@Override
 	public void init() {
+		String f = "init";
         
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -269,18 +271,18 @@ public class ScsOlsListPanel extends UIWidget_i {
 			String mwtEventBusName	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MwtEventBusName.toString(), strHeader);
 			String mwtEventBusScope	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MwtEventBusScope.toString(), strHeader);
 			
-			LOGGER.debug(LOG_PREFIX + "init listConfigId_["+listConfigId_+"]");
+			logger.debug(f, "init listConfigId_[{}]", listConfigId_);
 			
-			LOGGER.debug(LOG_PREFIX + "init menuCallImageLabel["+menuCallImageLabel+"]");
-			LOGGER.debug(LOG_PREFIX + "init menuCallImageEnable["+menuCallImageEnable+"]");
-			LOGGER.debug(LOG_PREFIX + "init menuCallImageGdgAttribute["+menuCallImageGdgAttribute+"]");
+			logger.debug(f, "init menuCallImageLabel[{}]", menuCallImageLabel);
+			logger.debug(f, "init menuCallImageEnable[{}]", menuCallImageEnable);
+			logger.debug(f, "init menuCallImageGdgAttribute[{}]", menuCallImageGdgAttribute);
 			
-			LOGGER.debug(LOG_PREFIX + "init selectionMode["+selectionMode+"]");
+			logger.debug(f, "init selectionMode[{}]", selectionMode);
 			
-			LOGGER.debug(LOG_PREFIX + "init debugId["+debugId+"]");
+			logger.debug(f, "init debugId[{}]", debugId);
 			
-			LOGGER.debug(LOG_PREFIX + "init mwtEventBusName["+mwtEventBusName+"]");
-			LOGGER.debug(LOG_PREFIX + "init mwtEventBusScope["+mwtEventBusScope+"]");
+			logger.debug(f, "init mwtEventBusName[{}]", mwtEventBusName);
+			logger.debug(f, "init mwtEventBusScope[{}]", mwtEventBusScope);
 			
 			if ( null == mwtEventBusName || mwtEventBusName.trim().length() == 0) {
 				mwtEventBusName = this.viewXMLFile;
@@ -289,7 +291,7 @@ public class ScsOlsListPanel extends UIWidget_i {
 			} else {
 				mwtEventBusName = mwtEventBusName + "_" + uiNameCard.getUiScreen();
 			}
-			LOGGER.debug(LOG_PREFIX + "init mwtEventBusName["+mwtEventBusName+"]");
+			logger.debug(f, "init mwtEventBusName[{}]", mwtEventBusName);
 			
 			eventBus = MwtEventBuses.getInstance().getEventBus(mwtEventBusName);
 
@@ -311,11 +313,11 @@ public class ScsOlsListPanel extends UIWidget_i {
             	
             	String gdgAttribute	= dictionariesCache.getStringValue(optsXMLFile, strGDGAttribute, strHeader);
             	
-            	LOGGER.debug(LOG_PREFIX + "init gdgAttribute["+gdgAttribute+"]");
+            	logger.debug(f, "init gdgAttribute[{}]", gdgAttribute);
             	
             	if ( null != gdgAttribute ) {
             		
-            		LOGGER.debug(LOG_PREFIX + "init gdgAttribute["+gdgAttribute+"] Added");
+            		logger.debug(f, "init gdgAttribute[{}] Added", gdgAttribute);
             		
             		attributes.add(gdgAttribute);
             	}
@@ -340,6 +342,7 @@ public class ScsOlsListPanel extends UIWidget_i {
      */
     @Override
     public void terminate() {
+    	String f = "terminate";
         isTerminated_ = true;
         for (final HandlerRegistration registration : handlerRegistrations_) {
             registration.removeHandler();
@@ -349,7 +352,7 @@ public class ScsOlsListPanel extends UIWidget_i {
         try {
             gridPresenter_.terminate();
         } catch (final IllegalStatePresenterException e) {
-        	LOGGER.error(LOG_PREFIX + "Error while trying to terminate the Alarm List Panel.", e);
+        	logger.error(f, "Error while trying to terminate the Alarm List Panel.", e);
         }
     }
 

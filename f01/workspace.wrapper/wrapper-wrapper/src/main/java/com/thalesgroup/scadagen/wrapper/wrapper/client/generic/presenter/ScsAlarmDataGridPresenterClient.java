@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.gwt.event.shared.EventBus;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogger;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.AlarmSelectionChangeEvent;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.EntityClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.AlarmDataGridPresenterClient;
@@ -20,6 +19,8 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.h
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterSetEvent;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.update.IPresenterUpdate;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.presenter.SituationViewPresenterClient;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.CounterEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.FilterEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.SelectionEvent;
@@ -32,9 +33,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDa
  */
 public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClient {
 
-	/** logger */
-    private static final ClientLogger LOGGER = ClientLogger.getClientLogger();
-    private static final String LOG_PREFIX = "[ScsAlarmDataGridPresenterClient] ";
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private SelectionEvent selectionEvent = null;
 	public SelectionEvent getSelectionEvent() { return selectionEvent; }
@@ -78,26 +77,27 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
 
     @Override
     public void onFilterChange(final FilterChangeEventAbstract event) {
-		LOGGER.trace(LOG_PREFIX  + "onFilterChange Begin");
+    	String f = "onFilterChange";
+		logger.begin(f);
     	super.onFilterChange(event);
     	if ( null != event ) {
     		if (event instanceof FilterSetEvent) {
     			final FilterSetEvent filterSetEvent = (FilterSetEvent) event;
     			filterColumns.add(filterSetEvent.getColumnName());
     			
-    			LOGGER.debug(LOG_PREFIX  + "onFilterChange (FilterChangeEventAbstract) event instanceof FilterSetEvent");
+    			logger.debug(f, "(FilterChangeEventAbstract) event instanceof FilterSetEvent");
     		} else if (event instanceof FilterRemoveEvent) {
     			final FilterRemoveEvent filterRemoveEvent = (FilterRemoveEvent) event;
     			filterColumns.remove(filterRemoveEvent.getColumnName());
     			
-    			LOGGER.debug(LOG_PREFIX  + "onFilterChange (FilterChangeEventAbstract) event instanceof FilterRemoveEvent");
+    			logger.debug(f, "(FilterChangeEventAbstract) event instanceof FilterRemoveEvent");
     		}
-    		LOGGER.debug(LOG_PREFIX  + "onFilterChange (FilterChangeEventAbstract) call begin");
+    		logger.debug(f, "(FilterChangeEventAbstract) call begin");
     		
     		// Dump
-    		LOGGER.debug(LOG_PREFIX  + "onFilterChange columns.size()["+filterColumns.size()+"]");
+    		logger.debug(f, "columns.size()[{}]", filterColumns.size());
     		for ( String filterColumn : filterColumns ) {
-    			LOGGER.debug(LOG_PREFIX  + "onFilterChange filterColumn["+filterColumn+"]");
+    			logger.debug(f, "filterColumn[{}]", filterColumn);
     		}
     		
     		ArrayList<String> columns = new ArrayList<String>(); 
@@ -105,15 +105,15 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
     			columns.add(column);
     		}
     		
-    		LOGGER.trace(LOG_PREFIX  + "onFilterChange (FilterChangeEventAbstract) call begin");
+    		logger.debug(f, "(FilterChangeEventAbstract) call begin");
     		if ( null != filterEvent ) {
     			filterEvent.onFilterChange(columns);
     		} else {
-            	LOGGER.warn(LOG_PREFIX+"onFilterChange filterEvent IS NULL");
+    			logger.warn(f, "filterEvent IS NULL");
        	 	}
-    		LOGGER.trace(LOG_PREFIX  + "onFilterChange (FilterChangeEventAbstract) call end");
+    		logger.debug(f, "(FilterChangeEventAbstract) call end");
     	}
-    	LOGGER.trace(LOG_PREFIX  + "onFilterChange End");
+    	logger.end(f);
     }
 
     /**
@@ -125,14 +125,14 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
      */
     @Override
     public void onSelectionChange(AlarmSelectionChangeEvent event) {
-    	LOGGER.trace(LOG_PREFIX+"onSelectionChange Begin");
+    	 String f = "onSelectionChange";
+    	logger.begin(f);
         if (event.getSource() instanceof SituationViewPresenterClient) {
             super.onSelectionChange(event);
 //            LOGGER.debug(LOG_PREFIX+"onSelectionChange (AlarmSelectionChangeEvent) call begin");
 //            LOGGER.debug(LOG_PREFIX+"onSelectionChange (AlarmSelectionChangeEvent) call end");
-            
         }
-        LOGGER.trace(LOG_PREFIX+"onSelectionChange End");
+        logger.end(f);
     }
 
     /**
@@ -142,7 +142,8 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
     @Override
     protected void onSelectionChange(Set<EntityClient> selectedEntities) {
         super.onSelectionChange(selectedEntities);
-        LOGGER.trace(LOG_PREFIX+"onSelectionChange Begin");
+        String f = "onSelectionChange";
+        logger.begin(f);
         if ( null != selectedEntities ) {
         	
 //        	// Dump selectedEntities
@@ -162,15 +163,15 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
             	}
             	set.add(details);
             }
-            LOGGER.debug(LOG_PREFIX+"onSelectionChange call begin");
+            logger.debug(f, "call begin");
             if ( null != selectionEvent ) { 
             	this.selectionEvent.onSelection(set);
             } else {
-            	LOGGER.warn(LOG_PREFIX+"onSelectionChange selectionEvent IS NULL");
+            	logger.debug(f, "selectionEvent IS NULL");
        	 	}
-            LOGGER.debug(LOG_PREFIX+"onSelectionChange call end");
+            logger.debug(f, "call end");
         }
-        LOGGER.trace(LOG_PREFIX+"onSelectionChange End");
+        logger.end(f);
     }
 
     /**
@@ -178,7 +179,8 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
      * @return the set of selected entities in the view
      */
     public Set<EntityClient> getSelectedEntities() {
-    	LOGGER.trace(LOG_PREFIX+"getSelectedEntities Begin");
+    	String f = "getSelectedEntities";
+    	 logger.begin(f);
         Set<EntityClient> selectedEntities = new HashSet<EntityClient>();
         List<EntityClient> visibleItems = view_.getInnerDataGrid().getVisibleItems();
         for (EntityClient entity : visibleItems) {
@@ -186,14 +188,15 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
                 selectedEntities.add(entity);
             }
         }
-        LOGGER.trace(LOG_PREFIX+"getSelectedEntities End");
+        logger.end(f);
         return selectedEntities;
     }
     
     @Override
     public void updateCounter(final Map<String, Integer> countersValue) {
     	 super.updateCounter(countersValue);
-    	 LOGGER.trace(LOG_PREFIX+"updateCounter Begin");
+    	 String f = "updateCounter";
+    	 logger.begin(f);
     	 if ( null != counterEvent ) {
     		 
 //    		 // Dump countersValue
@@ -220,14 +223,15 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
     		 
     		 counterEvent.onCounterChange(countersValue);
     	 } else {
-    		 LOGGER.warn(LOG_PREFIX+"updateCounter counterEvent IS NULL");
+    		 logger.warn(f, "counterEvent IS NULL");
     	 }
-    	 LOGGER.trace(LOG_PREFIX+"updateCounter End");
+    	 logger.end(f);
     }
     
     @Override
     public void update(final IPresenterUpdate presUpdate) {
     	super.update(presUpdate);
+    	String f = "update";
 
     	if ( null != updateEvent ) {
     		
@@ -241,7 +245,7 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
 	            if ( null != page ) {
 	            	int start = page.getStart();
 	
-	            	LOGGER.debug(LOG_PREFIX+"update page.start["+start+"]");
+	            	logger.debug(f, "page.start[{}]", start);
 	            	
 	            	List<EntityClient> entitys = page.getDisplayedEntities();
 	            	
@@ -249,23 +253,23 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
 	            		
 	            		int size = entitys.size();
 	            		
-	            		LOGGER.debug(LOG_PREFIX+"update entitys.size["+size+"]");
+	            		logger.debug(f, "entitys.size[{}]", size);
 	            		
 	            		set = new HashSet<Map<String, String>>();
 	            		
 	                	for ( EntityClient entity : entitys ) {
 	    	            	Map<String, String> details = new HashMap<String, String>();
 	    	            	for ( String attributeName : entity.attributeNames() ) {
-//	    	            		LOGGER.debug(LOG_PREFIX+"update entity.getAttribute("+attributeName+")["+entity.getAttribute(attributeName).getValue().toString()+"]");
+//	    	            		logger.debug(f, "entity.getAttribute({})[{}]", attributeName, entity.getAttribute(attributeName).getValue().toString());
 	    	             		details.put(attributeName, entity.getAttribute(attributeName).getValue().toString());
 	    	            	}
 	    	            	set.add(details);
 	                	}
 	            	} else {
-	            		LOGGER.warn(LOG_PREFIX+"update entitys IS NULL");
+	            		logger.warn(f, "entitys IS NULL");
 	            	}
 	            } else {
-	            	LOGGER.warn(LOG_PREFIX+"update page IS NULL");
+	            	logger.warn(f, "page IS NULL");
 	            }
 	            
 	            if ( null != set ) {

@@ -220,7 +220,7 @@ public class ScsMatrixPanel extends UIWidget_i {
         rootPanel.addStyleName("project-gwt-panel-scsmatrixpanel");
         
         String cssWithElement = "project-"+className+"-"+element;
-        logger.debug(function, "getStyleNames className["+className+"] element["+element+"] cssWithElement["+cssWithElement+"]");
+        logger.debug(function, "getStyleNames className[{}] element[{}] cssWithElement[{}]", new Object[]{className, element, cssWithElement});
         rootPanel.addStyleName(cssWithElement);
         
         logger.end(function);

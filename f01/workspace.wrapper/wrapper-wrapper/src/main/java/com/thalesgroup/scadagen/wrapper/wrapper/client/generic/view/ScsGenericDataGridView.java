@@ -13,10 +13,11 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogger;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.EntityClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.conf.GDGClientConfiguration;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.GenericDataGridView;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.util.AlarmUtils;
 
 /**
@@ -24,9 +25,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.util.AlarmUtils;
  */
 public class ScsGenericDataGridView extends GenericDataGridView {
 
-	/** logger */
-    private static final ClientLogger LOGGER = ClientLogger.getClientLogger();
-    private static final String LOG_PREFIX = "[ScsGenericDataGridView] ";
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
     
     private int pageSize = 0;
     private int fastForwardRows = 0;
@@ -37,6 +36,7 @@ public class ScsGenericDataGridView extends GenericDataGridView {
     @Override
 	public void init(final GDGClientConfiguration clientConfiguration)  {
 		super.init(clientConfiguration);
+		String f = "init";
 		
     	if ( null != clientConfiguration ) {
     		pageSize = clientConfiguration.getPageSize();
@@ -44,7 +44,7 @@ public class ScsGenericDataGridView extends GenericDataGridView {
     	}
 		
 		if (!clientConfiguration.isDisplayPager()) {
-			LOGGER.debug(LOG_PREFIX+ "hide pager");
+			logger.debug(f, "hide pager");
 			if (this.getWidget() instanceof SimpleLayoutPanel) {
 				SimpleLayoutPanel w = (SimpleLayoutPanel) this.getWidget();
 				if (w.getWidget() instanceof DockLayoutPanel) {
@@ -63,30 +63,28 @@ public class ScsGenericDataGridView extends GenericDataGridView {
 		}
 		
 		if ( hasSCADAgenPager ) {
-			
-			LOGGER.debug(LOG_PREFIX+ "isDisplayPager IS TRUE");
-			
+			logger.debug(f, "isDisplayPager IS TRUE");
 			setPager(createSCADAgenPager(createText, buttonOperation, pageSize, fastForwardRows));
 		}
-		
 	}
     
     public AbstractPager createSCADAgenPager(CreateText_i createText, ButtonOperation_i buttonOperation, int pageSize, int fastForwardRows) {
-    	LOGGER.debug(LOG_PREFIX+ "createSCADAgenPager Begin");
+    	String f = "createSCADAgenPager";
+    	logger.begin(f);
     	
     	SCADAgenPager pager = new SCADAgenPager();
 		
 		if ( null != createText ) pager.setCreateText(createText);
 		if ( null != buttonOperation ) pager.setButtonOperation(buttonOperation);
 		
-		LOGGER.debug(LOG_PREFIX + "createSCADAgenPager pageSize[" + pageSize + "]");
+		logger.debug(f, "pageSize[{}]", pageSize);
 		pager.setPageSize(pageSize);
 		
-		LOGGER.debug(LOG_PREFIX + "createSCADAgenPager fastForwardRows[" + fastForwardRows + "]");
+		logger.debug(f, "fastForwardRows[{}]", fastForwardRows);
 		pager.setFastForwardRows(fastForwardRows);
 		pager.setFastBackwardRows(fastForwardRows);	
 		
-		LOGGER.debug(LOG_PREFIX+ "createSCADAgenPager End");
+		logger.end(f);
 		return pager;
     }
 	
@@ -118,7 +116,8 @@ public class ScsGenericDataGridView extends GenericDataGridView {
     }
 	
     public void ackPage(String attributeName, int start, int end) {
-    	LOGGER.debug(LOG_PREFIX+ "ackPage");
+    	String f = "ackPage";
+    	logger.debug(f);
         DataGrid<EntityClient> dataGrid = getInnerDataGrid();
         List<EntityClient> visibleEntityClient = dataGrid.getVisibleItems();
         AlarmAcknowledgeWithFilter(visibleEntityClient, attributeName, start, end);
@@ -133,11 +132,13 @@ public class ScsGenericDataGridView extends GenericDataGridView {
     }
     
     public void ackVisibleSelected() {
-    	LOGGER.debug(LOG_PREFIX+ "ackVisibleSelected");
+    	String f = "ackVisibleSelected";
+    	logger.debug(f, "ackVisibleSelected");
         ackVisibleSelected(null, 0, 0);
     }
     public void ackVisibleSelected(String attributeName, int start, int end) {
-    	LOGGER.debug(LOG_PREFIX+ "ackVisibleSelected");
+    	String f = "ackVisibleSelected";
+    	logger.debug(f, "ackVisibleSelected");
         Set<EntityClient> selectedEntities = new HashSet<EntityClient>();
         List<EntityClient> visibleItems = getInnerDataGrid().getVisibleItems();
         for (EntityClient entity : visibleItems) {
@@ -148,29 +149,30 @@ public class ScsGenericDataGridView extends GenericDataGridView {
         AlarmAcknowledgeWithFilter(selectedEntities, attributeName, start, end);
     }
 	private void AlarmAcknowledgeWithFilter(Collection<EntityClient> entities, String attributeName, int start, int end) {
+		String f = "AlarmAcknowledgeWithFilter";
 		Set<EntityClient> validEntities = new HashSet<EntityClient>();
 		if ( null != attributeName  ) {
-			LOGGER.debug(LOG_PREFIX+ "AlarmAcknowledgeWithFilter attributeName IS NOT NULL");
+			logger.debug(f, "attributeName IS NOT NULL");
 			for ( EntityClient ec : entities ) {
 				int outValue = 0;
 				Object obj1 = ec.getAttribute(attributeName).getValue();
 				if (obj1 != null && obj1 instanceof Integer) {
 					outValue = (Integer) obj1;
 				} else {
-					LOGGER.debug(LOG_PREFIX+ "AlarmAcknowledgeWithFilter obj1 IS NULL");
+					logger.debug(f, "obj1 IS NULL");
 				}
 				
 				boolean isInRange = outValue >= start && outValue <= end;
-				LOGGER.debug(LOG_PREFIX+ "AlarmAcknowledgeWithFilter start["+start+"] >= outValue["+outValue+"] <= end["+end+"] : isInRange["+isInRange+"]");
+				logger.debug(f, "start[{}] >= outValue[{}] <= end[{}] : isInRange[{}]", new Object[]{start, outValue, end, isInRange});
 				if ( isInRange ) {
 					validEntities.add(ec);
 				} else {
-					LOGGER.debug(LOG_PREFIX+ "AlarmAcknowledgeWithFilter Checking is FALSE");
+					logger.debug(f, "Checking is FALSE");
 				}
 			}
 			AlarmUtils.acknowledge(validEntities);
 		} else {
-			LOGGER.debug(LOG_PREFIX+ "AlarmAcknowledgeWithFilter attributeName IS NULL");
+			logger.debug(f, "attributeName IS NULL");
 			AlarmUtils.acknowledge(entities);
 		}
     }

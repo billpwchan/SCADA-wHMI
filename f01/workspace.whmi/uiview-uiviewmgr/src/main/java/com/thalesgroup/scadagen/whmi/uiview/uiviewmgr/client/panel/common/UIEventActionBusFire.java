@@ -2,15 +2,13 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
 import java.util.Map;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
 
 public class UIEventActionBusFire extends UIEventActionExecute_i {
-	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionBusFire.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	@Override
 	public boolean executeAction( UIEventAction action, Map<String, Map<String, Object>> override ) {
@@ -18,22 +16,22 @@ public class UIEventActionBusFire extends UIEventActionExecute_i {
 		
 		boolean bContinue = true;
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( null == simpleEventBus ) {
-			logger.warn(className, function, logPrefix+"simpleEventBus IS null");
+			logger.warn(function, logPrefix+"simpleEventBus IS null");
 			return bContinue;
 		}
 		
 		if ( null == action ) {
-			logger.warn(className, function, logPrefix+"action IS null");
+			logger.warn(function, logPrefix+"action IS null");
 			return bContinue;
 		}
 		
-		logger.info(className, function, "fireEventFromSource");
+		logger.info(function, "fireEventFromSource");
 		simpleEventBus.fireEventFromSource(action, this);
 
-		logger.end(className, function);
+		logger.end(function);
 		return bContinue;
 	}
 

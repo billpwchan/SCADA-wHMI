@@ -3,9 +3,8 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.ver
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
@@ -15,12 +14,11 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 
 public class UIWidgetVerifyOPMLoginLogout extends UIWidgetRealize {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyOPMLoginLogout.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private void login() {
 		final String function = "checkHom";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
 
@@ -32,12 +30,12 @@ public class UIWidgetVerifyOPMLoginLogout extends UIWidgetRealize {
 
 		uiOpm_i.login(operatorvalue, passwordvalue);
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void logout() {
 		final String function = "logout";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
 		
@@ -45,7 +43,7 @@ public class UIWidgetVerifyOPMLoginLogout extends UIWidgetRealize {
 
 		uiOpm_i.logout();
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private void launch(String element) {
@@ -64,7 +62,7 @@ public class UIWidgetVerifyOPMLoginLogout extends UIWidgetRealize {
 		super.init();
 		
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 			
@@ -77,18 +75,18 @@ public class UIWidgetVerifyOPMLoginLogout extends UIWidgetRealize {
 			@Override
 			public void onClick(ClickEvent event) {
 				final String function = "onClick";
-				logger.begin(className, function);
+				logger.begin(function);
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
 						String element = uiGeneric.getWidgetElement(widget);
-						logger.debug(className, function, "element[{}]", element);
+						logger.debug(function, "element[{}]", element);
 						if ( null != element ) {
 							launch(element);
 						}
 					}
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
@@ -118,13 +116,13 @@ public class UIWidgetVerifyOPMLoginLogout extends UIWidgetRealize {
 			@Override
 			public void terminate() {
 				final String function = "terminate";
-				logger.begin(className, function);
+				logger.begin(function);
 				envDown(null);
-				logger.end(className, function);
+				logger.end(function);
 			};
 		};
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

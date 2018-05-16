@@ -4,9 +4,8 @@ import java.util.Map;
 
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.Widget;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionWidget_i.UIEventActionWidgetAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
@@ -15,8 +14,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.
 
 public class UIEventActionWidget extends UIEventActionExecute_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionWidget.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	public UIEventActionWidget ( ) {
 		supportedActions = new String[] {
@@ -32,12 +30,12 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 	@Override
 	public boolean executeAction(UIEventAction uiEventAction, Map<String, Map<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		boolean bContinue = true;
 		
 		if ( uiEventAction == null ) {
-			logger.warn(className, function, "uiEventAction IS NULL");
+			logger.warn(function, "uiEventAction IS NULL");
 			return bContinue;
 		}
 		
@@ -45,25 +43,25 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 		String strWidget		= (String) uiEventAction.getParameter(ActionAttribute.OperationString2.toString());
 		String widgetValue		= (String) uiEventAction.getParameter(ActionAttribute.OperationString3.toString());
 		
-		logger.debug(className, function, logPrefix+"strWidgetAction[{}] strWidget[{}] widgetValue[{}]", new Object[]{strWidgetAction, strWidget, widgetValue});
+		logger.debug(function, logPrefix+"strWidgetAction[{}] strWidget[{}] widgetValue[{}]", new Object[]{strWidgetAction, strWidget, widgetValue});
 		
 		if ( uiGeneric == null ) {
-			logger.warn(className, function, logPrefix+"uiWidgetGeneric IS NULL");
+			logger.warn(function, logPrefix+"uiWidgetGeneric IS NULL");
 			return bContinue;
 		}
 		
 		if ( strWidgetAction == null ) {
-			logger.warn(className, function, logPrefix+"strWidgetAction IS NULL");
+			logger.warn(function, logPrefix+"strWidgetAction IS NULL");
 			return bContinue;
 		}
 		
 		if ( strWidget == null ) {
-			logger.warn(className, function, logPrefix+"strWidget IS NULL");
+			logger.warn(function, logPrefix+"strWidget IS NULL");
 			return bContinue;
 		}
 		
 		if ( widgetValue == null ) {
-			logger.warn(className, function, logPrefix+"widgetValue IS NULL");
+			logger.warn(function, logPrefix+"widgetValue IS NULL");
 			return bContinue;
 		}
 		
@@ -83,7 +81,7 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 			if ( null != widgetStatus ) {
 				uiGeneric.setWidgetStatus(strWidget, widgetStatus);
 			} else {
-				logger.warn(className, function, logPrefix+"widgetStatus IS NULL");
+				logger.warn(function, logPrefix+"widgetStatus IS NULL");
 			}
 			
 		}
@@ -94,7 +92,7 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 					Focusable focusable = (com.google.gwt.user.client.ui.Focusable) uiGeneric.getWidget(strWidget);
 					focusable.setFocus(Boolean.parseBoolean(widgetValue));
 				} else {
-					logger.warn(className, function, logPrefix+"strWidget["+strWidget+"] IS NOT Focusable");
+					logger.warn(function, logPrefix+"strWidget["+strWidget+"] IS NOT Focusable");
 				}
 		}
 		else 
@@ -113,10 +111,10 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 				widget.removeStyleName(widgetValue);
 		}
 		else {
-			logger.warn(className, function, "strWidgetAction[{}] IS UNKNOW TYPE", strWidgetAction);
+			logger.warn(function, "strWidgetAction[{}] IS UNKNOW TYPE", strWidgetAction);
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		return bContinue;
 	}
 

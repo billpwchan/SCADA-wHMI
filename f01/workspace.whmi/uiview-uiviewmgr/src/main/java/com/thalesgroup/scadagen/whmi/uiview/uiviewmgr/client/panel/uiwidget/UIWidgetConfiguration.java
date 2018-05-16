@@ -6,9 +6,8 @@ import java.util.Map;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
@@ -19,8 +18,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 
 public class UIWidgetConfiguration extends UIWidgetRealize {
 	
-	private String className = UIWidgetUtil.getClassSimpleName(UIWidgetConfiguration.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private final String strSetWidgetValue = "SetWidgetValue";
 	
@@ -50,10 +48,8 @@ public class UIWidgetConfiguration extends UIWidgetRealize {
 	public void init() {
 		super.init();
 		
-		final String function = "init";
-		logger.begin(className, function);
-		
-		className += " [" + element + "] ";
+		final String function = "init ("+element+")";
+		logger.begin(function);
 		
 		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 			
@@ -66,15 +62,15 @@ public class UIWidgetConfiguration extends UIWidgetRealize {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				final String function = "onClick";
+				final String function = "onClick ("+element+")";
 				
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
 						String element = uiGeneric.getWidgetElement(widget);
-						logger.info(className, function, "element[{}]", element);
+						logger.info(function);
 						if ( null != element ) {
 							String actionsetkey = element;
 							
@@ -88,33 +84,33 @@ public class UIWidgetConfiguration extends UIWidgetRealize {
 				// Call external handling
 				if ( null != ctrlHandler ) ctrlHandler.onClick(event);
 				
-				logger.begin(className, function);
+				logger.begin(function);
 			}
 			
 			@Override
 			public void onActionReceived(UIEventAction uiEventActionReceived) {
-				final String function = "onActionReceived";
+				final String function = "onActionReceived ("+element+")";
 
-				logger.begin(className, function);
+				logger.begin(function);
 
 				if (null != uiEventActionReceived) {
 
 					String oe = (String) uiEventActionReceived.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 
-					logger.info(className, function, "oe[" + oe + "]");
+					logger.info(function, " oe[{}]", oe);
 
 					if (null != oe) {
 						
 						if (oe.equals(element)) {
 
 							String os1 = (String) uiEventActionReceived.getParameter(ActionAttribute.OperationString1.toString());
-							logger.info(className, function, "os1[" + os1 + "]");
+							logger.info(function, " os1[{}]", os1);
 							
 							Map<String, Map<String, Object>> override = null;
 							
 							for ( String actionkey : supportOperations ) {
 								
-								logger.info(className, function, "operation[{}].equals(os1[{}])", actionkey, os1);
+								logger.info(function, "operation[{}] equals(os1[{}])", actionkey, os1);
 								
 								if ( actionkey.equals(os1) ) {
 									
@@ -122,23 +118,23 @@ public class UIWidgetConfiguration extends UIWidgetRealize {
 									
 									Map<String, Object> parameters = new HashMap<String, Object>();
 									
-									logger.info(className, function, "os1[" + os1 + "]");
+									logger.info(function, "os1[{}]", os1);
 									
 									Object obj1 = uiEventActionReceived.getParameter(ActionAttribute.OperationString2.toString());
 									Object obj2 = uiEventActionReceived.getParameter(ActionAttribute.OperationString3.toString());
 									
-									logger.info(className, function, "update Counter Values");
+									logger.info(function, "update Counter Values");
 									
-									logger.info(className, function, "obj1[{}]", obj1);
-									logger.info(className, function, "obj2[{}]", obj2);
+									logger.info(function, "obj1[{}]", obj1);
+									logger.info(function, "obj2[{}]", obj2);
 									
 									if ( null != obj1 && null != obj2 ) {
 										
 										String key = obj1.toString();
 										String value = obj2.toString();
 										
-										logger.info(className, function, "key[{}]", key);
-										logger.info(className, function, "value[{}]", value);
+										logger.info(function, "key[{}]", key);
+										logger.info(function, "value[{}]", value);
 										
 										parameters.put(ActionAttribute.OperationString2.toString(), key);
 										parameters.put(ActionAttribute.OperationString3.toString(), value);
@@ -158,7 +154,7 @@ public class UIWidgetConfiguration extends UIWidgetRealize {
 				// Call external handling
 				if ( null != ctrlHandler ) ctrlHandler.onActionReceived(uiEventActionReceived);
 				
-				logger.end(className, function);
+				logger.end(function);
 			}
 		};
 		
@@ -166,32 +162,32 @@ public class UIWidgetConfiguration extends UIWidgetRealize {
 			
 			@Override
 			public void init() {
-				final String function = "init";
-				logger.beginEnd(className, function);
+				final String function = "init ("+element+")";
+				logger.beginEnd(function);
 			}
 		
 			@Override
 			public void envUp(String env) {
-				final String function = "envUp";
-				logger.beginEnd(className, function);
+				final String function = "envUp ("+element+")";
+				logger.beginEnd(function);
 			}
 			
 			@Override
 			public void envDown(String env) {
-				final String function = "envDown";
-				logger.beginEnd(className, function);
+				final String function = "envDown ("+element+")";
+				logger.beginEnd(function);
 			}
 			
 			@Override
 			public void terminate() {
-				final String function = "terminate";
-				logger.begin(className, function);
+				final String function = "terminate ("+element+")";
+				logger.begin(function);
 				envDown(null);
-				logger.begin(className, function);
+				logger.begin(function);
 			};
 		};
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

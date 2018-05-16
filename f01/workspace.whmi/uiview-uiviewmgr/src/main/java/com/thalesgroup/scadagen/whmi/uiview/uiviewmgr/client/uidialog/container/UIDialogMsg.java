@@ -15,9 +15,8 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialog_i;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.UIDialogMsgCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.UIDialogMsgEvent.UIDialogMsgEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDailogMsg_i.UIConfimDlgParameter;
@@ -28,8 +27,8 @@ import com.google.gwt.user.client.ui.TextArea;
 
 public class UIDialogMsg extends DialogBox implements UIDialog_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIDialogMsg.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private String element = className;
 	
@@ -71,7 +70,7 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i {
 	private Map<String, UIDialogMsgCtrl_i> uiDialogMsgCtrls = new HashMap<String, UIDialogMsgCtrl_i>();
 	public void setResponse(String msgOpt, UIDialogMsgCtrl_i uiDialogMsgCtrl_i) {
 		String function = "setResponse";
-		logger.debug(className, function, "msgOpt[{}]", msgOpt);
+		logger.debug(function, "msgOpt[{}]", msgOpt);
 		this.uiDialogMsgCtrls.put(msgOpt, uiDialogMsgCtrl_i);
 	}
 	private Image image				= null;
@@ -89,7 +88,7 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i {
 	public void setDialogMsg(UIConfimDlgType dlgConfirmcancel, String title, String msg) {
 		String function = "setDialogMsg";
 		
-		logger.debug(className, function, "dlgConfirmcancel[{}] title[{}] msg[{}]"
+		logger.debug(function, "dlgConfirmcancel[{}] title[{}] msg[{}]"
 				, new Object[]{dlgConfirmcancel, title, msg});
 		
 		this.setConfimDlgType(dlgConfirmcancel);
@@ -111,7 +110,7 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i {
 
 	public void setParameter(final String key, final String value) {
 		String function = "setParameter";
-		logger.debug(className, function, "key[{}] value[{}]", key, value);
+		logger.debug(function, "key[{}] value[{}]", key, value);
 		UIConfimDlgParameter p = getParameterKey(key);
 		switch(p) {
 		case CSS_PREFIX:			cssPrefix = value;			break;
@@ -247,12 +246,12 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i {
 	    this.show();
 	    
 	    if(null!=focusOnBtn) {
-	    	logger.debug(className, function, "focusOnBtn[{}]", focusOnBtn);
+	    	logger.debug(function, "focusOnBtn[{}]", focusOnBtn);
 	    	if (0==focusOnBtn.compareTo(UIDailogMsg_i.STR_ONE)){
-	    		logger.debug(className, function, "btnOk.setFocus(true);");
+	    		logger.debug(function, "btnOk.setFocus(true);");
 	    		btnOk.setFocus(true);
 	    	} else if(0==focusOnBtn.compareTo(UIDailogMsg_i.STR_TWO)){
-	    		logger.debug(className, function, "btnCancel.setFocus(true);");
+	    		logger.debug(function, "btnCancel.setFocus(true);");
 	    		btnCancel.setFocus(true);
 	    	}
 	    }

@@ -14,13 +14,12 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.matrix.update.M
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.matrix.update.MxIntersectionState;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.matrix.update.MxItemStyleClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.matrix.update.MxItemStyleServer;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class ScsMatrixRenderer implements IMatrixRenderer {
-	
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private static final String defaultCounterCssPrefix = "scsmx";
 
@@ -55,9 +54,9 @@ public class ScsMatrixRenderer implements IMatrixRenderer {
 	@Override
 	public MxItemStyleClient computeRendererStyle(MxIntersectionState mxIntersectionState) {
 		final String function = "computeRendererStyle";
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.debug(className, function, "location key row[{}] column[{}]", mxIntersectionState.getLocationKey().getRow(), mxIntersectionState.getLocationKey().getColumn());
+		logger.debug(function, "location key row[{}] column[{}]", mxIntersectionState.getLocationKey().getRow(), mxIntersectionState.getLocationKey().getColumn());
 		LocationKey location = mxIntersectionState.getLocationKey();
 		locationToMxIntersectionStateMap.put(location, mxIntersectionState);
 		
@@ -77,39 +76,39 @@ public class ScsMatrixRenderer implements IMatrixRenderer {
 			endColumnIndex = col;
 		}
 		
-		logger.debug(className, function, "location name [{}]", mxIntersectionState.getLocationName());
+		logger.debug(function, "location name [{}]", mxIntersectionState.getLocationName());
 
 		if (mxIntersectionState.getCountersState() != null && mxIntersectionState.getCountersState().getCountersValue() != null) {
 			for (String counterKey : mxIntersectionState.getCountersState().getCountersValue().keySet()) {
-				logger.debug(className, function, "counter[{}] value[{}]", counterKey, mxIntersectionState.getCountersState().getCountersValue().get(counterKey));
+				logger.debug(function, "counter[{}] value[{}]", counterKey, mxIntersectionState.getCountersState().getCountersValue().get(counterKey));
 			}
 		} else {
-			logger.debug(className, function, "getCountersState() or getCountersValue() return null");
+			logger.debug(function, "getCountersState() or getCountersValue() return null");
 		}
 
 		if (mxIntersectionState.getEntityToSelect() != null && mxIntersectionState.getEntityToSelect().getEntityClient() != null) {
 			for (String attributeName : mxIntersectionState.getEntityToSelect().getEntityClient().attributeNames()) {
-				logger.debug(className, function, "getEntityToSelect attribute[{}] value[{}]", attributeName, mxIntersectionState.getEntityToSelect().getEntityClient().getAttribute(attributeName));
+				logger.debug(function, "getEntityToSelect attribute[{}] value[{}]", attributeName, mxIntersectionState.getEntityToSelect().getEntityClient().getAttribute(attributeName));
 			}
 		} else {
-			logger.debug(className, function, "getEntityToSelect() or getEntityToSelect().getEntityClient() return null");
+			logger.debug(function, "getEntityToSelect() or getEntityToSelect().getEntityClient() return null");
 		}
 
 		if (mxIntersectionState.getListEntities() != null) {
 			for (String hvid : mxIntersectionState.getListEntities().keySet()) {
 				EntityClient ec = mxIntersectionState.getListEntities().get(hvid);
 				if (ec != null) {
-					logger.debug(className, function, "getListEntities hvid [{}]", hvid);
+					logger.debug(function, "getListEntities hvid [{}]", hvid);
 					for (String attributeName : ec.attributeNames()) {
-						logger.debug(className, function, "getListEntities attribute[{}] value[{}]", attributeName, mxIntersectionState.getEntityToSelect().getEntityClient().getAttribute(attributeName));
+						logger.debug(function, "getListEntities attribute[{}] value[{}]", attributeName, mxIntersectionState.getEntityToSelect().getEntityClient().getAttribute(attributeName));
 					}
 				}
 			}
 		} else {
-			logger.debug(className, function, "mxIntersectionState.getListEntities() return null");
+			logger.debug(function, "mxIntersectionState.getListEntities() return null");
 		}
 		
-		logger.debug(className, function, "getNbEntityToDisplay[{}]", mxIntersectionState.getNbEntityToDisplay());
+		logger.debug(function, "getNbEntityToDisplay[{}]", mxIntersectionState.getNbEntityToDisplay());
 		
 		final MxItemStyleServer styleServer = mxIntersectionState.getStyleCssServer();
 
@@ -139,7 +138,7 @@ public class ScsMatrixRenderer implements IMatrixRenderer {
         	styleClient.setSquareTooltip("");
         }
         
-        logger.end(className, function);
+        logger.end(function);
 
         return styleClient;
 	}

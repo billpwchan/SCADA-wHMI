@@ -17,8 +17,8 @@ import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.DirectionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.PanelAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.RootAttribute;
@@ -29,9 +29,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 
 public class UILayoutGeneric extends UIGeneric {
-	
-	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private Map<String, UIWidget_i> uiGeneric = new HashMap<String, UIWidget_i>();
 	
@@ -64,15 +63,15 @@ public class UILayoutGeneric extends UIGeneric {
 	
 	public String [] getUIWidgetElements() {
 		final String function = "getUIWidgetElements";
-		logger.begin(className, function);
+		logger.begin(function);
 		String [] elements = null;
 		Set<String> elementSet = uiGeneric.keySet();
 		if ( null != elementSet ) {
 			elements = elementSet.toArray(new String[0]);
 		} else {	
-			logger.warn(className, function, "elementSet IS NULL");
+			logger.warn(function, "elementSet IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 		return elements;
 	}
 	
@@ -84,8 +83,8 @@ public class UILayoutGeneric extends UIGeneric {
 	@Override
 	public void init() {
 		final String function = "init";
-		logger.begin(className, function);
-		logger.debug(className, function, "viewXMLFile[{}]", this.viewXMLFile);
+		logger.begin(function);
+		logger.debug(function, "viewXMLFile[{}]", this.viewXMLFile);
 
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance("UIWidgetGeneric");
 			
@@ -95,7 +94,7 @@ public class UILayoutGeneric extends UIGeneric {
 		ready(this.dictionaryHeader);
 		ready(this.dictionaryOption);
 		
-		logger.debug(className, function, "strPanel[{}] strCSS[{}]", strPanel, strCSS);
+		logger.debug(function, "strPanel[{}] strCSS[{}]", strPanel, strCSS);
 		
 		rootPanel = null;
 		if ( null != strPanel ) {
@@ -112,7 +111,7 @@ public class UILayoutGeneric extends UIGeneric {
 			}
 
 		} else {
-			logger.warn(className, function, "strPanel IS NULL");
+			logger.warn(function, "strPanel IS NULL");
 		}
 
 		if ( null != rootPanel ) {
@@ -120,18 +119,18 @@ public class UILayoutGeneric extends UIGeneric {
 			if ( null != strCSS ) {
 				rootPanel.addStyleName(strCSS);
 			} else {
-				logger.warn(className, function, "strCSS IS NULL");
+				logger.warn(function, "strCSS IS NULL");
 			}
 			
 		    for ( int i = 0 ; i < rows ; ++i ) {
 		    	
-		    	logger.trace(className, function, "Build Filter Table Loop i[{}] Begin", i);
+		    	logger.trace(function, "Build Filter Table Loop i[{}] Begin", i);
 				
 				for ( int j = 0 ; j < cols ; ++j ) {
 					
 					int index = (i*cols)+j;
 					
-					logger.trace(className, function, "Build Filter Table Loop i[{}] j[{}] => index[{}]", new Object[]{i, j, index});
+					logger.trace(function, "Build Filter Table Loop i[{}] j[{}] => index[{}]", new Object[]{i, j, index});
 					
 					Map<String, String> valueMap = this.values.get(index);
 					
@@ -164,7 +163,7 @@ public class UILayoutGeneric extends UIGeneric {
 						if ( logger.isTraceEnabled() ) {
 							for ( String key : valueMap.keySet() ) {
 								String value = valueMap.get(key);
-								logger.trace(className, function, "valueMap key[{}] value[{}]", key, value);
+								logger.trace(function, "valueMap key[{}] value[{}]", key, value);
 							}
 						}
 						
@@ -205,7 +204,7 @@ public class UILayoutGeneric extends UIGeneric {
 									uiWidget.setUINameCard(this.uiNameCard);
 									panel = uiWidget.getMainPanel();
 								} else {
-									logger.warn(className, function, "created UIPredefinePanelMgr uiCtrl[{}] IS NULL", uiCtrl);
+									logger.warn(function, "created UIPredefinePanelMgr uiCtrl[{}] IS NULL", uiCtrl);
 								}
 								
 							} 
@@ -214,15 +213,15 @@ public class UILayoutGeneric extends UIGeneric {
 								if ( null != element ) {
 									if ( null != element && element.trim().length() > 0 ) {
 										uiGeneric.put(element, uiWidget);
-										logger.trace(className, function, "uiGeneric element[{}] ADDED", element);
+										logger.trace(function, "uiGeneric element[{}] ADDED", element);
 									}
 								}
 								if ( ! uiGeneric.containsKey(element) ) {
 									uiGeneric.put(uiCtrl, uiWidget);
-									logger.trace(className, function, "uiGeneric uiCtrl[{}] ADDED", uiCtrl);									
+									logger.trace(function, "uiGeneric uiCtrl[{}] ADDED", uiCtrl);									
 								}
 							} else {
-								logger.warn(className, function, "created UIWidgetGeneric type[{}] uiCtrl[{}] IS NULL", type, uiCtrl);
+								logger.warn(function, "created UIWidgetGeneric type[{}] uiCtrl[{}] IS NULL", type, uiCtrl);
 							}
 
 							if ( null != panel ) {
@@ -235,8 +234,8 @@ public class UILayoutGeneric extends UIGeneric {
 											try {
 												width = Integer.parseInt(size);
 											} catch ( NumberFormatException e) {
-												logger.warn(className, function, "size IS INVALID");
-												logger.warn(className, function, "e[{}]", e.toString());
+												logger.warn(function, "size IS INVALID");
+												logger.warn(function, "e[{}]", e.toString());
 											}
 										}
 										
@@ -251,10 +250,10 @@ public class UILayoutGeneric extends UIGeneric {
 										} else if ( DirectionAttribute.Center.equalsName(direction) ) {
 											((DockLayoutPanel)rootPanel).add(panel);
 										} else {
-											logger.warn(className, function, "direction IS INVALID");
+											logger.warn(function, "direction IS INVALID");
 										}
 									} else {
-										logger.debug(className, function, "direction IS null");
+										logger.debug(function, "direction IS null");
 									}
 								} else if ( rootPanel instanceof AbsolutePanel ) {
 								
@@ -265,7 +264,7 @@ public class UILayoutGeneric extends UIGeneric {
 										if ( null != left )	x = Integer.parseInt(left);
 										if ( null != top )	y = Integer.parseInt(top);
 									} catch ( NumberFormatException e ) {
-										logger.warn(className, function, "left or top IS INVALID");
+										logger.warn(function, "left or top IS INVALID");
 									}
 									((AbsolutePanel)rootPanel).add(panel, x, y);
 								
@@ -276,14 +275,14 @@ public class UILayoutGeneric extends UIGeneric {
 									if ( null != cellheight )	((CellPanel) rootPanel).setCellHeight(panel, cellwidth);
 								}
 								
-								logger.trace(className, function, "csscontainer["+csscontainer+"]");
+								logger.trace(function, "csscontainer["+csscontainer+"]");
 								if ( null != panel ) {
 									if ( null != csscontainer ) {
 										DOM.getParent(panel.getElement()).setClassName(csscontainer);
 									}
 								}
 								
-								logger.trace(className, function, "debugId["+debugId+"]");
+								logger.trace(function, "debugId["+debugId+"]");
 								if ( null != panel ) {
 									if ( null == debugId ) {
 										panel.ensureDebugId(this.uiNameCard.getUiPath()+this.uiNameCard.getUiScreen());
@@ -293,33 +292,33 @@ public class UILayoutGeneric extends UIGeneric {
 								}
 															
 							} else {
-								logger.warn(className, function, "complexPanel IS NULL");
+								logger.warn(function, "complexPanel IS NULL");
 							}
 						} else {
-							logger.warn(className, function, "config IS NULL");
+							logger.warn(function, "config IS NULL");
 						}					
 					}
 				}
 		    }
 		} else {
-			logger.warn(className, function, "Panel IS NULL");
+			logger.warn(function, "Panel IS NULL");
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	public void ready(Dictionary dictionary) {
 		final String function = "ready";
 		
-		logger.begin(className, function);
-		logger.debug(className, function, "this.xmlFile[{}]", this.viewXMLFile);
+		logger.begin(function);
+		logger.debug(function, "this.xmlFile[{}]", this.viewXMLFile);
 		
 		if ( null != dictionary ) {
 			String xmlFile				= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.FileName.toString());
 			String XmlTag				= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.Tag.toString());
 			String CreateDateTimeLabel	= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.DateTime.toString());
 			
-			logger.debug(className, function, "dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{xmlFile, XmlTag, CreateDateTimeLabel});			
+			logger.debug(function, "dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{xmlFile, XmlTag, CreateDateTimeLabel});			
 			
 			if ( 0 == DictionaryCacheInterface.Header.compareTo(XmlTag)) {
 
@@ -352,7 +351,7 @@ public class UILayoutGeneric extends UIGeneric {
 				
 				totals = rows * cols;
 				
-				logger.debug(className, function, "dictionary cols[{}] rows[{}] => totals[{}]", new Object[]{cols, rows, totals});
+				logger.debug(function, "dictionary cols[{}] rows[{}] => totals[{}]", new Object[]{cols, rows, totals});
 				
 				for ( int i = 0 ; i < totals ; ++i ) {
 					values.put(i, new HashMap<String, String>());
@@ -383,7 +382,7 @@ public class UILayoutGeneric extends UIGeneric {
 									if ( null != key) {
 										keys = v.split("\\|");
 										
-										logger.trace(className, function, "dictionary key[{}]", key);
+										logger.trace(function, "dictionary key[{}]", key);
 										
 										break;
 									}
@@ -393,7 +392,7 @@ public class UILayoutGeneric extends UIGeneric {
 							}
 						}
 						
-						logger.trace(className, function, "dictionary key[{}]", key);
+						logger.trace(function, "dictionary key[{}]", key);
 						
 						if ( null != keys ) {
 							if ( 2 == keys.length ) {
@@ -404,15 +403,15 @@ public class UILayoutGeneric extends UIGeneric {
 									
 									isvalid=true;
 								} catch ( NumberFormatException e ) {
-									logger.warn(className, function, "NumberFormatException e[{}]", e);
+									logger.warn(function, "NumberFormatException e[{}]", e);
 								}
 								
 								if ( isvalid ) {
-									logger.trace(className, function, "dictionary row[{}] col[{}]", new Object[]{row, col});
+									logger.trace(function, "dictionary row[{}] col[{}]", new Object[]{row, col});
 									
 									index = (row * cols) + col;
 									
-									logger.debug(className, function, "dictionary row[{}] col[{}] => index[{}]", new Object[]{row, col, index});
+									logger.debug(function, "dictionary row[{}] col[{}] => index[{}]", new Object[]{row, col, index});
 									
 									Map<String, String> hashMap = this.values.get(Integer.valueOf(index));
 									if ( null != hashMap ) {
@@ -421,33 +420,33 @@ public class UILayoutGeneric extends UIGeneric {
 												String k = (String)o2;
 												String v = (String)d2.getValue(o2);
 												
-												logger.trace(className, function, "dictionary k[{}] v[{}]", new Object[]{k, v});
+												logger.trace(function, "dictionary k[{}] v[{}]", new Object[]{k, v});
 				
 												hashMap.put(k, v);
 											}
 										}
 									} else {
-										logger.warn(className, function, "row[{}] col[{}] => index[{}] Index NOT EXISTS", new Object[]{row, col, index});
+										logger.warn(function, "row[{}] col[{}] => index[{}] Index NOT EXISTS", new Object[]{row, col, index});
 									}
 								} else {
-									logger.warn(className, function, "keys[0][{}] OR keys[1][{}] is not a number", new Object[]{keys[0], keys[1]});
+									logger.warn(function, "keys[0][{}] OR keys[1][{}] is not a number", new Object[]{keys[0], keys[1]});
 								}
 							}
 						} else {
-							logger.warn(className, function, "key IS NULL");
+							logger.warn(function, "key IS NULL");
 						}
 					}
 				}
 			}
 
 		} else {
-			logger.warn(className, function, "this.xmlFile[{}] dictionary IS NULL", this.viewXMLFile);
+			logger.warn(function, "this.xmlFile[{}] dictionary IS NULL", this.viewXMLFile);
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	public UIWidget_i getPredefineWidget(String uiCtrl) {
-		logger.debug(className, "getPredefineWidget", "uiCtrl[{}]", uiCtrl);
+		logger.debug("getPredefineWidget", "uiCtrl[{}]", uiCtrl);
 		return uiGeneric.get(uiCtrl);
 	}
 

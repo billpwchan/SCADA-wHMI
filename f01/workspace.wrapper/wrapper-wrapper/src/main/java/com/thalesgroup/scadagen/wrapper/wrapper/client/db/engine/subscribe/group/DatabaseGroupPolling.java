@@ -4,10 +4,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Set;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.Multi2MultiResponsible_i;
@@ -22,10 +23,10 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.Datab
 public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiResponsible_i {
 	
 	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
-	protected HashMap<String, HashMap<String, PollingRequest>> requests = new HashMap<String, HashMap<String, PollingRequest>>();
-	protected HashMap<String, String> requestKeyScsEnvIds = new HashMap<String, String>();
+	protected Map<String, Map<String, PollingRequest>> requests = new HashMap<String, Map<String, PollingRequest>>();
+	protected Map<String, String> requestKeyScsEnvIds = new HashMap<String, String>();
 	
 	/**
 	 * Instance for the database
@@ -57,10 +58,10 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 	@Override
 	public void connect() {
 		final String function = "connect";
-		logger.begin(className, function);
+		logger.begin(function);
 		databasePolling.setPeriodMillis(periodMillis);
 		databasePolling.connect();
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/* (non-Javadoc)
@@ -69,29 +70,29 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 	@Override
 	public void disconnect() {
 		final String function = "connect";
-		logger.begin(className, function);
+		logger.begin(function);
 		for ( String clientKey : requestKeyScsEnvIds.keySet() ) {
 			databasePolling.addUnSubscribeRequest(clientKey);
 		}
 		requestKeyScsEnvIds.clear();
 		requests.clear();
 		databasePolling.disconnect();
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private Date lastUpdate = null;
-	private HashMap<String, String[]> dbAddresSet = new HashMap<String, String[]>();
+	private Map<String, String[]> dbAddresSet = new HashMap<String, String[]>();
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i#addSubscribeRequest(java.lang.String, java.lang.String, java.lang.String[], com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i)
 	 */
 	@Override
 	public void addSubscribeRequest(String clientKey, String scsEnvId, String[] dbaddresses, DatabasePairEvent_i databaseEvent) {
 		final String function = "addSubscribeRequest";
-		logger.begin(className, function);
-		logger.info(className, function, "clientKey[{}] scsEnvId[{}]", clientKey, scsEnvId);
+		logger.begin(function);
+		logger.info(function, "clientKey[{}] scsEnvId[{}]", clientKey, scsEnvId);
 		if ( logger.isDebugEnabled() ) {
 			for ( String address : dbaddresses ) {
-				logger.debug(className, function, "address[{}]", address);
+				logger.debug(function, "address[{}]", address);
 			}
 		}
 		
@@ -101,7 +102,7 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 
 			PollingRequest rq = new PollingRequest(clientKey, dbaddresses, databaseEvent);
 			
-			HashMap<String, PollingRequest> rqs = null;
+			Map<String, PollingRequest> rqs = null;
 			if ( ! requests.containsKey(scsEnvId) ) {
 				requests.put(scsEnvId, new HashMap<String, PollingRequest>());
 			}
@@ -111,10 +112,10 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 			buildRequest(className);
 			
 		} else {
-			logger.warn(className, function, "databaseEvent IS NULL");
+			logger.warn(function, "databaseEvent IS NULL");
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/* (non-Javadoc)
@@ -123,19 +124,19 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 	@Override
 	public void addUnSubscribeRequest(String clientKey) {
 		final String function = "addUnSubscribeRequest";
-		logger.begin(className, function);
-		logger.info(className, function, "clientKey[{}]", clientKey);
+		logger.begin(function);
+		logger.info(function, "clientKey[{}]", clientKey);
 		
 		lastUpdate = new Date();
 		
 		for ( String scsEnvId : requests.keySet() ) {
-			HashMap<String, PollingRequest> rqs = requests.get(scsEnvId);
+			Map<String, PollingRequest> rqs = requests.get(scsEnvId);
 			rqs.remove(clientKey);
 		}
 		
 		buildRequest(className);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/**
@@ -143,7 +144,7 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 	 */
 	protected void buildRequest(String clientKey) {
 		final String function = "buildRequest";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		boolean rebuild = false;
 		if ( null != lastUpdate ) {
@@ -161,7 +162,7 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 			
 			if ( rebuild ) {
 				Set<String> dbAddressSet = new HashSet<String>();
-				HashMap<String, PollingRequest> rqs = requests.get(scsEnvId);
+				Map<String, PollingRequest> rqs = requests.get(scsEnvId);
 				for ( String key2 : rqs.keySet() ) {
 					PollingRequest rq = rqs.get(key2);
 					for ( String dbaddress : rq.dbaddresses ) {
@@ -185,15 +186,15 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 					@Override
 					public void update(String key, String[] dbaddresses, String[] values) {
 						final String function = "update";
-						logger.begin(className, function);
-						logger.info(className, function, "key[{}]", key);
+						logger.begin(function);
+						logger.info(function, "key[{}]", key);
 						buildRespond(key, dbaddresses, values);
-						logger.end(className, function);
+						logger.end(function);
 					}
 				});
 			}
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/* (non-Javadoc)
@@ -202,17 +203,17 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 	@Override
 	public void buildRespond(String key, String[] dbaddresses, String[] values) {
 		final String function = "buildReponse";
-		logger.begin(className, function);
-		logger.info(className, function, "key[{}]", key);
+		logger.begin(function);
+		logger.info(function, "key[{}]", key);
 		
 		String scsEnvId = requestKeyScsEnvIds.get(key);
 		
-		HashMap<String, String> addressValue = new HashMap<String, String>();
+		Map<String, String> addressValue = new HashMap<String, String>();
 		for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
 			addressValue.put(dbaddresses[i], values[i]);
 		}
 		
-		HashMap<String, PollingRequest> rqs = requests.get(scsEnvId);
+		Map<String, PollingRequest> rqs = requests.get(scsEnvId);
 		for ( String key2 : rqs.keySet() ) {
 			PollingRequest rq = rqs.get(key2);
 			LinkedList<String> valuelist = new LinkedList<String>();
@@ -223,7 +224,7 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 			
 			rq.databaseEvent.update(rq.key, rq.dbaddresses, rq.values);
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

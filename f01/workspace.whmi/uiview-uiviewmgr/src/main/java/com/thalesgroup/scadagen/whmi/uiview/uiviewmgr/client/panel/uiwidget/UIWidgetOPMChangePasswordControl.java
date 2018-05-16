@@ -10,9 +10,8 @@ import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIExecuteActionHandler_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
@@ -25,8 +24,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIWrapperRpcEvent_i;
 
 public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetOPMChangePasswordControl.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private String strUIWidgetGeneric = "UIWidgetGeneric";
 	
@@ -47,7 +45,7 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 		super.init();
 		
 		final String f = "init";
-		logger.begin(className, f);
+		logger.begin(f);
 
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
@@ -66,13 +64,13 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 			@Override
 			public void onClick(ClickEvent event) {
 				final String f = "onClick";
-				logger.begin(className, f);
+				logger.begin(f);
 				
 				if ( null != event ) {
 					final Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
 						final String element = uiGeneric.getWidgetElement(widget);
-						logger.debug(className, f, "element[{}]", element);
+						logger.debug(f, "element[{}]", element);
 						if ( null != element ) {
 							
 							final String actionsetkey = element;
@@ -84,7 +82,7 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 
 									final String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
 									
-									logger.debug(className, f, "os1[{}]", os1);
+									logger.debug(f, "os1[{}]", os1);
 									
 									boolean bContinue = true;
 									
@@ -92,7 +90,7 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 										
 										final String operatorvalue		= uiGeneric.getWidgetValue(stroperatorvalue);
 										
-										logger.debug(className, f, "stroperatorvalue[{}] operatorvalue[{}]", stroperatorvalue, operatorvalue);
+										logger.debug(f, "stroperatorvalue[{}] operatorvalue[{}]", stroperatorvalue, operatorvalue);
 										
 										if ( os1.equals("CheckOperatorIsEmpty") ) {
 
@@ -194,13 +192,13 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 					}
 				}
 				
-				logger.end(className, f);
+				logger.end(f);
 			}
 			
 			@Override
 			public void onActionReceived(UIEventAction uiEventAction) {
 				final String f = "onActionReceived";
-				logger.beginEnd(className, f);
+				logger.beginEnd(f);
 			}
 		};
 		
@@ -209,27 +207,27 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 			@Override
 			public void init() {
 				final String f = "init";
-				logger.beginEnd(className, f);
+				logger.beginEnd(f);
 			}
 		
 			@Override
 			public void envUp(String env) {
 				final String f = "envUp";
-				logger.beginEnd(className, f);
+				logger.beginEnd(f);
 			}
 			
 			@Override
 			public void envDown(String env) {
 				final String f = "envDown";
-				logger.beginEnd(className, f);
+				logger.beginEnd(f);
 			}
 			
 			@Override
 			public void terminate() {
 				final String f = "terminate";
-				logger.begin(className, f);
+				logger.begin(f);
 				envDown(null);
-				logger.end(className, f);
+				logger.end(f);
 			};
 		};
 		
@@ -250,12 +248,12 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 				
 				final String operator = uiOpm_i.getCurrentOperator();
 					
-				logger.debug(className, f, "Set Operator Value operator[{}]", operator);
+				logger.debug(f, "Set Operator Value operator[{}]", operator);
 					
 				if ( null != operator ) {
 					parameters.put(ActionAttribute.OperationString3.toString(), operator);
 				} else {
-					logger.warn(className, f, "operator IS NULL");
+					logger.warn(f, "operator IS NULL");
 				}
 				
 				override.put(actionkey, parameters);
@@ -263,21 +261,21 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 				uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 				
 			} else {
-				logger.debug(className, f, "fillCurrentOperator[{}] IS FALSE");
+				logger.debug(f, "fillCurrentOperator[{}] IS FALSE");
 			}
 		} else {
-			logger.warn(className, f, "fillCurrentOperator IS NULL");
+			logger.warn(f, "fillCurrentOperator IS NULL");
 		}
 		
-		logger.end(className, f);
+		logger.end(f);
 	}
 	
 	private void promptUser(final String actionSetKey, final String user) {
 		final String f = "promptUser";
-		logger.begin(className, f);
+		logger.begin(f);
 		
 		final String actionKey = actionSetKey + "_event";
-		logger.debug(className, f, "actionSetKey[{}] actionKey[{}] user[{}]", new Object[]{actionSetKey, actionKey, user});
+		logger.debug(f, "actionSetKey[{}] actionKey[{}] user[{}]", new Object[]{actionSetKey, actionKey, user});
 		
 		final String STR_LOGIN_USR = "%CURRENT_LOGIN_USER%";
 		final String STR_CUR_USR = "%USER%";
@@ -289,14 +287,14 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 		final String operator = uiOpm_i.getCurrentOperator();
 		
 		UIEventAction uiEventAction = uiEventActionProcessor_i.getUIEventActionMgr(actionKey);
-		logger.debug(className, f, "uiEventAction[{}]", uiEventAction);
+		logger.debug(f, "uiEventAction[{}]", uiEventAction);
 		String msg = (String)uiEventAction.getParameter(ActionAttribute.OperationString9.toString());
-		logger.debug(className, f, "msg[{}]", msg);
+		logger.debug(f, "msg[{}]", msg);
 		
 		msg = msg.replace(STR_LOGIN_USR, operator);
-		logger.debug(className, f, "msg[{}] STR_LOGIN_USR[{}] operator[{}]", new Object[]{msg, STR_LOGIN_USR, operator});
+		logger.debug(f, "msg[{}] STR_LOGIN_USR[{}] operator[{}]", new Object[]{msg, STR_LOGIN_USR, operator});
 		msg = msg.replace(STR_CUR_USR, user);
-		logger.debug(className, f, "msg[{}] STR_CUR_USR[{}] user[{}]", new Object[]{msg, STR_CUR_USR, user});
+		logger.debug(f, "msg[{}] STR_CUR_USR[{}] user[{}]", new Object[]{msg, STR_CUR_USR, user});
 		
 		final Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put(ActionAttribute.OperationString9.toString(), msg);
@@ -306,7 +304,7 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 		
 		uiEventActionProcessor_i.executeActionSet(actionSetKey, override);
 		
-		logger.end(className, f);
+		logger.end(f);
 	}
 
 }

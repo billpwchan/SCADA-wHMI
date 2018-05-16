@@ -6,17 +6,16 @@ import java.util.Map;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.poller.SubscribeResult;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.poller.UnSubscribeResult;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.poller.IPollerComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.poller.ScsPollerComponentAccess;
 
 public class WrapperScsPollerAccess {
-	
-	private static final String className = WrapperScsPollerAccess.class.getSimpleName();
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(WrapperScsPollerAccess.class.getName());
+
+	private static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(WrapperScsPollerAccess.class.getName());
 
 	private static WrapperScsPollerAccess instance = null;
 	public static WrapperScsPollerAccess getInstance() {

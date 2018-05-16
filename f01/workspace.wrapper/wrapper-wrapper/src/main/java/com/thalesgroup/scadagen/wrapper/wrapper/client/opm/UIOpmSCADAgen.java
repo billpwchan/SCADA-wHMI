@@ -1,8 +1,8 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
 
 import java.util.Map;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.GetCurrentIpAddressCallback_i;
@@ -26,9 +26,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.network.UINetworkFact
  *
  */
 public class UIOpmSCADAgen implements UIOpm_i {
-	
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private static UIOpm_i instance = null;
 	public static UIOpm_i getInstance() { 
@@ -90,7 +89,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	@Override
 	public void init() {
 		String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		String multiReadMethod1 = "DatabaseMultiReading";
 		
@@ -98,7 +97,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		if ( null != databaseMultiRead_i ) {
 			databaseMultiRead_i.connect();
 		} else {
-			logger.warn(className, function, "multiReadMethod1[{}] databaseMultiRead_i IS NULL", multiReadMethod1);
+			logger.warn(function, "multiReadMethod1[{}] databaseMultiRead_i IS NULL", multiReadMethod1);
 		}
 		
 		// Prepare HostName
@@ -107,7 +106,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		// Prepare IPAddress
 		getCurrentIPAddress();
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/* (non-Javadoc)

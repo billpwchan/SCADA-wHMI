@@ -3,13 +3,12 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.opm.access;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class UIAccessFactory implements UIAccessFactory_i {
-	
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private Map<String, UIAccessFactory_i> factorys = new HashMap<String, UIAccessFactory_i>();
 	public void addFactory(String className, UIAccessFactory_i uiAccessFactory_i) { this.factorys.put(className, uiAccessFactory_i); }
@@ -28,7 +27,7 @@ public class UIAccessFactory implements UIAccessFactory_i {
 	 */
 	public UIAccess_i get(String key) {
 		String function = "get";
-		logger.begin(className, function);
+		logger.begin(function);
 		UIAccess_i iUIAccess = null;
 		for ( String className : factorys.keySet() ) {
 			UIAccessFactory_i uiFactory = factorys.get(className);
@@ -37,7 +36,7 @@ public class UIAccessFactory implements UIAccessFactory_i {
 				if ( null != iUIAccess ) break;
 			}
 		}
-		logger.end(className, function);
+		logger.end(function);
 		return iUIAccess;
 	}
 }

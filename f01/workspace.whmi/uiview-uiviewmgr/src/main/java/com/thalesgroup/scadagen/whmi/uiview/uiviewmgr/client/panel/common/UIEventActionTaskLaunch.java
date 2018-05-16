@@ -5,17 +5,16 @@ import java.util.Map.Entry;
 
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTaskLaunch_i.UIEventActionTaskLaunchAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
 
 public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
-	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionDbm.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 		
 	public UIEventActionTaskLaunch() {
 		supportedActions = new String[]{
@@ -26,13 +25,13 @@ public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
 	@Override
 	public boolean executeAction(UIEventAction action, Map<String, Map<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		boolean bContinue = true;
 		
 		if ( logger.isDebugEnabled() ) {
 			for ( Entry<String, Object> entry : action.getParameters() ) {
-				logger.debug(className, function, "entry.getKey[{}] entry.getValue[{}]", entry.getKey(), entry.getValue());
+				logger.debug(function, "entry.getKey[{}] entry.getValue[{}]", entry.getKey(), entry.getValue());
 			}
 		}
 		
@@ -53,7 +52,7 @@ public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
 				if ( screen < 0 ) screen = uiNameCard.getUiScreen();
 				isValid = true;
 			} catch ( NumberFormatException ex ) {
-				logger.warn(className, function, "strOperationString3[{}] NumberFormatException", strOperationString3);
+				logger.warn(function, "strOperationString3[{}] NumberFormatException", strOperationString3);
 			}
 			if ( isValid ) {
 				UITaskLaunch taskLaunch = new UITaskLaunch();
@@ -62,11 +61,11 @@ public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
 				taskLaunch.setHeader(strOperationString4);
 				taskLaunch.setExecute(strOperationString5);
 				
-				logger.debug(className, function, "fire event task strOperationString1[{}]", strOperationString1);
+				logger.debug(function, "fire event task strOperationString1[{}]", strOperationString1);
 				
 				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 			} else {
-				logger.warn(className, function, "strOperationString3[{}] IS INVALID", strOperationString3);
+				logger.warn(function, "strOperationString3[{}] IS INVALID", strOperationString3);
 			}
 
 		} else if ( strOperationString1.equals(UIEventActionTaskLaunchAction.UITaskLaunch_UIWidgetMgrFactory.toString()) ) {
@@ -78,12 +77,12 @@ public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
 			String strUiOpts			= (String) action.getParameter(ActionAttribute.OperationString6.toString());
 			String strUiElem			= (String) action.getParameter(ActionAttribute.OperationString7.toString());
 			
-			logger.debug(className, function, "strUiPath[{}]", strUiPath);
-			logger.debug(className, function, "strUiScreen[{}]", strUiScreen);
-			logger.debug(className, function, "strUiCtrl[{}]", strUiCtrl);
-			logger.debug(className, function, "strUiView[{}]", strUiView);
-			logger.debug(className, function, "strUiOpts[{}]", strUiOpts);
-			logger.debug(className, function, "strUiElem[{}]", strUiElem);
+			logger.debug(function, "strUiPath[{}]", strUiPath);
+			logger.debug(function, "strUiScreen[{}]", strUiScreen);
+			logger.debug(function, "strUiCtrl[{}]", strUiCtrl);
+			logger.debug(function, "strUiView[{}]", strUiView);
+			logger.debug(function, "strUiOpts[{}]", strUiOpts);
+			logger.debug(function, "strUiElem[{}]", strUiElem);
 			
 			boolean isValid = false;
 			
@@ -93,7 +92,7 @@ public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
 				if ( screen < 0 ) screen = uiNameCard.getUiScreen();
 				isValid = true;
 			} catch ( NumberFormatException ex ) {
-				logger.warn(className, function, "strUiScreen[{}] NumberFormatException", strUiScreen);
+				logger.warn(function, "strUiScreen[{}] NumberFormatException", strUiScreen);
 			}
 			if ( isValid ) {
 				UITaskLaunch uiTaskLaunch = new UITaskLaunch();
@@ -104,16 +103,16 @@ public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
 				uiTaskLaunch.setUiOpts(strUiOpts);
 				uiTaskLaunch.setUiElem(strUiElem);
 				
-				logger.debug(className, function, "fire event task strOperationString1[{}]", strOperationString1);
+				logger.debug(function, "fire event task strOperationString1[{}]", strOperationString1);
 				
 				uiNameCard.getUiEventBus().fireEvent(new UIEvent(uiTaskLaunch));	
 			} else {
-				logger.warn(className, function, "strUiScreen[{}] IS INVALID", strUiScreen);
+				logger.warn(function, "strUiScreen[{}] IS INVALID", strUiScreen);
 			}
 
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 		return bContinue;
 	}
 }

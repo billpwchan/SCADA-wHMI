@@ -1,7 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.DatabaseMultiReading;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.DatabaseMultiReadingSingleton;
@@ -15,9 +15,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.cach
  *
  */
 public class DatabaseMultiReadFactory {
-	
-	private static final String className = DatabaseMultiReadFactory.class.getSimpleName();
-	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(DatabaseMultiReadFactory.class.getName());
+
+	private static final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(DatabaseMultiReadFactory.class.getName());
 	
 	/**
 	 * Factory Method to return the instance of the Database Writing Object
@@ -27,8 +26,8 @@ public class DatabaseMultiReadFactory {
 	 */
 	public static DatabaseMultiRead_i get(String key) {
 		final String function = "get";
-		logger.begin(className, function);
-		logger.debug(className, function, "key[{}]", key);
+		logger.begin(function);
+		logger.debug(function, "key[{}]", key);
 		DatabaseMultiRead_i databaseRead_i = null;
 		
 		if ( null != key ) {
@@ -46,7 +45,7 @@ public class DatabaseMultiReadFactory {
 				databaseRead_i = DatabaseMultiReadingProxySingleton.getInstance();
 			}
 		}
-		logger.end(className, function);
+		logger.end(function);
 		return databaseRead_i;
 	}
 }

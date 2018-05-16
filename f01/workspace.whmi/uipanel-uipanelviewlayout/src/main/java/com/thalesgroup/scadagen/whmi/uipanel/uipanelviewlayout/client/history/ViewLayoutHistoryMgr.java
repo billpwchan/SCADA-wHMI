@@ -2,14 +2,12 @@ package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.history;
 
 import java.util.LinkedList;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutHistory;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class ViewLayoutHistoryMgr {
-	
-	private final String className = UIWidgetUtil.getClassSimpleName(ViewLayoutHistoryMgr.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private static int HISTORY_LIMIT = 20;
 	
@@ -26,24 +24,24 @@ public class ViewLayoutHistoryMgr {
 	public boolean hasHistory() {
 		final String function = "hasHistory";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		boolean result = false;
 		if ( viewLayoutHistorys.size() > 0 ) {
 			result = true;
 		}
-		logger.info(className, function, "hasPrevious result[{}] End", result);
+		logger.info(function, "hasPrevious result[{}] End", result);
 		
-		logger.end(className, function);
+		logger.end(function);
 		return result;
 	}
 	public void clean() {
 		final String function = "clean";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.viewLayoutHistorys.clear();
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	public void add(ViewLayoutHistory history) {
 		add(history, true, true);
@@ -51,9 +49,9 @@ public class ViewLayoutHistoryMgr {
 	public void add(ViewLayoutHistory history, boolean removeAfterCurrentIndex, boolean removeFirstWhenFull) {
 		final String function = "add";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.info(className, function, "index[{}]", index);
+		logger.info(function, "index[{}]", index);
 		
 		if ( viewLayoutHistorys.size() != 0 && index < viewLayoutHistorys.size() ) ++index; 
 		
@@ -63,7 +61,7 @@ public class ViewLayoutHistoryMgr {
 			
 			int afCurIdx = index+1;
 			
-			logger.info(className, function, "viewLayoutHistorys.sublist({},{}).clear()", afCurIdx, viewLayoutHistorys.size());
+			logger.info(function, "viewLayoutHistorys.sublist({},{}).clear()", afCurIdx, viewLayoutHistorys.size());
 		
 			this.viewLayoutHistorys.subList(afCurIdx, viewLayoutHistorys.size()).clear();
 		}
@@ -77,24 +75,24 @@ public class ViewLayoutHistoryMgr {
 			if ( index > 0 ) --index;
 		}
 		
-		logger.info(className, function, "viewLayoutHistorys.size[{}] index[{}]", viewLayoutHistorys.size(), index);
+		logger.info(function, "viewLayoutHistorys.size[{}] index[{}]", viewLayoutHistorys.size(), index);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	public boolean hasPrevious() {
 		final String function = "hasPrevious";
 		
 		boolean result = false;
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( viewLayoutHistorys.size() > 1 && index > 0 ) {
 			result = true;
 		}
 		
-		logger.info(className, function, "hasPrevious result[{}] End", result);
+		logger.info(function, "hasPrevious result[{}] End", result);
 		
-		logger.end(className, function);
+		logger.end(function);
 		
 		return result;
 	}
@@ -103,13 +101,13 @@ public class ViewLayoutHistoryMgr {
 		
 		boolean result = false;
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( viewLayoutHistorys.size() > 1 && index+1 < viewLayoutHistorys.size() ) {
 			result = true;
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		
 		return result;
 	}
@@ -117,7 +115,7 @@ public class ViewLayoutHistoryMgr {
 	public ViewLayoutHistory previous() {
 		final String function = "previous";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		ViewLayoutHistory previous = null;
 		
@@ -127,14 +125,14 @@ public class ViewLayoutHistoryMgr {
 			}
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		
 		return previous;
 	}
 	public ViewLayoutHistory next() {
 		final String function = "next";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		ViewLayoutHistory next = null;
 		
@@ -144,7 +142,7 @@ public class ViewLayoutHistoryMgr {
 			}
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		
 		return next;
 	}
@@ -152,22 +150,22 @@ public class ViewLayoutHistoryMgr {
 	public void debug(String prefix) {
 		final String function = "debug";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.info(className, function, "[{}] taskLaunchs.length: [{}]", prefix, viewLayoutHistorys.size());
-		logger.info(className, function, "[{}] index: [{}, ]", prefix, index);
+		logger.info(function, "[{}] taskLaunchs.length: [{}]", prefix, viewLayoutHistorys.size());
+		logger.info(function, "[{}] index: [{}, ]", prefix, index);
 		
 		for ( int i = 0 ; i < viewLayoutHistorys.size() ; ++i ) {
 			ViewLayoutHistory viewLayoutHistory = viewLayoutHistorys.get(i);
 			if ( null != viewLayoutHistory ) {
-				logger.info(className, function, "[{}] viewLayoutHistory({})[" + viewLayoutHistorys.size() + "]", prefix, i);
+				logger.info(function, "[{}] viewLayoutHistory({})[" + viewLayoutHistorys.size() + "]", prefix, i);
 				viewLayoutHistory.debug("viewLayoutHistory("+i+")");
 			} else {
-				logger.info(className, function, "[{}] viewLayoutHistory({}) is null", prefix, i);
+				logger.info(function, "[{}] viewLayoutHistory({}) is null", prefix, i);
 			}
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		
 	}
 }

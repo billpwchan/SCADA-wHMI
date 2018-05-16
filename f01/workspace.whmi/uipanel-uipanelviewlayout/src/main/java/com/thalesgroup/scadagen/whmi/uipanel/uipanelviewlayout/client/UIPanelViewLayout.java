@@ -8,15 +8,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view.UIPanelView;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view.UIPanelViewEvent;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, ViewLayoutMgrEvent {
-	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelViewLayout.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private ViewLayoutMgr viewLayoutMgr;
 	
@@ -28,16 +26,16 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 	public void init() {
 		final String function = "init";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.viewLayoutMgr = new ViewLayoutMgr(this, this.uiNameCard);
 		
-		logger.debug(className, function, "this.uiNameCard.getUiScreen()[{}] this.uiNameCard.getUiPath()[{}]", this.uiNameCard.getUiScreen(), this.uiNameCard.getUiPath());
+		logger.debug(function, "this.uiNameCard.getUiScreen()[{}] this.uiNameCard.getUiPath()[{}]", this.uiNameCard.getUiScreen(), this.uiNameCard.getUiPath());
 		
 		rootPanel = new DockLayoutPanel(Unit.PX);
 		rootPanel.addStyleName("project-gwt-panel-viewlayout-main");
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/**
@@ -47,13 +45,13 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 	private UIPanelView createView(int viewId) {
 		final String function = "createView";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		UIPanelView v = new UIPanelView(this, this.uiNameCard, viewId);
 		v.setViewId(viewId);
 		v.getMainPanel().addStyleName("project-gwt-panel-viewlayout-inner-view");
 		
-		logger.end(className, function);
+		logger.end(function);
 		
 		return v;
 	}
@@ -65,14 +63,14 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 	private UIPanelView[] createViews(int size) {
 		final String function = "createViews";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		UIPanelView[] vs = new UIPanelView[size];
 		for(int i=0;i<size;++i) {
 			vs[i] = createView(i);
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		
 		return vs;
 	}
@@ -81,9 +79,9 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 	public void setLayout(ViewLayoutMode viewLayoutMode, ViewLayoutAction viewLayoutAction) {
 		final String function = "setLayout";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.debug(className, function, "ViewLayoutMode[{}] viewLayoutAction[{}]", viewLayoutMode, viewLayoutAction);
+		logger.debug(function, "ViewLayoutMode[{}] viewLayoutAction[{}]", viewLayoutMode, viewLayoutAction);
 		
 //		UIPanelMgr uiPanelFactoryMgr = UIPanelMgr.getInstance();
 //		upperMainPanel = uiPanelFactoryMgr.getMainPanel("UIPanelEmpty", uiNameCard);
@@ -103,12 +101,12 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 		
 		if ( ViewLayoutMode.Image == viewLayoutMode ) {
 			
-			logger.debug(className, function, "ViewLayoutMode.Image");
+			logger.debug(function, "ViewLayoutMode.Image");
 
 			borderVisible = true;
 			
 		} else if ( ViewLayoutMode.Panel == viewLayoutMode ) {
-			logger.debug(className, function, "ViewLayoutMode.Panel");
+			logger.debug(function, "ViewLayoutMode.Panel");
 		}
 		
 		if ( null != uiPanelViews ) {
@@ -121,7 +119,7 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 		{
 		case VDoubleLayout:
 		{
-			logger.debug(className, function, "ViewLayoutAction.VDoubleLayout");
+			logger.debug(function, "ViewLayoutAction.VDoubleLayout");
 			
 			upperMainPanel.clear();
 			
@@ -153,7 +151,7 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 			break;
 		case HDoubleLayout:
 		{
-			logger.debug(className, function, "ViewLayoutAction.HDoubleLayout");
+			logger.debug(function, "ViewLayoutAction.HDoubleLayout");
 			
 			upperMainPanel.clear();
 			
@@ -184,10 +182,10 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 		}
 			break;
 		case SingleLayout:
-			logger.debug(className, function, "ViewLayoutAction.SingleLayout");
+			logger.debug(function, "ViewLayoutAction.SingleLayout");
 		default:
 		{
-			logger.debug(className, function, "default ViewLayoutAction.SingleLayout");
+			logger.debug(function, "default ViewLayoutAction.SingleLayout");
 			borderVisible = false;
 			
 			upperMainPanel.clear();
@@ -204,27 +202,27 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 			break;
 			
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	@Override
 	public void setViewIdActivate(int viewId) {
 		final String function = "setViewIdActivate";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.viewLayoutMgr.setViewIdActivate(viewId);
 		
 		onViewIdActivateEvent(viewId);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	@Override
 	public void setTaskLaunch(UITaskLaunch taskLaunch, int viewId) {
 		final String function = "setTaskLaunch";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( null != this.uiPanelViews ) {
 			if ( viewId >= 0 && viewId < this.uiPanelViews.length ) {
@@ -232,19 +230,19 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 				uiPanelView.terminate();
 				uiPanelView.setTaskLaunch(taskLaunch);
 			} else {
-				logger.debug(className, function, "viewId is INVALID viewId["+viewId+"] set to this.uiPanelViews.length["+this.uiPanelViews.length+"]");
+				logger.debug(function, "viewId is INVALID viewId["+viewId+"] set to this.uiPanelViews.length["+this.uiPanelViews.length+"]");
 			}
 		} else {
-			logger.debug(className, function, "this.uiPanelViews is null");
+			logger.debug(function, "this.uiPanelViews is null");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	@Override
 	public void onViewIdActivateEvent(int viewId) {
 		final String function = "onViewIdActivateEvent";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		for(UIPanelView uiPanelView: uiPanelViews){
 			if ( uiPanelView.getViewId() != viewId ) {
@@ -253,7 +251,7 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 				uiPanelView.setActivate(true);
 			}
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	@Override

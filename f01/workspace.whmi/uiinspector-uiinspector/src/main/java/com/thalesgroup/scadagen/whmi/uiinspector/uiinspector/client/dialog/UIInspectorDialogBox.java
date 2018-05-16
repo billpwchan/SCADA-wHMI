@@ -14,15 +14,12 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspe
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.UIPanelInspectorEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	
-	private final String cls = this.getClass().getName();
-	private final String className = UIWidgetUtil.getClassSimpleName(cls);
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	int baseBoderX = 28, baseBoderY = 28;
 	int baseWidth = 600, baseHeight = 620;
@@ -42,14 +39,14 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	private boolean modeless = false;
 	public void setModeless(boolean modeless) { 
 		final String function = "setModeless";
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 		this.modeless = modeless;
 	}
 	
 	private UIInspectorDialogBoxEvent uiInspectorDialogBoxEvent = null;
 	public void setUIInspectorDialogBoxEvent(UIInspectorDialogBoxEvent uiInspectorDialogBoxEvent) { 
 		final String function = "setUIInspectorDialogBoxEvent";
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 		this.uiInspectorDialogBoxEvent = uiInspectorDialogBoxEvent;
 	}
 	
@@ -57,11 +54,11 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	@Override
 	public void setElement(String element) {
 //		final String function = "setElement";
-//		logger.begin(className, function);
+//		logger.begin(function);
 //		
 //		this.element = element;
 //		
-//		logger.end(className, function);
+//		logger.end(function);
 	}
 	@Override
 	public String getElementName() { return null; }
@@ -70,12 +67,12 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	@Override
 	public void setUINameCard(UINameCard uiNameCard) {
 		final String function = "setUINameCard";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	@Override
@@ -103,8 +100,8 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	public void init() {
 		final String function = "init";
 		
-		logger.begin(className, function);
-		logger.debug(className, function, "viewXMLFile[{}] optsXMLFile[{}]", viewXMLFile, optsXMLFile);
+		logger.begin(function);
+		logger.debug(function, "viewXMLFile[{}] optsXMLFile[{}]", viewXMLFile, optsXMLFile);
 		
 		this.setModal(modeless);
 		
@@ -123,11 +120,11 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 			public void onClose() {
 				final String function = "onClose";
 				
-				logger.begin(className, function);
+				logger.begin(function);
 
 				if ( null != uiInspectorDialogBoxEvent ) uiInspectorDialogBoxEvent.onClose();
 				
-				logger.end(className, function);
+				logger.end(function);
 			}
 		});
 		uiPanelInspector.init();
@@ -142,19 +139,19 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 				if ( null != event ) {
 					if ( null != uiInspectorDialogBoxEvent ) uiInspectorDialogBoxEvent.onClick(); 
 				} else {
-					logger.debug(className, function, "event IS NULL");
+					logger.debug(function, "event IS NULL");
 				}
 			}
 		});
 		
-		logger.debug(className, function, "mouseX[{}] mouseY[{}]", mouseX, mouseY);
+		logger.debug(function, "mouseX[{}] mouseY[{}]", mouseX, mouseY);
 
 		this.add(rootPanel);
 		this.addStyleName("project-gwt-panel-inspector-dialogbox");
 		
 		this.getElement().getStyle().setPosition(Style.Position.ABSOLUTE);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	
@@ -192,25 +189,25 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	@Override
 	public void setParent(String scsEnvId, String parent) {
 		final String function = "setParent";
-		logger.begin(className, function);
+		logger.begin(function);
 		uiPanelInspector.setParent(scsEnvId, parent);
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	@Override
 	public void connect() {
 		final String function = "connect";
-		logger.begin(className, function);
+		logger.begin(function);
 		uiPanelInspector.connect();
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
-		logger.begin(className, function);
+		logger.begin(function);
 		uiPanelInspector.disconnect();
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	@Override
@@ -246,9 +243,9 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	@Override
 	public void close() {
 		final String function = "close";
-		logger.begin(className, function);
+		logger.begin(function);
 		terminate();
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
@@ -272,8 +269,8 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	@Override
 	public void terminate() {
 		final String function = "terminate";
-		logger.begin(className, function);
+		logger.begin(function);
 		if ( null != this.uiInspectorDialogBoxEvent ) uiInspectorDialogBoxEvent.onClose();
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

@@ -26,8 +26,8 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.reserv
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorHeader_i.AttributeName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
@@ -37,10 +37,9 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UIInspectorHeader implements UIInspectorTab_i {
-	
-	private final String cls = this.getClass().getName();
-	private final String className = UIWidgetUtil.getClassSimpleName(cls);
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
+
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private String scsEnvId		= null;
 	private String parent		= null;
@@ -51,10 +50,8 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	
 	private String strCssPrefix;
 	
-	private String tabName = null;
 	@Override
 	public void setTabName(String tabName) { 
-		this.tabName = tabName;
 		this.strCssPrefix = "project-inspector-"+tabName+"-";
 	}
 	
@@ -62,11 +59,11 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	@Override
 	public void setAttribute(String type, String key, String value) {
 		final String function = "setAttribute";
-		logger.begin(className, function);
-		logger.debug(className, function, "key[{}] value[{}]", key, value);
+		logger.begin(function);
+		logger.debug(function, "key[{}] value[{}]", key, value);
 		if ( null == attributesList.get(type) ) attributesList.put(type, new HashMap<String, String>());
 		attributesList.get(type).put(key, value);
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
@@ -103,13 +100,13 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
-		logger.debug(className, function, "this.parent[{}] this.scsEnvId[{}]", this.parent, this.scsEnvId);
+		logger.debug(function, "this.parent[{}] this.scsEnvId[{}]", this.parent, this.scsEnvId);
 	}
 	
 	@Override
 	public void setAddresses(String[] addresses) {
 		final String function = "setAddresses";
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 	}
 	
 	@Override
@@ -120,11 +117,11 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	@Override
 	public void connect() {
 		final String function = "connect";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		{
 			final String functionEmb = function + " multiReadValue";
-			logger.begin(className, functionEmb);
+			logger.begin(functionEmb);
 			
 			DataBaseClientKey clientKey = new DataBaseClientKey();
 			clientKey.setAPI(API.multiReadValue);
@@ -151,9 +148,9 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 			}
 			
 			if ( logger.isDebugEnabled() ) {
-				logger.debug(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
+				logger.debug(function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
 				for(int i = 0; i < dbaddresses.length; ++i ) {
-					logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+					logger.debug(function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 				}
 			}
 
@@ -188,12 +185,12 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 				}
 			});
 			
-			logger.end(className, function);
+			logger.end(function);
 		}
 		
 		{
 			final String functionEmb = function + " multiReadValue";
-			logger.begin(className, functionEmb);
+			logger.begin(functionEmb);
 			
 			DataBaseClientKey clientKey = new DataBaseClientKey();
 			clientKey.setAPI(API.multiReadValue);
@@ -219,9 +216,9 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 			}
 
-			logger.debug(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
+			logger.debug(function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
 			for(int i = 0; i < dbaddresses.length; ++i ) {
-				logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+				logger.debug(function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 			}
 
 			database.subscribe(strClientKey, dbaddresses, new DatabaseEvent() {
@@ -251,16 +248,16 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 				}
 			});
 			
-			logger.end(className, functionEmb);
+			logger.end(functionEmb);
 		}
 	
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
-		logger.begin(className, function);
+		logger.begin(function);
 		{
 			DataBaseClientKey clientKey = new DataBaseClientKey();
 			clientKey.setAPI(API.multiReadValue);
@@ -285,17 +282,17 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 			String strClientKey = clientKey.getClientKey();
 			database.unSubscribe(strClientKey);
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
 	public void buildWidgets(int numOfPointForEachPage) {
 		final String function = "buildWidgets";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		buildWidgets(this.addresses.length);
 	
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private TextBox txtAttributeStatus[] = null;
@@ -310,8 +307,8 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	@Override
 	public void updateValue(String strClientKey, Map<String, String> keyAndValue) {
 		final String function = "updateValue";
-		logger.begin(className, function);
-		logger.trace(className, function, "strClientKey[{}]", strClientKey);
+		logger.begin(function);
+		logger.trace(function, "strClientKey[{}]", strClientKey);
 		
 		DataBaseClientKey clientKey = new DataBaseClientKey("_", strClientKey);
 		
@@ -333,12 +330,12 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 			
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void updateValue(boolean withStatic) {
 		final String function = "updateValue";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( withStatic ) {
 			for ( String clientKey : keyAndValuesStatic.keySet() ) {
@@ -357,13 +354,13 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 			
 		}// End of keyAndValuesDynamic
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void updateValueStatic(String strClientKey, Map<String, String> keyAndValue) {
 		final String function = "updateValueStatic";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		Map<String, String> attributes = attributesList.get(UIPanelInspector_i.strStaticAttibutes);
 		
@@ -389,18 +386,18 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 			}
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private int eqtReserved = 0;
 	public int getEqtReservedValue() {
-		logger.beginEnd(className, "getEqtReservedValue", "eqtReserved[{}]", eqtReserved);
+		logger.beginEnd("getEqtReservedValue", "eqtReserved[{}]", eqtReserved);
 		return eqtReserved;
 	}
 	
 	private boolean widgetHasCSS(Widget widget, String css ) {
 		final String function = "widgetHasCSS";
-		logger.begin(className, function);
+		logger.begin(function);
 		boolean result = false;
 		String cssExist = widget.getStyleName();
 		String cssExists [] = cssExist.split("\\s+");
@@ -415,22 +412,22 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	
 	private void widgetRemoveCSS(Widget widget, String css) {
 		final String function = "widgetRemoveCSS";
-		logger.begin(className, function);
-		logger.trace(className, function, "widget[{}] css[{}]", widget, css);
+		logger.begin(function);
+		logger.trace(function, "widget[{}] css[{}]", widget, css);
 		if ( widgetHasCSS(widget, css) ) {
 			widget.removeStyleName(css);
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void widgetAddCSS(Widget widget, String css) {
 		final String function = "widgetAddCSS";
-		logger.begin(className, function);
-		logger.trace(className, function, "widget[{}] css[{}]", widget, css);
+		logger.begin(function);
+		logger.trace(function, "widget[{}] css[{}]", widget, css);
 		if ( ! widgetHasCSS(widget, css) ) {
 			widget.addStyleName(css);
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private String resrvReservedPreviewValue = null;
@@ -438,17 +435,17 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 
 	private void updateValueDynamic(String strClientKey, Map<String, String> keyAndValue) {
 		final String function = "updateValueDynamic";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		Map<String, String> attributes = attributesList.get(UIPanelInspector_i.strDynamicAttibutes);
 
 		{
 			String isControlableValue = DatabaseHelper.getAttributeValue(parent, attributes.get(AttributeName.IsControlableAttribute.toString()), dbvalues);
 			isControlableValue = DatabaseHelper.removeDBStringWrapper(isControlableValue);
-			logger.trace(className, function, "isControlableValue[{}]", isControlableValue);
+			logger.trace(function, "isControlableValue[{}]", isControlableValue);
 			if ( null != isControlableValue ) {
 				isControlableValue = controlRightLabels.get(isControlableValue);
-				logger.trace(className, function, "isControlableValue[{}]", isControlableValue);
+				logger.trace(function, "isControlableValue[{}]", isControlableValue);
 				isControlableValue = Translation.getDBMessage(isControlableValue);
 				txtAttributeStatus[2].setText(isControlableValue);
 			}
@@ -456,20 +453,20 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		{		
 			String resrvReservedIDValue = DatabaseHelper.getAttributeValue(parent, attributes.get(AttributeName.ResrvReservedIDAttribute.toString()), dbvalues);
 			resrvReservedIDValue = DatabaseHelper.removeDBStringWrapper(resrvReservedIDValue);
-			logger.trace(className, function, "resrvReservedIDValue[{}]", resrvReservedIDValue);
+			logger.trace(function, "resrvReservedIDValue[{}]", resrvReservedIDValue);
 
-			logger.trace(className, function, "resrvReservedPreviewValue[{}] == resrvReservedIDValue[{}]", resrvReservedPreviewValue, resrvReservedIDValue);
+			logger.trace(function, "resrvReservedPreviewValue[{}] == resrvReservedIDValue[{}]", resrvReservedPreviewValue, resrvReservedIDValue);
 			if ( null == resrvReservedPreviewValue || (null != resrvReservedIDValue && ! resrvReservedIDValue.equals(resrvReservedPreviewValue)) ) { 
 				
 				eqtReserved = EquipmentReserve.isEquipmentReservation(resrvReservedIDValue, equipmentReserveHasScreen, uiNameCard.getUiScreen());
-				logger.trace(className, function, "eqtReserved[{}]", eqtReserved);
+				logger.trace(function, "eqtReserved[{}]", eqtReserved);
 				
 				if ( null != equipmentReserveEvent ) equipmentReserveEvent.isAvaiable(eqtReserved);
 				resrvReservedPreviewValue = resrvReservedIDValue;
 
 				String strEqtReservedLabel = null;
 				strEqtReservedLabel = controlRightReservedLabels.get(eqtReserved);
-				logger.trace(className, function, "strEqtReservedLabel[{}]", strEqtReservedLabel);
+				logger.trace(function, "strEqtReservedLabel[{}]", strEqtReservedLabel);
 				strEqtReservedLabel = Translation.getDBMessage(strEqtReservedLabel);
 				txtAttributeStatus[3].setText(strEqtReservedLabel);
 			}
@@ -477,11 +474,11 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		{
 			String hdvFlagValue = DatabaseHelper.getAttributeValue(parent, attributes.get(AttributeName.HdvFlagAttribute.toString()), dbvalues);
 			hdvFlagValue = DatabaseHelper.removeDBStringWrapper(hdvFlagValue);
-			logger.trace(className, function, "hdvFlagValue[{}]", hdvFlagValue);
+			logger.trace(function, "hdvFlagValue[{}]", hdvFlagValue);
 			
 			if ( null != hdvFlagValue ) {
 				if ( ! hdvFlagValue.equals(hdvFlagPreviewValue) ) {
-					logger.trace(className, function, "hdvFlagPreviewValue[{}] == hdvFlagValue[{}]", hdvFlagPreviewValue, hdvFlagValue);
+					logger.trace(function, "hdvFlagPreviewValue[{}] == hdvFlagValue[{}]", hdvFlagPreviewValue, hdvFlagValue);
 					int eqtHom = Hom.isHom(hdvFlagValue);
 					if ( null != homEvent ) homEvent.isAvaiable(eqtHom);
 					hdvFlagPreviewValue = hdvFlagValue;
@@ -490,39 +487,39 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 				if ( null == handoverRightLabels ) handoverRightLabels = new HashMap<String, String>();
 				
 				if ( ! handoverRightLabels.containsKey(hdvFlagValue) ) {
-					logger.trace(className, function, "hdvFlagPreviewValue[{}] == hdvFlagValue[{}]", hdvFlagPreviewValue, hdvFlagValue);
+					logger.trace(function, "hdvFlagPreviewValue[{}] == hdvFlagValue[{}]", hdvFlagPreviewValue, hdvFlagValue);
 					String attribite = dictionariesCacheName_prefix + "HdvFlag"+UIPanelInspector_i.strDot+hdvFlagValue;
 					
-					logger.trace(className, function, "Reading dictionariesCacheName_fileName[{}] attribite[{}]", dictionariesCacheName_fileName, attribite);
+					logger.trace(function, "Reading dictionariesCacheName_fileName[{}] attribite[{}]", dictionariesCacheName_fileName, attribite);
 					handoverRightLabels.put(hdvFlagValue, ReadProp.readString(dictionariesCacheName, dictionariesCacheName_fileName, attribite, ""));
 				}
-				logger.trace(className, function, "handoverRightLabels.get({}) =[{}]", hdvFlagValue, handoverRightLabels.get(hdvFlagValue));
+				logger.trace(function, "handoverRightLabels.get({}) =[{}]", hdvFlagValue, handoverRightLabels.get(hdvFlagValue));
 				
 				String hdvFlagDisplayValue = handoverRightLabels.get(hdvFlagValue);
-				logger.trace(className, function, "hdvFlagDisplayValue[{}]", hdvFlagDisplayValue);
+				logger.trace(function, "hdvFlagDisplayValue[{}]", hdvFlagDisplayValue);
 				hdvFlagDisplayValue = Translation.getDBMessage(hdvFlagDisplayValue);
 				txtAttributeStatus[4].setText(hdvFlagDisplayValue);
 				
-				logger.trace(className, function, "hdvFlagValue[{}] strHandoverRightHiddenHOMValue[{}]", new Object[]{hdvFlagValue, strHandoverRightHiddenHOMValue});
+				logger.trace(function, "hdvFlagValue[{}] strHandoverRightHiddenHOMValue[{}]", new Object[]{hdvFlagValue, strHandoverRightHiddenHOMValue});
 				
-				logger.trace(className, function, "strHandoverRightLabelCSSShow[{}] strHandoverRightLabelCSSHidden[{}] strHandoverRightValueCSSShow[{}] strHandoverRightValueCSSHidden[{}]"
+				logger.trace(function, "strHandoverRightLabelCSSShow[{}] strHandoverRightLabelCSSHidden[{}] strHandoverRightValueCSSShow[{}] strHandoverRightValueCSSHidden[{}]"
 						, new Object[]{strHandoverRightLabelCSSShow, strHandoverRightLabelCSSHidden, strHandoverRightValueCSSShow, strHandoverRightValueCSSHidden});
 				
 				boolean isHOMHiddenValue = false;
 				if ( null != strHandoverRightHiddenHOMValues ) {
 					for ( int i = 0 ; i < strHandoverRightHiddenHOMValues.length ; ++i ) {
-						logger.trace(className, function, "hdvFlagValue[{}] strHandoverRightHiddenHOMValues({})[{}]", new Object[]{hdvFlagValue, i, strHandoverRightHiddenHOMValues[i]});
+						logger.trace(function, "hdvFlagValue[{}] strHandoverRightHiddenHOMValues({})[{}]", new Object[]{hdvFlagValue, i, strHandoverRightHiddenHOMValues[i]});
 						if ( null != strHandoverRightHiddenHOMValues[i] && hdvFlagValue.equals(strHandoverRightHiddenHOMValues[i]) ) {
 							isHOMHiddenValue = true;
 							break;
 						}
 					}
 				} else {
-					logger.warn(className, function, "strHandoverRightByPassValues IS NULL");
+					logger.warn(function, "strHandoverRightByPassValues IS NULL");
 				}
 				
 				
-				logger.trace(className, function, "isHOMHiddenValue[{}]", isHOMHiddenValue);
+				logger.trace(function, "isHOMHiddenValue[{}]", isHOMHiddenValue);
 				
 				if ( isHOMHiddenValue ) {
 					
@@ -553,27 +550,27 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 			}
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private String strEquipmentDescriptionLabel = "";
 	private String strEquipmentDescriptionInitValue = "";
 	private void loadConfigurationShortLabel(String dictionariesCacheName, String fileName, String prefix) {
 		final String function = "loadConfigurationShortLabel";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String keyShortLabelAttribute = prefix+AttributeName.ShortLabelAttribute.toString();
 		String shortLabelAttribute = ReadProp.readString(dictionariesCacheName, fileName, keyShortLabelAttribute, "");
-		logger.debug(className, function, "shortLabelAttribute[{}]", shortLabelAttribute);
+		logger.debug(function, "shortLabelAttribute[{}]", shortLabelAttribute);
 		setAttribute(UIPanelInspector_i.strStaticAttibutes, AttributeName.ShortLabelAttribute.toString(), shortLabelAttribute);
 		
 		strEquipmentDescriptionLabel = ReadProp.readString(dictionariesCacheName, fileName, prefix+"ShortLabel", "");
-		logger.debug(className, function, "strEquipmentDescription[{}]", strEquipmentDescriptionLabel);
+		logger.debug(function, "strEquipmentDescription[{}]", strEquipmentDescriptionLabel);
 		
 		strEquipmentDescriptionInitValue = ReadProp.readString(dictionariesCacheName, fileName, prefix+"ShortLabelInitValue", "");
-		logger.debug(className, function, "strEquipmentDescriptionInitValue[{}]", strEquipmentDescriptionInitValue);
+		logger.debug(function, "strEquipmentDescriptionInitValue[{}]", strEquipmentDescriptionInitValue);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private String strLocationLabel = "";
@@ -581,22 +578,22 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	private String strLocationInitValue = "";
 	private void loadConfigurationLocation(String dictionariesCacheName, String fileName, String prefix) {
 		final String function = "loadConfigurationLocation";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String locationAttribute = ReadProp.readString(dictionariesCacheName, fileName, prefix+AttributeName.LocationAttribute.toString(), "");
-		logger.debug(className, function, "locationAttribute[{}]", locationAttribute);
+		logger.debug(function, "locationAttribute[{}]", locationAttribute);
 		setAttribute(UIPanelInspector_i.strStaticAttibutes, AttributeName.LocationAttribute.toString(), locationAttribute);
 		
 		strLocationLabel = ReadProp.readString(dictionariesCacheName, fileName, prefix+"LocationLabel", "");
-		logger.debug(className, function, "strLocationLabel[{}]", strLocationLabel);
+		logger.debug(function, "strLocationLabel[{}]", strLocationLabel);
 		
 		strLocationPrefix = ReadProp.readString(dictionariesCacheName, fileName, prefix+"LocationPrefix", "");
-		logger.debug(className, function, "strLocationPrefix[{}]", strLocationPrefix);
+		logger.debug(function, "strLocationPrefix[{}]", strLocationPrefix);
 		
 		strLocationInitValue = ReadProp.readString(dictionariesCacheName, fileName, prefix+"LocationInitValue", "");
-		logger.debug(className, function, "strLocationInitValue[{}]", strLocationInitValue);
+		logger.debug(function, "strLocationInitValue[{}]", strLocationInitValue);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private String strControlRightLabel = "";
@@ -605,32 +602,32 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	private Map<String, String> controlRightLabels = null;
 	private void loadConfigurationIsControlable(String dictionariesCacheName, String fileName, String prefix) {
 		final String function = "loadConfigurationIsControlable";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String isControlableAttribute = ReadProp.readString(dictionariesCacheName, fileName, prefix+AttributeName.IsControlableAttribute.toString(), "");
-		logger.debug(className, function, "isControlableAttribute[{}]", isControlableAttribute);
+		logger.debug(function, "isControlableAttribute[{}]", isControlableAttribute);
 		setAttribute(UIPanelInspector_i.strDynamicAttibutes, AttributeName.IsControlableAttribute.toString(), isControlableAttribute);
 		
 		String prefix2 = prefix + "IsControlable"+UIPanelInspector_i.strDot;
 		
 		strControlRightLabel = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"IsControlableLabel", "");
-		logger.debug(className, function, "strControlRightLabel[{}]", strControlRightLabel);
+		logger.debug(function, "strControlRightLabel[{}]", strControlRightLabel);
 		
 		strControlRightInitValue = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"Init", "");
-		logger.debug(className, function, "strControlRightInitValue[{}]", strControlRightInitValue);
+		logger.debug(function, "strControlRightInitValue[{}]", strControlRightInitValue);
 
 		int numOfLabel = ReadProp.readInt(dictionariesCacheName, fileName, prefix2+"NumOfLabel", 0);
-		logger.debug(className, function, "numOfLabel[{}]", numOfLabel);
+		logger.debug(function, "numOfLabel[{}]", numOfLabel);
 
 		controlRightLabels = new HashMap<String, String>();
 		for ( int i = 0 ; i < numOfLabel ; i++ ) {
 			String controlRightValue = ReadProp.readString(dictionariesCacheName, fileName, prefix2+i, "");
-			logger.debug(className, function, "i[{}] controlRightValue[{}]", i, controlRightValue);
+			logger.debug(function, "i[{}] controlRightValue[{}]", i, controlRightValue);
 			
 			controlRightLabels.put(String.valueOf(i), controlRightValue);
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	
@@ -640,34 +637,34 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	private Map<Integer, String> controlRightReservedLabels = null;
 	private void loadConfigurationResrvReservedID(String dictionariesCacheName, String fileName, String prefix) {
 		final String function = "loadConfigurationResrvReservedID";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String keyResrvReservedIDAttribute = prefix+AttributeName.ResrvReservedIDAttribute.toString();
 		String resrvReservedIDAttribute = ReadProp.readString(dictionariesCacheName, fileName, keyResrvReservedIDAttribute, "");
-		logger.debug(className, function, "resrvReservedIDAttribute[{}]", resrvReservedIDAttribute);
+		logger.debug(function, "resrvReservedIDAttribute[{}]", resrvReservedIDAttribute);
 		setAttribute(UIPanelInspector_i.strDynamicAttibutes, AttributeName.ResrvReservedIDAttribute.toString(), resrvReservedIDAttribute);
 		
 		
 		String prefix2 = prefix + "ResrvReserved"+UIPanelInspector_i.strDot;
 		
 		strControlRightReservedLabel = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"ResrvReservedLabel", "");
-		logger.debug(className, function, "strControlRightReservedLabel[{}]", strControlRightReservedLabel);
+		logger.debug(function, "strControlRightReservedLabel[{}]", strControlRightReservedLabel);
 		
 		strControlRightReservedInitValue = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"Init", "");
-		logger.debug(className, function, "strControlRightReservedInitValue[{}]", strControlRightReservedInitValue);
+		logger.debug(function, "strControlRightReservedInitValue[{}]", strControlRightReservedInitValue);
 
 		int numOfLabel = ReadProp.readInt(dictionariesCacheName, fileName, prefix2+"NumOfLabel", 0);
-		logger.debug(className, function, "numOfLabel[{}]", numOfLabel);
+		logger.debug(function, "numOfLabel[{}]", numOfLabel);
 
 		controlRightReservedLabels = new HashMap<Integer, String>();
 		for ( int i = 0 ; i < numOfLabel ; i++ ) {
 			String controlRightReservedValue = ReadProp.readString(dictionariesCacheName, fileName, prefix2+i, "");
-			logger.debug(className, function, "i[{}] controlRightReservedValue[{}]", i, controlRightReservedValue);
+			logger.debug(function, "i[{}] controlRightReservedValue[{}]", i, controlRightReservedValue);
 			
 			controlRightReservedLabels.put(i, controlRightReservedValue);
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private String strHandoverRightLabel = "";
@@ -685,38 +682,38 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	private Map<String, String> handoverRightLabels = null;
 	private void loadConfigurationHdvFlag(String dictionariesCacheName, String fileName, String prefix) {
 		final String function = "loadConfigurationHdvFlag";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String hdvFlagAttribute = ReadProp.readString(dictionariesCacheName, fileName, prefix+AttributeName.HdvFlagAttribute.toString(), "");
-		logger.debug(className, function, "hdvFlagAttribute[{}]", hdvFlagAttribute);
+		logger.debug(function, "hdvFlagAttribute[{}]", hdvFlagAttribute);
 		setAttribute(UIPanelInspector_i.strDynamicAttibutes, AttributeName.HdvFlagAttribute.toString(), hdvFlagAttribute);
 		
 		String prefix2 = prefix + "HdvFlag"+UIPanelInspector_i.strDot;
 		
 		strHandoverRightLabel = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"HandoverRightLabel", "");
-		logger.debug(className, function, "strHandoverRightLabel[{}]", strHandoverRightLabel);
+		logger.debug(function, "strHandoverRightLabel[{}]", strHandoverRightLabel);
 		
 		strHandoverRightInitValue = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"Init", "");
-		logger.debug(className, function, "strHandoverRightInitValue[{}]", strHandoverRightInitValue);
+		logger.debug(function, "strHandoverRightInitValue[{}]", strHandoverRightInitValue);
 		
 		strHandoverRightHiddenHOMValue = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"HandoverRightHiddenHOMValues", "");
-		logger.debug(className, function, "strHandoverRightHiddenHOMValue[{}]", strHandoverRightHiddenHOMValue);
+		logger.debug(function, "strHandoverRightHiddenHOMValue[{}]", strHandoverRightHiddenHOMValue);
 		
 		strHandoverRightHiddenHOMValues = UIWidgetUtil.getStringArray(strHandoverRightHiddenHOMValue, ",");
 
 		strHandoverRightLabelCSSShow = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"HandoverRightLabelCSSShow", "");
-		logger.debug(className, function, "strHandoverRightLabelCSSShow[{}]", strHandoverRightLabelCSSShow);
+		logger.debug(function, "strHandoverRightLabelCSSShow[{}]", strHandoverRightLabelCSSShow);
 		
 		strHandoverRightLabelCSSHidden = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"HandoverRightLabelCSSHidden", "");
-		logger.debug(className, function, "strHandoverRightLabelCSSHidden[{}]", strHandoverRightLabelCSSHidden);
+		logger.debug(function, "strHandoverRightLabelCSSHidden[{}]", strHandoverRightLabelCSSHidden);
 		
 		strHandoverRightValueCSSShow = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"HandoverRightValueCSSShow", "");
-		logger.debug(className, function, "strHandoverRightValueCSSShow[{}]", strHandoverRightValueCSSShow);
+		logger.debug(function, "strHandoverRightValueCSSShow[{}]", strHandoverRightValueCSSShow);
 		
 		strHandoverRightValueCSSHidden = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"HandoverRightValueCSSHidden", "");
-		logger.debug(className, function, "strHandoverRightValueCSSHidden[{}]", strHandoverRightValueCSSHidden);
+		logger.debug(function, "strHandoverRightValueCSSHidden[{}]", strHandoverRightValueCSSHidden);
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private UINameCard uiNameCard = null;
@@ -735,7 +732,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	@Override
 	public void init() {
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		loadConfigurationShortLabel(dictionariesCacheName, dictionariesCacheName_fileName, dictionariesCacheName_prefix);
 		loadConfigurationLocation(dictionariesCacheName, dictionariesCacheName_fileName, dictionariesCacheName_prefix);
@@ -773,7 +770,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		flexTableHeader.addStyleName(strCssPrefix+"panel-vpCtrlsr");
 		vpCtrls.add(flexTableHeader);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override

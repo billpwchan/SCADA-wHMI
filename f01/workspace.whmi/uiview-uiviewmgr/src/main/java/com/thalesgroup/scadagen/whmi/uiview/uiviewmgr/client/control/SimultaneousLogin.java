@@ -7,9 +7,8 @@ import java.util.Map.Entry;
 import com.google.gwt.json.client.JSONObject;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJsonFile;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.control.SimultaneousLogin_i.BitPosDescription;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.control.SimultaneousLogin_i.ParameterAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.control.SimultaneousLogin_i.StorageAttribute;
@@ -20,8 +19,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 
 public class SimultaneousLogin {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(SimultaneousLogin.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private static SimultaneousLogin instance = null;
 	private SimultaneousLogin() {}
@@ -89,10 +87,10 @@ public class SimultaneousLogin {
 	
 	public void dumpStorage() {
 		final String function = "dumpStorage";
-		logger.begin(className, function);
+		logger.begin(function);
 		for ( Entry<String, Map<String, String>> entities : storage.entrySet() ) {
 			String entitiesKey = entities.getKey();
-			logger.debug(className, function, "entitiesKey[{}]", entitiesKey);
+			logger.debug(function, "entitiesKey[{}]", entitiesKey);
 			Map<String, String> entity = entities.getValue();
 			if ( null != entity ) {
 				String msg = "";
@@ -100,158 +98,158 @@ public class SimultaneousLogin {
 					if ( msg.length() > 0 ) msg += " ";
 					msg += "["+values.getKey()+"]:["+values.getValue()+"]";
 				}
-				logger.debug(className, function, "msg[{}]", msg);
+				logger.debug(function, "msg[{}]", msg);
 			} else {
-				logger.warn(className, function, "entity IS NULL");
+				logger.warn(function, "entity IS NULL");
 			}
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void loadConfig() {
 		final String function = "loadConfig";
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.debug(className, function, "dictionariesCacheName[{}] fileName[{}]", dictionariesCacheName, fileName);
+		logger.debug(function, "dictionariesCacheName[{}] fileName[{}]", dictionariesCacheName, fileName);
 		
 		JSONObject jsonObject = ReadJsonFile.readJson(dictionariesCacheName, fileName);
 
 		opmApi = ReadJson.readString(jsonObject, ParameterAttribute.OpmApi.toString(), defaultOpmApi);
-		logger.debug(className, function, "OpmApi[{}] opmApi[{}]", ParameterAttribute.OpmApi.toString(), opmApi);
+		logger.debug(function, "OpmApi[{}] opmApi[{}]", ParameterAttribute.OpmApi.toString(), opmApi);
 		
 		usrIdentityType = ReadJson.readString(jsonObject, ParameterAttribute.UsrIdentityType.toString(), defaultUsrIdentityType);
-		logger.debug(className, function, "UsrIdentityType[{}]  usrIdentityType[{}]", ParameterAttribute.UsrIdentityType.toString(), usrIdentityType);
+		logger.debug(function, "UsrIdentityType[{}]  usrIdentityType[{}]", ParameterAttribute.UsrIdentityType.toString(), usrIdentityType);
 		
 		gwsIdentityType = ReadJson.readString(jsonObject, ParameterAttribute.GwsIdentityType.toString(), defaultGwsIdentityType);
-		logger.debug(className, function, "GwsIdentityType[{}]  gwsIdentityType[{}]", ParameterAttribute.GwsIdentityType.toString(), gwsIdentityType);
+		logger.debug(function, "GwsIdentityType[{}]  gwsIdentityType[{}]", ParameterAttribute.GwsIdentityType.toString(), gwsIdentityType);
 		
 		dbAttrResrvReserveReqID = ReadJson.readString(jsonObject, ParameterAttribute.DbAttrResrvReserveReqID.toString(), defaultDbAttrResrvReserveReqID);
-		logger.debug(className, function, "DbAttrResrvReserveReqID[{}]  dbAttrResrvReserveReqID[{}]", ParameterAttribute.DbAttrResrvReserveReqID.toString(), dbAttrResrvReserveReqID);
+		logger.debug(function, "DbAttrResrvReserveReqID[{}]  dbAttrResrvReserveReqID[{}]", ParameterAttribute.DbAttrResrvReserveReqID.toString(), dbAttrResrvReserveReqID);
 		
 		dbAttrResrvUnreserveReqID = ReadJson.readString(jsonObject, ParameterAttribute.DbAttrResrvUnreserveReqID.toString(), defaultDbAttrResrvUnreserveReqID);
-		logger.debug(className, function, "DbAttrResrvUnreserveReqID[{}]  dbAttrResrvUnreserveReqID[{}]", ParameterAttribute.DbAttrResrvUnreserveReqID.toString(), dbAttrResrvUnreserveReqID);
+		logger.debug(function, "DbAttrResrvUnreserveReqID[{}]  dbAttrResrvUnreserveReqID[{}]", ParameterAttribute.DbAttrResrvUnreserveReqID.toString(), dbAttrResrvUnreserveReqID);
 
 		groupThreshold = defaultGroupThreshold;
 //		groupThreshold = ReadJson.readInt(jsonObject, ParameterAttribute.GroupThreshold.toString(), defaultGroupThreshold);
-//		logger.debug(className, function, "GroupThreshold[{}]  groupThreshold[{}]", ParameterAttribute.GroupThreshold.toString(), groupThreshold);
+//		logger.debug(function, "GroupThreshold[{}]  groupThreshold[{}]", ParameterAttribute.GroupThreshold.toString(), groupThreshold);
 		
 		byPassUsrIdentity = ReadJson.readStringArray(jsonObject, ParameterAttribute.ByPassUsrIdentity.toString());
-		logger.debug(className, function, "ByPassUsrIdentity[{}]  byPassUsrIdentity[{}]", ParameterAttribute.ByPassUsrIdentity.toString(), byPassUsrIdentity);
+		logger.debug(function, "ByPassUsrIdentity[{}]  byPassUsrIdentity[{}]", ParameterAttribute.ByPassUsrIdentity.toString(), byPassUsrIdentity);
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public boolean isSelfIdentityReady() {
 		final String function = "isSelfIdentityReady";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(opmApi);
-		if ( null == uiOpm_i ) logger.warn(className, function, "opmApi[{}] IS NULL", opmApi);
+		if ( null == uiOpm_i ) logger.warn(function, "opmApi[{}] IS NULL", opmApi);
 		
 		selfGwsIdentity = getSelfGwsIdentity(uiOpm_i, getGwsIdentityType());
-		logger.debug(className, function, "selfGwsIdentity[{}]", selfGwsIdentity);
+		logger.debug(function, "selfGwsIdentity[{}]", selfGwsIdentity);
 
-		logger.end(className, function);
+		logger.end(function);
 		
 		return (null!=selfGwsIdentity);
 	}
 	
 	public boolean isUsrIdentityReady() {
 		final String function = "isUsrIdentityReady";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(opmApi);
-		if ( null == uiOpm_i ) logger.warn(className, function, "opmApi[{}] IS NULL", opmApi);
+		if ( null == uiOpm_i ) logger.warn(function, "opmApi[{}] IS NULL", opmApi);
 
 		usrIdentity = getUsrIdentity(uiOpm_i, getUsrIdentityType());
-		logger.end(className, function);
+		logger.end(function);
 
 		return (null!=usrIdentity);
 	}
 	
 	public boolean getWkstInfo() {
 		final String function = "getWkstInfo";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		selfGwsArea = getArea(selfGwsIdentity);
 		selfGwsScsEnvId = getScsEnvId(selfGwsIdentity);
 		selfGwsAlias = getAlias(selfGwsIdentity);
-		logger.debug(className, function, "selfGwsIdentity[{}] selfGwsArea[{}] selfGwsScsEnvId[{}] selfGwsAlias[{}]"
+		logger.debug(function, "selfGwsIdentity[{}] selfGwsArea[{}] selfGwsScsEnvId[{}] selfGwsAlias[{}]"
 				, new Object[]{selfGwsIdentity, selfGwsArea, selfGwsScsEnvId, selfGwsAlias});
 
-		logger.end(className, function);
+		logger.end(function);
 		
 		return (null!=selfGwsAlias);
 	}
 	
 	public void setCurrentWS() {
 		final String function = "setCurrentWS";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(opmApi);
 		if ( null != uiOpm_i ) {
 
-			logger.debug(className, function, "selfGwsScsEnvId[{}] selfGwsAlias[{}]", selfGwsScsEnvId, selfGwsAlias);
+			logger.debug(function, "selfGwsScsEnvId[{}] selfGwsAlias[{}]", selfGwsScsEnvId, selfGwsAlias);
 			
 			uiOpm_i.setCurrentEnv(selfGwsScsEnvId);
 			uiOpm_i.setCurrentAlias(selfGwsAlias);
 			
-			logger.debug(className, function, "uiOpm_i.getCurrentEnv[{}] uiOpm_i.getCurrentAlias[{}]", uiOpm_i.getCurrentEnv(), uiOpm_i.getCurrentAlias());
+			logger.debug(function, "uiOpm_i.getCurrentEnv[{}] uiOpm_i.getCurrentAlias[{}]", uiOpm_i.getCurrentEnv(), uiOpm_i.getCurrentAlias());
 		} else {
-			logger.warn(className, function, "opmApi[{}] IS NULL", opmApi);
+			logger.warn(function, "opmApi[{}] IS NULL", opmApi);
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	public String getArea(String key) {
 		final String function = "getArea";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String area = null;
 		if ( null != storage.get(key) ) area = storage.get(key).get(StorageAttribute.Area.toString());
 		
-		logger.debug(className, function, "area[{}]", area);
-		logger.end(className, function);
+		logger.debug(function, "area[{}]", area);
+		logger.end(function);
 		return area;
 	}
 	
 	public String getAlias(String key) {
 		final String function = "getAlias";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String alias = null;
 		if ( null != storage.get(key) ) alias = storage.get(key).get(StorageAttribute.Alias.toString());
 		
-		logger.debug(className, function, "alias[{}]", alias);
-		logger.end(className, function);
+		logger.debug(function, "alias[{}]", alias);
+		logger.end(function);
 		return alias;
 	}
 	
 	public String getScsEnvId(String key) {
 		final String function = "getScsEnvId";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String scsEnvId = null;
 		if ( null != storage.get(key) ) scsEnvId = storage.get(key).get(StorageAttribute.ScsEnvId.toString());
 		
-		logger.debug(className, function, "scsEnvId[{}]", scsEnvId);
-		logger.end(className, function);
+		logger.debug(function, "scsEnvId[{}]", scsEnvId);
+		logger.end(function);
 		return scsEnvId;
 	}
 
 	private String getUsrIdentity(UIOpm_i uiOpm_i, String usrIdentityType) {
 		final String function = "getUsrIdentity";
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.debug(className, function, "usrIdentityType[{}]", usrIdentityType);
+		logger.debug(function, "usrIdentityType[{}]", usrIdentityType);
 
 		String usrIdentity = null;
 		if ( null == uiOpm_i ) {
-			logger.warn(className, function, "uiOpm_i IS NULL");
+			logger.warn(function, "uiOpm_i IS NULL");
 		} 
 		else if ( null == usrIdentityType ) {
-			logger.warn(className, function, "usrIdentityType IS NULL");
+			logger.warn(function, "usrIdentityType IS NULL");
 		} 
 		else if ( 0 == UserIdendifyType.Profile.toString().compareTo(usrIdentityType) ) {
 			usrIdentity = uiOpm_i.getCurrentProfile();
@@ -260,32 +258,32 @@ public class SimultaneousLogin {
 			usrIdentity = uiOpm_i.getCurrentOperator();
 		}
 		else {
-			logger.warn(className, function, "usrIdentityType[{}] IS UNKNOW", usrIdentityType);
+			logger.warn(function, "usrIdentityType[{}] IS UNKNOW", usrIdentityType);
 		}
 		
-		logger.debug(className, function, "usrIdentity[{}]", usrIdentity);
+		logger.debug(function, "usrIdentity[{}]", usrIdentity);
 		
 		// Default value of the UsrIdentity is Profile
 		if ( null == usrIdentity ) uiOpm_i.getCurrentProfile();
 		
-		logger.debug(className, function, "usrIdentity[{}]", usrIdentity);
-		logger.end(className, function);
+		logger.debug(function, "usrIdentity[{}]", usrIdentity);
+		logger.end(function);
 		return usrIdentity;
 	}
 	
 	private String getSelfGwsIdentity(UIOpm_i uiOpm_i, String gwsIdentityType) {
 		final String function = "getSelfGwsIdentity";
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.debug(className, function, "gwsIdentityType[{}]", gwsIdentityType);
+		logger.debug(function, "gwsIdentityType[{}]", gwsIdentityType);
 
 		String selfIdentity = null;
 		
 		if ( null == uiOpm_i ) {
-			logger.warn(className, function, "uiOpm_i IS NULL");
+			logger.warn(function, "uiOpm_i IS NULL");
 		} 
 		else if ( null == gwsIdentityType ) {
-			logger.warn(className, function, "gwsIdentityType IS NULL");
+			logger.warn(function, "gwsIdentityType IS NULL");
 		} 
 		else if ( 0 == GwsIdendifyType.HostName.toString().compareTo(gwsIdentityType) ) {
 			selfIdentity = uiOpm_i.getCurrentHostName();
@@ -294,34 +292,34 @@ public class SimultaneousLogin {
 			selfIdentity = uiOpm_i.getCurrentIPAddress();
 		}
 		else {
-			logger.warn(className, function, "gwsIdentityType[{}] IS UNKNOW", gwsIdentityType);
+			logger.warn(function, "gwsIdentityType[{}] IS UNKNOW", gwsIdentityType);
 		}
 
-		logger.debug(className, function, "selfIdentity[{}]", selfIdentity);
+		logger.debug(function, "selfIdentity[{}]", selfIdentity);
 		
 		// Default value of the SelfIdentity is IP Address
 		if ( null == selfIdentity ) uiOpm_i.getCurrentIPAddress();
 		
-		logger.debug(className, function, "selfIdentity[{}]", selfIdentity);
-		logger.end(className, function);
+		logger.debug(function, "selfIdentity[{}]", selfIdentity);
+		logger.end(function);
 		return selfIdentity;
 	}
 	
 	public boolean isByPassUsrIdentity() {
 		final String function = "isByPassUsrIdentity";
-		logger.begin(className, function);
+		logger.begin(function);
 		boolean valid = false; 
 		String usrIdentity = getUsrIdentity();
 		String [] byPassUsrIdentities = getByPassUsrIdentities();
 		boolean byPassUsrIdentityIgnoreCase = getByPassUsrIdentityIgnoreCase();
 		
-		logger.debug(className, function, "byPassUsrIdentityIgnoreCase[{}] usrIdentity[{}]"
+		logger.debug(function, "byPassUsrIdentityIgnoreCase[{}] usrIdentity[{}]"
 				, byPassUsrIdentityIgnoreCase, usrIdentity);
 		
 		if ( byPassUsrIdentities != null ) {
 			for ( int i = 0 ; i < byPassUsrIdentities.length ; ++i ) {
 				String byPassUsrIdentity = byPassUsrIdentities[i];
-				logger.debug(className, function, "byPassUsrIdentity[{}]", byPassUsrIdentity);
+				logger.debug(function, "byPassUsrIdentity[{}]", byPassUsrIdentity);
 				if ( 0 == usrIdentity.compareTo(byPassUsrIdentity) ) {
 					valid = true;
 					break;
@@ -329,72 +327,72 @@ public class SimultaneousLogin {
 			}
 		}
 
-		logger.debug(className, function, "valid[{}]", valid);
-		logger.end(className, function);
+		logger.debug(function, "valid[{}]", valid);
+		logger.end(function);
 		return valid;
 	}
 
 	public boolean reservedBySelf(String selfGwsIdentity, String selfUsrIdentity) {
 		final String function = "reservedBySelf";
-		logger.begin(className, function);
+		logger.begin(function);
 		boolean result = false;
 		
-		logger.debug(className, function, "selfGwsIdentity[{}] selfUsrIdentity[{}]", selfGwsIdentity, selfUsrIdentity);
+		logger.debug(function, "selfGwsIdentity[{}] selfUsrIdentity[{}]", selfGwsIdentity, selfUsrIdentity);
 		 Map<String, String> entity = storage.get(selfGwsIdentity);
 		 if ( null != entity ) {
 			 String gwsUsrIdentity = entity.get(StorageAttribute.ResrReservedID.toString());
-			 logger.debug(className, function, "gwsUsrIdentity[{}]", gwsUsrIdentity);
+			 logger.debug(function, "gwsUsrIdentity[{}]", gwsUsrIdentity);
 			 if ( null != gwsUsrIdentity ) {
 				 if ( 0 == gwsUsrIdentity.compareTo(selfUsrIdentity) ) {
 					 
 					result = true;
 
-					logger.debug(className, function, "gwsUsrIdentity[{}] AND selfUsrIdentity[{}] IS EQUAL, Gws Reserved", gwsUsrIdentity, selfUsrIdentity);
+					logger.debug(function, "gwsUsrIdentity[{}] AND selfUsrIdentity[{}] IS EQUAL, Gws Reserved", gwsUsrIdentity, selfUsrIdentity);
 				 } else {
-					 logger.warn(className, function, "gwsUsrIdentity[{}] AND selfUsrIdentity[{}] IS NOT EQUAL", gwsUsrIdentity, selfUsrIdentity);
+					 logger.warn(function, "gwsUsrIdentity[{}] AND selfUsrIdentity[{}] IS NOT EQUAL", gwsUsrIdentity, selfUsrIdentity);
 				 }
 			 } else {
-				 logger.warn(className, function, "gwsUsrIdentity IS NULL");
+				 logger.warn(function, "gwsUsrIdentity IS NULL");
 			 }
 		 } else {
-			 logger.warn(className, function, "entity IS NULL");
+			 logger.warn(function, "entity IS NULL");
 		 }
-		 logger.end(className, function);
+		 logger.end(function);
 		 return result;
 	}
 	
 	public boolean reservedByOther(String selfGwsIdentity, String selfUsrIdentity) {
 		final String function = "reservedByOther";
-		logger.begin(className, function);
+		logger.begin(function);
 		boolean result = false;
 		
-		logger.debug(className, function, "selfGwsIdentity[{}] selfUsrIdentity[{}]", selfGwsIdentity, selfUsrIdentity);
+		logger.debug(function, "selfGwsIdentity[{}] selfUsrIdentity[{}]", selfGwsIdentity, selfUsrIdentity);
 		 Map<String, String> entity = storage.get(selfGwsIdentity);
 		 if ( null != entity ) {
 			 String gwsUsrIdentity = entity.get(StorageAttribute.ResrReservedID.toString());
-			 logger.debug(className, function, "gwsUsrIdentity[{}]", gwsUsrIdentity);
+			 logger.debug(function, "gwsUsrIdentity[{}]", gwsUsrIdentity);
 			 if ( null != gwsUsrIdentity ) {
 				 if ( gwsUsrIdentity.trim().length() > 0 && 0 != gwsUsrIdentity.compareTo(selfUsrIdentity) ) {
 					 
 					 result = true;
 
-					 logger.warn(className, function, "gwsUsrIdentity[{}] AND selfUsrIdentity[{}] IS EQUAL, Gws Reserved by other", gwsUsrIdentity, selfUsrIdentity);
+					 logger.warn(function, "gwsUsrIdentity[{}] AND selfUsrIdentity[{}] IS EQUAL, Gws Reserved by other", gwsUsrIdentity, selfUsrIdentity);
 				 } else {
-					 logger.warn(className, function, "gwsUsrIdentity[{}] IS Empty OR gwsUsrIdentity selfUsrIdentity[{}] IS EQUAL, Gws Reserved by Self", gwsUsrIdentity, selfUsrIdentity);
+					 logger.warn(function, "gwsUsrIdentity[{}] IS Empty OR gwsUsrIdentity selfUsrIdentity[{}] IS EQUAL, Gws Reserved by Self", gwsUsrIdentity, selfUsrIdentity);
 				 }
 			 } else {
-				 logger.warn(className, function, "gwsUsrIdentity IS NULL");
+				 logger.warn(function, "gwsUsrIdentity IS NULL");
 			 }
 		 } else {
-			 logger.warn(className, function, "entity IS NULL");
+			 logger.warn(function, "entity IS NULL");
 		 }
-		 logger.end(className, function);
+		 logger.end(function);
 		 return result;
 	}
 	
 	public boolean reservedInOtherArea(String selfGwsArea, String selfUsrIdentity, int recordThreshold) {
 		final String function = "reservedInOtherArea";
-		logger.begin(className, function);
+		logger.begin(function);
 		boolean result = false;
 		
 		// Verify in other area 
@@ -406,23 +404,23 @@ public class SimultaneousLogin {
 				Map<String, String> entity = entities.getValue();
 				
 				String gwsUsrIdentity = entity.get(StorageAttribute.ResrReservedID.toString());
-				logger.debug(className, function, "gwsUsrIdentity[{}]", gwsUsrIdentity);
+				logger.debug(function, "gwsUsrIdentity[{}]", gwsUsrIdentity);
 				
 				if ( null == gwsUsrIdentity ) {
-					logger.warn(className, function, "gwsUsrIdentity IS NULL");
+					logger.warn(function, "gwsUsrIdentity IS NULL");
 				}
 				else if ( 0 == gwsUsrIdentity.compareTo(selfUsrIdentity) ) {
 
 					String gwsArea = getArea(gwsIdentity);
-					logger.debug(className, function, "gwsIdentity[{}] selfGwsArea[{}]", gwsIdentity, selfGwsArea);
+					logger.debug(function, "gwsIdentity[{}] selfGwsArea[{}]", gwsIdentity, selfGwsArea);
 					
 					if ( null == records.get(gwsArea) ) records.put(gwsArea, 0);
 
 					records.put(gwsArea, records.get(gwsArea) + 1);
-					logger.debug(className, function, "records.get({})[{}]", gwsArea, records.get(gwsArea));
+					logger.debug(function, "records.get({})[{}]", gwsArea, records.get(gwsArea));
 				}
 			} else {
-				logger.warn(className, function, "entities IS NULL");
+				logger.warn(function, "entities IS NULL");
 			}
 		}
 		
@@ -433,14 +431,14 @@ public class SimultaneousLogin {
 				if ( null != record ) {
 					if ( record > recordThreshold ) {
 						result = true;
-						logger.debug(className, function, "selfGwsArea[{}] record[{}] > recordThreshold[{}]", new Object[]{selfGwsArea, record, recordThreshold});
+						logger.debug(function, "selfGwsArea[{}] record[{}] > recordThreshold[{}]", new Object[]{selfGwsArea, record, recordThreshold});
 						break;
 					}						
 				}
 			}
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		return result;
 	}
 	
@@ -479,7 +477,7 @@ public class SimultaneousLogin {
 	
 	public int validateCondition() {
 		final String function = "validateCondition";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String selfGwsIdentity	= getGwsIdentity();
 		String selfGwsArea		= getSelfArea();
@@ -487,7 +485,7 @@ public class SimultaneousLogin {
 		
 		int groupThreshold 	= getGroupThreshold();
 		
-		logger.debug(className, function, "selfGwsIdentity[{}] selfGwsArea[{}] selfUsrIdentity[{}] groupThreshold[{}]"
+		logger.debug(function, "selfGwsIdentity[{}] selfGwsArea[{}] selfUsrIdentity[{}] groupThreshold[{}]"
 				, new Object[]{selfGwsIdentity, selfGwsArea, selfUsrIdentity, groupThreshold});
 		
 		int result = 0;
@@ -496,62 +494,62 @@ public class SimultaneousLogin {
 			
 			result = result | SimultaneousLogin_i.Bit_Pos_IsByPassUsrIdentity;
 
-			logger.debug(className, function, "isByPassUsrIdentity IS TRUE result[{}]", result);
+			logger.debug(function, "isByPassUsrIdentity IS TRUE result[{}]", result);
 		} 
 		else if ( null == selfGwsIdentity ) {
 			
 			result = result | SimultaneousLogin_i.Bit_Pos_SelfGwsIdentity_IsInvalid;
 
-			logger.warn(className, function, "selfGwsIdentity IS NULL");
+			logger.warn(function, "selfGwsIdentity IS NULL");
 		} 
 		else if ( null == selfGwsArea ) {
 			
 			result = result | SimultaneousLogin_i.Bit_Pos_SelfGwsArea_IsInvalid;
 
-			logger.warn(className, function, "selfGwsArea IS NULL");
+			logger.warn(function, "selfGwsArea IS NULL");
 		}
 		else if ( null == selfUsrIdentity ) {
 			
 			result = result | SimultaneousLogin_i.Bit_Pos_SelfUsrIdentity_IsInvalid;
 
-			logger.warn(className, function, "usrIdentity IS NULL");
+			logger.warn(function, "usrIdentity IS NULL");
 		}
 		else {
 			
 			if ( null != storage ) {
 				
-				logger.debug(className, function, "storage size[{}]", storage.size());
+				logger.debug(function, "storage size[{}]", storage.size());
 				
 				if ( reservedByOther(selfGwsIdentity, selfUsrIdentity) ) {
 					
 					result = result | SimultaneousLogin_i.Bit_Pos_ReservedByOther;
 					
-					logger.debug(className, function, "reservedByOther IS TRUE result[{}]", result);
+					logger.debug(function, "reservedByOther IS TRUE result[{}]", result);
 				}
 				
 				if ( reservedBySelf(selfGwsIdentity, selfUsrIdentity) ) {
 					
 					result = result | SimultaneousLogin_i.Bit_Pos_ReservedSelfGws;
 					
-					logger.debug(className, function, "reservedBySelf IS TRUE result[{}]", result);
+					logger.debug(function, "reservedBySelf IS TRUE result[{}]", result);
 				}
 
 				if ( reservedInOtherArea(selfGwsArea, selfUsrIdentity, groupThreshold)) {
 					
 					result = result | SimultaneousLogin_i.Bit_Pos_ReservedInOtherArea;
 					
-					logger.debug(className, function, "reservedInOtherArea IS TRUE result[{}]", result);
+					logger.debug(function, "reservedInOtherArea IS TRUE result[{}]", result);
 				}
 			} else {
 				
 				result = result | SimultaneousLogin_i.Bit_Pos_Storage_IsEmpty;
 				
-				logger.warn(className, function, "rowStorage IS NULL");
+				logger.warn(function, "rowStorage IS NULL");
 			}
 		}
 
-		logger.debug(className, function, "result[{}]", result);
-		logger.end(className, function);
+		logger.debug(function, "result[{}]", result);
+		logger.end(function);
 		
 		return result;
 	}

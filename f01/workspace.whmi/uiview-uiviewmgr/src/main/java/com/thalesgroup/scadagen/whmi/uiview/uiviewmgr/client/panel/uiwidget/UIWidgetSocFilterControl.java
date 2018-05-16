@@ -9,9 +9,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocAutoManuControl_i.AutoManuEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocFilterControl_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
@@ -30,8 +29,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGen
 
 public class UIWidgetSocFilterControl extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetSocFilterControl.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private SimpleEventBus eventBus 	= null;
 
@@ -88,13 +87,13 @@ public class UIWidgetSocFilterControl extends UIWidget_i {
 		public void onClick(ClickEvent event) {
 			final String function = "onClick";
 			
-			logger.begin(className, function);
+			logger.begin(function);
 			
 			if ( null != event ) {
 				Widget widget = (Widget) event.getSource();
 				if ( null != widget ) {
 					String element = uiWidgetGeneric.getWidgetElement(widget);
-					logger.info(className, function, "element[{}]", element);
+					logger.info(function, "element[{}]", element);
 					if ( null != element ) {
 						
 						HashMap<String, Object> parameter = new HashMap<String, Object>();
@@ -226,40 +225,40 @@ public class UIWidgetSocFilterControl extends UIWidget_i {
 					}
 				}
 			}
-			logger.end(className, function);
+			logger.end(function);
 		}
 		
 		@Override
 		public void onActionReceived(UIEventAction uiEventAction) {
 			final String function = "onActionReceived";
 			
-			logger.begin(className, function);
+			logger.begin(function);
 			
 			String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 			
-			logger.info(className, function, "os1["+os1+"]");
+			logger.info(function, "os1["+os1+"]");
 			
 			if ( null != os1 ) {
 				if ( os1.equals(AutoManuEvent.RadioBoxSelected.toString() ) ) {
 					
-					logger.info(className, function, "Store Selected RadioBox");
+					logger.info(function, "Store Selected RadioBox");
 					
 					String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
 					
 					if ( null != os2 ) {
 						
-						logger.info(className, function, "os2[{}]", os2);
+						logger.info(function, "os2[{}]", os2);
 						
 					} else {
-						logger.warn(className, function, "os2 IS NULL");
+						logger.warn(function, "os2 IS NULL");
 					}
 					
 				} else {
 					// General Case
 					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 					
-					logger.info(className, function, "oe ["+oe+"]");
-					logger.info(className, function, "os1["+os1+"]");
+					logger.info(function, "oe ["+oe+"]");
+					logger.info(function, "os1["+os1+"]");
 					
 					if ( null != oe ) {
 						if ( oe.equals(element) ) {
@@ -268,18 +267,18 @@ public class UIWidgetSocFilterControl extends UIWidget_i {
 					}
 				}
 			}
-			logger.end(className, function);
+			logger.end(function);
 		}
 	};
 		
 	@Override
 	public void init() {
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
+		logger.info(function, "strEventBusName[{}]", strEventBusName);
 
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -394,33 +393,33 @@ public class UIWidgetSocFilterControl extends UIWidget_i {
 			}
 		}
 		
-		logger.info(className, function, "targetDataGrid[{}]", targetDataGrid);
-		logger.info(className, function, "targetDataGridColumn1[{}]", targetDataGridColumn1);
-		logger.info(className, function, "targetDataGridColumn2[{}]", targetDataGridColumn2);
-		logger.info(className, function, "targetDataGridColumn3[{}]", targetDataGridColumn3);
-		logger.info(className, function, "targetDataGridColumn4[{}]", targetDataGridColumn4);
-		logger.info(className, function, "targetDataGridColumn5[{}]", targetDataGridColumn5);
-		logger.info(className, function, "targetDataGridColumn6[{}]", targetDataGridColumn6);
-		logger.info(className, function, "targetDataGridColumn7[{}]", targetDataGridColumn7);
-		logger.info(className, function, "targetDataGridColumn8[{}]", targetDataGridColumn8);
+		logger.info(function, "targetDataGrid[{}]", targetDataGrid);
+		logger.info(function, "targetDataGridColumn1[{}]", targetDataGridColumn1);
+		logger.info(function, "targetDataGridColumn2[{}]", targetDataGridColumn2);
+		logger.info(function, "targetDataGridColumn3[{}]", targetDataGridColumn3);
+		logger.info(function, "targetDataGridColumn4[{}]", targetDataGridColumn4);
+		logger.info(function, "targetDataGridColumn5[{}]", targetDataGridColumn5);
+		logger.info(function, "targetDataGridColumn6[{}]", targetDataGridColumn6);
+		logger.info(function, "targetDataGridColumn7[{}]", targetDataGridColumn7);
+		logger.info(function, "targetDataGridColumn8[{}]", targetDataGridColumn8);
 		
-		logger.info(className, function, "strColumnFilter1Value[{}]", strColumnFilter1Value);
-		logger.info(className, function, "strColumnFilter2Value[{}]", strColumnFilter2Value);
-		logger.info(className, function, "strColumnFilter3Value[{}]", strColumnFilter3Value);
-		logger.info(className, function, "strColumnFilter4Value[{}]", strColumnFilter4Value);
-		logger.info(className, function, "strColumnFilter5Value[{}]", strColumnFilter5Value);
-		logger.info(className, function, "strColumnFilter6Value[{}]", strColumnFilter6Value);
-		logger.info(className, function, "strColumnFilter7Value[{}]", strColumnFilter7Value);
-		logger.info(className, function, "strColumnFilter8Value[{}]", strColumnFilter8Value);
+		logger.info(function, "strColumnFilter1Value[{}]", strColumnFilter1Value);
+		logger.info(function, "strColumnFilter2Value[{}]", strColumnFilter2Value);
+		logger.info(function, "strColumnFilter3Value[{}]", strColumnFilter3Value);
+		logger.info(function, "strColumnFilter4Value[{}]", strColumnFilter4Value);
+		logger.info(function, "strColumnFilter5Value[{}]", strColumnFilter5Value);
+		logger.info(function, "strColumnFilter6Value[{}]", strColumnFilter6Value);
+		logger.info(function, "strColumnFilter7Value[{}]", strColumnFilter7Value);
+		logger.info(function, "strColumnFilter8Value[{}]", strColumnFilter8Value);
 		
-		logger.info(className, function, "strColumnFilter1Status[{}]", strColumnFilter1Status);
-		logger.info(className, function, "strColumnFilter2Status[{}]", strColumnFilter2Status);
-		logger.info(className, function, "strColumnFilter3Status[{}]", strColumnFilter3Status);
-		logger.info(className, function, "strColumnFilter4Status[{}]", strColumnFilter4Status);
-		logger.info(className, function, "strColumnFilter5Status[{}]", strColumnFilter5Status);
-		logger.info(className, function, "strColumnFilter6Status[{}]", strColumnFilter6Status);
-		logger.info(className, function, "strColumnFilter7Status[{}]", strColumnFilter7Status);
-		logger.info(className, function, "strColumnFilter8Status[{}]", strColumnFilter8Status);
+		logger.info(function, "strColumnFilter1Status[{}]", strColumnFilter1Status);
+		logger.info(function, "strColumnFilter2Status[{}]", strColumnFilter2Status);
+		logger.info(function, "strColumnFilter3Status[{}]", strColumnFilter3Status);
+		logger.info(function, "strColumnFilter4Status[{}]", strColumnFilter4Status);
+		logger.info(function, "strColumnFilter5Status[{}]", strColumnFilter5Status);
+		logger.info(function, "strColumnFilter6Status[{}]", strColumnFilter6Status);
+		logger.info(function, "strColumnFilter7Status[{}]", strColumnFilter7Status);
+		logger.info(function, "strColumnFilter8Status[{}]", strColumnFilter8Status);
 
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
@@ -477,7 +476,7 @@ public class UIWidgetSocFilterControl extends UIWidget_i {
 
 		uiEventActionProcessor_i.executeActionSetInit();
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

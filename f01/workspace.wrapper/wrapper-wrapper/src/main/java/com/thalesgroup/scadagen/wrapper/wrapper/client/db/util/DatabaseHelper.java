@@ -2,15 +2,14 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.util;
 
 import java.util.HashMap;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DatabaseHelper_i.PointType;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DatabaseHelper_i.ValidityStatus;
 
 public class DatabaseHelper {
-	
-	private static final String className = DatabaseHelper.class.getSimpleName();
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(DatabaseHelper.class.getName());
+
+	private static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(DatabaseHelper.class.getName());
 	
 	public static String getPointFromDbAddress(String dbaddress) {
 		final String function = "getPointFromDbAddress";
@@ -19,7 +18,7 @@ public class DatabaseHelper {
 			String dbaddressTokenes[] = dbaddress.split(":");
 			result = dbaddressTokenes[dbaddressTokenes.length-1];
 		} else {
-			logger.warn(className, function, "dbaddress IS NULL");
+			logger.warn(function, "dbaddress IS NULL");
 		}
 		return result;
 	}
@@ -30,7 +29,7 @@ public class DatabaseHelper {
 			int index = dbaddress.lastIndexOf('-');
 			result = dbaddress.substring(index-6);
 		} else {
-			logger.warn(className, function, "dbaddress IS NULL");
+			logger.warn(function, "dbaddress IS NULL");
 		}
 		return result;
 	}
@@ -71,7 +70,7 @@ public class DatabaseHelper {
 		if ( null != addresses ) {
 			result = true;
 		} else {
-			logger.warn(className, function, "addresses IS NULL");
+			logger.warn(function, "addresses IS NULL");
 		}		
 		return result;
 	}
@@ -82,16 +81,16 @@ public class DatabaseHelper {
 			if ( addresses.length > 0 ) {
 				result = true;
 				if ( logger.isDebugEnabled() ) {
-					logger.debug(className, function, "addresses.length[{}]", addresses.length);
+					logger.debug(function, "addresses.length[{}]", addresses.length);
 					for ( int i = 0 ; i < addresses.length ; ++i ) {
-						logger.debug(className, function, "addresses({})[{}]", i, addresses[i]);
+						logger.debug(function, "addresses({})[{}]", i, addresses[i]);
 					}					
 				}
 			} else {
-				logger.warn(className, function, "addresses length IS ZERO");
+				logger.warn(function, "addresses length IS ZERO");
 			}
 		} else {
-			logger.warn(className, function, "addresses IS NULL");
+			logger.warn(function, "addresses IS NULL");
 		}		
 		return result;
 	}
@@ -110,10 +109,10 @@ public class DatabaseHelper {
 	
 	public static String getArrayValues(String string, int col, int row) {
 		final String function = "getArrayValues";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String str = null;
-		logger.trace(className, function, "string[{}] col[{}] row[{}]", new Object[]{string, col, row});
+		logger.trace(function, "string[{}] col[{}] row[{}]", new Object[]{string, col, row});
 				
 		if (null != string && string.length() > 0) {
 
@@ -125,38 +124,38 @@ public class DatabaseHelper {
 				String s = strs[col];
 				s = removeBegin(s, '[');
 				s = removeBegin(s, ']');
-				logger.trace(className, function, "s[{}]", s);
+				logger.trace(function, "s[{}]", s);
 //				String str2s[] = s.split(",");
 				String str2s[] = s.split("\\s*,\\s*");
-				logger.trace(className, function, "str2s[{}][{}]", row, str2s[row]);
+				logger.trace(function, "str2s[{}][{}]", row, str2s[row]);
 				if ( str2s.length > 0 && row < str2s.length ) {
 					str = str2s[row];
-					logger.trace(className, function, "str[{}]", str);				
+					logger.trace(function, "str[{}]", str);				
 				}
 			} else {
 				// Invalid str length or index
-				logger.warn(className, function, "Invalid str length or index");
+				logger.warn(function, "Invalid str length or index");
 			}
 		}
-		logger.trace(className, function, "str[{}]", str);
+		logger.trace(function, "str[{}]", str);
 		
-		logger.end(className, function);
+		logger.end(function);
 
 		return str;
 	}
 	
 	public static String getAttributeValue(String address, String point, HashMap<String, String> dbvalues) {
 		final String function = "getAttributeValue";
-		logger.begin(className, function);
+		logger.begin(function);
 		String value = null;
 		String dbaddress = address + point;
-		logger.debug(className, function, "address[{}] point[{}] = dbaddress[{}]", new Object[]{address, point, dbaddress});
+		logger.debug(function, "address[{}] point[{}] = dbaddress[{}]", new Object[]{address, point, dbaddress});
 		if ( dbvalues.containsKey(dbaddress) ) {
 			value = dbvalues.get(dbaddress);
 		} else {
-			logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
+			logger.warn(function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
 		}
-		logger.end(className, function);
+		logger.end(function);
 		return value;
 	}
 	
@@ -210,10 +209,10 @@ public class DatabaseHelper {
 			try {
 				result	= Integer.parseInt(string);
 			} catch ( NumberFormatException e ) {
-				logger.warn(className, function, logprefix+" NumberFormatException[{}]", e.toString());
+				logger.warn(function, logprefix+" NumberFormatException[{}]", e.toString());
 			}
 		} else {
-			logger.warn(className, function, logprefix+" string[{}] IS INVALID", string);
+			logger.warn(function, logprefix+" string[{}] IS INVALID", string);
 		}
 		return result;
 	}
@@ -223,7 +222,7 @@ public class DatabaseHelper {
 	
 	public static String getFromPairArray(String targetDbAddress, String[] dbAddresses, String[] dbValues) {
 		final String function = "getFromPairArray";
-		logger.begin(className, function);
+		logger.begin(function);
 		String result = null;
 		int targetValueIndex = -1;
 		for ( int i = 0 ; i < dbAddresses.length ; ++i ) {
@@ -235,7 +234,7 @@ public class DatabaseHelper {
 		if ( targetValueIndex > -1 ) {
 			result = dbValues[targetValueIndex];
 		}
-		logger.end(className, function);
+		logger.end(function);
 		return result;
 	}
 

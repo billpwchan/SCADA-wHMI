@@ -5,14 +5,13 @@ import java.util.Map;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.EntityClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.matrix.update.MxIntersectionState;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class ScsMatrixCoeffTools {
-	
-	private static final String className = ScsMatrixCoeffTools.class.getSimpleName();
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(ScsMatrixCoeffTools.class.getName());
+
+	private static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(ScsMatrixCoeffTools.class.getName());
 	
 	private static final String EMPTY_COEFFICIENT = "";
 
@@ -35,7 +34,7 @@ public class ScsMatrixCoeffTools {
     	if (value != null) {
     		return (Translation.getWording("&" + coeffAttributeName + "_" + value));
     	} else {
-    		logger.debug(className, function, "Warning: getAttributeValue for coeffAttributeName [{}] return null ", coeffAttributeName);
+    		logger.debug(function, "Warning: getAttributeValue for coeffAttributeName [{}] return null ", coeffAttributeName);
     	}
 
     	return EMPTY_COEFFICIENT;

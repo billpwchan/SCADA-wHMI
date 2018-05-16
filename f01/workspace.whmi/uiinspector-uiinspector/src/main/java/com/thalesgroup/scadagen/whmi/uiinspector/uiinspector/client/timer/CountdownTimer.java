@@ -1,15 +1,12 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.timer;
 
 import com.google.gwt.user.client.Timer;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class CountdownTimer {
-	
-	private final String cls = this.getClass().getName();
-	private final String className = UIWidgetUtil.getClassSimpleName(cls);
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private Timer timer = null;
 
@@ -26,63 +23,63 @@ public class CountdownTimer {
 	
 	public void init() {
 		final String function = "init";
-		logger.beginEnd(function, function);
+		logger.beginEnd(function);
 	}
 	
 	public void update() {
 		final String function = "update";
 		
-		logger.begin(function, function);
+		logger.begin(function);
 		
 		if ( null != timer ) {
-			logger.debug(className, function, "autoClose timer extended [{}]", timerExpiredMillSecond);
+			logger.debug(function, "autoClose timer extended [{}]", timerExpiredMillSecond);
 			timer.cancel();
 			timer.schedule(timerExpiredMillSecond);
 		} else {
-			logger.warn(className, function, "autoCloseTimer IS NULL");
+			logger.warn(function, "autoCloseTimer IS NULL");
 		}
 		
-		logger.end(function, function);
+		logger.end(function);
 	}
 	
 	public void start() {
 		final String function = "start";
 		
-		logger.begin(function, function);
+		logger.begin(function);
 		
-		logger.debug(className, function, "timer enabled, creating timer");
+		logger.debug(function, "timer enabled, creating timer");
 		timer = new Timer() {
 			@Override
 			public void run() {
 				final String function = "Timer run";
-				logger.begin(className, function);
-				logger.debug(className, function, "timer timerExpiredMillSecond[{}] trigged", timerExpiredMillSecond);
+				logger.begin(function);
+				logger.debug(function, "timer timerExpiredMillSecond[{}] trigged", timerExpiredMillSecond);
 				close();
 				
 				if ( null != countdownTimerEvent ) countdownTimerEvent.timeup();
 				
-				logger.end(className, function);
+				logger.end(function);
 			}
 		};
-		logger.debug(className, function, "timer enabled, schedule timer timerExpiredMillSecond[{}]", timerExpiredMillSecond);
+		logger.debug(function, "timer enabled, schedule timer timerExpiredMillSecond[{}]", timerExpiredMillSecond);
 		timer.schedule(timerExpiredMillSecond);			
 
-		logger.end(function, function);
+		logger.end(function);
 	}
 
 	public void close() {
 		final String function = "close";
 		
-		logger.begin(function, function);
+		logger.begin(function);
 		
 		if ( null != timer ) {
 			timer.cancel();
 			timer = null;
 		} else {
-			logger.debug(className, function, "timer IS NULL");
+			logger.debug(function, "timer IS NULL");
 		}
 	
 		
-		logger.end(function, function);
+		logger.end(function);
 	}
 }

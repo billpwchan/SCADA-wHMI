@@ -11,17 +11,15 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch_i.UITaskLaunchAttribute;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.SCADAgenSituationViewPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.SCADAgenSituationViewPanelEvent;
 
 public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvide_i {
-	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelViewSchematic.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private final String UIPathUIPanelViewLayout	= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout";
 	
@@ -29,14 +27,14 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 	
 	private final String STR_CONFIGURATION_ID		= "configurationId";
 	
-	private final String STR_SG_S_VP_CONTROL_NAME	= UIWidgetUtil.getClassSimpleName(SCADAgenSituationViewPanel.class.getName());
+	private final String STR_SG_S_VP_CONTROL_NAME	= SCADAgenSituationViewPanel.class.getSimpleName();
 
 	public static final String UNIT_PX = "px";
 	
 	@Override
 	public void init() {
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		HorizontalPanel hp = new HorizontalPanel();
 		hp.setWidth("100%");
@@ -47,7 +45,7 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 		rootPanel = new DockLayoutPanel(Unit.PX);
 		rootPanel.add(hp);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private SCADAgenSituationViewPanel scadagenSituationViewPanel = null;
@@ -55,13 +53,13 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 	public void setTaskProvide(UITask_i taskProvide) {
 		final String function = "setTaskProvide";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		if ( null != taskProvide ) {
 			if ( taskProvide instanceof UITaskLaunch ) {
 				UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
 				
 				String uiConf = taskLaunch.getUiConf();
-				logger.debug(className, function, "uiConf[{}]", uiConf);
+				logger.debug(function, "uiConf[{}]", uiConf);
 				
 				String uiCtrl = null;
 				String uiSvId = null;
@@ -75,13 +73,13 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 					uiSvId = taskLaunch.getUiSvId();
 				}
 				
-				logger.debug(className, function, "uiCtrl[{}]", uiCtrl);
+				logger.debug(function, "uiCtrl[{}]", uiCtrl);
 				
 				if ( null != uiCtrl ) {
 					
 					if ( uiCtrl.equals(STR_SG_S_VP_CONTROL_NAME) ) {
 						
-						logger.debug(className, function, "uiCtrl[{}] uiSvId[{}]", new Object[]{uiCtrl, uiSvId});
+						logger.debug(function, "uiCtrl[{}] uiSvId[{}]", new Object[]{uiCtrl, uiSvId});
 						
 						rootPanel.clear();
 
@@ -91,11 +89,11 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 							@Override
 							public void triggerSymbolWidget(Map<String, String> options) {
 								final String function = "triggerSymbolWidget";
-								logger.begin(className, function);
+								logger.begin(function);
 								
 								String configurationId = scadagenSituationViewPanel.getConfigurationId();
 								
-								logger.debug(className, function, "configurationId[{}]", configurationId);
+								logger.debug(function, "configurationId[{}]", configurationId);
 								
 								UITaskLaunch taskLaunch = new UITaskLaunch();
 								taskLaunch.setUiCtrl(STR_SYMBOL_SELECTED);
@@ -107,23 +105,23 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 								
 								uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 								
-								logger.end(className, function);
+								logger.end(function);
 							}
 						});
 
 						rootPanel.add(scadagenSituationViewPanel.getMainPanel());
 					} else {
-						logger.warn(className, function, "uiCtrl[{}] NOT FOUND!", uiCtrl);
+						logger.warn(function, "uiCtrl[{}] NOT FOUND!", uiCtrl);
 					}
 				} else {
-					logger.warn(className, function, "uiCtrl IS NULL");
+					logger.warn(function, "uiCtrl IS NULL");
 				}
 			}
 		} else {
-			logger.warn(className, function, "is not TaskLaunch");
+			logger.warn(function, "is not TaskLaunch");
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 //	private UIViewEvent uiViewEvent = null;
@@ -137,8 +135,8 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 	@Override
 	public void terminate() {
 		final String function = "terminate";
-		logger.begin(className, function);
+		logger.begin(function);
 		if ( null != scadagenSituationViewPanel ) scadagenSituationViewPanel.terminate();
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

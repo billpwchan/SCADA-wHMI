@@ -3,8 +3,8 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.ca
 import java.util.HashMap;
 import java.util.Map;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseReadSingle2SingleResult_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingle2SingleRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.Single2SingleResponsible_i;
@@ -17,9 +17,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.Dat
  *
  */
 public class DatabaseGetFullPathProxy implements DatabaseSingle2SingleRead_i, Single2SingleResponsible_i {
-	
-	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	protected Map<String, ReadingRequest> requests = new HashMap<String, ReadingRequest>();
 	
@@ -48,9 +47,9 @@ public class DatabaseGetFullPathProxy implements DatabaseSingle2SingleRead_i, Si
 	@Override
 	public void connect() {
 		final String function = "connect";
-		logger.begin(className, function);
+		logger.begin(function);
 		databaseReading.connect();
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/* (non-Javadoc)
@@ -59,18 +58,18 @@ public class DatabaseGetFullPathProxy implements DatabaseSingle2SingleRead_i, Si
 	@Override
 	public void disconnect() {
 		final String function = "connect";
-		logger.begin(className, function);
+		logger.begin(function);
 		requests.clear();
 		databaseReading.disconnect();
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
 	public void addSingle2SingleRequest(String key, String scsEnvId, String dbAddress, DatabaseReadSingle2SingleResult_i databaseEvent) {
 		final String function = "addSingle2SingleRequest";
-		logger.debug(className, function, "key[{}]", key);
+		logger.debug(function, "key[{}]", key);
 		if ( logger.isDebugEnabled() ) {
-			logger.debug(className, function, "dbAddress[{}]", dbAddress);
+			logger.debug(function, "dbAddress[{}]", dbAddress);
 		}
 		
 		if ( null != databaseEvent ) {
@@ -106,9 +105,9 @@ public class DatabaseGetFullPathProxy implements DatabaseSingle2SingleRead_i, Si
 				});
 			}
 		} else {
-			logger.warn(className, function, "databaseEvent IS NULL");
+			logger.warn(function, "databaseEvent IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/* (non-Javadoc)
@@ -117,12 +116,12 @@ public class DatabaseGetFullPathProxy implements DatabaseSingle2SingleRead_i, Si
 	@Override
 	public void buildRespond(String clientKey, String dbAddress, String values) {
 		final String function = "buildReponse";
-		logger.begin(className, function);
-		logger.info(className, function, "clientKey[{}]", clientKey);
+		logger.begin(function);
+		logger.info(function, "clientKey[{}]", clientKey);
 		ReadingRequest rq = requests.get(clientKey);
 		rq.databaseEvent.update(clientKey, values);
 		requests.remove(clientKey);
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

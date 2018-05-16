@@ -6,9 +6,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
@@ -26,8 +25,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGen
 
 public class UIWidgetSocAutoManuControl extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetSocAutoManuControl.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private SimpleEventBus eventBus 	= null;
 
@@ -53,13 +52,13 @@ public class UIWidgetSocAutoManuControl extends UIWidget_i {
 		public void onClick(ClickEvent event) {
 			final String function = "onClick";
 			
-			logger.begin(className, function);
+			logger.begin(function);
 			
 			if ( null != event ) {
 				Widget widget = (Widget) event.getSource();
 				if ( null != widget ) {
 					String element = uiWidgetGeneric.getWidgetElement(widget);
-					logger.info(className, function, "element[{}]", element);
+					logger.info(function, "element[{}]", element);
 					if ( null != element ) {
 						String actionsetkey = element;
 
@@ -67,26 +66,26 @@ public class UIWidgetSocAutoManuControl extends UIWidget_i {
 					}
 				}
 			}
-			logger.begin(className, function);
+			logger.begin(function);
 		}
 		
 		@Override
 		public void onActionReceived(UIEventAction uiEventAction) {
 			final String function = "onActionReceived";
 			
-			logger.begin(className, function);
+			logger.begin(function);
 			
 			String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 			
-			logger.info(className, function, "os1["+os1+"]");
+			logger.info(function, "os1["+os1+"]");
 			
 			if ( null != os1 ) {
 				
 				// General Case
 				String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 				
-				logger.info(className, function, "oe ["+oe+"]");
-				logger.info(className, function, "os1["+os1+"]");
+				logger.info(function, "oe ["+oe+"]");
+				logger.info(function, "os1["+os1+"]");
 				
 				if ( null != oe ) {
 					if ( oe.equals(element) ) {
@@ -95,7 +94,7 @@ public class UIWidgetSocAutoManuControl extends UIWidget_i {
 				}
 				
 			}
-			logger.end(className, function);
+			logger.end(function);
 		}
 	};
 		
@@ -103,11 +102,11 @@ public class UIWidgetSocAutoManuControl extends UIWidget_i {
 	public void init() {
 		final String function = "init";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
+		logger.info(function, "strEventBusName[{}]", strEventBusName);
 
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -117,8 +116,8 @@ public class UIWidgetSocAutoManuControl extends UIWidget_i {
 			targetDataGrid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid_A.toString(), strHeader);
 		}
 		
-		logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);
-		logger.info(className, function, "targetDataGrid[{}]", targetDataGrid);
+		logger.info(function, "targetDataGridColumn[{}]", targetDataGridColumn);
+		logger.info(function, "targetDataGrid[{}]", targetDataGrid);
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
@@ -174,7 +173,7 @@ public class UIWidgetSocAutoManuControl extends UIWidget_i {
 
 		uiEventActionProcessor_i.executeActionSetInit();
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

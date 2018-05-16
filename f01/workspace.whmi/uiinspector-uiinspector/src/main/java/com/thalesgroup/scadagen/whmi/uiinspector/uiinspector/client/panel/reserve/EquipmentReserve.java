@@ -10,19 +10,17 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIIns
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIPanelInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorHeader_i.AttributeName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.API;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.Stability;
 
 public class EquipmentReserve {
-	
-	private final static String cls = EquipmentReserve.class.getName();
-	private final static String className = UIWidgetUtil.getClassSimpleName(cls);
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
+
+	private final static String className = EquipmentReserve.class.getSimpleName();
+	private final static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(EquipmentReserve.class.getName());
 	
 	private static String reservationName = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
 	
@@ -33,15 +31,15 @@ public class EquipmentReserve {
 	private static Map<String, String> attributes = new HashMap<String, String>();
 	public static void setAttribute(String key, String value) {
 		final String function = "setAttribute";
-		logger.begin(className, function);
-		logger.debug(className, function, "key[{}] value[{}]", key, value);
+		logger.begin(function);
+		logger.debug(function, "key[{}] value[{}]", key, value);
 		attributes.put(key, value);
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public static void loadConfiguration() {
 		final String function = "loadConfiguration";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String dictionariesCacheName = UIInspector_i.strUIInspector;
 		String dictionariesCacheName_fileName = className+UIPanelInspector_i.strConfigExtension;
@@ -50,17 +48,17 @@ public class EquipmentReserve {
 		{
 			String keyResrvReserveReqIDAttribute= dictionariesCacheName_prefix+AttributeName.ResrvReserveReqIDAttribute.toString();
 			String resrvReserveReqIDAttribute = ReadProp.readString(dictionariesCacheName, dictionariesCacheName_fileName, keyResrvReserveReqIDAttribute, "");
-			logger.debug(className, function, "resrvReserveReqIDAttribute[{}]", resrvReserveReqIDAttribute);
+			logger.debug(function, "resrvReserveReqIDAttribute[{}]", resrvReserveReqIDAttribute);
 			setAttribute(AttributeName.ResrvReserveReqIDAttribute.toString(), resrvReserveReqIDAttribute);
 		}
 		{
 			String keyResrvUnreserveReqIDAttribute= dictionariesCacheName_prefix+AttributeName.ResrvUnreserveReqIDAttribute.toString();
 			String resrvUnreserveReqIDAttribute = ReadProp.readString(dictionariesCacheName, dictionariesCacheName_fileName, keyResrvUnreserveReqIDAttribute, "");
-			logger.debug(className, function, "resrvUnreserveReqIDAttribute[{}]", resrvUnreserveReqIDAttribute);
+			logger.debug(function, "resrvUnreserveReqIDAttribute[{}]", resrvUnreserveReqIDAttribute);
 			setAttribute(AttributeName.ResrvUnreserveReqIDAttribute.toString(), resrvUnreserveReqIDAttribute);
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/** Return the EquipmentReservationID
@@ -68,12 +66,12 @@ public class EquipmentReserve {
 	 */
 	public static String getEquipmentReservationName (boolean hasScreen, int screen) {
 		final String function = "getEquipmentReservationName";
-		logger.begin(className, function);
-		logger.debug(className, function, "reservationName[{}]", reservationName);
-		logger.debug(className, function, "hasScreen[{}] screen[{}]", hasScreen, screen);
+		logger.begin(function);
+		logger.debug(function, "reservationName[{}]", reservationName);
+		logger.debug(function, "hasScreen[{}] screen[{}]", hasScreen, screen);
 		String reservationkey = reservationName+(hasScreen?screen:"");
-		logger.debug(className, function, "reservationkey[{}]", reservationkey);
-		logger.end(className, function);
+		logger.debug(function, "reservationkey[{}]", reservationkey);
+		logger.end(function);
 		return reservationkey;
 	}
 	
@@ -85,9 +83,9 @@ public class EquipmentReserve {
 	 */
 	public static int isEquipmentReservation(String eqtReserved, boolean hasScreen, int screen) {
 		final String function = "isEquipmentReservation";
-		logger.begin(className, function);
-		logger.debug(className, function, "eqtReserved[{}]", eqtReserved);
-		logger.debug(className, function, "hasScreen[{}] screen[{}]", hasScreen, screen);
+		logger.begin(function);
+		logger.debug(function, "eqtReserved[{}]", eqtReserved);
+		logger.debug(function, "hasScreen[{}] screen[{}]", hasScreen, screen);
 		String reservationName = getEquipmentReservationName(hasScreen, screen);
 		int eqtReservedresult = 0;
 		DatabaseHelper.removeDBStringWrapper(eqtReserved);
@@ -98,7 +96,7 @@ public class EquipmentReserve {
 		} else if ( null != eqtReserved && eqtReserved.trim().length() == 0 ) {
 			eqtReservedresult = 0;
 		}
-		logger.end(className, function);
+		logger.end(function);
 		return eqtReservedresult;
 	}
 	
@@ -108,9 +106,9 @@ public class EquipmentReserve {
 	 */
 	public static void equipmentReservation ( String scsEnvId, String dbaddress, Database database, boolean hasScreen, int screen) {
 		final String function = "equipmentReservation";
-		logger.begin(className, function);
-		logger.debug(className, function, "scsEnvId[{}] address[{}]", scsEnvId, dbaddress);
-		logger.debug(className, function, "hasScreen[{}] screen[{}]", hasScreen, screen);
+		logger.begin(function);
+		logger.debug(function, "scsEnvId[{}] address[{}]", scsEnvId, dbaddress);
+		logger.debug(function, "hasScreen[{}] screen[{}]", hasScreen, screen);
 		
 		String resrvReserveReqIDAttribute = attributes.get(AttributeName.ResrvReserveReqIDAttribute.toString());
 		String reservationName = getEquipmentReservationName(hasScreen, screen);
@@ -128,7 +126,7 @@ public class EquipmentReserve {
 			
 		database.addWriteStringValueRequest(key, scsEnvId, addressWrite, reservationName);
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/** This procedure using to un-reserve equipment
@@ -137,9 +135,9 @@ public class EquipmentReserve {
 	 */
 	public static void equipmentUnreservation ( String scsEnvId, String dbaddress, Database database, boolean hasScreen, int screen ) {
 		final String function = "equipmentUnreservation";
-		logger.begin(className, function);
-		logger.debug(className, function, "scsEnvId[{}] address[{}]", scsEnvId, dbaddress);
-		logger.debug(className, function, "hasScreen[{}] screen[{}]", hasScreen, screen);
+		logger.begin(function);
+		logger.debug(function, "scsEnvId[{}] address[{}]", scsEnvId, dbaddress);
+		logger.debug(function, "hasScreen[{}] screen[{}]", hasScreen, screen);
 		
 		// Write
 		String resrvUnreserveReqIDAttribute = attributes.get(AttributeName.ResrvUnreserveReqIDAttribute.toString());
@@ -158,6 +156,6 @@ public class EquipmentReserve {
 		
 		database.addWriteStringValueRequest(key, scsEnvId, addressWrite, reservationName);
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

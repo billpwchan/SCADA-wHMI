@@ -10,8 +10,8 @@ import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIEven
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIEventActionProcessorMgrFactorys;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIGenericMgrFactorys;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIWidgetUIScreenMMIFactorys;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
@@ -25,9 +25,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGen
  */
 public class UIScreenMMI extends UIWidget_i {
 
-	private final String cls = this.getClass().getName();
-	private final String className = this.getClass().getSimpleName();;
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(cls);
+	private final String className = this.getClass().getSimpleName();
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private UILayoutGeneric uiLayoutGeneric = null;
 	
@@ -40,14 +39,14 @@ public class UIScreenMMI extends UIWidget_i {
 	@Override
 	public void init() {
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strInitdelayms = null;
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
 			strInitdelayms = dictionariesCache.getStringValue(optsXMLFile, ParameterName.InitDelayMS.toString(), strHeader);
-			logger.debug(className, function, "strInitdelayms[{}]", strInitdelayms);
+			logger.debug(function, "strInitdelayms[{}]", strInitdelayms);
 		}
 
 		handlerRegistrations.add(		
@@ -98,17 +97,17 @@ public class UIScreenMMI extends UIWidget_i {
 			try { 
 				delay = Integer.parseInt(strInitdelayms);
 			} catch ( NumberFormatException ex ) {
-				logger.warn(className, function, "Value of initdelayms[{}] IS INVALID", strInitdelayms);
+				logger.warn(function, "Value of initdelayms[{}] IS INVALID", strInitdelayms);
 			}
 		}
 		uiEventActionProcessor_i.executeActionSet("init_delay", delay, null);
 		
 		//Start the Navigation Menu
-		logger.debug(className, function, "Start the Navigation Menu Begin");
+		logger.debug(function, "Start the Navigation Menu Begin");
 
 		UIPanelNavigation.getInstance().getMenus(this.uiNameCard).readyToGetMenu("", "", 0, "");
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

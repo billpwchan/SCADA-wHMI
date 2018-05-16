@@ -13,6 +13,18 @@ public interface UILogger_i {
      * @return Logger name
      */
     String getName();
+    
+    void clear();
+    
+    /**
+     * Set which log level is enabled.
+     */
+    void setCurrentLogLevel(int level);
+    
+    /**
+     * Get which log level is enabled.
+     */
+    int getCurrentLogLevel();
 
     /**
      * trace without throwable
@@ -81,6 +93,14 @@ public interface UILogger_i {
     void warn(final String message);
     
     /**
+     * fatal without throwable
+     * 
+     * @param message message to log
+     */
+    void fatal(final String message);
+    
+    
+    /**
      * warn with throwable
      * 
      * @param message message to log
@@ -109,10 +129,76 @@ public interface UILogger_i {
      */
     boolean isInfoEnabled();
     
+    boolean isTraceEnabled();
+    
     /**
      * To know if the debug level is enabled.
      * 
      * @return true if the debug level is enabled
      */
     boolean isDebugEnabled();
+
+	void begin		(String function);
+	void end		(String function);
+	void beginEnd	(String function);
+	void beginEnd	(String function, String message);
+	void beginEnd	(String function, String message, Object arg1);
+	void beginEnd	(String function, String message, Object arg1, Object arg2);
+	void beginEnd	(String function, String message, Object[] args);
+	void trace		(String function, String message);
+	void trace		(String function, String message, Object arg1);
+	void trace		(String function, String message, Object arg1, Object arg2);
+	void trace		(String function, String message, Object[] args);
+	void info		(String function, String message);
+	void info		(String function, String message, Object arg1);
+	void info		(String function, String message, Object arg1, Object arg2);
+	void info		(String function, String message, Object[] args);
+	void debug		(String function, String message);
+	void debug		(String function, String message, Object arg1);
+	void debug		(String function, String message, Object arg1, Object arg2);
+	void debug		(String function, String message, Object[] args);
+	void warn		(String function, String message);
+	void warn		(String function, String message, Object arg1);
+	void warn		(String function, String message, Object arg1, Object arg2);
+	void warn		(String function, String message, Object[] args);
+	void error		(String function, String message);
+	void error		(String function, String message, Object arg1);
+	void error		(String function, String message, Object arg1, Object arg2);
+	void error		(String function, String message, Object[] args);
+	void fatal		(String function, String message);
+	void fatal		(String function, String message, Object arg1);
+	void fatal		(String function, String message, Object arg1, Object arg2);
+	void fatal		(String function, String message, Object[] args);
+
+//	void begin		(String classname, String function);
+//	void end		(String classname, String function);
+////	void beginEnd	(String classname, String function);
+//	void beginEnd	(String classname, String function, String message);
+//	void beginEnd	(String classname, String function, String message, Object arg1);
+//	void beginEnd	(String classname, String function, String message, Object arg1, Object arg2);
+//	void beginEnd	(String classname, String function, String message, Object[] args);
+//	void trace		(String classname, String function, String message);
+//	void trace		(String classname, String function, String message, Object arg1);
+//	void trace		(String classname, String function, String message, Object arg1, Object arg2);
+//	void trace		(String classname, String function, String message, Object[] args);
+//	void info		(String classname, String function, String message);
+//	void info		(String classname, String function, String message, Object arg1);
+//	void info		(String classname, String function, String message, Object arg1, Object arg2);
+//	void info		(String classname, String function, String message, Object[] args);
+//	void debug		(String classname, String function, String message);
+//	void debug		(String classname, String function, String message, Object arg1);
+//	void debug		(String classname, String function, String message, Object arg1, Object arg2);
+//	void debug		(String classname, String function, String message, Object[] args);
+//	void warn		(String classname, String function, String message);
+//	void warn		(String classname, String function, String message, Object arg1);
+//	void warn		(String classname, String function, String message, Object arg1, Object arg2);
+//	void warn		(String classname, String function, String message, Object[] args);
+//	void error		(String classname, String function, String message);
+//	void error		(String classname, String function, String message, Object arg1);
+//	void error		(String classname, String function, String message, Object arg1, Object arg2);
+//	void error		(String classname, String function, String message, Object[] args);
+//	void fatal		(String classname, String function, String message);
+//	void fatal		(String classname, String function, String message, Object arg1);
+//	void fatal		(String classname, String function, String message, Object arg1, Object arg2);
+//	void fatal		(String classname, String function, String message, Object[] args);
 }

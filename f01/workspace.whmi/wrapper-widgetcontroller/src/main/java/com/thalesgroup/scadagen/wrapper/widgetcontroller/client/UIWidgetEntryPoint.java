@@ -14,8 +14,8 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.layout.view.IWidgetController;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.UIEntryPointFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitProcess_i;
@@ -30,7 +30,7 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 	private ResettableEventBus RESETABLE_EVENT_BUS  = null;
 	
 	private final static String CLASSNAME_ = UIWidgetEntryPoint.class.getSimpleName();
-	private final static UILogger LOGGER_ = UILoggerFactory.getInstance().getLogger(UIWidgetEntryPoint.class.getName());
+	private final static UILogger_i LOGGER_ = UILoggerFactory.getInstance().getUILogger(UIWidgetEntryPoint.class.getName());
 	
 	private UINameCard uiNameCard = null;
 	
@@ -46,16 +46,16 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 	
 	public UIWidgetEntryPoint(final Map<String, Object> params) {
 		final String f = "UIWidgetEntryPoint";
-		LOGGER_.begin(CLASSNAME_, f);
+		LOGGER_.begin(f);
 		
 		realize(params);
 		
-		LOGGER_.end(CLASSNAME_, f);
+		LOGGER_.end(f);
 	}
 	
 	public UIWidgetEntryPoint(final String uiCtrl, final String uiView, final String uiOpts, final String uiElem, final String uiDict) {
 		final String f = "UIWidgetEntryPoint";
-		LOGGER_.begin(CLASSNAME_, f);
+		LOGGER_.begin(f);
 
 		final Map<String, Object> params = new HashMap<String, Object>();
 		params.put(FASWidgetArgs.uiCtrl.toString(), uiCtrl);
@@ -66,12 +66,12 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 		
 		realize(params);
 		
-		LOGGER_.end(CLASSNAME_, f);
+		LOGGER_.end(f);
 	}
 	
 	private void realize(final Map<String, Object> params) {
 		final String f = "realize";
-		LOGGER_.begin(CLASSNAME_, f);
+		LOGGER_.begin(f);
 		
 		if(null!=params.get(FASWidgetArgs.uiCtrl.toString())) this.uiCtrl = params.get(FASWidgetArgs.uiCtrl.toString()).toString();
 		if(null!=params.get(FASWidgetArgs.uiView.toString())) this.uiView = params.get(FASWidgetArgs.uiView.toString()).toString();
@@ -79,7 +79,7 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 		if(null!=params.get(FASWidgetArgs.uiElem.toString())) this.uiElem = params.get(FASWidgetArgs.uiElem.toString()).toString();
 		if(null!=params.get(FASWidgetArgs.uiDict.toString())) this.uiDict = params.get(FASWidgetArgs.uiDict.toString()).toString();
 		
-		LOGGER_.debug(CLASSNAME_, f, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiOpts[{}] uiDict[{}]"
+		LOGGER_.debug(f, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiOpts[{}] uiDict[{}]"
 				, new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
 
 		this.EVENT_BUS = GWT.create(SimpleEventBus.class);
@@ -95,14 +95,14 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 		
 		buildWidget();
 		
-		LOGGER_.end(CLASSNAME_, f);
+		LOGGER_.end(f);
 	}
 
 	private void buildWidget() {
 		final String function = "buildWidget";
-		LOGGER_.begin(CLASSNAME_, function);
+		LOGGER_.begin(function);
 		
-		LOGGER_.debug(CLASSNAME_, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiElem[{}]"
+		LOGGER_.debug(function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiElem[{}]"
 				, new Object[]{uiCtrl, uiView, uiOpts, uiElem});
 		
 		final Map<String, Object> options = new HashMap<String, Object>();
@@ -112,17 +112,17 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 		
 		if ( null != uiWidget_i ) {
 			
-			LOGGER_.debug(CLASSNAME_, function, "initWidget before");
+			LOGGER_.debug(function, "initWidget before");
 		
 			Widget widget = uiWidget_i.getMainPanel();
 			
 			if ( null == widget ) {
-				LOGGER_.warn(CLASSNAME_, function, "initWidget widget IS null");
+				LOGGER_.warn(function, "initWidget widget IS null");
 			}
 			
 			simplePanel.add(widget);
 			
-			LOGGER_.debug(CLASSNAME_, function, "initWidget after");
+			LOGGER_.debug(function, "initWidget after");
 		}
 	}
 	
@@ -173,49 +173,49 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 	
 	public static void inits() {
 		final String f = "inits";
-		LOGGER_.begin(CLASSNAME_, f);
+		LOGGER_.begin(f);
 		for ( String key : inits.keySet() ) {
 			Init_i init = inits.get(key);
 			if ( null != init ) { 
-				LOGGER_.debug(CLASSNAME_, f, "Begin to call key["+key+"] init...");
+				LOGGER_.debug(f, "Begin to call key["+key+"] init...");
 
 				try {
 					init.init(parameters.get(key), initReadys.get(key));
 				} catch (Exception ex) {
-					LOGGER_.error(CLASSNAME_, f, "key["+key+"] init Exception:"+ex.toString());
+					LOGGER_.error(f, "key["+key+"] init Exception:"+ex.toString());
 				}
 				
-				LOGGER_.debug(CLASSNAME_, f, "End to call key["+key+"] init.");
+				LOGGER_.debug(f, "End to call key["+key+"] init.");
 			} else {
-				LOGGER_.warn(CLASSNAME_, f, "key["+key+"] init IS NULL");
+				LOGGER_.warn(f, "key["+key+"] init IS NULL");
 			}
 		}
-		LOGGER_.end(CLASSNAME_, f);
+		LOGGER_.end(f);
 	}
 
 	// Default Init Process is FAS
 	public static void init(final InitReady_i initReady) {
 		final String f = "init";
-		LOGGER_.begin(CLASSNAME_, f);
+		LOGGER_.begin(f);
 
 		init(null, LoaderFactory.getInitProcess("SingleLoader"), initReady);
 		
-		LOGGER_.end(CLASSNAME_, f);
+		LOGGER_.end(f);
 	}
 	
 	public static void init(final Map<String, Object> params, final InitProcess_i initProcess, final InitReady_i initReady) {
 		final String f = "init";
-		LOGGER_.begin(CLASSNAME_, f);
+		LOGGER_.begin(f);
 		if ( null != initProcess ) {
 			try {
 				initProcess.process(params, initReady);
 			} catch (Exception ex) {
-				LOGGER_.error(CLASSNAME_, f, "init Exception:"+ex.toString());
+				LOGGER_.error(f, "init Exception:"+ex.toString());
 			}
 		} else {
-			LOGGER_.warn(CLASSNAME_, f, "initProcess IS NULL");
+			LOGGER_.warn(f, "initProcess IS NULL");
 		}
-		LOGGER_.end(CLASSNAME_, f);
+		LOGGER_.end(f);
 	}
 
 }

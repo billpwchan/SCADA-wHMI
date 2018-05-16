@@ -3,14 +3,12 @@ package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutAction;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutMode;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class ViewLayoutHistory {
-	
-	private final String className = UIWidgetUtil.getClassSimpleName(ViewLayoutHistory.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private ViewLayoutMode viewLayoutMode;
 	private ViewLayoutAction viewLayoutAction;
@@ -62,7 +60,7 @@ public class ViewLayoutHistory {
 	public void setTaskLaunchs(UITaskLaunch taskLaunchs[]) {
 		final String function = "setTaskLaunchs";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.taskLaunchs = null;
 		this.taskLaunchs = new UITaskLaunch[taskLaunchs.length];
@@ -70,35 +68,35 @@ public class ViewLayoutHistory {
 			if ( null != taskLaunchs[i] ) {
 				this.taskLaunchs[i] = new UITaskLaunch(taskLaunchs[i]);
 			} else {
-				logger.info(className, function, "setTaskLaunchs this.taskLunch[{}] is null", i);
+				logger.info(function, "setTaskLaunchs this.taskLunch[{}] is null", i);
 			}
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void debug(String prefix) {
 		final String function = "debug["+prefix+"]";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.info(className, function, "taskLaunchs.length: [{}]", taskLaunchs.length);
-		logger.info(className, function, "activateSelection: [{}]", activateSelection);
+		logger.info(function, "taskLaunchs.length: [{}]", taskLaunchs.length);
+		logger.info(function, "activateSelection: [{}]", activateSelection);
 		
-		logger.info(className, function, "viewLayoutMode: [{}]",  viewLayoutMode);
-		logger.info(className, function, "viewLayoutAction: [{}]", viewLayoutAction);
+		logger.info(function, "viewLayoutMode: [{}]",  viewLayoutMode);
+		logger.info(function, "viewLayoutAction: [{}]", viewLayoutAction);
 		
 		
 		for ( int i = 0 ; i < taskLaunchs.length ; ++i ) {
 			UITaskLaunch taskLaunch = taskLaunchs[i];
 			if ( null != taskLaunch ) {
-				logger.info(className, function, "taskLaunch[{}][{}]", i, taskLaunch.getHeader());
+				logger.info(function, "taskLaunch[{}][{}]", i, taskLaunch.getHeader());
 			} else {
-				logger.info(className, function, "taskLunch[{}] is null", i);
+				logger.info(function, "taskLunch[{}] is null", i);
 			}
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		
 	}
 

@@ -3,15 +3,14 @@ package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGenericMgrFactory;
 
 public class UIGenericMgr {
-	
-	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private static UIGenericMgr instance = null;
 	public static UIGenericMgr getInstance() { 
@@ -29,20 +28,20 @@ public class UIGenericMgr {
 	
 	public UIGeneric getUIGeneric(String key) {
 		final String function = "getUIGeneric";
-		logger.info(className, function, "key[{}]", key);
+		logger.info(function, "key[{}]", key);
 		UIGeneric uiGenericMgr_i = null;
 		for ( String k : hashMap.keySet() ) {
 			UIGenericMgrFactory v = hashMap.get(k);
 			if ( null != k ) {
 				uiGenericMgr_i = v.getUIGeneric(key);
 			} else {
-				logger.warn(className, function, "v from the k[{}] IS NULL", k);
+				logger.warn(function, "v from the k[{}] IS NULL", k);
 			}
 			
 			if ( null != uiGenericMgr_i ) break;
 		}
 		if ( null == uiGenericMgr_i ) {
-			logger.warn(className, function, "uiGenericMgr_i IS NULL");
+			logger.warn(function, "uiGenericMgr_i IS NULL");
 		}
 		return uiGenericMgr_i;
 	}

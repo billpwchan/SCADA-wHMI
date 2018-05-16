@@ -7,8 +7,8 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnKeyPressHandler;
@@ -18,16 +18,16 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEven
 public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 	
 	protected String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	protected String element = null;
 	@Override
 	public void setElement(String element) {
 		final String function = "setElement";
 		this.element = element;
-		logger.debug(className, function, "element[{}]", this.element);
+		logger.debug(function, "element[{}]", this.element);
 		if ( null == this.element ) {
-			logger.warn(className, function, "element IS NULL");
+			logger.warn(function, "element IS NULL");
 		}
 	}
 	@Override
@@ -40,7 +40,7 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 			this.uiNameCard = new UINameCard(uiNameCard);
 			this.uiNameCard.appendUIPanel(this);
 		} else {
-			logger.warn(className, "setUINameCard", "uiNameCard IS NULL");
+			logger.warn("setUINameCard", "uiNameCard IS NULL");
 		}
 	}
 	@Override
@@ -51,9 +51,9 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 	public void setCtrlHandler(UIWidgetCtrl_i ctrlHandler) {
 		final String function = "setCtrlHandler";
 		this.ctrlHandler = ctrlHandler;
-		logger.debug(className, function, "ctrlHandler[{}]", this.ctrlHandler);
+		logger.debug(function, "ctrlHandler[{}]", this.ctrlHandler);
 		if ( null == this.ctrlHandler ) {
-			logger.warn(className, function, "ctrlHandler IS NULL");
+			logger.warn(function, "ctrlHandler IS NULL");
 		}
 	}
 	
@@ -62,9 +62,9 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 	public void setCtrlHandler(String strCtrlHandler) {
 		final String function = "setCtrlHandler";
 		this.strCtrlHandler = strCtrlHandler;
-		logger.debug(className, function, "ctrlHandler[{}]", this.strCtrlHandler);
+		logger.debug(function, "ctrlHandler[{}]", this.strCtrlHandler);
 		if ( null == this.strCtrlHandler ) {
-			logger.warn(className, function, "ctrlHandler IS NULL");
+			logger.warn(function, "ctrlHandler IS NULL");
 		}
 	}
 	
@@ -73,9 +73,9 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 	public void setDictionaryFolder ( String dictionaryFolder ) {
 		final String function = "setDictionaryFolder";
 		this.dictionaryFolder = dictionaryFolder;
-		logger.debug(className, function, "dictionaryFolder[{}]", this.dictionaryFolder);
+		logger.debug(function, "dictionaryFolder[{}]", this.dictionaryFolder);
 		if ( null == this.dictionaryFolder ) {
-			logger.warn(className, function, "dictionaryFolder IS NULL");
+			logger.warn(function, "dictionaryFolder IS NULL");
 		}
 	}
 	
@@ -84,9 +84,9 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 	public void setPropertyFolder ( String propertyFolder ) {
 		final String function = "setPropertyFolder";
 		this.propertyFolder = propertyFolder;
-		logger.debug(className, function, "propertyFolder[{}]", this.propertyFolder);
+		logger.debug(function, "propertyFolder[{}]", this.propertyFolder);
 		if ( null == this.propertyFolder ) {
-			logger.warn(className, function, "propertyFolder IS NULL");
+			logger.warn(function, "propertyFolder IS NULL");
 		}
 	}
 	
@@ -95,9 +95,9 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 	public void setViewXMLFile(String viewXMLFile) {
 		final String function = "setViewXMLFile";
 		this.viewXMLFile = viewXMLFile;
-		logger.debug(className, function, "viewXMLFile[{}]", this.viewXMLFile);
+		logger.debug(function, "viewXMLFile[{}]", this.viewXMLFile);
 		if ( null == this.viewXMLFile ) {
-			logger.warn(className, function, "viewXMLFile IS NULL");
+			logger.warn(function, "viewXMLFile IS NULL");
 		}
 	}
 	public String getViewXMLFile() { return this.viewXMLFile; }
@@ -107,9 +107,9 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 	public void setOptsXMLFile(String optsXMLFile) {
 		final String function = "setOptXMLFile";
 		this.optsXMLFile = optsXMLFile;
-		logger.debug(className, function, "optXMLFile[{}]", this.optsXMLFile);
+		logger.debug(function, "optXMLFile[{}]", this.optsXMLFile);
 		if ( null == this.optsXMLFile ) {
-			logger.warn(className, function, "optXMLFile IS NULL");
+			logger.warn(function, "optXMLFile IS NULL");
 		}
 	}
 	public String getOptsXMLFile() { return this.optsXMLFile; }
@@ -118,7 +118,7 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 	@Override
 	public Panel getMainPanel() {
 		if ( null == rootPanel ) {
-			logger.warn(className, "getMainPanel", "rootPanel IS NULL");
+			logger.warn("getMainPanel", "rootPanel IS NULL");
 		}
 		return rootPanel;
 	}
@@ -126,7 +126,7 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 	protected HashMap<String, Object> parameters = new HashMap<String, Object>();
     @Override
     public void setParameter(String key, Object value) {
-    	logger.debug(className, "setParameter", "key[{}] value[{}]", key, value);
+    	logger.debug("setParameter", "key[{}] value[{}]", key, value);
     	parameters.put(key, value);
     }
     public Object getParameter(String key) {
@@ -137,7 +137,7 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
     }
     public String getStringParameter( String key ) {
     	final String function = "function";
-    	logger.debug(className, function, "key[{}]", key);
+    	logger.debug(function, "key[{}]", key);
     	String result = null;
 		if ( containsParameterKey(key) ) {
 			Object o = parameters.get(key);
@@ -145,7 +145,7 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 				result = (String) o;
 			}
 		} else {
-			logger.warn(className, function, "key[{}] IS NULL", key);
+			logger.warn(function, "key[{}] IS NULL", key);
 		}
 		return result;
 	}

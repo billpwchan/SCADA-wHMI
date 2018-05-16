@@ -1,15 +1,12 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab;
 
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class UIInspectorTabFactory {
-	
-	private final String cls = this.getClass().getName();
-	private final String className = UIWidgetUtil.getClassSimpleName(cls);
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private UIInspectorTabFactory() {}
 	private static UIInspectorTabFactory instance = null;
@@ -20,33 +17,33 @@ public class UIInspectorTabFactory {
 	
 	public UIInspectorTab_i getUIInspectorTabFactory(String key) {
 		final String function = "getUIInspectorTabFactory";
-		logger.begin(className, function);
-		logger.debug(className, function, "key[{}]", key);
+		logger.begin(function);
+		logger.debug(function, "key[{}]", key);
 		
 		UIInspectorTab_i uiInspectorTab_i = null;
 		
 		if ( null != key ) {
-			if ( UIWidgetUtil.getClassSimpleName(UIInspectorInfo.class.getName())
-					.equals(key) ) {
+			if ( UIInspectorInfo.class.getSimpleName()
+					.equals(key)) {
 				uiInspectorTab_i = new UIInspectorInfo();
-			} else if ( UIWidgetUtil.getClassSimpleName(UIInspectorControl.class.getName())
-					.equals(key) ) {
+			} else if ( UIInspectorControl.class.getSimpleName()
+					.equals(key)) {
 				uiInspectorTab_i = new UIInspectorControl();
-			} else if ( UIWidgetUtil.getClassSimpleName(UIInspectorTag.class.getName())
-					.equals(key) ) {
+			} else if ( UIInspectorTag.class.getSimpleName()
+					.equals(key)) {
 				uiInspectorTab_i = new UIInspectorTag();
-			} else if ( UIWidgetUtil.getClassSimpleName(UIInspectorAdvance.class.getName())
-					.equals(key) ) {
+			} else if ( UIInspectorAdvance.class.getSimpleName()
+					.equals(key)) {
 				uiInspectorTab_i = new UIInspectorAdvance();
-			} else if ( UIWidgetUtil.getClassSimpleName(UIInspectorHeader.class.getName())
-					.equals(key) ) {
+			} else if ( UIInspectorHeader.class.getSimpleName()
+					.equals(key)) {
 				uiInspectorTab_i = new UIInspectorHeader();
 			}
 		} else {
-			logger.warn(className, function, "key IS NULL");
+			logger.warn(function, "key IS NULL");
 		}
-		if ( null == uiInspectorTab_i ) logger.warn(className, function, "uiInspectorTab_i IS NULL");
-		logger.end(className, function);
+		if ( null == uiInspectorTab_i ) logger.warn(function, "uiInspectorTab_i IS NULL");
+		logger.end(function);
 		return uiInspectorTab_i;
 	}
 }

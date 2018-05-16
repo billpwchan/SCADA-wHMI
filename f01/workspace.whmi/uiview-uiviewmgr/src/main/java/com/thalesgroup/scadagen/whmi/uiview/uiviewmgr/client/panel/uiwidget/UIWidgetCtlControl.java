@@ -7,9 +7,8 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
@@ -24,8 +23,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.CtlMgr;
 
 public class UIWidgetCtlControl extends UIWidgetRealize {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetCtlControl.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private CtlMgr ctlMgr 				= null;
 	
@@ -49,7 +47,7 @@ public class UIWidgetCtlControl extends UIWidgetRealize {
 		super.init();
 		
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		ctlMgr = CtlMgr.getInstance("ptw");
 
@@ -64,11 +62,11 @@ public class UIWidgetCtlControl extends UIWidgetRealize {
 			valueUnSet			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetCtlControl_i.ParameterName.ValueUnSet.toString(), strHeader);
 		}
 		
-		logger.info(className, function, "columnAlias[{}]", columnAlias);
-		logger.info(className, function, "columnStatus[{}]", columnStatus);
-		logger.info(className, function, "columnServiceOwner[{}]", columnServiceOwner);
-		logger.info(className, function, "valueSet[{}]", valueSet);
-		logger.info(className, function, "valueUnSet[{}]", valueUnSet);
+		logger.info(function, "columnAlias[{}]", columnAlias);
+		logger.info(function, "columnStatus[{}]", columnStatus);
+		logger.info(function, "columnServiceOwner[{}]", columnServiceOwner);
+		logger.info(function, "valueSet[{}]", valueSet);
+		logger.info(function, "valueUnSet[{}]", valueUnSet);
 
 		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 			
@@ -82,13 +80,13 @@ public class UIWidgetCtlControl extends UIWidgetRealize {
 			public void onClick(ClickEvent event) {
 				final String function = "onClick";
 				
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
 						String element = uiGeneric.getWidgetElement(widget);
-						logger.info(className, function, "element[{}]", element);
+						logger.info(function, "element[{}]", element);
 						if ( null != element ) {
 							String actionsetkey = element;
 							
@@ -100,7 +98,7 @@ public class UIWidgetCtlControl extends UIWidgetRealize {
 								public boolean executeHandler(UIEventAction uiEventAction) {
 									String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
 									
-									logger.info(className, function, "os1[{}]", os1);
+									logger.info(function, "os1[{}]", os1);
 									
 									if ( null != os1 ) {
 										if ( os1.equals("SendCtlControl") ) {
@@ -116,11 +114,11 @@ public class UIWidgetCtlControl extends UIWidgetRealize {
 												String scsEnvId = selectedServiceOwner;
 												String alias = selectedAlias;
 												
-												logger.info(className, function, "alias BF [{}]", alias);
+												logger.info(function, "alias BF [{}]", alias);
 												
 												alias = selectedAlias.replace(strDci, strDio);
 												
-												logger.info(className, function, "alias AF [{}]", alias);
+												logger.info(function, "alias AF [{}]", alias);
 												
 												WidgetStatus curStatusSet = uiGeneric.getWidgetStatus(strSet);
 												WidgetStatus curStatusUnSet = uiGeneric.getWidgetStatus(strUnSet);
@@ -132,7 +130,7 @@ public class UIWidgetCtlControl extends UIWidgetRealize {
 													value = 0;
 												}
 												
-												logger.info(className, function, "WidgetStatus curStatusSet[{}] WidgetStatus curStatusUnSet[{}]", curStatusSet, curStatusUnSet);
+												logger.info(function, "WidgetStatus curStatusSet[{}] WidgetStatus curStatusUnSet[{}]", curStatusSet, curStatusUnSet);
 												
 												ctlMgr.sendControl(scsEnvId, new String[]{alias}, value, byPassInitCond, byPassRetCond, sendAnyway);
 											}
@@ -145,7 +143,7 @@ public class UIWidgetCtlControl extends UIWidgetRealize {
 						}
 					}
 				}
-				logger.begin(className, function);
+				logger.begin(function);
 			}
 			
 			@Override
@@ -153,23 +151,23 @@ public class UIWidgetCtlControl extends UIWidgetRealize {
 			public void onActionReceived(UIEventAction uiEventAction) {
 				final String function = "onActionReceived";
 				
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 				
-				logger.info(className, function, "os1["+os1+"]");
+				logger.info(function, "os1["+os1+"]");
 				
 				if ( null != os1 ) {
 					// Filter Action
 					if ( os1.equals(ViewerViewEvent.FilterAdded.toString()) ) {
 						
-						logger.info(className, function, "FilterAdded");
+						logger.info(function, "FilterAdded");
 						
 						uiEventActionProcessor_i.executeActionSet(os1);
 						
 					} else if ( os1.equals(ViewerViewEvent.FilterRemoved.toString()) ) {
 						
-						logger.info(className, function, "FilterRemoved");
+						logger.info(function, "FilterRemoved");
 						
 						uiEventActionProcessor_i.executeActionSet(os1);
 					
@@ -178,7 +176,7 @@ public class UIWidgetCtlControl extends UIWidgetRealize {
 						
 						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 						
-						logger.info(className, function, "Store Selected Row");
+						logger.info(function, "Store Selected Row");
 						
 						selectedSet	= (Set<Map<String, String>>) obj1;
 						
@@ -202,8 +200,8 @@ public class UIWidgetCtlControl extends UIWidgetRealize {
 						// General Case
 						String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 						
-						logger.info(className, function, "oe ["+oe+"]");
-						logger.info(className, function, "os1["+os1+"]");
+						logger.info(function, "oe ["+oe+"]");
+						logger.info(function, "os1["+os1+"]");
 						
 						if ( null != oe ) {
 							if ( oe.equals(element) ) {
@@ -212,7 +210,7 @@ public class UIWidgetCtlControl extends UIWidgetRealize {
 						}
 					}
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 		};
 		
@@ -221,31 +219,31 @@ public class UIWidgetCtlControl extends UIWidgetRealize {
 			@Override
 			public void init() {
 				final String function = "init";
-				logger.beginEnd(className, function);
+				logger.beginEnd(function);
 			}
 		
 			@Override
 			public void envUp(String env) {
 				final String function = "envUp";
-				logger.beginEnd(className, function);
+				logger.beginEnd(function);
 			}
 			
 			@Override
 			public void envDown(String env) {
 				final String function = "envDown";
-				logger.beginEnd(className, function);
+				logger.beginEnd(function);
 			}
 			
 			@Override
 			public void terminate() {
 				final String function = "terminate";
-				logger.begin(className, function);
+				logger.begin(function);
 				envDown(null);
-				logger.begin(className, function);
+				logger.begin(function);
 			};
 		};
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

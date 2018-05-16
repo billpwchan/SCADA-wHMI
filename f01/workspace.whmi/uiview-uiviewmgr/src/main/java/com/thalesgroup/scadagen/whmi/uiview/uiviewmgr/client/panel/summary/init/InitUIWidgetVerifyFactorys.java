@@ -3,8 +3,8 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.init
 import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabaseGetChildrenControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabaseGetFullPathControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabaseGroupPollingControl;
@@ -37,12 +37,11 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFact
 public class InitUIWidgetVerifyFactorys {
 
 	private final static String name = InitUIWidgetVerifyFactorys.class.getName();
-	private final static String className = InitUIWidgetVerifyFactorys.class.getSimpleName();
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(name);
+	private final static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(InitUIWidgetVerifyFactorys.class.getName());
 
 	public static void init(final Map<String, String> parameters) {
 		String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		UIWidgetMgr uiWidgetMgr = UIWidgetMgr.getInstance();
 		uiWidgetMgr.removeUIWidgetFactory(name);
@@ -54,15 +53,15 @@ public class InitUIWidgetVerifyFactorys {
 					, Map<String, Object> options) {
 				final String function = "getUIWidget";
 
-				logger.debug(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
+				logger.debug(function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
 
 				if (null != uiNameCard) {
-					logger.debug(className, function, "uiNameCard UIPath[{}] UIScreen[{}]"
+					logger.debug(function, "uiNameCard UIPath[{}] UIScreen[{}]"
 							, uiNameCard.getUiPath(),uiNameCard.getUiScreen());
 				} else {
-					logger.warn(className, function, "uiNameCard IS NULL");
+					logger.warn(function, "uiNameCard IS NULL");
 				}
-				logger.info(className, function, "options IS NULL[{}]", null == options);
+				logger.info(function, "options IS NULL[{}]", null == options);
 
 				UIWidget_i uiWidget_i = null;
 
@@ -197,7 +196,7 @@ public class InitUIWidgetVerifyFactorys {
 					uiWidget_i.setOptsXMLFile(uiOpts);
 					uiWidget_i.init();	
 				} else {
-					logger.warn(className, function, "uiCtrl[{}] uiWidget IS NULL", uiCtrl);
+					logger.warn(function, "uiCtrl[{}] uiWidget IS NULL", uiCtrl);
 				}
 
 				return uiWidget_i;

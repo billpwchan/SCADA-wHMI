@@ -21,8 +21,8 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.I
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.DataGridEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.ParameterName;
@@ -51,8 +51,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UIWidgetDataGrid extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetDataGrid.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	// External
 	private SimpleEventBus eventBus		= null;
@@ -135,7 +135,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		public void onActionReceived(UIEventAction uiEventAction) {
 			final String function = "onActionReceived";
 			
-			logger.begin(className, function);
+			logger.begin(function);
 			
 			if ( null != uiEventAction ) {
 				
@@ -144,14 +144,14 @@ public class UIWidgetDataGrid extends UIWidget_i {
 //				String os3 = (String) uiEventAction.getParameter(ActionAttribute.OperationString3.toString());
 //				String os4 = (String) uiEventAction.getParameter(ActionAttribute.OperationString4.toString());
 				
-				logger.debug(className, function, "os1[{}]", os1);
-//				logger.debug(className, function, "os2[{}]", os2);
-//				logger.debug(className, function, "os3[{}]", os3);
-//				logger.debug(className, function, "os4[{}]", os4);
+				logger.debug(function, "os1[{}]", os1);
+//				logger.debug(function, "os2[{}]", os2);
+//				logger.debug(function, "os3[{}]", os3);
+//				logger.debug(function, "os4[{}]", os4);
 				
 				String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 				
-				logger.debug(className, function, "oe[{}] element[{}]", oe, element);
+				logger.debug(function, "oe[{}] element[{}]", oe, element);
 				
 				if ( null != os1 ) {
 					if ( os1.equals(DataGridEvent.RowSelected.toString() ) ) {
@@ -159,17 +159,17 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
 						
-						logger.debug(className, function, "Store Selected Row");
+						logger.debug(function, "Store Selected Row");
 						
 						if ( null != targetDataGrid ) {
 							
-							logger.debug(className, function, "targetDataGrid[{}]", targetDataGrid);
+							logger.debug(function, "targetDataGrid[{}]", targetDataGrid);
 							
 							if ( null != obj1 ) {
 								if ( obj1 instanceof String ) {
 									datagridSelected	= (String) obj1;
 									
-									logger.debug(className, function, "datagridSelected[{}]", datagridSelected);
+									logger.debug(function, "datagridSelected[{}]", datagridSelected);
 
 									if ( datagridSelected.equals(targetDataGrid) ) {
 										if ( null != obj2 ) {
@@ -186,20 +186,20 @@ public class UIWidgetDataGrid extends UIWidget_i {
 											} else {
 												equipmentSelected = null;
 
-												logger.warn(className, function, "obj2 IS NOT TYPE OF Equipment_i");
+												logger.warn(function, "obj2 IS NOT TYPE OF Equipment_i");
 											}
 										} else {
-											logger.warn(className, function, "obj2 IS NULL");
+											logger.warn(function, "obj2 IS NULL");
 										}
 									}
 								} else {
-									logger.warn(className, function, "obj1 IS NOT TYPE OF String");
+									logger.warn(function, "obj1 IS NOT TYPE OF String");
 								}
 							} else {
-								logger.warn(className, function, "obj1 IS NULL");
+								logger.warn(function, "obj1 IS NULL");
 							}
 						} else {
-							logger.warn(className, function, "targetDataGrid IS NULL");
+							logger.warn(function, "targetDataGrid IS NULL");
 						}
 					} else if ( os1.equals(DataGridEvent.ReloadFromDataSource.toString() ) ) {
 						
@@ -207,17 +207,17 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
 						Object obj3 = uiEventAction.getParameter(ViewAttribute.OperationObject3.toString());
 						
-						logger.debug(className, function, "Reload from DataSource");
+						logger.debug(function, "Reload from DataSource");
 						
 						if ( null != strDataGrid ) {
 							
-							logger.debug(className, function, "strDataGrid[{}]", strDataGrid);
+							logger.debug(function, "strDataGrid[{}]", strDataGrid);
 							
 							if ( null != obj1 ) {
 								if ( obj1 instanceof String ) {
 									datagridSelected	= (String) obj1;
 									
-									logger.debug(className, function, "datagridSelected[{}]", datagridSelected);
+									logger.debug(function, "datagridSelected[{}]", datagridSelected);
 
 									if ( datagridSelected.equals(strDataGrid) ) {
 										if ( obj2 instanceof String && obj3 instanceof String ) {
@@ -231,28 +231,28 @@ public class UIWidgetDataGrid extends UIWidget_i {
 										} else {
 											equipmentSelected = null;
 
-											logger.warn(className, function, "obj2 IS NOT TYPE OF Equipment_i");
+											logger.warn(function, "obj2 IS NOT TYPE OF Equipment_i");
 										}
 									}
 								} else {
-									logger.warn(className, function, "obj1 IS NOT TYPE OF String");
+									logger.warn(function, "obj1 IS NOT TYPE OF String");
 								}
 							} else {
-								logger.warn(className, function, "obj1 IS NULL");
+								logger.warn(function, "obj1 IS NULL");
 							}
 						} else {
-							logger.warn(className, function, "targetDataGrid IS NULL");
+							logger.warn(function, "targetDataGrid IS NULL");
 						}
 					}  else if ( os1.equals(DataGridEvent.ResetColumnData.toString() ) ) {
 						
 						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
 						
-						logger.debug(className, function, "Reset Column Data");
+						logger.debug(function, "Reset Column Data");
 						
 						if ( null != strDataGrid ) {
 							
-							logger.debug(className, function, "strDataGrid[{}]", strDataGrid);
+							logger.debug(function, "strDataGrid[{}]", strDataGrid);
 							
 							if ( null != obj1 && null != obj2 ) {
 								if ( obj1 instanceof String && obj2 instanceof String ) {
@@ -266,25 +266,25 @@ public class UIWidgetDataGrid extends UIWidget_i {
 										uiDataGridDatabase.resetColumnData(columnLabel, columnType);
 									}
 								} else {
-									logger.warn(className, function, "obj1 or obj2 IS NOT TYPE OF String");
+									logger.warn(function, "obj1 or obj2 IS NOT TYPE OF String");
 								}
 							} else {
-								logger.warn(className, function, "obj1 or obj2 IS NULL");
+								logger.warn(function, "obj1 or obj2 IS NULL");
 							}
 						} else {
-							logger.warn(className, function, "strDataGrid IS NULL");
+							logger.warn(function, "strDataGrid IS NULL");
 						}
 					
 					}  else if ( os1.equals(DataGridEvent.ReloadColumnData.toString() ) ) {
 						
-						logger.debug(className, function, "Reload Column Data");
+						logger.debug(function, "Reload Column Data");
 						
 						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
 						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationString3.toString());
 												
 						if ( null != strDataGrid ) {
 							
-							logger.debug(className, function, "strDataGrid[{}]", strDataGrid);
+							logger.debug(function, "strDataGrid[{}]", strDataGrid);
 							
 							if ( null != obj1 && null != obj2) {
 								if ( obj1 instanceof String && obj2 instanceof String) {
@@ -297,16 +297,16 @@ public class UIWidgetDataGrid extends UIWidget_i {
 									String [] columnTypes = new String[columnLabels.length];
 									boolean []  enableTranslations = new boolean[columnLabels.length];
 											
-									logger.debug(className, function, "columnLabels from obj2:[{}][{}]", columnLabels[0], columnLabels[1]);
-									logger.debug(className, function, "columnLabels length is:[{}]", columnLabels.length);
-									logger.debug(className, function, "dataGridSelected is:[{}]", dataGridSelected);
-									logger.debug(className, function, "strDataGrid is:[{}]", strDataGrid);
-									logger.debug(className, function, "Are they equal?[{}]", dataGridSelected.equals(strDataGrid));
+									logger.debug(function, "columnLabels from obj2:[{}][{}]", columnLabels[0], columnLabels[1]);
+									logger.debug(function, "columnLabels length is:[{}]", columnLabels.length);
+									logger.debug(function, "dataGridSelected is:[{}]", dataGridSelected);
+									logger.debug(function, "strDataGrid is:[{}]", strDataGrid);
+									logger.debug(function, "Are they equal?[{}]", dataGridSelected.equals(strDataGrid));
 									
 									if (dataGridSelected.equals(strDataGrid)) {
-										logger.debug(className, function, "For loop will be started");
+										logger.debug(function, "For loop will be started");
 										for (int i=0; i<columnLabels.length; i++){
-											logger.debug(className, function, "For loop started with i = [{}], and length =[{}]", i, columnLabels.length);
+											logger.debug(function, "For loop started with i = [{}], and length =[{}]", i, columnLabels.length);
 											columnTypes[i] = dataGridFormatter.getColumnType(columnLabels[i]);
 											enableTranslations[i] = false;
 											if (columnTypes[i].equals("String")) {
@@ -315,28 +315,28 @@ public class UIWidgetDataGrid extends UIWidget_i {
 													enableTranslations[i] = enable;
 												}
 											}
-											logger.debug(className, function, "columnLabels just before sending:[{}][{}]", i, columnLabels[i]);
-											logger.debug(className, function, "columnTypes jsut before sending:[{}][{}]", i, columnTypes[i]);
-											logger.debug(className, function, "enableTranslations just before sending:[{}][{}]", i, enableTranslations[i]);
+											logger.debug(function, "columnLabels just before sending:[{}][{}]", i, columnLabels[i]);
+											logger.debug(function, "columnTypes jsut before sending:[{}][{}]", i, columnTypes[i]);
+											logger.debug(function, "enableTranslations just before sending:[{}][{}]", i, enableTranslations[i]);
 											
 										}
 										uiDataGridDatabase.reloadColumnData(columnLabels, columnTypes, enableTranslations);
 									}
 								} else {
-									logger.warn(className, function, "obj1 or obj2 IS NOT TYPE OF String");
+									logger.warn(function, "obj1 or obj2 IS NOT TYPE OF String");
 								}
 							} else {
-								logger.warn(className, function, "obj1 or obj2 IS NULL");
+								logger.warn(function, "obj1 or obj2 IS NULL");
 							}
 						} else {
-							logger.warn(className, function, "strDataGrid IS NULL");
+							logger.warn(function, "strDataGrid IS NULL");
 						}
 					} else if ( os1.equals(DataGridEvent.ColumnFilterChange.toString() ) ) {
 						String dataGridSelected = (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
 						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 						
 						if (dataGridSelected.equals(strDataGrid) && obj1 != null && obj1 instanceof HashMap<?,?>) {
-							logger.debug(className, function, "process ColumnFilterChange event");
+							logger.debug(function, "process ColumnFilterChange event");
 							
 							HashMap<String, String> filterMap = (HashMap<String,String>)obj1;
 							uiDataGridDatabase.changeColumnFilter(filterMap);
@@ -347,26 +347,26 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						
 					} else if ( os1.equals(DataGridEvent.DisableCheckBox.toString() )){
 						
-						logger.debug(className, function, "Disable Check Box os1[{}]", os1);
+						logger.debug(function, "Disable Check Box os1[{}]", os1);
 						
 						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
 						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationString3.toString());
 												
-						logger.debug(className, function, "obj1[{}]", obj1.toString());
-						logger.debug(className, function, "obj2[{}]", obj2.toString());
+						logger.debug(function, "obj1[{}]", obj1.toString());
+						logger.debug(function, "obj2[{}]", obj2.toString());
 						
 						if ( null != strDataGrid ) {
 							
-							logger.debug(className, function, "strDataGrid[{}]", strDataGrid);
+							logger.debug(function, "strDataGrid[{}]", strDataGrid);
 							
 							if ( null != obj1 && null != obj2) {
 	
 								String dataGridSelected = (String) obj1;
 								boolean disableFlag = (boolean) obj2;
 									
-								logger.debug(className, function, "dataGridSelected is:[{}]", dataGridSelected);
-								logger.debug(className, function, "disableFlag:[{}]", disableFlag);
-								logger.debug(className, function, "strDataGrid is:[{}]", strDataGrid);
+								logger.debug(function, "dataGridSelected is:[{}]", dataGridSelected);
+								logger.debug(function, "disableFlag:[{}]", disableFlag);
+								logger.debug(function, "strDataGrid is:[{}]", strDataGrid);
 								try{
 									dataGridFormatter.getCheckBoxes().isCheckBoxDisabled_ = disableFlag;
 									uiDataGridDatabase.refreshDisplays();
@@ -374,10 +374,10 @@ public class UIWidgetDataGrid extends UIWidget_i {
 									logger.warn(e.toString());
 								}								
 							} else {
-								logger.warn(className, function, "obj1 or obj2 IS NULL[{}]", strDataGrid);
+								logger.warn(function, "obj1 or obj2 IS NULL[{}]", strDataGrid);
 							}
 						} else {
-							logger.warn(className, function, "strDataGrid IS NULL[{}]", strDataGrid);
+							logger.warn(function, "strDataGrid IS NULL[{}]", strDataGrid);
 						}			
 						
 					} else if ( oe.equals(element) ) {
@@ -418,14 +418,14 @@ public class UIWidgetDataGrid extends UIWidget_i {
 
 								}
 							} else {
-								logger.warn(className, function, "pager instanceof SimplePager IS NOT");
+								logger.warn(function, "pager instanceof SimplePager IS NOT");
 							}
 						}
 					
 					} else {
 						// General Case
-						logger.debug(className, function, "oe ["+oe+"]");
-						logger.debug(className, function, "os1["+os1+"]");
+						logger.debug(function, "oe ["+oe+"]");
+						logger.debug(function, "os1["+os1+"]");
 						
 						if ( null != oe ) {
 							if ( oe.equals(element) ) {
@@ -434,13 +434,13 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						}
 					}
 				} else {
-					logger.warn(className, function, "op IS NULL");
+					logger.warn(function, "op IS NULL");
 				}
 			} else {
-				logger.warn(className, function, "uiEventAction IS NULL");
+				logger.warn(function, "uiEventAction IS NULL");
 			}
 			
-			logger.end(className, function);
+			logger.end(function);
 		}
 	};
 
@@ -448,11 +448,11 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	public void init() {
 		final String function = "init";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.debug(className, function, "strEventBusName[{}]", strEventBusName);
+		logger.debug(function, "strEventBusName[{}]", strEventBusName);
 		
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -480,28 +480,28 @@ public class UIWidgetDataGrid extends UIWidget_i {
 			targetDataGridColumn3	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A3.toString(), strHeader);
 		}
 		
-		logger.debug(className, function, "strDataGrid[{}]", strDataGrid);
+		logger.debug(function, "strDataGrid[{}]", strDataGrid);
 		
 		scsEnvIdsStr = getStringParameter(WidgetParameterName.ScsEnvIds.toString());
-		logger.debug(className, function, "scsEnvIdsStr [{}]", scsEnvIdsStr);
-		logger.debug(className, function, "strDataGridColumnsType [{}]", strDataGridColumnsType);
-		logger.debug(className, function, "strDataGridColumnHeaderString [{}]", strDataGridColumnsHeaderString);
-		logger.debug(className, function, "strDataGridColumnsHeaderTranslation [{}]", strDataGridColumnsHeaderTranslation);
-		logger.debug(className, function, "strDataGridColumnsLabel [{}]", strDataGridColumnsLabel);
-		logger.debug(className, function, "strDataGridColumnsWidth [{}]", strDataGridColumnsWidth);
-		logger.debug(className, function, "strDataGridColumnsTranslation [{}]", strDataGridColumnsTranslation);
-		logger.debug(className, function, "strDataGridColumnsSort [{}]", strDataGridColumnsSort);
-		logger.debug(className, function, "strDataGridOptsXMLFile [{}]", strDataGridOptsXMLFile);
-		logger.debug(className, function, "strDataGridPagerName [{}]", strDataGridPagerName);
-		logger.debug(className, function, "strDataGridPageSize [{}]", strDataGridPageSize);
-		logger.debug(className, function, "strDataGridFastForwardRows [{}]", strDataGridFastForwardRows);
-		logger.debug(className, function, "strDataGridEmptyLabel [{}]", strDataGridEmptyLabel);
-		logger.debug(className, function, "strDataGridCssFlagColumn[{}]", strDataGridCssFlagColumn);
+		logger.debug(function, "scsEnvIdsStr [{}]", scsEnvIdsStr);
+		logger.debug(function, "strDataGridColumnsType [{}]", strDataGridColumnsType);
+		logger.debug(function, "strDataGridColumnHeaderString [{}]", strDataGridColumnsHeaderString);
+		logger.debug(function, "strDataGridColumnsHeaderTranslation [{}]", strDataGridColumnsHeaderTranslation);
+		logger.debug(function, "strDataGridColumnsLabel [{}]", strDataGridColumnsLabel);
+		logger.debug(function, "strDataGridColumnsWidth [{}]", strDataGridColumnsWidth);
+		logger.debug(function, "strDataGridColumnsTranslation [{}]", strDataGridColumnsTranslation);
+		logger.debug(function, "strDataGridColumnsSort [{}]", strDataGridColumnsSort);
+		logger.debug(function, "strDataGridOptsXMLFile [{}]", strDataGridOptsXMLFile);
+		logger.debug(function, "strDataGridPagerName [{}]", strDataGridPagerName);
+		logger.debug(function, "strDataGridPageSize [{}]", strDataGridPageSize);
+		logger.debug(function, "strDataGridFastForwardRows [{}]", strDataGridFastForwardRows);
+		logger.debug(function, "strDataGridEmptyLabel [{}]", strDataGridEmptyLabel);
+		logger.debug(function, "strDataGridCssFlagColumn[{}]", strDataGridCssFlagColumn);
 		
-		logger.debug(className, function, "targetDataGrid [{}]", targetDataGrid);
-		logger.debug(className, function, "targetDataGridColumn1 [{}]", targetDataGridColumn1);
-		logger.debug(className, function, "targetDataGridColumn2 [{}]", targetDataGridColumn2);
-		logger.debug(className, function, "targetDataGridColumn3 [{}]", targetDataGridColumn3);
+		logger.debug(function, "targetDataGrid [{}]", targetDataGrid);
+		logger.debug(function, "targetDataGridColumn1 [{}]", targetDataGridColumn1);
+		logger.debug(function, "targetDataGridColumn2 [{}]", targetDataGridColumn2);
+		logger.debug(function, "targetDataGridColumn3 [{}]", targetDataGridColumn3);
 
 		uiWidgetGeneric = new UIWidgetGeneric();
 		
@@ -551,7 +551,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		);
 		
 				
-		logger.debug(className, function, "Init uiEventActionProcessorContextMenu");
+		logger.debug(function, "Init uiEventActionProcessorContextMenu");
 
 		uiEventActionProcessorContextMenu_i = uiEventActionProcessorMgr.getUIEventActionProcessor("UIEventActionProcessor");
 		
@@ -574,7 +574,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 			addPager();
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
@@ -590,21 +590,21 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		
 		final String function = "init";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.debug(className, function, "strDataGridColumnsType[{}]", strDataGridColumnsType);
-		logger.debug(className, function, "strDataGridColumnsHeaderString[{}]", strDataGridColumnsHeaderString);
-		logger.debug(className, function, "strDataGridColumnsHeaderTranslation[{}]", strDataGridColumnsHeaderTranslation);
-		logger.debug(className, function, "strDataGridColumnsLabel[{}]", strDataGridColumnsLabel);
-		logger.debug(className, function, "strDataGridColumnsWidth[{}]", strDataGridColumnsWidth);
-		logger.debug(className, function, "strDataGridColumnsTranslation[{}]", strDataGridColumnsTranslation);
-		logger.debug(className, function, "strDataGridColumnsSort[{}]", strDataGridColumnsSort);
-		logger.debug(className, function, "strDataGridOptsXMLFile [{}]", strDataGridOptsXMLFile);
-		logger.debug(className, function, "strDataGridPagerName [{}]", strDataGridPagerName);
-		logger.debug(className, function, "strDataGridPageSize [{}]", strDataGridPageSize);	
-		logger.debug(className, function, "strDataGridFastForwardRows [{}]", strDataGridFastForwardRows);
-		logger.debug(className, function, "strDataGridEmptyLabel [{}]", strDataGridEmptyLabel);
-		logger.debug(className, function, "strDataGridCssFlagColumn[{}]", strDataGridCssFlagColumn);
+		logger.debug(function, "strDataGridColumnsType[{}]", strDataGridColumnsType);
+		logger.debug(function, "strDataGridColumnsHeaderString[{}]", strDataGridColumnsHeaderString);
+		logger.debug(function, "strDataGridColumnsHeaderTranslation[{}]", strDataGridColumnsHeaderTranslation);
+		logger.debug(function, "strDataGridColumnsLabel[{}]", strDataGridColumnsLabel);
+		logger.debug(function, "strDataGridColumnsWidth[{}]", strDataGridColumnsWidth);
+		logger.debug(function, "strDataGridColumnsTranslation[{}]", strDataGridColumnsTranslation);
+		logger.debug(function, "strDataGridColumnsSort[{}]", strDataGridColumnsSort);
+		logger.debug(function, "strDataGridOptsXMLFile [{}]", strDataGridOptsXMLFile);
+		logger.debug(function, "strDataGridPagerName [{}]", strDataGridPagerName);
+		logger.debug(function, "strDataGridPageSize [{}]", strDataGridPageSize);	
+		logger.debug(function, "strDataGridFastForwardRows [{}]", strDataGridFastForwardRows);
+		logger.debug(function, "strDataGridEmptyLabel [{}]", strDataGridEmptyLabel);
+		logger.debug(function, "strDataGridCssFlagColumn[{}]", strDataGridCssFlagColumn);
 		
 		strDataGridColumnsTypes = UIWidgetUtil.getStringArray(strDataGridColumnsType, split);
 		strDataGridColumnsHeaderStrings = UIWidgetUtil.getStringArray(strDataGridColumnsHeaderString, split); 
@@ -623,7 +623,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 				strDataGridColumnsHeaderStrings[i] = Translation.getWording(strDataGridColumnsHeaderStrings[i]);
 			}
 
-			logger.debug(className, function, " intDataGridColumnsHeaderTranslations({})[{}] strDataGridColumnHeaderStrings(i)[{}]"
+			logger.debug(function, " intDataGridColumnsHeaderTranslations({})[{}] strDataGridColumnHeaderStrings(i)[{}]"
 					, new Object[]{i, intDataGridColumnsHeaderTranslations[i], i, strDataGridColumnsHeaderStrings[i]});
 		}
 		
@@ -636,7 +636,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 					pageSize = size;
 				}
 			} catch (NumberFormatException e) {
-				logger.warn(className, function, "NumberFormatException for PageSize [{}]", strDataGridPageSize);
+				logger.warn(function, "NumberFormatException for PageSize [{}]", strDataGridPageSize);
 			}
 		}
 		if (strDataGridFastForwardRows != null) {
@@ -646,7 +646,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 					fastForwardRows = ffrows;
 				}
 			} catch (NumberFormatException e) {
-				logger.warn(className, function, "NumberFormatException for FastForwardRows [{}]", strDataGridFastForwardRows);
+				logger.warn(function, "NumberFormatException for FastForwardRows [{}]", strDataGridFastForwardRows);
 			}
 		}
 		createColumnLabelTranslationMap(strDataGridColumnsLabels, intDataGridColumnsTranslations);
@@ -687,18 +687,18 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						if (strDataGridColumnsTypes[colNum].compareToIgnoreCase("Number") == 0) {
 							Number value = row.getNumberValue(label);
 							strCssResult += " " + strCssPrefix + "_" + label + "_" + value.toString();
-							logger.info(className, function, "strCssResult (Number) is:[{}]", strCssResult);
+							logger.info(function, "strCssResult (Number) is:[{}]", strCssResult);
 						} else if (strDataGridColumnsTypes[colNum].compareToIgnoreCase("Boolean") == 0) {
 							Boolean value = row.getBooleanValue(label);
 							strCssResult += " " + strCssPrefix + "_" + label + "_" + value.toString();
-							logger.info(className, function, "strCssResult (Boolean) is:[{}]", strCssResult);
+							logger.info(function, "strCssResult (Boolean) is:[{}]", strCssResult);
 						} else {
 							String value = row.getStringValue(label);
 							if (value != null && !value.isEmpty()) {
 								// Replace space with '_'
 								value.replace(' ','_');
 								strCssResult += " " + strCssPrefix + "_" + label + "_" + value;
-								logger.info(className, function, "strCssResult(Other) Type:[{}] is:[{}]", strDataGridColumnsTypes[colNum] ,strCssResult);
+								logger.info(function, "strCssResult(Other) Type:[{}] is:[{}]", strDataGridColumnsTypes[colNum] ,strCssResult);
 							}
 						}
 					}
@@ -710,18 +710,18 @@ public class UIWidgetDataGrid extends UIWidget_i {
 					if (strDataGridColumnsTypes[i].compareToIgnoreCase("Number") == 0) {
 						Number value = row.getNumberValue(label);
 						strCssResult += " " + strCssPrefix + "_" + label + "_" + value.toString();
-						logger.info(className, function, "strCssResult (Number) is:[{}]", strCssResult);
+						logger.info(function, "strCssResult (Number) is:[{}]", strCssResult);
 					} else if (strDataGridColumnsTypes[i].compareToIgnoreCase("Boolean") == 0) {
 						Boolean value = row.getBooleanValue(label);
 						strCssResult += " " + strCssPrefix + "_" + label + "_" + value.toString();
-						logger.info(className, function, "strCssResult (Boolean) is:[{}]", strCssResult);
+						logger.info(function, "strCssResult (Boolean) is:[{}]", strCssResult);
 					} else {
 						String value = row.getStringValue(label);
 						if (value != null && !value.isEmpty()) {
 							// Replace space with '_'
 							value.replace(' ','_');
 							strCssResult += " " + strCssPrefix + "_" + label + "_" + value;
-							logger.info(className, function, "strCssResult (Other) is:[{}]", strCssResult);
+							logger.info(function, "strCssResult (Other) is:[{}]", strCssResult);
 						}
 					}
 				}
@@ -750,7 +750,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 					
 					final String function = "onSelection fireFilterEvent";
 					
-					logger.begin(className, function);
+					logger.begin(function);
 					
 					String actionsetkey = "RowSelected";
 					Map<String, Object> parameter = new HashMap<String, Object>();
@@ -762,7 +762,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 					
 					uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 
-					logger.end(className, function);
+					logger.end(function);
 				}
 			}
 		});
@@ -789,7 +789,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	    uiDataGridDatabase.setScsEnv(strDataGrid, scsEnvIdsStr, strDataGridColumnsLabels, strDataGridColumnsTypes, intDataGridColumnsTranslations, strDataGridOptsXMLFile);
 	    uiDataGridDatabase.connect();
 	    
-	    logger.end(className, function);
+	    logger.end(function);
 	    
 	    return dataGrid;
 	}
@@ -809,7 +809,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	private void addPager() {
 		final String function = "addPager";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 
 		if (strDataGridPagerName.equals("SCADAgenPager")) {
 		    pager = new SCADAgenPager();
@@ -830,11 +830,11 @@ public class UIWidgetDataGrid extends UIWidget_i {
 					public void pageStart(int pageStart) {
 						final String function = "CreateText pageStart";
 						
-						logger.begin(className, function);
+						logger.begin(function);
 						
 						String strType = "PageStart";
 						
-						logger.debug(className, function, "Type[{}]", strType);
+						logger.debug(function, "Type[{}]", strType);
 						
 						String strPageValueChanged = "PagerValueChanged_";
 						String actionsetkey = strPageValueChanged+strType;
@@ -848,18 +848,18 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 						
-						logger.end(className, function);
+						logger.end(function);
 					}
 	
 					@Override
 					public void endIndex(int endIndex) {
 						final String function = "CreateText endIndex";
 						
-						logger.begin(className, function);
+						logger.begin(function);
 						
 						String strType = "EndIndex";
 						
-						logger.debug(className, function, "strType[{}]", strType);
+						logger.debug(function, "strType[{}]", strType);
 						
 						String strPageValueChanged = "PagerValueChanged_";
 						String actionsetkey = strPageValueChanged+strType;
@@ -873,18 +873,18 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 						
-						logger.end(className, function);
+						logger.end(function);
 					}
 	
 					@Override
 					public void exact(boolean exact, int dataSize) {
 						final String function = "CreateText exact";
 						
-						logger.begin(className, function);
+						logger.begin(function);
 						
 						String strType = "Exact";
 						
-						logger.debug(className, function, "exact[{}] dataSize[{}]", exact, dataSize);
+						logger.debug(function, "exact[{}] dataSize[{}]", exact, dataSize);
 						
 						String strPageValueChanged = "PagerValueChanged_";
 						String actionsetkey = strPageValueChanged+strType;
@@ -898,7 +898,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 						
-						logger.end(className, function);
+						logger.end(function);
 					}
 				});
 
@@ -909,9 +909,9 @@ public class UIWidgetDataGrid extends UIWidget_i {
 					public void buttonOperation(String operation, boolean status) {
 						final String function = "buttonOperation";
 						
-						logger.begin(className, function);
+						logger.begin(function);
 						
-						logger.debug(className, function, "operation[{}] status[{}]", operation, status);
+						logger.debug(function, "operation[{}] status[{}]", operation, status);
 						
 						String actionsetkey = "PagerButtonChanged_"+operation;
 						String actionkey = "PagerButtonChanged_"+operation;
@@ -924,14 +924,14 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 						
-						logger.end(className, function);
+						logger.end(function);
 					}
 				});
 			
-			    logger.debug(className, function, "pageSize[" + pageSize + "]");
+			    logger.debug(function, "pageSize[" + pageSize + "]");
 				pager.setPageSize(pageSize);
 				
-				logger.debug(className, function, "fastForwardRows[" + fastForwardRows + "]");
+				logger.debug(function, "fastForwardRows[" + fastForwardRows + "]");
 				pager.setFastForwardRows(fastForwardRows);
 				
 				pager.setDisplay(dataGrid);
@@ -940,20 +940,20 @@ public class UIWidgetDataGrid extends UIWidget_i {
 			}
 		}
 	    
-	    logger.end(className, function);
+	    logger.end(function);
 	}
 	
 	public void addColumnFieldUpdateHandler(final String columnLabel) {
 		final String function = "addColumnFieldUpdateHandler";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 
 		int index = -1;
 		
 		for (int i=0; i<strDataGridColumnsLabels.length;i++) {
 			if (strDataGridColumnsLabels[i].equals(columnLabel)) {
 				index = i;
-				logger.debug(className, function, "label [{}] found", columnLabel);
+				logger.debug(function, "label [{}] found", columnLabel);
 				break;
 			}
 		}
@@ -968,7 +968,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 					Boolean oldValue = paramT.getBooleanValue(columnLabel);
 					String paramString = "index=" + String.valueOf(paramInt) + " oldValue=" + String.valueOf(oldValue) + " newValue=" + String.valueOf(paramC);
 					//Window.alert(paramString);
-					logger.debug(className, function, "update [{}]", paramString);
+					logger.debug(function, "update [{}]", paramString);
 					paramT.setBooleanValue(columnLabel, paramC);
 					
 					UIEventAction dataGridValueChangeEvent = new UIEventAction();
@@ -979,14 +979,14 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						dataGridValueChangeEvent.setParameter(ViewAttribute.OperationObject3.toString(), paramT);
 						dataGridValueChangeEvent.setParameter(ViewAttribute.OperationObject4.toString(), paramC);
 						getEventBus().fireEvent(dataGridValueChangeEvent);
-						logger.debug(className, function, "fire UIEventAction dataGridValueChangeEvent");
+						logger.debug(function, "fire UIEventAction dataGridValueChangeEvent");
 					}
 				}
 			});
 		} else {
-			logger.debug(className, function, "label [{}] not found", columnLabel);
+			logger.debug(function, "label [{}] not found", columnLabel);
 		}
-		logger.end(className, function);
+		logger.end(function);
 
 	}
 	

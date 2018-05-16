@@ -5,14 +5,12 @@ import java.util.LinkedList;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary_i;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class DictionariesMgr implements AsyncCallback<Dictionary_i> {
-	
-	private final String className = UIWidgetUtil.getClassSimpleName(DictionariesMgr.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private String folder		= null;
 //	private String extension	= null;
@@ -28,11 +26,11 @@ public class DictionariesMgr implements AsyncCallback<Dictionary_i> {
 	public void setDictionariesMgrEvent ( DictionariesMgrEvent dictionariesMgrEvent ) {
 		final String function = "setDictionariesMgrEvent";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.dictionariesMgrEvents.add(dictionariesMgrEvent);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/**
@@ -43,26 +41,26 @@ public class DictionariesMgr implements AsyncCallback<Dictionary_i> {
 	public void getDictionaries(String mode, String module, String folder, String extension, String tag, DictionariesMgrEvent dictionariesMgrEvent) {
 		final String function = "getDictionaries";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.folder		= folder;
 //		this.extension	= extension;
 //		this.tag		= tag;
 		
-		logger.info(className, function, "folder[{}] extension[{}] tag[{}]", new Object[]{folder, extension, tag});
+		logger.info(function, "folder[{}] extension[{}] tag[{}]", new Object[]{folder, extension, tag});
 		
 		this.dictionariesMgrEvents.add(dictionariesMgrEvent);
 
 		dictionariesService.dictionariesServer(mode, module, folder, extension, tag, this);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	public void onFailure(Throwable caught) {
 		final String function = "onFailure";
 		// Show the RPC error message to the user
 		
-		logger.begin(className, function);
+		logger.begin(function);
 				
 		for (Iterator<DictionariesMgrEvent> iterator = dictionariesMgrEvents.iterator(); iterator.hasNext();) {
 			DictionariesMgrEvent dictionaryMgrEvent = iterator.next();
@@ -70,18 +68,18 @@ public class DictionariesMgr implements AsyncCallback<Dictionary_i> {
 		    iterator.remove();
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}// onFailure
 
 	public void onSuccess(Dictionary_i dictionaryCur) {
 		final String function = "onSuccess";
 		// Success on get Menu from server
 		
-		logger.begin(className, function);
+		logger.begin(function);
 
 		if ( null != dictionaryCur ) {
 	
-			logger.debug(className, function, "calling the callback: dictionariesMgrEvents.DictionariesMgrEventReady()");
+			logger.debug(function, "calling the callback: dictionariesMgrEvents.DictionariesMgrEventReady()");
 			for (Iterator<DictionariesMgrEvent> iterator = dictionariesMgrEvents.iterator(); iterator.hasNext();) {
 				DictionariesMgrEvent dictionariesMgrEvent = iterator.next();
 				dictionariesMgrEvent.dictionariesMgrEventReady(dictionaryCur);
@@ -90,11 +88,11 @@ public class DictionariesMgr implements AsyncCallback<Dictionary_i> {
 
 		} else {
 			
-			logger.warn(className, function, "dictionaryCur is null");
+			logger.warn(function, "dictionaryCur is null");
 			
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 
 	}// onSuccess
 

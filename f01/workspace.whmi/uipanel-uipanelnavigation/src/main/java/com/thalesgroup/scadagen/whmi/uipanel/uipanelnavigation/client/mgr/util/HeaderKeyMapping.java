@@ -1,53 +1,50 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.mgr.util;
 
-import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.mgr.NavigationMgr;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class HeaderKeyMapping {
 	
-	private final static String className = UIWidgetUtil.getClassSimpleName(NavigationMgr.class.getName());
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(HeaderKeyMapping.class.getName());
 	
 	public static String replace(String currentHeader, String targetHeader, String spliter, String key) {
 		final String function = "replace";
-		logger.begin(className, function);
+		logger.begin(function);
 		String result = targetHeader;
 		
-		logger.debug(className, function, "currentHeader[{}] targetHeader[{}]", currentHeader, targetHeader);
+		logger.debug(function, "currentHeader[{}] targetHeader[{}]", currentHeader, targetHeader);
 		
 		String [] targetHeaders = null;
 		String [] currentHeaders = null;
 
 		if ( null != targetHeader ) {
-			logger.debug(className, function, "targetHeader[{}]", targetHeader);
+			logger.debug(function, "targetHeader[{}]", targetHeader);
 			targetHeaders = targetHeader.split(spliter);
 			if ( null != targetHeaders ) {
 				if ( logger.isDebugEnabled() ) {
 					for ( int i = 0 ; i < targetHeaders.length ; i++ ) {
-						logger.debug(className, function, "targetHeaders({})[{}]", i, targetHeaders[i]);
+						logger.debug(function, "targetHeaders({})[{}]", i, targetHeaders[i]);
 					}
 				} else {
-					logger.warn(className, function, "targetHeaders IS NULL");
+					logger.warn(function, "targetHeaders IS NULL");
 				}
 			}
 		} else {
-			logger.warn(className, function, "targetHeader IS NULL");
+			logger.warn(function, "targetHeader IS NULL");
 		}
 
-		logger.debug(className, function, "currentHeader[{}]", currentHeader);
+		logger.debug(function, "currentHeader[{}]", currentHeader);
 		if ( null != currentHeader ) {
 			currentHeaders = currentHeader.split(spliter);
 			if ( null != currentHeaders ) {
 				for ( int i = 0 ; i < currentHeaders.length ; i++ ) {
-					logger.debug(className, function, "currentHeaders({})[{}]", i, currentHeaders[i]);
+					logger.debug(function, "currentHeaders({})[{}]", i, currentHeaders[i]);
 				}
 			} else {
-				logger.warn(className, function, "currentHeaders IS NULL");
+				logger.warn(function, "currentHeaders IS NULL");
 			}
 		} else {
-			logger.warn(className, function, "currentHeader IS NULL");
+			logger.warn(function, "currentHeader IS NULL");
 		}
 		
 		if ( null != currentHeaders && null != targetHeaders ) {
@@ -55,12 +52,12 @@ public class HeaderKeyMapping {
 				if ( null != targetHeaders[i] ) {
 					if ( 0 == key.compareTo(targetHeaders[i]) ) {
 						if ( i < currentHeaders.length ) {
-							logger.debug(className, function, "targetHeaders[i] = currentHeaders[i]", targetHeaders[i], currentHeaders[i]);
+							logger.debug(function, "targetHeaders[i] = currentHeaders[i]", targetHeaders[i], currentHeaders[i]);
 							targetHeaders[i] = currentHeaders[i];
 						}
 					}
 				} else {
-					logger.debug(className, function, "targetHeaders({}) IS NULL", i);
+					logger.debug(function, "targetHeaders({}) IS NULL", i);
 				}
 			}
 			
@@ -71,14 +68,14 @@ public class HeaderKeyMapping {
 				}
 				result += targetHeaders[i];
 			}
-			logger.debug(className, function, "after join result[{}]", result);
+			logger.debug(function, "after join result[{}]", result);
 			
 		} else {
-			logger.debug(className, function, "currentHeaders IS NULL OR targetHeaders IS NULL");
+			logger.debug(function, "currentHeaders IS NULL OR targetHeaders IS NULL");
 		}
 		
-		logger.debug(className, function, "result[{}]", result);
-		logger.end(className, function);
+		logger.debug(function, "result[{}]", result);
+		logger.end(function);
 		return result;
 	}
 }

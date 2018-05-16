@@ -6,18 +6,16 @@ import java.util.Map;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.config.client.ConfigProvider;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.RoleDto;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class UIOpmRoleSelect {
-	
-	private final String name = this.getClass().getName();
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(name);
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	public void update(final String role) {
 		final String f = "update";
-		logger.begin(className, f);
+		logger.begin(f);
 		
 		if(logger.isDebugEnabled()) dump(ConfigProvider.getInstance().getOperatorOpmInfo(), "before");
 
@@ -35,12 +33,12 @@ public class UIOpmRoleSelect {
 		
 		if(logger.isDebugEnabled()) dump(ConfigProvider.getInstance().getOperatorOpmInfo(), "after");
 		
-		logger.end(className, f);
+		logger.end(f);
 	}
 	
 	private void dump(final OperatorOpmInfo updatedOperatorOpmInfo, final String msg) {
 		final String f = "dump";
-		logger.begin(className, f);
+		logger.begin(f);
 		
 		final Map<String, RoleDto> roles = updatedOperatorOpmInfo.getOperator().getRoleId();
         String string = "";
@@ -48,8 +46,8 @@ public class UIOpmRoleSelect {
         	string += s + ", ";
         }
         string = string.substring( 0, string.length()-2 );
-		logger.debug(className, f, "RoleMngtPresenterClient - " + msg +" update 'OperatorOpmInfo' Object, roles='" + string + "'" );
+		logger.debug(f, "RoleMngtPresenterClient - " + msg +" update 'OperatorOpmInfo' Object, roles='" + string + "'" );
 		
-		logger.end(className, f);
+		logger.end(f);
 	}
 }

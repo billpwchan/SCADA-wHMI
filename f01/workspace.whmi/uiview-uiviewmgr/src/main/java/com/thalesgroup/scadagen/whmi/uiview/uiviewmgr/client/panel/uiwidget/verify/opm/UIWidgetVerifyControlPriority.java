@@ -4,9 +4,8 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
@@ -17,12 +16,11 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UICon
 
 public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyControlPriority.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private void requestReservation() {
 		final String function = "requestReservation";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String uicpapivalue		= uiGeneric.getWidgetValue("uicpapivalue");
 		String scsenvidvalue	= uiGeneric.getWidgetValue("scsenvidvalue");
@@ -40,12 +38,12 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 			}
 		});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void withdrawReservation() {
 		final String function = "withdrawReservation";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String uicpapivalue		= uiGeneric.getWidgetValue("uicpapivalue");
 		String scsenvidvalue	= uiGeneric.getWidgetValue("scsenvidvalue");
@@ -63,12 +61,12 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 			}
 		});
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void getCurrentReservationBy() {
 		final String function = "getCurrentReservationBy";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String uicpapivalue		= uiGeneric.getWidgetValue("uicpapivalue");
 		String scsenvidvalue	= uiGeneric.getWidgetValue("scsenvidvalue");
@@ -86,12 +84,12 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 			}
 		});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void checkReservationLevel() {
 		final String function = "checkReservationLevel";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String uicpapivalue		= uiGeneric.getWidgetValue("uicpapivalue");
 		String identityvalue	= uiGeneric.getWidgetValue("identityvalue");
@@ -101,12 +99,12 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 		int result = uiControlPriority_i.checkReservationLevel(identityvalue);
 		uiGeneric.setWidgetValue("resultvalue", Integer.toString(result));
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void checkReservationAvailability() {
 		final String function = "checkReservationAvailability";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String uicpapivalue		= uiGeneric.getWidgetValue("uicpapivalue");
 		String identityvalue	= uiGeneric.getWidgetValue("identityvalue");
@@ -116,12 +114,12 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 		int result =  uiControlPriority_i.checkReservationAvailability(identityvalue);
 		uiGeneric.setWidgetValue("resultvalue", Integer.toString(result));
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void checkReservationAvailabilityDbm() {
 		final String function = "checkReservationAvailabilityDbm";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String uicpapivalue		= uiGeneric.getWidgetValue("uicpapivalue");
 		String scsenvidvalue	= uiGeneric.getWidgetValue("scsenvidvalue");
@@ -138,12 +136,12 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 			}
 		});
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void getUsrIdentity() {
 		final String function = "getUsrIdentity";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String uicpapivalue		= uiGeneric.getWidgetValue("uicpapivalue");
 		
@@ -153,13 +151,13 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 		
 		uiGeneric.setWidgetValue("resultvalue", result);
 
-		logger.end(className, function);
+		logger.end(function);
 	}	
 
 	private void launch(String element) {
 		final String function = "launch";
-		logger.begin(className, function);
-		logger.debug(className, function, "element[{}]", element);
+		logger.begin(function);
+		logger.debug(function, "element[{}]", element);
 		if ( 0 == "requestReservation".compareToIgnoreCase(element) ) {
 			requestReservation();
 		} 
@@ -181,7 +179,7 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 		else if ( 0 == "getUsrIdentity".compareToIgnoreCase(element) ) {
 			getUsrIdentity();
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
@@ -189,7 +187,7 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 		super.init();
 		
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 			
@@ -202,18 +200,18 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 			@Override
 			public void onClick(ClickEvent event) {
 				final String function = "onClick";
-				logger.begin(className, function);
+				logger.begin(function);
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
 						String element = uiGeneric.getWidgetElement(widget);
-						logger.debug(className, function, "element[{}]", element);
+						logger.debug(function, "element[{}]", element);
 						if ( null != element ) {
 							launch(element);
 						}
 					}
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
@@ -243,13 +241,13 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 			@Override
 			public void terminate() {
 				final String function = "terminate";
-				logger.begin(className, function);
+				logger.begin(function);
 				envDown(null);
-				logger.end(className, function);
+				logger.end(function);
 			};
 		};
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 }

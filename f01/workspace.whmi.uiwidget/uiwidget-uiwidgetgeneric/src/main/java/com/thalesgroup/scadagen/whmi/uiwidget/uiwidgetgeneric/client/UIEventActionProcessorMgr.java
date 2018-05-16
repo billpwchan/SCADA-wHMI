@@ -3,15 +3,14 @@ package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessorMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
 
 public class UIEventActionProcessorMgr {
-	
-	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private static UIEventActionProcessorMgr instance = null;
 	public static UIEventActionProcessorMgr getInstance() { 
@@ -29,20 +28,20 @@ public class UIEventActionProcessorMgr {
 	
 	public UIEventActionProcessor_i getUIEventActionProcessor(String key) {
 		final String function = "getUIEventActionProcessor";
-		logger.info(className, function, "key[{}]", key);
+		logger.info(function, "key[{}]", key);
 		UIEventActionProcessor_i uiEventActionProcessor_i = null;
 		for ( String k : hashMap.keySet() ) {
 			UIEventActionProcessorMgrFactory v = hashMap.get(k);
 			if ( null != k ) {
 				uiEventActionProcessor_i = v.getUIEventActionProcessor(key);
 			} else {
-				logger.warn(className, function, "v from the k[{}] IS NULL", k);
+				logger.warn(function, "v from the k[{}] IS NULL", k);
 			}
 			
 			if ( null != uiEventActionProcessor_i ) break;
 		}
 		if ( null == uiEventActionProcessor_i ) {
-			logger.warn(className, function, "uiEventActionProcessor_i IS NULL");
+			logger.warn(function, "uiEventActionProcessor_i IS NULL");
 		}
 		return uiEventActionProcessor_i;
 	}

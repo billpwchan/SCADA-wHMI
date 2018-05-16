@@ -1,14 +1,11 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class PageCounter {
 	
-	private final String cls = this.getClass().getName();
-	private final String className = UIWidgetUtil.getClassSimpleName(cls);
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 		
 	public int numOfPoint	= 0;
 	public int pageSize		= 0;
@@ -36,7 +33,7 @@ public class PageCounter {
 	public void calc ( int pageIndex ) {
 		final String function = "calc";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.pageRowBegin = pageSize * pageIndex;
 		
@@ -52,10 +49,10 @@ public class PageCounter {
 		this.hasPreview		= ( this.pageCount > 1 && pageIndex-1 >= 0 );
 		this.hasNext		= ( this.pageCount > 1 && pageIndex+1 < this.pageCount );
 
-		logger.debug(className, function, "calc numOfPoint[{}] pageSize[{}] pageCount:pageMod[{}:{}] pageRowBegin:pageRowEnd:pageRowCount[{}:{}:{}] hasPreview:hasNext[{}:{}]"
+		logger.debug(function, "calc numOfPoint[{}] pageSize[{}] pageCount:pageMod[{}:{}] pageRowBegin:pageRowEnd:pageRowCount[{}:{}:{}] hasPreview:hasNext[{}:{}]"
 				, new Object[]{numOfPoint, pageSize, pageCount, pageMod, pageRowBegin, pageRowEnd, pageRowCount, hasPreview, hasNext});
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

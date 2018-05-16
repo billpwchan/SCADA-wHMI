@@ -9,8 +9,8 @@ import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.UIGenericServiceImpl_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.shared.UIGenericDto;
 import com.thalesgroup.scadagen.wrapper.wrapper.shared.UIGenericDto_i;
@@ -24,8 +24,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.shared.UIGenericDto_i;
  */
 public class UIGenericMgr implements AsyncCallback<UIGenericDto_i> {
 
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private final UIGenericServiceAsync uiGenericService = GWT.create(UIGenericService.class);
 	
@@ -34,7 +33,7 @@ public class UIGenericMgr implements AsyncCallback<UIGenericDto_i> {
 	
 	public void execute(JSONObject request, UIGenericMgrEvent event) {
 		final String function = "execute";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		this.request = event;
 //		requests.put(uiGenericDto, event);
@@ -48,13 +47,13 @@ public class UIGenericMgr implements AsyncCallback<UIGenericDto_i> {
 		
 		uiGenericService.execute(uiGenericDto, this);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	@Override
 	public void onSuccess(UIGenericDto_i uiGenericDto) {
 		final String function = "onSuccess";
-		logger.begin(className, function);
+		logger.begin(function);
 		if ( null != uiGenericDto) {
             if (uiGenericDto.getData() != null && JsonUtils.safeToEval(uiGenericDto.getData())) {
             	JSONObject o = JSONParser.parseStrict(uiGenericDto.getData()).isObject();
@@ -64,14 +63,14 @@ public class UIGenericMgr implements AsyncCallback<UIGenericDto_i> {
 				}
             }
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
 	public void onFailure(Throwable caught) {
 		final String function = "onFailure";
-		logger.begin(className, function);
-		logger.end(className, function);
+		logger.begin(function);
+		logger.end(function);
 	}
 
 }

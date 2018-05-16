@@ -3,8 +3,8 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>16</cols>
-		<rootPanel>AbsolutePanel</rootPanel>
+		<cols>18</cols>
+		<rootPanel>FlowPanel</rootPanel>
 	</header>
 	
 	<option key="0|0">
@@ -20,15 +20,14 @@
 	
 	<option key="0|2">
 		<widget>Label</widget>
-		<label>LogLevel</label>
-		<element>loglabel</element>
+		<label>LogName</label>
 	</option>
 	<option key="0|3">
-		<widget>ListBox</widget>
-		<label>Trace</label>
-		<element>level</element>
+		<widget>TextBox</widget>
+		<label>UILoggerEx</label>
+		<element>namevalue</element>
 	</option>
-	
+
 	<option key="0|4">
 		<widget>Label</widget>
 		<label>LogLevel</label>
@@ -36,60 +35,71 @@
 	</option>
 	<option key="0|5">
 		<widget>ListBox</widget>
-		<label>1</label>
-		<element>api</element>
+		<label>Trace</label>
+		<element>level</element>
 	</option>
 	
 	<option key="0|6">
 		<widget>Label</widget>
-		<label>classname</label>
-		<element>classnamelabel</element>
+		<label>LogLevel</label>
+		<element>loglabel</element>
 	</option>
 	<option key="0|7">
-		<widget>TextBox</widget>
-		<label>verifylogclassname</label>
-		<element>classnamevalue</element>
+		<widget>ListBox</widget>
+		<label>1</label>
+		<element>api</element>
 	</option>
 	
 	<option key="0|8">
 		<widget>Label</widget>
+		<label>classname</label>
+		<element>classnamelabel</element>
+	</option>
+	<option key="0|9">
+		<widget>TextBox</widget>
+		<label>com.thalesgroup.scadagen.verifylogclassname</label>
+		<element>classnamevalue</element>
+	</option>
+	
+	<option key="0|10">
+		<widget>Label</widget>
 		<label>function</label>
 		<element>functionlabel</element>
 	</option>
-	<option key="0|9">
+	<option key="0|11">
 		<widget>TextBox</widget>
 		<label>verifylogfunction</label>
 		<element>functionvalue</element>
 	</option>
 	
-	<option key="0|10">
+	<option key="0|12">
 		<widget>Label</widget>
 		<label>message {} {}</label>
 		<element>messagelabel</element>
 	</option>
-	<option key="0|11">
+	<option key="0|13">
 		<widget>TextBox</widget>
 		<label>verifylogmessage [{}] [{}]</label>
 		<element>messagevalue</element>
 	</option>
 	
-	<option key="0|12">
+	<option key="0|14">
 		<widget>Label</widget>
 		<label>parameter1</label>
 		<element>parameter1label</element>
 	</option>
-	<option key="0|13">
+	<option key="0|15">
 		<widget>TextBox</widget>
 		<label>verifylogparameter1</label>
 		<element>parameter1value</element>
 	</option>
 	
-	<option key="0|14">
+	<option key="0|16">
 		<widget>Label</widget>
 		<label>parameter2</label>
 		<element>parameter2label</element>
 	</option>
-	<option key="0|15">
+	<option key="0|17">
 		<widget>TextBox</widget>
 		<label>verifylogparameter2</label>
 		<element>parameter2value</element>

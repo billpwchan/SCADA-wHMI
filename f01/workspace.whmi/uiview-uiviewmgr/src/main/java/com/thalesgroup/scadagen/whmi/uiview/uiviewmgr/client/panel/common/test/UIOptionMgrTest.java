@@ -3,13 +3,13 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.test;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIOptionMgr;
 
 public class UIOptionMgrTest {
 	
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private String dictionariesCacheName = null;
 	private String filename = null;
@@ -37,7 +37,7 @@ public class UIOptionMgrTest {
 	public void test() {
 		final String function = "test";
 		String className = UIOptionMgr.class.getSimpleName();
-		logger.debug(className, function, "Testing [{}] Begin", className);
+		logger.debug(function, "Testing [{}] Begin", className);
 		
 		final UIOptionMgr uiOptionMgr = new UIOptionMgr(className);
 		
@@ -47,23 +47,23 @@ public class UIOptionMgrTest {
 				if ( null != option ) {
 					String optionKey = option.getKey();
 					final Map<String, String> optionValue = option.getValue();
-					logger.debug(className, function, "optionKey[{}]", optionKey);
+					logger.debug(function, "optionKey[{}]", optionKey);
 					if ( null != optionValue ) {
 						for ( Entry<String, String> parameters : optionValue.entrySet() ) {
 							String key = parameters.getKey();
 							String value = parameters.getValue();
-							logger.debug(className, function, "optionKey[{}] key[{}] value[{}]", new Object[]{optionKey, key, value});
+							logger.debug(function, "optionKey[{}] key[{}] value[{}]", new Object[]{optionKey, key, value});
 						}
 					} else {
-						logger.warn(className, function, "optionValue IS NULL");
+						logger.warn(function, "optionValue IS NULL");
 					}
 				} else {
-					logger.warn(className, function, "options IS NULL");
+					logger.warn(function, "options IS NULL");
 				}
 			}
 		} else {
-			logger.warn(className, function, "options IS NULL");
+			logger.warn(function, "options IS NULL");
 		}
-		logger.debug(className, function, "Testing [{}] End", className);
+		logger.debug(function, "Testing [{}] End", className);
 	}
 }

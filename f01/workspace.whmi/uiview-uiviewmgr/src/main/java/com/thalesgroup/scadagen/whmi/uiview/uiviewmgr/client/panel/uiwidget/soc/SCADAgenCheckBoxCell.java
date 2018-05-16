@@ -10,8 +10,8 @@ import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class SCADAgenCheckBoxCell extends AbstractEditableCell<Boolean, Boolean> {
 
@@ -37,7 +37,7 @@ public class SCADAgenCheckBoxCell extends AbstractEditableCell<Boolean, Boolean>
 	private final boolean handlesSelection;
 
 	private final String className = "SCADAgenCheckBoxCell";
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	public boolean isCheckBoxDisabled_ = false;
 	

@@ -5,9 +5,8 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
@@ -26,8 +25,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseGetChi
 
 public class UIWidgetVerifyDatabaseGetChildrenControl extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseGetChildrenControl.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private SimpleEventBus eventBus 	= null;
 
@@ -54,18 +53,18 @@ public class UIWidgetVerifyDatabaseGetChildrenControl extends UIWidget_i {
 		public void onClick(ClickEvent event) {
 			final String function = "onClick";
 			
-			logger.begin(className, function);
+			logger.begin(function);
 			
 			if ( null != event ) {
 				Widget widget = (Widget) event.getSource();
 				if ( null != widget ) {
 					String element = uiWidgetGeneric.getWidgetElement(widget);
-					logger.info(className, function, "element[{}]", element);
+					logger.info(function, "element[{}]", element);
 					if ( null != element ) {
 						
 						if ( 0 == "create".compareTo(element) ) {
 							String strReadClassName = uiWidgetGeneric.getWidgetValue("createvalue");
-							logger.info(className, function, "strReadClassName[{}]", strReadClassName);
+							logger.info(function, "strReadClassName[{}]", strReadClassName);
 							databaseSingleRead_i = DatabaseGetChildrenFactory.get(strReadClassName);
 						}
 						
@@ -107,14 +106,14 @@ public class UIWidgetVerifyDatabaseGetChildrenControl extends UIWidget_i {
 					}
 				}
 			}
-			logger.begin(className, function);
+			logger.begin(function);
 		}
 		
 		@Override
 		public void onActionReceived(UIEventAction uiEventAction) {
 			final String function = "onActionReceived";
-			logger.begin(className, function);
-			logger.end(className, function);
+			logger.begin(function);
+			logger.end(function);
 		}
 	};
 	
@@ -122,11 +121,11 @@ public class UIWidgetVerifyDatabaseGetChildrenControl extends UIWidget_i {
 	public void init() {
 		final String function = "init";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strEventBusName = getStringParameter(UIRealize_i.ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
+		logger.info(function, "strEventBusName[{}]", strEventBusName);
 
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
@@ -182,7 +181,7 @@ public class UIWidgetVerifyDatabaseGetChildrenControl extends UIWidget_i {
 
 		uiEventActionProcessor_i.executeActionSetInit();
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

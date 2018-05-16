@@ -6,14 +6,12 @@ import java.util.Map;
 
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ListDataProvider;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class UIDataGridDatabase implements UIDataGridDatabase_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIDataGridDatabase.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private static HashMap<String, UIDataGridDatabase> instances = new HashMap<String, UIDataGridDatabase>();
 
@@ -106,7 +104,7 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 	public void setScsEnv(String strDataGrid, String scsEnvIdsStr, String [] strDataGridColumnsLabels, String []strDataGridColumnsTypes, int []intDataGridColumnsTranslations, String strDataGridOptsXMLFile) {
 		final String function = "setScsEnv";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if (scsEnvIdsStr != null) {
 			String [] tokens = scsEnvIdsStr.split(",");
@@ -121,33 +119,33 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 		
 		if (strDataGridColumnsLabels != null) {
 			for (String label: strDataGridColumnsLabels) {
-				logger.debug(className, function, "label=[{}]", label);
+				logger.debug(function, "label=[{}]", label);
 			}
 		}
 		
 		this.strDataGridColumnsTypes = strDataGridColumnsTypes;
 		if (strDataGridColumnsTypes != null) {
 			for (String type: strDataGridColumnsTypes) {
-				logger.debug(className, function, "type=[{}]", type);
+				logger.debug(function, "type=[{}]", type);
 			}
 		}
 		
 		this.intDataGridColumnsTranslations = intDataGridColumnsTranslations;
 		if (intDataGridColumnsTranslations != null) {
 			for (int translation: intDataGridColumnsTranslations) {
-				logger.debug(className, function, "translation=[{}]", translation);
+				logger.debug(function, "translation=[{}]", translation);
 			}
 		}
 				
 		this.strDataGridOptsXMLFile = strDataGridOptsXMLFile;
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void connect() {
 		final String function = "connect";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 
 		// Clear data grid
 		clearEquipment();
@@ -165,19 +163,19 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 	    	
 	    dataSource.connect();
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void loadData(String scsEnvId, String dbaddress) {
 		final String function = "loadData";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		clearEquipment();
 		
 		dataSource.loadData(scsEnvId, dbaddress);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	

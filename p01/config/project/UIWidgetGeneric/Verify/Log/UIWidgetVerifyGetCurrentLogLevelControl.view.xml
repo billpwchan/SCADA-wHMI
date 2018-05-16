@@ -3,8 +3,8 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>4</cols>
-		<rootPanel>AbsolutePanel</rootPanel>
+		<cols>6</cols>
+		<rootPanel>FlowPanel</rootPanel>
 	</header>
 	
 	<option key="0|0">
@@ -20,10 +20,20 @@
 	
 	<option key="0|2">
 		<widget>Label</widget>
+		<label>LogName</label>
+	</option>
+	<option key="0|3">
+		<widget>TextBox</widget>
+		<label>UILoggerEx</label>
+		<element>namevalue</element>
+	</option>
+	
+	<option key="0|4">
+		<widget>Label</widget>
 		<label>GetCurrentLogLevel</label>
 		<element>GetCurrentLogLevel</element>
 	</option>
-	<option key="0|3">
+	<option key="0|5">
 		<widget>TextBox</widget>
 		<label></label>
 		<element>loglevelvalue</element>

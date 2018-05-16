@@ -5,9 +5,8 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
@@ -26,8 +25,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseSubscr
 
 public class UIWidgetVerifyDatabaseGroupPollingControl extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseGroupPollingControl.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private SimpleEventBus eventBus 	= null;
 
@@ -54,22 +53,22 @@ public class UIWidgetVerifyDatabaseGroupPollingControl extends UIWidget_i {
 		public void onClick(ClickEvent event) {
 			final String function = "onClick";
 			
-			logger.begin(className, function);
+			logger.begin(function);
 			
 			if ( null != event ) {
 				Widget widget = (Widget) event.getSource();
 				if ( null != widget ) {
 					String element = uiWidgetGeneric.getWidgetElement(widget);
-					logger.info(className, function, "element[{}]", element);
+					logger.info(function, "element[{}]", element);
 					if ( null != element ) {
 						
 						if ( 0 == "create".compareTo(element) ) {
 							String strSubscribeClassName = uiWidgetGeneric.getWidgetValue("createvalue");
-							logger.info(className, function, "strSubscribeClassName[{}]", strSubscribeClassName);
+							logger.info(function, "strSubscribeClassName[{}]", strSubscribeClassName);
 							
 							int intPeriodMillis = 250;
 							String strPeriodMillis = uiWidgetGeneric.getWidgetValue("periodmillisvalue");
-							logger.info(className, function, "strPeriodMillis[{}]", strPeriodMillis);
+							logger.info(function, "strPeriodMillis[{}]", strPeriodMillis);
 							if ( null != strPeriodMillis ) intPeriodMillis = Integer.parseInt(strPeriodMillis);
 							
 							databaseSubscribe_i = DatabaseSubscribeFactory.get(strSubscribeClassName);
@@ -119,10 +118,10 @@ public class UIWidgetVerifyDatabaseGroupPollingControl extends UIWidget_i {
 													result += " ("+i+")dbaddress["+dbaddress+"] value["+value+"]";
 												}
 											} else {
-												logger.warn(className, function, "dbaddressSize[{}] OR valueSize[{}] IS NOT EQUAL", dbaddressSize, valueSize);
+												logger.warn(function, "dbaddressSize[{}] OR valueSize[{}] IS NOT EQUAL", dbaddressSize, valueSize);
 											}
 										} else {
-											logger.warn(className, function, "dbaddresses[{}] OR values[{}] IS NULL", dbaddresses, values);
+											logger.warn(function, "dbaddresses[{}] OR values[{}] IS NULL", dbaddresses, values);
 										}
 										uiWidgetGeneric.setWidgetValue(subscribeprefix+"resultvalue", result);
 									}
@@ -146,14 +145,14 @@ public class UIWidgetVerifyDatabaseGroupPollingControl extends UIWidget_i {
 					}
 				}
 			}
-			logger.begin(className, function);
+			logger.begin(function);
 		}
 		
 		@Override
 		public void onActionReceived(UIEventAction uiEventAction) {
 			final String function = "onActionReceived";
-			logger.begin(className, function);
-			logger.end(className, function);
+			logger.begin(function);
+			logger.end(function);
 		}
 	};
 	
@@ -161,11 +160,11 @@ public class UIWidgetVerifyDatabaseGroupPollingControl extends UIWidget_i {
 	public void init() {
 		final String function = "init";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strEventBusName = getStringParameter(UIRealize_i.ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
+		logger.info(function, "strEventBusName[{}]", strEventBusName);
 
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
@@ -221,7 +220,7 @@ public class UIWidgetVerifyDatabaseGroupPollingControl extends UIWidget_i {
 
 		uiEventActionProcessor_i.executeActionSetInit();
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

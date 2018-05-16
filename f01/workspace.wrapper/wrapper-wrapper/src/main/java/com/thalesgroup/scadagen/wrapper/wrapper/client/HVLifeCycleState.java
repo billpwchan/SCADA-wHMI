@@ -9,14 +9,13 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.l
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.life.state.HLCStateStoppedClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.life.state.HLCStateTerminatedClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.life.state.HypLifeCycleStateClientAbstract;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.presenter.AScsComponentPresenterClient;
 
 public class HVLifeCycleState {
-	
-	private final static String className = HVLifeCycleState.class.getSimpleName();
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(HVLifeCycleState.class.getName());
+
+	private final static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(HVLifeCycleState.class.getName());
 	
 	public static String getCurrentState(String prefix1, String prefix2, AScsComponentPresenterClient<?> aScsComponentPresenterClient) {
 		String function = "getCurrentState";
@@ -24,9 +23,9 @@ public class HVLifeCycleState {
 		if ( null != aScsComponentPresenterClient ) {
 			state = getCurrentState(prefix1, prefix2, aScsComponentPresenterClient.getCurrentState());
 		} else {
-			logger.debug(className, function, "aScsComponentPresenterClient IS NULL");
+			logger.debug(function, "aScsComponentPresenterClient IS NULL");
 		}
-		logger.debug(className, function, "prefix1[{}] prefix2[{}] state[{}]", new Object[]{prefix1, prefix2, state});
+		logger.debug(function, "prefix1[{}] prefix2[{}] state[{}]", new Object[]{prefix1, prefix2, state});
 		return state;
 	}
 	
@@ -62,10 +61,10 @@ public class HVLifeCycleState {
 				state = HLCStateTerminatedClient.class.getSimpleName();	
 			}
 		} else {
-			logger.debug(className, function, "hypLifeCycleStateClient IS NULL");
+			logger.debug(function, "hypLifeCycleStateClient IS NULL");
 		}
 
-		logger.debug(className, function, "prefix1[{}] prefix2[{}] state[{}]", new Object[]{prefix1, prefix2, state});
+		logger.debug(function, "prefix1[{}] prefix2[{}] state[{}]", new Object[]{prefix1, prefix2, state});
 		return state;
 	}
 	
@@ -80,6 +79,6 @@ public class HVLifeCycleState {
 				e.printStackTrace();
 			}
 		}
-		logger.debug(className, function, "prefix1[{}] prefix2[{}] state[{}]", new Object[]{prefix1, prefix2, state});
+		logger.debug(function, "prefix1[{}] prefix2[{}] state[{}]", new Object[]{prefix1, prefix2, state});
 	}
 }

@@ -1,8 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventType_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionAlm;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBusFire;
@@ -25,12 +24,11 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActi
 public class InitUIEventActionExecuteMgrFactorys {
 	
 	private final static String name = InitUIEventActionExecuteMgrFactorys.class.getName();
-	private final static String className = UIWidgetUtil.getClassSimpleName(InitUIEventActionExecuteMgrFactorys.class.getName());
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(InitUIEventActionExecuteMgrFactorys.class.getName());
 
 	public static void init() {
 		String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		UIEventActionExecuteMgr uiEventActionExecuteMgr = UIEventActionExecuteMgr.getInstance();
 		uiEventActionExecuteMgr.clearUIEventActionExecuteMgrFactorys();
@@ -39,7 +37,7 @@ public class InitUIEventActionExecuteMgrFactorys {
 			@Override
 			public UIEventActionExecute_i getUIEventActionExecute(String key) {
 				final String function = "getUIEventActionExecute";
-				logger.info(className, function, "key[{}]", key);
+				logger.info(function, "key[{}]", key);
 				
 				UIEventActionExecute_i uiEventActionExecute_i = null;
 				
@@ -86,12 +84,12 @@ public class InitUIEventActionExecuteMgrFactorys {
 					uiEventActionExecute_i = new UIEventActionOls();
 				}
 				
-				if ( null == uiEventActionExecute_i ) logger.warn(className, function, "key[{}] uiEventActionExecute_i IS NULL", key);
+				if ( null == uiEventActionExecute_i ) logger.warn(function, "key[{}] uiEventActionExecute_i IS NULL", key);
 				
 				return uiEventActionExecute_i;
 			}
 		});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

@@ -1,8 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize;
 
 import com.google.gwt.event.shared.SimpleEventBus;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
@@ -14,9 +14,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 
 public class UIRealize extends UIWidget_i implements UIRealize_i {
-	
-	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	protected SimpleEventBus eventBus 	= null;
 
@@ -33,11 +32,11 @@ public class UIRealize extends UIWidget_i implements UIRealize_i {
 	@Override
 	public void init() {
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		logPrefix = "element["+element+"] ";
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/**
@@ -45,7 +44,7 @@ public class UIRealize extends UIWidget_i implements UIRealize_i {
 	 */
 	protected boolean fromUILayoutSummaryAction(UIEventAction uiEventAction) {
 		final String function = "fromUILayoutSummaryAction";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		boolean result = false;
 
@@ -53,13 +52,13 @@ public class UIRealize extends UIWidget_i implements UIRealize_i {
 		String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 		String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
 		
-		logger.debug(className, function, logPrefix+"oe[{}] os1[{}] os2[{}]", new Object[]{oe, os1, os2});
+		logger.debug(function, logPrefix+"oe[{}] os1[{}] os2[{}]", new Object[]{oe, os1, os2});
 		
 		if ( null != oe ) {
 			if ( oe.equals(element) ) {
 				
-				if ( null == uiEventActionProcessor_i ) logger.warn(className, function, logPrefix+"uiEventActionProcessor_i IS NULL");
-				if ( null == uiLayoutSummaryAction_i ) logger.warn(className, function, logPrefix+"uiLayoutSummaryAction_i IS NULL");
+				if ( null == uiEventActionProcessor_i ) logger.warn(function, logPrefix+"uiEventActionProcessor_i IS NULL");
+				if ( null == uiLayoutSummaryAction_i ) logger.warn(function, logPrefix+"uiLayoutSummaryAction_i IS NULL");
 				
 				if ( os1.equals(ActionSetName.from_uilayoutsummary_init.toString()) ) {
 					result = fromUILayoutSummaryInit(uiEventAction);
@@ -72,7 +71,7 @@ public class UIRealize extends UIWidget_i implements UIRealize_i {
 				}
 			}
 		}
-		logger.end(className, function);
+		logger.end(function);
 		return result;
 	}
 	

@@ -11,8 +11,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.ctl.ICTLComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.ctl.ScsCTLComponentAccess;
@@ -22,9 +22,8 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.ctl.ScsCTLCompon
  *
  */
 public class CtlMgr {
-	
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private static Map<String, CtlMgr> instances = new HashMap<String, CtlMgr>();
 	public static CtlMgr getInstance(String key) {
@@ -40,7 +39,7 @@ public class CtlMgr {
 	private CtlMgr () {
 		final String function = "CtlMgr";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.subject = new Subject();
 		
@@ -69,12 +68,12 @@ public class CtlMgr {
 		    	
 		    	final String function = "setSendIntCommandResult";
 		    	
-		    	logger.begin(className, function);
+		    	logger.begin(function);
 		    	
-		    	logger.info(className, function, "clientKey[{}]", clientKey);
-		    	logger.info(className, function, "message[{}]", message);
-		    	logger.info(className, function, "errorCode[{}]", errorCode);
-		    	logger.info(className, function, "errorMessage[{}]", errorMessage);
+		    	logger.info(function, "clientKey[{}]", clientKey);
+		    	logger.info(function, "message[{}]", message);
+		    	logger.info(function, "errorCode[{}]", errorCode);
+		    	logger.info(function, "errorMessage[{}]", errorMessage);
 		    	
 		    	JSONObject jsObject = new JSONObject();
 		    	jsObject.put("function", new JSONString(function));
@@ -87,7 +86,7 @@ public class CtlMgr {
 		    		subject.setState(jsObject);
 		    	}
 		        
-		        logger.end(className, function);
+		        logger.end(function);
 		    }
 
 		    @Override
@@ -95,12 +94,12 @@ public class CtlMgr {
 		    	
 		    	final String function = "setSendFloatCommandResult";
 		    	
-		    	logger.begin(className, function);
+		    	logger.begin(function);
 		    	
-		    	logger.info(className, function, "clientKey[{}]", clientKey);
-		    	logger.info(className, function, "message[{}]", message);
-		    	logger.info(className, function, "errorCode[{}]", errorCode);
-		    	logger.info(className, function, "errorMessage[{}]", errorMessage);
+		    	logger.info(function, "clientKey[{}]", clientKey);
+		    	logger.info(function, "message[{}]", message);
+		    	logger.info(function, "errorCode[{}]", errorCode);
+		    	logger.info(function, "errorMessage[{}]", errorMessage);
 		    	
 		    	JSONObject jsObject = new JSONObject();
 		    	jsObject.put("function", new JSONString(function));
@@ -113,7 +112,7 @@ public class CtlMgr {
 		    		subject.setState(jsObject);
 		    	}
 		        
-		        logger.end(className, function);
+		        logger.end(function);
 		    }
 
 		    @Override
@@ -121,12 +120,12 @@ public class CtlMgr {
 		    	
 		    	final String function = "setSendStringCommandResult";
 		    	
-		    	logger.begin(className, function);
+		    	logger.begin(function);
 		    	
-		    	logger.info(className, function, "clientKey[{}]", clientKey);
-		    	logger.info(className, function, "message[{}]", message);
-		    	logger.info(className, function, "errorCode[{}]", errorCode);
-		    	logger.info(className, function, "errorMessage[{}]", errorMessage);
+		    	logger.info(function, "clientKey[{}]", clientKey);
+		    	logger.info(function, "message[{}]", message);
+		    	logger.info(function, "errorCode[{}]", errorCode);
+		    	logger.info(function, "errorMessage[{}]", errorMessage);
 		    	
 		    	JSONObject jsObject = new JSONObject();
 		    	jsObject.put("function", new JSONString(function));
@@ -139,23 +138,23 @@ public class CtlMgr {
 		    		subject.setState(jsObject);
 		    	}
 		        
-		        logger.end(className, function);
+		        logger.end(function);
 		    }
 		});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void connect() {
 		final String function = "connect";
 		
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 	}
 	public void disconnect() {
 		final String function = "disconnect";
 		
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		try {
 			scsCTLComponentAccess.terminate();
 		} catch (IllegalStatePresenterException e) {
@@ -163,23 +162,23 @@ public class CtlMgr {
 			e.printStackTrace();
 		}
 		scsCTLComponentAccess=null;
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void sendControl ( String envName, String [] address, float commandValue, int bypassInitCond, int bypassRetCond, int sendAnyway) {
 		final String function = "sendControl";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.info(className, function, "envName[{}]", envName);
+		logger.info(function, "envName[{}]", envName);
 		for ( int i = 0 ; i < address.length ; ++i ) {
-			logger.info(className, function, "address({})[{}] BF", i, address[i]);
+			logger.info(function, "address({})[{}] BF", i, address[i]);
 			
 			address[i] = address[i].replace(":", "");
 			
-			logger.info(className, function, "address({})[{}] AF", i, address[i]);
+			logger.info(function, "address({})[{}] AF", i, address[i]);
 		}
-		logger.info(className, function, "commandValue[{}] bypassInitCond[{}] bypassRetCond[{}] sendAnyway[{}] ", new Object[]{commandValue, bypassInitCond, bypassRetCond, sendAnyway});
+		logger.info(function, "commandValue[{}] bypassInitCond[{}] bypassRetCond[{}] sendAnyway[{}] ", new Object[]{commandValue, bypassInitCond, bypassRetCond, sendAnyway});
 
 		String [] analogValueAddress = address;
 		
@@ -205,28 +204,28 @@ public class CtlMgr {
 	    	}
 				
 		} else {
-			logger.warn(className, function, "m_CTLAccess IS NULL");
+			logger.warn(function, "m_CTLAccess IS NULL");
 		}
 
 		
-		logger.end(className, function);
+		logger.end(function);
 		
 	}
 	
 	public void sendControl (String envName, String [] address, int commandValue, int bypassInitCond, int bypassRetCond, int sendAnyway) {
 		final String function = "sendControl";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.info(className, function, "envName[{}]", envName);
+		logger.info(function, "envName[{}]", envName);
 		for ( int i = 0 ; i < address.length ; ++i ) {
-			logger.info(className, function, "address({})[{}] BF", i, address[i]);
+			logger.info(function, "address({})[{}] BF", i, address[i]);
 			
 			address[i] = address[i].replace(":", "");
 			
-			logger.info(className, function, "address({})[{}] AF", i, address[i]);
+			logger.info(function, "address({})[{}] AF", i, address[i]);
 		}
-		logger.info(className, function, "commandValue[{}] bypassInitCond[{}] bypassRetCond[{}] sendAnyway[{}] ", new Object[]{commandValue, bypassInitCond, bypassRetCond, sendAnyway});
+		logger.info(function, "commandValue[{}] bypassInitCond[{}] bypassRetCond[{}] sendAnyway[{}] ", new Object[]{commandValue, bypassInitCond, bypassRetCond, sendAnyway});
 		
 		String [] digitalValueAddress = address;
 		
@@ -252,32 +251,32 @@ public class CtlMgr {
 	    	}
 				
 		} else {
-			logger.warn(className, function, "m_CTLAccess IS NULL");
+			logger.warn(function, "m_CTLAccess IS NULL");
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		
 	}
 	
 	public void sendControl (String envName, String [] address, String commandValue, int bypassInitCond, int bypassRetCond, int sendAnyway) {
 		final String function = "sendControl";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.info(className, function, "envName[{}]", envName);
+		logger.info(function, "envName[{}]", envName);
 		
 		for ( int i = 0 ; i < address.length ; ++i ) {
-			logger.info(className, function, "address({})[{}] BF", i, address[i]);
+			logger.info(function, "address({})[{}] BF", i, address[i]);
 			
 			address[i] = address[i].replace(":", "");
 			
-			logger.info(className, function, "address({})[{}] AF", i, address[i]);
+			logger.info(function, "address({})[{}] AF", i, address[i]);
 		}
-		logger.info(className, function, "commandValue[{}] bypassInitCond[{}] bypassRetCond[{}] sendAnyway[{}] ", new Object[]{commandValue, bypassInitCond, bypassRetCond, sendAnyway});
+		logger.info(function, "commandValue[{}] bypassInitCond[{}] bypassRetCond[{}] sendAnyway[{}] ", new Object[]{commandValue, bypassInitCond, bypassRetCond, sendAnyway});
 
 		String [] structuredValueAddress = address;
 		
-		logger.info(className, function, "structuredValueAddress(0)[{}]", structuredValueAddress[0]);
+		logger.info(function, "structuredValueAddress(0)[{}]", structuredValueAddress[0]);
 		
 		if ( null != scsCTLComponentAccess ) {
 			
@@ -300,10 +299,10 @@ public class CtlMgr {
 	    	}
 					
 		} else {
-			logger.warn(className, function, "m_CTLAccess IS NULL");
+			logger.warn(function, "m_CTLAccess IS NULL");
 		}
 		scsCTLComponentAccess.sendStringCommand("sendStringCommand", envName, structuredValueAddress, commandValue, bypassInitCond, bypassRetCond, sendAnyway);
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

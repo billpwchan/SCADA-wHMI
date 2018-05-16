@@ -3,18 +3,16 @@ package com.thalesgroup.scadagen.whmi.config.configenv.client;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONValue;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class ReadJsonFile {
 
-	private static final String className = UIWidgetUtil.getClassSimpleName(ReadJsonFile.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(ReadJsonFile.class.getName());
 	
 	public static JSONObject readJson(String dictionariesCacheName, String fileName) {
 		final String function = "readJson";
-		logger.begin(className, function);
+		logger.begin(function);
 		JSONObject jsonObject = null;
 
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(dictionariesCacheName);
@@ -24,20 +22,20 @@ public class ReadJsonFile {
 				jsonObject = ReadJson.readJson(data);
 			}
 			else {
-				logger.warn(className, function, "data IS NULL");
+				logger.warn(function, "data IS NULL");
 			}
 		}
 		else {
-			logger.warn(className, function, "dictionariesCacheName[{}] fileName[{}] dictionariesCache IS NULL", dictionariesCacheName, fileName);
+			logger.warn(function, "dictionariesCacheName[{}] fileName[{}] dictionariesCache IS NULL", dictionariesCacheName, fileName);
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 		return jsonObject;
 	}
 
 	public static String readString(String dictionariesCacheName, String fileName, String key, String defaultValue) {
 		final String function = "readString";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		String string = defaultValue;
 		JSONObject jsonObject = readJson(dictionariesCacheName, fileName);
@@ -45,18 +43,18 @@ public class ReadJsonFile {
 			string = ReadJson.readString(jsonObject, key, defaultValue);
 		}
 		else {
-			logger.warn(className, function, "dictionariesCacheName[{}] fileName[{}] jsonObject IS NULL", dictionariesCacheName, fileName);
+			logger.warn(function, "dictionariesCacheName[{}] fileName[{}] jsonObject IS NULL", dictionariesCacheName, fileName);
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 		return string;
 	}
 	
 	public static String getStringFromJsonArray(String dictionariesCacheName, String fileName, String arrayKey, String arrayIndexKeyValue, String arrayIndexKey, String valueKey, String defaultValue) {
 		final String function = "getStringFromJsonArray";
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.debug(className, function, "dictionariesCacheName[{}] fileName[{}] arrayKey[{}] arrayIndexKeyValue[{}] arrayIndexKey[{}] arrayIndexKey[{}] valueKey"
+		logger.debug(function, "dictionariesCacheName[{}] fileName[{}] arrayKey[{}] arrayIndexKeyValue[{}] arrayIndexKey[{}] arrayIndexKey[{}] valueKey"
 				, new Object[]{dictionariesCacheName, fileName, arrayKey, arrayIndexKeyValue, arrayIndexKey, arrayIndexKey, valueKey});
 		
 		String value = defaultValue;
@@ -70,16 +68,16 @@ public class ReadJsonFile {
 			}
 		}
 		else {
-			logger.warn(className, function, "dictionariesCacheName[{}] fileName[{}] arrayKey IS NULL", dictionariesCacheName, fileName);
+			logger.warn(function, "dictionariesCacheName[{}] fileName[{}] arrayKey IS NULL", dictionariesCacheName, fileName);
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		return value;
 	}
 	
 	public static int readInt(String dictionariesCacheName, String fileName, String key, int defaulValue) {
 		final String function = "readInt";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		int result = defaulValue;
 		JSONObject jsonObject = readJson(dictionariesCacheName, fileName);
@@ -90,16 +88,16 @@ public class ReadJsonFile {
 			}
 		}
 		else {
-			logger.warn(className, function, "dictionariesCacheName[{}] fileName[{}] jsonObject IS NULL", dictionariesCacheName, fileName);
+			logger.warn(function, "dictionariesCacheName[{}] fileName[{}] jsonObject IS NULL", dictionariesCacheName, fileName);
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 		return result;
 	}
 
 	public static boolean readBoolean(String dictionariesCacheName, String fileName, String key, boolean defaulValue) {
 		final String function = "readBoolean";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		boolean result = defaulValue;
 
@@ -112,16 +110,16 @@ public class ReadJsonFile {
 			}
 		}
 		else {
-			logger.warn(className, function, "dictionariesCacheName[{}] fileName[{}] dictionariesCache IS NULL", dictionariesCacheName, fileName);
+			logger.warn(function, "dictionariesCacheName[{}] fileName[{}] dictionariesCache IS NULL", dictionariesCacheName, fileName);
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 		return result;
 	}
 
 	public static JSONArray readArray(String dictionariesCacheName, String fileName, String index) {
 		final String function = "readArray";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		JSONArray result = null;
 
@@ -130,10 +128,10 @@ public class ReadJsonFile {
 			result = ReadJson.readArray(jsonObject, index);
 		}
 		else {
-			logger.warn(className, function, "dictionariesCacheName[{}] fileName[{}] jsonObject IS NULL", dictionariesCacheName, fileName);
+			logger.warn(function, "dictionariesCacheName[{}] fileName[{}] jsonObject IS NULL", dictionariesCacheName, fileName);
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 		return result;
 	}
 }

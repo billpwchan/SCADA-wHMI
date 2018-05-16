@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>8</cols>
+		<rootPanel>FlowPanel</rootPanel>
+	</header>
+	
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>Verify UILogger:</label>
+		<element>title</element>
+	</option>
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>addloglevel</label>
+		<element>addloglevel</element>
+	</option>
+	
+	<option key="0|2">
+		<widget>Label</widget>
+		<label>LogName</label>
+	</option>
+	<option key="0|3">
+		<widget>TextBox</widget>
+		<label>UILoggerEx</label>
+		<element>namevalue</element>
+	</option>
+	
+	<option key="0|4">
+		<widget>Label</widget>
+		<label>AddLogNamespace</label>
+		<element>AddLogNamespace</element>
+	</option>
+	<option key="0|5">
+		<widget>TextBox</widget>
+		<label>com.thalesgroup.scadagen</label>
+		<element>namespacevalue</element>
+	</option>
+	
+	<option key="0|6">
+		<widget>Label</widget>
+		<label>AddLogLevel</label>
+		<element>AddLogLevel</element>
+	</option>
+	<option key="0|7">
+		<widget>TextBox</widget>
+		<label>20000</label>
+		<element>levelvalue</element>
+	</option>
+
+</data-set>

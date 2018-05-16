@@ -1,12 +1,11 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.container;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class UIPanelMenuUtil {
 
-	private final static String className = UIPanelMenuUtil.class.getSimpleName();
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(UIPanelMenuUtil.class.getName());
+	private final static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(UIPanelMenuUtil.class.getName());
 	
 	//	Char	Escape String
 	//	<	&lt;
@@ -16,8 +15,8 @@ public class UIPanelMenuUtil {
 	//	&	&amp;	
 	public static String backwardConvertXMLTag(final String element) {
 		final String f = "backwardConvertXMLTag";
-		logger.begin(className, f);
-		logger.debug(className, f, "element[{}]", element);
+		logger.begin(f);
+		logger.debug(f, "element[{}]", element);
 		String ret = element;
 		
 		ret = ret.replace("&amp;", "&");
@@ -26,7 +25,7 @@ public class UIPanelMenuUtil {
 		ret = ret.replace("&quot;", "\"");
 		ret = ret.replace("&apos;", "'");
 		
-		logger.debug(className, f, "ret[{}]", ret);
+		logger.debug(f, "ret[{}]", ret);
 		return ret;
 	}
 }

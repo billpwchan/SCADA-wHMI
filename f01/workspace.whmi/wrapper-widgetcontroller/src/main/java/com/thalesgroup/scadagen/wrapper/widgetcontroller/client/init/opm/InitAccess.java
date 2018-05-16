@@ -2,8 +2,8 @@ package com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.opm;
 
 import java.util.Map;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.Init_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.access.UIAccessFactory;
@@ -14,7 +14,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.access.UIAccess_i;
 public class InitAccess implements Init_i {
 
 	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private InitAccess() {}
 	private static InitAccess instance = null;
@@ -31,7 +31,7 @@ public class InitAccess implements Init_i {
 	
 	public void initFactory() {
 		final String function = "initAccessFactory";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		UIAccessFactory accessFactory = UIAccessFactory.getInstance();
 		accessFactory.addFactory(className, new UIAccessFactory_i() {
@@ -49,20 +49,20 @@ public class InitAccess implements Init_i {
 			}
 		});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void initAccess(String key) {
 		final String function = "initAccess";
-		logger.begin(className, function);
-		logger.debug(className, function, "Try to init key[{}]", key);
+		logger.begin(function);
+		logger.debug(function, "Try to init key[{}]", key);
 		UIAccess_i uiAccess_i = com.thalesgroup.scadagen.wrapper.wrapper.client.opm.access.UIAccessFactory.getInstance().get(key);
 		if ( null != uiAccess_i ) {
 			uiAccess_i.init();
 		} else {
-			logger.warn(className, function, "uiAccess_i IS NULL");
+			logger.warn(function, "uiAccess_i IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 }

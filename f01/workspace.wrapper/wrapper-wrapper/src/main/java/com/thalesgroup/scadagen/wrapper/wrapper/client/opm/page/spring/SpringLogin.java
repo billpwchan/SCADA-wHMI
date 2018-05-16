@@ -5,14 +5,13 @@ import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UICookies;
 
 public class SpringLogin {
-	
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private final String strCssForm = "project-SpringLogin-from";
 	private final String strCssPanel = "project-SpringLogin-panel";
@@ -27,9 +26,9 @@ public class SpringLogin {
 
 	public SpringLogin(final String actionUrl, final String name1, final String name2) {
 		String function = "SpringLogin";
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.debug(className, function, "actionUrl[{}] name1[{}] name2[{}]  ", new Object[]{actionUrl, name1, name2});
+		logger.debug(function, "actionUrl[{}] name1[{}] name2[{}]  ", new Object[]{actionUrl, name1, name2});
 
     	// Create a FormPanel and point it at a service.
         form = new FormPanel();
@@ -71,20 +70,20 @@ public class SpringLogin {
         // Fix the Chrome "Form submission canceled because the form is not connected"
         RootLayoutPanel.get().add(form);
         
-        logger.end(className, function);
+        logger.end(function);
 	}
 
 	public void login(final String operator, final String password) {
 		String function = "login";
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.debug(className, function, "operator[{}]", operator);
+		logger.debug(function, "operator[{}]", operator);
 		
 		field1.setValue(operator);
 		field2.setValue(password);
 		form.submit();
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 }

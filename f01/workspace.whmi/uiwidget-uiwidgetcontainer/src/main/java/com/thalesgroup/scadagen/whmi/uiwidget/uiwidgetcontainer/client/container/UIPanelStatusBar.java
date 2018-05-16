@@ -6,9 +6,8 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskTitle;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
@@ -16,8 +15,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIPanelStatusBar extends UIWidget_i {
 
-	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelStatusBar.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private String strUIPanelCompany					= "UIPanelCompany";
 	private String strUIPanelCompanyTitle				= "UIPanelCompanyTitle";
@@ -53,7 +51,7 @@ public class UIPanelStatusBar extends UIWidget_i {
 		
 		final String function = "init";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
@@ -99,12 +97,12 @@ public class UIPanelStatusBar extends UIWidget_i {
 		String operator = uiOpm_i.getCurrentOperator();
 		String profile = uiOpm_i.getCurrentProfile();
 
-		logger.info(className, function, "operator[{}] profile[{}]", operator, profile);
+		logger.info(function, "operator[{}] profile[{}]", operator, profile);
 
 		uiPanelGenericOperator.setWidgetValue(strOperator, operator);
 		uiPanelGenericOperator.setWidgetValue(strProfile, profile);
 		
-		logger.end(className, function);
+		logger.end(function);
 		
 	}
 
@@ -112,7 +110,7 @@ public class UIPanelStatusBar extends UIWidget_i {
 		
 		final String function = "onUIEvent";
 
-		logger.begin(className, function);
+		logger.begin(function);
 
 		if ( null != uiEvent ) {
 			
@@ -123,16 +121,16 @@ public class UIPanelStatusBar extends UIWidget_i {
 				if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
 						&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
 
-					logger.info(className, function, "UIScreen is match and UIPath is match");
+					logger.info(function, "UIScreen is match and UIPath is match");
 
 					if ( taskProvide instanceof UITaskTitle ) {
 
-						logger.info(className, function, "TaskTitle is match");
+						logger.info(function, "TaskTitle is match");
 
 						UITaskTitle taskTitle = (UITaskTitle) taskProvide;
 						String title = taskTitle.getTitle();
 
-						logger.info(className, function, "strTitle[{}]", title);
+						logger.info(function, "strTitle[{}]", title);
 						if (null != title)		this.title = title;
 						
 						uiPanelGenericTitle.setWidgetValue(strTitle, this.title);
@@ -140,13 +138,13 @@ public class UIPanelStatusBar extends UIWidget_i {
 					}
 				}
 			} else {
-				logger.warn(className, function, "taskProvide IS NULL");
+				logger.warn(function, "taskProvide IS NULL");
 			}
 		} else {
-			logger.warn(className, function, "uiEvent IS NULL");
+			logger.warn(function, "uiEvent IS NULL");
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

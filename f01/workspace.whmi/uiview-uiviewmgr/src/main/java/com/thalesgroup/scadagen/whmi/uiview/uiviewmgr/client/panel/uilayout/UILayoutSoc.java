@@ -5,9 +5,8 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
@@ -21,8 +20,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGen
 
 public class UILayoutSoc extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UILayoutSoc.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private String strUIWidgetGeneric = "UIWidgetGeneric";
 	
@@ -38,24 +37,24 @@ public class UILayoutSoc extends UIWidget_i {
 		@Override
 		public void onUIEvent(UIEvent uiEvent) {
 			String function = "onUIEvent";
-			logger.begin(className, function);
-			logger.end(className, function);
+			logger.begin(function);
+			logger.end(function);
 			
 		}
 		
 		@Override
 		public void onClick(ClickEvent event) {
 			String function = "onClick";
-			logger.begin(className, function);
+			logger.begin(function);
 			
-			logger.end(className, function);
+			logger.end(function);
 		}
 		
 		@Override
 		public void onActionReceived(UIEventAction uiEventAction) {
 			final String function = "onActionReceived";
-			logger.begin(className, function);
-			logger.end(className, function);
+			logger.begin(function);
+			logger.end(function);
 		}
 	};
 	
@@ -63,11 +62,11 @@ public class UILayoutSoc extends UIWidget_i {
 	public void init() {
 		final String function = "init";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strEventBusName = getStringParameter(UIRealize_i.ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
+		logger.info(function, "strEventBusName[{}]", strEventBusName);
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
@@ -120,6 +119,6 @@ public class UILayoutSoc extends UIWidget_i {
 
 		uiEventActionProcessor_i.executeActionSetInit();
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

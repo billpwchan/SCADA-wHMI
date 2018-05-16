@@ -13,9 +13,8 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.layout.view.IWidgetController;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.UIEntryPointFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
@@ -29,8 +28,8 @@ public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidge
 	private EventBus EVENT_BUS = null;
 	private ResettableEventBus RESETABLE_EVENT_BUS  = null;
 	
-	private final String className_ = UIWidgetUtil.getClassSimpleName(this.getClass().getSimpleName());
-	private final UILogger logger_ = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private final String className_ = this.getClass().getSimpleName();
+	private final UILogger_i logger_ = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private UINameCard uiNameCard = null;
 	
@@ -44,16 +43,16 @@ public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidge
 	
 	public UIWidgetEntryPointInstant(final Map<String, Object> params) {
 		final String f = "UIWidgetEntryPointInstant";
-		logger_.begin(className_, f);
+		logger_.begin(f);
 		
 		realize(params);
 		
-		logger_.end(className_, f);
+		logger_.end(f);
 	}
 	
 	public UIWidgetEntryPointInstant(final String uiCtrl, final String uiView, final String uiOpts, final String uiElem, final String uiDict) {
 		final String function = "UIWidgetEntryPointInstant";
-		logger_.begin(className_, function);
+		logger_.begin(function);
 		
 		final Map<String, Object> params = new HashMap<String, Object>();
 		params.put(FASWidgetArgs.uiCtrl.toString(), uiCtrl);
@@ -64,12 +63,12 @@ public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidge
 
 		realize(params);
 		
-		logger_.end(className_, function);
+		logger_.end(function);
 	}
 	
 	private void realize(final Map<String, Object> params) {
 		final String f = "realize";
-		logger_.begin(className_, f);
+		logger_.begin(f);
 		
 		if(null!=params.get(FASWidgetArgs.uiCtrl.toString())) this.uiCtrl = params.get(FASWidgetArgs.uiCtrl.toString()).toString();
 		if(null!=params.get(FASWidgetArgs.uiView.toString())) this.uiView = params.get(FASWidgetArgs.uiView.toString()).toString();
@@ -77,7 +76,7 @@ public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidge
 		if(null!=params.get(FASWidgetArgs.uiElem.toString())) this.uiElem = params.get(FASWidgetArgs.uiElem.toString()).toString();
 		if(null!=params.get(FASWidgetArgs.uiDict.toString())) this.uiDict = params.get(FASWidgetArgs.uiDict.toString()).toString();
 
-		logger_.debug(className_, f, " uiCtrl[{}] uiView[{}] uiOpts[{}] uiOpts[{}] uiDict[{}]"
+		logger_.debug(f, " uiCtrl[{}] uiView[{}] uiOpts[{}] uiOpts[{}] uiDict[{}]"
 				, new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
 
 		this.EVENT_BUS = GWT.create(SimpleEventBus.class);
@@ -108,12 +107,12 @@ public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidge
 					}
 				}
 				
-				logger_.debug(className_, f, " dictionaryCacheEventReady received[{}]", received);
+				logger_.debug(f, " dictionaryCacheEventReady received[{}]", received);
 				UIWidgetEntryPointInstant.this.ready("UIWidgetGeneric", received);
 			}
 		});
 		
-		logger_.end(className_, f);
+		logger_.end(f);
 	}
 	
     /**
@@ -152,13 +151,13 @@ public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidge
 	private boolean isCreated = false;
 	private void ready(String folder, int received) {
 		final String function = "ready";
-		logger_.begin(className_, function);
+		logger_.begin(function);
 		
-		logger_.debug(className_, function, "folder[{}] received[{}]", folder, received);
+		logger_.debug(function, "folder[{}] received[{}]", folder, received);
 
 		if ( ! isCreated ) {
 
-			logger_.debug(className_, function, "uiCtrl[{}] uiView[{}] uiOpts[{}]", new Object[]{uiCtrl, uiView, uiOpts});
+			logger_.debug(function, "uiCtrl[{}] uiView[{}] uiOpts[{}]", new Object[]{uiCtrl, uiView, uiOpts});
 			
 			Map<String, Object> options = new HashMap<String, Object>();
 			
@@ -167,26 +166,26 @@ public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidge
 			
 			if ( null != uiWidget_i ) {
 				
-				logger_.debug(className_, function, "initWidget before");
+				logger_.debug(function, "initWidget before");
 			
 				Widget widget = uiWidget_i.getMainPanel();
 				
 				if ( null == widget ) {
-					logger_.warn(className_, function, "initWidget widget IS null");
+					logger_.warn(function, "initWidget widget IS null");
 				}
 				
 				simplePanel.add(widget);
 				
-				logger_.debug(className_, function, "initWidget after");
+				logger_.debug(function, "initWidget after");
 
 			}
 			
 			isCreated = true;
 			
 		} else {
-			logger_.warn(className_, function, "ready folder[{}] received[{}] isCreated", folder, received);
+			logger_.warn(function, "ready folder[{}] received[{}] isCreated", folder, received);
 		}
 		
-		logger_.end(className_, function);
+		logger_.end(function);
 	}
 }

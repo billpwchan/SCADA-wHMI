@@ -4,11 +4,8 @@ import java.util.MissingResourceException;
 import com.google.gwt.i18n.client.Dictionary;
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
-//import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
-//import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-//import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 /**
  * Class to handle the i18n translation in client side
@@ -18,9 +15,8 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
  *
  */
 public class Translation {
-	
-	private static final String className = Translation.class.getSimpleName();
-	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(Translation.class.getName());
+
+	private static final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(Translation.class.getName());
 	
 	private static final String JS_DICTIONARY_VAR_NAME = "table";
 	private static final Dictionary dictionary = Dictionary.getDictionary(JS_DICTIONARY_VAR_NAME);
@@ -33,10 +29,10 @@ public class Translation {
 	 */
 	public static void setTranslatePattern(String translatePattern) { 
 //		final String function = "setTranslatePattern";
-//		logger.begin(className, function);
+//		logger.begin(function);
 		if ( null != translatePattern ) Translation.translatePattern = translatePattern;
-//		logger.trace(className, function, "Translation.translatePattern[{}]", Translation.translatePattern);
-//		logger.end(className, function);
+//		logger.trace(function, "Translation.translatePattern[{}]", Translation.translatePattern);
+//		logger.end(function);
 	}
 	/**
 	 * Get the Translate RegExp Pattern
@@ -45,7 +41,7 @@ public class Translation {
 	 */
 	public static String getTranslatePattern() {
 //		final String function = "getTranslatePattern";
-//		logger.beginEnd(className, function, "translatePattern[{}]", translatePattern);
+//		logger.beginEnd(function, "translatePattern[{}]", translatePattern);
 		return Translation.translatePattern;
 	}
 
@@ -57,10 +53,10 @@ public class Translation {
 	 */
 	public static void setTranslateFlag(String translateFlag) { 
 //		final String function = "setTranslateFlag";
-//		logger.begin(className, function);
+//		logger.begin(function);
 		if ( null != translateFlag ) Translation.translateFlag = translateFlag;
-//		logger.trace(className, function, "Translation.translateFlag[{}]", Translation.translateFlag);
-//		logger.end(className, function);
+//		logger.trace(function, "Translation.translateFlag[{}]", Translation.translateFlag);
+//		logger.end(function);
 	}
 	/**
 	 * Get the Translate RegExp Flag
@@ -69,7 +65,7 @@ public class Translation {
 	 */
 	public static String getTranslateFlag() {
 //		final String function = "getTranslateFlag";
-//		logger.beginEnd(className, function, "translateFlag[{}]", translateFlag);
+//		logger.beginEnd(function, "translateFlag[{}]", translateFlag);
 		return Translation.translateFlag;
 	}
 	
@@ -81,13 +77,13 @@ public class Translation {
 	 */
 	public static String getWording(String inputStr) {
 		final String function = "getWording";
-		logger.trace(className, function, "getWording inputStr[{}]", inputStr);
+		logger.trace(function, "getWording inputStr[{}]", inputStr);
 		String value = inputStr;
         try {
             if (dictionary != null) value = dictionary.get(inputStr);
         }
         catch (final MissingResourceException e) {
-        	logger.debug(className, function, "Can't find inputStr[{}] in dictionary", inputStr);
+        	logger.debug(function, "Can't find inputStr[{}] in dictionary", inputStr);
         }
         return value;
 	}
@@ -100,9 +96,9 @@ public class Translation {
 	 */
 	public static String getDBMessage(String inputStr) {
 //		final String function = "getDBMessage";
-//		logger.trace(className, function, "inputStr[{}]", inputStr);
+//		logger.trace(function, "inputStr[{}]", inputStr);
 		String ret = Translation.getDBMessage(Translation.translatePattern, Translation.translateFlag, inputStr);
-//		logger.trace(className, function, "inputStr[{}] ret[{}]", inputStr, ret);
+//		logger.trace(function, "inputStr[{}] ret[{}]", inputStr, ret);
 		return ret;
 	}
 
@@ -118,7 +114,7 @@ public class Translation {
 	 */
 	public static String getDBMessage(String regex, String flag, String inputStr) {
 //		final String function = "getDBMessage";
-//		logger.trace(className, function, "regex[{}] flag[{}] inputStr[{}]", new Object[]{regex, flag, inputStr});
+//		logger.trace(function, "regex[{}] flag[{}] inputStr[{}]", new Object[]{regex, flag, inputStr});
 		String ret = inputStr;
 		if ( null != ret && ! ret.isEmpty() ) {
 			if ( null != regex && null != flag && null != inputStr ) {
@@ -135,9 +131,9 @@ public class Translation {
 							String groupStr = matcher.getGroup(0);
 							
 //							int getLastIndex = regExp.getLastIndex();
-//							logger.trace(className, function, "getLastIndex[{}] groupStr[{}]", getLastIndex, groupStr);
+//							logger.trace(function, "getLastIndex[{}] groupStr[{}]", getLastIndex, groupStr);
 							String translation = Translation.getWording(groupStr);
-//							logger.trace(className, function, "getLastIndex[{}]  groupStr[{}] translation[{}]", new Object[]{getLastIndex, groupStr, translation});
+//							logger.trace(function, "getLastIndex[{}]  groupStr[{}] translation[{}]", new Object[]{getLastIndex, groupStr, translation});
 							if ( null != translation ) ret = ret.replaceAll(groupStr, translation);
 
 							matcher = regExp.exec(inputStr);
@@ -146,17 +142,17 @@ public class Translation {
 						
 					}
 				} catch ( RuntimeException e ) {
-//					logger.warn(className, function, "RuntimeException[{}]", e.toString());
+//					logger.warn(function, "RuntimeException[{}]", e.toString());
 				}
 
 			} else {
-//				logger.warn(className, function, "regex[{}] OR flag[{}] OR inputStr[{}] IS NULL", new Object[]{regex, flag, inputStr});
+//				logger.warn(function, "regex[{}] OR flag[{}] OR inputStr[{}] IS NULL", new Object[]{regex, flag, inputStr});
 			}
 		} else {
-//			logger.warn(className, function, "ret[{}] IS NULL OR Empty", ret);
+//			logger.warn(function, "ret[{}] IS NULL OR Empty", ret);
 		}
 
-//		logger.trace(className, function, "ret[{}]", ret);
+//		logger.trace(function, "ret[{}]", ret);
 		return ret;
 	}
 

@@ -1,13 +1,12 @@
 package com.thalesgroup.scadagen.whmi.uiroot.uiroot.client;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.ResettableEventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
@@ -17,8 +16,8 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.UIGws_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.util.Util;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client.UIScreenRootMgr;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.UIWidgetEntryPoint;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
@@ -31,27 +30,28 @@ import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.scadagen.PhaseBL
  */
 public class UIGws {
 
-	private final String className_ = this.getClass().getSimpleName();
-	private UILogger logger_ = UILoggerFactory.getInstance().getLogger( this.getClass().getName());
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private EventBus EVENT_BUS = null;
 	private ResettableEventBus RESETABLE_EVENT_BUS  = null;
 	
-	private final String opts = className_+"/"+className_+".opts.xml";
+	private final String opts = className+"/"+className+".opts.xml";
 
-	private final String strCssPanel	= "project-"+className_+"-panel";
+	private final String strCssPanel	= "project-"+className+"-panel";
 	
-	private final String strNumOfScreen = "numofscreen";
+	private final String STR_NUM_OF_SCREEN				= "numofscreen";
 	
 	private Panel root = null;
 
 	protected UINameCard uiNameCard = null;
 	public void setUINameCard(final UINameCard uiNameCard) {
+		final String function = "setUINameCard";
 		if ( null != uiNameCard ) {
 			this.uiNameCard = new UINameCard(uiNameCard);
 			this.uiNameCard.appendUIPanel(this);
 		} else {
-			logger_.warn(className_, "setUINameCard", "uiNameCard IS NULL");
+			logger.warn(function, "uiNameCard IS NULL");
 		}
 	}
 	
@@ -68,46 +68,9 @@ public class UIGws {
 	
 	private String uiDict = null, uiProp = null, uiJson = null, uiCtrl = null, uiView = null, uiOpts = null, uiElem = null;
 
-	private void storeURLSetting() {
-		final String function = "storeURLSetting";
-		logger_.begin(className_, function);
-		
-		final Settings setting = Settings.getInstance();
-		final Map<String, List<String>> paramsMap = Window.Location.getParameterMap();
-		for ( String key: paramsMap.keySet() ) {
-			final List<String> values = paramsMap.get(key);
-			if ( values.size() > 0 ) {
-				final String value = values.get(0);
-				final String keyLowerCase = key.toLowerCase();
-				setting.set(keyLowerCase, value);
-				
-				logger_.debug(className_, function, "keyLowerCase[{}] value[{}]", keyLowerCase, value);
-			}
-		}
-		logger_.end(className_, function);
-	}
-	
-	public void dumpSetting() {
-		final String function = "dumpSetting";
-		logger_.begin(className_, function);
-		// Debug
-		if ( logger_.isDebugEnabled() ) {
-			final Map<String, String> hashMap = Settings.getInstance().getMaps();
-			if ( null != hashMap ) {
-				for ( Map.Entry<String, String> entry : hashMap.entrySet() ) {
-					logger_.debug(className_, function, "Debug key[{}] value[{}]", entry.getKey(), entry.getValue());
-				}
-			} else {
-				logger_.debug(className_, function, "hashMap IS NULL");
-			}
-		}
-		// End of Debug
-		logger_.end(className_, function);
-	}
-	
 	public void init() {
 		final String function = "init";
-		logger_.begin(className_, function);
+		logger.begin(function);	
 
 		Util util = new Util();
 		uiDict = util.getStringParameter(params, UIGws_i.Parameters.uiDict.toString());
@@ -121,9 +84,9 @@ public class UIGws {
 		this.EVENT_BUS = GWT.create(SimpleEventBus.class);
 		this.RESETABLE_EVENT_BUS = new ResettableEventBus(EVENT_BUS);
 		
-		logger_.debug(className_, function, "uiDict[{}]", uiDict);
-		logger_.debug(className_, function, "uiProp[{}]", uiProp);
-		logger_.debug(className_, function, "uiJson[{}]", uiJson);
+		logger.debug(function, "uiDict[{}]", uiDict);
+		logger.debug(function, "uiProp[{}]", uiProp);
+		logger.debug(function, "uiJson[{}]", uiJson);
 		
 		final PhaseALoader phaseALoader = PhaseALoader.getInstance();
 		
@@ -135,7 +98,7 @@ public class UIGws {
 			
 			@Override
 			public void ready(Map<String, Object> params) {
-				
+
 				final PhaseBLoader phaseBLoader = PhaseBLoader.getInstance();
 			
 				DictionariesCache dictionariesCache = DictionariesCache.getInstance(uiDict);
@@ -159,13 +122,13 @@ public class UIGws {
 					strDatabaseWritingSingletonValue		= dictionariesCache.getStringValue(opts, ParameterName.DatabaseWritingSingletonKey.toString(), strHeader);
 					strDatabaseGetFullPathSingletonValue	= dictionariesCache.getStringValue(opts, ParameterName.DatabaseGetFullPathSingletonKey.toString(), strHeader);
 							
-					logger_.debug(className_, function, "strUIOpmSCADAgenValue[{}]", strDatabaseReadingSingletonValue);
+					logger.debug(function, "strUIOpmSCADAgenValue[{}]", strDatabaseReadingSingletonValue);
 					
-					logger_.debug(className_, function, "strDatabaseReadingSingletonValue[{}]", strDatabaseReadingSingletonValue);
-					logger_.debug(className_, function, "strDatabaseSubscribeSingletonValue[{}]", strDatabaseSubscribeSingletonValue);
-					logger_.debug(className_, function, "strDatabaseSubscribePeriodMillisValue[{}]", strDatabaseSubscribePeriodMillisValue);
-					logger_.debug(className_, function, "strDatabaseWritingSingletonValue[{}]", strDatabaseWritingSingletonValue);
-					logger_.debug(className_, function, "strDatabaseGetFullPathSingletonValue[{}]", strDatabaseGetFullPathSingletonValue);
+					logger.debug(function, "strDatabaseReadingSingletonValue[{}]", strDatabaseReadingSingletonValue);
+					logger.debug(function, "strDatabaseSubscribeSingletonValue[{}]", strDatabaseSubscribeSingletonValue);
+					logger.debug(function, "strDatabaseSubscribePeriodMillisValue[{}]", strDatabaseSubscribePeriodMillisValue);
+					logger.debug(function, "strDatabaseWritingSingletonValue[{}]", strDatabaseWritingSingletonValue);
+					logger.debug(function, "strDatabaseGetFullPathSingletonValue[{}]", strDatabaseGetFullPathSingletonValue);
 				
 					phaseBLoader.setParameter(PhaseBLoader.strUIOpmSCADAgenKey, strUIOpmSCADAgenValue);
 					
@@ -189,25 +152,22 @@ public class UIGws {
 		});
 
 		setUINameCard(new UINameCard(0, "", RESETABLE_EVENT_BUS));
-		
-		// Configuration
-		storeURLSetting();
 
 		// Store Number Of Screens to Cookies
-		UICookiesForward.forwardInt(strNumOfScreen, 1);
+		UICookiesForward.forwardInt(STR_NUM_OF_SCREEN, 1);
 
 		this.root = new FlowPanel();
 		this.root.addStyleName(strCssPanel);
 		this.root.add(new UIGwsCache().getMainPanel(this.uiNameCard));
 
-		dumpSetting();
+		Settings.getInstance().dumpSetting(Settings.getInstance().getMaps());
 
-		logger_.end(className_, function);
+		logger.end(function);
 	}
 	
 	public Panel getMainPanel() {
 		final String function = "getMainPanel";
-		logger_.beginEnd(className_, function);
+		logger.beginEnd(function);
 		return root;
 	}
 
@@ -219,7 +179,7 @@ public class UIGws {
 	private boolean isCreated = false;
 	private void loadUIWidget(final String uiCtrl, String uiView, final UINameCard uiNameCard, final String uiOpts, final String uiElem, final String uiDict, final Map<String, Object> options) {
 		final String function = "loadUIWidget";
-		logger_.begin(className_, function);
+		logger.begin(function);
 
 		if ( ! isCreated ) {
 			
@@ -233,15 +193,15 @@ public class UIGws {
 				this.root.clear();
 				this.root.add(panel);
 			} else {
-				logger_.warn(className_, function, "uiWidget_i IS NULL");
+				logger.warn(function, "uiWidget_i IS NULL");
 			}
 
 			isCreated = true;
 			
 		} else {
-			logger_.warn(className_, function, "ready isCreated");
+			logger.warn(function, "ready isCreated");
 		}
 		
-		logger_.end(className_, function);
+		logger.end(function);
 	}
 }

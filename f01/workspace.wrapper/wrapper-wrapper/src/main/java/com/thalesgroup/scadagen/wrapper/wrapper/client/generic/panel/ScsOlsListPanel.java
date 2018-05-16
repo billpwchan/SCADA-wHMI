@@ -21,8 +21,8 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.s
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.selection.SingleSelectionModel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel_i.GDGAttribute;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel_i.ParameterName;
@@ -36,7 +36,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDa
 public class ScsOlsListPanel extends UIWidget_i {
 	
 	private static final String className = ScsOlsListPanel.class.getSimpleName();
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(ScsOlsListPanel.class.getName());
+	private static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(ScsOlsListPanel.class.getName());
 
     /** Logger */
     private static final ClientLogger LOGGER = ClientLogger.getClientLogger();

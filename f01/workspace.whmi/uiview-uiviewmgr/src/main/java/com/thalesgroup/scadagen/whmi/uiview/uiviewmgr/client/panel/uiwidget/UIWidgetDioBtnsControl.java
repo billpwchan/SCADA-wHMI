@@ -13,9 +13,8 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
@@ -36,8 +35,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DatabaseHelper;
 
 public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetDioBtnsControl.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private String columnAlias					= "";
 	private String columnServiceOwner			= "";
@@ -51,7 +50,6 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 	private final String strInvisible			= "invisible";
 	private final String strDisable				= "disable";
 	private final String strUp					= "up";
-	private final String strDown				= "down";
 	private final String strControl				= "control";
 	
 	
@@ -104,12 +102,12 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 	
 	private void setButtonVisible(String button) {
 		final String function = "setButtonVisible";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String actionsetkey = strButtonSetVisible;
 		String actionkey = strButtonSetVisible;
 		
-		logger.debug(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
+		logger.debug(function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
 		
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put(ActionAttribute.OperationString2.toString(), button);
@@ -119,16 +117,16 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		
 		uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	private void setButtonInvisible(String button) {
 		final String function = "setButtonInvisible";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String actionsetkey = strButtonSetInvisible;
 		String actionkey = strButtonSetInvisible;
 		
-		logger.debug(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
+		logger.debug(function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
 		
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put(ActionAttribute.OperationString2.toString(), button);
@@ -138,16 +136,16 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		
 		uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	private void setButtonDisable(String button) {
 		final String function = "setButtonDisable";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String actionsetkey = strButtonSetDisable;
 		String actionkey = strButtonSetDisable;
 		
-		logger.debug(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
+		logger.debug(function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
 		
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put(ActionAttribute.OperationString2.toString(), button);
@@ -157,16 +155,16 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		
 		uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	private void setButtonUp(String button) {
 		final String function = "setButtonUp";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String actionsetkey = strButtonSetUp;
 		String actionkey = strButtonSetUp;
 		
-		logger.debug(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
+		logger.debug(function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
 		
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put(ActionAttribute.OperationString2.toString(), button);
@@ -176,16 +174,16 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		
 		uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	private void setButtonValue(String button, String label) {
 		final String function = "setButtonValue";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String actionsetkey = strButtonSetValue;
 		String actionkey = strButtonSetValue;
 		
-		logger.debug(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
+		logger.debug(function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
 		
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put(ActionAttribute.OperationString2.toString(), button);
@@ -196,7 +194,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		
 		uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private DatabaseSubscribe_i databaseSubscribe_i = null;
@@ -209,9 +207,9 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 	
 	private void readValueTableAndUpdateButtonStatusLabel(String env, String alias ) {
 		final String function = "readValueTableAndUpdateButtonStatusLabel";
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.debug(className, function, "env[{}] alias[{}]", env, alias);
+		logger.debug(function, "env[{}] alias[{}]", env, alias);
 		
 		valueTableDovnames = new String[rowInValueTable];
 		valueTableLabels = new String[rowInValueTable];
@@ -221,11 +219,11 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 			
 			String address1 = alias+DotNomInstance;
 			
-			logger.debug(className, function, "address1[{}]", address1);
+			logger.debug(function, "address1[{}]", address1);
 			
 			String address2 = alias+DotValueTable;
 			
-			logger.debug(className, function, "address2[{}]", address2);
+			logger.debug(function, "address2[{}]", address2);
 			
 			DataBaseClientKey clientKey = new DataBaseClientKey();
 			clientKey.setAPI(API.multiReadValue);
@@ -244,11 +242,11 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 				@Override
 				public void update(String key, String [] dbaddress, String[] values) {
 					final String function = "addMultiReadValueRequest update";
-					logger.begin(className, function);
+					logger.begin(function);
 					
 					if ( logger.isDebugEnabled() ) {
 						for ( int i = 0 ; i < values.length ; ++i ) {
-							logger.debug(className, function, "values({})[{}]", i, values[i]);
+							logger.debug(function, "values({})[{}]", i, values[i]);
 						}
 					}
 					
@@ -260,7 +258,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 								nomInstance	= DatabaseHelper.removeDBStringWrapper(nomInstance);
 								
 								String valueTable = values[1];
-								logger.debug(className, function, "valueTable[{}]", valueTable);
+								logger.debug(function, "valueTable[{}]", valueTable);
 								
 								if ( null != valueTable ) {
 									
@@ -270,26 +268,26 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 										dovname	= DatabaseHelper.getArrayValues(valueTable, dovnameCol, r );
 										dovname	= DatabaseHelper.removeDBStringWrapper(dovname);
 										
-										logger.debug(className, function, "dovname({})[{}]", r, dovname);
+										logger.debug(function, "dovname({})[{}]", r, dovname);
 										if ( null != dovname && dovname.length() > 0 ) {
 											valueTableDovnames[r] = dovname;
 										}
 										
 										label	= DatabaseHelper.getArrayValues(valueTable, labelCol, r );
 										label	= DatabaseHelper.removeDBStringWrapper(label);
-										logger.debug(className, function, "label({})[{}]", r, label);
+										logger.debug(function, "label({})[{}]", r, label);
 										
 										String button = strButtonWUnderLine+r;
 										
-										logger.debug(className, function, "button[{}]", button);
+										logger.debug(function, "button[{}]", button);
 										
 										if ( null != label && label.length() > 0 ) {
 											
-											logger.debug(className, function, "btnLabelPrefix[{}] nomInstance[{}] dovname[{}] label[{}]", new Object[]{btnLabelPrefix, nomInstance, dovname, label});
+											logger.debug(function, "btnLabelPrefix[{}] nomInstance[{}] dovname[{}] label[{}]", new Object[]{btnLabelPrefix, nomInstance, dovname, label});
 											if ( null != btnLabelPrefix && ! btnLabelPrefix.trim().isEmpty() ) {
 												label = btnLabelPrefix + nomInstance + strUnderline + dovname;
 											}
-											logger.debug(className, function, "label[{}]", label);
+											logger.debug(function, "label[{}]", label);
 											
 											valueTableLabels[r] = label;
 											
@@ -312,7 +310,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 										
 										value	= DatabaseHelper.getArrayValues(valueTable, valueCol, r );
 										value	= DatabaseHelper.removeDBStringWrapper(value);
-										logger.debug(className, function, "value({})[{}]", r, value);
+										logger.debug(function, "value({})[{}]", r, value);
 										if ( null != value && value.length() > 0 ) {
 											valueTableValues[r] = value;
 										}
@@ -336,31 +334,31 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 										}
 									}
 								} else {
-									logger.debug(className, function, "valueTable IS NULL");
+									logger.debug(function, "valueTable IS NULL");
 								}
 							} else {
-								logger.warn(className, function, "values.length > 0 IS INVALID");
+								logger.warn(function, "values.length > 0 IS INVALID");
 							}
 						} else {
-							logger.warn(className, function, "values IS NULL");
+							logger.warn(function, "values IS NULL");
 						}
 					} else {
-						logger.warn(className, function, "selectedSet IS NULL");
+						logger.warn(function, "selectedSet IS NULL");
 					}
 					
-					logger.end(className, function);
+					logger.end(function);
 				}
 			});
 		} else {
-			logger.warn(className, function, "databaseMultiRead_i IS NULL");
+			logger.warn(function, "databaseMultiRead_i IS NULL");
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void updateButtonUpDisable(String [] dovaddresses, String [] dbAddresses, String [] values ) {
 		final String function = "updateButtonUpDisable";
-		logger.begin(className, function);
+		logger.begin(function);
 		if ( null != dbAddresses && null != values ) {
 			for ( int i = 0 ; i < dbAddresses.length ; ++i ) {
 				
@@ -375,11 +373,11 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 					}
 				}
 
-				logger.debug(className, function, "dbAddress[{}] value[{}]", dbAddress, value);
+				logger.debug(function, "dbAddress[{}] value[{}]", dbAddress, value);
 				if ( null != dbAddress && null != value ) {
 					String button = strButtonWUnderLine+index;
 					
-					logger.debug(className, function, "button[{}]", button);
+					logger.debug(function, "button[{}]", button);
 					
 					if ( value.equals(initCondGLValid) ) {
 						
@@ -387,25 +385,25 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 
 					} else {
 						
-						logger.debug(className, function, "selectedSet.size()[{}]", selectedSet.size());
+						logger.debug(function, "selectedSet.size()[{}]", selectedSet.size());
 						
 						setButtonDisable(button);
 
 					}
 				} else {
-					logger.warn(className, function, "dbAddress OR value IS NULL");
+					logger.warn(function, "dbAddress OR value IS NULL");
 				}
 			}
 		} else {
-			logger.warn(className, function, "dbAddresses OR values IS NULL");
+			logger.warn(function, "dbAddresses OR values IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private DataBaseClientKey clientKey = null;	
 	private void getInitCond(String env, String alias) {
 		final String function = "getInitCond";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String address = alias+DotInitCondGL;
 		
@@ -432,61 +430,61 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		if ( isPolling ) {
 			
 			if ( null != databaseSubscribe_i ) {
-				logger.debug(className, function, "databaseSubscribe_i...");
+				logger.debug(function, "databaseSubscribe_i...");
 				databaseSubscribe_i.addSubscribeRequest(strClientKey, env, dovaddresses, new DatabasePairEvent_i() {
 					
 					@Override
 					public void update(String key, String[] dbAddresses, String[] values) {
 						final String function = "addSubscribeRequest update";
-						logger.begin(className, function);
+						logger.begin(function);
 						updateButtonUpDisable(dovaddresses, dbAddresses, values);
-						logger.end(className, function);
+						logger.end(function);
 					}
 				});
 			} else {
-				logger.warn(className, function, "databaseSubscribe_i IS NULL");
+				logger.warn(function, "databaseSubscribe_i IS NULL");
 			}
 
 		} else {
 			if ( null != databaseMultiRead_i_2 ) {
-				logger.debug(className, function, "addMultiReadValueRequest...");
+				logger.debug(function, "addMultiReadValueRequest...");
 				databaseMultiRead_i_2.addMultiReadValueRequest(strClientKey, env, dovaddresses, new DatabasePairEvent_i() {
 					
 					@Override
 					public void update(String key, String[] dbAddresses, String[] values) {
 						final String function = "addMultiReadValueRequest update";
-						logger.begin(className, function);
+						logger.begin(function);
 						updateButtonUpDisable(dovaddresses, dbAddresses, values);
-						logger.end(className, function);
+						logger.end(function);
 					}
 				});
 			} else {
-				logger.warn(className, function, "databaseMultiRead_i_2 IS NULL");
+				logger.warn(function, "databaseMultiRead_i_2 IS NULL");
 			}
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void unSubscribeValueTable() {
 		final String function = "unSubscribeValueTable";
-		logger.begin(className, function);
+		logger.begin(function);
 		if ( null != databaseSubscribe_i ) {
 			if ( null != clientKey ) {
 				databaseSubscribe_i.addUnSubscribeRequest(clientKey.getClientKey());
 				clientKey = null;
 			}
 		} else {
-			logger.warn(className, function, "databaseSubscribe_i IS NULL");
+			logger.warn(function, "databaseSubscribe_i IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private static int readingCount = 0;
 	private void executeCmdWithInitCond(final String env, final String alias, final String value, final String strIndex) {
 		final String function = "executeCmdWithInitCond";
-		logger.begin(className, function);
-		logger.debug(className, function, "env[{}] alias[{}] value[{}] strIndex[{}]", new Object[]{env, alias, value, strIndex});
+		logger.begin(function);
+		logger.debug(function, "env[{}] alias[{}] value[{}] strIndex[{}]", new Object[]{env, alias, value, strIndex});
 
 		int index = Integer.parseInt(strIndex);
 		
@@ -498,7 +496,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 				
 				if ( logger.isDebugEnabled() ) {
 					for ( String dovaddress : dovaddresslist)
-					logger.debug(className, function, "dovaddress[{}]", dovaddress);
+					logger.debug(function, "dovaddress[{}]", dovaddress);
 				}
 				
 				final String [] dovaddresses = dovaddresslist.toArray(new String[0]);
@@ -516,62 +514,62 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 					if ( readingCount == Integer.MAX_VALUE ) readingCount = 0;
 					
 					String strClientKey = clientKey.getClientKey();
-					logger.debug(className, function, "strClientKey[{}]", strClientKey);
+					logger.debug(function, "strClientKey[{}]", strClientKey);
 					databaseMultiRead_i_3.addMultiReadValueRequest(strClientKey, env, dovaddresses, new DatabasePairEvent_i() {
 						
 						@Override
 						public void update(String key, String[] dbAddresses, String[] dbValues) {
 							final String function2 = function +" update";
-							logger.begin(className, function2);
-							logger.debug(className, function2, "key[{}]", key);
+							logger.begin(function2);
+							logger.debug(function2, "key[{}]", key);
 							if ( null != dbAddresses && null != dbValues ) {
 								if (dbAddresses.length == 1 ) {
 									if ( dbAddresses.length == dbValues.length ) {
 										if ( null != dbValues[0] ) {
-											logger.debug(className, function2, "env[{}] alias[{}] value[{}] dbValues[0]", new Object[]{env, alias, value, dbValues[0]});
+											logger.debug(function2, "env[{}] alias[{}] value[{}] dbValues[0]", new Object[]{env, alias, value, dbValues[0]});
 											if ( dbValues[0].equals(initCondGLValid) ) {
 												executeCmd(env, alias, value);
 											} else {
-												logger.warn(className, function2, "dbValues[0][{}] IS NOT EQUAL initCondGLValid[{}]", dbValues[0], initCondGLValid);
+												logger.warn(function2, "dbValues[0][{}] IS NOT EQUAL initCondGLValid[{}]", dbValues[0], initCondGLValid);
 											}
 										} else {
-											logger.warn(className, function2, "dbValues[0] IS NULL");
+											logger.warn(function2, "dbValues[0] IS NULL");
 										}
 									} else {
-										logger.warn(className, function2, "dbAddresses.length[{}] AND dbValues.length[{}] IS NOT EQUAL", dbAddresses.length, dbValues.length);
+										logger.warn(function2, "dbAddresses.length[{}] AND dbValues.length[{}] IS NOT EQUAL", dbAddresses.length, dbValues.length);
 									}
 								} else {
-									logger.warn(className, function2, "dbAddresses.length[{}] IS NOT EQUAL 1", dbAddresses.length);
+									logger.warn(function2, "dbAddresses.length[{}] IS NOT EQUAL 1", dbAddresses.length);
 								}
 							} else {
-								logger.warn(className, function2, "dbAddresses OR dbValues IS NULL");
+								logger.warn(function2, "dbAddresses OR dbValues IS NULL");
 							}
-							logger.end(className, function2);
+							logger.end(function2);
 						}
 					});
 				} else {
-					logger.warn(className, function, "databaseMultiRead_i_3 IS NULL");
+					logger.warn(function, "databaseMultiRead_i_3 IS NULL");
 				}
 			} else {
-				logger.warn(className, function, "dovname IS NULL");
+				logger.warn(function, "dovname IS NULL");
 			}
 		} else {
-			logger.debug(className, function, "valueTableDovnames IS NULL");
+			logger.debug(function, "valueTableDovnames IS NULL");
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void executeCmd(String env, String alias, String value) {
 		final String function = "executeCmd";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String actionsetkey = strButtonSendControl;
 		String actionkey = strButtonSendControl;
 		
-		logger.debug(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
+		logger.debug(function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
 		
-		logger.debug(className, function, "env[{}] alias[{}] value[{}]", new Object[]{env, alias, value});
+		logger.debug(function, "env[{}] alias[{}] value[{}]", new Object[]{env, alias, value});
 		
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put(ActionAttribute.OperationString2.toString(), env);
@@ -582,29 +580,29 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		override.put(actionkey, parameter);
 		
 		uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 
 	private void executeCmd(String env, String alias, String value, String index, boolean isMultiEntity) {
 		final String function = "executeCmd";
-		logger.begin(className, function);
-		logger.debug(className, function, "env[{}] alias[{}] value[{}] index[{}] isMultiEntity[{}]", new Object[]{env, alias, value, index, isMultiEntity});
+		logger.begin(function);
+		logger.debug(function, "env[{}] alias[{}] value[{}] index[{}] isMultiEntity[{}]", new Object[]{env, alias, value, index, isMultiEntity});
 		if ( isMultiEntity ) {
 			executeCmdWithInitCond(env, alias, value, index);
 		} else {
 			executeCmd(env, alias, value);
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private Timer t = null;
 	private void executeCmds(final Set<Map<String, String>> set, final boolean isMultiEntity, int delayBetweenCmds) {
 		final String function = "executeCmds";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( null != set ) {
-			logger.debug(className, function, "delayBetweenCmds[{}]", delayBetweenCmds);
+			logger.debug(function, "delayBetweenCmds[{}]", delayBetweenCmds);
 			if ( delayBetweenCmds > 0 ) {
 				if ( null != t ) {
 					t.cancel();
@@ -613,10 +611,10 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 				t = new Timer() {
 					public void run() {
 						final String function2 = function + " timer";
-						logger.begin(className, function2);
+						logger.begin(function2);
 						
 						if ( null == set || (null != set && set.isEmpty()) ) {
-							logger.warn(className, function2, "set IS NULL || set.size <= 0, cancel timer...");
+							logger.warn(function2, "set IS NULL || set.size <= 0, cancel timer...");
 							if ( t != null ) {
 								t.cancel();
 								t = null;
@@ -628,19 +626,19 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 								
 								executeCmd(map.get(columnServiceOwner), map.get(columnAlias), map.get(strValue), map.get(strIndex), isMultiEntity);
 							} else {
-								logger.debug(className, function2, "its.next() map IS NULL");
+								logger.debug(function2, "its.next() map IS NULL");
 							}
 							its.remove();
 							
 							if ( ! its.hasNext() ) {
-								logger.debug(className, function2, "its.hasNext() IS FALSE, cancel timer...");
+								logger.debug(function2, "its.hasNext() IS FALSE, cancel timer...");
 								if ( t != null ) {
 									t.cancel();
 									t = null;
 								}
 							}
 						}
-						logger.end(className, function2);
+						logger.end(function2);
 					}
 				};
 				
@@ -654,33 +652,33 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 				}
 			}
 		} else {
-			logger.warn(className, function, "set IS NULL");
+			logger.warn(function, "set IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	private String getAliasWithAliasPrefix(String alias) {
 		final String function = "getAliasWithAliasPrefix";
-		logger.begin(className, function);
-		logger.debug(className, function, "alias[{}] BF", alias);
+		logger.begin(function);
+		logger.debug(function, "alias[{}] BF", alias);
 		if ( ! alias.startsWith("<alias>") ) alias = "<alias>"+alias;
-		logger.debug(className, function, "alias[{}] AF", alias);
-		logger.end(className, function);
+		logger.debug(function, "alias[{}] AF", alias);
+		logger.end(function);
 		return alias;
 	}
 	private String getAliasWithAlias2(String alias, String alias2, String substituteFrom, String substituteTo) {
 		final String function = "getAliasWithAlias2";
-		logger.begin(className, function);
-		logger.debug(className, function, "alias[{}] alias2[{}]", alias, alias2);
+		logger.begin(function);
+		logger.debug(function, "alias[{}] alias2[{}]", alias, alias2);
 		if ( null != alias2 ) {
 			String oldpoint = alias.substring(alias2.length());
 			String newpoint = oldpoint.replace(substituteFrom, substituteTo);
-			logger.debug(className, function, "oldpoint[{}], newpoint[{}]", oldpoint, newpoint);
+			logger.debug(function, "oldpoint[{}], newpoint[{}]", oldpoint, newpoint);
 			alias = alias2 + newpoint;
 		} else {
-			logger.warn(className, function, "alias2 IS NULL");
+			logger.warn(function, "alias2 IS NULL");
 		}
-		logger.debug(className, function, "alias[{}]", alias);
-		logger.end(className, function);
+		logger.debug(function, "alias[{}]", alias);
+		logger.end(function);
 		return alias;
 	}
 		
@@ -689,7 +687,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		super.init();
 		
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		String strIsPolling 			= null;
 		String strRowInValueTable		= null;
@@ -741,35 +739,35 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 			btnLabelPrefix			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.BtnLabelPrefix.toString(), strHeader);
 		}
 		
-		logger.debug(className, function, "columnAlias[{}]", columnAlias);
-		logger.debug(className, function, "columnServiceOwner[{}]", columnServiceOwner);
+		logger.debug(function, "columnAlias[{}]", columnAlias);
+		logger.debug(function, "columnServiceOwner[{}]", columnServiceOwner);
 
-		logger.debug(className, function, "subScribeMethod1[{}]", subScribeMethod1);
-		logger.debug(className, function, "multiReadMethod1[{}]", multiReadMethod1);
-		logger.debug(className, function, "multiReadMethod2[{}]", multiReadMethod2);
+		logger.debug(function, "subScribeMethod1[{}]", subScribeMethod1);
+		logger.debug(function, "multiReadMethod1[{}]", multiReadMethod1);
+		logger.debug(function, "multiReadMethod2[{}]", multiReadMethod2);
 		
-		logger.debug(className, function, "multiReadMethod3[{}]", multiReadMethod3);
+		logger.debug(function, "multiReadMethod3[{}]", multiReadMethod3);
 		
-		logger.debug(className, function, "DotValueTable[{}]", DotValueTable);
-		logger.debug(className, function, "DotInitCondGL[{}]", DotInitCondGL);
+		logger.debug(function, "DotValueTable[{}]", DotValueTable);
+		logger.debug(function, "DotInitCondGL[{}]", DotInitCondGL);
 		
-		logger.debug(className, function, "initCondGLValid[{}]", initCondGLValid);
+		logger.debug(function, "initCondGLValid[{}]", initCondGLValid);
 		
-		logger.debug(className, function, "strRowInValueTable[{}]", strRowInValueTable);
-		logger.debug(className, function, "strDovnameCol[{}]", strDovnameCol);
-		logger.debug(className, function, "strLabelCol[{}]", strLabelCol);
-		logger.debug(className, function, "strValueCol[{}]", strValueCol);
+		logger.debug(function, "strRowInValueTable[{}]", strRowInValueTable);
+		logger.debug(function, "strDovnameCol[{}]", strDovnameCol);
+		logger.debug(function, "strLabelCol[{}]", strLabelCol);
+		logger.debug(function, "strValueCol[{}]", strValueCol);
 		
-		logger.debug(className, function, "strIsAliasAndAlias2[{}]", strIsAliasAndAlias2);
-		logger.debug(className, function, "columnAlias2[{}]", columnAlias2);
-		logger.debug(className, function, "substituteFrom[{}]", substituteFrom);
-		logger.debug(className, function, "substituteTo[{}]", substituteTo);
+		logger.debug(function, "strIsAliasAndAlias2[{}]", strIsAliasAndAlias2);
+		logger.debug(function, "columnAlias2[{}]", columnAlias2);
+		logger.debug(function, "substituteFrom[{}]", substituteFrom);
+		logger.debug(function, "substituteTo[{}]", substituteTo);
 		
-		logger.debug(className, function, "strDelayMSBetweenCmds[{}]", strDelayMSBetweenCmds);
+		logger.debug(function, "strDelayMSBetweenCmds[{}]", strDelayMSBetweenCmds);
 		
-		logger.debug(className, function, "strInitCondValidity[{}]", strInitCondValidity);
+		logger.debug(function, "strInitCondValidity[{}]", strInitCondValidity);
 		
-		logger.debug(className, function, "btnLabelPrefix[{}]", btnLabelPrefix);
+		logger.debug(function, "btnLabelPrefix[{}]", btnLabelPrefix);
 		
 		if ( null != strIsPolling && strIsPolling.equals(Boolean.TRUE.toString()) ) {
 			isPolling = true;
@@ -778,29 +776,29 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		try {
 			rowInValueTable = Integer.parseInt(strRowInValueTable);
 		} catch ( NumberFormatException ex ) {
-			logger.warn(className, function, "strRowInValueTable[{}] IS INVALID", strRowInValueTable);
-			logger.warn(className, function, "NumberFormatException[{}]", ex.toString());
+			logger.warn(function, "strRowInValueTable[{}] IS INVALID", strRowInValueTable);
+			logger.warn(function, "NumberFormatException[{}]", ex.toString());
 		}
 		
 		try {
 			dovnameCol = Integer.parseInt(strDovnameCol);
 		} catch ( NumberFormatException ex ) {
-			logger.warn(className, function, "strDovnameCol[{}] IS INVALID", strDovnameCol);
-			logger.warn(className, function, "NumberFormatException[{}]", ex.toString());
+			logger.warn(function, "strDovnameCol[{}] IS INVALID", strDovnameCol);
+			logger.warn(function, "NumberFormatException[{}]", ex.toString());
 		}
 		
 		try {
 			labelCol = Integer.parseInt(strLabelCol);
 		} catch ( NumberFormatException ex ) {
-			logger.warn(className, function, "strLabelCol[{}] IS INVALID", strLabelCol);
-			logger.warn(className, function, "NumberFormatException[{}]", ex.toString());
+			logger.warn(function, "strLabelCol[{}] IS INVALID", strLabelCol);
+			logger.warn(function, "NumberFormatException[{}]", ex.toString());
 		}
 		
 		try {
 			valueCol = Integer.parseInt(strValueCol);
 		} catch ( NumberFormatException ex ) {
-			logger.warn(className, function, "strValueCol[{}] IS INVALID", strValueCol);
-			logger.warn(className, function, "NumberFormatException[{}]", ex.toString());
+			logger.warn(function, "strValueCol[{}] IS INVALID", strValueCol);
+			logger.warn(function, "NumberFormatException[{}]", ex.toString());
 		}
 		
 		if ( null != strIsAliasAndAlias2 && strIsAliasAndAlias2.equals(Boolean.TRUE.toString()) ) {
@@ -810,8 +808,8 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		try {
 			delayMSBetweenCmds = Integer.parseInt(strDelayMSBetweenCmds);
 		} catch ( NumberFormatException ex ) {
-			logger.warn(className, function, "strDelayMSBetweenCmds[{}] IS INVALID", strDelayMSBetweenCmds);
-			logger.warn(className, function, "NumberFormatException[{}]", ex.toString());
+			logger.warn(function, "strDelayMSBetweenCmds[{}] IS INVALID", strDelayMSBetweenCmds);
+			logger.warn(function, "NumberFormatException[{}]", ex.toString());
 		}
 		
 		if ( null != strInitCondValidity && strInitCondValidity.equals(Boolean.TRUE.toString()) ) {
@@ -830,13 +828,13 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 			public void onClick(ClickEvent event) {
 				final String function = "onClick";
 				
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
 						String element = uiGeneric.getWidgetElement(widget);
-						logger.debug(className, function, "element[{}]", element);
+						logger.debug(function, "element[{}]", element);
 						if ( null != element ) {
 							
 							String [] elements = element.split(strUnderline);
@@ -847,7 +845,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 									
 									String strSelectedIndex = elements[buttonNumIndex];
 									
-									logger.debug(className, function, "strSelectedIndex[{}]", strSelectedIndex);
+									logger.debug(function, "strSelectedIndex[{}]", strSelectedIndex);
 									
 									int selectedIndex = -1;
 									
@@ -857,7 +855,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 										
 										String selectedValue = valueTableValues[selectedIndex];
 										
-										logger.debug(className, function, "selectedValue[{}]", selectedValue);
+										logger.debug(function, "selectedValue[{}]", selectedValue);
 										
 										if ( null != selectedSet ) {
 											Set<Map<String, String>> set = new HashSet<Map<String, String>>();
@@ -876,20 +874,20 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 											}
 											executeCmds(set, isMultiEntity(set) && initCondValidity, delayMSBetweenCmds);
 										} else {
-											logger.warn(className, function, "selectedSet IS NULL");
+											logger.warn(function, "selectedSet IS NULL");
 										}
 										
 									} else {
-										logger.warn(className, function, "selectedIndex[{}] >= 0 IS INVALID", selectedIndex);
+										logger.warn(function, "selectedIndex[{}] >= 0 IS INVALID", selectedIndex);
 									}
 								}
 							} else {
-								logger.warn(className, function, "elements.length[{}] >= buttonNumIndex[{}] IS INVALID", elements.length, buttonNumIndex);
+								logger.warn(function, "elements.length[{}] >= buttonNumIndex[{}] IS INVALID", elements.length, buttonNumIndex);
 							}
 						}
 					}
 				}
-				logger.begin(className, function);
+				logger.begin(function);
 			}
 			
 			@Override
@@ -897,23 +895,23 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 			public void onActionReceived(UIEventAction uiEventAction) {
 				final String function = "onActionReceived";
 				
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 				
-				logger.debug(className, function, "os1["+os1+"]");
+				logger.debug(function, "os1["+os1+"]");
 				
 				if ( null != os1 ) {
 					// Filter Action
 					if ( os1.equals(ViewerViewEvent.FilterAdded.toString()) ) {
 						
-						logger.debug(className, function, "FilterAdded");
+						logger.debug(function, "FilterAdded");
 						
 						uiEventActionProcessor_i.executeActionSet(os1);
 						
 					} else if ( os1.equals(ViewerViewEvent.FilterRemoved.toString()) ) {
 						
-						logger.debug(className, function, "FilterRemoved");
+						logger.debug(function, "FilterRemoved");
 						
 						uiEventActionProcessor_i.executeActionSet(os1);
 					
@@ -921,7 +919,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 						// Activate Selection
 						
 						// Reset the Button
-						logger.debug(className, function, "Reset the button to invisible");
+						logger.debug(function, "Reset the button to invisible");
 
 						String actionsetkey = strButtons+strUnderline+strInvisible;
 						uiEventActionProcessor_i.executeActionSet(actionsetkey);
@@ -930,7 +928,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 							unSubscribeValueTable();
 						}
 						
-						logger.debug(className, function, "Store Selected Row");
+						logger.debug(function, "Store Selected Row");
 						
 						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 
@@ -956,14 +954,14 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 
 								readValueTableAndUpdateButtonStatusLabel(env, alias);
 							} else {
-								logger.debug(className, function, "selectedSet IS EMPTY");
+								logger.debug(function, "selectedSet IS EMPTY");
 							}
 						}
 					} else {
 						// General Case
 						String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 						
-						logger.debug(className, function, "oe ["+oe+"]");
+						logger.debug(function, "oe ["+oe+"]");
 						
 						if ( null != oe ) {
 							if ( oe.equals(element) ) {
@@ -974,7 +972,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 						}
 					}
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 		};
 		
@@ -988,75 +986,75 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 			@Override
 			public void envUp(String env) {
 				final String function = "envUp";
-				logger.begin(className, function);
+				logger.begin(function);
 		
-				logger.debug(className, function, "multiReadMethod1[{}]", multiReadMethod1);
+				logger.debug(function, "multiReadMethod1[{}]", multiReadMethod1);
 				
 				databaseMultiRead_i = DatabaseMultiReadFactory.get(multiReadMethod1);
-				if ( null == databaseMultiRead_i ) logger.warn(className, function, "multiReadMethod1[{}] databaseMultiRead_i IS NULL", multiReadMethod1);
+				if ( null == databaseMultiRead_i ) logger.warn(function, "multiReadMethod1[{}] databaseMultiRead_i IS NULL", multiReadMethod1);
 				databaseMultiRead_i.connect();
 				
-				logger.debug(className, function, "isPolling[{}]", isPolling);
+				logger.debug(function, "isPolling[{}]", isPolling);
 				if ( isPolling ) {
 					
-					logger.debug(className, function, "subScribeMethod1[{}]", subScribeMethod1);
+					logger.debug(function, "subScribeMethod1[{}]", subScribeMethod1);
 					
 					databaseSubscribe_i = DatabaseSubscribeFactory.get(subScribeMethod1);
-					if ( null == databaseMultiRead_i ) logger.warn(className, function, "subScribeMethod1[{}] databaseSubscribe_i IS NULL", subScribeMethod1);
+					if ( null == databaseMultiRead_i ) logger.warn(function, "subScribeMethod1[{}] databaseSubscribe_i IS NULL", subScribeMethod1);
 					databaseSubscribe_i.connect();
 				} else {
-					logger.debug(className, function, "multiReadMethod2[{}]", multiReadMethod2);
+					logger.debug(function, "multiReadMethod2[{}]", multiReadMethod2);
 					
 					databaseMultiRead_i_2 = DatabaseMultiReadFactory.get(multiReadMethod2);
-					if ( null == databaseMultiRead_i ) logger.warn(className, function, "multiReadMethod2[{}] databaseMultiRead_i_2 IS NULL", multiReadMethod2);
+					if ( null == databaseMultiRead_i ) logger.warn(function, "multiReadMethod2[{}] databaseMultiRead_i_2 IS NULL", multiReadMethod2);
 					databaseMultiRead_i_2.connect();
 				}
 				
-				logger.debug(className, function, "multiReadMethod3[{}]", multiReadMethod3);
+				logger.debug(function, "multiReadMethod3[{}]", multiReadMethod3);
 				
 				databaseMultiRead_i_3 = DatabaseMultiReadFactory.get(multiReadMethod3);
-				if ( null == databaseMultiRead_i ) logger.warn(className, function, "multiReadMethod3[{}] databaseMultiRead_i_3 IS NULL", multiReadMethod3);
+				if ( null == databaseMultiRead_i ) logger.warn(function, "multiReadMethod3[{}] databaseMultiRead_i_3 IS NULL", multiReadMethod3);
 				databaseMultiRead_i_3.connect();
 		
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
 			public void envDown(String env) {
 				final String function = "envDown";
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				if ( null != databaseSubscribe_i ) {
-					logger.debug(className, function, "subScribeMethod1[{}]", subScribeMethod1);
+					logger.debug(function, "subScribeMethod1[{}]", subScribeMethod1);
 					databaseSubscribe_i.disconnect();
 					databaseSubscribe_i = null;
 				}
 				
 				if ( null != databaseMultiRead_i ) {
-					logger.debug(className, function, "multiReadMethod1[{}]", multiReadMethod1);
+					logger.debug(function, "multiReadMethod1[{}]", multiReadMethod1);
 					databaseMultiRead_i.disconnect();
 					databaseMultiRead_i = null;
 				}
 				
 				if ( null != databaseMultiRead_i_2 ) {
-					logger.debug(className, function, "multiReadMethod2[{}]", multiReadMethod2);
+					logger.debug(function, "multiReadMethod2[{}]", multiReadMethod2);
 					databaseMultiRead_i_2.disconnect();
 					databaseMultiRead_i_2 = null;
 				}
 				
 				if ( null != databaseMultiRead_i_3 ) {
-					logger.debug(className, function, "multiReadMethod3[{}]", multiReadMethod3);
+					logger.debug(function, "multiReadMethod3[{}]", multiReadMethod3);
 					databaseMultiRead_i_3.disconnect();
 					databaseMultiRead_i_3 = null;
 				}
 				
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
 			public void terminate() {
 				final String function = "terminate";
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				if ( isPolling ) {
 					unSubscribeValueTable();
@@ -1064,9 +1062,9 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 				
 				envDown(null);
 				
-				logger.end(className, function);
+				logger.end(function);
 			};
 		};
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

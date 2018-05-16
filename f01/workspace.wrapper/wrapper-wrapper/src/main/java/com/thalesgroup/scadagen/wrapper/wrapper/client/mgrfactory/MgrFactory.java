@@ -1,15 +1,14 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.mgrfactory;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.common.Mgr_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.ols.OlsMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.tsc.TscMgr;
 
 public class MgrFactory {
-	
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private MgrFactory() {}
 	
@@ -21,8 +20,8 @@ public class MgrFactory {
 
 	public Mgr_i getMgr(String name, String key) {
 		final String function = "getMgr";
-		logger.begin(className, function);
-		logger.debug(className, function, "name[{}] key[{}]", name, key);
+		logger.begin(function);
+		logger.debug(function, "name[{}] key[{}]", name, key);
 		Mgr_i mgr = null;
 		if ( null != name ) {
 			
@@ -33,7 +32,7 @@ public class MgrFactory {
 				mgr = OlsMgr.getInstance(key);
 			}
 		}
-		logger.end(className, function);
+		logger.end(function);
 		return mgr;
 	}
 }

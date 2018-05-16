@@ -3,14 +3,13 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.HVID2SCS_i.Pattern;
 
 public class HVID2SCS {
-	
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	public final static String STR_SPLITER = "_";
 	public final static String STR_ALIAS = "<alias>";
@@ -31,8 +30,8 @@ public class HVID2SCS {
 	
 	public HVID2SCS(String hvid, String pattern) {
 		final String function = "HVID2SCS";
-		logger.begin(className, function);
-		logger.debug(className, function, "hvid[{}] pattern[{}]", hvid, pattern);
+		logger.begin(function);
+		logger.debug(function, "hvid[{}] pattern[{}]", hvid, pattern);
 		
 		init();
 		
@@ -44,12 +43,12 @@ public class HVID2SCS {
 			handler.convert(hvid);
 		}
 		else {
-			logger.warn(className, function, "pattern[{}] NOT FOUND!", pattern);
+			logger.warn(function, "pattern[{}] NOT FOUND!", pattern);
 		}
 		
-		logger.debug(className, function, "scsEnvId[{}] dbaddress[{}]", scsEnvId, dbaddress);
+		logger.debug(function, "scsEnvId[{}] dbaddress[{}]", scsEnvId, dbaddress);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	public void init() {
@@ -59,17 +58,17 @@ public class HVID2SCS {
 			@Override
 			public void convert(String hvid) {
 				final String function = "conver "+Pattern.HVID_ALIAS.toString();
-				logger.begin(className, function);
-				logger.debug(className, function, "hvid[{}]", hvid);
+				logger.begin(function);
+				logger.debug(function, "hvid[{}]", hvid);
 				if ( null != hvid ) {
 					int charAt = hvid.indexOf(String.valueOf(STR_SPLITER));
 					if ( charAt > -1 ) {
 						dbaddress = STR_ALIAS+hvid.substring(charAt+1);
 					}
 				} else {
-					logger.warn(className, function, "hvids IS NULL");
+					logger.warn(function, "hvids IS NULL");
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 		});
 		
@@ -78,17 +77,17 @@ public class HVID2SCS {
 			@Override
 			public void convert(String hvid) {
 				final String function = "conver "+Pattern.HVID_ALIAS.toString();
-				logger.begin(className, function);
-				logger.debug(className, function, "hvid[{}]", hvid);
+				logger.begin(function);
+				logger.debug(function, "hvid[{}]", hvid);
 				if ( null != hvid ) {
 					int charAt = hvid.indexOf(String.valueOf(STR_SPLITER));
 					if ( charAt > -1 ) {
 						dbaddress = hvid.substring(charAt+1);
 					}
 				} else {
-					logger.warn(className, function, "hvids IS NULL");
+					logger.warn(function, "hvids IS NULL");
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 		});
 		
@@ -97,8 +96,8 @@ public class HVID2SCS {
 			@Override
 			public void convert(String hvid) {
 				final String function = "convert "+Pattern.ENV_ALIAS.toString();
-				logger.begin(className, function);
-				logger.debug(className, function, "hvid[{}]", hvid);
+				logger.begin(function);
+				logger.debug(function, "hvid[{}]", hvid);
 				if ( null != hvid ) {
 					int charAt = hvid.indexOf(String.valueOf(STR_SPLITER));
 					if ( charAt > -1 ) {
@@ -106,9 +105,9 @@ public class HVID2SCS {
 						dbaddress = STR_ALIAS+hvid.substring(charAt+1);
 					}
 				} else {
-					logger.warn(className, function, "hvids IS NULL");
+					logger.warn(function, "hvids IS NULL");
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 		});
 		
@@ -117,8 +116,8 @@ public class HVID2SCS {
 			@Override
 			public void convert(String hvid) {
 				final String function = "convert "+Pattern.ENV_ALIAS.toString();
-				logger.begin(className, function);
-				logger.debug(className, function, "hvid[{}]", hvid);
+				logger.begin(function);
+				logger.debug(function, "hvid[{}]", hvid);
 				if ( null != hvid ) {
 					int charAt = hvid.indexOf(String.valueOf(STR_SPLITER));
 					if ( charAt > -1 ) {
@@ -126,9 +125,9 @@ public class HVID2SCS {
 						dbaddress = hvid.substring(charAt+1);
 					}
 				} else {
-					logger.warn(className, function, "hvids IS NULL");
+					logger.warn(function, "hvids IS NULL");
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 		});
 	}

@@ -11,14 +11,12 @@ import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary_i;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ConfigurationType;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ContainerType;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class DictionariesCache implements DictionariesMgrEvent {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(DictionariesCache.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private static Map<String, DictionariesCache> instances = new HashMap<String, DictionariesCache>();
 	private DictionariesCache () {}
@@ -42,12 +40,12 @@ public class DictionariesCache implements DictionariesMgrEvent {
 	// For Json Option
 	public String getData(final String fileName) {
 		final String function = "getData";
-		logger.begin(className, function);
-		logger.trace(className, function, "fileName[{}]", fileName);
+		logger.begin(function);
+		logger.trace(function, "fileName[{}]", fileName);
 		String value = null;
 		Dictionary dictionary = getDictionary(fileName);
     	if ( null != dictionary ) {
-    		logger.trace(className, function, "begin of for dictionary");
+    		logger.trace(function, "begin of for dictionary");
 			for ( Object o : dictionary.getValueKeys() ) {
 				if ( null != o ) {
 					Dictionary d2 = (Dictionary) dictionary.getValue(o);
@@ -55,14 +53,14 @@ public class DictionariesCache implements DictionariesMgrEvent {
 						value = d2.getData();
 						break;
 					} else {
-						logger.warn(className, function, "d2 IS NULL");
+						logger.warn(function, "d2 IS NULL");
 					}
 				} else {
-					logger.warn(className, function, "o IS NULL");
+					logger.warn(function, "o IS NULL");
 				}
 			}
     	} else {
-			logger.warn(className, function, "dictionary IS NULL");
+			logger.warn(function, "dictionary IS NULL");
 		}
 //		if ( null != dictionary ) {
 //			value = dictionary.getData();
@@ -73,44 +71,44 @@ public class DictionariesCache implements DictionariesMgrEvent {
 	// For XML Option
 	public String getStringValue(final String fileName, final String keyValue, final String tag, final String tagKey) {
 		final String function = "getStringValue";
-		logger.begin(className, function);
-		logger.trace(className, function, "fileName[{}] keyValue[{}] tag[{}] tagKey[{}]", new Object[]{fileName, keyValue, tag, tagKey});
+		logger.begin(function);
+		logger.trace(function, "fileName[{}] keyValue[{}] tag[{}] tagKey[{}]", new Object[]{fileName, keyValue, tag, tagKey});
 	
 		String value = null;
 		Dictionary dictionary = getDictionary(fileName+(null!=tag?"|"+tag:""));
 			
     	if ( null != dictionary ) {
-    		logger.trace(className, function, "begin of for dictionary");
+    		logger.trace(function, "begin of for dictionary");
 			for ( Object o : dictionary.getValueKeys() ) {
 				if ( null != o ) {
 					Dictionary d2 = (Dictionary) dictionary.getValue(o);
-					logger.trace(className, function, "d2[{}]", d2);
+					logger.trace(function, "d2[{}]", d2);
 					if ( null != d2 ) {
 						value = (String) d2.getValue(keyValue);
-						logger.trace(className, function, "keyValue[{}] value[{}]", keyValue, value);
+						logger.trace(function, "keyValue[{}] value[{}]", keyValue, value);
 						if ( null != tagKey ) {
 							String d2av = (String) d2.getAttribute("key");
-							logger.trace(className, function, "tagKey[{}] d2av[{}]", tagKey, d2av);
+							logger.trace(function, "tagKey[{}] d2av[{}]", tagKey, d2av);
 							if ( null != d2av ) {
 								if ( d2av.equals(tagKey) ) {
-									logger.trace(className, function, "tagKey[{}] equals d2av[{}]", tagKey, d2av);
+									logger.trace(function, "tagKey[{}] equals d2av[{}]", tagKey, d2av);
 									break;
 								}								
 							}
 						}
 					} else {
-						logger.warn(className, function, "d2 IS NULL");
+						logger.warn(function, "d2 IS NULL");
 					}
 				} else {
-					logger.warn(className, function, "o IS NULL");
+					logger.warn(function, "o IS NULL");
 				}
 			}
-			logger.trace(className, function, "end of for dictionary");
+			logger.trace(function, "end of for dictionary");
     	} else {
-			logger.warn(className, function, "dictionary IS NULL");
+			logger.warn(function, "dictionary IS NULL");
 		}
-    	logger.trace(className, function, "fileName[{}] keyValue[{}] tag[{}] tagKey[{}] => value[{}]", new Object[]{fileName, keyValue, tag, tagKey, value});
-    	logger.end(className, function);
+    	logger.trace(function, "fileName[{}] keyValue[{}] tag[{}] tagKey[{}] => value[{}]", new Object[]{fileName, keyValue, tag, tagKey, value});
+    	logger.end(function);
     	return value;
 	}
 	
@@ -129,21 +127,21 @@ public class DictionariesCache implements DictionariesMgrEvent {
 	
 	public void add(String folder, String extention, String tag) {
 		final String function = "add";
-		logger.begin(className, function);
-		logger.trace(className, function, "path[{}] extention[{}] tag[{}]", new Object[]{folder, extention, tag});
+		logger.begin(function);
+		logger.trace(function, "path[{}] extention[{}] tag[{}]", new Object[]{folder, extention, tag});
 		
 		incoming.add(folder+"|"+extention+"|"+tag);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void init(String mode, String module, DictionariesCacheEvent dictionariesCacheEvent) {
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.dictionariesCacheEvent = dictionariesCacheEvent;
 
-		logger.trace(className, function, "module[{}]", module);
+		logger.trace(function, "module[{}]", module);
 		
 		for (Iterator<String> iterator = incoming.iterator(); iterator.hasNext();) {
 			
@@ -151,7 +149,7 @@ public class DictionariesCache implements DictionariesMgrEvent {
 			
 			String xmlTag = iterator.next();
 			
-			logger.trace(className, function, "xmlWithHeader[{}]", xmlTag);
+			logger.trace(function, "xmlWithHeader[{}]", xmlTag);
 			
 			String xmlTags[] = xmlTag.split("\\|");
 			
@@ -161,45 +159,45 @@ public class DictionariesCache implements DictionariesMgrEvent {
 			
 			dictionariesMgrs.add(dictionariesMgr);
 			
-			logger.trace(className, function, "xmlTags[0][{}] xmlTags[1][{}] xmlTags[2][{}]", new Object[]{xmlTags[0], xmlTags[1], xmlTags[2]});
+			logger.trace(function, "xmlTags[0][{}] xmlTags[1][{}] xmlTags[2][{}]", new Object[]{xmlTags[0], xmlTags[1], xmlTags[2]});
 			
 			dictionariesMgr.getDictionaries(mode, module, xmlTags[0], xmlTags[1], xmlTags[2], this);
 			
 		    iterator.remove();
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
 	public void dictionariesMgrEventFailed(String xmlFile) {
 		final String function = "dictionariesMgrEventFailed";
-		logger.begin(className, function);
-		logger.trace(className, function, "xmlFile[{}]", xmlFile);
+		logger.begin(function);
+		logger.trace(function, "xmlFile[{}]", xmlFile);
 		
 		received++;
 
 		fails.add(xmlFile);
 		
-		logger.trace(className, function, "received[{}] >= sent[{}]", received, sent);
+		logger.trace(function, "received[{}] >= sent[{}]", received, sent);
 		
 		if ( received >= sent )
 			if ( null != dictionariesCacheEvent )
 				dictionariesCacheEvent.dictionariesCacheEventReady(received);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
 	public void dictionariesMgrEventReady(Dictionary_i dictionaries) {
 		final String function = "dictionariesMgrEventReady";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		received++;
 		
 		if ( null != dictionaries ) {
 
-			logger.trace(className, function, "dictionaryCur.getValueKeys().size()[{}]", dictionaries.getValueKeys().size());
+			logger.trace(function, "dictionaryCur.getValueKeys().size()[{}]", dictionaries.getValueKeys().size());
 			
 			String containerType = (String) dictionaries.getAttribute(DictionaryCacheInterface.strContainerType);
 			
@@ -211,7 +209,7 @@ public class DictionariesCache implements DictionariesMgrEvent {
 					
 					for ( Object key : dictionaries.getValueKeys() ) {
 						
-						logger.trace(className, function, "key[{}]", key);
+						logger.trace(function, "key[{}]", key);
 						
 						Object value = dictionaries.getValue(key);
 						
@@ -226,18 +224,18 @@ public class DictionariesCache implements DictionariesMgrEvent {
 								String tag = (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.Tag.toString());
 								String createDateTimeLabel = (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.DateTime.toString());
 								
-								logger.trace(className, function, "fileName[{}] tag[{}] createDateTimeLabel[{}]", new Object[]{fileName, tag, createDateTimeLabel});
-								logger.trace(className, function, "relativePath[{}]", relativePath);
+								logger.trace(function, "fileName[{}] tag[{}] createDateTimeLabel[{}]", new Object[]{fileName, tag, createDateTimeLabel});
+								logger.trace(function, "relativePath[{}]", relativePath);
 								
 								String dictionariesKey = relativePath+"|"+tag;
 
 								this.dictionaries.put(dictionariesKey, dictionary);
 
 							} else {
-								logger.warn(className, function, "key[{}] value IS NOT Dictionary", key);
+								logger.warn(function, "key[{}] value IS NOT Dictionary", key);
 							}
 						} else {
-							logger.warn(className, function, "value[{}] IS NULL", value);
+							logger.warn(function, "value[{}] IS NULL", value);
 						}
 					}
 					
@@ -245,7 +243,7 @@ public class DictionariesCache implements DictionariesMgrEvent {
 					
 					for ( Object key : dictionaries.getValueKeys() ) {
 						
-						logger.trace(className, function, "key[{}]", key);
+						logger.trace(function, "key[{}]", key);
 						
 						Object value = dictionaries.getValue(key);
 						
@@ -259,8 +257,8 @@ public class DictionariesCache implements DictionariesMgrEvent {
 								String CreateDateTimeLabel = (String)dictionary.getAttribute(DictionaryCacheInterface.PropertiesAttribute.DateTime.toString());
 								String dictionariesKey = fileName;
 								
-								logger.trace(className, function, "dictionary XmlFile[{}] CreateDateTimeLabel[{}]", fileName, CreateDateTimeLabel);
-								logger.trace(className, function, "dictionariesKey[{}]", dictionariesKey);
+								logger.trace(function, "dictionary XmlFile[{}] CreateDateTimeLabel[{}]", fileName, CreateDateTimeLabel);
+								logger.trace(function, "dictionariesKey[{}]", dictionariesKey);
 								
 								this.dictionaries.put(dictionariesKey, dictionary);
 								
@@ -276,23 +274,23 @@ public class DictionariesCache implements DictionariesMgrEvent {
 //											String s = (String) o2;
 //											String v = (String) d2.getValue(o2);
 //											
-//											logger.trace(className, function, "s[{}] v[{}]",s, v);
+//											logger.trace(function, "s[{}] v[{}]",s, v);
 //										}
 //									}
 //								}
 //								// End of Debug
 							} else {
-								logger.warn(className, function, "key[{}] value IS NOT Dictionary", key);
+								logger.warn(function, "key[{}] value IS NOT Dictionary", key);
 							}
 						} else {
-							logger.warn(className, function, "value[{}] IS NULL", value);
+							logger.warn(function, "value[{}] IS NULL", value);
 						}
 					}
 				} else if ( ConfigurationType.JsonFile.toString().equals(configurationType) ) {
 					
 					for ( Object key : dictionaries.getValueKeys() ) {
 						
-						logger.trace(className, function, "key[{}]", key);
+						logger.trace(function, "key[{}]", key);
 						
 						Object value = dictionaries.getValue(key);
 						
@@ -306,31 +304,31 @@ public class DictionariesCache implements DictionariesMgrEvent {
 								String CreateDateTimeLabel = (String)dictionary.getAttribute(DictionaryCacheInterface.PropertiesAttribute.DateTime.toString());
 								String dictionariesKey = fileName;
 								
-								logger.trace(className, function, "dictionary XmlFile[{}] CreateDateTimeLabel[{}]", fileName, CreateDateTimeLabel);
-								logger.trace(className, function, "dictionariesKey[{}]", dictionariesKey);
+								logger.trace(function, "dictionary XmlFile[{}] CreateDateTimeLabel[{}]", fileName, CreateDateTimeLabel);
+								logger.trace(function, "dictionariesKey[{}]", dictionariesKey);
 								
 								this.dictionaries.put(dictionariesKey, dictionary);
 
 							} else {
-								logger.warn(className, function, "key[{}] value IS NOT Dictionary", key);
+								logger.warn(function, "key[{}] value IS NOT Dictionary", key);
 							}
 						} else {
-							logger.warn(className, function, "value[{}] IS NULL", value);
+							logger.warn(function, "value[{}] IS NULL", value);
 						}
 					}
 				}
 			}
 		} else {
-			logger.warn(className, function, "dictionary IS NULL");
+			logger.warn(function, "dictionary IS NULL");
 		}
 		
-		logger.trace(className, function, "received[{}] >= sent[{}]", received, sent);
+		logger.trace(function, "received[{}] >= sent[{}]", received, sent);
 		
 		if ( received >= sent )
 			if ( null != dictionariesCacheEvent )
 				dictionariesCacheEvent.dictionariesCacheEventReady(received);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

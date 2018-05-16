@@ -13,16 +13,14 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelPanelToolBarEvent.UIPanelPanelToolBarEventType;
 
 public class UIPanelPanelToolBar extends UIWidget_i {
-	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelPanelToolBar.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private final String UIPathNavigationMgr	= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout";
 
@@ -66,7 +64,7 @@ public class UIPanelPanelToolBar extends UIWidget_i {
 	public void init() {
 		final String function = "init";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 
 		hashMap = new HashMap<String, HashMap<String, UIPanelPanelToolBarEventType>>();
 		btnMap = new HashMap<UIPanelPanelToolBarEventType, Button>();
@@ -119,7 +117,7 @@ public class UIPanelPanelToolBar extends UIWidget_i {
 			eventMap.put(btn, pair.getValue());
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private void onButton( String label ) {

@@ -3,9 +3,8 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.entrypoint;
 import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
@@ -14,8 +13,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFact
 
 public class UILayoutEntryPoint extends UIWidget_i {
 
-	private final String className = UIWidgetUtil.getClassSimpleName(UILayoutEntryPoint.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private UILayoutGeneric uiLayoutGeneric = null;
 
@@ -23,7 +22,7 @@ public class UILayoutEntryPoint extends UIWidget_i {
 	public void init() {
 		final String function = "init";
 
-		logger.begin(className, function);
+		logger.begin(function);
 
 		UIWidgetMgr.getInstance().addUIWidgetFactory(className, new UIWidgetMgrFactory() {
 			@Override
@@ -31,18 +30,18 @@ public class UILayoutEntryPoint extends UIWidget_i {
 					, String uiDict
 					, Map<String, Object> options) {
 				final String function = "getUIWidget";
-				logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
+				logger.info(function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
 				if (null != uiNameCard) {
-					logger.info(className, function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(), uiNameCard.getUiScreen());
+					logger.info(function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(), uiNameCard.getUiScreen());
 				} else {
-					logger.warn(className, function, "uiNameCard IS NULL");
+					logger.warn(function, "uiNameCard IS NULL");
 				}
-				logger.info(className, function, "options IS NULL[{}]", null == options);
+				logger.info(function, "options IS NULL[{}]", null == options);
 
 				UIWidget_i uiWidget_i = null;
 
-				if ( UIWidgetUtil.getClassSimpleName(
-						UILayoutSummary.class.getName()).equals(uiCtrl) ) {
+				if ( 
+						UILayoutSummary.class.getSimpleName().equals(uiCtrl) ) {
 					
 					uiWidget_i = new UILayoutSummary();
 
@@ -56,7 +55,7 @@ public class UILayoutEntryPoint extends UIWidget_i {
 					uiWidget_i.setOptsXMLFile(uiOpts);
 					uiWidget_i.init();					
 				} else {
-					logger.warn(className, function, "uiCtrl[{}] uiWidget IS NULL", uiCtrl);
+					logger.warn(function, "uiCtrl[{}] uiWidget IS NULL", uiCtrl);
 				}
 				
 				return uiWidget_i;
@@ -71,15 +70,15 @@ public class UILayoutEntryPoint extends UIWidget_i {
 		uiLayoutGeneric.init();
 		rootPanel = uiLayoutGeneric.getMainPanel();
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
 	public void terminate() {
 		final String function = "terminate";
-		logger.begin(className, function);
+		logger.begin(function);
 //		if ( null != uiWidget_i ) uiWidget_i.terminate();
 		uiLayoutGeneric.terminate();
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

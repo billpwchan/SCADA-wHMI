@@ -7,22 +7,20 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJsonFile;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UIWidgetRealize;
 
 public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
-	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyReadJSON.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private void readJson() {
 		final String function = "readJson";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String dictionariesCacheNameValue	= uiGeneric.getWidgetValue("dictionariescachenamevalue");
 		String fileNameValue				= uiGeneric.getWidgetValue("filenamevalue");
@@ -31,12 +29,12 @@ public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
 		
 		uiGeneric.setWidgetValue("resultvalue", result.toString());
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void readString() {
 		final String function = "readString";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String dictionariesCacheNameValue	= uiGeneric.getWidgetValue("dictionariescachenamevalue");
 		String fileNameValue				= uiGeneric.getWidgetValue("filenamevalue");
@@ -47,12 +45,12 @@ public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
 		
 		uiGeneric.setWidgetValue("resultvalue", result);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void readInt() {
 		final String function = "readInt";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String dictionariesCacheNameValue	= uiGeneric.getWidgetValue("dictionariescachenamevalue");
 		String fileNameValue				= uiGeneric.getWidgetValue("filenamevalue");
@@ -64,12 +62,12 @@ public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
 		
 		uiGeneric.setWidgetValue("resultvalue", Integer.toString(result));
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void readBoolean() {
 		final String function = "readBoolean";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String dictionariesCacheNameValue	= uiGeneric.getWidgetValue("dictionariescachenamevalue");
 		String fileNameValue				= uiGeneric.getWidgetValue("filenamevalue");
@@ -81,12 +79,12 @@ public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
 		
 		uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void readArray() {
 		final String function = "readArray";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String dictionariesCacheNameValue	= uiGeneric.getWidgetValue("dictionariescachenamevalue");
 		String fileNameValue				= uiGeneric.getWidgetValue("filenamevalue");
@@ -96,12 +94,12 @@ public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
 		
 		uiGeneric.setWidgetValue("resultvalue", result.toString());
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void readObjectFromArray() {
 		final String function = "readArray";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String dictionariesCacheNameValue	= uiGeneric.getWidgetValue("dictionariescachenamevalue");
 		String fileNameValue				= uiGeneric.getWidgetValue("filenamevalue");
@@ -115,12 +113,12 @@ public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
 		
 		uiGeneric.setWidgetValue("resultvalue", object.toString());
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void launch(String element) {
 		final String function = "launch";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( "readjson".equals(element) ) {
 			readJson();
@@ -136,7 +134,7 @@ public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
 			readObjectFromArray();
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
@@ -144,7 +142,7 @@ public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
 		super.init();
 		
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 			
@@ -157,18 +155,18 @@ public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
 			@Override
 			public void onClick(ClickEvent event) {
 				final String function = "onClick";
-				logger.begin(className, function);
+				logger.begin(function);
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
 						String element = uiGeneric.getWidgetElement(widget);
-						logger.info(className, function, "element[{}]", element);
+						logger.info(function, "element[{}]", element);
 						if ( null != element ) {
 							launch(element);
 						}
 					}
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
@@ -198,13 +196,13 @@ public class UIWidgetVerifyReadJSON extends UIWidgetRealize {
 			@Override
 			public void terminate() {
 				final String function = "terminate";
-				logger.begin(className, function);
+				logger.begin(function);
 				envDown(null);
-				logger.end(className, function);
+				logger.end(function);
 			};
 		};
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

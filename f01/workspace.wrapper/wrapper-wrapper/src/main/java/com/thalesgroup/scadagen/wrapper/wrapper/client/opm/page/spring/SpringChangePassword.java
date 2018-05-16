@@ -12,15 +12,14 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.rpc.IOperat
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.rpc.action.IOperatorActionReturn;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.rpc.action.OperatorActionFault;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.rpc.action.OperatorActionReturn;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIWrapperRpcEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.shared.opm.SCADAgenChangePasswordAction;
 
 public class SpringChangePassword {
-	
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	public static final String OPERATOR_ACTION_SERVLET_URL = "OperatorAction";
 	
@@ -36,7 +35,7 @@ public class SpringChangePassword {
 	public void changePassword(String userId, String oldPass, String newPass, final UIWrapperRpcEvent_i uiWrapperRpcEvent_i) {
 		String function = "changePassword";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 			    
         final SCADAgenChangePasswordAction action = new SCADAgenChangePasswordAction();
         action.setUserId(userId);
@@ -106,7 +105,7 @@ public class SpringChangePassword {
             	uiWrapperRpcEvent_i.event(jsobject);
 			}
         });
-        logger.end(className, function);
+        logger.end(function);
 	}
 	
 }

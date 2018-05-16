@@ -3,9 +3,8 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTsc_i.UIEventActionTscAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
@@ -13,8 +12,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecu
 import com.thalesgroup.scadagen.wrapper.wrapper.client.tsc.TscMgr;
 
 public class UIEventActionTsc extends UIEventActionExecute_i {
-	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionTsc.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	public UIEventActionTsc ( ) {
 		supportedActions = UIEventActionTscAction.toStrings();
@@ -23,7 +22,7 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 	@Override
 	public boolean executeAction(UIEventAction action, Map<String, Map<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		boolean bContinue = true;
 		
@@ -33,7 +32,7 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			for ( Entry<String, Object> entry : action.getParameters() ) {
 				String key = entry.getKey();
 				Object obj = entry.getValue();
-				logger.info(className, function, "key[{}] obj[{}]", key, obj);
+				logger.info(function, "key[{}] obj[{}]", key, obj);
 			}
 		}
 		
@@ -360,7 +359,7 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 		
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		return bContinue;
 	}
 }

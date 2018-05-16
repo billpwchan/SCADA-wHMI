@@ -3,8 +3,8 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 /**
  * @author syau
@@ -12,8 +12,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
  */
 public class UIControlPriorityFactory {
 
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private Map<String, UIControlPriorityFactory_i> factorys = new HashMap<String, UIControlPriorityFactory_i>();
 	public void addFactory(String className, UIControlPriorityFactory_i uiControlPriorityFactory) { this.factorys.put(className, uiControlPriorityFactory); }
@@ -32,7 +31,7 @@ public class UIControlPriorityFactory {
 	 */
 	public UIControlPriority_i get(String key) {
 		String function = "get";
-		logger.begin(className, function);
+		logger.begin(function);
 		UIControlPriority_i uiControlPriority_i = null;
 		for ( String className : factorys.keySet() ) {
 			UIControlPriorityFactory_i uiFactory = factorys.get(className);
@@ -41,7 +40,7 @@ public class UIControlPriorityFactory {
 				if ( null != uiControlPriority_i ) break;
 			}
 		}
-		logger.end(className, function);
+		logger.end(function);
 		return uiControlPriority_i;
 	}
 }

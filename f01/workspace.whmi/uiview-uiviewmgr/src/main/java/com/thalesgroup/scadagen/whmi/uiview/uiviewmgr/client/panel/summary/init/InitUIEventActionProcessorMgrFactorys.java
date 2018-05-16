@@ -1,7 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.init;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessorMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessor;
@@ -10,12 +10,11 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActi
 public class InitUIEventActionProcessorMgrFactorys {
 
 	private final static String name = InitUIEventActionProcessorMgrFactorys.class.getName();
-	private final static String className = InitUIEventActionProcessorMgrFactorys.class.getSimpleName();
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(name);
+	private final static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(InitUIEventActionProcessorMgrFactorys.class.getName());
 
 	public static void init() {
 		String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
 		uiEventActionProcessorMgr.removeUIEventActionProcessorMgrFactory(name);
@@ -24,7 +23,7 @@ public class InitUIEventActionProcessorMgrFactorys {
 			@Override
 			public UIEventActionProcessor_i getUIEventActionProcessor(String key) {
 				final String function = "getUIEventActionProcessor";
-				logger.debug(className, function, "key[{}]", key);
+				logger.debug(function, "key[{}]", key);
 
 				UIEventActionProcessor_i uiEventActionProcessor_i = null;
 
@@ -34,12 +33,12 @@ public class InitUIEventActionProcessorMgrFactorys {
 					uiEventActionProcessor_i = new UIEventActionProcessor();
 				}
 
-				if ( null == uiEventActionProcessor_i ) logger.warn(className, function, "key[{}] uiEventActionProcessor_i IS NULL", key);
+				if ( null == uiEventActionProcessor_i ) logger.warn(function, "key[{}] uiEventActionProcessor_i IS NULL", key);
 
 				return uiEventActionProcessor_i;
 			}
 		});
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

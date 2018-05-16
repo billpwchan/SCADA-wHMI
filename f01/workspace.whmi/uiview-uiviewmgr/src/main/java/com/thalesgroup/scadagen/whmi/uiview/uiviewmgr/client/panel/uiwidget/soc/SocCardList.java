@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.SocCardList_i.SocCardListParameter;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.GetChildrenResult;
@@ -19,8 +19,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class SocCardList implements IDataGridDataSource {
 
-	private final String className = UIWidgetUtil.getClassSimpleName(SocCardList.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private final String grcPathRoot = "ScadaSoft";
 	private final String grcPathAlias = ":ScadaSoft:ScsCtlGrc";
@@ -59,7 +59,7 @@ public class SocCardList implements IDataGridDataSource {
 	@Override
 	public void init(String strDataGrid, String[] scsEnvIds, String strDataGridOptsXMLFile, UIDataGridDatabase uiDataGridDatabase) {
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		strDataGrid_ = strDataGrid;
 		scsEnvIds_ = scsEnvIds;
@@ -68,12 +68,12 @@ public class SocCardList implements IDataGridDataSource {
 		
 		readConfig();
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	protected void readConfig() {
 		final String function = "readConfig";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -116,21 +116,21 @@ public class SocCardList implements IDataGridDataSource {
 				if ( colLblVals.length > colLblsIdx ) colLblSOCCard = colLblVals[colLblsIdx++];
 				if ( colLblVals.length > colLblsIdx ) colLblScsEnvID = colLblVals[colLblsIdx++];
 				if ( colLblVals.length > colLblsIdx ) colLblAlias = colLblVals[colLblsIdx++];
-				if ( colLblsCountLimit != colLblsIdx ) { logger.warn(className, function, "colLblsCountLimit[{}] AND colLblsIdx[{}] IS NOT EQUAL IS NULL", colLblsCountLimit, colLblsIdx); }
+				if ( colLblsCountLimit != colLblsIdx ) { logger.warn(function, "colLblsCountLimit[{}] AND colLblsIdx[{}] IS NOT EQUAL IS NULL", colLblsCountLimit, colLblsIdx); }
 			} else {
-				logger.warn(className, function, "colLblVals IS NULL");
+				logger.warn(function, "colLblVals IS NULL");
 			}
 			if ( null != colLblSOCCard && null != colLblScsEnvID && null != colLblAlias ) {
 				colLblSOCCard = Translation.getWording(colLblSOCCard);
 				colLblScsEnvID = Translation.getWording(colLblScsEnvID);
 				colLblAlias = Translation.getWording(colLblAlias);
 				
-				logger.debug(className, function, "colLblSOCCard[{}] colLblScsEnvID[{}] colLblAlias[{}]", new Object[]{colLblSOCCard,colLblScsEnvID,colLblAlias});
+				logger.debug(function, "colLblSOCCard[{}] colLblScsEnvID[{}] colLblAlias[{}]", new Object[]{colLblSOCCard,colLblScsEnvID,colLblAlias});
 			} else {
-				logger.warn(className, function, "colLblSOCCard OR colLblScsEnvID OR colLblAlias IS NULL");
+				logger.warn(function, "colLblSOCCard OR colLblScsEnvID OR colLblAlias IS NULL");
 			}
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private String genClientKey(String scsEnvId) {
@@ -146,7 +146,7 @@ public class SocCardList implements IDataGridDataSource {
 	@Override
 	public void connect() {
 		final String function = "connect";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		for (String scsEnvId: scsEnvIds_) {
 			final String grcAddress = grcPathAlias;
@@ -160,12 +160,12 @@ public class SocCardList implements IDataGridDataSource {
 				}
 			});
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	protected void updateSocCardList(String clientKey, String[] instances) {
 		final String function = "updateSocCardList";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		
 		String scsEnvId = getScsEnvIdFromMap(clientKey);
@@ -231,7 +231,7 @@ public class SocCardList implements IDataGridDataSource {
 	    						}
 	    					}
 
-	    					logger.debug(className, function, "Read Grc point attribute address [{}]", address);
+	    					logger.debug(function, "Read Grc point attribute address [{}]", address);
 	    					addresses[cnt] = address;
 	    					cnt++;
 	    				}
@@ -242,7 +242,7 @@ public class SocCardList implements IDataGridDataSource {
 							public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
 								final String function = "updateSocCardList setReadResult";
 								
-								logger.begin(className, function);
+								logger.begin(function);
 								// Get row data from map								
 								Equipment_i contact = clientKeyToDataMap.get(key);
 								
@@ -253,28 +253,28 @@ public class SocCardList implements IDataGridDataSource {
 									int index = 0;
 									
 									for (int col=0; col<strDataGridColumnsLabels.length && index < values.length; col++) {
-										logger.debug(className, function, "col[{}] label[{}]", col, strDataGridColumnsLabels[col]);
+										logger.debug(function, "col[{}] label[{}]", col, strDataGridColumnsLabels[col]);
 									
 										if (!strDataGridColumnsLabels[col].equalsIgnoreCase(colLblSOCCard) &&
 											!strDataGridColumnsLabels[col].equalsIgnoreCase(colLblScsEnvID) &&
 											!strDataGridColumnsLabels[col].equalsIgnoreCase(colLblAlias)) {
 											
-											logger.debug(className, function, "set value for label[{}]", strDataGridColumnsLabels[col]);
+											logger.debug(function, "set value for label[{}]", strDataGridColumnsLabels[col]);
 											
 											// Remove quotes from value string
 											String unquotedStr = "";
 											if (values[index] != null) {
 												unquotedStr = values[index].replaceAll("\"", "");
-												logger.debug(className, function, "column value before translation: [{}]", unquotedStr);
+												logger.debug(function, "column value before translation: [{}]", unquotedStr);
 											}
 											
 											if(strDataGridColumnsLabels[col].equalsIgnoreCase(CheckOPMFunction)){
 												EqpFunctionValue = unquotedStr;
-												logger.debug(className, function, "Eqp Function Value is:[{}]", EqpFunctionValue);
+												logger.debug(function, "Eqp Function Value is:[{}]", EqpFunctionValue);
 											}
 											if(strDataGridColumnsLabels[col].equalsIgnoreCase(CheckOPMLocation)){
 												EqpLocationValue = unquotedStr;
-												logger.debug(className, function, "Eqp Location Value is:[{}]", EqpLocationValue);
+												logger.debug(function, "Eqp Location Value is:[{}]", EqpLocationValue);
 											}
 											
 																													
@@ -284,27 +284,27 @@ public class SocCardList implements IDataGridDataSource {
 												if (intDataGridColumnsTranslations != null && intDataGridColumnsTranslations.length > col && intDataGridColumnsTranslations[col] == 1) {
 													String translateKey = "&" + className + strDataGridColumnsLabels[col].replace(' ', '_') + "_" + unquotedStr;
 													String translatedString = Translation.getWording(translateKey);
-													logger.debug(className, function, "set translated string value [{}]", translatedString);
+													logger.debug(function, "set translated string value [{}]", translatedString);
 													contact.setStringValue(strDataGridColumnsLabels[col], translatedString);
 												} else {
-													logger.debug(className, function, "set string value [{}]", unquotedStr);
+													logger.debug(function, "set string value [{}]", unquotedStr);
 													contact.setStringValue(strDataGridColumnsLabels[col], unquotedStr);
 												}
 												index++;
 											} else if (strDataGridColumnsTypes[col].equalsIgnoreCase("Number")) {
-												logger.debug(className, function, "set number value [{}]", unquotedStr);
+												logger.debug(function, "set number value [{}]", unquotedStr);
 
 												// No translation supported for column showing number value
 												contact.setNumberValue(strDataGridColumnsLabels[col], Integer.parseInt(unquotedStr));
 												index++;
 											} else if (strDataGridColumnsTypes[col].equalsIgnoreCase("Boolean")) {
-												logger.debug(className, function, "set boolean value [{}]", unquotedStr);
+												logger.debug(function, "set boolean value [{}]", unquotedStr);
 												
 												// No translation supported for column showing boolean value
 												contact.setBooleanValue(strDataGridColumnsLabels[col], Boolean.parseBoolean(unquotedStr));
 												index++;
 											} else {
-												logger.warn(className, function, "DataGrid [{}] column type [{}] not supported", strDataGrid_, strDataGridColumnsTypes[col]);
+												logger.warn(function, "DataGrid [{}] column type [{}] not supported", strDataGrid_, strDataGridColumnsTypes[col]);
 											}
 										}
 									}
@@ -316,7 +316,7 @@ public class SocCardList implements IDataGridDataSource {
 							    	if (CheckCardOPM != null && CheckCardOPM == "true"){
 							    		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(CheckOPMAPI);
 							    		boolean socCardOpm = uiOpm_i.checkAccess(EqpFunctionValue, EqpLocationValue, CheckOPMScope, CheckOPMMode);
-							    		logger.debug(className, function, "SOC card OPM check result: [{}]", socCardOpm);
+							    		logger.debug(function, "SOC card OPM check result: [{}]", socCardOpm);
 							    	
 							    		if (!socCardOpm){
 							    			skip = true;
@@ -330,23 +330,23 @@ public class SocCardList implements IDataGridDataSource {
 							    		for (int col=0; col<strDataGridColumnsFilters.length; col++) {
 							    			String colValue = contact.getValue(strDataGridColumnsLabels[col]);	    			
 							    			if (!strDataGridColumnsFilters[col].isEmpty() && !colValue.matches(strDataGridColumnsFilters[col])) {
-							    				logger.debug(className, function, "filter[{}]  value[{}] skipped", strDataGridColumnsFilters[col], colValue);
+							    				logger.debug(function, "filter[{}]  value[{}] skipped", strDataGridColumnsFilters[col], colValue);
 							    				skip = true;
 							    				break;
 							    			} else {
-							    				logger.debug(className, function, "filter[{}]  value[{}] not skipped", strDataGridColumnsFilters[col], colValue);
+							    				logger.debug(function, "filter[{}]  value[{}] not skipped", strDataGridColumnsFilters[col], colValue);
 							    			}
 							    		}
 							    	}
 							    	if (!skip) {
 							    		// Add row data to data grid
 								    	dataGridDb_.addEquipment(contact);
-								    	logger.debug(className, function, "addEquipment");
+								    	logger.debug(function, "addEquipment");
 							    	}
 									
 									dataGridDb_.refreshDisplays();
 								}
-								logger.end(className, function);
+								logger.end(function);
 							}   					
 	    				});
 	    			}
@@ -375,10 +375,10 @@ public class SocCardList implements IDataGridDataSource {
 	    	
 		    	// Add row data to data grid
 		    	dataGridDb_.addEquipment(equipment_i);
-		    	logger.debug(className, function, "addEquipment");
+		    	logger.debug(function, "addEquipment");
 	    	}
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	@Override
@@ -413,13 +413,13 @@ public class SocCardList implements IDataGridDataSource {
 				String filterValue = filterMap.get(filterKey);
 				if (filterValue != null && !filterValue.isEmpty()) {
 					runTimeFilters.put(filterKey, filterValue);
-					logger.debug(className, function, "runtime filter key[{}]  value[{}]", filterKey, filterMap.get(filterValue));
+					logger.debug(function, "runtime filter key[{}]  value[{}]", filterKey, filterMap.get(filterValue));
 				} else {
 					runTimeFilters.remove(filterKey);
 				}
 			}
 		} else {
-			logger.debug(className, function, "runtime filter clear all");
+			logger.debug(function, "runtime filter clear all");
 			runTimeFilters.clear();
 		}
 		
@@ -430,11 +430,11 @@ public class SocCardList implements IDataGridDataSource {
 	    	boolean skip = false;
 		    	
 	    	if (strDataGridColumnsFilters != null) {	
-	    		logger.debug(className, function, "Check static column filter");
+	    		logger.debug(function, "Check static column filter");
 	    		for (int col=0; col<strDataGridColumnsFilters.length; col++) {
 	    			String colValue = contact.getValue(strDataGridColumnsLabels[col]);	    			
 	    			if (!strDataGridColumnsFilters[col].isEmpty() && !colValue.matches(strDataGridColumnsFilters[col])) {
-	    				logger.debug(className, function, "filter[{}]  value[{}] skipped", strDataGridColumnsFilters[col], colValue);
+	    				logger.debug(function, "filter[{}]  value[{}] skipped", strDataGridColumnsFilters[col], colValue);
 	    				skip = true;
 	    				break;
 	    			}
@@ -442,23 +442,23 @@ public class SocCardList implements IDataGridDataSource {
 	    	}
 	    	
 	    	if (!skip) {
-	    		logger.debug(className, function, "Check runtime column filter size[{}]", runTimeFilters.size());
+	    		logger.debug(function, "Check runtime column filter size[{}]", runTimeFilters.size());
 	    		for (String filterColumn: runTimeFilters.keySet()) {    			
 	    			String colValue = contact.getValue(filterColumn);	 
-	    			logger.debug(className, function, "filter column [{}] data [{}]", filterColumn, colValue);
+	    			logger.debug(function, "filter column [{}] data [{}]", filterColumn, colValue);
 	    			if (!runTimeFilters.get(filterColumn).isEmpty() && colValue != null && !colValue.matches(runTimeFilters.get(filterColumn))) {
-	    				logger.debug(className, function, "filter[{}]  value[{}] skipped", runTimeFilters.get(filterColumn), colValue);
+	    				logger.debug(function, "filter[{}]  value[{}] skipped", runTimeFilters.get(filterColumn), colValue);
 	    				skip = true;
 	    				break;
 	    			} else {
-	    				logger.debug(className, function, "filter[{}]  value[{}] not skipped", runTimeFilters.get(filterColumn), colValue);
+	    				logger.debug(function, "filter[{}]  value[{}] not skipped", runTimeFilters.get(filterColumn), colValue);
 	    			}
 	    		}
 	    		
 	    		if (!skip) {
 		    		// Add row data to data grid
 			    	dataGridDb_.addEquipment(contact);
-			    	logger.debug(className, function, "addEquipment");
+			    	logger.debug(function, "addEquipment");
 	    		}
 	    	}
 		}

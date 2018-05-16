@@ -1,7 +1,9 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.util;
 
 import java.util.Map;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 /**
  * Helper Log Util
@@ -20,15 +22,16 @@ public class LogUtil {
 	 * @param name name of the variable
 	 * @param values value of the variable
 	 */
-	public static void logArray(UILogger logger, String className, String function, String name, String [] values) {
-		if ( logger.isInfoEnabled() ) {
+	public static void logArray(String className, String function, String name, String [] values) {
+		UILogger_i logger = UILoggerFactory.getInstance().getUILogger(className);
+		if ( logger.isDebugEnabled() ) {
 			if ( null != values ) {
-				logger.info(className, function, "values.length[{}]", values.length);
+				logger.debug(function, "values.length[{}]", values.length);
 				for ( int i = 0 ; i < values.length ; ++i ) {
-					logger.info(className, function, "values({})[{}]", i, values[i]);
+					logger.debug(function, "values({})[{}]", i, values[i]);
 				}
 			} else {
-				logger.warn(className, function, "name[{}] IS NULL", name);
+				logger.warn(function, "name[{}] IS NULL", name);
 			}
 		}
 	}
@@ -42,15 +45,16 @@ public class LogUtil {
 	 * @param name name of the variable
 	 * @param values value of the variable
 	 */
-	public static void logArray(UILogger logger, String className, String function, String name, Map<String, String> values) {
-		if ( logger.isInfoEnabled() ) {
+	public static void logArray(String className, String function, String name, Map<String, String> values) {
+		UILogger_i logger = UILoggerFactory.getInstance().getUILogger(className);
+		if ( logger.isDebugEnabled() ) {
 			if ( null != values ) {
-				logger.info(className, function, "values.size[{}]", values.size());
+				logger.debug(function, "values.size[{}]", values.size());
 				for ( String key : values.keySet() ) {
-					logger.info(className, function, "values({})[{}]", key, values.get(key));
+					logger.debug(function, "values({})[{}]", key, values.get(key));
 				}
 			} else {
-				logger.warn(className, function, "name[{}] IS NULL", name);
+				logger.warn(function, "name[{}] IS NULL", name);
 			}
 		}
 	}
@@ -64,15 +68,16 @@ public class LogUtil {
 	 * @param name name of the variable
 	 * @param values value of the variable
 	 */
-	public static void logArray(UILogger logger, String className, String function, String name, int [] values) {
-		if ( logger.isInfoEnabled() ) {
+	public static void logArray(String className, String function, String name, int [] values) {
+		UILogger_i logger = UILoggerFactory.getInstance().getUILogger(className);
+		if ( logger.isDebugEnabled() ) {
 			if ( null != values ) {
-				logger.info(className, function, "values.length[{}]", values.length);
+				logger.debug(function, "values.length[{}]", values.length);
 				for ( int i = 0 ; i < values.length ; ++i ) {
-					logger.info(className, function, "values({})[{}]", i, values[i]);
+					logger.debug(function, "values({})[{}]", i, values[i]);
 				}
 			} else {
-				logger.warn(className, function, "name IS NULL");
+				logger.warn(function, "name IS NULL");
 			}
 		}
 	}

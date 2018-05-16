@@ -3,9 +3,8 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionCtrl_i.UIEventActionCtrlAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
@@ -13,8 +12,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecu
 import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.CtlMgr;
 
 public class UIEventActionCtrl extends UIEventActionExecute_i {
-	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionCtrl.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	public UIEventActionCtrl ( ) {
 		supportedActions = new String[] {
@@ -26,7 +25,7 @@ public class UIEventActionCtrl extends UIEventActionExecute_i {
 	@Override
 	public boolean executeAction(UIEventAction action, Map<String, Map<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		boolean bContinue = true;
 		
@@ -41,7 +40,7 @@ public class UIEventActionCtrl extends UIEventActionExecute_i {
 			for ( Entry<String, Object> entry : action.getParameters() ) {
 				String key = entry.getKey();
 				Object obj = entry.getValue();
-				logger.info(className, function, "key[{}] obj[{}]", key, obj);
+				logger.info(function, "key[{}] obj[{}]", key, obj);
 			}
 		}
 		
@@ -57,7 +56,7 @@ public class UIEventActionCtrl extends UIEventActionExecute_i {
 			sendAnyway		= Integer.parseInt(strSendAnyway);
 			isValid = true;
 		} catch ( NumberFormatException ex ) {
-			logger.warn(className, function, "strBypassInitCond[}] strBypassRetCond[{}] strSendAnyway[{}] IS INVALID", new Object[]{strBypassInitCond, strBypassRetCond, strSendAnyway});
+			logger.warn(function, "strBypassInitCond[}] strBypassRetCond[{}] strSendAnyway[{}] IS INVALID", new Object[]{strBypassInitCond, strBypassRetCond, strSendAnyway});
 		}
 		if ( isValid ) {
 			CtlMgr ctlMgr = CtlMgr.getInstance(instance);
@@ -69,13 +68,13 @@ public class UIEventActionCtrl extends UIEventActionExecute_i {
 					intCommandValue	= Integer.parseInt(strCommandValue);
 					isValidCommandValue = true;
 				} catch ( NumberFormatException ex ) {
-					logger.warn(className, function, "strCommandValue[{}] NumberFormatException", strCommandValue);
+					logger.warn(function, "strCommandValue[{}] NumberFormatException", strCommandValue);
 				}
 				if ( isValidCommandValue ) {
-					logger.info(className, function, "intCommandValue[{}]", intCommandValue);
+					logger.info(function, "intCommandValue[{}]", intCommandValue);
 					ctlMgr.sendControl(strEnvName, new String[]{strAddress}, intCommandValue, bypassInitCond, bypassRetCond, sendAnyway);
 				} else {
-					logger.warn(className, function, "isValidCommandValue IS INVALID");
+					logger.warn(function, "isValidCommandValue IS INVALID");
 				}
 	
 			} else if ( strAction.equalsIgnoreCase(UIEventActionCtrlAction.SendFloatControl.toString()) ) {
@@ -85,23 +84,23 @@ public class UIEventActionCtrl extends UIEventActionExecute_i {
 					floatCommandValue	= Float.parseFloat(strCommandValue);
 					isValidCommandValue = true;
 				} catch ( NumberFormatException ex ) {
-					logger.warn(className, function, "strCommandValue[{}] NumberFormatException", strCommandValue);
+					logger.warn(function, "strCommandValue[{}] NumberFormatException", strCommandValue);
 				}
 				if ( isValidCommandValue ) {
-					logger.info(className, function, "floatCommandValue[{}]", floatCommandValue);
+					logger.info(function, "floatCommandValue[{}]", floatCommandValue);
 					ctlMgr.sendControl(strEnvName, new String[]{strAddress}, floatCommandValue, bypassInitCond, bypassRetCond, sendAnyway);
 				} else {
-					logger.warn(className, function, "floatCommandValue IS INVALID");
+					logger.warn(function, "floatCommandValue IS INVALID");
 				}
 			} else if ( strAction.equals(UIEventActionCtrlAction.SendStringControl.toString()) ) {
-				logger.info(className, function, "strCommandValue[{}]", strCommandValue);
+				logger.info(function, "strCommandValue[{}]", strCommandValue);
 				ctlMgr.sendControl(strEnvName, new String[]{strAddress}, strCommandValue, bypassInitCond, bypassRetCond, sendAnyway);
 			}
 		} else {
-			logger.warn(className, function, "command details IS INVALID");
+			logger.warn(function, "command details IS INVALID");
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		return bContinue;
 	}
 }

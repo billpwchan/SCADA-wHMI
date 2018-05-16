@@ -2,8 +2,8 @@ package com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.opm;
 
 import java.util.Map;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.Init_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
@@ -14,7 +14,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 public class InitOpm implements Init_i {
 	
 	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private InitOpm() {}
 	private static InitOpm instance = null;
@@ -31,7 +31,7 @@ public class InitOpm implements Init_i {
 	
 	public void initFactory() {
 		final String function = "initOpmFactory";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		opmMgr.addUIOpmFactory(className, new UIOpmFactory() {
@@ -49,19 +49,19 @@ public class InitOpm implements Init_i {
 			}
 		});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void initOpm(String opmkey) {
 		final String function = "initOpm";
-		logger.begin(className, function);
-		logger.debug(className, function, "Try to init opm[{}]", opmkey);
+		logger.begin(function);
+		logger.debug(function, "Try to init opm[{}]", opmkey);
 		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(opmkey);
 		if ( null != uiOpm_i ) {
 			uiOpm_i.init();
 		} else {
-			logger.warn(className, function, "uiOpm_i IS NULL");
+			logger.warn(function, "uiOpm_i IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

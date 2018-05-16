@@ -1,19 +1,18 @@
 package com.thalesgroup.scadagen.whmi.config.configenv.client;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UICookies;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+
 
 public class UICookiesForward {
-	
-	private static final String className = UIWidgetUtil.getClassSimpleName(UICookiesForward.class.getName());
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(UICookiesForward.class.getName());
 	
 	public static void forwardString(String name, String defaultValue) {
 		final String function = "forwardString";
-		logger.begin(className, function);
-		logger.debug(className, function, "name[{}]", name);
+		logger.begin(function);
+		logger.debug(function, "name[{}]", name);
 		
 		Settings setting = Settings.getInstance();
 		
@@ -21,7 +20,7 @@ public class UICookiesForward {
 			// Find value from URL and Valid
 			String value = setting.get(name);
 
-			logger.debug(className, function, "Cookies name[{}] value[{}]", name, value);
+			logger.debug(function, "Cookies name[{}] value[{}]", name, value);
 			
 			setting.set(name, value);
 		} else {
@@ -29,29 +28,29 @@ public class UICookiesForward {
 			String value = UICookies.getCookies(name);
 			if ( null != value ) {
 
-				logger.debug(className, function, "Cookies name[{}] value[{}]", name, value);
+				logger.debug(function, "Cookies name[{}] value[{}]", name, value);
 				
 				setting.set(name, value);
 			}
 		}
 		
-		logger.debug(className, function, "setting.get([{}])[{}] defaultValue[{}]", new Object[]{name, setting.get(name), defaultValue});
+		logger.debug(function, "setting.get([{}])[{}] defaultValue[{}]", new Object[]{name, setting.get(name), defaultValue});
 		
 		// Store the default value to 1 if not found on URL and Cookies
 		if ( null == setting.get(name) ) setting.set(name, Integer.toString(1));
 		
-		logger.debug(className, function, "setting.get([{}])[{}]", name, setting.get(name));
+		logger.debug(function, "setting.get([{}])[{}]", name, setting.get(name));
 
 		// Store the name to Cookies
 		UICookies.setCookies(name, setting.get(name));
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public static void forwardInt(String name, int defaultValue) {
 		final String function = "forwardInt";
-		logger.begin(className, function);
-		logger.debug(className, function, "name[{}]", name);
+		logger.begin(function);
+		logger.debug(function, "name[{}]", name);
 		
 		Settings setting = Settings.getInstance();
 		
@@ -63,10 +62,10 @@ public class UICookiesForward {
 				value = Integer.parseInt(strValue);
 				if ( value <= 0 ) value = 1;
 			} catch ( NumberFormatException e) {
-				logger.warn(className, function, "NumberFormatException e[{}]", e.toString());
+				logger.warn(function, "NumberFormatException e[{}]", e.toString());
 			}
 			
-			logger.debug(className, function, "URL name[{}] value[{}]", name, value);
+			logger.debug(function, "URL name[{}] value[{}]", name, value);
 			
 			setting.set(name, Integer.toString(value));
 		} else {
@@ -78,25 +77,25 @@ public class UICookiesForward {
 					value = Integer.parseInt(strValue);
 					if ( value <= 0 ) value = 1;
 				} catch ( NumberFormatException e) {
-					logger.warn(className, function, "NumberFormatException e[{}]", e.toString());
+					logger.warn(function, "NumberFormatException e[{}]", e.toString());
 				}
 				
-				logger.debug(className, function, "Cookies name[{}] value[{}]", name, value);
+				logger.debug(function, "Cookies name[{}] value[{}]", name, value);
 				
 				setting.set(name, Integer.toString(value));
 			}
 		}
 		
-		logger.debug(className, function, "setting.get([{}])[{}] defaultValue[{}]", new Object[]{name, setting.get(name), defaultValue});
+		logger.debug(function, "setting.get([{}])[{}] defaultValue[{}]", new Object[]{name, setting.get(name), defaultValue});
 		
 		// Store the default value to 1 if not found on URL and Cookies
 		if ( null == setting.get(name) ) setting.set(name, Integer.toString(defaultValue));
 		
-		logger.debug(className, function, "setting.get([{}])[{}]", name, setting.get(name));
+		logger.debug(function, "setting.get([{}])[{}]", name, setting.get(name));
 
 		// Store the value to Cookies
 		UICookies.setCookies(name, setting.get(name));
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

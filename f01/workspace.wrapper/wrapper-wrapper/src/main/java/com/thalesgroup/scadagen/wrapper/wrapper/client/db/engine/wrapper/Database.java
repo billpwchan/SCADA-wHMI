@@ -6,8 +6,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.IRTDBComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess.ScsClassAttInfo;
@@ -19,9 +19,8 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBCompo
  *
  */
 public class Database {
-	
-	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	/**
 	 * Interface for the async call reading operation result
@@ -158,7 +157,7 @@ public class Database {
 	 */
 	public void connect() {
 		String function = "connect";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		scsRTDBComponentAccess = new ScsRTDBComponentAccess(new IRTDBComponentClient() {
 			
@@ -380,7 +379,7 @@ public class Database {
 			}
 		});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	
@@ -389,7 +388,7 @@ public class Database {
 	 */
 	public void disconnect() {
 		String function = "disconnect";
-		logger.begin(className, function);
+		logger.begin(function);
 		try {
 			scsRTDBComponentAccess.terminate();
 		} catch (IllegalStatePresenterException e) {
@@ -402,7 +401,7 @@ public class Database {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	
@@ -418,7 +417,7 @@ public class Database {
 	 */
 	public void writeDateValueRequest(String key, String scsEnvId, String address, long second, long usecond) {
 //		String function = "writeDateValueRequest";
-//		HVLifeCycleState.ensureIsActivated(className, function, scsRTDBComponentAccess);
+//		HVLifeCycleState.ensureIsActivated(function, scsRTDBComponentAccess);
 		scsRTDBComponentAccess.writeDateValueRequest(key, scsEnvId, address, second, usecond);
 	}
 	
@@ -433,7 +432,7 @@ public class Database {
 	 */
 	public void writeIntValueRequest(String key, String scsEnvId, String address, int value) {
 //		String function = "writeIntValueRequest";
-//		HVLifeCycleState.ensureIsActivated(className, function, scsRTDBComponentAccess);
+//		HVLifeCycleState.ensureIsActivated(function, scsRTDBComponentAccess);
 		scsRTDBComponentAccess.writeIntValueRequest(key, scsEnvId, address, value);
 	}
 	
@@ -448,7 +447,7 @@ public class Database {
 	 */
 	public void writeFloatValueRequest(String key, String scsEnvId, String address, float value) {
 //		String function = "writeFloatValueRequest";
-//		HVLifeCycleState.ensureIsActivated(className, function, scsRTDBComponentAccess);
+//		HVLifeCycleState.ensureIsActivated(function, scsRTDBComponentAccess);
 		scsRTDBComponentAccess.writeFloatValueRequest(key, scsEnvId, address, value);
 	}
 	
@@ -463,7 +462,7 @@ public class Database {
 	 */
 	public void writeStringValueRequest(String key, String scsEnvId, String address, String value) {
 //		String function = "writeStringValueRequest";
-//		HVLifeCycleState.ensureIsActivated(className, function, scsRTDBComponentAccess);
+//		HVLifeCycleState.ensureIsActivated(function, scsRTDBComponentAccess);
 		scsRTDBComponentAccess.writeStringValueRequest(key, scsEnvId, address, value);
 	}
 	
@@ -478,7 +477,7 @@ public class Database {
 	 */
 	public void writeValueRequest(String key, String scsEnvId, String address, String value) {
 //		String function = "writeValueRequest";
-//		HVLifeCycleState.ensureIsActivated(className, function, scsRTDBComponentAccess);
+//		HVLifeCycleState.ensureIsActivated(function, scsRTDBComponentAccess);
 		scsRTDBComponentAccess.writeValueRequest(key, scsEnvId, address, value);
 	}
 	
@@ -492,7 +491,7 @@ public class Database {
 	 */
 	public void multiReadValueRequest(String key, String scsEnvId, String[] dbaddress) {
 //		String function = "multiReadValueRequest";
-//		HVLifeCycleState.ensureIsActivated(className, function, scsRTDBComponentAccess);
+//		HVLifeCycleState.ensureIsActivated(function, scsRTDBComponentAccess);
 		scsRTDBComponentAccess.multiReadValueRequest(key, scsEnvId, dbaddress);
 	}
 	
@@ -506,7 +505,7 @@ public class Database {
 	 */
 	public void getChildren(String key, String scsEnvId, String dbaddress) {
 //		String function = "getChildren";
-//		HVLifeCycleState.ensureIsActivated(className, function, scsRTDBComponentAccess);
+//		HVLifeCycleState.ensureIsActivated(function, scsRTDBComponentAccess);
 		scsRTDBComponentAccess.getChildren(key, scsEnvId, dbaddress);
 	}
 	
@@ -520,7 +519,7 @@ public class Database {
 	 */
 	public void getFullPath(String key, String scsEnvId, String dbaddress) {
 //		String function = "getFullPath";
-//		HVLifeCycleState.ensureIsActivated(className, function, scsRTDBComponentAccess);
+//		HVLifeCycleState.ensureIsActivated(function, scsRTDBComponentAccess);
 		scsRTDBComponentAccess.getFullPath(key, scsEnvId, dbaddress);
 	}
 
@@ -536,7 +535,7 @@ public class Database {
 	 */
 	public void addSubscriptionRequest(String key, String scsEnvId, String groupName, String[] dataFields, int periodMS) {
 //		String function = "addSubscriptionRequest";
-//		HVLifeCycleState.ensureIsActivated(className, function, scsPollerComponentAccess);
+//		HVLifeCycleState.ensureIsActivated(function, scsPollerComponentAccess);
 		scsPollerComponentAccess.subscribe(key, scsEnvId, groupName, dataFields, periodMS);
 	}
 	
@@ -551,7 +550,7 @@ public class Database {
 	 */
 	public void addUnSubscriptionRequest(String key, String scsEnvId, String groupName, String subscriptionId) {
 //		String function = "addUnSubscriptionRequest";
-//		HVLifeCycleState.ensureIsActivated(className, function, scsPollerComponentAccess);
+//		HVLifeCycleState.ensureIsActivated(function, scsPollerComponentAccess);
 		scsPollerComponentAccess.unSubscribe(key, scsEnvId, groupName, subscriptionId);
 	}
 }

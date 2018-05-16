@@ -6,9 +6,8 @@ import com.google.gwt.json.client.JSONString;
 import com.google.gwt.user.client.Timer;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.JSONUtil;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
@@ -17,8 +16,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDa
 
 public class PrintGDGPage {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(PrintGDGPage.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private final static String STR_SPILTER = ",";
 	
@@ -67,35 +65,35 @@ public class PrintGDGPage {
 	private int startIndexOrg = 0, pageSizeOrg = 32;
 	public void setPageSize(int startIndex, int pageSize, boolean save) {
 		final String function = "setPageSize";
-		logger.begin(className, function);
-		logger.debug(className, function, "gridView startIndex[{}] pageSize[{}]", startIndex, pageSize);
+		logger.begin(function);
+		logger.debug(function, "gridView startIndex[{}] pageSize[{}]", startIndex, pageSize);
 		if ( null != gridView.getPager() ) {
 			if ( null != gridView.getPager().getDisplay() ) {
 				if ( save ) {
 					startIndexOrg = gridView.getPager().getDisplay().getVisibleRange().getStart();
 					pageSizeOrg = gridView.getPager().getDisplay().getVisibleRange().getLength();
-					logger.debug(className, function, "gridView startIndexOrg[{}] pageSizeOrg[{}]", startIndexOrg, pageSizeOrg);
+					logger.debug(function, "gridView startIndexOrg[{}] pageSizeOrg[{}]", startIndexOrg, pageSizeOrg);
 				}
 				gridView.getPager().getDisplay().setVisibleRange(startIndex, pageSize);
 			} else {
-				logger.warn(className, function, "gridView.getPager().getDisplay() IS NULL");
+				logger.warn(function, "gridView.getPager().getDisplay() IS NULL");
 			}
 		} else {
-			logger.warn(className, function, "gridView.getPager() IS NULL");
+			logger.warn(function, "gridView.getPager() IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void printCurPage() {
 		final String function = "printCurPage";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		JSONArray jsonPrintDataColumns = null;
-		logger.debug(className, function, "printDataColumns[{}]", printDataColumns);
+		logger.debug(function, "printDataColumns[{}]", printDataColumns);
 		if ( null != printDataColumns ) {
 			String strPrintDataColumns [] = printDataColumns.split(STR_SPILTER);
 			
-			logger.debug(className, function, "strPrintDataColumns.length[{}]", strPrintDataColumns.length);
+			logger.debug(function, "strPrintDataColumns.length[{}]", strPrintDataColumns.length);
 			for ( int i = 0 ; i < strPrintDataColumns.length ; ++i ) {
 				strPrintDataColumns[i] = TranslationMgr.getInstance().getTranslation(strPrintDataColumns[i]);
 			}
@@ -103,26 +101,26 @@ public class PrintGDGPage {
 		}
 
 		// Data Index
-		logger.debug(className, function, "printDataIndexs[{}]", printDataIndexs);
+		logger.debug(function, "printDataIndexs[{}]", printDataIndexs);
 		String strPrintDataIndexs [] = printDataIndexs.split(STR_SPILTER);
 		
-		logger.debug(className, function, "strPrintDataIndexs.length[{}]", strPrintDataIndexs.length);
+		logger.debug(function, "strPrintDataIndexs.length[{}]", strPrintDataIndexs.length);
 		int intPrintDataIndexs [] = JSONUtil.convertStringToInts(strPrintDataIndexs);
 		JSONArray jsonPrintDataIndexs = JSONUtil.convertIntsToJSONArray(intPrintDataIndexs);
 	 
 		// Data Div Index
 		JSONArray jsonPrintDataDivIndexs = null;
-		logger.debug(className, function, "printDataDivIndexs[{}]", printDataDivIndexs);
+		logger.debug(function, "printDataDivIndexs[{}]", printDataDivIndexs);
 		if ( null != printDataDivIndexs ) {
 			String strPrintDataDivIndexs [] = printDataDivIndexs.split(STR_SPILTER);
 			
-			logger.debug(className, function, "strPrintDataDivIndexs.length[{}]", strPrintDataDivIndexs.length);
+			logger.debug(function, "strPrintDataDivIndexs.length[{}]", strPrintDataDivIndexs.length);
 			int intPrintDataDivIndexs [] = JSONUtil.convertStringToInts(strPrintDataDivIndexs);
 			jsonPrintDataDivIndexs = JSONUtil.convertIntsToJSONArray(intPrintDataDivIndexs);
 		}		
 		
-		logger.debug(className, function, "printDataDebugId[{}]", printDataDebugId);
-		logger.debug(className, function, "printDataAttachement[{}]", printDataAttachement);
+		logger.debug(function, "printDataDebugId[{}]", printDataDebugId);
+		logger.debug(function, "printDataAttachement[{}]", printDataAttachement);
 		
 	    JSONObject jsonObject = new JSONObject();
 	    jsonObject.put("PrintDataDebugId", new JSONString(printDataDebugId));
@@ -134,7 +132,7 @@ public class PrintGDGPage {
 
 	    String jsonstring = jsonObject.toString();
 	    
-    	logger.debug(className, function, "jsonstring[{}]", jsonstring);
+    	logger.debug(function, "jsonstring[{}]", jsonstring);
 
     	UIEventAction uiEventAction2 = new UIEventAction();
 		uiEventAction2.setParameter(UIActionEventAttribute.OperationType.toString(), "action");
@@ -143,27 +141,27 @@ public class PrintGDGPage {
 		uiEventAction2.setParameter(ActionAttribute.OperationString2.toString(), "PrintCurPageCsv");
 		uiEventAction2.setParameter(ActionAttribute.OperationString3.toString(), jsonstring);
 		uiEventActionProcessor_i.executeAction(uiEventAction2, null);
-		logger.debug(className, function, "executeAction uiEventAction");
+		logger.debug(function, "executeAction uiEventAction");
    
-    	logger.end(className, function);
+    	logger.end(function);
 	}
 	
 	public void setPageSizePrint() {
 		final String function = "setPageSizePrint";		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		setPageSize(printDataStart, printDataLength, true);
 
-		logger.debug(className, function, "printCurPage... printDataReceviedWait[{}]", printDataReceviedWait);
+		logger.debug(function, "printCurPage... printDataReceviedWait[{}]", printDataReceviedWait);
 		new Timer() {
 			public void run() {
-				logger.debug(className, function, "printCurPage...");
+				logger.debug(function, "printCurPage...");
 				printCurPage();
 				
-				logger.debug(className, function, "setPageSize... printDataWalkthoughWait[{}]", printDataWalkthoughWait);
+				logger.debug(function, "setPageSize... printDataWalkthoughWait[{}]", printDataWalkthoughWait);
 				new Timer() {
 					public void run() {
-						logger.debug(className, function, "setPageSize...");
+						logger.debug(function, "setPageSize...");
 						setPageSize(startIndexOrg, pageSizeOrg, false);
 					}
 				}.schedule(printDataWalkthoughWait);
@@ -171,6 +169,6 @@ public class PrintGDGPage {
 			}
 		}.schedule(printDataReceviedWait);
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

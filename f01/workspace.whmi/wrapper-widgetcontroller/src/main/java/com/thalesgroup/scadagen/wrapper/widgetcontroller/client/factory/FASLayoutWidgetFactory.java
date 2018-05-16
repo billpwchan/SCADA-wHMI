@@ -7,9 +7,8 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.layout.dto.AppL
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.layout.dto.WidgetConfig;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.layout.factory.HypWidgetFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.layout.view.IWidgetController;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.UIWidgetEntryPoint;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.factory.FASLayoutWidgetFactory_i.FASWidgetType;
 
@@ -18,9 +17,7 @@ import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.factory.FASLayou
  */
 public class FASLayoutWidgetFactory extends HypWidgetFactory {
 	
-	/** logger */
-	private final String className = UIWidgetUtil.getClassSimpleName(FASLayoutWidgetFactory.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	/**
 	 * Factory constructor
@@ -35,20 +32,20 @@ public class FASLayoutWidgetFactory extends HypWidgetFactory {
 	public IWidgetController buildWidget(final WidgetConfig widgetConf) {
 		final String function = "buildWidget";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 
 		final String typeId = widgetConf.getTypeId();
 		
-		logger.debug(className, function, "try to build[{}] ", typeId);
+		logger.debug(function, "try to build[{}] ", typeId);
 		
 		IWidgetController widget = null;
 		
 		if ( FASWidgetType.UIWidgetEntryPoint.toString().equals(typeId) ) {
 			Map<String, String> args = widgetConf.getArgs();
 			
-			logger.debug(className, function, "args.size[{}]", args.size());
+			logger.debug(function, "args.size[{}]", args.size());
 			for ( String key : args.keySet() ) {
-				logger.debug(className, function, "args.get([{}])[{}]", key, args.get(key));
+				logger.debug(function, "args.get([{}])[{}]", key, args.get(key));
 			}
 			
 			String uiCtrl	= args.get("uiCtrl");
@@ -58,21 +55,21 @@ public class FASLayoutWidgetFactory extends HypWidgetFactory {
 		    String uiElem	= args.get("uiElem");
 		    String uiDict	= args.get("uiDict");
 		    
-		    logger.debug(className, function, "uiCtrl[{}] ", uiCtrl);
-		    logger.debug(className, function, "uiView[{}] ", uiView);
-		    logger.debug(className, function, "uiOpts[{}] ", uiOpts);
-		    logger.debug(className, function, "uiElem[{}] ", uiElem);
-		    logger.debug(className, function, "uiDict[{}] ", uiDict);
+		    logger.debug(function, "uiCtrl[{}] ", uiCtrl);
+		    logger.debug(function, "uiView[{}] ", uiView);
+		    logger.debug(function, "uiOpts[{}] ", uiOpts);
+		    logger.debug(function, "uiElem[{}] ", uiElem);
+		    logger.debug(function, "uiDict[{}] ", uiDict);
 		    
 		    widget = new UIWidgetEntryPoint(uiCtrl, uiView, uiOpts, uiElem, uiDict);
 			
 		}
 		
 		if ( null == widget ) {
-			logger.warn(className, function, "typeId[{}] widget IS NULL", typeId);
+			logger.warn(function, "typeId[{}] widget IS NULL", typeId);
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		
 		return widget;
 	}

@@ -14,9 +14,8 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presen
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.StringEnumFilterDescription;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
@@ -47,8 +46,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDa
 
 public class UIWidgetViewer extends UILayoutRealize {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetViewer.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private UIEventActionProcessor_i uiEventActionProcessorContextMenu_i = null;
 	
@@ -80,24 +79,24 @@ public class UIWidgetViewer extends UILayoutRealize {
 	public void removeFilter() {
 		final String function = "removeFilter";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		if ( null != gridPresenter ) {
 			Set<String> entitles = gridPresenter.getFilterColumns();
 			for ( String entitle : entitles ) {
-				logger.warn(className, function, "entitle[{}]", entitle);
+				logger.warn(function, "entitle[{}]", entitle);
 				gridPresenter.removeContainerFilter(entitle);
 			}
 		} else {
-			logger.warn(className, function, "gridPresenter IS NULL");
+			logger.warn(function, "gridPresenter IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void applyFilter(String column, String value) {
 		final String function = "applyFilter";
 		
-		logger.begin(className, function);
-		logger.debug(className, function, "column[{}] value[{}]", column, value);
+		logger.begin(function);
+		logger.debug(function, "column[{}] value[{}]", column, value);
 		
 		FilterDescription fd = null;
 
@@ -107,20 +106,20 @@ public class UIWidgetViewer extends UILayoutRealize {
 		
 		gridPresenter.setContainerFilter(column, fd);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void applyFilter(String column, int start, int end) {
 		final String function = "applyFilter";
 		
-		logger.begin(className, function);
-		logger.debug(className, function, "column[{}] start[{}] end[{}]", new Object[]{column, start, end});
+		logger.begin(function);
+		logger.debug(function, "column[{}] start[{}] end[{}]", new Object[]{column, start, end});
 
 		FilterDescription fd = new IntFilterDescription(start, end);
 
 		gridPresenter.setContainerFilter(column, fd);
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	@Override
@@ -128,7 +127,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 		super.init();
 		
 		final String function = "init";		
-		logger.begin(className, function);
+		logger.begin(function);
 
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -151,56 +150,56 @@ public class UIWidgetViewer extends UILayoutRealize {
 			try {
 				printDataStart = Integer.parseInt(strPrintDataStart);
 			} catch ( NumberFormatException ex ) {
-				logger.warn(className, function, "sPrintDataStart[{}] IS INVALID", strPrintDataStart);
+				logger.warn(function, "sPrintDataStart[{}] IS INVALID", strPrintDataStart);
 			}
 			
 			String strPrintDataLength	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataLength.toString(), strHeader);
 			try {
 				printDataLength = Integer.parseInt(strPrintDataLength);
 			} catch ( NumberFormatException ex ) {
-				logger.warn(className, function, "strPrintDataLength[{}] IS INVALID", strPrintDataLength);
+				logger.warn(function, "strPrintDataLength[{}] IS INVALID", strPrintDataLength);
 			}
 			
 			String strPrintDataReceviedWait	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataReceviedWait.toString(), strHeader);
 			try {
 				printDataReceviedWait = Integer.parseInt(strPrintDataReceviedWait);
 			} catch ( NumberFormatException ex ) {
-				logger.warn(className, function, "strPrintDataReceviedWait[{}] IS INVALID", strPrintDataReceviedWait);
+				logger.warn(function, "strPrintDataReceviedWait[{}] IS INVALID", strPrintDataReceviedWait);
 			}			
 			
 			String strPrintDataWalkthoughWait	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataWalkthoughWait.toString(), strHeader);
 			try {
 				printDataWalkthoughWait = Integer.parseInt(strPrintDataWalkthoughWait);
 			} catch ( NumberFormatException ex ) {
-				logger.warn(className, function, "strPrintDataWalkthoughWait[{}] IS INVALID", strPrintDataWalkthoughWait);
+				logger.warn(function, "strPrintDataWalkthoughWait[{}] IS INVALID", strPrintDataWalkthoughWait);
 			}
 			
 			menuHandlerUIOpts		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.MenuHandlerUIOpts.toString(), strHeader);
 		}
-		logger.debug(className, function, "scsOlsListElement[{}]", scsOlsListElement);
-		logger.debug(className, function, "enableRowUpdated[{}]", enableRowUpdated);
+		logger.debug(function, "scsOlsListElement[{}]", scsOlsListElement);
+		logger.debug(function, "enableRowUpdated[{}]", enableRowUpdated);
 		
-		logger.debug(className, function, "printDataDebugId[{}]", printDataDebugId);
-		logger.debug(className, function, "printDataColumns[{}]", printDataColumns);
-		logger.debug(className, function, "printDataIndexs[{}]", printDataIndexs);
-		logger.debug(className, function, "printDataAttachement[{}]", printDataAttachement);
-		logger.debug(className, function, "printDataDivIndexes[{}]", printDataDivIndexes);
+		logger.debug(function, "printDataDebugId[{}]", printDataDebugId);
+		logger.debug(function, "printDataColumns[{}]", printDataColumns);
+		logger.debug(function, "printDataIndexs[{}]", printDataIndexs);
+		logger.debug(function, "printDataAttachement[{}]", printDataAttachement);
+		logger.debug(function, "printDataDivIndexes[{}]", printDataDivIndexes);
 		
-		logger.debug(className, function, "printDataStart[{}]", printDataStart);
-		logger.debug(className, function, "printDataLength[{}]", printDataLength);
+		logger.debug(function, "printDataStart[{}]", printDataStart);
+		logger.debug(function, "printDataLength[{}]", printDataLength);
 		
-		logger.debug(className, function, "printDataReceviedWait[{}]", printDataReceviedWait);
-		logger.debug(className, function, "printDataWalkthoughWait[{}]", printDataWalkthoughWait);
+		logger.debug(function, "printDataReceviedWait[{}]", printDataReceviedWait);
+		logger.debug(function, "printDataWalkthoughWait[{}]", printDataWalkthoughWait);
 		
-		logger.debug(className, function, "menuHandlerUIOpts[{}]", menuHandlerUIOpts);
+		logger.debug(function, "menuHandlerUIOpts[{}]", menuHandlerUIOpts);
 		
 		if ( null == scsOlsListElement ) {
 			
-			logger.warn(className, function, "scsOlsListElement IS NULL");
+			logger.warn(function, "scsOlsListElement IS NULL");
 			
-			scsOlsListElement = UIWidgetUtil.getClassSimpleName(ScsOlsListPanel.class.getName());
+			scsOlsListElement = ScsOlsListPanel.class.getSimpleName();
 			
-			logger.warn(className, function, "Using default ScsOlsListPanel ClassName for scsOlsListElement[{}] AS DEFAULT", scsOlsListElement);
+			logger.warn(function, "Using default ScsOlsListPanel ClassName for scsOlsListElement[{}] AS DEFAULT", scsOlsListElement);
 		}
 		
 		Object object = ((UILayoutGeneric)uiGeneric).getUIWidget(scsOlsListElement);
@@ -208,10 +207,10 @@ public class UIWidgetViewer extends UILayoutRealize {
 			if ( object instanceof ScsOlsListPanel ) {
 				scsOlsListPanel = (ScsOlsListPanel)object;
 			} else {
-				logger.warn(className, function, "scsOlsListElement[{}] instanceof ScsOlsListPanel IS FALSE");
+				logger.warn(function, "scsOlsListElement[{}] instanceof ScsOlsListPanel IS FALSE");
 			}
 		} else {
-			logger.warn(className, function, "scsOlsListElement[{}] IS NULL");
+			logger.warn(function, "scsOlsListElement[{}] IS NULL");
 		}
 		
 		if ( null != scsOlsListPanel ) {
@@ -227,7 +226,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void onUpdate(Set<Map<String, String>> entities) {
 						final String function = "onUpdate fireUpdateEvent";
-						logger.begin(className, function);
+						logger.begin(function);
 						
 						if ( enableRowUpdated ) {
 							
@@ -241,7 +240,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 							uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 						}
 						
-						logger.end(className, function);
+						logger.end(function);
 					}
 				});
 				
@@ -250,7 +249,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void onSelection(Set<Map<String, String>> entities) {
 						final String function = "onSelection fireFilterEvent";
-						logger.begin(className, function);
+						logger.begin(function);
 						
 						String actionsetkey = "RowSelected";
 						Map<String, Object> parameter = new HashMap<String, Object>();
@@ -261,7 +260,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 
-						logger.end(className, function);
+						logger.end(function);
 					}
 				});
 				
@@ -270,12 +269,12 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void onFilterChange(ArrayList<String> columns) {
 						final String function = "onFilterChange fireFilterEvent";
-						logger.begin(className, function);
+						logger.begin(function);
 						
 						// Dump
-						logger.debug(className, function, "columns.size[{}]", columns.size());
+						logger.debug(function, "columns.size[{}]", columns.size());
 						for ( String column : columns ) {
-							logger.debug(className, function, "column[{}]", column);
+							logger.debug(function, "column[{}]", column);
 						}
 						
 						
@@ -286,7 +285,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 						String actionsetkey = viewerViewEvent.toString();
 						uiEventActionProcessor_i.executeActionSet(actionsetkey);
 
-						logger.end(className, function);
+						logger.end(function);
 					}
 				});
 				
@@ -295,7 +294,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void onCounterChange(Map<String, Integer> countersValue) {
 						final String function = "onCounterChange fire onCounterChange";
-						logger.begin(className, function);
+						logger.begin(function);
 						
 						if ( null != countersValue ) {
 							for ( Entry<String, Integer> keyValue : countersValue.entrySet() ) {
@@ -304,7 +303,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 								Integer value = keyValue.getValue();
 								String strValue = value.toString();
 								
-								logger.debug(className, function, "key[{}] value[{}] strValue[{}]", new Object[]{key, value, strValue});								
+								logger.debug(function, "key[{}] value[{}] strValue[{}]", new Object[]{key, value, strValue});								
 								
 								String actionsetkey = "CounterValueChanged";
 								String actionkey = "SetWidgetValue";
@@ -320,7 +319,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 							}
 						}
 
-						logger.end(className, function);
+						logger.end(function);
 					}
 				});
 				
@@ -329,9 +328,9 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void buttonOperation(String operation, boolean status) {
 						final String function = "setButtonOperation buttonOperation";
-						logger.begin(className, function);
+						logger.begin(function);
 						
-						logger.debug(className, function, "operation[{}] status[{}]", operation, status);
+						logger.debug(function, "operation[{}] status[{}]", operation, status);
 						
 						String actionsetkey = "PagerButtonChanged_"+operation;
 						String actionkey = "PagerButtonChanged_"+operation;
@@ -344,7 +343,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 						
-						logger.end(className, function);
+						logger.end(function);
 					}
 				});
 				
@@ -359,11 +358,11 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void pageStart(int pageStart) {
 						final String function = "setCreateText pageStart";
-						logger.begin(className, function);
+						logger.begin(function);
 						
 						String strType = "PageStart";
 						
-						logger.debug(className, function, "Type[{}]", strType);
+						logger.debug(function, "Type[{}]", strType);
 						
 						String strPageValueChanged = "PagerValueChanged_";
 						String actionsetkey = strPageValueChanged+strType;
@@ -377,17 +376,17 @@ public class UIWidgetViewer extends UILayoutRealize {
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 						
-						logger.end(className, function);
+						logger.end(function);
 					}
 
 					@Override
 					public void endIndex(int endIndex) {
 						final String function = "setCreateText endIndex";
-						logger.begin(className, function);
+						logger.begin(function);
 						
 						String strType = "EndIndex";
 						
-						logger.debug(className, function, "strType[{}]", strType);
+						logger.debug(function, "strType[{}]", strType);
 						
 						String strPageValueChanged = "PagerValueChanged_";
 						String actionsetkey = strPageValueChanged+strType;
@@ -401,17 +400,17 @@ public class UIWidgetViewer extends UILayoutRealize {
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 						
-						logger.end(className, function);
+						logger.end(function);
 					}
 
 					@Override
 					public void exact(boolean exact, int dataSize) {
 						final String function = "setCreateText exact";
-						logger.begin(className, function);
+						logger.begin(function);
 						
 						String strType = "Exact";
 						
-						logger.debug(className, function, "exact[{}] dataSize[{}]", exact, dataSize);
+						logger.debug(function, "exact[{}] dataSize[{}]", exact, dataSize);
 						
 						String strPageValueChanged = "PagerValueChanged_";
 						String actionsetkey = strPageValueChanged+strType;
@@ -425,18 +424,18 @@ public class UIWidgetViewer extends UILayoutRealize {
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 						
-						logger.end(className, function);
+						logger.end(function);
 					}
 				});
 
 			} else {
-				logger.warn(className, function, "gridPresenter IS NULL");
+				logger.warn(function, "gridPresenter IS NULL");
 			}
 			
 			
 			if ( null != contextMenu ) {
 				
-				logger.debug(className, function, "Init uiEventActionProcessorContextMenu");
+				logger.debug(function, "Init uiEventActionProcessorContextMenu");
 
 				UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
 				uiEventActionProcessorContextMenu_i = uiEventActionProcessorMgr.getUIEventActionProcessor("UIEventActionProcessor");
@@ -456,32 +455,32 @@ public class UIWidgetViewer extends UILayoutRealize {
 	    			
 	    			@Override
 	    			public void onSelection(Set<Map<String, String>> entity) {
-	    				logger.warn(className, function, "entity[{}]", entity);
+	    				logger.warn(function, "entity[{}]", entity);
 	    				
 	    				if ( null != entity ) {
 	    					Map<String, String> map = entity.iterator().next();
 	    					if ( null != map ) {
 	    						String actionsetkey = map.get("sourceID");
-	    						logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
+	    						logger.debug(function, "actionsetkey[{}]", actionsetkey);
 	    						if ( null != actionsetkey ) {
 	    							if ( null != uiEventActionProcessorContextMenu_i ) {
 	    								uiEventActionProcessorContextMenu_i.executeActionSet(actionsetkey);
 	    							} else {
-	    								logger.warn(className, function, "uiEventActionProcessorContextMenu IS NULL");	
+	    								logger.warn(function, "uiEventActionProcessorContextMenu IS NULL");	
 	    							}
 	    						} else {
-	    							logger.warn(className, function, "sourceID IS NULL");	
+	    							logger.warn(function, "sourceID IS NULL");	
 	    						}
 	    					} else {
-	    						logger.warn(className, function, "hashMap IS NULL");	
+	    						logger.warn(function, "hashMap IS NULL");	
 	    					}
 	    				} else {
-	    					logger.warn(className, function, "entity IS NULL");	
+	    					logger.warn(function, "entity IS NULL");	
 	    				}
 	    			}
 	    		});
 			} else {
-				logger.warn(className, function, "contextMenu IS NULL");
+				logger.warn(function, "contextMenu IS NULL");
 			}
 			
 			printGDGPage = new PrintGDGPage(gridView, uiEventActionProcessor_i);
@@ -493,7 +492,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 			printGDGPage.setDivIndexsParameter(printDataDivIndexes);
 			
 		} else {
-			logger.warn(className, function, "scsOlsListPanel IS NULL");
+			logger.warn(function, "scsOlsListPanel IS NULL");
 		}
 	
 		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
@@ -514,7 +513,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 			public void onActionReceived(UIEventAction uiEventAction) {
 				final String function = "onActionReceived";
 				
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				if ( null != uiEventAction ) {
 					
@@ -524,15 +523,15 @@ public class UIWidgetViewer extends UILayoutRealize {
 					String os4 = (String) uiEventAction.getParameter(ActionAttribute.OperationString4.toString());
 					String os5 = (String) uiEventAction.getParameter(ActionAttribute.OperationString5.toString());
 					
-					logger.debug(className, function, "os1[{}]", os1);
-					logger.debug(className, function, "os2[{}]", os2);
-					logger.debug(className, function, "os3[{}]", os3);
-					logger.debug(className, function, "os4[{}]", os4);
-					logger.debug(className, function, "os5[{}]", os5);
+					logger.debug(function, "os1[{}]", os1);
+					logger.debug(function, "os2[{}]", os2);
+					logger.debug(function, "os3[{}]", os3);
+					logger.debug(function, "os4[{}]", os4);
+					logger.debug(function, "os5[{}]", os5);
 					
 					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 					
-					logger.debug(className, function, "oe[{}] element[{}]", oe, element);
+					logger.debug(function, "oe[{}] element[{}]", oe, element);
 					
 					if ( null != oe ) {
 						
@@ -584,12 +583,12 @@ public class UIWidgetViewer extends UILayoutRealize {
 
 										}
 									} else {
-										logger.warn(className, function, "pager instanceof SimplePager IS NOT");
+										logger.warn(function, "pager instanceof SimplePager IS NOT");
 									}
 									
 
 								} else {
-									logger.warn(className, function, "pager IS NULL");
+									logger.warn(function, "pager IS NULL");
 								}
 							}
 						}
@@ -600,7 +599,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 						if ( os1.equals(FilterViewEvent.AddIntRangeFilter.toString()) ) {
 							if ( null != os2 && null != os3 && null != os4 && null != os5 ) {
 								String listConfigId = scsOlsListPanel.getStringParameter(ScsOlsListPanel_i.ParameterName.ListConfigId.toString());
-								logger.debug(className, function, "listConfigId[{}]", listConfigId);
+								logger.debug(function, "listConfigId[{}]", listConfigId);
 								if ( null != listConfigId ) {
 									if ( os2.equals(listConfigId) ) {
 										int start = 0;
@@ -609,53 +608,53 @@ public class UIWidgetViewer extends UILayoutRealize {
 										try {
 											start = Integer.parseInt(os4);
 										} catch ( NumberFormatException ex ) {
-											logger.warn(className, function, "os4[{}] IS INVALID", os4);
-											logger.warn(className, function, "NumberFormatException[{}]", ex.toString());
+											logger.warn(function, "os4[{}] IS INVALID", os4);
+											logger.warn(function, "NumberFormatException[{}]", ex.toString());
 										}
 										
 										try {
 											end = Integer.parseInt(os5);
 										} catch ( NumberFormatException ex ) {
-											logger.warn(className, function, "os5[{}] IS INVALID", os5);
-											logger.warn(className, function, "NumberFormatException[{}]", ex.toString());
+											logger.warn(function, "os5[{}] IS INVALID", os5);
+											logger.warn(function, "NumberFormatException[{}]", ex.toString());
 										}
 										
-										logger.debug(className, function, "start[{}] end[{}]", start, end);
+										logger.debug(function, "start[{}] end[{}]", start, end);
 										
 										applyFilter(os3, start, end);
 										
 									} else {
-										logger.warn(className, function, "od1[{}] AND listConfigId[{}] IS NOT EQUALS", os1, listConfigId);
+										logger.warn(function, "od1[{}] AND listConfigId[{}] IS NOT EQUALS", os1, listConfigId);
 									}
 								} else {
-									logger.warn(className, function, "listConfigId IS NULL", listConfigId);
+									logger.warn(function, "listConfigId IS NULL", listConfigId);
 								}
 			
 							} else if ( null == os2 ) {
-								logger.warn(className, function, "od1 IS NULL");
+								logger.warn(function, "od1 IS NULL");
 							} else if ( null == os3 ) {
-								logger.warn(className, function, "od2 IS NULL");
+								logger.warn(function, "od2 IS NULL");
 							}
 						} 
 						else
 						if ( os1.equals(FilterViewEvent.AddFilter.toString()) ) {
 							if ( null != os2 && null != os3 && null != os4) {
 								String listConfigId = scsOlsListPanel.getStringParameter(ScsOlsListPanel_i.ParameterName.ListConfigId.toString());
-								logger.debug(className, function, "listConfigId[{}]", listConfigId);
+								logger.debug(function, "listConfigId[{}]", listConfigId);
 								if ( null != listConfigId ) {
 									if ( os2.equals(listConfigId) ) {
 										applyFilter(os3, os4);
 									} else {
-										logger.warn(className, function, "od1[{}] AND listConfigId[{}] IS NOT EQUALS", os1, listConfigId);
+										logger.warn(function, "od1[{}] AND listConfigId[{}] IS NOT EQUALS", os1, listConfigId);
 									}
 								} else {
-									logger.warn(className, function, "listConfigId IS NULL", listConfigId);
+									logger.warn(function, "listConfigId IS NULL", listConfigId);
 								}
 			
 							} else if ( null == os2 ) {
-								logger.warn(className, function, "od1 IS NULL");
+								logger.warn(function, "od1 IS NULL");
 							} else if ( null == os3 ) {
-								logger.warn(className, function, "od2 IS NULL");
+								logger.warn(function, "od2 IS NULL");
 							}
 						} 
 						else if ( os1.equals(FilterViewEvent.RemoveFilter.toString()) ) {
@@ -674,19 +673,19 @@ public class UIWidgetViewer extends UILayoutRealize {
 										end = Integer.parseInt(os4);
 										isValid = true;
 									} catch ( NumberFormatException ex ) {
-										logger.warn(className, function, "ex:", ex.toString());
+										logger.warn(function, "ex:", ex.toString());
 									}
 								} else {
-									logger.warn(className, function, "os2[{}] os3[{}] os4[{}]", new Object[]{os2, os3, os4});
+									logger.warn(function, "os2[{}] os3[{}] os4[{}]", new Object[]{os2, os3, os4});
 								}
-								logger.warn(className, function, "validRequested[{}] isValid[{}]", validRequested, isValid);
+								logger.warn(function, "validRequested[{}] isValid[{}]", validRequested, isValid);
 								if ( validRequested && isValid ) {
 									gridView.ackVisible(attributeName, start, end);
 								} else {
 									gridView.ackVisible();
 								}
 							} else {
-								logger.warn(className, function, "gridView IS NULL");
+								logger.warn(function, "gridView IS NULL");
 							}
 						} 
 						else if ( os1.equals(ViewerViewEvent.AckVisibleSelected.toString()) ) {
@@ -702,17 +701,17 @@ public class UIWidgetViewer extends UILayoutRealize {
 										end = Integer.parseInt(os4);
 										isValid = true;
 									} catch ( NumberFormatException ex ) {
-										logger.warn(className, function, "ex:", ex.toString());
+										logger.warn(function, "ex:", ex.toString());
 									}
 								}
-								logger.warn(className, function, "validRequested[{}] isValid[{}]", validRequested, isValid);
+								logger.warn(function, "validRequested[{}] isValid[{}]", validRequested, isValid);
 								if ( validRequested && isValid ) {
 									gridView.ackVisibleSelected(attributeName, start, end);
 								} else {
 									gridView.ackVisibleSelected();
 								}
 							} else {
-								logger.warn(className, function, "gridView IS NULL");
+								logger.warn(function, "gridView IS NULL");
 							}
 						} 
 						else if ( os1.equals(ViewerViewEvent.SetPageSize.toString())) {
@@ -733,13 +732,13 @@ public class UIWidgetViewer extends UILayoutRealize {
 							 
 						}
 					} else {
-						logger.warn(className, function, "os1 IS NULL");
+						logger.warn(function, "os1 IS NULL");
 					}
 				} else {
-					logger.warn(className, function, "uiEventAction IS NULL");
+					logger.warn(function, "uiEventAction IS NULL");
 				}
 				
-				logger.end(className, function);
+				logger.end(function);
 			}
 		};
 		
@@ -753,32 +752,32 @@ public class UIWidgetViewer extends UILayoutRealize {
 			@Override
 			public void envUp(String env) {
 				final String function = "envUp";
-				logger.begin(className, function);
+				logger.begin(function);
 
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
 			public void envDown(String env) {
 				final String function = "envDown";
-				logger.begin(className, function);
+				logger.begin(function);
 				if ( null != scsOlsListPanel ) {
 					scsOlsListPanel.terminate();
 					scsOlsListPanel = null;
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
 			public void terminate() {
 				final String function = "terminate";
-				logger.begin(className, function);
+				logger.begin(function);
 				envDown(null);
-				logger.end(className, function);
+				logger.end(function);
 			}
 		};
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

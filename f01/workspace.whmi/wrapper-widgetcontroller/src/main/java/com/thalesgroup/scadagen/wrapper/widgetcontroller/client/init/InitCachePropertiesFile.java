@@ -6,16 +6,14 @@ import java.util.Map;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCacheEvent;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ConfigurationType;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.Init_i;
 
 public class InitCachePropertiesFile implements Init_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(InitCachePropertiesFile.class.getName());
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private InitCachePropertiesFile() {}
 	private static InitCachePropertiesFile instance = null;
@@ -36,8 +34,8 @@ public class InitCachePropertiesFile implements Init_i {
 	
 	public void initCachePropertiesFile (String folder, String extention, final InitReady_i initReady) {
 		final String function = "initCachePropertiesFile";
-		logger.begin(className, function);
-		logger.debug(className, function, "folder[{}] extention[{}]", folder, extention);
+		logger.begin(function);
+		logger.debug(function, "folder[{}] extention[{}]", folder, extention);
 
 		String mode = ConfigurationType.PropertiesFile.toString();
 		String module = null;
@@ -46,7 +44,7 @@ public class InitCachePropertiesFile implements Init_i {
 		dictionariesCache.init(mode, module, new DictionariesCacheEvent() {
 			@Override
 			public void dictionariesCacheEventReady(int received) {
-				logger.debug(className, function, "dictionaryCacheEventReady received[{}]", received);
+				logger.debug(function, "dictionaryCacheEventReady received[{}]", received);
 				if ( null != initReady ) {
 					Map<String, Object> params = new HashMap<String, Object>();
 					params.put("received", received);
@@ -55,6 +53,6 @@ public class InitCachePropertiesFile implements Init_i {
 			}
 		});
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

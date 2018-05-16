@@ -11,14 +11,12 @@ import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryMgrEvent;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.WebConfigMgrEvent;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.WebConfigService;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.WebConfigServiceAsync;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class UIGwsWebConfigMgr {
-	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIGwsWebConfigMgr.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private static UIGwsWebConfigMgr instance = null;
 	public static UIGwsWebConfigMgr getInstance () { 
@@ -41,27 +39,27 @@ public class UIGwsWebConfigMgr {
 			@Override
 			public void onSuccess(String value) {
 				final String function = "onSuccess";
-				logger.begin(className, function);
+				logger.begin(function);
 				final Map<String, String> hashMap = new HashMap<String, String>();
 				hashMap.put(key, value);
 				if ( null != webConfigMgrEvent ) {
 					webConfigMgrEvent.updated(hashMap);
 				} else {
-					logger.warn(className, function, "webConfigMgrEvent IS NULL");
+					logger.warn(function, "webConfigMgrEvent IS NULL");
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
 			public void onFailure(Throwable caught) {
 				final String function = "onFailure";
-				logger.begin(className, function);
+				logger.begin(function);
 				if ( null != webConfigMgrEvent ) {
 					webConfigMgrEvent.failed();
 				} else {
-					logger.warn(className, function, "webConfigMgrEvent IS NULL");
+					logger.warn(function, "webConfigMgrEvent IS NULL");
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 		});	
 		
@@ -70,14 +68,14 @@ public class UIGwsWebConfigMgr {
 	public void getWebConfig(final String mode, final String module, final String folder, final String xml, final String tag, final List<String> keys, final WebConfigMgrEvent webConfigMgrEvent) {
 		final String function = "getWebConfig";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.info(className, function, "getWebConfig module[{}]", module);
-		logger.info(className, function, "getWebConfig xml[{}]", xml);
-		logger.info(className, function, "getWebConfig tag[{}]", tag);
+		logger.info(function, "getWebConfig module[{}]", module);
+		logger.info(function, "getWebConfig xml[{}]", xml);
+		logger.info(function, "getWebConfig tag[{}]", tag);
 		
 		for ( String key : keys ) {
-			logger.debug(className, function, "getWebConfig key[{}]", key);
+			logger.debug(function, "getWebConfig key[{}]", key);
 		}
 		
 		final DictionaryMgr dictionaryMgr = new DictionaryMgr();
@@ -114,35 +112,35 @@ public class UIGwsWebConfigMgr {
 						}
 						
 					} else {
-						logger.warn(className, function, "dictionary IS NULL");
+						logger.warn(function, "dictionary IS NULL");
 					}
 					
 					webConfigMgrEvent.updated(entrySet);
 					
 				} else {
-					logger.warn(className, function, "webConfigMgrEvent IS NULL");
+					logger.warn(function, "webConfigMgrEvent IS NULL");
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
 			public void dictionaryMgrEventFailed(String xmlFile) {
 				final String function = "dictionaryMgrEventFailed";
 				
-				logger.begin(className, function);
+				logger.begin(function);
 				if ( null != webConfigMgrEvent ) {
 					
-					logger.error(className, function, "dictionaryMgrEventFailed");
+					logger.error(function, "dictionaryMgrEventFailed");
 					
 					webConfigMgrEvent.failed();
 				} else {
-					logger.warn(className, function, "webConfigMgrEvent IS NULL");
+					logger.warn(function, "webConfigMgrEvent IS NULL");
 				}
-				logger.end(className, function+"dictionaryMgrEventFailed");
+				logger.end(function+"dictionaryMgrEventFailed");
 			}
 		});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 }

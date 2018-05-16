@@ -4,17 +4,15 @@ import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationEngine;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.Init_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class InitTranslation implements Init_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(InitTranslation.class.getName());
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private InitTranslation() {}
 	private static InitTranslation instance = null;
@@ -32,26 +30,26 @@ public class InitTranslation implements Init_i {
 	public final static String strTranslatePatten = "Translation_TranslatePatten";
 	public void setTranslationPattern(String translatePatten) {
 		final String function = "initTranslation";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( null != translatePatten ) Translation.setTranslatePattern(translatePatten);
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public final static String strTranslateFlag = "Translation_TranslateFlag";
 	public void setTranslationFlag(String translateFlag) {
 		final String function = "initTranslation";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( null != translateFlag ) Translation.setTranslateFlag(translateFlag);
 	
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void initTranslationEngine() {
 		final String function = "initTranslationEngine";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		TranslationMgr.getInstance().setTranslationEngine(new TranslationEngine() {
 			@Override
@@ -83,7 +81,7 @@ public class InitTranslation implements Init_i {
 			}
 		});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

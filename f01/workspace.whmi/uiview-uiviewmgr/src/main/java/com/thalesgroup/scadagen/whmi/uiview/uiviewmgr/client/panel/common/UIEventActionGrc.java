@@ -3,8 +3,8 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionGrc_i.UIEventActionGrcAction;
@@ -13,8 +13,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecu
 import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.GrcMgr;
 
 public class UIEventActionGrc extends UIEventActionExecute_i {
-	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionGrc.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	public UIEventActionGrc ( ) {
 		supportedActions = new String[] {
@@ -32,7 +32,7 @@ public class UIEventActionGrc extends UIEventActionExecute_i {
 	@Override
 	public boolean executeAction(UIEventAction action, Map<String, Map<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		boolean bContinue = true;
 		
@@ -42,7 +42,7 @@ public class UIEventActionGrc extends UIEventActionExecute_i {
 			for ( Entry<String, Object> entry : action.getParameters() ) {
 				String key = entry.getKey();
 				Object obj = entry.getValue();
-				logger.info(className, function, "key[{}] obj[{}]", key, obj);
+				logger.info(function, "key[{}] obj[{}]", key, obj);
 			}
 		}
 		
@@ -95,19 +95,19 @@ public class UIEventActionGrc extends UIEventActionExecute_i {
 			int firstStep			= -1;
 			int intGrcStepsToSkips [] = null;
 			
-			logger.info(className, function, "strGrcStepsToSkip[{}]", strGrcStepsToSkip);
+			logger.info(function, "strGrcStepsToSkip[{}]", strGrcStepsToSkip);
 			
 			intGrcStepsToSkips = UIWidgetUtil.getIntArray(strGrcStepsToSkip, ",");
 
 			if ( null != intGrcStepsToSkips ) {
 				isValid = true;
 				
-				logger.info(className, function, "intGrcStepsToSkips.length[{}]", intGrcStepsToSkips.length);
+				logger.info(function, "intGrcStepsToSkips.length[{}]", intGrcStepsToSkips.length);
 				for ( int i = 0 ; i < intGrcStepsToSkips.length ; ++i ) {
-					logger.info(className, function, "intGrcStepsToSkips({})[{}]", i, intGrcStepsToSkips[i]);
+					logger.info(function, "intGrcStepsToSkips({})[{}]", i, intGrcStepsToSkips[i]);
 				}
 			} else {
-				logger.warn(className, function, "intGrcStepsToSkips IS NULL");
+				logger.warn(function, "intGrcStepsToSkips IS NULL");
 			}
 			
 			if ( isValid ) {
@@ -116,16 +116,16 @@ public class UIEventActionGrc extends UIEventActionExecute_i {
 					firstStep		= Integer.parseInt(strFirstStep);
 					isValid			= true;
 				} catch ( NumberFormatException ex ) {
-					logger.warn(className, function, "strGrcExecMode[}] strFirstStep[{}] strGrcStepsToSkip[{}] IS INVALID", new Object[]{strGrcExecMode, strFirstStep, strGrcStepsToSkip});
+					logger.warn(function, "strGrcExecMode[}] strFirstStep[{}] strGrcStepsToSkip[{}] IS INVALID", new Object[]{strGrcExecMode, strFirstStep, strGrcStepsToSkip});
 				}
 				if ( isValid ) {
-					logger.info(className, function, "launchGrc");
+					logger.info(function, "launchGrc");
 					grcMgr.launchGrc(strKey, strScsEnvId, strName, grcExecMode, firstStep, intGrcStepsToSkips);
 				} else {
-					logger.warn(className, function, "isValid IS FALSE");
+					logger.warn(function, "isValid IS FALSE");
 				}
 			} else {
-				logger.warn(className, function, "isValid IS FALSE");
+				logger.warn(function, "isValid IS FALSE");
 			}
 
 		} else if ( strAction.equalsIgnoreCase(UIEventActionGrcAction.AbortGrc.toString()) ) {
@@ -154,7 +154,7 @@ public class UIEventActionGrc extends UIEventActionExecute_i {
 			
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		return bContinue;
 	}
 }

@@ -1,9 +1,11 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe;
 
 import java.util.HashMap;
+import java.util.Map;
+
 import com.google.gwt.user.client.Timer;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i;
@@ -17,11 +19,10 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.Data
  *
  */
 public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsible_i {
+
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
-	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
-	
-	private HashMap<String, PollingRequest> requests		= new HashMap<String, PollingRequest>();
+	private Map<String, PollingRequest> requests		= new HashMap<String, PollingRequest>();
 
 	private DatabaseMultiRead_i databaseReading = new DatabaseMultiReading();
 
@@ -56,10 +57,10 @@ public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsi
 	@Override
 	public void connect() {
 		final String function = "connect";
-		logger.begin(className, function);
+		logger.begin(function);
 		databaseReading.connect();
 		scheduleTimer();
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/* (non-Javadoc)
@@ -68,11 +69,11 @@ public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsi
 	@Override
 	public void disconnect() {
 		final String function = "connect";
-		logger.begin(className, function);
+		logger.begin(function);
 		cancelTimer();
 		requests.clear();
 		databaseReading.disconnect();
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/* (non-Javadoc)
@@ -81,25 +82,25 @@ public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsi
 	@Override
 	public void addSubscribeRequest(String clientKey, String scsEnvId, String[] dbaddresses, DatabasePairEvent_i databaseEvent) {
 		final String function = "addSubscribeRequest";
-		logger.begin(className, function);
-		logger.debug(className, function, "clientKey[{}] scsEnvId[{}]", clientKey, scsEnvId);
+		logger.begin(function);
+		logger.debug(function, "clientKey[{}] scsEnvId[{}]", clientKey, scsEnvId);
 		if ( logger.isDebugEnabled() ) {
 			for ( String address : dbaddresses ) {
-				logger.debug(className, function, "address[{}]", address);
+				logger.debug(function, "address[{}]", address);
 			}
 		}
 		
 		if ( null != databaseEvent) {
 			
-			logger.debug(className, function, "send request to database[{}]", clientKey);
+			logger.debug(function, "send request to database[{}]", clientKey);
 
 			PollingRequest rq = new PollingRequest(clientKey, scsEnvId, dbaddresses, databaseEvent);
 			
 			requests.put(clientKey, rq);
 		} else {
-			logger.warn(className, function, "databaseEvent IS NULL");
+			logger.warn(function, "databaseEvent IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/* (non-Javadoc)
@@ -108,10 +109,10 @@ public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsi
 	@Override
 	public void addUnSubscribeRequest(String clientKey) {
 		final String function = "addUnSubscribeRequest";
-		logger.begin(className, function);
-		logger.debug(className, function, "clientKey[{}]", clientKey);
+		logger.begin(function);
+		logger.debug(function, "clientKey[{}]", clientKey);
 		requests.remove(clientKey);
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/**
@@ -119,7 +120,7 @@ public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsi
 	 */
 	private void scheduleTimer() {
 		final String function = "scheduleTimer";
-		logger.begin(className, function);
+		logger.begin(function);
 		if ( null == timer ) {
 			timer = new Timer() {
 				@Override
@@ -151,7 +152,7 @@ public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsi
 			
 			timer.scheduleRepeating(periodMillis);
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/**
@@ -159,12 +160,12 @@ public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsi
 	 */
 	private void cancelTimer() {
 		final String function = "cancelTimer";
-		logger.begin(className, function);
+		logger.begin(function);
 		if ( null != timer ) {
 			timer.cancel();
 			timer = null;
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/* (non-Javadoc)
@@ -173,12 +174,12 @@ public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsi
 	@Override
 	public void buildRespond(String key, String[] dbaddresses, String[] values) {
 		final String function = "buildReponse";
-		logger.begin(className, function);
-		logger.info(className, function, "key[{}]", key);
+		logger.begin(function);
+		logger.info(function, "key[{}]", key);
 		
 		PollingRequest rq = requests.get(key);
 		rq.databaseEvent.update(key, dbaddresses, values);
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

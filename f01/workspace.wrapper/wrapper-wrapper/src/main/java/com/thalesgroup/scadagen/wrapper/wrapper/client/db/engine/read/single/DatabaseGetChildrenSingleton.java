@@ -1,7 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleton_i;
 
 /**
@@ -11,9 +11,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSinglet
  *
  */
 public class DatabaseGetChildrenSingleton extends DatabaseGetChildren implements DatabaseSingleton_i {
-	
-	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private static DatabaseGetChildrenSingleton instance = null;
 	private DatabaseGetChildrenSingleton() {}
@@ -49,9 +48,9 @@ public class DatabaseGetChildrenSingleton extends DatabaseGetChildren implements
 	@Override
 	public void connectOnce() {
 		final String function = "connectOnce";
-		logger.begin(className, function);
+		logger.begin(function);
 		super.connect();
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/* (non-Javadoc)
@@ -60,8 +59,8 @@ public class DatabaseGetChildrenSingleton extends DatabaseGetChildren implements
 	@Override
 	public void disconnectOnce() {
 		final String function = "disconnectOnce";
-		logger.begin(className, function);
+		logger.begin(function);
 		super.disconnect();
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

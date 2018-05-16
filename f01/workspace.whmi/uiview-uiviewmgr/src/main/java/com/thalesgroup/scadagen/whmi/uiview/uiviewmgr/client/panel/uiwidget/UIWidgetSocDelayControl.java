@@ -9,9 +9,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
@@ -34,8 +33,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGen
 
 public class UIWidgetSocDelayControl extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetSocControl.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private SimpleEventBus eventBus 	= null;
 
@@ -73,13 +72,13 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 		public void onClick(ClickEvent event) {
 			final String function = "onClick";
 			
-			logger.begin(className, function);
+			logger.begin(function);
 			
 			if ( null != event ) {
 				Widget widget = (Widget) event.getSource();
 				if ( null != widget ) {
 					String element = uiWidgetGeneric.getWidgetElement(widget);
-					logger.info(className, function, "element[{}]", element);
+					logger.info(function, "element[{}]", element);
 					if ( null != element ) {
 						
 						String actionsetkey = element;
@@ -87,24 +86,24 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 						// build scsenvid
 						
 						String scsenvid = equipmentSelected_A.getStringValue(targetDataGridColumn_A);
-						logger.info(className, function, "scsenvid[{}]", scsenvid);
+						logger.info(function, "scsenvid[{}]", scsenvid);
 						
 						// build dbalias
 						
 						String alias = equipmentSelected_A.getStringValue(targetDataGridColumn_A2);
-						logger.info(className, function, "alias[{}]", alias);
+						logger.info(function, "alias[{}]", alias);
 						
 						// build step
 						
 						Number nStep = equipmentSelected_B.getNumberValue(targetDataGridColumn_B);
-						logger.info(className, function, "nStep[{}]", nStep);
+						logger.info(function, "nStep[{}]", nStep);
 
 						String step = "";
 						if ( null != nStep ) {
 							step = Integer.toString(nStep.intValue());
 						}
 						
-						logger.info(className, function, "step[{}]", step);
+						logger.info(function, "step[{}]", step);
 						
 						String dbalias = "<alias>" + alias+".brctable("+step+",succdelay)";
 						
@@ -116,13 +115,13 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 							try {
 								delay = Integer.parseInt(strDelay);
 							} catch ( NumberFormatException ex ) {
-								logger.info(className, function, "strDelay[{}] IS INVALID", strDelay);
+								logger.info(function, "strDelay[{}] IS INVALID", strDelay);
 							}
 						}
 						
 						if (delay >= 0 && delay <= maxDelay)
 						{
-							logger.info(className, function, "delay[{}]", delay);
+							logger.info(function, "delay[{}]", delay);
 							
 							sendDisplayMessageEvent(scsenvid, dbalias, "", null);
 							
@@ -145,18 +144,18 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 					}
 				}
 			}
-			logger.begin(className, function);
+			logger.begin(function);
 		}
 		
 		@Override
 		public void onActionReceived(UIEventAction uiEventAction) {
 			final String function = "onActionReceived";
 			
-			logger.begin(className, function);
+			logger.begin(function);
 			
 			String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 			
-			logger.info(className, function, "os1[{}]",os1);
+			logger.info(function, "os1[{}]",os1);
 			
 			if ( null != os1 ) {
 				if ( os1.equals(DataGridEvent.RowSelected.toString() ) ) {
@@ -164,17 +163,17 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 					Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 					Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
 					
-					logger.info(className, function, "Store Selected Row");
+					logger.info(function, "Store Selected Row");
 					
 					if ( null != targetDataGrid_A ) {
 						
-						logger.info(className, function, "targetDataGrid[{}]", targetDataGrid_A);
+						logger.info(function, "targetDataGrid[{}]", targetDataGrid_A);
 						
 						if ( null != obj1 ) {
 							if ( obj1 instanceof String ) {
 								datagridSelected	= (String) obj1;
 								
-								logger.info(className, function, "datagridSelected[{}]", datagridSelected);
+								logger.info(function, "datagridSelected[{}]", datagridSelected);
 
 								if ( datagridSelected.equals(targetDataGrid_A) ) {
 									if ( null != obj2 ) {
@@ -183,31 +182,31 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 										} else {
 											equipmentSelected_A = null;
 											
-											logger.warn(className, function, "obj2 IS NOT TYPE OF Equipment_i");
+											logger.warn(function, "obj2 IS NOT TYPE OF Equipment_i");
 										}
 									} else {
-										logger.warn(className, function, "obj2 IS NULL");
+										logger.warn(function, "obj2 IS NULL");
 									}
 								}
 							} else {
-								logger.warn(className, function, "obj1 IS NOT TYPE OF String");
+								logger.warn(function, "obj1 IS NOT TYPE OF String");
 							}
 						} else {
-							logger.warn(className, function, "obj1 IS NULL");
+							logger.warn(function, "obj1 IS NULL");
 						}
 					} else {
-						logger.warn(className, function, "targetDataGrid IS NULL");
+						logger.warn(function, "targetDataGrid IS NULL");
 					}
 					
 					if ( null != targetDataGrid_B ) {
 						
-						logger.info(className, function, "targetDataGrid2[{}]", targetDataGrid_B);
+						logger.info(function, "targetDataGrid2[{}]", targetDataGrid_B);
 						
 						if ( null != obj1 ) {
 							if ( obj1 instanceof String ) {
 								datagridSelected2	= (String) obj1;
 								
-								logger.info(className, function, "datagridSelected2[{}]", datagridSelected2);
+								logger.info(function, "datagridSelected2[{}]", datagridSelected2);
 
 								if ( datagridSelected2.equals(targetDataGrid_B) ) {
 									if ( null != obj2 ) {
@@ -216,20 +215,20 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 										} else {
 											equipmentSelected_B = null;
 											
-											logger.warn(className, function, "obj2 IS NOT TYPE OF Equipment_i");
+											logger.warn(function, "obj2 IS NOT TYPE OF Equipment_i");
 										}
 									} else {
-										logger.warn(className, function, "obj2 IS NULL");
+										logger.warn(function, "obj2 IS NULL");
 									}
 								}
 							} else {
-								logger.warn(className, function, "obj1 IS NOT TYPE OF String");
+								logger.warn(function, "obj1 IS NOT TYPE OF String");
 							}
 						} else {
-							logger.warn(className, function, "obj1 IS NULL");
+							logger.warn(function, "obj1 IS NULL");
 						}
 					} else {
-						logger.warn(className, function, "targetDataGrid2 IS NULL");
+						logger.warn(function, "targetDataGrid2 IS NULL");
 					}					
 					
 					
@@ -237,8 +236,8 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 					// General Case
 					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 					
-					logger.info(className, function, "oe [{}]", oe);
-					logger.info(className, function, "os1[{}]", os1);
+					logger.info(function, "oe [{}]", oe);
+					logger.info(function, "os1[{}]", os1);
 					
 					if ( null != oe ) {
 						if ( oe.equals(element) ) {
@@ -247,7 +246,7 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 					}
 				}
 			}
-			logger.end(className, function);
+			logger.end(function);
 		}
 	};
 	
@@ -261,7 +260,7 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 			displayMessageEvent.setParameter(ViewAttribute.OperationObject3.toString(), msgWithPlaceHolder);
 			displayMessageEvent.setParameter(ViewAttribute.OperationObject4.toString(), msgParam);
 			eventBus.fireEvent(displayMessageEvent);
-			logger.debug(className, function, "fire UIEventAction displayMessageEvent");
+			logger.debug(function, "fire UIEventAction displayMessageEvent");
 		}
 	}
 	
@@ -269,11 +268,11 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 	public void init() {
 		final String function = "init";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
+		logger.info(function, "strEventBusName[{}]", strEventBusName);
 
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -296,16 +295,16 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 				}
 				catch(NumberFormatException ex )
 				{
-					logger.info(className, function, "Property MaxDelayAfterSuccess is invalid, use default value {}", maxDelay);
+					logger.info(function, "Property MaxDelayAfterSuccess is invalid, use default value {}", maxDelay);
 				}
 			}
 		}
 		
-		logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn_A);
-		logger.info(className, function, "targetDataGrid[{}]", targetDataGrid_A);
+		logger.info(function, "targetDataGridColumn[{}]", targetDataGridColumn_A);
+		logger.info(function, "targetDataGrid[{}]", targetDataGrid_A);
 		
-		logger.info(className, function, "targetDataGridColumn2[{}]", targetDataGridColumn_A2);
-		logger.info(className, function, "targetDataGrid2[{}]", targetDataGrid_B);
+		logger.info(function, "targetDataGridColumn2[{}]", targetDataGridColumn_A2);
+		logger.info(function, "targetDataGrid2[{}]", targetDataGrid_B);
 		
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
@@ -362,7 +361,7 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 
 		uiEventActionProcessor_i.executeActionSetInit();
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

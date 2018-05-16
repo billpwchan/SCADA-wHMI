@@ -3,14 +3,13 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.view.client.HasRows;
 import com.google.gwt.view.client.Range;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.SCADAgenPager_i.ParameterName;
 
 public class SCADAgenPager extends SimplePager {
 	
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private int fastForwardRows = 0;
 	public void setFastForwardRows(int fastForwardRows) {
@@ -45,39 +44,39 @@ public class SCADAgenPager extends SimplePager {
 		String function = "onRangeOrRowCountChanged";
 		super.onRangeOrRowCountChanged();
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if (null != buttonOperation) {
 			{
 				String hasType = ParameterName.HasPreviousPage.toString();
 				boolean hasPreviousPage = hasPreviousPage();
-				logger.debug(className, function, "hasType[{}] hasPreviousPage[{}]", hasType, hasPreviousPage);
+				logger.debug(function, "hasType[{}] hasPreviousPage[{}]", hasType, hasPreviousPage);
 				buttonOperation.buttonOperation(hasType, hasPreviousPage);
 			}
 			{
 				String hasType = ParameterName.HasNextPage.toString();
 				boolean hasNextPage = hasNextPage();
-				logger.debug(className, function, "hasType[{}] hasNextPage[{}]", hasType, hasNextPage);
+				logger.debug(function, "hasType[{}] hasNextPage[{}]", hasType, hasNextPage);
 				buttonOperation.buttonOperation(hasType, hasNextPage);
 			}
 			{
 				String hasType = ParameterName.HasFastBackwardPage.toString();
 				boolean hasFastBackwardPage = hasPreviousPages(getFastBackwardPages());
-				logger.debug(className, function, "hasType[{}] hasFastBackwardPage[{}]", hasType, hasFastBackwardPage);
+				logger.debug(function, "hasType[{}] hasFastBackwardPage[{}]", hasType, hasFastBackwardPage);
 				buttonOperation.buttonOperation(hasType, hasFastBackwardPage);
 			}
 			{
 				String hasType = ParameterName.HasFastForwardPage.toString();
 				boolean hasFastForwardPage = hasNextPages(getFastForwardPages());
-				logger.debug(className, function, "hasType[{}] hasFastForwardPage[{}]", hasType, hasFastForwardPage);
+				logger.debug(function, "hasType[{}] hasFastForwardPage[{}]", hasType, hasFastForwardPage);
 				buttonOperation.buttonOperation(hasType, hasFastForwardPage);
 			}
 
 		} else {
-			logger.debug(className, function, "buttonOperation IS NULL");
+			logger.debug(function, "buttonOperation IS NULL");
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/**
@@ -89,7 +88,7 @@ public class SCADAgenPager extends SimplePager {
 	protected String createText() {
 		String function = "createText";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 
 		// Default text is 1 based.
 		HasRows display = getDisplay();
@@ -111,13 +110,13 @@ public class SCADAgenPager extends SimplePager {
 			
 		} else {
 
-			logger.debug(className, function, "createText IS NULL");
+			logger.debug(function, "createText IS NULL");
 
 		}
 
-		logger.debug(className, function, "strPage[{}]", strPage);
+		logger.debug(function, "strPage[{}]", strPage);
 
-		logger.end(className, function);
+		logger.end(function);
 		
 		return strPage;
 	}

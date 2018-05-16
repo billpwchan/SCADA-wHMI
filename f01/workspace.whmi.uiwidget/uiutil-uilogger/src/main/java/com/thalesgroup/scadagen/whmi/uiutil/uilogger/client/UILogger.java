@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.whmi.uiutil.uilogger.client;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.JavaScriptObject;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.util.UILoggerUtil;
 
 // Trace:	Begin/End
 // Debug:	More Detail Information [SC Util]
@@ -29,11 +30,18 @@ public class UILogger implements UILogger_i {
 	private final static String STR_NULL	= "null";
 	
 	private String name                     = null;
+	private String simpleName               = null;
 	
-	public UILogger(final String name) { this.name = name; }
+	public UILogger(final String name) { 
+		this.name = name; 
+		this.simpleName = UILoggerUtil.getClassSimpleName(name);
+	}
 	
 	@Override
 	public String getName() { return name; }
+	
+	@Override
+	public void clear() { Log.clear(); }
 
 	public void setCurrentLogLevel(int level) { Log.setCurrentLogLevel(level); }
 	public int getCurrentLogLevel() { return Log.getCurrentLogLevel(); }
@@ -61,7 +69,7 @@ public class UILogger implements UILogger_i {
 		if ( Log.isTraceEnabled() ) Log.trace(STR_OB+className+STR_CB+STR_EMPTY+function+STR_EMPTY+END);
 	}
 
-	public void beginEnd(final String className, final String function) {
+	public void beginEnd2(final String className, final String function) {
 		begin(className, function);
 		end(className, function);
 	}
@@ -208,7 +216,7 @@ public class UILogger implements UILogger_i {
 	}
 	private void addLog(int level, String message) {
 		switch ( level ) {
-			case Log.LOG_LEVEL_TRACE:	Log.trace(message);	break;		
+			case Log.LOG_LEVEL_TRACE:	Log.trace(message);	break;
 			case Log.LOG_LEVEL_DEBUG:	Log.debug(message);	break;
 			case Log.LOG_LEVEL_INFO:	Log.info(message);	break;
 			case Log.LOG_LEVEL_WARN:	Log.warn(message);	break;
@@ -224,4 +232,67 @@ public class UILogger implements UILogger_i {
 	/*-{
 	    console.log(o);
 	}-*/;
+
+	@Override
+	public void begin(String function) { begin(simpleName, function); }
+	@Override
+	public void end(String function) { end(simpleName, function); }
+	@Override
+	public void beginEnd(String function) { beginEnd(simpleName, function); }
+	@Override
+	public void beginEnd(String function, String message) { beginEnd(simpleName, function, message); }
+	@Override
+	public void beginEnd(String function, String message, Object arg1) { beginEnd(simpleName, function, message, arg1); }
+	@Override
+	public void beginEnd(String function, String message, Object arg1, Object arg2) { beginEnd(simpleName, function, message, arg1, arg2); }
+	@Override
+	public void beginEnd(String function, String message, Object[] args) { beginEnd(simpleName, function, message, args); }
+	@Override
+	public void trace(String function, String message) { trace(simpleName, function, message); }
+	@Override
+	public void trace(String function, String message, Object arg1) { trace(simpleName, function, message, arg1); }
+	@Override
+	public void trace(String function, String message, Object arg1, Object arg2) { trace(simpleName, function, message, arg1, arg2); }
+	@Override
+	public void trace(String function, String message, Object[] args) { trace(simpleName, function, message, args); }
+	@Override
+	public void info(String function, String message) { info(simpleName, function, message); }
+	@Override
+	public void info(String function, String message, Object arg1) { info(simpleName, function, message, arg1); }
+	@Override
+	public void info(String function, String message, Object arg1, Object arg2) { info(simpleName, function, message, arg1, arg2); }
+	@Override
+	public void info(String function, String message, Object[] args) { info(simpleName, function, message, args); }
+	@Override
+	public void debug(String function, String message) { debug(simpleName, function, message); }
+	@Override
+	public void debug(String function, String message, Object arg1) { debug(simpleName, function, message, arg1); }
+	@Override
+	public void debug(String function, String message, Object arg1, Object arg2) { debug(simpleName, function, message, arg1, arg2); }
+	@Override
+	public void debug(String function, String message, Object[] args) { debug(simpleName, function, message, args); }
+	@Override
+	public void warn(String function, String message) { warn(simpleName, function, message); }
+	@Override
+	public void warn(String function, String message, Object arg1) { warn(simpleName, function, message, arg1); }
+	@Override
+	public void warn(String function, String message, Object arg1, Object arg2) { warn(simpleName, function, message, arg1, arg2); }
+	@Override
+	public void warn(String function, String message, Object[] args) { warn(simpleName, function, message, args); }
+	@Override
+	public void error(String function, String message) { error(simpleName, function, message); }
+	@Override
+	public void error(String function, String message, Object arg1) { error(simpleName, function, message, arg1); }
+	@Override
+	public void error(String function, String message, Object arg1, Object arg2) { error(simpleName, function, message, arg2); }
+	@Override
+	public void error(String function, String message, Object[] args) { error(simpleName, function, message, args); }
+	@Override
+	public void fatal(String function, String message) { fatal(simpleName, function, message); }
+	@Override
+	public void fatal(String function, String message, Object arg1) { fatal(simpleName, function, message, arg1); }
+	@Override
+	public void fatal(String function, String message, Object arg1, Object arg2) { fatal(simpleName, function, message, arg1, arg2); }
+	@Override
+	public void fatal(String function, String message, Object[] args) { fatal(simpleName, function, message, args); }
 }

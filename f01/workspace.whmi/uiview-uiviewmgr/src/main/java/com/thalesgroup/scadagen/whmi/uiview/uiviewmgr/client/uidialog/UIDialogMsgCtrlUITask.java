@@ -3,14 +3,12 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class UIDialogMsgCtrlUITask implements UIDialogMsgCtrl_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIDialogMsgCtrlUITask.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private UINameCard uiNameCard;
 	private UITask_i uiTask = null;
@@ -22,14 +20,14 @@ public class UIDialogMsgCtrlUITask implements UIDialogMsgCtrl_i {
 	@Override
 	public void response() {
 		String function = "response";
-		logger.begin(className, function);
+		logger.begin(function);
 		if ( null != uiTask ) {
-			logger.debug(className, function, "fire uiTask on uiNameCard eventbus");
+			logger.debug(function, "fire uiTask on uiNameCard eventbus");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(uiTask));
 		} else {
-			logger.warn(className, function, "uiEventActionProcessor_i IS NULL");
+			logger.warn(function, "uiEventActionProcessor_i IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 }

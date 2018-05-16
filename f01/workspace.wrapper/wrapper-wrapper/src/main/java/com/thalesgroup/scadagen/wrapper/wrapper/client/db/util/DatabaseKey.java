@@ -4,13 +4,12 @@ import java.util.Date;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.TimeZone;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class DatabaseKey {
-	
-	private final static String className = DatabaseKey.class.getSimpleName();
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(DatabaseKey.class.getName());
+
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private String strDateFormat = "yyyyMMddHHmmssSSS";
 	public void setDateTimeFormat(String strDateFormat) { this.strDateFormat = strDateFormat; }
@@ -20,21 +19,21 @@ public class DatabaseKey {
 	
 	public String getDateTimeString() {
 		String function = "getDateTimeString";
-		logger.begin(className, function);
+		logger.begin(function);
 		Date date = new Date();
 		DateTimeFormat dtf = DateTimeFormat.getFormat(strDateFormat);
 		String ret = dtf.format(date, TimeZone.createTimeZone(0));
-		logger.debug(className, function, "ret[{}]", ret);
-		logger.end(className, function);
+		logger.debug(function, "ret[{}]", ret);
+		logger.end(function);
 		return ret;
 	}
 	
 	public String getRandomString() {
 		String function = "getRandomString";
-		logger.begin(className, function);
+		logger.begin(function);
 		String ret = String.valueOf(Math.floor(100000 + Math.random() * 900000));
-		logger.debug(className, function, "ret[{}]", ret);
-		logger.end(className, function);
+		logger.debug(function, "ret[{}]", ret);
+		logger.end(function);
 		return ret;
 	}
 	

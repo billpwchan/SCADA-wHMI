@@ -14,14 +14,12 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.viewtoolbar.UIPanelImageToolBarEvent.UIPanelImageBarEventType;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class UIPanelImageToolBar {
-	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelImageToolBar.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	public static final String UNIT_PX		= "px";
 	
@@ -55,7 +53,7 @@ public class UIPanelImageToolBar {
 	public HorizontalPanel getMainPanel(UIPanelImageToolBarEvent uiPanelImageToolBarEvent, UINameCard uiNameCard) {
 		final String function = "getMainPanel";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
@@ -116,7 +114,7 @@ public class UIPanelImageToolBar {
     		eventMap.put(btn, pair.getValue());
 	    }
 		
-	    logger.end(className, function);
+	    logger.end(function);
 		
 		return hp;
 	}
@@ -124,9 +122,9 @@ public class UIPanelImageToolBar {
 	private void onButton(String html ) {
 		final String function = "onButton";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.info(className, function, "onButton html[{}]", html);
+		logger.info(function, "onButton html[{}]", html);
 		
 	    Iterator<Entry<String, UIPanelImageBarEventType>> it = (hashMap.get("IMAGE")).entrySet().iterator();
 	    while (it.hasNext()) {
@@ -138,15 +136,15 @@ public class UIPanelImageToolBar {
 			}
 	    }
 	    
-	    logger.end(className, function);
+	    logger.end(function);
 	}
 	
 	public void setButton(UIPanelImageBarEventType uiPanelImageBarEventType, boolean onOff) {
 		final String function = "setButton";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.info(className, function, "setButton uiPanelImageBarEventType[{}] onOff[{}]", uiPanelImageBarEventType, onOff);
+		logger.info(function, "setButton uiPanelImageBarEventType[{}] onOff[{}]", uiPanelImageBarEventType, onOff);
 		
 		Button btn = btnMap.get(uiPanelImageBarEventType);
 		if ( onOff ) {
@@ -156,6 +154,6 @@ public class UIPanelImageToolBar {
 			btn.getElement().getStyle().setBackgroundColor(RGB_BTN_BG);
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

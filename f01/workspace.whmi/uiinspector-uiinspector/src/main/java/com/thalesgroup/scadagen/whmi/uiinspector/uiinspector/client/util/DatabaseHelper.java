@@ -4,15 +4,12 @@ import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointType;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class DatabaseHelper {
-	
-	private final static String cls = DatabaseHelper.class.getName();
-	private final static String className = UIWidgetUtil.getClassSimpleName(cls);
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
+
+	private final static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(DatabaseHelper.class.getName());
 	
 	public static final String STR_EMPTY				= Database_i.STR_EMPTY;
 	public static final String STR_UNDERSCORE			= Database_i.STR_UNDERSCORE;
@@ -60,7 +57,7 @@ public class DatabaseHelper {
 		if ( null != addresses ) {
 			result = true;
 		} else {
-			logger.warn(className, function, "addresses IS NULL");
+			logger.warn(function, "addresses IS NULL");
 		}		
 		return result;
 	}
@@ -71,16 +68,16 @@ public class DatabaseHelper {
 			if ( addresses.length > 0 ) {
 				result = true;
 				if ( logger.isTraceEnabled() ) {
-					logger.trace(className, function, "addresses.length[{}]", addresses.length);
+					logger.trace(function, "addresses.length[{}]", addresses.length);
 					for ( int i = 0 ; i < addresses.length ; ++i ) {
-						logger.trace(className, function, "addresses({})[{}]", i, addresses[i]);
+						logger.trace(function, "addresses({})[{}]", i, addresses[i]);
 					}					
 				}
 			} else {
-				logger.warn(className, function, "addresses length IS ZERO");
+				logger.warn(function, "addresses length IS ZERO");
 			}
 		} else {
-			logger.warn(className, function, "addresses IS NULL");
+			logger.warn(function, "addresses IS NULL");
 		}		
 		return result;
 	}
@@ -100,8 +97,8 @@ public class DatabaseHelper {
 	public static String getArrayValues(String string, int col, int row) {
 		final String function = "getArrayValues";
 		String str = null;
-		logger.begin(className, function);
-		logger.trace(className, function, "string[{}] col[{}] row[{}]", new Object[]{string, col, row});
+		logger.begin(function);
+		logger.trace(function, "string[{}] col[{}] row[{}]", new Object[]{string, col, row});
 				
 		if (null != string && string.length() > 0) {
 
@@ -113,22 +110,22 @@ public class DatabaseHelper {
 				String s = strs[col];
 				s = removeBegin(s, '[');
 				s = removeBegin(s, ']');
-				logger.trace(className, function, "s[{}]", s);
+				logger.trace(function, "s[{}]", s);
 //				String str2s[] = s.split(STR_COMMA);
 				String str2s[] = s.split("\\s*,\\s*");
-				logger.trace(className, function, "str2s[{}][{}]", row, str2s[row]);
+				logger.trace(function, "str2s[{}][{}]", row, str2s[row]);
 				if ( str2s.length > 0 && row < str2s.length ) {
 					str = str2s[row];
-					logger.trace(className, function, "str[{}]", str);				
+					logger.trace(function, "str[{}]", str);				
 				}
 			} else {
 				// Invalid str length or index
-				logger.warn(className, function, "Invalid str length or index");
+				logger.warn(function, "Invalid str length or index");
 			}
 		}
 		
-		logger.trace(className, function, "str[{}]", str);
-		logger.end(className, function);
+		logger.trace(function, "str[{}]", str);
+		logger.end(function);
 		return str;
 	}
 	
@@ -140,16 +137,16 @@ public class DatabaseHelper {
 
 	public static String getAttributeValue(String address, String point, Map<String, String> dbvalues) {
 		final String function = "getAttributeValue";
-		logger.begin(className, function);
+		logger.begin(function);
 		String value = null;
 		String dbaddress = address + point;
-		logger.trace(className, function, "address[{}] point[{}] = dbaddress[{}]", new Object[]{address, point, dbaddress});
+		logger.trace(function, "address[{}] point[{}] = dbaddress[{}]", new Object[]{address, point, dbaddress});
 		if ( dbvalues.containsKey(dbaddress) ) {
 			value = dbvalues.get(dbaddress);
 		} else {
-			logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
+			logger.warn(function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
 		}
-		logger.end(className, function);
+		logger.end(function);
 		return value;
 	}
 	
@@ -203,10 +200,10 @@ public class DatabaseHelper {
 			try {
 				result	= Integer.parseInt(string);
 			} catch ( NumberFormatException e ) {
-				logger.warn(className, function, logprefix+" NumberFormatException[{}]", e.toString());
+				logger.warn(function, logprefix+" NumberFormatException[{}]", e.toString());
 			}
 		} else {
-			logger.warn(className, function, logprefix+" string[{}] IS INVALID", string);
+			logger.warn(function, logprefix+" string[{}] IS INVALID", string);
 		}
 		return result;
 	}
@@ -222,28 +219,28 @@ public class DatabaseHelper {
 	public static String getGetChildenClientKey(String source, String address, String uiPath, int screen, String tag) {
 		final String function = "getGetChildenClientKey";
 		String key = strGetChildren + STR_UNDERSCORE + source + STR_UNDERSCORE + strStatic + STR_UNDERSCORE + uiPath + STR_UNDERSCORE + screen + STR_UNDERSCORE + tag + STR_UNDERSCORE + address;
-		logger.beginEnd(className, function, "key[{}]", key);
+		logger.beginEnd(function, "key[{}]", key);
 		return key;
 	}
 
 	public static String getStaticReadClienyKey(String source, String address, String uiPath, int screen, String tag) {
 		final String function = "getStaticReadClienyKey";
 		String key = strMultiReadValue + STR_UNDERSCORE + source + STR_UNDERSCORE + strStatic + STR_UNDERSCORE + uiPath + STR_UNDERSCORE + screen + STR_UNDERSCORE + tag + STR_UNDERSCORE + address;
-		logger.beginEnd(className, function, "key[{}]", key);
+		logger.beginEnd(function, "key[{}]", key);
 		return key;
 	}
 
 	public static String getDyanimcClientKey(String source, String address, String uiPath, int screen, String tag) {
 		final String function = "getSubscribeClientKey";
 		String key = strMultiReadValue + STR_UNDERSCORE + source + STR_UNDERSCORE + strDynamic + STR_UNDERSCORE + uiPath + STR_UNDERSCORE + screen + STR_UNDERSCORE + tag + STR_UNDERSCORE + address;
-		logger.beginEnd(className, function, "key[{}]", key);
+		logger.beginEnd(function, "key[{}]", key);
 		return key;
 	}
 	
 	public static String getSubscribeClientKey(String source, String address, String uiPath, int screen, String tag) {
 		final String function = "getSubscribeClientKey";
 		String key = strMultiReadValue + STR_UNDERSCORE + source + STR_UNDERSCORE + strDynamic + STR_UNDERSCORE + uiPath + STR_UNDERSCORE + screen + STR_UNDERSCORE + tag + STR_UNDERSCORE + address;
-		logger.beginEnd(className, function, "key[{}]", key);
+		logger.beginEnd(function, "key[{}]", key);
 		return key;
 	}
 }

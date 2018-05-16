@@ -6,9 +6,8 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.H
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
@@ -18,16 +17,15 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBCompo
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess.ScsClassAttInfo;
 
 public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
-	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyScsRTDBComponentControl.class.getName());
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 //	private String strDatabase = "Database";
 //	
 //	private Subject getSubject() {
 //		final String function = "getSubject";
 //		
-//		logger.begin(className, function);
+//		logger.begin(function);
 //		
 //		Subject subject = new Subject();
 //		Observer observer = new Observer() {
@@ -40,7 +38,7 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 //
 //			@Override
 //			public void update() {
-//				logger.debug(className, function, "update");
+//				logger.debug(function, "update");
 //				JSONObject obj = this.subject.getState();
 //				uiGeneric.setWidgetValue("resultvalue", obj.toString());
 //			}
@@ -48,14 +46,14 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 //		};
 //		observer.setSubject(subject);
 //
-//		logger.end(className, function);
+//		logger.end(function);
 //		
 //		return subject;
 //	}
 	
 	private void writeDateValueRequest() {
 		final String function = "writeDateValueRequest";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String key			= uiGeneric.getWidgetValue("keyvalue");
 		String scsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
@@ -65,12 +63,12 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 		
 		scsRTDBComponentAccess.writeDateValueRequest(key, scsEnvId, address, second, usecond);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void writeIntValueRequest() {
 		final String function = "writeIntValueRequest";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String key			= uiGeneric.getWidgetValue("keyvalue");
 		String scsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
@@ -79,12 +77,12 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 		
 		scsRTDBComponentAccess.writeIntValueRequest(key, scsEnvId, address, value);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void writeFloatValueRequest() {
 		final String function = "writeFloatValueRequest";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String key			= uiGeneric.getWidgetValue("keyvalue");
 		String scsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
@@ -93,12 +91,12 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 		
 		scsRTDBComponentAccess.writeFloatValueRequest(key, scsEnvId, address, value);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void writeStringValueRequest() {
 		final String function = "writeStringValueRequest";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String key			= uiGeneric.getWidgetValue("keyvalue");
 		String scsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
@@ -107,12 +105,12 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 		
 		scsRTDBComponentAccess.writeStringValueRequest(key, scsEnvId, address, value);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void writeValueRequest() {		
 		final String function = "writeValueRequest";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String key			= uiGeneric.getWidgetValue("keyvalue");
 		String scsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
@@ -121,14 +119,14 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 		
 		scsRTDBComponentAccess.writeValueRequest(key, scsEnvId, address, value);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private ScsRTDBComponentAccess scsRTDBComponentAccess = null;
 	
 	public void connect() {
 		String function = "connect";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		scsRTDBComponentAccess = new ScsRTDBComponentAccess(new IRTDBComponentClient() {
 			
@@ -307,12 +305,12 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 			}
 		});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void disconnect() {
 		final String function = "disconnect";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		try {
 			scsRTDBComponentAccess.terminate();
@@ -321,13 +319,13 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 			e.printStackTrace();
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void launch(String element) {
 		final String function = "launch";
-		logger.begin(className, function);
-		logger.debug(className, function, "element[{}]", element);
+		logger.begin(function);
+		logger.debug(function, "element[{}]", element);
 		
 		if ( 0 == "connect".compareToIgnoreCase(element) ) {
 			connect();
@@ -350,7 +348,7 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 		else if ( 0 == "writeValueRequest".compareToIgnoreCase(element) ) {
 			writeValueRequest();
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	@Override
@@ -358,7 +356,7 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 		super.init();
 		
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 			
@@ -371,18 +369,18 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 			@Override
 			public void onClick(ClickEvent event) {
 				final String function = "onClick";
-				logger.begin(className, function);
+				logger.begin(function);
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
 						String element = uiGeneric.getWidgetElement(widget);
-						logger.debug(className, function, "element[{}]", element);
+						logger.debug(function, "element[{}]", element);
 						if ( null != element ) {
 							launch(element);
 						}
 					}
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
@@ -412,13 +410,13 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 			@Override
 			public void terminate() {
 				final String function = "terminate";
-				logger.begin(className, function);
+				logger.begin(function);
 				envDown(null);
-				logger.end(className, function);
+				logger.end(function);
 			};
 		};
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 }

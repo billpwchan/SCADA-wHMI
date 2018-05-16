@@ -9,8 +9,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.IRTDBComponentClient;
@@ -28,12 +28,11 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBCompo
  *
  */
 public class Database implements Connectable_i {
-	
-	private static final String className = Database.class.getSimpleName();
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(Database.class.getName());
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private String scsEnvId;
-	private String parent;
+//	private String parent;
 	
 	/**
 	 * Setter to set the database connection scsEnvId and Parent
@@ -42,7 +41,7 @@ public class Database implements Connectable_i {
 	 */
 	public void setDynamic(String scsEnvId, String parent) {
 		this.scsEnvId = scsEnvId;
-		this.parent = parent;
+//		this.parent = parent;
 	}
 	
 	private String dynamicClientKey = null;
@@ -104,7 +103,7 @@ public class Database implements Connectable_i {
 	 */
 	private void printCachesStatic(String logPrefix) {
 		final String function = "printCachesStatic";
-		logger.trace(className, function, logPrefix+" Number of KeyAndAddress.size[{}] KeyAndValues.size[{}]", KeyAndAddress.size(), KeyAndValues.size());
+		logger.trace(function, logPrefix+" Number of KeyAndAddress.size[{}] KeyAndValues.size[{}]", KeyAndAddress.size(), KeyAndValues.size());
 	}
 	
 	/**
@@ -118,15 +117,15 @@ public class Database implements Connectable_i {
 	 */
 	public void addWriteDateValueRequest(String key, String scsEnvId, String address, long second, long usecond) {
 		final String function = "addWriteDateValueRequest";
-		logger.begin(className, function);
-		logger.info(className, function, "key[{}] scsEnvId[{}] address[{}]", new Object[]{key, scsEnvId, address});
-		logger.info(className, function, "second[{}] usecond[{}]", second, usecond);
+		logger.begin(function);
+		logger.info(function, "key[{}] scsEnvId[{}] address[{}]", new Object[]{key, scsEnvId, address});
+		logger.info(function, "second[{}] usecond[{}]", second, usecond);
 		if ( null != rtdb ) {
 			rtdb.writeDateValueRequest(key, scsEnvId, address, second, usecond);
 		} else {
-			logger.warn(className, function, "rtdb IS NULL");
+			logger.warn(function, "rtdb IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/**
@@ -139,15 +138,15 @@ public class Database implements Connectable_i {
 	 */
 	public void addWriteIntValueRequest(String key, String scsEnvId, String address, int value) {
 		final String function = "addWriteIntValueRequest";
-		logger.begin(className, function);
-		logger.info(className, function, "key[{}] scsEnvId[{}] address[{}]", new Object[]{key, scsEnvId, address});
-		logger.info(className, function, "value[{}]", value);
+		logger.begin(function);
+		logger.info(function, "key[{}] scsEnvId[{}] address[{}]", new Object[]{key, scsEnvId, address});
+		logger.info(function, "value[{}]", value);
 		if ( null != rtdb ) {
 			rtdb.writeIntValueRequest(key, scsEnvId, address, value);
 		} else {
-			logger.warn(className, function, "rtdb IS NULL");
+			logger.warn(function, "rtdb IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/**
@@ -160,15 +159,15 @@ public class Database implements Connectable_i {
 	 */
 	public void addWriteFloatValueRequest(String key, String scsEnvId, String address, float value) {
 		final String function = "addWriteFloatValueRequest";
-		logger.begin(className, function);
-		logger.info(className, function, "key[{}] scsEnvId[{}] address[{}]", new Object[]{key, scsEnvId, address});
-		logger.info(className, function, "value[{}]", value);
+		logger.begin(function);
+		logger.info(function, "key[{}] scsEnvId[{}] address[{}]", new Object[]{key, scsEnvId, address});
+		logger.info(function, "value[{}]", value);
 		if ( null != rtdb ) {
 			rtdb.writeFloatValueRequest(key, scsEnvId, address, value);
 		} else {
-			logger.warn(className, function, "rtdb IS NULL");
+			logger.warn(function, "rtdb IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/**
@@ -181,15 +180,15 @@ public class Database implements Connectable_i {
 	 */
 	public void addWriteStringValueRequest(String key, String scsEnvId, String address, String value) {
 		final String function = "addWriteStringValueRequest";
-		logger.begin(className, function);
-		logger.info(className, function, "key[{}] scsEnvId[{}] address[{}]", new Object[]{key, scsEnvId, address});
-		logger.info(className, function, "value[{}]", value);
+		logger.begin(function);
+		logger.info(function, "key[{}] scsEnvId[{}] address[{}]", new Object[]{key, scsEnvId, address});
+		logger.info(function, "value[{}]", value);
 		if ( null != rtdb ) {
 			rtdb.writeStringValueRequest(key, scsEnvId, address, value);
 		} else {
-			logger.warn(className, function, "rtdb IS NULL");
+			logger.warn(function, "rtdb IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/**
@@ -202,15 +201,15 @@ public class Database implements Connectable_i {
 	 */
 	public void addWriteValueRequest(String key, String scsEnvId, String address, String value) {
 		final String function = "addWriteValueRequest";
-		logger.begin(className, function);
-		logger.info(className, function, "key[{}] scsEnvId[{}] address[{}]", new Object[]{key, scsEnvId, address});
-		logger.info(className, function, "value[{}]", value);
+		logger.begin(function);
+		logger.info(function, "key[{}] scsEnvId[{}] address[{}]", new Object[]{key, scsEnvId, address});
+		logger.info(function, "value[{}]", value);
 		if ( null != rtdb ) {
 			rtdb.writeValueRequest(key, scsEnvId, address, value);
 		} else {
-			logger.warn(className, function, "rtdb IS NULL");
+			logger.warn(function, "rtdb IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}	
 	
 	/**
@@ -224,30 +223,30 @@ public class Database implements Connectable_i {
 	 */
 	public void addStaticRequest(String api, String clientKey, String scsEnvId, String [] dbaddresses, DatabaseEvent databaseEvent) {
 		final String function = "addStaticRequest";
-		logger.begin(className, function);
-		logger.info(className, function, "api[{}] clientKey[{}] scsEnvId[{}]", new Object[]{api, clientKey, scsEnvId});
+		logger.begin(function);
+		logger.info(function, "api[{}] clientKey[{}] scsEnvId[{}]", new Object[]{api, clientKey, scsEnvId});
 		printCachesStatic("Before");		
 		if ( logger.isTraceEnabled() ) {
 			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
-				logger.trace(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+				logger.trace(function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 			}
 		}
 		if ( null != databaseEvent ) {
 			if ( KeyAndValues.containsKey(clientKey) ) {
-				logger.info(className, function, "clientKey[{}] found in caches, return the value in caches", clientKey);
+				logger.info(function, "clientKey[{}] found in caches, return the value in caches", clientKey);
 				String [] values = KeyAndValues.get(clientKey);
 				databaseEvent.update(clientKey, values);
 			} else {
-				logger.info(className, function, "clientKey[{}] not found in caches, send request to database", clientKey);
+				logger.info(function, "clientKey[{}] not found in caches, send request to database", clientKey);
 				requestStatics.add(new JSONRequest(api, clientKey, scsEnvId, dbaddresses));
 				KeyAndAddress.put(clientKey, dbaddresses);
 				databaseEvents.put(clientKey, databaseEvent);
 			}			
 		} else {
-			logger.warn(className, function, "databaseEvent IS NULL");
+			logger.warn(function, "databaseEvent IS NULL");
 		}		
 		printCachesStatic("After");
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/**
@@ -261,25 +260,25 @@ public class Database implements Connectable_i {
 	 */
 	public void addStaticRequest(String api, String clientKey, String scsEnvId, String dbaddresses, DatabaseEvent databaseEvent) {
 		final String function = "addStaticRequest";
-		logger.begin(dbaddresses, function);
-		logger.info(className, function, "api[{}] clientKey[{}] scsEnvId[{}] dbaddresses[{}]", new Object[]{api, clientKey, scsEnvId, dbaddresses});
+		logger.begin(function);
+		logger.info(function, "api[{}] clientKey[{}] scsEnvId[{}] dbaddresses[{}]", new Object[]{api, clientKey, scsEnvId, dbaddresses});
 		printCachesStatic("Before");
 		if ( null != databaseEvent ) {
 			if ( KeyAndValues.containsKey(clientKey) ) {
-				logger.info(className, function, "clientKey[{}] found in caches, return the value in caches", clientKey);
+				logger.info(function, "clientKey[{}] found in caches, return the value in caches", clientKey);
 				String [] values = KeyAndValues.get(clientKey);
 				databaseEvent.update(clientKey, values);
 			} else {
-				logger.info(className, function, "clientKey[{}] not found in caches, send request to database", clientKey);
+				logger.info(function, "clientKey[{}] not found in caches, send request to database", clientKey);
 				requestStatics.add(new JSONRequest(api, clientKey, scsEnvId, dbaddresses));
 				KeyAndAddress.put(clientKey, new String[]{dbaddresses});
 				databaseEvents.put(clientKey, databaseEvent);
 			}
 		} else {
-			logger.warn(className, function, "databaseEvent IS NULL");
+			logger.warn(function, "databaseEvent IS NULL");
 		}
 		printCachesStatic("After");
-		logger.end(dbaddresses, function);
+		logger.end(function);
 	}
 	
 	/**
@@ -291,17 +290,17 @@ public class Database implements Connectable_i {
 	 */
 	public void addDynamicRequest(String clientKey, String[] dbaddresses, DatabaseEvent databaseEvent) {
 		final String function = "addDynamicRequest";
-		logger.begin(className, function);
-		logger.info(className, function, "clientKey[{}] dbaddresses[{}]", clientKey, dbaddresses);
+		logger.begin(function);
+		logger.info(function, "clientKey[{}] dbaddresses[{}]", clientKey, dbaddresses);
 		if ( null != databaseEvent) {
-			logger.info(className, function, "send request to database", clientKey);
+			logger.info(function, "send request to database", clientKey);
 			requestDynamics.put(clientKey, dbaddresses);
 			KeyAndAddress.put(clientKey, dbaddresses);
 			databaseEvents.put(clientKey, databaseEvent);
 		} else {
-			logger.warn(className, function, "databaseEvent IS NULL");
+			logger.warn(function, "databaseEvent IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/**
@@ -313,17 +312,17 @@ public class Database implements Connectable_i {
 	 */
 	public void subscribe(String clientKey, String[] dbaddresses, DatabaseEvent databaseEvent) {
 		final String function = "subscribe";
-		logger.begin(className, function);
-		logger.info(className, function, "clientKey[{}] dbaddresses[{}]", clientKey, dbaddresses);
+		logger.begin(function);
+		logger.info(function, "clientKey[{}] dbaddresses[{}]", clientKey, dbaddresses);
 		if ( null != databaseEvent) {
-			logger.info(className, function, "send request to database", clientKey);
+			logger.info(function, "send request to database", clientKey);
 			requestDynamics.put(clientKey, dbaddresses);
 			KeyAndAddress.put(clientKey, dbaddresses);
 			databaseEvents.put(clientKey, databaseEvent);
 		} else {
-			logger.warn(className, function, "databaseEvent IS NULL");
+			logger.warn(function, "databaseEvent IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/**
@@ -335,14 +334,14 @@ public class Database implements Connectable_i {
 	 */
 	public void unSubscribe(String clientKey) {
 		final String function = "unSubscribe";
-		logger.begin(className, function);
-		logger.info(className, function, "clientKey[{}]", clientKey);
+		logger.begin(function);
+		logger.info(function, "clientKey[{}]", clientKey);
 		
 		requestDynamics.remove(clientKey);
 		KeyAndAddress.remove(clientKey);
 		databaseEvents.remove(clientKey);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/**
@@ -351,7 +350,7 @@ public class Database implements Connectable_i {
 	@Override
 	public void connect() {
 		final String function = "connect";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		rtdb = new ScsRTDBComponentAccess(new IRTDBComponentClient() {
 
@@ -376,12 +375,12 @@ public class Database implements Connectable_i {
 			@Override
 			public void setReadResult(String key, String[] value, int errorCode, String errorMessage) {
 				final String function = "setReadResult";
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				if ( logger.isTraceEnabled() ) {
-				    logger.trace(className, function, "key[{}] errorCode[{}] errorMessage[{}]", new Object[]{key, errorCode, errorMessage});
+				    logger.trace(function, "key[{}] errorCode[{}] errorMessage[{}]", new Object[]{key, errorCode, errorMessage});
 					for(int i = 0; i < value.length; ++i) {
-						logger.trace(className, function, "value[{}][{}]", i, value[i]);
+						logger.trace(function, "value[{}][{}]", i, value[i]);
 					}
 				}
 		    	
@@ -399,7 +398,7 @@ public class Database implements Connectable_i {
 					}
 				}
 
-				logger.end(className, function);
+				logger.end(function);
 			}
 
 			@Override
@@ -463,12 +462,12 @@ public class Database implements Connectable_i {
 			@Override
 			public void setGetChildrenResult(String clientKey, String[] instances, int errorCode, String errorMessage) {
 				final String function = "setGetChildrenResult";
-				logger.begin(className, function);
+				logger.begin(function);
 
 				if ( logger.isTraceEnabled() ) {
-					logger.trace(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
+					logger.trace(function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
 					for(int i = 0; i < instances.length; ++i) {
-						logger.trace(className, function, "instances[{}][{}]", i, instances[i]);
+						logger.trace(function, "instances[{}][{}]", i, instances[i]);
 					}	
 				}
 		    	
@@ -481,7 +480,7 @@ public class Database implements Connectable_i {
 					databaseEvents.remove(clientKey);
 				}
 				
-				logger.end(className, function);
+				logger.end(function);
 			}
 
 			@Override
@@ -577,7 +576,7 @@ public class Database implements Connectable_i {
 			
 		});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/**
@@ -595,7 +594,7 @@ public class Database implements Connectable_i {
 	 */
 	public void connectTimer(int periodMillis) {
 		final String function = "connectTimer";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( null == timer ) {
 			timer = new Timer() {
@@ -606,7 +605,7 @@ public class Database implements Connectable_i {
 					
 						if ( requestStatics.size() > 0 ) {
 							
-							logger.begin(className, function+" sendJSONRequest");
+							logger.begin(function+" sendJSONRequest");
 							
 							JSONRequest jsonRequest = requestStatics.removeFirst();
 							
@@ -617,7 +616,7 @@ public class Database implements Connectable_i {
 								String scsEnvId = jsonRequest.scsEnvId;
 								String dbaddress = jsonRequest.dbaddress;
 								
-								logger.trace(className, function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
+								logger.trace(function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
 								
 								rtdb.getChildren(clientKey, scsEnvId, dbaddress);
 								
@@ -628,12 +627,12 @@ public class Database implements Connectable_i {
 								String scsEnvId = jsonRequest.scsEnvId;
 								String[] dbaddresses = jsonRequest.dbaddresses;
 								
-								logger.trace(className, function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
+								logger.trace(function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
 								
 								rtdb.multiReadValueRequest(clientKey, scsEnvId, dbaddresses);
 							}
 
-							logger.end(className, function+" sendJSONRequest");
+							logger.end(function+" sendJSONRequest");
 							
 						} else if ( requestDynamics.size() > 0 ) {
 							
@@ -656,7 +655,7 @@ public class Database implements Connectable_i {
 			
 			timer.scheduleRepeating(periodMillis);
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/**
@@ -664,13 +663,13 @@ public class Database implements Connectable_i {
 	 */
 	public void disconnectTimer() {
 		final String function = "disconnectTimer";
-		logger.begin(className, function);
+		logger.begin(function);
 		requestStatics.clear();
 		requestDynamics.clear();
 		
 		if ( null != timer ) timer.cancel();
 		timer = null;
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 
@@ -680,7 +679,7 @@ public class Database implements Connectable_i {
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
-		logger.begin(className, function);
+		logger.begin(function);
 		try {
 			rtdb.terminate();
 		} catch (IllegalStatePresenterException e) {
@@ -688,7 +687,7 @@ public class Database implements Connectable_i {
 			e.printStackTrace();
 		}
 		rtdb=null;
-		logger.end(className, function);
+		logger.end(function);
 	}
 }
 

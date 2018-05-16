@@ -1,9 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.alarm;
 
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.alm.AlmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.mgrfactory.MgrFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Observer;
@@ -13,9 +12,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.ols.OlsMgr_i;
 
 public class AckAlarm {
 	
-	private final String cls = this.getClass().getName();
-	private final String className = UIWidgetUtil.getClassSimpleName(cls);
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private final String strOlsMgr          = AckAlarm_i.STR_OLS_MGR;
 	private final String strOlsMgrKey       = AckAlarm_i.STR_OLS_MGR_KEY;
@@ -36,12 +34,12 @@ public class AckAlarm {
 	
 	private void ackAlarmIds(String[] alarmIds) {
 		final String function = "ackAlarmIds";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( logger.isDebugEnabled() ) {
-			logger.debug(className, function, "alarmIds.length[{}]", alarmIds.length);
+			logger.debug(function, "alarmIds.length[{}]", alarmIds.length);
 			for ( int i = 0 ; i < alarmIds.length ; ++i ) {
-				logger.debug(className, function, "alarmIds[{}][{}]", i, alarmIds[i]);
+				logger.debug(function, "alarmIds[{}][{}]", i, alarmIds[i]);
 			}
 		}
 		
@@ -51,12 +49,12 @@ public class AckAlarm {
 		AlmMgr almMgr = AlmMgr.getInstance(className);
 		almMgr.ackAlarms(key, scsEnvId, alarmIds, comment, inUserId);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void ack(int[] alarmIds) {
 		final String function = "ack";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( null != alarmIds ) {
 			String [] strAlarmIds = null;
@@ -66,25 +64,25 @@ public class AckAlarm {
 					strAlarmIds[i] = String.valueOf(alarmIds[i]);
 				}
 			} else {
-				logger.warn(className, function, "alarmIds.length < 0");
+				logger.warn(function, "alarmIds.length < 0");
 			}
 			
 			if ( null != strAlarmIds ) {
 				ackAlarmIds(strAlarmIds);
 			} else {
-				logger.warn(className, function, "strAlarmIds IS NULL");
+				logger.warn(function, "strAlarmIds IS NULL");
 			}
 			
 		} else {
-			logger.warn(className, function, "alarmIds IS NULL");
+			logger.warn(function, "alarmIds IS NULL");
 		}
 	
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private Subject getSubject() {
 		final String function = "getSubject";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		Subject subject = new Subject();
 		Observer observer = new Observer() {
@@ -98,36 +96,36 @@ public class AckAlarm {
 			@Override
 			public void update() {
 				
-				logger.begin(className, function);
-				logger.debug(className, function, "this.subject.getState()[{}]", this.subject.getState());
+				logger.begin(function);
+				logger.debug(function, "this.subject.getState()[{}]", this.subject.getState());
 				
 				ack(ReadJson.readIntsFromArray(ReadJson.readArray(this.subject.getState(), OlsMgr_i.FIELD_DATA), strAlarmField));
 				
-				logger.end(className, function);
+				logger.end(function);
 			}
 
 		};
 		observer.setSubject(subject);
 
-		logger.end(className, function);
+		logger.end(function);
 		
 		return subject;
 	}
 
 	public void ack(String[] alarmDBAddresses) {
 		final String function = "ack";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( null != alarmDBAddresses ) {
 			
 			if ( logger.isDebugEnabled() ) {
-				logger.debug(className, function, "alarmDBAddresses.length[{}]", alarmDBAddresses.length);
+				logger.debug(function, "alarmDBAddresses.length[{}]", alarmDBAddresses.length);
 				for ( int i = 0 ; i < alarmDBAddresses.length ; ++i ) {
-					logger.debug(className, function, "alarmDBAddresses[{}][{}]", i, alarmDBAddresses[i]);
+					logger.debug(function, "alarmDBAddresses[{}][{}]", i, alarmDBAddresses[i]);
 				}
 			}
 
-			logger.debug(className, function, "strOlsMgr[{}] strOlsMgrKey[{}]", strOlsMgr, strOlsMgrKey);
+			logger.debug(function, "strOlsMgr[{}] strOlsMgrKey[{}]", strOlsMgr, strOlsMgrKey);
 			
 			OlsMgr olsMgr = (OlsMgr) MgrFactory.getInstance().getMgr(strOlsMgr, strOlsMgrKey);
 			
@@ -137,15 +135,15 @@ public class AckAlarm {
 			
 			final String subjectKey = clientKey+olsApi;
 			
-			logger.debug(className, function, "subjectKey[{}]", subjectKey);
+			logger.debug(function, "subjectKey[{}]", subjectKey);
 			
 			olsMgr.setSubject(subjectKey, getSubject());
 
 			final String fieldList[] = new String[]{strAlarmField};
 			
-			logger.debug(className, function, "strFilterMsgLike[{}]", strFilterMsgLike);
-			logger.debug(className, function, "strKeyword[{}]", strKeyword);
-			logger.debug(className, function, "strFilter[{}]", strFilter);
+			logger.debug(function, "strFilterMsgLike[{}]", strFilterMsgLike);
+			logger.debug(function, "strKeyword[{}]", strKeyword);
+			logger.debug(function, "strFilter[{}]", strFilter);
 
 			String filters = null;
 			String filterItems = "";
@@ -156,17 +154,17 @@ public class AckAlarm {
 			if ( filterItems.length() > 0 ) {
 				filters = strFilter.replace(strKeyword, filterItems);
 			}
-			logger.debug(className, function, "filters[{}]", filters);
+			logger.debug(function, "filters[{}]", filters);
 			
 			if ( null != filters ) {
 				olsMgr.readData(clientKey, scsEnvId, strAlmServer, strListName, fieldList, filters);
 			} else {
-				logger.warn(className, function, "filters IS NULL, SKIP TO GET Alarm IDs");
+				logger.warn(function, "filters IS NULL, SKIP TO GET Alarm IDs");
 			}
 		} else {
-			logger.warn(className, function, "alarmDBAddresses IS NULL");
+			logger.warn(function, "alarmDBAddresses IS NULL");
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

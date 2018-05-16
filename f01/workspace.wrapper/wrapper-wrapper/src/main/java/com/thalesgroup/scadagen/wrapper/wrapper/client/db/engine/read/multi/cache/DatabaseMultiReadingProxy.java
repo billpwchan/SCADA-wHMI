@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.Multi2MultiResponsible_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.DatabaseMultiReading;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
@@ -18,11 +18,10 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEve
  *
  */
 public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, Multi2MultiResponsible_i {
-	
-	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
 
-	protected HashMap<String, ReadingRequest> requests = new HashMap<String, ReadingRequest>();
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
+
+	protected Map<String, ReadingRequest> requests = new HashMap<String, ReadingRequest>();
 	
 	/**
 	 * Instance for the database
@@ -49,9 +48,9 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, Multi2Mul
 	@Override
 	public void connect() {
 		final String function = "connect";
-		logger.begin(className, function);
+		logger.begin(function);
 		databaseReading.connect();
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/* (non-Javadoc)
@@ -60,10 +59,10 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, Multi2Mul
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
-		logger.begin(className, function);
+		logger.begin(function);
 		requests.clear();
 		databaseReading.disconnect();
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/* (non-Javadoc)
@@ -73,11 +72,11 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, Multi2Mul
 	public void addMultiReadValueRequest(String clientKey, String scsEnvId, String[] dbAddresses,
 			DatabasePairEvent_i databaseEvent) {
 		final String function = "addMultiReadValueRequest";
-		logger.begin(className, function);
-		logger.debug(className, function, "clientKey[{}]", clientKey);
+		logger.begin(function);
+		logger.debug(function, "clientKey[{}]", clientKey);
 		if ( logger.isDebugEnabled() ) {
 			for ( String address : dbAddresses ) {
-				logger.debug(className, function, "address[{}]", address);
+				logger.debug(function, "address[{}]", address);
 			}
 		}
 		
@@ -130,9 +129,9 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, Multi2Mul
 				});
 			}
 		} else {
-			logger.warn(className, function, "databaseEvent IS NULL");
+			logger.warn(function, "databaseEvent IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/* (non-Javadoc)
@@ -141,12 +140,12 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, Multi2Mul
 	@Override
 	public void buildRespond(String clientKey, String[] dbAddresses, String[] values) {
 		final String function = "buildReponse";
-		logger.begin(className, function);
-		logger.info(className, function, "clientKey[{}]", clientKey);
+		logger.begin(function);
+		logger.info(function, "clientKey[{}]", clientKey);
 		ReadingRequest rq = requests.get(clientKey);
 		rq.databaseEvent.update(clientKey, dbAddresses, values);
 		requests.remove(clientKey);
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

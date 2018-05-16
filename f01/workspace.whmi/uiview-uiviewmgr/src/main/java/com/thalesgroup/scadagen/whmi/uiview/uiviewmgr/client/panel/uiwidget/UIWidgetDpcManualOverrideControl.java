@@ -11,9 +11,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
@@ -37,8 +36,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DpcMgr;
 
 public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetDpcManualOverrideControl.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private DpcMgr dpcMgr				= null;
 	
@@ -77,24 +76,24 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 	
 	private void updateDropDownListBox(String key, String[] dbAddresses, String[] dbValues) {
 		final String function = "updateDropDownListBox";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String address = this.address;
 
 		// ACI, SCI Show the TextBox
 		// DCI, Show the ListBox and store the valueTable
 		
-		logger.info(className, function, "address[{}]", address);
+		logger.info(function, "address[{}]", address);
 		
 		if ( null != address ) {
 			
 			String point = DatabaseHelper.getPointFromAliasAddress(address);
 			
-			logger.info(className, function, "point[{}]", point);
+			logger.info(function, "point[{}]", point);
 			
 			PointType pointType = DatabaseHelper.getPointType(point);
 			
-			logger.info(className, function, "pointType[{}]", pointType);
+			logger.info(function, "pointType[{}]", pointType);
 			
 			if ( PointType.dci == pointType ) {
 
@@ -107,7 +106,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 				if ( null != targetValue ) {
 					// Update the Label
 					String valueTable = targetValue;
-					logger.debug(className, function, "valueTable[{}]", valueTable);
+					logger.debug(function, "valueTable[{}]", valueTable);
 
 					int valueCol = 0, labelCol = 1;
 					String labels[]	= new String[12];
@@ -130,10 +129,10 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 							break;
 						}
 							
-						logger.info(className, function, "names[{}][{}] values[{}][{}]", new Object[]{r, labels[r], r, values[r]});
+						logger.info(function, "names[{}][{}] values[{}][{}]", new Object[]{r, labels[r], r, values[r]});
 					}
 				} else {
-					logger.warn(className, function, "valueTable IS NULL!");
+					logger.warn(function, "valueTable IS NULL!");
 				}
 				
 			} else if ( PointType.aci == pointType ) {
@@ -144,7 +143,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 				// Update the Label
 				String targetDbAddress = address+strValue;
 				String targetValue = DatabaseHelper.getFromPairArray(targetDbAddress, dbAddresses, dbValues);
-				logger.debug(className, function, "targetValue[{}]", targetValue);
+				logger.debug(function, "targetValue[{}]", targetValue);
 				
 				txtValues.setText(targetValue);
 				
@@ -155,21 +154,21 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 
 				String targetDbAddress = address+strValue;
 				String targetValue = DatabaseHelper.getFromPairArray(targetDbAddress, dbAddresses, dbValues);
-				logger.debug(className, function, "targetValue[{}]", targetValue);
+				logger.debug(function, "targetValue[{}]", targetValue);
 				
 				txtValues.setText(targetValue);
 				
 			}
 		} else {
-			logger.warn(className, function, "address IS NULL");
+			logger.warn(function, "address IS NULL");
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void readPointValueTable(String dbScsEnvId, String dbaddress) {
 		final String function = "readPointValueTable";
-		logger.begin(className, function);
+		logger.begin(function);
 		String[] dbaddresses = null;
 		
 		if ( null != dbScsEnvId && null != dbaddress ) {
@@ -177,7 +176,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 			ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
 
 			String point = DatabaseHelper.getPointFromAliasAddress(dbaddress);
-			logger.info(className, function, "dbaddress[{}] point[{}]", dbaddress, point);
+			logger.info(function, "dbaddress[{}] point[{}]", dbaddress, point);
 			if ( null != point ) {
 				PointType pointType = DatabaseHelper.getPointType(point);
 				if ( pointType == PointType.dci ) {
@@ -193,7 +192,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 						dbaddressesArrayList.add(dbaddress+attribute);
 					}
 				} else {
-					logger.warn(className, function, "dbaddress IS UNKNOW TYPE");
+					logger.warn(function, "dbaddress IS UNKNOW TYPE");
 				}
 			}
 
@@ -209,12 +208,12 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 			
 			String clientKey = ck.getClientKey();
 			
-			logger.info(className, function, "clientKey[{}]", clientKey);
+			logger.info(function, "clientKey[{}]", clientKey);
 			
 			if (logger.isDebugEnabled() ) {
-				logger.debug(className, function, "clientKey[{}] scsEnvId[{}]", clientKey, scsEnvId);
+				logger.debug(function, "clientKey[{}] scsEnvId[{}]", clientKey, scsEnvId);
 				for(int i = 0; i < dbaddresses.length; ++i ) {
-					logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+					logger.debug(function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 				}
 			}
 			
@@ -233,7 +232,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 					
 					String clientKey = ck.getClientKey();
 					
-					logger.info(className, function, "key[{}] clientKey[{}]", key, clientKey);
+					logger.info(function, "key[{}] clientKey[{}]", key, clientKey);
 					
 					if ( clientKey.equals(key) ) {
 						updateDropDownListBox(key, dbAddresses, values);
@@ -242,10 +241,10 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 			});
 			
 		} else {
-			logger.warn(className, function, "dbScsEnvId OR dbaddress IS NULL");
+			logger.warn(function, "dbScsEnvId OR dbaddress IS NULL");
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
@@ -253,7 +252,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 		super.init();
 		
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -280,13 +279,13 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 			public void onClick(ClickEvent event) {
 				final String function = "onClick";
 				
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
 						String element = uiGeneric.getWidgetElement(widget);
-						logger.info(className, function, "element[{}]", element);
+						logger.info(function, "element[{}]", element);
 						if ( null != element ) {
 							String actionsetkey = element;
 							
@@ -299,7 +298,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 									// TODO Auto-generated method stub
 									String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
 									
-									logger.info(className, function, "os1[{}]", os1);
+									logger.info(function, "os1[{}]", os1);
 									
 									if ( null != os1 ) {
 										if ( os1.equals("SendDpcManualControl") ) {
@@ -308,56 +307,56 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 												String selectedAlias = hashMap.get(columnAlias);
 												String selectedServiceOwner = hashMap.get(columnServiceOwner);
 												
-												logger.info(className, function, "selectedAlias[{}] selectedServiceOwner[{}]", selectedAlias, selectedServiceOwner);
+												logger.info(function, "selectedAlias[{}] selectedServiceOwner[{}]", selectedAlias, selectedServiceOwner);
 												
 												scsEnvId = selectedServiceOwner;
 												address = selectedAlias;
 												
 												if ( null != scsEnvId && null != address ) {
 													
-													logger.info(className, function, "alias BF [{}]", address);
+													logger.info(function, "alias BF [{}]", address);
 
 													if ( ! selectedAlias.startsWith("<alias>") ) address = "<alias>" + selectedAlias;
 													
-													logger.info(className, function, "alias AF [{}]", address);
+													logger.info(function, "alias AF [{}]", address);
 													
 													WidgetStatus curStatusSet = uiGeneric.getWidgetStatus(strSet);
 													boolean isApply = false;
 													if ( WidgetStatus.Down == curStatusSet ) {
 														isApply = true;
 													}
-													logger.info(className, function, "isApply[{}]", isApply);
+													logger.info(function, "isApply[{}]", isApply);
 						
 													String key = "changeEqpStatus" + "_"+ className + "_"+ "manualoverride" + "_"+ isApply + "_" + address;
 													
 													String point = DatabaseHelper.getPointFromAliasAddress(address);
-													logger.info(className, function, "address[{}] point[{}]", address, point);
+													logger.info(function, "address[{}] point[{}]", address, point);
 													if ( null != point ) {
 														PointType pointType = DatabaseHelper.getPointType(point);
-														logger.info(className, function, "pointType[{}]", pointType);
+														logger.info(function, "pointType[{}]", pointType);
 														if ( pointType == PointType.dci ) {
 															int value = lstValues.getSelectedIndex();
-															logger.info(className, function, "scsEnvIdscsEnvIdvalue[{}]", value);
+															logger.info(function, "scsEnvIdscsEnvIdvalue[{}]", value);
 															dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
 														} else if ( pointType == PointType.aci ) {
 															float value = 0.0f;
 															try {
 																value = Float.parseFloat(txtValues.getText());
 															} catch (NumberFormatException e) {
-																logger.warn(className, function, "NumberFormatException[{}]", e.toString());
+																logger.warn(function, "NumberFormatException[{}]", e.toString());
 															}
-															logger.info(className, function, "value[{}]", value);
+															logger.info(function, "value[{}]", value);
 															dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
 														} else if ( pointType == PointType.sci ) {
 															String value = txtValues.getText();
-															logger.info(className, function, "value[{}]", value);
+															logger.info(function, "value[{}]", value);
 															dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
 														} else {
-															logger.warn(className, function, "dbaddress IS UNKNOW TYPE");
+															logger.warn(function, "dbaddress IS UNKNOW TYPE");
 														}
 													}
 												} else {
-													logger.warn(className, function, "scsEnvId OR address IS NULL");
+													logger.warn(function, "scsEnvId OR address IS NULL");
 												}
 
 											}
@@ -371,7 +370,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 					}
 				}
 				
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
@@ -379,11 +378,11 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 			public void onActionReceived(UIEventAction uiEventAction) {
 				final String function = "onActionReceived";
 				
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 				
-				logger.info(className, function, "os1["+os1+"]");
+				logger.info(function, "os1["+os1+"]");
 				
 				if ( null != os1 ) {
 					
@@ -413,20 +412,20 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 										String selectedAlias = hashMap.get(columnAlias);
 										String selectedServiceOwner = hashMap.get(columnServiceOwner);
 										
-										logger.info(className, function, "selectedAlias[{}] selectedServiceOwner[{}]", selectedAlias, selectedServiceOwner);
+										logger.info(function, "selectedAlias[{}] selectedServiceOwner[{}]", selectedAlias, selectedServiceOwner);
 										
-										logger.info(className, function, "selectedAlias BF [{}]", selectedAlias);
+										logger.info(function, "selectedAlias BF [{}]", selectedAlias);
 										
 										if ( ! selectedAlias.startsWith("<alias>") ) selectedAlias = "<alias>" + selectedAlias;
 										
-										logger.info(className, function, "selectedAlias AF [{}]", selectedAlias);
+										logger.info(function, "selectedAlias AF [{}]", selectedAlias);
 										
 										scsEnvId = selectedServiceOwner;
 										address = selectedAlias;
 
 										selectedStatus1 = hashMap.get(columnStatus);
 									} else {
-										logger.warn(className, function, "hashMap IS NULL");
+										logger.warn(function, "hashMap IS NULL");
 									}
 									
 
@@ -448,24 +447,24 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 										}
 									}
 								} else {
-									logger.warn(className, function, "scsEnvId OR address IS NULL");
+									logger.warn(function, "scsEnvId OR address IS NULL");
 								}
 										
 
 							} else {
-								logger.warn(className, function, "selectedSet IS NULL");
+								logger.warn(function, "selectedSet IS NULL");
 							}
 							
 						} else {
-							logger.warn(className, function, "obj1 IS NULL");
+							logger.warn(function, "obj1 IS NULL");
 						}
 
 					} else {
 						// General Case
 						String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 						
-						logger.info(className, function, "oe ["+oe+"]");
-						logger.info(className, function, "os1["+os1+"]");
+						logger.info(function, "oe ["+oe+"]");
+						logger.info(function, "os1["+os1+"]");
 						
 						if ( null != oe ) {
 							if ( oe.equals(element) ) {
@@ -475,7 +474,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 					}
 				}
 
-				logger.end(className, function);
+				logger.end(function);
 			}
 		};
 		
@@ -489,43 +488,43 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 			@Override
 			public void envUp(String env) {
 				final String function = "envUp";
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				dpcMgr = DpcMgr.getInstance(className);
 				
 				String strDatabaseMultiReadingProxyKey = "DatabaseMultiReadingProxy";
-				logger.debug(className, function, "strDatabaseMultiReadingProxyKey[{}]", strDatabaseMultiReadingProxyKey);
+				logger.debug(function, "strDatabaseMultiReadingProxyKey[{}]", strDatabaseMultiReadingProxyKey);
 				if ( null == databaseMultiRead_i ) {
 					databaseMultiRead_i = DatabaseMultiReadFactory.get(strDatabaseMultiReadingProxyKey);
 					if ( null != databaseMultiRead_i ) {
 						databaseMultiRead_i.connect();
 					}
 				} else {
-					logger.warn(className, function, "databaseMultiRead_i IS NOT NULL");
+					logger.warn(function, "databaseMultiRead_i IS NOT NULL");
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
 			public void envDown(String env) {
 				final String function = "envDown";
-				logger.begin(className, function);
+				logger.begin(function);
 				if ( null != databaseMultiRead_i ) {
 					databaseMultiRead_i.disconnect();
 					databaseMultiRead_i = null;
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
 			public void terminate() {
 				final String function = "terminate";
-				logger.begin(className, function);
+				logger.begin(function);
 				envDown(null);
-				logger.end(className, function);
+				logger.end(function);
 			}
 		};
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

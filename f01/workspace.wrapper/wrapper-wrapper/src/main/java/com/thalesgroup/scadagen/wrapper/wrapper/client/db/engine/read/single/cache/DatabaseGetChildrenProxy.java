@@ -1,8 +1,10 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.cache;
 
 import java.util.HashMap;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import java.util.Map;
+
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseReadSingle2MultiEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingle2MultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.Single2MultiResponsible_i;
@@ -15,11 +17,10 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.Dat
  *
  */
 public class DatabaseGetChildrenProxy implements DatabaseSingle2MultiRead_i, Single2MultiResponsible_i {
+
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
-	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
-	
-	protected HashMap<String, ReadingRequest> requests = new HashMap<String, ReadingRequest>();
+	protected Map<String, ReadingRequest> requests = new HashMap<String, ReadingRequest>();
 	
 	/**
 	 * Instance for the database
@@ -46,9 +47,9 @@ public class DatabaseGetChildrenProxy implements DatabaseSingle2MultiRead_i, Sin
 	@Override
 	public void connect() {
 		final String function = "connect";
-		logger.begin(className, function);
+		logger.begin(function);
 		databaseReading.connect();
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/* (non-Javadoc)
@@ -57,10 +58,10 @@ public class DatabaseGetChildrenProxy implements DatabaseSingle2MultiRead_i, Sin
 	@Override
 	public void disconnect() {
 		final String function = "connect";
-		logger.begin(className, function);
+		logger.begin(function);
 		requests.clear();
 		databaseReading.disconnect();
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/* (non-Javadoc)
@@ -70,9 +71,9 @@ public class DatabaseGetChildrenProxy implements DatabaseSingle2MultiRead_i, Sin
 	public void addSingle2MultiRequest(String clientKey, String scsEnvId, String dbAddress,
 			DatabaseReadSingle2MultiEvent_i databaseEvent) {
 		final String function = "addGetChildrenRequest";
-		logger.debug(className, function, "clientKey[{}]", clientKey);
+		logger.debug(function, "clientKey[{}]", clientKey);
 		if ( logger.isDebugEnabled() ) {
-			logger.debug(className, function, "dbAddress[{}]", dbAddress);
+			logger.debug(function, "dbAddress[{}]", dbAddress);
 		}
 		
 		if ( null != databaseEvent ) {
@@ -80,11 +81,11 @@ public class DatabaseGetChildrenProxy implements DatabaseSingle2MultiRead_i, Sin
 			ReadingRequest rq = new ReadingRequest(clientKey, scsEnvId, dbAddress, databaseEvent);
 			requests.put(clientKey, rq);
 			
-			HashMap<String, HashMap<String, String[]>> caches = DatabaseGetChildrenCache.getInstance().getCaches();
+			Map<String, Map<String, String[]>> caches = DatabaseGetChildrenCache.getInstance().getCaches();
 			if ( ! caches.containsKey(scsEnvId) ) {
 				caches.put(scsEnvId, new HashMap<String, String[]>());
 			}
-			HashMap<String, String[]> cache = caches.get(scsEnvId);
+			Map<String, String[]> cache = caches.get(scsEnvId);
 
 			String [] v = cache.get(dbAddress);
 
@@ -99,8 +100,8 @@ public class DatabaseGetChildrenProxy implements DatabaseSingle2MultiRead_i, Sin
 					@Override
 					public void update(String clientKey, String[] values) {
 						ReadingRequest rq = requests.get(clientKey);
-						HashMap<String, HashMap<String, String[]>> caches = DatabaseGetChildrenCache.getInstance().getCaches();
-						HashMap<String, String[]> vs = caches.get(rq.scsEnvId);
+						Map<String, Map<String, String[]>> caches = DatabaseGetChildrenCache.getInstance().getCaches();
+						Map<String, String[]> vs = caches.get(rq.scsEnvId);
 						String dbAddress = rq.dbAddress;
 						vs.put(dbAddress, values);
 						buildRespond(clientKey, dbAddress, values);
@@ -108,9 +109,9 @@ public class DatabaseGetChildrenProxy implements DatabaseSingle2MultiRead_i, Sin
 				});
 			}
 		} else {
-			logger.warn(className, function, "databaseEvent IS NULL");
+			logger.warn(function, "databaseEvent IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/* (non-Javadoc)
@@ -119,11 +120,11 @@ public class DatabaseGetChildrenProxy implements DatabaseSingle2MultiRead_i, Sin
 	@Override
 	public void buildRespond(String clientKey, String dbAddress, String[] values) {
 		final String function = "buildReponse";
-		logger.begin(className, function);
-		logger.info(className, function, "clientKey[{}]", clientKey);
+		logger.begin(function);
+		logger.info(function, "clientKey[{}]", clientKey);
 		ReadingRequest rq = requests.get(clientKey);
 		rq.databaseEvent.update(clientKey, values);
 		requests.remove(clientKey);
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

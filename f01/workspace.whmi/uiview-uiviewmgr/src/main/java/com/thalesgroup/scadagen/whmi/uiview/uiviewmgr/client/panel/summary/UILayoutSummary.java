@@ -4,9 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
@@ -23,8 +22,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListP
 
 public class UILayoutSummary extends UIWidget_i {
 
-	private final String className = UIWidgetUtil.getClassSimpleName(UILayoutSummary.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private UILayoutGeneric uiLayoutGeneric = null;
 		
@@ -57,9 +56,9 @@ public class UILayoutSummary extends UIWidget_i {
 	public void init() {
 		final String function = "init";
 
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.info(className, function, "LAST_COMPILATION[{}]", LastCompilation.get());
+		logger.info(function, "LAST_COMPILATION[{}]", LastCompilation.get());
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
@@ -82,7 +81,7 @@ public class UILayoutSummary extends UIWidget_i {
 			disableEnvUpDelay	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DisableEnvUpDelay.toString(), strHeader);
 		}
 		
-		logger.info(className, function, "eventBusName[{}] eventBusScope[{}]", eventBusName, eventBusScope);
+		logger.info(function, "eventBusName[{}] eventBusScope[{}]", eventBusName, eventBusScope);
 
 		if ( null == eventBusName || eventBusName.trim().length() == 0) {
 			eventBusName = this.viewXMLFile;
@@ -91,7 +90,7 @@ public class UILayoutSummary extends UIWidget_i {
 		} else {
 			eventBusName = eventBusName + "_" + uiNameCard.getUiScreen();
 		}
-		logger.info(className, function, "eventBusName[{}]", eventBusName);
+		logger.info(function, "eventBusName[{}]", eventBusName);
 		
 		UIEventActionBus uiEventActionBus = UIEventActionBus.getInstance();
 		uiEventActionBus.resetEventBus(eventBusName);
@@ -130,7 +129,7 @@ public class UILayoutSummary extends UIWidget_i {
 					try { 
 						iInitDelay = Integer.parseInt(initDelayMS);
 					} catch ( NumberFormatException ex ) {
-						logger.warn(className, function, "Value of initdelayms[{}] IS INVALID", initDelayMS);
+						logger.warn(function, "Value of initdelayms[{}] IS INVALID", initDelayMS);
 					}
 				}
 				if ( null != initDelay ) {
@@ -150,7 +149,7 @@ public class UILayoutSummary extends UIWidget_i {
 					try { 
 						iEnvUpdelay = Integer.parseInt(envUpDelayMS);
 					} catch ( NumberFormatException ex ) {
-						logger.warn(className, function, "Value of envUpDelayMS[{}] IS INVALID", envUpDelayMS);
+						logger.warn(function, "Value of envUpDelayMS[{}] IS INVALID", envUpDelayMS);
 					}
 				}
 				if ( null != envUpDelay ) {
@@ -165,16 +164,16 @@ public class UILayoutSummary extends UIWidget_i {
 			}
 			
 		} else {
-			logger.warn(className, function, "uiEventActionProcessor_i IS NULL");
+			logger.warn(function, "uiEventActionProcessor_i IS NULL");
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
 	public void envUp(String env) {
 		final String function = "envUp";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( null != uiEventActionProcessor_i) {
 			
@@ -192,13 +191,13 @@ public class UILayoutSummary extends UIWidget_i {
 			uiEventActionProcessor_i.executeActionSet(actionkey, override);
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
 	public void envDown(String env) {
 		final String function = "envDown";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( null != uiEventActionProcessor_i) {
 			
@@ -216,13 +215,13 @@ public class UILayoutSummary extends UIWidget_i {
 			uiEventActionProcessor_i.executeActionSet(actionkey, override);
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
 	public void terminate() {
 		final String function = "terminate";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( null != uiEventActionProcessor_i) {
 			String actionkey = terminate;
@@ -232,18 +231,18 @@ public class UILayoutSummary extends UIWidget_i {
 			uiEventActionProcessor_i.executeActionSet(actionkey);
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	protected void initFactorys () {
 		final String function = "initFactorys";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		UILayoutSummaryFactoryDepot factoryDepot = new UILayoutSummaryFactoryDepot();
 		factoryDepot.setParameter(WidgetParameterName.SimpleEventBus.toString(), eventBusName);
 		factoryDepot.setParameter(WidgetParameterName.ScsEnvIds.toString(), scsEnvIds);
 		factoryDepot.init();
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

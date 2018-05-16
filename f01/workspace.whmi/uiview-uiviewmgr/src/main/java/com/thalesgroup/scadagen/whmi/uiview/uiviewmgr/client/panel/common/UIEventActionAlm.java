@@ -3,8 +3,8 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionAlm_i.UIEventActionAlmAction;
@@ -15,8 +15,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 
 public class UIEventActionAlm extends UIEventActionExecute_i {
-	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionAlm.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private final String STR_GET_OPERATOR		= "%GETOPERATOR%";
 	private final String STR_GET_PROFILE		= "%GETPROFILE%";
@@ -35,7 +35,7 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 	@Override
 	public boolean executeAction(UIEventAction action, Map<String, Map<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		boolean bContinue = true;
 		
@@ -52,7 +52,7 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 			for ( Entry<String, Object> entry : action.getParameters() ) {
 				String key = entry.getKey();
 				Object obj = entry.getValue();
-				logger.debug(className, function, "key[{}] obj[{}]", key, obj);
+				logger.debug(function, "key[{}] obj[{}]", key, obj);
 			}
 		}
 		
@@ -68,7 +68,7 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 			extSourceId		= Integer.parseInt(strExtSourceId);
 			isValid = true;
 		} catch ( NumberFormatException ex ) {
-			logger.warn(className, function, "strClassId[}] strObjectId[{}] strExtSourceId[{}] IS INVALID", new Object[]{strClassId, strObjectId, strExtSourceId});
+			logger.warn(function, "strClassId[}] strObjectId[{}] strExtSourceId[{}] IS INVALID", new Object[]{strClassId, strObjectId, strExtSourceId});
 		}
 		if ( isValid ) {
 			AlmMgr almMgr = AlmMgr.getInstance(className); 
@@ -86,15 +86,15 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 				if ( Boolean.parseBoolean(strIsAlarm) ) isAlarm = true;
 				
 				strMessage = replaceOpmKeyword(strOpmApi, strMessage);
-				logger.debug(className, function, "strMessage[{}]", strMessage);
+				logger.debug(function, "strMessage[{}]", strMessage);
 				
 				strScsEnvId = replaceOpmKeyword(strOpmApi, strScsEnvId);
 				if ( 0 == strScsEnvId.compareTo(STR_GET_ENV) ) { strScsEnvId = strOpmOptEnv; }
-				logger.debug(className, function, "strScsEnvId[{}]", strScsEnvId);
+				logger.debug(function, "strScsEnvId[{}]", strScsEnvId);
 				
 				strPointAlias = replaceOpmKeyword(strOpmApi, strPointAlias);
 				if ( 0 == strPointAlias.compareTo(STR_GET_ALIAS) ) { strPointAlias = strOpmOptAlias; }
-				logger.debug(className, function, "strPointAlias[{}]", strPointAlias);
+				logger.debug(function, "strPointAlias[{}]", strPointAlias);
 				
 				almMgr.notifyExternalAlarm(strKey, strScsEnvId
 						, strConfigFileName, classId, strPointAlias
@@ -109,15 +109,15 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 				String strOpmOptAlias		= (String) action.getParameter(ActionAttribute.OperationString12.toString());
 				
 				strMessage = replaceOpmKeyword(strOpmApi, strMessage);
-				logger.debug(className, function, "strMessage[{}]", strMessage);
+				logger.debug(function, "strMessage[{}]", strMessage);
 				
 				strScsEnvId = replaceOpmKeyword(strOpmApi, strScsEnvId);
 				if ( 0 == strScsEnvId.compareTo(STR_GET_ENV) ) { strScsEnvId = strOpmOptEnv; }
-				logger.debug(className, function, "strScsEnvId[{}]", strScsEnvId);
+				logger.debug(function, "strScsEnvId[{}]", strScsEnvId);
 				
 				strPointAlias = replaceOpmKeyword(strOpmApi, strPointAlias);
 				if ( 0 == strPointAlias.compareTo(STR_GET_ALIAS) ) { strPointAlias = strOpmOptAlias; }
-				logger.debug(className, function, "strPointAlias[{}]", strPointAlias);
+				logger.debug(function, "strPointAlias[{}]", strPointAlias);
 				
 				almMgr.notifyExternalEvent(strKey, strScsEnvId
 		    			, strConfigFileName, classId, strPointAlias
@@ -126,78 +126,78 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 			}
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		return bContinue;
 	}
 	
 	public String replaceOpmKeyword(String strOpmApi, String strMessage) {
 		final String function = "replaceOpmKeyword";
-		logger.begin(className, function);
-		logger.debug(className, function, "strOpmApi[{}] strMessage[{}]", strOpmApi, strMessage);
+		logger.begin(function);
+		logger.debug(function, "strOpmApi[{}] strMessage[{}]", strOpmApi, strMessage);
 		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(strOpmApi);
 		if ( null != uiOpm_i ) {
-			logger.debug(className, function, "call opm_i login");
+			logger.debug(function, "call opm_i login");
 			
 			String strOperator = uiOpm_i.getCurrentOperator();
 			if ( null != strOperator ) {
-				logger.debug(className, function, logPrefix+"STR_GET_OPERATOR[{}] strProfile[{}]", STR_GET_OPERATOR, strOperator);
+				logger.debug(function, logPrefix+"STR_GET_OPERATOR[{}] strProfile[{}]", STR_GET_OPERATOR, strOperator);
 				strMessage = UIWidgetUtil.replaceKeyword(strMessage, STR_GET_OPERATOR, strOperator);
-				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
+				logger.debug(function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
-				logger.warn(className, function, logPrefix+"strOperator IS NULL");
+				logger.warn(function, logPrefix+"strOperator IS NULL");
 			}
 
 			String strProfile = uiOpm_i.getCurrentProfile();
 			if ( null != strProfile ) {
-				logger.debug(className, function, logPrefix+"STR_GET_PROFILE[{}] strProfile[{}]", STR_GET_PROFILE, strProfile);
+				logger.debug(function, logPrefix+"STR_GET_PROFILE[{}] strProfile[{}]", STR_GET_PROFILE, strProfile);
 				strMessage = UIWidgetUtil.replaceKeyword(strMessage, STR_GET_PROFILE, strProfile);
-				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
+				logger.debug(function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
-				logger.warn(className, function, logPrefix+"strProfile IS NULL");
+				logger.warn(function, logPrefix+"strProfile IS NULL");
 			}
 			
 			String strIPAddress = uiOpm_i.getCurrentIPAddress();
 			if ( null != strIPAddress ) {
-				logger.debug(className, function, logPrefix+"STR_GET_IPADDRESS[{}] strWorkstation[{}]", STR_GET_IPADDRESS, strIPAddress);
+				logger.debug(function, logPrefix+"STR_GET_IPADDRESS[{}] strWorkstation[{}]", STR_GET_IPADDRESS, strIPAddress);
 				strMessage = UIWidgetUtil.replaceKeyword(strMessage, STR_GET_IPADDRESS, strIPAddress);
-				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
+				logger.debug(function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
-				logger.warn(className, function, logPrefix+"strIPAddress IS NULL");
+				logger.warn(function, logPrefix+"strIPAddress IS NULL");
 			}
 
 			String strHostName = uiOpm_i.getCurrentHostName();
 			if ( null != strHostName ) {
-				logger.debug(className, function, logPrefix+"STR_GET_HOSTNAME[{}] strHostName[{}]", STR_GET_HOSTNAME, strHostName);
+				logger.debug(function, logPrefix+"STR_GET_HOSTNAME[{}] strHostName[{}]", STR_GET_HOSTNAME, strHostName);
 				strMessage = UIWidgetUtil.replaceKeyword(strMessage, STR_GET_HOSTNAME, strHostName);
-				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
+				logger.debug(function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
-				logger.warn(className, function, logPrefix+"strHostName IS NULL");
+				logger.warn(function, logPrefix+"strHostName IS NULL");
 			}
 			
 			String strEnv = uiOpm_i.getCurrentEnv();
 			if ( null != strEnv ) {
-				logger.debug(className, function, logPrefix+"STR_GET_ENV[{}] strEnv[{}]", STR_GET_ENV, strEnv);
+				logger.debug(function, logPrefix+"STR_GET_ENV[{}] strEnv[{}]", STR_GET_ENV, strEnv);
 				strMessage = UIWidgetUtil.replaceKeyword(strMessage, STR_GET_ENV, strEnv);
-				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
+				logger.debug(function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
-				logger.warn(className, function, logPrefix+"strEnv IS NULL");
+				logger.warn(function, logPrefix+"strEnv IS NULL");
 			}
 
 			String strAlias = uiOpm_i.getCurrentAlias();
 			if ( null != strAlias ) {
-				logger.debug(className, function, logPrefix+"STR_GET_ALIAS[{}] strAlias[{}]", STR_GET_ALIAS, strAlias);
+				logger.debug(function, logPrefix+"STR_GET_ALIAS[{}] strAlias[{}]", STR_GET_ALIAS, strAlias);
 				strMessage = UIWidgetUtil.replaceKeyword(strMessage, STR_GET_ALIAS, strAlias);
-				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
+				logger.debug(function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
-				logger.warn(className, function, logPrefix+"strAlias IS NULL");
+				logger.warn(function, logPrefix+"strAlias IS NULL");
 			}
 
 		} else {
-			logger.warn(className, function, logPrefix+"opmapi[{}] instance IS NULL", strOpmApi);
+			logger.warn(function, logPrefix+"opmapi[{}] instance IS NULL", strOpmApi);
 		}
-		logger.end(className, function);
+		logger.end(function);
 		return strMessage;
 	}
 

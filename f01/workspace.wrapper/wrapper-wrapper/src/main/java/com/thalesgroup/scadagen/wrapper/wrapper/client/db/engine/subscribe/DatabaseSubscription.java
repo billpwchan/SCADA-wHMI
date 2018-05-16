@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Database;
@@ -19,9 +19,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Databas
  *
  */
 public class DatabaseSubscription implements DatabaseSubscribe_i {
-	
-	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	/**
 	 * Instance for the database
@@ -61,30 +60,30 @@ public class DatabaseSubscription implements DatabaseSubscribe_i {
 	@Override
 	public void connect() {
 		final String function = "connect";
-		logger.begin(className, function);
+		logger.begin(function);
 		database.setScsPollerComponentAccessResult(new ScsPollerComponentAccessResult() {
 			
 			@Override
 			public void setSubscribeResult(String clientKey, String subUUID, String pollerState, String[] dbaddress,
 					String[] values, int errorCode, String errorMessage) {
 				final String function = "setSubscribeResult";
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				if ( null != dbaddress ) {
-					logger.debug(className, function, "dbaddress.length[{}]", dbaddress.length);
+					logger.debug(function, "dbaddress.length[{}]", dbaddress.length);
 				} else {
-					logger.warn(className, function, "dbaddress IS NULL");
+					logger.warn(function, "dbaddress IS NULL");
 				}
 				if ( null != values ) {
-					logger.debug(className, function, "values.length[{}]", values.length);
+					logger.debug(function, "values.length[{}]", values.length);
 				} else {
-					logger.warn(className, function, "values IS NULL");
+					logger.warn(function, "values IS NULL");
 				}
 
 				if ( logger.isDebugEnabled() ) {
-					logger.debug(className, function, "clientKey[{}] pollerState[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, pollerState, errorCode, errorMessage});
+					logger.debug(function, "clientKey[{}] pollerState[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, pollerState, errorCode, errorMessage});
 					for(int i = 0; i < dbaddress.length; ++i) {
-						logger.debug(className, function, "i[{}] dbaddress[{}] value[{}]", new Object[]{i, dbaddress[i], values[i]});
+						logger.debug(function, "i[{}] dbaddress[{}] value[{}]", new Object[]{i, dbaddress[i], values[i]});
 					}
 				}
 				
@@ -96,12 +95,12 @@ public class DatabaseSubscription implements DatabaseSubscribe_i {
 				
 				request.databaseEvent.update(clientKey, dbaddress, values);				
 
-				logger.end(className, function);
+				logger.end(function);
 			}
 		});
 		
 		database.connect();
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/* (non-Javadoc)
@@ -110,7 +109,7 @@ public class DatabaseSubscription implements DatabaseSubscribe_i {
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		// Remove
 		Iterator<Map.Entry<String, SubscriptionRequest>> iter = subscriptionRequests.entrySet().iterator();
@@ -122,10 +121,10 @@ public class DatabaseSubscription implements DatabaseSubscribe_i {
 		}
 		
 		database.disconnect();
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
-	private HashMap<String, SubscriptionRequest> subscriptionRequests = new HashMap<String, SubscriptionRequest>();
+	private Map<String, SubscriptionRequest> subscriptionRequests = new HashMap<String, SubscriptionRequest>();
 	
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i#addSubscribeRequest(java.lang.String, java.lang.String, java.lang.String[], com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i)
@@ -133,11 +132,11 @@ public class DatabaseSubscription implements DatabaseSubscribe_i {
 	@Override
 	public void addSubscribeRequest(String clientKey, String scsEnvId, String[] dbaddresses, DatabasePairEvent_i databaseEvent) {
 		final String function = "addSubscribeRequest";
-		logger.begin(className, function);
-		logger.debug(className, function, "clientKey[{}] scsEnvId[{}]", clientKey, scsEnvId);
+		logger.begin(function);
+		logger.debug(function, "clientKey[{}] scsEnvId[{}]", clientKey, scsEnvId);
 		if ( logger.isDebugEnabled() ) {
 			for ( String address : dbaddresses ) {
-				logger.debug(className, function, "address[{}]", address);
+				logger.debug(function, "address[{}]", address);
 			}
 		}
 		
@@ -147,7 +146,7 @@ public class DatabaseSubscription implements DatabaseSubscribe_i {
 		
 		database.addSubscriptionRequest(clientKey, scsEnvId, groupName, dbaddresses, periodMillis);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/* (non-Javadoc)
@@ -156,8 +155,8 @@ public class DatabaseSubscription implements DatabaseSubscribe_i {
 	@Override
 	public void addUnSubscribeRequest(String clientKey) {
 		final String function = "addUnSubscribeRequest";
-		logger.begin(className, function);
-		logger.debug(className, function, "clientKey[{}]", clientKey);
+		logger.begin(function);
+		logger.debug(function, "clientKey[{}]", clientKey);
 
 		SubscriptionRequest readingRequestSubscription = subscriptionRequests.get(clientKey);
 		String scsEnvId = readingRequestSubscription.scsEnvId;
@@ -168,7 +167,7 @@ public class DatabaseSubscription implements DatabaseSubscribe_i {
 		
 		subscriptionRequests.remove(clientKey);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 }

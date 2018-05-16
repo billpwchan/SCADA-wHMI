@@ -16,9 +16,8 @@ import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch_i.TaskLaunchType;
 import com.thalesgroup.scadagen.whmi.uitask.uitasksplit.client.UITaskSplit;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskTitle;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorCoreUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
@@ -32,8 +31,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttri
  */
 public class ViewLayoutMgr {
 
-	private final String className = UIWidgetUtil.getClassSimpleName(ViewLayoutMgr.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private ViewLayoutMgrEvent viewLayoutMgrEvent = null;
 	private ViewLayoutHistoryMgr viewLayoutHistoryMgr = null;
@@ -54,7 +53,7 @@ public class ViewLayoutMgr {
 	public ViewLayoutMgr(ViewLayoutMgrEvent viewLayoutMgrEvent, UINameCard uiNameCard) {
 		final String function = "ViewLayoutMgr";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 
 		this.uiNameCard = new UINameCard(uiNameCard);
 
@@ -71,7 +70,7 @@ public class ViewLayoutMgr {
 			}
 		});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/**
@@ -80,7 +79,7 @@ public class ViewLayoutMgr {
 	private void triggerSplitChange() {
 		final String function = "triggerSplitChange";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		UITaskSplit taskSplit1 = new UITaskSplit();
 		taskSplit1.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -100,9 +99,9 @@ public class ViewLayoutMgr {
 			
 		}
 		
-		logger.debug(className, function, "taskSplit1.getTaskType[{}]", taskSplit1.getTaskType());
+		logger.debug(function, "taskSplit1.getTaskType[{}]", taskSplit1.getTaskType());
 		
-		logger.debug(className, function, "taskSplit1 fire");
+		logger.debug(function, "taskSplit1 fire");
 
 //		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit1));
 		
@@ -124,20 +123,20 @@ public class ViewLayoutMgr {
 			
 		}
 		
-		logger.debug(className, function, "taskSplit2.getTaskType[{}]", taskSplit2.getTaskType());
+		logger.debug(function, "taskSplit2.getTaskType[{}]", taskSplit2.getTaskType());
 		
-		logger.debug(className, function, "taskSplit2 fire");
+		logger.debug(function, "taskSplit2 fire");
 
 //		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit2));
 
-		logger.end(className, function);
+		logger.end(function);
 		
 	}
 	
 	public void setSplitScreen(UITaskSplit uiTaskSplit) {
 		final String function = "setSplitScreen";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		ViewLayoutHistory viewLayoutHistory = null;
 
@@ -146,11 +145,11 @@ public class ViewLayoutMgr {
 			viewLayoutHistory = getCurrentAsHistory();
 		}
 		
-		logger.debug(className, function, "uiTaskSplit.getSplitType()[{}]", uiTaskSplit.getTaskType());
+		logger.debug(function, "uiTaskSplit.getSplitType()[{}]", uiTaskSplit.getTaskType());
 		
 		if (UITaskSplit.SplitType.Vertical == uiTaskSplit.getTaskType()) {
 			
-			logger.debug(className, function, "UITaskSplit.SplitType.Vertical");
+			logger.debug(function, "UITaskSplit.SplitType.Vertical");
 
 			if (ViewLayoutAction.VDoubleLayout == this.viewLayoutAction) {
 				setLayout(ViewLayoutMode.Image, ViewLayoutAction.SingleLayout);
@@ -177,7 +176,7 @@ public class ViewLayoutMgr {
 		historySnapshot();
 		
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/**
@@ -189,7 +188,7 @@ public class ViewLayoutMgr {
 	private void setLayout(ViewLayoutMode viewLayoutMode, ViewLayoutAction viewLayoutAction) {
 		final String function = "setLayout";
 
-		logger.begin(className, function);
+		logger.begin(function);
 
 		this.viewLayoutMode = viewLayoutMode;
 
@@ -207,20 +206,20 @@ public class ViewLayoutMgr {
 			this.taskLaunchs[i] = null;
 		}
 
-		logger.debug(className, function, "created taskLaunchs.length[{}]", this.taskLaunchs.length);
+		logger.debug(function, "created taskLaunchs.length[{}]", this.taskLaunchs.length);
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private boolean isValidActivateId(int activateId) {
 		final String function = "isValidActivateId";
 		
 		boolean result = false;
-		logger.debug(className, function, "isValidActivate this.viewIdActivate[{}] >= 0 && this.viewIdActivate[{}] < taskLaunchs.length[{}]", new Object[]{this.viewIdActivate, this.viewIdActivate, this.taskLaunchs.length});
+		logger.debug(function, "isValidActivate this.viewIdActivate[{}] >= 0 && this.viewIdActivate[{}] < taskLaunchs.length[{}]", new Object[]{this.viewIdActivate, this.viewIdActivate, this.taskLaunchs.length});
 		if( this.viewIdActivate >= 0 && this.viewIdActivate < this.taskLaunchs.length ) {
 			result = true;
 		}
-		logger.debug(className, function, "isValidActivate result[{}]", result);
+		logger.debug(function, "isValidActivate result[{}]", result);
 		return result;
 	}
 	
@@ -234,7 +233,7 @@ public class ViewLayoutMgr {
 	public void setTaskLaunch(UITaskLaunch taskLaunch, boolean makeSnapshot) {
 		final String function = "setTaskLaunch";
 
-		logger.begin(className, function);
+		logger.begin(function);
 
 		if (taskLaunch.getUiCtrl().equals("ViewSchematicSymbolSelected")) {
 			
@@ -243,8 +242,8 @@ public class ViewLayoutMgr {
 			String configurationId	= taskLaunch.getOption("configurationId");
 			String hv_id			= taskLaunch.getOption("hv_id");
 
-			logger.debug(className, function, "configurationId[{}]", configurationId);
-			logger.debug(className, function, "hv_id[{}]", hv_id);
+			logger.debug(function, "configurationId[{}]", configurationId);
+			logger.debug(function, "hv_id[{}]", hv_id);
 			
 			String actionsetkey = hv_id;
 			
@@ -254,13 +253,13 @@ public class ViewLayoutMgr {
 			String dictionariesCacheName = "UIWidgetGeneric";
 			String tag = UIActionEventType.actionset.toString();
 			
-			logger.debug(className, function, "optsXMLFile[{}]", optsXMLFile);
+			logger.debug(function, "optsXMLFile[{}]", optsXMLFile);
 			
-			logger.debug(className, function, "dictionariesCacheName[{}]", dictionariesCacheName);
+			logger.debug(function, "dictionariesCacheName[{}]", dictionariesCacheName);
 			
-			logger.debug(className, function, "tag[{}]", tag);
+			logger.debug(function, "tag[{}]", tag);
 			
-			logger.debug(className, function, "Launch the UIEventActionProcessor...");
+			logger.debug(function, "Launch the UIEventActionProcessor...");
 			
 			UIEventActionProcessor_i uiEventActionProcessor_i = null;
 			UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
@@ -281,21 +280,21 @@ public class ViewLayoutMgr {
 
 			if ( null != uiEventAction ) {
 				
-				logger.debug(className, function, "actionsetkey[{}] IS NOT NULL", actionsetkey);
+				logger.debug(function, "actionsetkey[{}] IS NOT NULL", actionsetkey);
 
 				uiEventAction.setParameter(UIActionEventAttribute.OperationType.toString(), UIActionEventType.actionsetkey.toString());
 				
-				logger.debug(className, function, "uiEventAction IS NOT NULL");
+				logger.debug(function, "uiEventAction IS NOT NULL");
 				
 				new UIEventActionProcessorCoreUtil().dumpUIEventAction(className, uiEventAction);
 				
-				logger.debug(className, function, "Launch the uiEventAction...");
+				logger.debug(function, "Launch the uiEventAction...");
 				
 				uiEventActionProcessor_i.executeActionSet(uiEventAction, null);
 
 			} else {
 				
-				logger.debug(className, function, "actionsetkey[{}] IS NULL", actionsetkey);
+				logger.debug(function, "actionsetkey[{}] IS NULL", actionsetkey);
 
 				UIInspectorMgr mgr = UIInspectorMgr.getInstance(Integer.toString(uiNameCard.getUiScreen()));
 				mgr.closeInspectorDialog();
@@ -309,20 +308,20 @@ public class ViewLayoutMgr {
 		} else {
 			
 			// Check the current task is not equals to target task
-			logger.debug(className, function, "this.viewIdActivate[{}]", this.viewIdActivate);
+			logger.debug(function, "this.viewIdActivate[{}]", this.viewIdActivate);
 			if ( isValidActivateId(this.viewIdActivate) ) {
 				
 				UITaskLaunch curTaskLaunch = this.taskLaunchs[this.viewIdActivate];
 				if ( null != curTaskLaunch ) {
 					if ( taskLaunch.isEquals(curTaskLaunch) ) {
-						logger.debug(className, function, "taskLaunch and curTaskLaunch IS EQUAL, skip the launch task..."); 
+						logger.debug(function, "taskLaunch and curTaskLaunch IS EQUAL, skip the launch task..."); 
 						return;
 					}
 				} else {
-					logger.warn(className, function, "curTaskLaunch IS NULL"); 
+					logger.warn(function, "curTaskLaunch IS NULL"); 
 				}
 			} else {
-				logger.warn(className, function, "this.viewIdActivate is INVALUD[{}] taskLaunchs.length[{}]", this.viewIdActivate, this.taskLaunchs.length);
+				logger.warn(function, "this.viewIdActivate is INVALUD[{}] taskLaunchs.length[{}]", this.viewIdActivate, this.taskLaunchs.length);
 			}
 			
 			// Kill inspector before open it
@@ -330,20 +329,20 @@ public class ViewLayoutMgr {
 			mgr.closeInspectorDialog();
 			
 			if (TaskLaunchType.IMAGE == taskLaunch.getTaskLaunchType()) {
-				logger.debug(className, function, "setTaskLaunch TaskType.IMAGE");
+				logger.debug(function, "setTaskLaunch TaskType.IMAGE");
 
 				if (ViewLayoutMode.Image != this.viewLayoutMode) {
-					logger.debug(className, function, "setTaskLaunch ViewLayoutMode.Image != [{}]", this.viewLayoutMode);
+					logger.debug(function, "setTaskLaunch ViewLayoutMode.Image != [{}]", this.viewLayoutMode);
 
 					setLayout(ViewLayoutMode.Image, ViewLayoutAction.SingleLayout);
 
 				}
 
 			} else if (TaskLaunchType.PANEL == taskLaunch.getTaskLaunchType()) {
-				logger.debug(className, function, "setTaskLaunch TaskType.PANEL");
+				logger.debug(function, "setTaskLaunch TaskType.PANEL");
 
 				if (ViewLayoutMode.Panel != this.viewLayoutMode) {
-					logger.debug(className, function, "setTaskLaunch ViewLayoutMode.Panel != [{}]", this.viewLayoutMode);
+					logger.debug(function, "setTaskLaunch ViewLayoutMode.Panel != [{}]", this.viewLayoutMode);
 
 					setLayout(ViewLayoutMode.Panel, ViewLayoutAction.SingleLayout);
 
@@ -352,24 +351,24 @@ public class ViewLayoutMgr {
 
 			viewLayoutMgrEvent.setTaskLaunch(taskLaunch, this.viewIdActivate);
 
-			logger.debug(className, function, "this.viewLayoutAction[{}]", this.viewLayoutAction);
+			logger.debug(function, "this.viewLayoutAction[{}]", this.viewLayoutAction);
 
 			if (null == this.taskLaunchs) {
-				logger.debug(className, function, "this.taskLaunchs is null, creating...");
+				logger.debug(function, "this.taskLaunchs is null, creating...");
 				this.taskLaunchs = new UITaskLaunch[this.viewLayoutAction.getValue()];
-				logger.debug(className, function, "this.taskLaunchs created this.taskLaunchs.length[{}]", this.taskLaunchs.length);
+				logger.debug(function, "this.taskLaunchs created this.taskLaunchs.length[{}]", this.taskLaunchs.length);
 			}
 
 
 			if ( isValidActivateId(this.viewIdActivate) ) {
 				this.taskLaunchs[this.viewIdActivate] = taskLaunch;
 			} else {
-				logger.debug(className, function, "this.viewIdActivate is INVALUD[{}] taskLaunchs.length[{}]", this.viewIdActivate, this.taskLaunchs.length);
+				logger.debug(function, "this.viewIdActivate is INVALUD[{}] taskLaunchs.length[{}]", this.viewIdActivate, this.taskLaunchs.length);
 			}
 			
 			triggerTitleChange(taskLaunch);
 
-			logger.debug(className, function, "hasSnapshot[" + makeSnapshot + "]");
+			logger.debug(function, "hasSnapshot[" + makeSnapshot + "]");
 
 			if (makeSnapshot) {
 
@@ -381,7 +380,7 @@ public class ViewLayoutMgr {
 			triggerHistoryChange();
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 
 	}
 
@@ -393,7 +392,7 @@ public class ViewLayoutMgr {
 	private void restoreCurrentStatus(ViewLayoutHistory viewLayoutHistory) {
 		final String function = "restoreCurrentStatus";
 
-		logger.begin(className, function);
+		logger.begin(function);
 
 		UITaskLaunch taskLaunchs[] = viewLayoutHistory.getTaskLaunchs();
 
@@ -415,7 +414,7 @@ public class ViewLayoutMgr {
 			triggerSplitChange();
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/**
@@ -424,13 +423,13 @@ public class ViewLayoutMgr {
 	public void setLayoutAction(ViewLayoutHistory viewLayoutHistory) {
 		final String function = "setLayoutAction";
 
-		logger.begin(className, function);
+		logger.begin(function);
 
 		setLayout(viewLayoutHistory.getViewLayoutMode(), viewLayoutHistory.getViewLayoutAction());
 
 		restoreCurrentStatus(viewLayoutHistory);
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/**
@@ -440,7 +439,7 @@ public class ViewLayoutMgr {
 	public void setLayoutAction(ViewLayoutAction viewLayoutAction, boolean restorePreviousViews) {
 		final String function = "setLayoutAction";
 
-		logger.begin(className, function);
+		logger.begin(function);
 
 		ViewLayoutHistory viewLayoutHistory = null;
 
@@ -455,7 +454,7 @@ public class ViewLayoutMgr {
 
 		historySnapshot();
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/**
@@ -465,7 +464,7 @@ public class ViewLayoutMgr {
 	private void triggerHistoryChange() {
 		final String function = "triggerHistoryChange";
 
-		logger.begin(className, function);
+		logger.begin(function);
 
 		UITaskHistory taskHistoryPrevious = new UITaskHistory();
 		taskHistoryPrevious.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -473,18 +472,18 @@ public class ViewLayoutMgr {
 
 		if (this.viewLayoutHistoryMgr.hasPrevious()) {
 
-			logger.debug(className, function, "viewLayoutHistoryMgr has Previous");
+			logger.debug(function, "viewLayoutHistoryMgr has Previous");
 
 			taskHistoryPrevious.setTaskType(TaskType.PreviousEnable);
 
 		} else {
 
-			logger.debug(className, function, "viewLayoutHistoryMgr haven't Previous");
+			logger.debug(function, "viewLayoutHistoryMgr haven't Previous");
 
 			taskHistoryPrevious.setTaskType(TaskType.PreviousDisable);
 		}
 
-		logger.debug(className, function, "taskHistoryPrevious fire");
+		logger.debug(function, "taskHistoryPrevious fire");
 
 		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskHistoryPrevious));
 
@@ -494,21 +493,21 @@ public class ViewLayoutMgr {
 
 		if (this.viewLayoutHistoryMgr.hasNext()) {
 
-			logger.debug(className, function, "viewLayoutHistoryMgr has Next");
+			logger.debug(function, "viewLayoutHistoryMgr has Next");
 
 			taskHistoryNext.setTaskType(TaskType.NextEnable);
 		} else {
 
-			logger.debug(className, function, "viewLayoutHistoryMgr is haven't Next ");
+			logger.debug(function, "viewLayoutHistoryMgr is haven't Next ");
 
 			taskHistoryNext.setTaskType(TaskType.NextDisable);
 		}
 
-		logger.debug(className, function, "taskHistoryNext fire");
+		logger.debug(function, "taskHistoryNext fire");
 
 		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskHistoryNext));
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/**
@@ -519,13 +518,13 @@ public class ViewLayoutMgr {
 	private void setTaskHistory(UITaskHistory taskHistory) {
 		final String function = "setTaskHistory";
 
-		logger.begin(className, function);
+		logger.begin(function);
 
 		ViewLayoutHistory viewLayoutHistory = null;
 
 		if (TaskType.Previous == taskHistory.getTaskType()) {
 
-			logger.debug(className, function, "taskHistory is TaskType.Previous");
+			logger.debug(function, "taskHistory is TaskType.Previous");
 
 			if (viewLayoutHistoryMgr.hasPrevious()) {
 
@@ -533,12 +532,12 @@ public class ViewLayoutMgr {
 
 			} else {
 
-				logger.debug(className, function, "viewLayoutHistoryMgr haven't previous");
+				logger.debug(function, "viewLayoutHistoryMgr haven't previous");
 
 			}
 		} else if (TaskType.Next == taskHistory.getTaskType()) {
 
-			logger.debug(className, function, "taskHistory is TaskType.Next ");
+			logger.debug(function, "taskHistory is TaskType.Next ");
 
 			if (viewLayoutHistoryMgr.hasNext()) {
 
@@ -546,21 +545,21 @@ public class ViewLayoutMgr {
 
 			} else {
 
-				logger.debug(className, function, "viewLayoutHistoryMgr haven't next");
+				logger.debug(function, "viewLayoutHistoryMgr haven't next");
 
 			}
 		}
 
 		if (null != viewLayoutHistory) {
 
-			logger.debug(className, function, "viewLayoutHistory is not null");
+			logger.debug(function, "viewLayoutHistory is not null");
 
 			setLayoutAction(viewLayoutHistory);
 		}
 
 		triggerHistoryChange();
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/**
@@ -569,50 +568,50 @@ public class ViewLayoutMgr {
 	private void onUIEvent(UIEvent uiEvent) {
 		final String function = "onUIEvent";
 
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( null != uiNameCard ) {
-			logger.debug(className, function, "uiNameCard.getUiScreen()[{}]", uiNameCard.getUiScreen());
+			logger.debug(function, "uiNameCard.getUiScreen()[{}]", uiNameCard.getUiScreen());
 			if ( null == uiNameCard.getUiPath() ) {
-				logger.warn(className, function, "uiNameCard.getUiPath()[{}] IS NULL", uiNameCard.getUiPath());
+				logger.warn(function, "uiNameCard.getUiPath()[{}] IS NULL", uiNameCard.getUiPath());
 			}			
 		} else {
-			logger.warn(className, function, "uiNameCard IS NULL");
+			logger.warn(function, "uiNameCard IS NULL");
 		}
 		
 		if ( null != uiEvent ) {
-			logger.debug(className, function, "uiEvent.getTaskProvide().getTaskUiScreen()[{}]", uiEvent.getTaskProvide().getTaskUiScreen());
+			logger.debug(function, "uiEvent.getTaskProvide().getTaskUiScreen()[{}]", uiEvent.getTaskProvide().getTaskUiScreen());
 			UITask_i uiTask = uiEvent.getTaskProvide();
 			if ( null != uiTask ) {
 					if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
 							&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
 						if ( uiTask instanceof UITaskLaunch ) {
 
-							logger.debug(className, function, "taskProvide is TaskLaunch");
+							logger.debug(function, "taskProvide is TaskLaunch");
 
 							setTaskLaunch((UITaskLaunch) uiTask, true);
 						} else {
 							if ( uiTask instanceof UITaskHistory ) {
 
-								logger.debug(className, function, "taskProvide is TaskHistory");
+								logger.debug(function, "taskProvide is TaskHistory");
 	
 								setTaskHistory((UITaskHistory) uiTask);
 							} else if ( uiTask instanceof UITaskSplit ) {
 								
-								logger.debug(className, function, "taskProvide is UITaskSplit");
+								logger.debug(function, "taskProvide is UITaskSplit");
 								
 								setSplitScreen((UITaskSplit) uiTask);
 							}
 						}
 					}
 			} else {
-				logger.warn(className, function, "uiEvent.getTaskProvide().getUiPath()[{}] IS NULL", uiEvent.getTaskProvide().getUiPath() );
+				logger.warn(function, "uiEvent.getTaskProvide().getUiPath()[{}] IS NULL", uiEvent.getTaskProvide().getUiPath() );
 			}
 		} else {
-			logger.warn(className, function, "uiEvent IS NULL");
+			logger.warn(function, "uiEvent IS NULL");
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/**
@@ -621,7 +620,7 @@ public class ViewLayoutMgr {
 	public ViewLayoutMode getViewMode() {
 		final String function = "getViewMode";
 
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 
 		return this.viewLayoutMode;
 	}
@@ -632,7 +631,7 @@ public class ViewLayoutMgr {
 	public ViewLayoutAction getViewAction() {
 		final String function = "getViewAction";
 
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 
 		return this.viewLayoutAction;
 	}
@@ -643,7 +642,7 @@ public class ViewLayoutMgr {
 	public void setViewIdActivate(int viewIdActivate) {
 		final String function = "setViewIdActivate";
 
-		logger.begin(className, function);
+		logger.begin(function);
 
 		this.viewIdActivate = viewIdActivate;
 		
@@ -653,7 +652,7 @@ public class ViewLayoutMgr {
 			triggerTitleChange(taskLaunch);		
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	/**
@@ -664,9 +663,9 @@ public class ViewLayoutMgr {
 	private ViewLayoutHistory getCurrentAsHistory() {
 		final String function = "getCurrentAsHistory";
 
-		logger.begin(className, function);
+		logger.begin(function);
 
-		logger.debug(className, function, "this.taskLaunchs.length[{}]", this.taskLaunchs.length);
+		logger.debug(function, "this.taskLaunchs.length[{}]", this.taskLaunchs.length);
 
 		ViewLayoutHistory history = new ViewLayoutHistory();
 		history.setViewLayoutAction(this.viewLayoutAction);
@@ -674,7 +673,7 @@ public class ViewLayoutMgr {
 		history.setViewLayoutMode(this.viewLayoutMode);
 		history.setTaskLaunchs(this.taskLaunchs);
 
-		logger.end(className, function);
+		logger.end(function);
 
 		return history;
 	}
@@ -685,7 +684,7 @@ public class ViewLayoutMgr {
 	private void historySnapshot() {
 		final String function = "historySnapshot";
 
-		logger.begin(className, function);
+		logger.begin(function);
 
 		ViewLayoutHistory history = getCurrentAsHistory();
 
@@ -695,7 +694,7 @@ public class ViewLayoutMgr {
 		
 		viewLayoutHistoryMgr.debug("AF");
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private UITaskLaunch getTaskLaunchActivate() {
@@ -707,37 +706,37 @@ public class ViewLayoutMgr {
 			if ( isValidActivateId(viewIdActivate) ) {
 				if ( null != this.taskLaunchs[viewIdActivate] ) {
 					
-					logger.debug(className, function, "viewIdActivate[{}]", viewIdActivate);
+					logger.debug(function, "viewIdActivate[{}]", viewIdActivate);
 					
 					taskLaunch = this.taskLaunchs[viewIdActivate];
 					
 				} else {
-					logger.debug(className, function, "taskLaunchs[{}] is null", viewIdActivate);
+					logger.debug(function, "taskLaunchs[{}] is null", viewIdActivate);
 				}
 			} else {
-				logger.debug(className, function, "isValidActivateId is false");
+				logger.debug(function, "isValidActivateId is false");
 			}
 		} else {
-			logger.debug(className, function, "taskLaunchs is null");
+			logger.debug(function, "taskLaunchs is null");
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		return taskLaunch;
 	}
 
 	private void triggerTitleChange ( UITaskLaunch taskLaunch ) {
 		final String function = "triggerTitleChange";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String title = "";
 		if ( null != taskLaunch ) {
 			title = taskLaunch.getTitle();
 		} else {
-			logger.debug(className, function, "tasLaunch is null");
+			logger.debug(function, "tasLaunch is null");
 		}
 		
-		logger.debug(className, function, "UITaskTitle title[{}]", title);
+		logger.debug(function, "UITaskTitle title[{}]", title);
 		
 		UITaskTitle taskTitle = new UITaskTitle();
 		taskTitle.setTitle(title);
@@ -745,13 +744,13 @@ public class ViewLayoutMgr {
 		taskTitle.setUiPath(UIPathUIPanelStatusBar);
 		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskTitle));
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void triggerMenuChange( UITaskLaunch taskLaunch ) {
 		final String function = "";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( null != taskLaunch ) {
 		
@@ -762,10 +761,10 @@ public class ViewLayoutMgr {
 			
 			this.uiNameCard.getUiEventBus().fireEvent(uiEvent);
 		} else {
-			logger.debug(className, function, "taskLaunch is null");
+			logger.debug(function, "taskLaunch is null");
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

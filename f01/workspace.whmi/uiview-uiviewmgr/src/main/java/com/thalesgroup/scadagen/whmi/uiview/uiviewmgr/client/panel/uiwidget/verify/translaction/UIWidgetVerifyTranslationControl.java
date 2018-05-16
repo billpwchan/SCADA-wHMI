@@ -5,9 +5,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationEngine;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
@@ -15,61 +14,60 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UIW
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UIWidgetVerifyTranslationControl extends UIWidgetRealize {
-	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyTranslationControl.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private void getTranslationPattern() {
 		final String function = "getTranslationPattern";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strOutput = Translation.getTranslatePattern();
-		logger.debug(className, function, " strOutput[{}]", strOutput);
+		logger.debug(function, " strOutput[{}]", strOutput);
 		
 		uiGeneric.setWidgetValue("resultvalue", strOutput);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void setTranslationPattern() {
 		final String function = "setTranslationPattern";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strInputStr		= uiGeneric.getWidgetValue("inputstrvalue");
 		
-		logger.debug(className, function, " strInputStr[{}]", strInputStr);
+		logger.debug(function, " strInputStr[{}]", strInputStr);
 		Translation.setTranslatePattern(strInputStr);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void getTranslationFlag() {
 		final String function = "getTranslationFlag";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strOutput = Translation.getTranslateFlag();
-		logger.debug(className, function, " strOutput[{}]", strOutput);
+		logger.debug(function, " strOutput[{}]", strOutput);
 		
 		uiGeneric.setWidgetValue("resultvalue", strOutput);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void setTranslationFlag() {
 		final String function = "setTranslationFlag";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strInputStr		= uiGeneric.getWidgetValue("inputstrvalue");
 		
-		logger.debug(className, function, " strInputStr[{}]", strInputStr);
+		logger.debug(function, " strInputStr[{}]", strInputStr);
 		Translation.setTranslateFlag(strInputStr);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void getTranslationEngine() {
 		final String function = "getTranslationEngine";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strOutputStr = null;
 		
@@ -79,12 +77,12 @@ public class UIWidgetVerifyTranslationControl extends UIWidgetRealize {
 		
 		uiGeneric.setWidgetValue("resultvalue", strOutputStr);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void setTranslationEngine() {
 		final String function = "setTranslationEngine";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		TranslationMgr.getInstance().setTranslationEngine(new TranslationEngine() {
 			@Override
@@ -116,31 +114,31 @@ public class UIWidgetVerifyTranslationControl extends UIWidgetRealize {
 			}
 		});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void translation() {
 		final String function = "translation";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strInputStr		= uiGeneric.getWidgetValue("inputstrvalue");
 		
 		TranslationMgr translationMgr = TranslationMgr.getInstance();
         String strOutputStr = translationMgr.getTranslation(strInputStr);
-        logger.debug(className, function, " strInputStr[{}] strOutputStr[{}]", strInputStr, strOutputStr);
+        logger.debug(function, " strInputStr[{}] strOutputStr[{}]", strInputStr, strOutputStr);
 		
 		uiGeneric.setWidgetValue("resultvalue", strOutputStr);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void launch(String element) {
 		final String function = "launch";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		element = element.toLowerCase();
 		
-		logger.debug(className, function, " element[{}]", element);
+		logger.debug(function, " element[{}]", element);
 
 		if ( "getTranslationPattern".toLowerCase().equals(element)) {
 			getTranslationPattern();
@@ -163,7 +161,7 @@ public class UIWidgetVerifyTranslationControl extends UIWidgetRealize {
 		else if ( "translation".toLowerCase().equals(element) ) {
 			translation();
 		} 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	@Override
@@ -171,7 +169,7 @@ public class UIWidgetVerifyTranslationControl extends UIWidgetRealize {
 		super.init();
 		
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 			
@@ -184,18 +182,18 @@ public class UIWidgetVerifyTranslationControl extends UIWidgetRealize {
 			@Override
 			public void onClick(ClickEvent event) {
 				final String function = "onClick";
-				logger.begin(className, function);
+				logger.begin(function);
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
 						String element = uiGeneric.getWidgetElement(widget);
-						logger.debug(className, function, "element[{}]", element);
+						logger.debug(function, "element[{}]", element);
 						if ( null != element ) {
 							launch(element);
 						}
 					}
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
@@ -225,13 +223,13 @@ public class UIWidgetVerifyTranslationControl extends UIWidgetRealize {
 			@Override
 			public void terminate() {
 				final String function = "terminate";
-				logger.begin(className, function);
+				logger.begin(function);
 				envDown(null);
-				logger.end(className, function);
+				logger.end(function);
 			};
 		};
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

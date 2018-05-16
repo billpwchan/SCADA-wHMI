@@ -1,7 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseWrite_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.write.DatabaseWriting;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.write.DatabaseWritingSingleton;
@@ -13,9 +13,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.write.DatabaseW
  *
  */
 public class DatabaseWriteFactory {
-	
-	private static final String className = DatabaseWriteFactory.class.getSimpleName();
-	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(DatabaseWriteFactory.class.getName());
+
+	private static final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(DatabaseWriteFactory.class.getName());
 	
 	/**
 	 * Factory Method to return the instance of the Database Writing Object
@@ -25,8 +24,8 @@ public class DatabaseWriteFactory {
 	 */
 	public static DatabaseWrite_i get(String key) {
 		final String function = "get";
-		logger.begin(className, function);
-		logger.debug(className, function, "key[{}]", key);
+		logger.begin(function);
+		logger.debug(function, "key[{}]", key);
 		DatabaseWrite_i databaseWrite_i = null;
 		
 		if ( null != key ) {
@@ -39,10 +38,10 @@ public class DatabaseWriteFactory {
 		}
 		
 		if ( null == databaseWrite_i ) {
-			logger.warn(className, function, "databaseWrite_i IS NULL");
+			logger.warn(function, "databaseWrite_i IS NULL");
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		return databaseWrite_i;
 	}
 }

@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Set;
 
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.SocCardDetail_i.SocCardDetailParameter;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.MultiReadResult;
@@ -19,8 +19,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class SocCardDetail implements IDataGridDataSource {
 
-	private final String className = UIWidgetUtil.getClassSimpleName(SocCardDetail.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private class Cell {
 		int row;
@@ -75,7 +75,7 @@ public class SocCardDetail implements IDataGridDataSource {
 	public void init(String strDataGrid, String[] scsEnvIds, String strDataGridOptsXMLFile,
 			UIDataGridDatabase uiDataGridDatabase) {
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		strDataGrid_ = strDataGrid;
 		optsXMLFile_ = strDataGridOptsXMLFile;
@@ -83,12 +83,12 @@ public class SocCardDetail implements IDataGridDataSource {
 
 		readConfig();
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	protected void readConfig() {
 		final String function = "readConfig";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -126,7 +126,7 @@ public class SocCardDetail implements IDataGridDataSource {
 			intDataGridColumnsTranslations = dataGridDb_.getColumnTranslation();
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	@Override
@@ -137,7 +137,7 @@ public class SocCardDetail implements IDataGridDataSource {
 	@Override
 	public void loadData(String scsEnvId, String dbaddress) {
 		final String function = "loadData";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		clientKey = className + "_" + strDataGrid_ + "_" + scsEnvId;
 		scsEnvId_ = scsEnvId;
@@ -164,7 +164,7 @@ public class SocCardDetail implements IDataGridDataSource {
 					// TODO: Handle second token
 
 				} catch (Exception e) {
-					logger.warn(className, function, "[{}]", e.getMessage());
+					logger.warn(function, "[{}]", e.getMessage());
 					continue;
 				}
 			}
@@ -195,21 +195,21 @@ public class SocCardDetail implements IDataGridDataSource {
 		if (!numberColFound && eqpColFound) {
 			for (int i = 0; i < count - 1; i++) {
 				dbaddresses[i] = indexHolder[i];
-				logger.debug(className, function, "dbaddresses[{}]=[{}]", i, dbaddresses[i]);
+				logger.debug(function, "dbaddresses[{}]=[{}]", i, dbaddresses[i]);
 			}
 			dbaddresses[numberCol] = "<alias>" + dbaddress + ".brctable(0:$, " + brctableFields[0] + ")";
 			extraCol = count - 1;
 		} else if (numberColFound && !eqpColFound) {
 			for (int i = 0; i < count - 1; i++) {
 				dbaddresses[i] = indexHolder[i];
-				logger.debug(className, function, "dbaddresses[{}]=[{}]", i, dbaddresses[i]);
+				logger.debug(function, "dbaddresses[{}]=[{}]", i, dbaddresses[i]);
 			}
 			dbaddresses[eqpCol] = "<alias>" + dbaddress + ".brctable(0:$, " + brctableFields[10] + ")";
 			extraCol = count - 1;
 		} else if (!numberColFound && !eqpColFound) {
 			for (int i = 0; i < count - 2; i++) {
 				dbaddresses[i] = indexHolder[i];
-				logger.debug(className, function, "dbaddresses[{}]=[{}]", i, dbaddresses[i]);
+				logger.debug(function, "dbaddresses[{}]=[{}]", i, dbaddresses[i]);
 			}
 			dbaddresses[numberCol] = "<alias>" + dbaddress + ".brctable(0:$, " + brctableFields[0] + ")";
 			dbaddresses[eqpCol] = "<alias>" + dbaddress + ".brctable(0:$, " + brctableFields[10] + ")";
@@ -217,12 +217,12 @@ public class SocCardDetail implements IDataGridDataSource {
 		} else {
 			for (int i = 0; i < count; i++) {
 				dbaddresses[i] = indexHolder[i];
-				logger.debug(className, function, "dbaddresses[{}]=[{}]", i, dbaddresses[i]);
+				logger.debug(function, "dbaddresses[{}]=[{}]", i, dbaddresses[i]);
 			}
 			extraCol = count;
 		}
 
-		logger.debug(className, function, "clientKey=[{}] scsEnvId=[{}]", clientKey, scsEnvId_);
+		logger.debug(function, "clientKey=[{}] scsEnvId=[{}]", clientKey, scsEnvId_);
 
 		// Use multiRead to read brctable
 		rtdb.multiReadValue(clientKey, scsEnvId_, dbaddresses, new MultiReadResult() {
@@ -234,12 +234,12 @@ public class SocCardDetail implements IDataGridDataSource {
 
 		});
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	protected void subscribe(String[] extraPointsAddresses) {
 		final String function = "subscribe";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		poller.subscribe(clientKey, scsEnvId_, clientKey, extraPointsAddresses, subscriptionPeriod,
 				new SubscribeResult() {
@@ -249,18 +249,18 @@ public class SocCardDetail implements IDataGridDataSource {
 					}
 				});
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	protected void unsubscribe() {
 		final String function = "unsubscribe";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		if (subscriptionId_ != null) {
 			poller.unSubscribe(clientKey, scsEnvId_, clientKey, subscriptionId_, null);
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	@Override
@@ -270,16 +270,16 @@ public class SocCardDetail implements IDataGridDataSource {
 
 	protected void updateDataGridExtraPointsValues(String subscriptionId, String[] addresses, String[] values) {
 		final String function = "updateDataGridExtraPointsValues";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		subscriptionId_ = subscriptionId;
 
-		logger.debug(className, function, "subscriptionId = [{}]", subscriptionId_);
+		logger.debug(function, "subscriptionId = [{}]", subscriptionId_);
 
 		List<Equipment_i> list = dataGridDb_.getDataProvider().getList();
 
 		for (int i = 0; i < values.length && i < addresses.length; i++) {
-			logger.debug(className, function, "address=[{}]  value=[{}]", addresses[i], values[i]);
+			logger.debug(function, "address=[{}]  value=[{}]", addresses[i], values[i]);
 
 			Set<Cell> s = addressToCellMap.get(addresses[i]);
 			if (s != null && !s.isEmpty()) {
@@ -288,7 +288,7 @@ public class SocCardDetail implements IDataGridDataSource {
 					if (values[i] != null) {
 						unquotedStr = values[i].replaceAll("\"", "");
 					}
-					logger.debug(className, function, "update value using unquotedStr[{}]", unquotedStr);
+					logger.debug(function, "update value using unquotedStr[{}]", unquotedStr);
 
 					Equipment_i contact = list.get(c.row);
 					String label = strDataGridColumnsLabels[c.column];
@@ -312,18 +312,18 @@ public class SocCardDetail implements IDataGridDataSource {
 
 				}
 			} else {
-				logger.warn(className, function, "addressToCellMap entry not found for address [{}]", addresses[i]);
+				logger.warn(function, "addressToCellMap entry not found for address [{}]", addresses[i]);
 			}
 		}
 
 		dataGridDb_.refreshDisplays();
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	protected void updateDataGridBrcTableValues(String[] values) {
 		final String function = "updateDataGridBrcTableValues";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		if (values != null && values.length > 0) {
 			int numberCol = 0;
@@ -333,7 +333,7 @@ public class SocCardDetail implements IDataGridDataSource {
 			boolean numberColFound = false;
 			for (int col = 0; col < brcTableIndexes_.length; col++) {
 				if (brcTableIndexes_[col].compareTo("0") == 0) {
-					logger.debug(className, function, "numberColFound=true at col=[{}]", col);
+					logger.debug(function, "numberColFound=true at col=[{}]", col);
 					numberColFound = true;
 					numberCol = col;
 					break;
@@ -344,7 +344,7 @@ public class SocCardDetail implements IDataGridDataSource {
 			boolean eqpColFound = false;
 			for (int col = 0; col < brcTableIndexes_.length; col++) {
 				if (brcTableIndexes_[col].compareTo("10") == 0) {
-					logger.debug(className, function, "eqpColFound=true at col=[{}]", col);
+					logger.debug(function, "eqpColFound=true at col=[{}]", col);
 					eqpColFound = true;
 					eqpCol = col;
 					break;
@@ -353,15 +353,15 @@ public class SocCardDetail implements IDataGridDataSource {
 
 			if (!numberColFound && eqpColFound) {
 				numberCol = values.length;
-				logger.debug(className, function, "numberColFound=false; set numberCol=[{}]", numberCol);
+				logger.debug(function, "numberColFound=false; set numberCol=[{}]", numberCol);
 			} else if (numberColFound && !eqpColFound) {
 				eqpCol = values.length;
-				logger.debug(className, function, "eqpColFound=false; set eqpCol=[{}]", eqpCol);
+				logger.debug(function, "eqpColFound=false; set eqpCol=[{}]", eqpCol);
 			} else if (!numberColFound && !eqpColFound) {
 				numberCol = values.length - 1;
 				eqpCol = values.length;
-				logger.debug(className, function, "numberColFound=false; set numberCol=[{}]", numberCol);
-				logger.debug(className, function, "eqpColFound=false; set eqpCol=[{}]", eqpCol);
+				logger.debug(function, "numberColFound=false; set numberCol=[{}]", numberCol);
+				logger.debug(function, "eqpColFound=false; set eqpCol=[{}]", eqpCol);
 			}
 
 			// Get number of steps from number col
@@ -375,8 +375,8 @@ public class SocCardDetail implements IDataGridDataSource {
 				numSteps++;
 			}
 
-			logger.debug(className, function, "numSteps=[{}] ", numSteps);
-			logger.debug(className, function, "strDataGridColumnsLabels.length=[{}] ", strDataGridColumnsLabels.length);
+			logger.debug(function, "numSteps=[{}] ", numSteps);
+			logger.debug(function, "strDataGridColumnsLabels.length=[{}] ", strDataGridColumnsLabels.length);
 
 			// Build two dimension value table column by column
 			dataGridValues = new String[numSteps][strDataGridColumnsLabels.length];
@@ -386,17 +386,17 @@ public class SocCardDetail implements IDataGridDataSource {
 			for (int col = 0; col < strDataGridColumnsLabels.length; col++) {
 				if (col < values.length) {
 
-					logger.debug(className, function, "col=[{}] value=[{}]", col, values[col]);
+					logger.debug(function, "col=[{}] value=[{}]", col, values[col]);
 
 					String removedBracketStr = values[col].substring(1, values[col].length() - 1);
 
 					String unquotedStr = removedBracketStr.replaceAll("\"", "");
 
-					logger.debug(className, function, "unquotedStr=[{}] ", unquotedStr);
+					logger.debug(function, "unquotedStr=[{}] ", unquotedStr);
 
 					String[] splittedStr = unquotedStr.split(",");
 
-					logger.debug(className, function, "splittedStr.length=[{}] ", splittedStr.length);
+					logger.debug(function, "splittedStr.length=[{}] ", splittedStr.length);
 
 					for (int row = 0; row < numSteps; row++) {
 						if (intDataGridColumnsTranslations != null && intDataGridColumnsTranslations.length > col
@@ -407,7 +407,7 @@ public class SocCardDetail implements IDataGridDataSource {
 						} else {
 							dataGridValues[row][col] = splittedStr[row];
 						}
-						logger.debug(className, function, "row=[{}] tableValues=[{}] ", row, splittedStr[row]);
+						logger.debug(function, "row=[{}] tableValues=[{}] ", row, splittedStr[row]);
 					}
 				} else {
 					for (int row = 0; row < numSteps; row++) {
@@ -443,7 +443,7 @@ public class SocCardDetail implements IDataGridDataSource {
 					} else {
 						builder = builder.setValue(strDataGridColumnsLabels[col], dataGridValues[row][col]);
 					}
-					logger.debug(className, function, "builder setValue [{}] [{}]", strDataGridColumnsLabels[col],
+					logger.debug(function, "builder setValue [{}] [{}]", strDataGridColumnsLabels[col],
 							dataGridValues[row][col]);
 
 					// Subscribe to extra relative points
@@ -455,8 +455,8 @@ public class SocCardDetail implements IDataGridDataSource {
 							for (int i = 0; i < extraRelativePoints_.length; i++) {
 								addresses[i] = eqpPath + extraRelativePoints_[i];
 								addAddressToCellMap(addresses[i], new Cell(row, extraCol + i));
-								logger.debug(className, function, "Extra point address=[{}]", addresses[i]);
-								logger.debug(className, function, "Cell row=[{}] col=[{}]", row, extraCol + i);
+								logger.debug(function, "Extra point address=[{}]", addresses[i]);
+								logger.debug(function, "Cell row=[{}] col=[{}]", row, extraCol + i);
 							}
 							subscribe(addresses);
 						}
@@ -467,7 +467,7 @@ public class SocCardDetail implements IDataGridDataSource {
 			}
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private void addAddressToCellMap(String address, Cell cell) {
@@ -494,7 +494,7 @@ public class SocCardDetail implements IDataGridDataSource {
 	public void resetColumnData(String columnLabel, String columnType) {
 		final String function = "resetColumnData";
 
-		logger.begin(className, function);
+		logger.begin(function);
 
 		String address = "<alias>" + dbalias_;
 		for (int i = 0; i < strDataGridColumnsLabels.length; i++) {
@@ -503,7 +503,7 @@ public class SocCardDetail implements IDataGridDataSource {
 
 					for (int row = 0; row < numSteps; row++) {
 						address = address + ".brctable(row, " + brcTableIndexes_[i] + ")";
-						logger.debug(className, function, "write empty string to address[{}]", address);
+						logger.debug(function, "write empty string to address[{}]", address);
 
 						rtdb.writeStringValue(clientKey, scsEnvId_, address, "");
 					}
@@ -512,7 +512,7 @@ public class SocCardDetail implements IDataGridDataSource {
 
 					for (int row = 0; row < numSteps; row++) {
 						address = address + ".brctable(row, " + brcTableIndexes_[i] + ")";
-						logger.debug(className, function, "write integer 0 to address[{}]", address);
+						logger.debug(function, "write integer 0 to address[{}]", address);
 
 						rtdb.writeIntValue(clientKey, scsEnvId_, address, 0);
 					}
@@ -520,7 +520,7 @@ public class SocCardDetail implements IDataGridDataSource {
 				break;
 			}
 		}
-		logger.end(className, function);
+		logger.end(function);
 
 	}
 
@@ -528,9 +528,9 @@ public class SocCardDetail implements IDataGridDataSource {
 	public void reloadColumnData(final String[] columnLabels, final String[] columnTypes, final boolean[] enableTranslations) {
 		final String function = "reloadColumnData";
 		for (int j = 0; j < columnLabels.length; j++) {
-			logger.begin(className, function);
-			logger.debug(className, function, "columnLabel=[{}] columnType=[{}]", columnLabels[j], columnTypes[j]);
-			logger.debug(className, function, "enableTranslation=[{}]", enableTranslations[j]);
+			logger.begin(function);
+			logger.debug(function, "columnLabel=[{}] columnType=[{}]", columnLabels[j], columnTypes[j]);
+			logger.debug(function, "enableTranslation=[{}]", enableTranslations[j]);
 
 			String address = "<alias>" + dbalias_;
 			for (int i = 0; i < strDataGridColumnsLabels.length; i++) {
@@ -538,7 +538,7 @@ public class SocCardDetail implements IDataGridDataSource {
 					String[] addresses = new String[numSteps];
 					for (int row = 0; row < numSteps; row++) {
 						String alias = address + ".brctable(" + row + ", " + brcTableIndexes_[i] + ")";
-						logger.debug(className, function, "read address[{}]", alias);
+						logger.debug(function, "read address[{}]", alias);
 
 						addresses[row] = alias;
 					}
@@ -548,32 +548,32 @@ public class SocCardDetail implements IDataGridDataSource {
 						@Override
 						public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
 							final String function = "setReadResult";
-							logger.debug(className, function, "setReadReulst starts with errorCode: [{}]", errorCode);
+							logger.debug(function, "setReadReulst starts with errorCode: [{}]", errorCode);
 							if (errorCode == 0) {
 								List<Equipment_i> eqList = dataGridDb_.getDataProvider().getList();
 								if (eqList != null && !eqList.isEmpty()) {
-									logger.debug(className, function, "Entered if statement for eqList.");
+									logger.debug(function, "Entered if statement for eqList.");
 									for (int row = 0; row < numSteps && row < values.length; row++) {
 										for (int k = 0; k < columnLabels.length; k++) {
 											tmpColumnLabel = columnLabels[k];
 											tmpColumnType = columnTypes[k];
 											tmpEnableTranslation = enableTranslations[k];
-											logger.debug(className, function, "tmpColumnLabel before multiread [{}]",
+											logger.debug(function, "tmpColumnLabel before multiread [{}]",
 													tmpColumnLabel);
-											logger.debug(className, function, "tmpColumnType before multiread [{}]",
+											logger.debug(function, "tmpColumnType before multiread [{}]",
 													tmpColumnType);
-											logger.debug(className, function,
+											logger.debug(function,
 													"tmpEnableTranslation before multiread [{}]", tmpEnableTranslation);
 
-											logger.debug(className, function,
+											logger.debug(function,
 													"Entered for loop for numSteps:[{}] values.length:[{}]:", numSteps,
 													values.length);
 											Equipment_i eq = eqList.get(row);
-											logger.debug(className, function, "tmpColumnLabel inside multiread [{}]",
+											logger.debug(function, "tmpColumnLabel inside multiread [{}]",
 													tmpColumnLabel);
-											logger.debug(className, function, "tmpColumnType inside multiread [{}]",
+											logger.debug(function, "tmpColumnType inside multiread [{}]",
 													tmpColumnType);
-											logger.debug(className, function,
+											logger.debug(function,
 													"tmpEnableTranslation inside multiread [{}]", tmpEnableTranslation);
 											if (eq != null) {
 												if (tmpColumnType.equals("Number")) {
@@ -590,7 +590,7 @@ public class SocCardDetail implements IDataGridDataSource {
 														String translateKey = "&" + className
 																+ tmpColumnLabel.replace(' ', '_') + "_" + unquotedStr;
 														String translatedString = Translation.getWording(translateKey);
-														logger.debug(className, function,
+														logger.debug(function,
 																"value [{}] translated to [{}]", translateKey,
 																translatedString);
 
@@ -599,10 +599,10 @@ public class SocCardDetail implements IDataGridDataSource {
 														eq.setStringValue(tmpColumnLabel, unquotedStr);
 													}
 												}
-												logger.debug(className, function, "load data [{}] to row [{}]",
+												logger.debug(function, "load data [{}] to row [{}]",
 														values[row], row);
 											} else {
-												logger.warn(className, function,
+												logger.warn(function,
 														"DataGrid DataProvider row[{}] is null", row);
 											}
 
@@ -610,7 +610,7 @@ public class SocCardDetail implements IDataGridDataSource {
 									}
 									dataGridDb_.refreshDisplays();
 								} else {
-									logger.warn(className, function, "DataGrid DataProvider list is null or empty");
+									logger.warn(function, "DataGrid DataProvider list is null or empty");
 								}
 							}
 						}
@@ -621,7 +621,7 @@ public class SocCardDetail implements IDataGridDataSource {
 				}
 			}
 
-			logger.end(className, function);
+			logger.end(function);
 		}
 	}
 

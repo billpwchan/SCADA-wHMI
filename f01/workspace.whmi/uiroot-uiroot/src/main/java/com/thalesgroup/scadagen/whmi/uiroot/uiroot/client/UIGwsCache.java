@@ -6,15 +6,13 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UICookies;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class UIGwsCache {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIGwsCache.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private final String strCssMainPanel	= "project-UIGwsCache-panel";
 	private final String strCssLabel		= "project-UIGwsCache-label-receiving";
@@ -26,7 +24,7 @@ public class UIGwsCache {
 	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
 		final String function = "getMainPanel";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
@@ -46,7 +44,7 @@ public class UIGwsCache {
         
         horizontalPanel.add(label);
         
-        logger.end(className, function);
+        logger.end(function);
         
 		return horizontalPanel;
 	}

@@ -6,33 +6,30 @@ import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadProp;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIPanelInspector_i;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class PointsFilter {
-	
-	private final static String cls = PointsFilter.class.getName();
-	private final static String className = UIWidgetUtil.getClassSimpleName(cls);
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
+
+	private final static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(PointsFilter.class.getName());
 	
 	private static boolean isRegExpMatch(RegExp regExp, String input) {
 		final String function = "isRegExpMatch";
 		
-		logger.begin(className, function);
-		logger.debug(className, function, "regExp[{}] input[{}]", regExp, input);
+		logger.begin(function);
+		logger.debug(function, "regExp[{}] input[{}]", regExp, input);
 		MatchResult matcher = regExp.exec(input);
 		boolean matchFound = matcher != null;
 		if ( matchFound ) {
 			if ( logger.isDebugEnabled() ) {
 				for ( int i = 0 ; i < matcher.getGroupCount(); i++) {
 					String groupStr = matcher.getGroup(i);
-					logger.debug(className, function, "input[{}] groupStr[{}]", input, groupStr);
+					logger.debug(function, "input[{}] groupStr[{}]", input, groupStr);
 				}
 			}
 		}
-		logger.debug(className, function, "matchFound[{}]", matchFound);
-		logger.end(className, function);
+		logger.debug(function, "matchFound[{}]", matchFound);
+		logger.end(function);
 		return matchFound;
 	}
 	
@@ -49,32 +46,32 @@ public class PointsFilter {
 
 	public static void prepareFilter(List<String> filters, String dictionariesCacheName, String tab, String listConfigName) {
 		final String function = "prepareFilter";
-		logger.begin(className, function);
-		logger.debug(className, function, "listConfigName[{}]", listConfigName);
+		logger.begin(function);
+		logger.debug(function, "listConfigName[{}]", listConfigName);
 		if ( null != filters ) {
 			String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
 			String keyNumName = UIPanelInspector_i.strConfigPrefix+tab+listConfigName+UIPanelInspector_i.strConfigNameSize;
-			logger.debug(className, function, "fileName[{}] keyNumName[{}]", fileName, keyNumName);
+			logger.debug(function, "fileName[{}] keyNumName[{}]", fileName, keyNumName);
 			int numOfFilter = ReadProp.readInt(dictionariesCacheName, fileName, keyNumName, 0);
 			for ( int y = 0 ; y < numOfFilter ; ++y ) {
 				String key = UIPanelInspector_i.strConfigPrefix+tab+listConfigName+UIPanelInspector_i.strDot+y;
 				String value = ReadProp.readString(dictionariesCacheName, fileName, key, "");
-				logger.debug(className, function, "key[{}] value[{}]", key, value);
+				logger.debug(function, "key[{}] value[{}]", key, value);
 				filters.add(value);
 			}
 		} else {
-			logger.warn(className, function, "filters IS NULL");
+			logger.warn(function, "filters IS NULL");
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	public static void applyFiltedList(List<String> list, List<String> regExpPatternBlackList, List<String> regExpPatternWhiteList, String dbaddress) {
 		final String function = "applyFiltedList";
-		logger.begin(className, function);
+		logger.begin(function);
 		boolean blackListMatch=false, whileListMatch=false;
 		blackListMatch = isRegExpMatch(regExpPatternBlackList, dbaddress);
 		if ( !blackListMatch ) { whileListMatch = isRegExpMatch(regExpPatternWhiteList, dbaddress); }
 		if ( whileListMatch ) { list.add(dbaddress); }
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

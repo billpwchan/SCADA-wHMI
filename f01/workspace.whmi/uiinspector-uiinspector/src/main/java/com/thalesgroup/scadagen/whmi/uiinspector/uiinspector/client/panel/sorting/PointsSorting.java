@@ -6,9 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey;
@@ -17,9 +16,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey
 
 public class PointsSorting {
 	
-	private final String cls = this.getClass().getName();
-	private final String className = UIWidgetUtil.getClassSimpleName(cls);
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private Database database = null;
 	public void setDatabase(Database database) {
@@ -52,7 +50,7 @@ public class PointsSorting {
 	
 	private void sort() {
 		final String function = "sort";
-		logger.begin(className, function);
+		logger.begin(function);
 		Collections.sort(es, new Comparator<Point>() {
 			@Override
 			public int compare(Point o1, Point o2) {
@@ -63,12 +61,12 @@ public class PointsSorting {
 				return 0;
 			}
 		});
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void fillResult(String[] addresses, String [] values) {
 		final String function = "fillResult";
-		logger.begin(className, function);
+		logger.begin(function);
 		for ( int i = 0 ; i < addresses.length ; i++ ) {
 			String alias = addresses[i];
 			int attributeValue = -1;
@@ -86,20 +84,20 @@ public class PointsSorting {
 				}
 			}
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void responseOrdering(String[] addresses, String [] values) {
 		final String function = "responseOrdering";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( logger.isDebugEnabled() ) {
 			if (addresses.length == values.length) {
 				for ( int i = 0 ; i < addresses.length ; i++ ) {
-					logger.debug(className, function, "i[{}] addresses[{}] values[{}]", new Object[]{i, addresses[i], values[i]});
+					logger.debug(function, "i[{}] addresses[{}] values[{}]", new Object[]{i, addresses[i], values[i]});
 				}
 			} else {
-				logger.warn(className, function, "addresses.length[{}] != values.length[{}]", addresses.length, values.length);
+				logger.warn(function, "addresses.length[{}] != values.length[{}]", addresses.length, values.length);
 			}
 		}
 		
@@ -113,26 +111,26 @@ public class PointsSorting {
 			event.onSorted(sorted);
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	
 	private String[] getSubscribeDBAddress() {
 		final String function = "getSubscribeDBAddress";
-		logger.begin(className, function);
+		logger.begin(function);
 		String [] result = null;
 		List<String> dbaddress = new LinkedList<String>();
 		for ( Point e : this.es ) {
 			dbaddress.add(e.aliasWithAttribute);
 		}
 		result = dbaddress.toArray(new String[0]);
-		logger.end(className, function);
+		logger.end(function);
 		return result;
 	}
 	
 	private String[] getSortedDBAddress() {
 		final String function = "getSortedDBAddress";
-		logger.begin(className, function);
+		logger.begin(function);
 		String [] result = null;
 		List<String> dbaddress = new LinkedList<String>();
 		for ( Point e : this.es ) {
@@ -140,13 +138,13 @@ public class PointsSorting {
 				dbaddress.add(e.alias);
 		}
 		result = dbaddress.toArray(new String[0]);
-		logger.end(className, function);
+		logger.end(function);
 		return result;
 	}
 	
 	public void requestOrdering() {
 		final String function = "requestOrdering";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		DataBaseClientKey clientKey = new DataBaseClientKey();
 		clientKey.setAPI(API.multiReadValue);
@@ -168,7 +166,7 @@ public class PointsSorting {
 				@Override
 				public void update(String key, String[] values) {
 					final String function = "responseOrdering";
-					logger.begin(className, function);
+					logger.begin(function);
 					
 					DataBaseClientKey clientKey = new DataBaseClientKey();
 					clientKey.setAPI(API.multiReadValue);
@@ -188,10 +186,10 @@ public class PointsSorting {
 				}
 			});
 		} else {
-			logger.warn(className, function, "database IS NUL");
+			logger.warn(function, "database IS NUL");
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private UINameCard uiNameCard = null;
@@ -202,9 +200,9 @@ public class PointsSorting {
 	
 	public void init() {
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 		requestOrdering();
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

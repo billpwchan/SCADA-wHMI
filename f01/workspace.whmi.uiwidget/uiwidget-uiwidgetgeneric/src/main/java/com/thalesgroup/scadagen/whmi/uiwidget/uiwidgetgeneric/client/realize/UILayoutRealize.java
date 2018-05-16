@@ -2,8 +2,8 @@ package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize;
 
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
@@ -14,20 +14,20 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIGenericMg
 public class UILayoutRealize extends UIRealize {
 	
 	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	@Override
 	public void init() {
 		super.init();
 		
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		logPrefix = "element["+element+"] ";
 		
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.info(className, function, logPrefix+"strEventBusName[{}]", strEventBusName);
+		logger.info(function, logPrefix+"strEventBusName[{}]", strEventBusName);
 		
 		UIGenericMgr uiGenericMgr = UIGenericMgr.getInstance();
 		uiGeneric = uiGenericMgr.getUIGeneric("UILayoutGeneric");
@@ -53,7 +53,7 @@ public class UILayoutRealize extends UIRealize {
 			uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
 			uiEventActionProcessor_i.init();
 		} else {
-			logger.warn(className, function, logPrefix+"uiEventActionProcessor_i IS NULL");
+			logger.warn(function, logPrefix+"uiEventActionProcessor_i IS NULL");
 		}
 		
 		rootPanel = uiGeneric.getMainPanel();
@@ -70,7 +70,7 @@ public class UILayoutRealize extends UIRealize {
 				})
 			);
 		} else {
-			logger.warn(className, function, logPrefix+"uiNameCard IS NULL");
+			logger.warn(function, logPrefix+"uiNameCard IS NULL");
 		}
 
 		if ( null != eventBus ) {
@@ -87,12 +87,12 @@ public class UILayoutRealize extends UIRealize {
 				})
 			);
 		} else {
-			logger.warn(className, function, logPrefix+"eventBus IS NULL");
+			logger.warn(function, logPrefix+"eventBus IS NULL");
 		}
 			
 		if ( null != uiEventActionProcessor_i ) uiEventActionProcessor_i.executeActionSetInit();
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 }

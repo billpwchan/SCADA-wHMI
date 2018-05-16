@@ -17,9 +17,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionBus;
@@ -50,8 +49,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpmSCADAgen;
 
 public class UIWidgetSocControl extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetSocControl.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private SimpleEventBus eventBus 	= null;
 
@@ -150,9 +149,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 				public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
 					
 					final String function = "ReserveVerifier setReadResult";
-					logger.begin(className, function);
-					logger.debug(className, function, "current Operator is:[{}]", currentOperator);
-					logger.debug(className, function, "clientKey [{}] check reserve are set", key);
+					logger.begin(function);
+					logger.debug(function, "current Operator is:[{}]", currentOperator);
+					logger.debug(function, "clientKey [{}] check reserve are set", key);
 					boolean hasFailed = false;
 					
 					for (int j=0; j<values.length; j++) {
@@ -180,7 +179,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 						if(reserveRetryCount > 0)
 						{
 							reserveRetryCount--;
-							logger.warn(className, function, "readReserve failed try again count={}.",reserveRetryCount);
+							logger.warn(function, "readReserve failed try again count={}.",reserveRetryCount);
 							Timer readAgainTimer = new Timer() {
 								
 								@Override
@@ -197,7 +196,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 							// Sending DisableCheckBoxEvent when SOC cannot launch due to reservation fail
 							sendDisableCheckBoxEvent(false);
 
-							logger.warn(className, function, "readReserve error");
+							logger.warn(function, "readReserve error");
 						}
 					} else {
 						// All equipment are successfully reserved
@@ -205,7 +204,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 						preparegrc();
 					}
 					
-					logger.end(className, function);
+					logger.end(function);
 				}
 			};
 		}
@@ -222,24 +221,24 @@ public class UIWidgetSocControl extends UIWidget_i {
 		public void onClick(ClickEvent event) {
 			final String function = "onClick";
 			
-			logger.begin(className, function);
+			logger.begin(function);
 			
 			if ( null != event ) {
 				Widget widget = (Widget) event.getSource();
 				if ( null != widget ) {
 					String element = uiWidgetGeneric.getWidgetElement(widget);
-					logger.info(className, function, "element[{}]", element);
+					logger.info(function, "element[{}]", element);
 					if ( null != element ) {
 						
 						// build scsEnvId
 						scsenvid = equipmentSelected.getStringValue(targetDataGridColumnA);
 						
-						logger.info(className, function, "scsenvid[{}]", scsenvid);
+						logger.info(function, "scsenvid[{}]", scsenvid);
 						
 						// build dbalias						
 						dbalias = equipmentSelected.getStringValue(targetDataGridColumnA2);
 						
-						logger.info(className, function, "dbalias[{}]", dbalias);
+						logger.info(function, "dbalias[{}]", dbalias);
 						
 						// Custom handler for "start", "retry", "skip", "stop"
 						if (element.equals(startElement)) {
@@ -295,29 +294,29 @@ public class UIWidgetSocControl extends UIWidget_i {
 					}
 				}
 			}
-			logger.end(className, function);
+			logger.end(function);
 		}
 		
 		@Override
 		public void onActionReceived(UIEventAction uiEventAction) {
 			final String function = "onActionReceived";
 			
-			logger.begin(className, function);
+			logger.begin(function);
 			
 			String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 			
-			logger.info(className, function, "os1[{}]", os1);
+			logger.info(function, "os1[{}]", os1);
 			
 			if ( null != os1 ) {
 				if ( os1.equals(AutoManuEvent.RadioBoxSelected.toString() ) ) {
 					
-					logger.info(className, function, "Store Selected RadioBox");
+					logger.info(function, "Store Selected RadioBox");
 					
 					String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
 					
 					if ( null != os2 ) {
 						
-						logger.info(className, function, "os2[{}]", os2);
+						logger.info(function, "os2[{}]", os2);
 						
 						String autoManuStr = os2;
 						
@@ -328,10 +327,10 @@ public class UIWidgetSocControl extends UIWidget_i {
 							autoManu = GrcExecMode.StopOnFailed.getValue();
 
 						} else {
-							logger.warn(className, function, "os2[{}] type IS UNKNOW", os2);
+							logger.warn(function, "os2[{}] type IS UNKNOW", os2);
 						}
 					} else {
-						logger.warn(className, function, "os2 IS NULL");
+						logger.warn(function, "os2 IS NULL");
 					}
 					
 				} else if ( os1.equals(DataGridEvent.RowSelected.toString() ) ) {
@@ -339,26 +338,26 @@ public class UIWidgetSocControl extends UIWidget_i {
 					Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 					Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
 					
-					logger.info(className, function, "Store Selected Row");
+					logger.info(function, "Store Selected Row");
 					
 					if ( null != targetDataGridA ) {
 						
-						logger.info(className, function, "targetDataGridA[{}]", targetDataGridA);
+						logger.info(function, "targetDataGridA[{}]", targetDataGridA);
 						
 						if ( null != obj1 ) {
 							if ( obj1 instanceof String ) {
 								datagridSelected	= (String) obj1;
 								
-								logger.info(className, function, "datagridSelected[{}]", datagridSelected);
+								logger.info(function, "datagridSelected[{}]", datagridSelected);
 
 								if ( datagridSelected.equals(targetDataGridA) ) {
 									// When selecting the row of SOCDetailList, the "datagridSelected" will be different from
 									// "targetDataGridA". Which means when the if statement is true, it means another row of
 									// "SOCCardList" is selected. Then need to clean the skipped steps.
 									
-									logger.info(className, function, "current skipped steps: [{}]", skipList);
+									logger.info(function, "current skipped steps: [{}]", skipList);
 									skipList = new ArrayList<Integer>();
-									logger.info(className, function, "skipped steps after cleanning: [{}]", skipList);
+									logger.info(function, "skipped steps after cleanning: [{}]", skipList);
 									
 									if ( null != obj2 ) {
 										if ( obj2 instanceof Equipment_i ) {
@@ -389,21 +388,21 @@ public class UIWidgetSocControl extends UIWidget_i {
 										} else {
 											equipmentSelected = null;
 											
-											logger.warn(className, function, "obj2 IS NOT TYPE OF Equipment_i");
+											logger.warn(function, "obj2 IS NOT TYPE OF Equipment_i");
 										}
 									} else {
-										logger.warn(className, function, "obj2 IS NULL");
+										logger.warn(function, "obj2 IS NULL");
 									}
 								} 
 								
 							} else {
-								logger.warn(className, function, "obj1 IS NOT TYPE OF String");
+								logger.warn(function, "obj1 IS NOT TYPE OF String");
 							}
 						} else {
-							logger.warn(className, function, "obj1 IS NULL");
+							logger.warn(function, "obj1 IS NULL");
 						}
 					} else {
-						logger.warn(className, function, "targetDataGridA IS NULL");
+						logger.warn(function, "targetDataGridA IS NULL");
 					}
 					
 				} else if ( os1.equals(DataGridEvent.ValueChange.toString() )) {
@@ -413,7 +412,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 					Object obj3 = uiEventAction.getParameter(ViewAttribute.OperationObject3.toString());
 					Object obj4 = uiEventAction.getParameter(ViewAttribute.OperationObject4.toString());
 					
-					logger.info(className, function, "DataGrid ValueChange");
+					logger.info(function, "DataGrid ValueChange");
 	
 					if ( null != obj1 && null != obj2 && null != obj3 && null != obj4 ) {
 						if ( obj1 instanceof String ) {
@@ -439,8 +438,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 					// General Case
 					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 					
-					logger.info(className, function, "oe [{}]", oe);
-					logger.info(className, function, "os1[{}]", os1);
+					logger.info(function, "oe [{}]", oe);
+					logger.info(function, "os1[{}]", os1);
 					
 					if ( null != oe ) {
 						if ( oe.equals(element) ) {
@@ -449,20 +448,20 @@ public class UIWidgetSocControl extends UIWidget_i {
 					}
 				}
 			}
-			logger.end(className, function);
+			logger.end(function);
 		}
 	};
 		
 	@Override
 	public void init() {
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		
 		
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
+		logger.info(function, "strEventBusName[{}]", strEventBusName);
 
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -519,39 +518,39 @@ public class UIWidgetSocControl extends UIWidget_i {
 			messageDatetimefmt		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MessageDatetimeFormat.toString(), strHeader);
 		}
 
-		logger.info(className, function, "targetDataGridA[{}]", targetDataGridA);
-		logger.info(className, function, "targetDataGridColumnA[{}]", targetDataGridColumnA);
-		logger.info(className, function, "targetDataGridColumnA2[{}]", targetDataGridColumnA2);
-		logger.info(className, function, "targetDataGridColumnA3[{}]", targetDataGridColumnA3);
-		logger.info(className, function, "targetDataGridB[{}]", targetDataGridB);
-		logger.info(className, function, "targetDataGridColumnB[{}]", targetDataGridColumnB);
-		logger.info(className, function, "targetDataGridColumnB2[{}]", targetDataGridColumnB2);
-		logger.info(className, function, "targetDataGridColumnB3[{}]", targetDataGridColumnB3);
+		logger.info(function, "targetDataGridA[{}]", targetDataGridA);
+		logger.info(function, "targetDataGridColumnA[{}]", targetDataGridColumnA);
+		logger.info(function, "targetDataGridColumnA2[{}]", targetDataGridColumnA2);
+		logger.info(function, "targetDataGridColumnA3[{}]", targetDataGridColumnA3);
+		logger.info(function, "targetDataGridB[{}]", targetDataGridB);
+		logger.info(function, "targetDataGridColumnB[{}]", targetDataGridColumnB);
+		logger.info(function, "targetDataGridColumnB2[{}]", targetDataGridColumnB2);
+		logger.info(function, "targetDataGridColumnB3[{}]", targetDataGridColumnB3);
 		
-		logger.info(className, function, "startElement[{}]", startElement);
-		logger.info(className, function, "stopElement[{}]", stopElement);
-		logger.info(className, function, "retryElement[{}]", retryElement);
-		logger.info(className, function, "skipElement[{}]", skipElement);
+		logger.info(function, "startElement[{}]", startElement);
+		logger.info(function, "stopElement[{}]", stopElement);
+		logger.info(function, "retryElement[{}]", retryElement);
+		logger.info(function, "skipElement[{}]", skipElement);
 		
-		logger.info(className, function, "reserveIdentifier[{}]", reserveIdentifier);
-		logger.info(className, function, "resrvReserveReqID[{}]", resrvReserveReqID);
-		logger.info(className, function, "resrvUnreserveReqID[{}]", resrvUnreserveReqID);
-		logger.info(className, function, "resrvReservedID[{}]", resrvReservedID);
-		logger.info(className, function, "reserveAttributeName[{}]", reserveAttributeName);
-		logger.info(className, function, "reserveAttributeType[{}]", reserveAttributeType);
-		logger.info(className, function, "reservedValueStr[{}]", reservedValueStr);
-		logger.info(className, function, "unreservedValueStr[{}]", unreservedValueStr);
+		logger.info(function, "reserveIdentifier[{}]", reserveIdentifier);
+		logger.info(function, "resrvReserveReqID[{}]", resrvReserveReqID);
+		logger.info(function, "resrvUnreserveReqID[{}]", resrvUnreserveReqID);
+		logger.info(function, "resrvReservedID[{}]", resrvReservedID);
+		logger.info(function, "reserveAttributeName[{}]", reserveAttributeName);
+		logger.info(function, "reserveAttributeType[{}]", reserveAttributeType);
+		logger.info(function, "reservedValueStr[{}]", reservedValueStr);
+		logger.info(function, "unreservedValueStr[{}]", unreservedValueStr);
 		
-		logger.info(className, function, "maxReserveRetry[{}]", maxReserveRetry);
+		logger.info(function, "maxReserveRetry[{}]", maxReserveRetry);
 		
-		logger.info(className, function, "messageDatetimefmt[{}]", messageDatetimefmt);
+		logger.info(function, "messageDatetimefmt[{}]", messageDatetimefmt);
 		
 		if (reserveIdentifier == "OperatorName"){
 			currentOperator = UIOpmSCADAgen.getInstance().getCurrentOperator();
 		} else {
 			currentOperator = UIOpmSCADAgen.getInstance().getCurrentProfile();
 		}
-		logger.info(className, function, "currentOperator[{}]", currentOperator);
+		logger.info(function, "currentOperator[{}]", currentOperator);
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
@@ -607,7 +606,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 
 		uiEventActionProcessor_i.executeActionSetInit();
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private boolean reserveNeeded() {
@@ -617,18 +616,18 @@ public class UIWidgetSocControl extends UIWidget_i {
 			reserveAttributeType == null || reserveAttributeType.isEmpty() ||
 			(!reserveAttributeType.equalsIgnoreCase("String") && !reserveAttributeType.equalsIgnoreCase("Integer")) ||
 			reservedValueStr == null || unreservedValueStr == null) {
-			logger.debug(className, function, "reserve not setup");
+			logger.debug(function, "reserve not setup");
 			return false;
 		}
 
-		logger.debug(className, function, "reserve is setup");
+		logger.debug(function, "reserve is setup");
 		return true;
 	}
 	
 	private void readStepEqp() {
 		final String function = "readStepAliases";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String clientKey = function + "_" + scsenvid + "_" + dbalias;
 		
@@ -643,21 +642,21 @@ public class UIWidgetSocControl extends UIWidget_i {
 			public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
 				
 				if (values == null || values.length != 2) {
-					logger.error(className, function, "return values is null or size not correct");
+					logger.error(function, "return values is null or size not correct");
 					return;
 				}
-				logger.debug(className, function, "numbers [{}]", values[0]);
+				logger.debug(function, "numbers [{}]", values[0]);
 				String str1 = values[0].substring(1, values[0].length()-1);
 				String str2 = str1.replaceAll("\"", "");
-				logger.debug(className, function, "numbers substring [{}]", str1);
-				logger.debug(className, function, "numbers replaceAll [{}]", str2);
+				logger.debug(function, "numbers substring [{}]", str1);
+				logger.debug(function, "numbers replaceAll [{}]", str2);
 				String [] numbers = str2.split(",");
 				
-				logger.debug(className, function, "eqps [{}]", values[1]);
+				logger.debug(function, "eqps [{}]", values[1]);
 				String str3 = values[1].substring(1, values[1].length()-1);
 				String str4 = str3.replaceAll("\"", "");
-				logger.debug(className, function, "eqps substring [{}]", str3);
-				logger.debug(className, function, "eqps replaceAll [{}]", str4);
+				logger.debug(function, "eqps substring [{}]", str3);
+				logger.debug(function, "eqps replaceAll [{}]", str4);
 				String [] eqps = str4.split(",");
 				
 				numSteps = 0;
@@ -684,7 +683,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 	private void setPrepareGrcResultCallback() {
 		final String function = "setPrepareGrcResultCallback";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		Subject prepareGrcSubject = new Subject();
 		Observer observer = new Observer() {
@@ -697,7 +696,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 
 			@Override
 			public void update() {
-				logger.debug(className, function, "prepareGrcSubject update");
+				logger.debug(function, "prepareGrcSubject update");
 				JSONObject obj = this.subject.getState();
 				JSONNumber errorCodeObj = obj.get("errorCode").isNumber();
 				if (errorCodeObj != null) {
@@ -707,12 +706,12 @@ public class UIWidgetSocControl extends UIWidget_i {
 						JSONString errorMsgObj = obj.get("errorMessage").isString();
 						if (errorMsgObj != null) {
 							String errorMsg = errorMsgObj.stringValue();
-							logger.error(className, function, errorMsg);
+							logger.error(function, errorMsg);
 							String msg = MessageTranslationID.E_grc_prepare_result_error.toString();
 							sendDisplayMessageEvent(msg, new Object[]{errorMsg});
 						}
 					} else {
-						logger.info(className, function, "prepareGrc done. launchgrc");
+						logger.info(function, "prepareGrc done. launchgrc");
 						sendDisplayMessageEvent("");
 						launchgrc();
 					}
@@ -726,13 +725,13 @@ public class UIWidgetSocControl extends UIWidget_i {
 		String key = strKeyPrepareGrc + callback;
 		grcMgr.setSubject(key, prepareGrcSubject);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void setLaunchGrcResultCallback() {
 		final String function = "setLaunchGrcResultCallback";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		Subject launchGrcSubject = new Subject();
 		Observer observer = new Observer() {
@@ -745,7 +744,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 
 			@Override
 			public void update() {
-				logger.debug(className, function, "launchGrcSubject update");
+				logger.debug(function, "launchGrcSubject update");
 				JSONObject obj = this.subject.getState();
 				JSONNumber errorCodeObj = obj.get("errorCode").isNumber();
 				if (errorCodeObj != null) {
@@ -755,7 +754,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 						JSONString errorMsgObj = obj.get("errorMessage").isString();
 						if (errorMsgObj != null) {
 							String errorMsg = errorMsgObj.stringValue();
-							logger.error(className, function, errorMsg);
+							logger.error(function, errorMsg);
 							String msg = MessageTranslationID.E_grc_launch_result_error.toString();
 							sendDisplayMessageEvent(msg, new Object[]{errorMsg});
 						}
@@ -770,13 +769,13 @@ public class UIWidgetSocControl extends UIWidget_i {
 		String key = strKeyLaunchGrc + callback;
 		grcMgr.setSubject(key, launchGrcSubject);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void setGrcStatusResultCallback() {
 		final String function = "setGrcStatusResultCallback";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		Subject grcStatusSubject = new Subject();
 		Observer observer = new Observer() {
@@ -789,7 +788,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 
 			@Override
 			public void update() {
-				logger.debug(className, function, "grcStatusSubject update");
+				logger.debug(function, "grcStatusSubject update");
 				JSONObject obj = this.subject.getState();
 				JSONNumber errorCodeObj = obj.get("errorCode").isNumber();
 				int errorCode = 0;
@@ -800,7 +799,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 						JSONString errorMsgObj = obj.get("errorMessage").isString();
 						if (errorMsgObj != null) {
 							String errorMsg = errorMsgObj.stringValue();
-							logger.error(className, function, errorMsg);
+							logger.error(function, errorMsg);
 							String msg = MessageTranslationID.E_grc_result_update_error.toString();
 							sendDisplayMessageEvent(msg, new Object[]{errorMsg});
 						}
@@ -843,7 +842,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 							
 						} else if (grcStatus == GrcExecStatus.Stopped.getValue()) {
 							
-							logger.debug(className, function, "autoManu[{}]", autoManu);
+							logger.debug(function, "autoManu[{}]", autoManu);
 							
 							if (prevGrcStatus != grcStatus) {
 								if (reserveNeeded()) {
@@ -878,7 +877,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 						}
 						
 						if (actionsetkey != null) {
-							logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
+							logger.debug(function, "send actionsetkey [{}]", actionsetkey);
 
 							uiEventActionProcessor_i.executeActionSet(actionsetkey);
 						}
@@ -893,14 +892,14 @@ public class UIWidgetSocControl extends UIWidget_i {
 		String key = strKeyLaunchGrc + callback;
 		grcMgr.setSubject(key, grcStatusSubject);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 
 	private void setStepResultCallback() {
 		final String function = "setStepResultCallback";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		Subject stepSubject = new Subject();
 		Observer observer = new Observer() {
@@ -913,7 +912,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 
 			@Override
 			public void update() {
-				logger.debug(className, function, "stepSubject update");
+				logger.debug(function, "stepSubject update");
 				JSONObject obj = this.subject.getState();
 				JSONNumber errorCodeObj = obj.get("errorCode").isNumber();
 				int errorCode = 0;
@@ -924,7 +923,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 						JSONString errorMsgObj = obj.get("errorMessage").isString();
 						if (errorMsgObj != null) {
 							String errorMsg = errorMsgObj.stringValue();
-							logger.error(className, function, errorMsg);
+							logger.error(function, errorMsg);
 							String msg = MessageTranslationID.E_grc_step_result_error.toString();
 							sendDisplayMessageEvent(msg, new Object[]{errorMsg});
 						}
@@ -945,8 +944,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 						if (curStep > 0) {
 							lastExecutedStep = curStep;
 						}
-						logger.debug(className, function, "current step [{}]", curStep);
-						logger.debug(className, function, "last executed step [{}]", lastExecutedStep);
+						logger.debug(function, "current step [{}]", curStep);
+						logger.debug(function, "last executed step [{}]", lastExecutedStep);
 					}
 				}
 				sendReloadColumnDataEvent(targetDataGridColumnB3);
@@ -959,13 +958,13 @@ public class UIWidgetSocControl extends UIWidget_i {
 		String key = strKeyLaunchGrc + callback;
 		grcMgr.setSubject(key, stepSubject);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void setAbortGrcResultCallback() {
 		final String function = "setAbortGrcCallback";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		Subject abortGrcSubject = new Subject();
 		Observer observer = new Observer() {
@@ -978,7 +977,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 
 			@Override
 			public void update() {
-				logger.debug(className, function, "abortGrcSubject update");
+				logger.debug(function, "abortGrcSubject update");
 				JSONObject obj = this.subject.getState();
 				JSONNumber errorCodeObj = obj.get("errorCode").isNumber();
 				if (errorCodeObj != null) {
@@ -988,7 +987,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 						JSONString errorMsgObj = obj.get("errorMessage").isString();
 						if (errorMsgObj != null) {
 							String errorMsg = errorMsgObj.stringValue();
-							logger.error(className, function, errorMsg);
+							logger.error(function, errorMsg);
 							String msg = MessageTranslationID.E_grc_abort_update_error.toString();
 							sendDisplayMessageEvent(msg, new Object[]{errorMsg});
 						}
@@ -1004,42 +1003,42 @@ public class UIWidgetSocControl extends UIWidget_i {
 		String key = strKeyAbortGrc + callback;
 		grcMgr.setSubject(key, abortGrcSubject);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	protected void removeStepToSkip(Integer n) {
 		final String function = "removeStepToSkip";
-		logger.debug(className, function, "remove [{}] from skip list", n);
+		logger.debug(function, "remove [{}] from skip list", n);
 		if (skipList.contains(n)) {
 			skipList.remove(n);
-			logger.debug(className, function, "[{}] removed from skip list", n);
+			logger.debug(function, "[{}] removed from skip list", n);
 		}
 	}
 
 	protected void addStepToSkip(Integer n) {
 		final String function = "addStepToSkip";
-		logger.debug(className, function, "add [{}] to skip list", n);
+		logger.debug(function, "add [{}] to skip list", n);
 		if (!skipList.contains(n)) {
 			skipList.add(n);
-			logger.debug(className, function, "[{}] added to skip list", n);
+			logger.debug(function, "[{}] added to skip list", n);
 		}
 	}
 	
 	private int getCurStep() {
 		final String function = "getCurStep";
-		logger.begin(className, function);
+		logger.begin(function);
 		int result = 1;
 		
 		if (curStep > 0) {
 			result = curStep;
 		}
-		logger.end(className, function);
+		logger.end(function);
 		return result;
 	}
 	
 	private int [] getSkips() {
 		final String function = "getSkips";
-		logger.begin(className, function);
+		logger.begin(function);
 		int [] skips = null;
 		if ( null == this.skipList || skipList.isEmpty() ) {
 			skips = new int []{};
@@ -1057,9 +1056,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 			for (int i=0; i<skips.length; i++) {
 				skipStepsStr += skips[i] + " ";
 			}
-			logger.debug(className, function, "skip steps=[{}]", skipStepsStr);
+			logger.debug(function, "skip steps=[{}]", skipStepsStr);
 		}
-		logger.end(className, function);
+		logger.end(function);
 		return skips;
 	}
 
@@ -1076,7 +1075,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 //			reloadDataEvent.setParameter(ViewAttribute.OperationObject2.toString(), scsenvid);
 //			reloadDataEvent.setParameter(ViewAttribute.OperationObject3.toString(), dbalias);
 //			getEventBus().fireEvent(reloadDataEvent);
-//			logger.debug(className, function, "fire UIEventAction reloadDataEvent");
+//			logger.debug(function, "fire UIEventAction reloadDataEvent");
 //		}
 //	}
 	
@@ -1088,7 +1087,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 			reloadDataEvent.setParameter(ViewAttribute.OperationString2.toString(), targetDataGridB);
 			reloadDataEvent.setParameter(ViewAttribute.OperationString3.toString(), TargetColumn);
 			getEventBus().fireEvent(reloadDataEvent);
-			logger.debug(className, function, "fire UIEventAction reloadDataEvent");
+			logger.debug(function, "fire UIEventAction reloadDataEvent");
 		}
 	}
 	
@@ -1100,7 +1099,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 			disableCheckBoxEvent.setParameter(ViewAttribute.OperationString2.toString(), targetDataGridB);
 			disableCheckBoxEvent.setParameter(ViewAttribute.OperationString3.toString(), flag);
 			getEventBus().fireEvent(disableCheckBoxEvent);
-			logger.debug(className, function, "fire UIEventAction disableCheckBoxEvent[{}]", flag);
+			logger.debug(function, "fire UIEventAction disableCheckBoxEvent[{}]", flag);
 		}
 	}
 
@@ -1117,7 +1116,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 			displayMessageEvent.setParameter(ViewAttribute.OperationObject3.toString(), msgWithPlaceHolder);
 			displayMessageEvent.setParameter(ViewAttribute.OperationObject4.toString(), msgParam);
 			getEventBus().fireEvent(displayMessageEvent);
-			logger.debug(className, function, "fire UIEventAction displayMessageEvent");
+			logger.debug(function, "fire UIEventAction displayMessageEvent");
 		}
 	}
 	
@@ -1131,7 +1130,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 			grcStatusEvent.setParameter(ViewAttribute.OperationObject2.toString(), dbalias);
 			grcStatusEvent.setParameter(ViewAttribute.OperationObject3.toString(), statusStr);
 			getEventBus().fireEvent(grcStatusEvent);
-			logger.debug(className, function, "fire UIEventAction grcStatusEvent");
+			logger.debug(function, "fire UIEventAction grcStatusEvent");
 		}
 	}
 	
@@ -1145,7 +1144,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 			grcStepEvent.setParameter(ViewAttribute.OperationObject2.toString(), dbalias);
 			grcStepEvent.setParameter(ViewAttribute.OperationObject3.toString(), stepStr);
 			getEventBus().fireEvent(grcStepEvent);
-			logger.debug(className, function, "fire UIEventAction grcStepEvent");
+			logger.debug(function, "fire UIEventAction grcStepEvent");
 		}
 	}
 
@@ -1153,7 +1152,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 	private void readGrcCurStatus() {
 		final String function = "readGrcCurStatus";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String clientKey = function + "_" + scsenvid + "_" + dbalias;
 		String [] dbaddresses = new String [1];
@@ -1167,7 +1166,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 				final String function = "readGrcCurStatus setReadResult";
 
 				if (errorCode != 0) {
-					logger.debug(className, function, "readResult errorCode=[{}]");
+					logger.debug(function, "readResult errorCode=[{}]");
 					String msg = MessageTranslationID.E_rtdb_read_error.toString();
 					sendDisplayMessageEvent(msg);
 				} else {
@@ -1189,7 +1188,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 							actionsetkey = actionsetkey + GrcExecStatus.Waiting.name();
 						} else if (grcStatus == GrcExecStatus.Stopped.getValue()) {
 
-							logger.debug(className, function, "autoManu[{}]", autoManu);
+							logger.debug(function, "autoManu[{}]", autoManu);
 							if (autoManu == GrcExecMode.Auto.getValue()) {
 								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name();
 							} else {
@@ -1207,24 +1206,24 @@ public class UIWidgetSocControl extends UIWidget_i {
 						}
 
 						if (actionsetkey != null) {
-							logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
+							logger.debug(function, "send actionsetkey [{}]", actionsetkey);
 							uiEventActionProcessor_i.executeActionSet(actionsetkey);
 						}
 
-						logger.debug(className, function, "readResult curStatus=[{}]", curStatusStr);
+						logger.debug(function, "readResult curStatus=[{}]", curStatusStr);
 					}
 				}
 			}
 
 		});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private void readGrcStepStatuses(int step) {
 		final String function = "readGrcStepStatuses";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String clientKey = function + "_" + scsenvid + "_" + dbalias;
 		String [] dbaddresses = new String [1];
@@ -1239,12 +1238,12 @@ public class UIWidgetSocControl extends UIWidget_i {
 				final String function = "readGrcStepStatus setReadResult";
 
 				if (errorCode != 0) {
-					logger.debug(className, function, "readResult errorCode=[{}]");
+					logger.debug(function, "readResult errorCode=[{}]");
 					String msg = MessageTranslationID.E_rtdb_read_error.toString();
 					sendDisplayMessageEvent(msg);
 				} else {
 					if (values != null) {					
-						logger.debug(className, function, "step Statuses=[{}]", values[0]);
+						logger.debug(function, "step Statuses=[{}]", values[0]);
 						
 						String removedBracketStr = values[0].substring(1, values[0].length()-1);
 						String [] statuses = removedBracketStr.replaceAll("\"", "").split(",");
@@ -1261,12 +1260,12 @@ public class UIWidgetSocControl extends UIWidget_i {
 							} 
 						}
 						
-						logger.debug(className, function, "notExecutedSteps[{}]", Integer.toString(notExecutedSteps));
-						logger.debug(className, function, "completedSteps[{}]", Integer.toString(completedSteps));
-						logger.debug(className, function, "failedSteps[{}]", Integer.toString(failedSteps));
-						logger.debug(className, function, "skippedSteps[{}]", Integer.toString(skippedSteps));
-						logger.debug(className, function, "lastExecutedStep[{}]", Integer.toString(lastExecutedStep));
-						logger.debug(className, function, "numSteps[{}]", Integer.toString(numSteps));
+						logger.debug(function, "notExecutedSteps[{}]", Integer.toString(notExecutedSteps));
+						logger.debug(function, "completedSteps[{}]", Integer.toString(completedSteps));
+						logger.debug(function, "failedSteps[{}]", Integer.toString(failedSteps));
+						logger.debug(function, "skippedSteps[{}]", Integer.toString(skippedSteps));
+						logger.debug(function, "lastExecutedStep[{}]", Integer.toString(lastExecutedStep));
+						logger.debug(function, "numSteps[{}]", Integer.toString(numSteps));
 						
 						// Send display message event
 						Date d = new Date();
@@ -1280,7 +1279,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 								formattedStr += fmt.format(d);
 							}
 							catch(Exception e) {
-								logger.error(className, function, e.toString());
+								logger.error(function, e.toString());
 								formattedStr += d;
 							}
 							msg += formattedStr;
@@ -1310,7 +1309,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 
 						String actionsetkey = "GrcStatus_";
 						if (grcStatus == GrcExecStatus.Stopped.getValue()) {
-							logger.debug(className, function, "GrcStatus is STOPPED");
+							logger.debug(function, "GrcStatus is STOPPED");
 
 							if (autoManu == GrcExecMode.StopOnFailed.getValue() && lastExecutedStep > 0 && failedSteps > 0 ) {
 								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name() + "_Manu_" + CtlBrcStatus.Failed.name();
@@ -1321,41 +1320,41 @@ public class UIWidgetSocControl extends UIWidget_i {
 								sendDisableCheckBoxEvent(false);
 							}
 
-							logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
+							logger.debug(function, "send actionsetkey [{}]", actionsetkey);
 							uiEventActionProcessor_i.executeActionSet(actionsetkey);
 						} else {
 							logger.debug("Sending DisableCheckBox event when SOC ends.");
 							sendDisableCheckBoxEvent(false);
 						}
-						logger.debug(className, function, "SOC ends with setReadResult-values:[{}]", values);
+						logger.debug(function, "SOC ends with setReadResult-values:[{}]", values);
 					}
 				}
 			}
 
 		});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void reserveEquipment(int [] steps) {
 		final String function = "reserveEquipment";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		String [] reservedAliasesProto = getReserveAlias(reserveAttributeName);
 		String [] reservedAliases = null;
 		// Remove the skipped steps from "reservedAliasesProto":
 		int [] skippedSteps = getSkips();
 		if (skippedSteps.length == 0 || !skippedSteps.equals(null)) {
 			for (int i = 0; i < skippedSteps.length; i++) {
-				logger.debug(className, function, "current i: [{}], skippedSteps-i: [{}]", i, skippedSteps[i]);
-				logger.debug(className, function, "reservedAliasesProto-skippedSteps-i before removal: [{}]", reservedAliasesProto[skippedSteps[i]-1]);
+				logger.debug(function, "current i: [{}], skippedSteps-i: [{}]", i, skippedSteps[i]);
+				logger.debug(function, "reservedAliasesProto-skippedSteps-i before removal: [{}]", reservedAliasesProto[skippedSteps[i]-1]);
 				reservedAliasesProto[skippedSteps[i]-1] = "";
-				logger.debug(className, function, "reservedAliasesProto-skippedSteps-i after removal: [{}]", reservedAliasesProto[skippedSteps[i]-1]);
+				logger.debug(function, "reservedAliasesProto-skippedSteps-i after removal: [{}]", reservedAliasesProto[skippedSteps[i]-1]);
 			}
 			// remove the null entries for reservedAliasesProto.
 			List<String> tempList = new ArrayList<String>();
 			for (int i = 0; i < reservedAliasesProto.length ; i++) {
-				logger.debug(className, function, "reservedAliasesProto[{}] before removeAll: [{}]", i, reservedAliasesProto[i]);
+				logger.debug(function, "reservedAliasesProto[{}] before removeAll: [{}]", i, reservedAliasesProto[i]);
 				if (!reservedAliasesProto[i].equals("") ){
 					tempList.add(reservedAliasesProto[i]);
 				}
@@ -1364,7 +1363,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 			reservedAliases = tempList.toArray(reservedAliases);
 			// reservedIDAliases is the array for reservation reading
 			for (int i = 0; i < reservedAliases.length ; i++) {
-				logger.debug(className, function, "reservedAliases[{}] after convertion: [{}]", i, reservedAliases[i]);
+				logger.debug(function, "reservedAliases[{}] after convertion: [{}]", i, reservedAliases[i]);
 			}
 		}
 		
@@ -1376,9 +1375,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 			@Override
 			public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
 				final String function = "readReserve1 setReadResult";
-				logger.begin(className, function);
+				logger.begin(function);
 				
-				logger.debug(className, function, "clientKey [{}]  values length [{}]", key, values.length);
+				logger.debug(function, "clientKey [{}]  values length [{}]", key, values.length);
 				boolean hasFailed = false;
 				String [] reservedIDAliasesProto = getReserveAlias(resrvReservedID);
 				String [] reserveReqAliasesProto = getReserveAlias(resrvReserveReqID);
@@ -1388,19 +1387,19 @@ public class UIWidgetSocControl extends UIWidget_i {
 				int [] skippedSteps = getSkips();
 				if (skippedSteps.length == 0 || !skippedSteps.equals(null)) {
 					for (int i = 0; i < skippedSteps.length; i++) {
-						logger.debug(className, function, "current i: [{}], skippedSteps-i: [{}]", i, skippedSteps[i]);
-						logger.debug(className, function, "reservedIDAliasesProto-skippedSteps-i before removal: [{}]", reservedIDAliasesProto[skippedSteps[i]-1]);
-						logger.debug(className, function, "reserveReqAliasesProto-skippedSteps-i before removal: [{}]", reserveReqAliasesProto[skippedSteps[i]-1]);
+						logger.debug(function, "current i: [{}], skippedSteps-i: [{}]", i, skippedSteps[i]);
+						logger.debug(function, "reservedIDAliasesProto-skippedSteps-i before removal: [{}]", reservedIDAliasesProto[skippedSteps[i]-1]);
+						logger.debug(function, "reserveReqAliasesProto-skippedSteps-i before removal: [{}]", reserveReqAliasesProto[skippedSteps[i]-1]);
 						reservedIDAliasesProto[skippedSteps[i]-1] = "";
 						reserveReqAliasesProto[skippedSteps[i]-1] = "";
-						logger.debug(className, function, "reservedIDAliasesProto-skippedSteps-i after removal: [{}]", reservedIDAliasesProto[skippedSteps[i]-1]);
-						logger.debug(className, function, "reserveReqAliasesProto-skippedSteps-i after removal: [{}]", reserveReqAliasesProto[skippedSteps[i]-1]);
+						logger.debug(function, "reservedIDAliasesProto-skippedSteps-i after removal: [{}]", reservedIDAliasesProto[skippedSteps[i]-1]);
+						logger.debug(function, "reserveReqAliasesProto-skippedSteps-i after removal: [{}]", reserveReqAliasesProto[skippedSteps[i]-1]);
 					}
 					
 					// remove the null entries for reservedIDAliasesProto.
 					List<String> tempList = new ArrayList<String>();
 					for (int i = 0; i < reservedIDAliasesProto.length ; i++) {
-						logger.debug(className, function, "reservedIDAliasesProto[{}] before removeAll: [{}]", i, reservedIDAliasesProto[i]);
+						logger.debug(function, "reservedIDAliasesProto[{}] before removeAll: [{}]", i, reservedIDAliasesProto[i]);
 						if (!reservedIDAliasesProto[i].equals("") ){
 							tempList.add(reservedIDAliasesProto[i]);
 						}
@@ -1409,13 +1408,13 @@ public class UIWidgetSocControl extends UIWidget_i {
 					reservedIDAliases = tempList.toArray(reservedIDAliases);
 					// reservedIDAliases is the array for reservation reading
 					for (int i = 0; i < reservedIDAliases.length ; i++) {
-						logger.debug(className, function, "reservedIDAliases[{}] after convertion: [{}]", i, reservedIDAliases[i]);
+						logger.debug(function, "reservedIDAliases[{}] after convertion: [{}]", i, reservedIDAliases[i]);
 					}
 					
 					// remove the null entries for reserveReqAliasesProto.
 					List<String> tempList1 = new ArrayList<String>();
 					for (int i = 0; i < reserveReqAliasesProto.length ; i++) {
-						logger.debug(className, function, "reserveReqAliasesProto[{}] before removeAll: [{}]", i, reserveReqAliasesProto[i]);
+						logger.debug(function, "reserveReqAliasesProto[{}] before removeAll: [{}]", i, reserveReqAliasesProto[i]);
 						if (!reserveReqAliasesProto[i].equals("") ){
 							tempList1.add(reserveReqAliasesProto[i]);
 						}
@@ -1424,14 +1423,14 @@ public class UIWidgetSocControl extends UIWidget_i {
 					reserveReqAliases = tempList1.toArray(reserveReqAliases);
 					// reserveReqAliases is the array for reservation requesting
 					for (int i = 0; i < reserveReqAliases.length ; i++) {
-						logger.debug(className, function, "reserveReqAliases[{}] after convertion: [{}]", i, reserveReqAliases[i]);
+						logger.debug(function, "reserveReqAliases[{}] after convertion: [{}]", i, reserveReqAliases[i]);
 					}
 				}
 				
 				int reserveCnt = 0;
 				
 				for (int i=0; i<values.length; i++) {
-					logger.debug(className, function, "values[{}]=[{}]", i, values[i]);
+					logger.debug(function, "values[{}]=[{}]", i, values[i]);
 					String unquotedStr = "";
 					
 					if (values[i] != null) {
@@ -1441,7 +1440,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 							unquotedStr = values[i].replaceAll("\"", "");
 						}
 					}
-					logger.debug(className, function, "unquotedStr [{}]", unquotedStr);
+					logger.debug(function, "unquotedStr [{}]", unquotedStr);
 					
 					// Check if reserve is set
 					if ((unquotedStr == "1")) {
@@ -1462,7 +1461,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 					// Sending DisableCheckBoxEvent when SOC cannot launch due to reservation fail
 					sendDisableCheckBoxEvent(false);
 					
-					logger.warn(className, function, errorMsg);
+					logger.warn(function, errorMsg);
 					
 				} else {
 					// No equipment reserved by other person, check any equipment need to set reservation
@@ -1481,17 +1480,17 @@ public class UIWidgetSocControl extends UIWidget_i {
 					}
 				}
 				
-				logger.end(className, function);
+				logger.end(function);
 			}		
 		});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public String [] getReserveAlias(String targetAttribute) {
 		// "targetAttribute" means the column name of RTDB column. E.g.: "reserved", "resrvReservedID", "resrvReserveReqID"
 		final String function = "getReserveAlias";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String [] aliases = null;
 		
@@ -1503,19 +1502,19 @@ public class UIWidgetSocControl extends UIWidget_i {
 					aliasCnt++;
 				}
 			}
-			logger.debug(className, function, "eqpList length[{}]  non empty alias count[{}]", eqpList.length, aliasCnt);
+			logger.debug(function, "eqpList length[{}]  non empty alias count[{}]", eqpList.length, aliasCnt);
 			
 			aliases = new String [aliasCnt];
 			int index = 0;
 			for (String eqp: eqpList) {
 				if (eqp != null && !eqp.isEmpty()) {
 					aliases[index] = eqp + "." + targetAttribute;      
-					logger.debug(className, function, "alias[{}] = [{}]", index, aliases[index]);
+					logger.debug(function, "alias[{}] = [{}]", index, aliases[index]);
 					index++;
 				}
 			}
 		}
-		logger.end(className, function);
+		logger.end(function);
 		return aliases;
 		// "aliases[]" is used for referring to the target column values in the RTDB 
 	}
@@ -1523,67 +1522,67 @@ public class UIWidgetSocControl extends UIWidget_i {
 	protected void readReserve(String key, String [] reserveAliases, MultiReadResult multiReadResult) {
 		final String function = "readReserve";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		rtdb.multiReadValue(key, scsenvid, reserveAliases, multiReadResult);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void setReserve(String [] reserveReqAliases) {
 		final String function = "setReserve";
-		logger.begin(className, function);
-		logger.debug(className, function, "current Operator is:[{}]", currentOperator);
+		logger.begin(function);
+		logger.debug(function, "current Operator is:[{}]", currentOperator);
 		
 		for (String reqAlias: reserveReqAliases) {
-			logger.debug(className, function, "check reqAlias[{}]", reqAlias);
+			logger.debug(function, "check reqAlias[{}]", reqAlias);
 			
 			if (reqAlias != null && !reqAlias.isEmpty()) {
 				String clientKey = function + "_" + scsenvid + "_" + reqAlias;
 				
-				logger.debug(className, function, "setReserve for reqAlias[{}]", reqAlias);
+				logger.debug(function, "setReserve for reqAlias[{}]", reqAlias);
 				rtdb.writeStringValue(clientKey, scsenvid, reqAlias, currentOperator);
 			}
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void unsetReserve(String [] resrvUnreserveReqID) {
 		final String function = "unsetReserve";
-		logger.begin(className, function);
-		logger.debug(className, function, "current Operator is:[{}]", currentOperator);
+		logger.begin(function);
+		logger.debug(function, "current Operator is:[{}]", currentOperator);
 		
 		for (String unReqAlias: resrvUnreserveReqID) {
-			logger.debug(className, function, "check unReqAlias[{}]", unReqAlias);
+			logger.debug(function, "check unReqAlias[{}]", unReqAlias);
 			
 			if (unReqAlias != null && !unReqAlias.isEmpty()) {
 				String clientKey = function + "_" + scsenvid + "_" + unReqAlias;
 				
-				logger.debug(className, function, "unsetReserve for unReqAlias[{}]", unReqAlias);
+				logger.debug(function, "unsetReserve for unReqAlias[{}]", unReqAlias);
 				rtdb.writeStringValue(clientKey, scsenvid, unReqAlias, currentOperator);
 			}
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	protected void preparegrc() {
 		final String function="preparegrc";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		setPrepareGrcResultCallback();
 		
 		grcMgr.prepareGrc(strKeyPrepareGrc, scsenvid, dbalias);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	protected void launchgrc() {
 		final String function="launchgrc";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		int [] iSkips = getSkips();
 		
@@ -1602,6 +1601,6 @@ public class UIWidgetSocControl extends UIWidget_i {
 
 		grcMgr.launchGrc(strKeyLaunchGrc, scsenvid, dbalias, (short)autoManu, firstStep, iSkips);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

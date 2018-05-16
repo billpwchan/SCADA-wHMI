@@ -3,8 +3,8 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.init
 import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.entrypoint.UILayoutEntryPoint;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutLogin;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutProfileSelect;
@@ -45,12 +45,11 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListP
 public class InitUIWidgetFactorys {
 
 	private final static String name = InitUIWidgetFactorys.class.getName();
-	private final static String className = InitUIWidgetFactorys.class.getSimpleName();
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(name);
+	private final static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(InitUIWidgetFactorys.class.getName());
 
 	public static void init(final Map<String, String> parameters) {
 		String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		UIWidgetMgr uiWidgetMgr = UIWidgetMgr.getInstance();
 		uiWidgetMgr.removeUIWidgetFactory(name);
@@ -61,15 +60,15 @@ public class InitUIWidgetFactorys {
 					, final Map<String, Object> options) {
 				final String function = "getUIWidget";
 
-				logger.debug(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
+				logger.debug(function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
 
 				if (null != uiNameCard) {
-					logger.debug(className, function, "uiNameCard UIPath[{}] UIScreen[{}]"
+					logger.debug(function, "uiNameCard UIPath[{}] UIScreen[{}]"
 							, uiNameCard.getUiPath(), uiNameCard.getUiScreen());
 				} else {
-					logger.warn(className, function, "uiNameCard IS NULL");
+					logger.warn(function, "uiNameCard IS NULL");
 				}
-				logger.debug(className, function, "options IS NULL[{}]", null == options);
+				logger.debug(function, "options IS NULL[{}]", null == options);
 
 				UIWidget_i uiWidget_i = null;
 
@@ -234,7 +233,7 @@ public class InitUIWidgetFactorys {
 					uiWidget_i = new UILayoutProfileSelect();
 				}
 				else {
-					logger.warn(className, function, "uiCtrl[{}] type for UIWidget IS UNKNOW", uiCtrl);
+					logger.warn(function, "uiCtrl[{}] type for UIWidget IS UNKNOW", uiCtrl);
 				}
 
 				if ( null != uiWidget_i ) {
@@ -247,7 +246,7 @@ public class InitUIWidgetFactorys {
 					uiWidget_i.setOptsXMLFile(uiOpts);
 					uiWidget_i.init();	
 				} else {
-					logger.warn(className, function, "uiCtrl[{}] uiWidget IS NULL", uiCtrl);
+					logger.warn(function, "uiCtrl[{}] uiWidget IS NULL", uiCtrl);
 				}
 
 				return uiWidget_i;

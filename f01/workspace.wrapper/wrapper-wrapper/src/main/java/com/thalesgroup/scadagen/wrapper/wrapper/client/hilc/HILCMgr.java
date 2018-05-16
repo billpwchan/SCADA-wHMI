@@ -7,16 +7,15 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.fascomponent.hilc.FasHILCComponentAccess;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.fascomponent.hilc.IHILCComponentClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 
 public class HILCMgr {
 
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private static Map<String, HILCMgr> instances = new HashMap<String, HILCMgr>();
 	public static HILCMgr getInstance(String key) {
@@ -35,7 +34,7 @@ public class HILCMgr {
 	private HILCMgr () {
 		final String function = "HILCMgr";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 				
 		hilcAccess = new FasHILCComponentAccess(new IHILCComponentClient() {
 
@@ -57,40 +56,40 @@ public class HILCMgr {
 			@Override
 			public void setHILCPreparationResult(String clientKey, int errorCode, String errorMessage) {
 				final String function = "setHILCPreparationResult";
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				HILCPreparationResult(clientKey, errorCode, errorMessage);
 				
-				logger.end(className, function);
+				logger.end(function);
 			}
 
 			@Override
 			public void setHILCConfirmResult(String clientKey, int errorCode, String errorMessage) {
 				final String function = "setHILCConfirmResult";
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				HILCConfirmResult(clientKey, errorCode, errorMessage);
 				
-				logger.end(className, function);
+				logger.end(function);
 			}			
 		});
 	}
 	
 	public void connect() {
 		final String function = "connect";
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 	}
 	
 	public void disconnect() {
 		final String function = "disconnect";
-		logger.begin(className, function);
+		logger.begin(function);
 		try {
 			hilcAccess.terminate();
 		} catch (IllegalStatePresenterException e) {
 			e.printStackTrace();
 		}
 		hilcAccess=null;
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void setHILCMgr_i(HILCMgr_i hilcMgr_i) {
@@ -113,22 +112,22 @@ public class HILCMgr {
 	public void hilcPreparationRequest(String key, String scsEnvId, String operatorName, String workstationName, int cmdType,
     		int cmdValue, int cmdValueDiv, String eqpAlias, String eqpType, String cmdName) {
 		final String function = "hilcPreparationRequest";
-		logger.begin(className, function);
-		logger.info(className, function, "key[{}], scsEnvId[{}] operatorName[{}] workstationName[{}] cmdType[{}], cmdValue[{}], cmdValueDiv[{}], eqpAlias[{}], eqpType[{}], cmdName[{}]", new Object[]{key, scsEnvId,operatorName, workstationName, cmdType, cmdValue, cmdValueDiv, eqpAlias, eqpType, cmdName});
+		logger.begin(function);
+		logger.info(function, "key[{}], scsEnvId[{}] operatorName[{}] workstationName[{}] cmdType[{}], cmdValue[{}], cmdValueDiv[{}], eqpAlias[{}], eqpType[{}], cmdName[{}]", new Object[]{key, scsEnvId,operatorName, workstationName, cmdType, cmdValue, cmdValueDiv, eqpAlias, eqpType, cmdName});
 
 		hilcAccess.hilcPreparationRequest(key, scsEnvId, operatorName, workstationName, cmdType, cmdValue, cmdValueDiv, eqpAlias, eqpType, cmdName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public void hilcConfirmRequest(String key, String scsEnvId, String operatorName, String workstationName, int cmdType,
     		int cmdValue, int cmdValueDiv, String eqpAlias, String eqpType, String cmdName) {
 		final String function = "hilcPreparationRequest";
-		logger.begin(className, function);
-		logger.info(className, function, "key[{}], scsEnvId[{}] operatorName[{}] workstationName[{}] cmdType[{}], cmdValue[{}], cmdValueDiv[{}], eqpAlias[{}], eqpType[{}], cmdName[{}]", new Object[]{key, scsEnvId,operatorName, workstationName, cmdType, cmdValue, cmdValueDiv, eqpAlias, eqpType, cmdName});
+		logger.begin(function);
+		logger.info(function, "key[{}], scsEnvId[{}] operatorName[{}] workstationName[{}] cmdType[{}], cmdValue[{}], cmdValueDiv[{}], eqpAlias[{}], eqpType[{}], cmdName[{}]", new Object[]{key, scsEnvId,operatorName, workstationName, cmdType, cmdValue, cmdValueDiv, eqpAlias, eqpType, cmdName});
 
 		hilcAccess.hilcConfirmRequest(key, scsEnvId, operatorName, workstationName, cmdType, cmdValue, cmdValueDiv, eqpAlias, eqpType, cmdName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

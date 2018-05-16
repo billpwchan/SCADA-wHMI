@@ -3,22 +3,40 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>3</cols>
-		<rootPanel>VerticalPanel</rootPanel>
+		<cols>6</cols>
+		<rootPanel>FlowPanel</rootPanel>
 	</header>
 	<option key="0|0">
 		<uiCtrl>UIWidgetVerifyLogControl</uiCtrl>
 		<uiView>Verify/Log/UIWidgetVerifyLogControl.view.xml</uiView>
 		<element>UIWidgetVerifyLogControl</element>
 	</option>
+
 	<option key="0|1">
+		<uiCtrl>UIWidgetVerifyLogControl</uiCtrl>
+		<uiView>Verify/Log/UIWidgetVerifyAddLogLevelControl.view.xml</uiView>
+		<element>UIWidgetVerifyAddLogLevelControl</element>
+	</option>
+	<option key="0|2">
+		<uiCtrl>UIWidgetVerifyLogControl</uiCtrl>
+		<uiView>Verify/Log/UIWidgetVerifyRemoveLogLevelControl.view.xml</uiView>
+		<element>UIWidgetVerifyRemoveLogLevelControl</element>
+	</option>
+	<option key="0|3">
+		<uiCtrl>UIWidgetVerifyLogControl</uiCtrl>
+		<uiView>Verify/Log/UIWidgetVerifyClearLogLevelControl.view.xml</uiView>
+		<element>UIWidgetVerifyClearLogLevelControl</element>
+	</option>
+	<!--
+	<option key="0|4">
 		<uiCtrl>UIWidgetVerifyLogControl</uiCtrl>
 		<uiView>Verify/Log/UIWidgetVerifySetCurrentLogLevelControl.view.xml</uiView>
 		<element>UIWidgetVerifySetCurrentLogLevelControl</element>
 	</option>
-	<option key="0|2">
+	<option key="0|5">
 		<uiCtrl>UIWidgetVerifyLogControl</uiCtrl>
 		<uiView>Verify/Log/UIWidgetVerifyGetCurrentLogLevelControl.view.xml</uiView>
 		<element>UIWidgetVerifyGetCurrentLogLevelControl</element>
 	</option>
+	-->
 </data-set>

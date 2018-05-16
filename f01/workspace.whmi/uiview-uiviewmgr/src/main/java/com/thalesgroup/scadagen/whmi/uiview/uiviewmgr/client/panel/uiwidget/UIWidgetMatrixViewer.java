@@ -7,9 +7,8 @@ import java.util.Set;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
@@ -24,8 +23,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.S
 
 public class UIWidgetMatrixViewer extends UILayoutRealize {
 
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetMatrixViewer.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 //	private UIEventActionProcessor_i uiEventActionProcessorContextMenu_i = null;
 	
@@ -42,7 +40,7 @@ public class UIWidgetMatrixViewer extends UILayoutRealize {
 		super.init();
 		
 		final String function = "init";		
-		logger.begin(className, function);
+		logger.begin(function);
 
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -50,16 +48,16 @@ public class UIWidgetMatrixViewer extends UILayoutRealize {
 		if ( null != dictionariesCache ) {
 			scsMatrixElement			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetMatrixViewer_i.ParameterName.ScsMatrixElement.toString(), strHeader);
 		}
-		logger.info(className, function, "scsMatrixElement[{}]", scsMatrixElement);
+		logger.info(function, "scsMatrixElement[{}]", scsMatrixElement);
 		
 		if ( null == scsMatrixElement ) {
 			
-			logger.warn(className, function, "scsMatrixElement IS NULL");
+			logger.warn(function, "scsMatrixElement IS NULL");
 			
-			String strScsMatrixPanel = UIWidgetUtil.getClassSimpleName(ScsMatrixPanel.class.getName());
+			String strScsMatrixPanel = this.getClass().getSimpleName();
 			scsMatrixElement = strScsMatrixPanel;
 			
-			logger.warn(className, function, "Using default ScsMatrixPanel ClassName for scsMatrixElement[{}] AS DEFAULT", scsMatrixElement);
+			logger.warn(function, "Using default ScsMatrixPanel ClassName for scsMatrixElement[{}] AS DEFAULT", scsMatrixElement);
 		}
 		
 		Object object = (ScsMatrixPanel)((UILayoutGeneric)uiGeneric).getUIWidget(scsMatrixElement);
@@ -67,10 +65,10 @@ public class UIWidgetMatrixViewer extends UILayoutRealize {
 			if ( object instanceof ScsMatrixPanel ) {
 				scsMatrixPanel = (ScsMatrixPanel)object;
 			} else {
-				logger.warn(className, function, "scsMatrixElement[{}] instanceof ScsMatrixPanel IS FALSE");
+				logger.warn(function, "scsMatrixElement[{}] instanceof ScsMatrixPanel IS FALSE");
 			}
 		} else {
-			logger.warn(className, function, "scsMatrixElement[{}] IS NULL");
+			logger.warn(function, "scsMatrixElement[{}] IS NULL");
 		}
 		
 		if ( null != scsMatrixPanel ) {
@@ -87,7 +85,7 @@ public class UIWidgetMatrixViewer extends UILayoutRealize {
 					public void onSelection(Set<Map<String, String>> entities) {
 						final String function = "onSelection fireFilterEvent";
 						
-						logger.begin(className, function);
+						logger.begin(function);
 						
 						String actionsetkey = "RowSelected";
 						Map<String, Object> parameter = new HashMap<String, Object>();
@@ -98,16 +96,16 @@ public class UIWidgetMatrixViewer extends UILayoutRealize {
 						
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 						
-						logger.end(className, function);
+						logger.end(function);
 					}
 				});
 
 			} else {
-				logger.warn(className, function, "matrixPresenter IS NULL");
+				logger.warn(function, "matrixPresenter IS NULL");
 			}
 			
 		} else {
-			logger.warn(className, function, "scsMatrixPanel IS NULL");
+			logger.warn(function, "scsMatrixPanel IS NULL");
 		}
 	
 		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
@@ -128,7 +126,7 @@ public class UIWidgetMatrixViewer extends UILayoutRealize {
 			public void onActionReceived(UIEventAction uiEventAction) {
 				final String function = "onActionReceived";
 				
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				if ( null != uiEventAction ) {
 					
@@ -138,15 +136,15 @@ public class UIWidgetMatrixViewer extends UILayoutRealize {
 					String os4 = (String) uiEventAction.getParameter(ActionAttribute.OperationString4.toString());
 					String os5 = (String) uiEventAction.getParameter(ActionAttribute.OperationString5.toString());
 					
-					logger.info(className, function, "os1[{}]", os1);
-					logger.info(className, function, "os2[{}]", os2);
-					logger.info(className, function, "os3[{}]", os3);
-					logger.info(className, function, "os4[{}]", os4);
-					logger.info(className, function, "os5[{}]", os5);
+					logger.info(function, "os1[{}]", os1);
+					logger.info(function, "os2[{}]", os2);
+					logger.info(function, "os3[{}]", os3);
+					logger.info(function, "os4[{}]", os4);
+					logger.info(function, "os5[{}]", os5);
 					
 					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 					
-					logger.info(className, function, "oe[{}] element[{}]", oe, element);
+					logger.info(function, "oe[{}] element[{}]", oe, element);
 					
 					if ( null != oe ) {
 						
@@ -162,13 +160,13 @@ public class UIWidgetMatrixViewer extends UILayoutRealize {
 						
 
 					} else {
-						logger.warn(className, function, "os1 IS NULL");
+						logger.warn(function, "os1 IS NULL");
 					}
 				} else {
-					logger.warn(className, function, "uiEventAction IS NULL");
+					logger.warn(function, "uiEventAction IS NULL");
 				}
 				
-				logger.end(className, function);
+				logger.end(function);
 			}
 		};
 		
@@ -182,31 +180,31 @@ public class UIWidgetMatrixViewer extends UILayoutRealize {
 			@Override
 			public void envUp(String env) {
 				final String function = "envUp";
-				logger.begin(className, function);
+				logger.begin(function);
 
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
 			public void envDown(String env) {
 				final String function = "envDown";
-				logger.begin(className, function);
+				logger.begin(function);
 //				if ( null != scsMatrixPanel ) {
 //					scsMatrixPanel.terminate();
 //					scsMatrixPanel = null;
 //				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
 			public void terminate() {
 				final String function = "terminate";
-				logger.begin(className, function);
+				logger.begin(function);
 //				envDown(null);
-				logger.end(className, function);
+				logger.end(function);
 			}
 		};
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

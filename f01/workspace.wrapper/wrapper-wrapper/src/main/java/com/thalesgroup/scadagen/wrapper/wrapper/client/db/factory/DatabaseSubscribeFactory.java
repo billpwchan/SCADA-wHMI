@@ -1,7 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.DatabasePolling;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.DatabasePollingSingleton;
@@ -19,9 +19,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group
  *
  */
 public class DatabaseSubscribeFactory {
-	
-	private static final String className = DatabaseSubscribeFactory.class.getSimpleName();
-	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(DatabaseSubscribeFactory.class.getName());
+
+	private static final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(DatabaseSubscribeFactory.class.getName());
 	
 	/**
 	 * Factory Method to return the instance of the Database Subscribe Object
@@ -31,8 +30,8 @@ public class DatabaseSubscribeFactory {
 	 */
 	public static DatabaseSubscribe_i get(String key) {
 		final String function = "get";
-		logger.begin(className, function);
-		logger.debug(className, function, "key[{}]", key);
+		logger.begin(function);
+		logger.debug(function, "key[{}]", key);
 		DatabaseSubscribe_i databaseSubscribe_i = null;
 		
 		if ( null != key ) {
@@ -62,7 +61,7 @@ public class DatabaseSubscribeFactory {
 				databaseSubscribe_i = DatabaseGroupPollingDiffSingleton.getInstance();
 			}
 		}
-		logger.end(className, function);
+		logger.end(function);
 		return databaseSubscribe_i;
 	}
 }

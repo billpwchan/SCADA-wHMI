@@ -9,16 +9,15 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.IRTDBComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess.ScsClassAttInfo;
 
 public class WrapperScsRTDBAccess {
-	
-	private static final String className = WrapperScsRTDBAccess.class.getSimpleName();
-	private static UILogger logger = UILoggerFactory.getInstance().getLogger(WrapperScsRTDBAccess.class.getName());	
+
+	private static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(WrapperScsRTDBAccess.class.getName());	
 	
 	private final String strWaitingList		= "waitingList";
 	private final String strSubscriptions	= "subscriptions";
@@ -591,7 +590,7 @@ public class WrapperScsRTDBAccess {
     public void getChildren(String key, String scsEnvId, String dbaddress, GetChildrenResult getChildrenRes) {
     	final String function = "getChildren";
     	getChildrenMap.put(key, getChildrenRes);
-    	logger.debug(className, function, "key=[{}] scsEnvId=[{}]", key, scsEnvId);
+    	logger.debug(function, "key=[{}] scsEnvId=[{}]", key, scsEnvId);
     	
     	rtdb.getChildren(key, scsEnvId, dbaddress);
     }
@@ -600,7 +599,7 @@ public class WrapperScsRTDBAccess {
     	final String function = "multiReadValue";
     	multiReadMap.put(key, multiReadRes);
     	
-    	logger.debug(className, function, "key=[{}] scsEnvId=[{}]", key, scsEnvId);
+    	logger.debug(function, "key=[{}] scsEnvId=[{}]", key, scsEnvId);
     	
     	rtdb.multiReadValueRequest(key, scsEnvId, dbaddress);
     }
@@ -608,7 +607,7 @@ public class WrapperScsRTDBAccess {
     public void writeIntValue(String key, String scsEnvId, String address, int value) {
     	final String function = "writeIntValue";
     	
-    	logger.debug(className, function, "key=[{}] scsEnvId=[{}]", key, scsEnvId);
+    	logger.debug(function, "key=[{}] scsEnvId=[{}]", key, scsEnvId);
 
     	rtdb.writeIntValueRequest(key, scsEnvId, address, value);
     }
@@ -616,7 +615,7 @@ public class WrapperScsRTDBAccess {
     public void writeFloatValue(String key, String scsEnvId, String address, float value) {
     	final String function = "writeFloatValue";
     	
-    	logger.debug(className, function, "key=[{}] scsEnvId=[{}]", key, scsEnvId);
+    	logger.debug(function, "key=[{}] scsEnvId=[{}]", key, scsEnvId);
 
     	rtdb.writeFloatValueRequest(key, scsEnvId, address, value);
     }
@@ -624,7 +623,7 @@ public class WrapperScsRTDBAccess {
     public void writeStringValue(String key, String scsEnvId, String address, String value) {
     	final String function = "writeStringValue";
     	
-    	logger.debug(className, function, "key=[{}] scsEnvId=[{}]", key, scsEnvId);
+    	logger.debug(function, "key=[{}] scsEnvId=[{}]", key, scsEnvId);
 
     	rtdb.writeStringValueRequest(key, scsEnvId, address, value);
     }

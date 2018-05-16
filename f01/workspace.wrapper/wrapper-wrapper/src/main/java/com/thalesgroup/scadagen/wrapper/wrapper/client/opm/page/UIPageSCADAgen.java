@@ -1,15 +1,14 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.opm.page;
 
 import com.google.gwt.user.client.Window;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.page.spring.SpringLogin;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.page.spring.SpringLogout;
 
 public class UIPageSCADAgen implements UIPage_i {
-	
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private static UIPage_i instance = null;
 	public static UIPage_i getInstance() { 
@@ -24,7 +23,7 @@ public class UIPageSCADAgen implements UIPage_i {
 	@Override
 	public void login(String operator, String password) {
 		String function = "login";
-		logger.begin(className, function);
+		logger.begin(function);
 		String SPRING_SEC_CHECK_URL = "j_spring_security_check";
 		
 		String user_name = "j_username";
@@ -32,7 +31,7 @@ public class UIPageSCADAgen implements UIPage_i {
 		
 		new SpringLogin(SPRING_SEC_CHECK_URL, user_name, pass_name).login(operator, password);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#logout()
@@ -40,13 +39,13 @@ public class UIPageSCADAgen implements UIPage_i {
 	@Override
 	public void logout() {
 		String function = "logout";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String SPRING_SEC_LOGOUT_URL = "j_spring_security_logout";
 		
 		new SpringLogout(SPRING_SEC_LOGOUT_URL).logout();
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	/* (non-Javadoc)
@@ -55,11 +54,11 @@ public class UIPageSCADAgen implements UIPage_i {
 	@Override
 	public void reloadPage() {
 		String function = "reloadPage";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		Window.Location.reload();
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	@Override

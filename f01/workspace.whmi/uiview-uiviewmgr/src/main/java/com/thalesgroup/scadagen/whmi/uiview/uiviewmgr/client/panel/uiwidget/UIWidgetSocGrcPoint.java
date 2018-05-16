@@ -4,9 +4,8 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionBus;
@@ -24,8 +23,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGen
 
 public class UIWidgetSocGrcPoint extends UIWidget_i {
 
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetSocGrcPoint.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private SimpleEventBus eventBus 	= null;
 
@@ -47,11 +46,11 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 		public void onActionReceived(UIEventAction uiEventAction) {
 			final String function = "onActionReceived";
 			
-			logger.begin(className, function);
+			logger.begin(function);
 			
 			String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 			
-			logger.info(className, function, "os1["+os1+"]");
+			logger.info(function, "os1["+os1+"]");
 			
 			if ( null != os1 ) {
 				if ( os1.equals(GrcPointEvent.CurStatus.toString())) {
@@ -59,20 +58,18 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 					Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
 					Object obj3 = uiEventAction.getParameter(ViewAttribute.OperationObject3.toString());
 					
-					logger.info(className, function, "GRC Current Status");
+					logger.info(function, "GRC Current Status");
 										
 					if ( null != obj1 && null != obj2 && null != obj3) {
 						if ( obj1 instanceof String && obj2 instanceof String && obj3 instanceof String) {
-							String scsenvid = (String)obj1;
-							String dbalias = (String)obj2;
 							String curStatusStr = (String)obj3;
 							
 							displayCurStatus(curStatusStr);
 						} else {
-							logger.warn(className, function, "obj1 or obj2 or obj3 IS NOT TYPE OF String");
+							logger.warn(function, "obj1 or obj2 or obj3 IS NOT TYPE OF String");
 						}
 					} else {
-						logger.warn(className, function, "obj1 or obj2 or obj3 IS NULL");
+						logger.warn(function, "obj1 or obj2 or obj3 IS NULL");
 					}
 
 				} else if ( os1.equals(GrcPointEvent.CurStep.toString())) {
@@ -80,40 +77,36 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 					Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
 					Object obj3 = uiEventAction.getParameter(ViewAttribute.OperationObject3.toString());
 					
-					logger.info(className, function, "GRC Current Step");
+					logger.info(function, "GRC Current Step");
 										
 					if ( null != obj1 && null != obj2 && null != obj3) {
 						if ( obj1 instanceof String && obj2 instanceof String && obj3 instanceof String) {
-							String scsenvid = (String)obj1;
-							String dbalias = (String)obj2;
 							String curStepStr = (String)obj3;
 							
 							displayCurStep(curStepStr);
 						} else {
-							logger.warn(className, function, "obj1 or obj2 or obj3 IS NOT TYPE OF String");
+							logger.warn(function, "obj1 or obj2 or obj3 IS NOT TYPE OF String");
 						}
 					} else {
-						logger.warn(className, function, "obj1 or obj2 or obj3 IS NULL");
+						logger.warn(function, "obj1 or obj2 or obj3 IS NULL");
 					}
 				} else if ( os1.equals(GrcPointEvent.StepStatus.toString())) {
 					Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 					Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
 					Object obj3 = uiEventAction.getParameter(ViewAttribute.OperationObject3.toString());
 					
-					logger.info(className, function, "Step Status");
+					logger.info(function, "Step Status");
 										
 					if ( null != obj1 && null != obj2 && null != obj3) {
 						if ( obj1 instanceof String && obj2 instanceof String && obj3 instanceof String) {
-							String scsenvid = (String)obj1;
-							String dbalias = (String)obj2;
 							String stepStatusStr = (String)obj3;
 							
 							displayStepStatus(stepStatusStr);
 						} else {
-							logger.warn(className, function, "obj1 or obj2 or obj3 IS NOT TYPE OF String");
+							logger.warn(function, "obj1 or obj2 or obj3 IS NOT TYPE OF String");
 						}
 					} else {
-						logger.warn(className, function, "obj1 or obj2 or obj3 IS NULL");
+						logger.warn(function, "obj1 or obj2 or obj3 IS NULL");
 					}
 				} else if ( os1.equals(GrcPointEvent.DisplayMessage.toString())) {
 					Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
@@ -121,27 +114,25 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 					Object obj3 = uiEventAction.getParameter(ViewAttribute.OperationObject3.toString());
 					Object obj4 = uiEventAction.getParameter(ViewAttribute.OperationObject4.toString());
 					
-					logger.info(className, function, "Display Message");
+					logger.info(function, "Display Message");
 										
 					if ( null != obj1 && null != obj2 && null != obj3) {
 						if ( obj1 instanceof String && obj2 instanceof String && obj3 instanceof String) {
-							String scsenvid = (String)obj1;
-							String dbalias = (String)obj2;
 							String message = (String)obj3;
 							Object[] msgParam = (Object[]) obj4;
 							displayMessage(message, msgParam);
 						} else {
-							logger.warn(className, function, "obj1 or obj2 or obj3 IS NOT TYPE OF String");
+							logger.warn(function, "obj1 or obj2 or obj3 IS NOT TYPE OF String");
 						}
 					} else {
-						logger.warn(className, function, "obj1 or obj2 or obj3 IS NULL");
+						logger.warn(function, "obj1 or obj2 or obj3 IS NULL");
 					}
 				} else {
 					// General Case
 					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 					
-					logger.info(className, function, "oe ["+oe+"]");
-					logger.info(className, function, "os1["+os1+"]");
+					logger.info(function, "oe ["+oe+"]");
+					logger.info(function, "os1["+os1+"]");
 					
 					if ( null != oe ) {
 						if ( oe.equals(element) ) {
@@ -150,7 +141,7 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 					}
 				}
 			}
-			logger.end(className, function);
+			logger.end(function);
 		}
 	};
 		
@@ -158,11 +149,11 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 	public void init() {
 		final String function = "init";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
+		logger.info(function, "strEventBusName[{}]", strEventBusName);
 
 //		String strUIWidgetGeneric = "UIWidgetGeneric";
 //		String strHeader = "header";
@@ -226,7 +217,7 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 
 		uiEventActionProcessor_i.executeActionSetInit();
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	void displayMessage(String message, Object[] msgParam) {

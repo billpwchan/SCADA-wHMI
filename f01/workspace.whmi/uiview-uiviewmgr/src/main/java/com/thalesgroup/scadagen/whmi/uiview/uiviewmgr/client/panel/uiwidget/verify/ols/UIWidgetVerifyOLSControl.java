@@ -7,9 +7,8 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
@@ -21,15 +20,15 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.ols.OlsMgr;
 
 public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyOLSControl.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private String strOlsMgr = "OlsMgr";
 	
 	private Subject getSubject() {
 		final String function = "getSubject";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		Subject subject = new Subject();
 		Observer observer = new Observer() {
@@ -42,7 +41,7 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 
 			@Override
 			public void update() {
-				logger.debug(className, function, "update");
+				logger.debug(function, "update");
 				JSONObject obj = this.subject.getState();
 				uiGeneric.setWidgetValue("resultvalue", obj.toString());
 			}
@@ -50,14 +49,14 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 		};
 		observer.setSubject(subject);
 
-		logger.end(className, function);
+		logger.end(function);
 		
 		return subject;
 	}
 	
 	private void deleteData() {
 		final String function = "deleteData";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String olskey		= uiGeneric.getWidgetValue("olskeyvalue");
 		String key			= uiGeneric.getWidgetValue("keyvalue");
@@ -74,12 +73,12 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 		
 		olsMgr.deleteData(key, scsEnvId, listServer, listName, keyLists);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private void subscribeOlsList() {
 		final String function = "subscribeOlsList";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String olskey		= uiGeneric.getWidgetValue("olskeyvalue");
 		String key			= uiGeneric.getWidgetValue("keyvalue");
@@ -97,12 +96,12 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 		
 		olsMgr.subscribeOlsList(key, scsEnvId, listServer, listName, fieldLists, filter);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private void unsubscribeOlsList() {
 		final String function = "unsubscribeOlsList";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String olskey		= uiGeneric.getWidgetValue("olskeyvalue");
 		String key			= uiGeneric.getWidgetValue("keyvalue");
@@ -116,12 +115,12 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 		
 		olsMgr.unsubscribeOlsList(key, scsEnvId, listServer, subUUID);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private void readData() {
 		final String function = "readData";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String olskey		= uiGeneric.getWidgetValue("olskeyvalue");
 		String key			= uiGeneric.getWidgetValue("keyvalue");
@@ -139,12 +138,12 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 		
 		olsMgr.readData(key, scsEnvId, listServer, listName, fieldLists, filter);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private void insertData() {
 		final String function = "insertData";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String olskey		= uiGeneric.getWidgetValue("olskeyvalue");
 		String key			= uiGeneric.getWidgetValue("keyvalue");
@@ -166,12 +165,12 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 		
 		olsMgr.insertData(key, scsEnvId, listServer, listName, olsEntry);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private void updateData() {
 		final String function = "updateData";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String olskey		= uiGeneric.getWidgetValue("olskeyvalue");
 		String key			= uiGeneric.getWidgetValue("keyvalue");
@@ -194,7 +193,7 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 		
 		olsMgr.updateData(key, scsEnvId, listServer, listName, olsEntryKey, olsEntry);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void launch(String element) {
@@ -219,7 +218,7 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 		super.init();
 		
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 			
@@ -232,18 +231,18 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 			@Override
 			public void onClick(ClickEvent event) {
 				final String function = "onClick";
-				logger.begin(className, function);
+				logger.begin(function);
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
 						String element = uiGeneric.getWidgetElement(widget);
-						logger.debug(className, function, "element[{}]", element);
+						logger.debug(function, "element[{}]", element);
 						if ( null != element ) {
 							launch(element);
 						}
 					}
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
@@ -273,13 +272,13 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 			@Override
 			public void terminate() {
 				final String function = "terminate";
-				logger.begin(className, function);
+				logger.begin(function);
 				envDown(null);
-				logger.end(className, function);
+				logger.end(function);
 			};
 		};
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

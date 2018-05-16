@@ -4,9 +4,8 @@ import java.util.Map;
 
 import com.google.gwt.json.client.JSONObject;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
@@ -15,21 +14,21 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActi
 
 public class CallGWTByJS {
 	
-	private final static String className = UIWidgetUtil.getClassSimpleName(CallGWTByJS.class.getName());
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final static String className = CallGWTByJS.class.getSimpleName();
+	private final static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(CallGWTByJS.class.getName());
 	
 	public static void executeAction(String jsdata) {
 		final String function = "executeAction";
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.debug(className, function, "jsdata[{}]", jsdata);
+		logger.debug(function, "jsdata[{}]", jsdata);
 		
 		JSONObject json = ReadJson.readJson(jsdata);
 		String oa = ReadJson.readString(json, UIActionEventAttribute.OperationAction.toString(), null);
 		String ot = ReadJson.readString(json, UIActionEventAttribute.OperationType.toString(), null);
 		
-		logger.debug(className, function, "oa[{}]", oa);
-		logger.debug(className, function, "ot[{}]", ot);
+		logger.debug(function, "oa[{}]", oa);
+		logger.debug(function, "ot[{}]", ot);
 		
 		UIEventAction uiEventAction = new UIEventAction();
 		Map<String, Map<String, Object>> override = null;
@@ -40,14 +39,14 @@ public class CallGWTByJS {
 		for ( String osname : UIActionEventAttribute.toStrings() ) {
 			String osstring = ReadJson.readString(json, osname, null);
 			
-			logger.debug(className, function, "osname[{}] osstring[{}]", osname, osstring);
+			logger.debug(function, "osname[{}] osstring[{}]", osname, osstring);
 			uiEventAction.setParameter(osname, osstring);
 		}
 		
 		for ( String osname : ActionAttribute.toStrings() ) {
 			String osstring = ReadJson.readString(json, osname, null);
 			
-			logger.debug(className, function, "osname[{}] osstring[{}]", osname, osstring);
+			logger.debug(function, "osname[{}] osstring[{}]", osname, osstring);
 			uiEventAction.setParameter(osname, osstring);
 		}
 			
@@ -56,7 +55,7 @@ public class CallGWTByJS {
 		if ( null != uiEventActionExecute ) {
 			uiEventActionExecute.executeAction(uiEventAction, override);
 		} else {
-			logger.warn(className, function, "uiEventActionExecute IS NULL");
+			logger.warn(function, "uiEventActionExecute IS NULL");
 		}
 		
 //		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
@@ -74,23 +73,23 @@ public class CallGWTByJS {
 //			uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
 //			uiEventActionProcessor_i.init();
 //		} else {
-//			logger.warn(className, function, logPrefix+"uiEventActionProcessor_i IS NULL");
+//			logger.warn(function, logPrefix+"uiEventActionProcessor_i IS NULL");
 //		}
 		
 	}
 
 	public static void callGWTByJS(String jsdata) {
 		final String function = "callGWTByJS";
-		logger.begin(className, function);
-		logger.debug(className, function, "jsdata[{}]", jsdata);
+		logger.begin(function);
+		logger.debug(function, "jsdata[{}]", jsdata);
 		
 		try {
 			executeAction(jsdata);
 		} catch ( Exception ex ) {
-			logger.warn(className, function, "execute Exception["+ex.toString()+"]");
+			logger.warn(function, "execute Exception["+ex.toString()+"]");
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	public static native void exportCallGWTByJS() /*-{

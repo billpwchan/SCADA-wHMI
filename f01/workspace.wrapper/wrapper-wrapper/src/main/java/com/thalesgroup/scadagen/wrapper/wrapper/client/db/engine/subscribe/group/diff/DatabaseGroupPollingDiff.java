@@ -2,8 +2,10 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.grou
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import java.util.Map;
+
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group.DatabaseGroupPolling;
 
 /**
@@ -13,9 +15,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group
  *
  */
 public class DatabaseGroupPollingDiff extends DatabaseGroupPolling {
-	
-	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group.DatabaseGroupPolling#buildRespond(java.lang.String, java.lang.String[], java.lang.String[])
@@ -23,18 +24,18 @@ public class DatabaseGroupPollingDiff extends DatabaseGroupPolling {
 	@Override
 	public void buildRespond(String key, String[] dbaddresses, String[] values) {
 		final String function = "buildReponse";
-		logger.begin(className, function);
-		logger.debug(className, function, "key[{}]", key);
+		logger.begin(function);
+		logger.debug(function, "key[{}]", key);
 		String scsEnvId = requestKeyScsEnvIds.get(key);
 		
-		HashMap<String, String> addressValue = new HashMap<String, String>();
+		Map<String, String> addressValue = new HashMap<String, String>();
 		for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
 			String dbaddress = dbaddresses[i];
 			String value = values[i];
 			addressValue.put(dbaddress, value);
 		}
 		
-		HashMap<String, PollingRequest> rqs = requests.get(scsEnvId);
+		Map<String, PollingRequest> rqs = requests.get(scsEnvId);
 		for ( String key2 : rqs.keySet() ) {
 			PollingRequest rq = rqs.get(key2);
 			
@@ -78,7 +79,7 @@ public class DatabaseGroupPollingDiff extends DatabaseGroupPolling {
 			}
 
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

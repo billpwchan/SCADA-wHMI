@@ -6,8 +6,8 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutProfileSelect_i.PropertiesName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
@@ -25,7 +25,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.common.SetCurrentProf
 public class UILayoutProfileSelect extends UIWidget_i {
 	
 	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private final String strUIWidgetGeneric		= "UIWidgetGeneric";
 	
@@ -48,9 +48,9 @@ public class UILayoutProfileSelect extends UIWidget_i {
 	
 	private void select() {
 		final String f = "select";
-		logger.begin(className, f);
+		logger.begin(f);
 		
-		logger.debug(className, f, "opmApi[{}]", opmApi);
+		logger.debug(f, "opmApi[{}]", opmApi);
 		final UIOpm_i opm = OpmMgr.getInstance().getOpm(opmApi);
 		final Widget profiles = uiWidgetGenericInfo.getWidget(STR_PROFILE);
 		if(null!=profiles) {
@@ -60,13 +60,13 @@ public class UILayoutProfileSelect extends UIWidget_i {
 				int index = listBox.getSelectedIndex();
 				String profile = listBox.getSelectedItemText();
 				
-				logger.debug(className, f, "index[{}] profile[{}]", index, profile);
+				logger.debug(f, "index[{}] profile[{}]", index, profile);
 				
 				opm.setCurrentProfile(profile, new SetCurrentProfileCallback_i() {
 					
 					@Override
 					public void callback(final String profile) {
-						logger.debug(className, f, "callback profile[{}]", profile);
+						logger.debug(f, "callback profile[{}]", profile);
 						
 						uiEventActionProcessor_i.executeActionSet(STR_SELECTED);
 					}
@@ -74,16 +74,16 @@ public class UILayoutProfileSelect extends UIWidget_i {
 			}
 		}
 
-		logger.end(className, f);
+		logger.end(f);
 	}
 	
 	private void logout() {
 		String f = "logout";
-		logger.begin(className, f);
+		logger.begin(f);
 		
 		uiEventActionProcessor_i.executeActionSet(STR_LOGOUT);
 		
-		logger.end(className, f);
+		logger.end(f);
 	}
 	
 	// External
@@ -98,23 +98,23 @@ public class UILayoutProfileSelect extends UIWidget_i {
 		@Override
 		public void onUIEvent(UIEvent uiEvent) {
 			String f = "onUIEvent";
-			logger.beginEnd(className, f);
+			logger.beginEnd(f);
 		}
 		
 		@Override
 		public void onClick(ClickEvent event) {
 			String f = "onClick";
-			logger.begin(className, f);
+			logger.begin(f);
 			
-			logger.debug(className, f, "event[{}]", event);
+			logger.debug(f, "event[{}]", event);
 			
 			final Widget widget = (Widget) event.getSource();
 			
-			logger.debug(className, f, "widget[{}]", widget);
+			logger.debug(f, "widget[{}]", widget);
 			
 			final String element = uiWidgetGenericButton.getWidgetElement(widget);
 			
-			logger.debug(className, f, "element[{}]", element);
+			logger.debug(f, "element[{}]", element);
 			
 			if ( null != element ) {
 				
@@ -125,17 +125,16 @@ public class UILayoutProfileSelect extends UIWidget_i {
 				}
 				
 			} else {
-				logger.warn(className, f, "element IS NULL");
+				logger.warn(f, "element IS NULL");
 			}
 			
-			logger.end(className, f);
+			logger.end(f);
 		}
 		
 		@Override
 		public void onActionReceived(UIEventAction uiEventAction) {
 			final String f = "onActionReceived";
-			logger.begin(className, f);
-			logger.end(className, f);
+			logger.beginEnd(f);
 		}
 	};
 	
@@ -143,11 +142,11 @@ public class UILayoutProfileSelect extends UIWidget_i {
 	public void init() {
 		final String f = "init";
 		
-		logger.begin(className, f);
+		logger.begin(f);
 		
 		final String strEventBusName = getStringParameter(UIRealize_i.ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.debug(className, f, "strEventBusName[{}]", strEventBusName);
+		logger.debug(f, "strEventBusName[{}]", strEventBusName);
 		
 		final DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
@@ -184,7 +183,7 @@ public class UILayoutProfileSelect extends UIWidget_i {
 
 		uiEventActionProcessor_i.executeActionSetInit();
 		
-		logger.debug(className, f, "opmApi[{}]", opmApi);
+		logger.debug(f, "opmApi[{}]", opmApi);
 		final UIOpm_i opm = OpmMgr.getInstance().getOpm(opmApi);
 		String [] items = opm.getCurrentProfiles();		
 		
@@ -202,15 +201,15 @@ public class UILayoutProfileSelect extends UIWidget_i {
 			}
 		}
 		else if(null != items && items.length < 1) {
-			logger.debug(className, f, "STR_INVALID[{}]", STR_INVALID);
+			logger.debug(f, "STR_INVALID[{}]", STR_INVALID);
 			uiEventActionProcessor_i.executeActionSet(STR_INVALID);
 		}
 		else {
-			logger.debug(className, f, "STR_BYPASS[{}]", STR_BYPASS);
+			logger.debug(f, "STR_BYPASS[{}]", STR_BYPASS);
 			uiEventActionProcessor_i.executeActionSet(STR_BYPASS);
 		}
 
-		logger.end(className, f);
+		logger.end(f);
 	}
 
 }

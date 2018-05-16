@@ -18,16 +18,15 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.matrix.update.L
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.matrix.update.MxIntersectionState;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.matrix.view.IGenericMatrixView;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.life.StateTransitionReturn;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.matrix.ScsMatrixMultipleSelectionManager;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.matrix.renderer.ScsMatrixRenderer;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.SelectionEvent;
 
 public class ScsMatrixPresenterClient extends GenericMatrixPresenterClient {
 
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private SelectionEvent selectionEvent = null;
 	public SelectionEvent getSelectionEvent() { return selectionEvent; }
@@ -70,34 +69,34 @@ public class ScsMatrixPresenterClient extends GenericMatrixPresenterClient {
             	}
             }
         } else {
-            logger.error(className, function, "Error while initializing view : " + result);
+            logger.error(function, "Error while initializing view : " + result);
         }
     }
     
     @Override
     protected void sendColumnFilterEventSquare(final MatrixClickEvent event) {
     	final String function = "sendColumnFilterEventSquare";
-    	logger.begin(className, function);
+    	logger.begin(function);
     	
     	super.sendColumnFilterEventSquare(event);
     	
     	if (selectionEvent != null) {
     		sendSelectionEvent();
     	}
-    	logger.end(className, function);
+    	logger.end(function);
     }
 
     @Override
     protected void sendColumnFilterEventAxis(final MatrixAxisClickEvent event) {
     	final String function = "sendColumnFilterEventAxis";
-    	logger.begin(className, function);
+    	logger.begin(function);
     	
     	super.sendColumnFilterEventAxis(event);
     	
     	if (selectionEvent != null) {
     		sendSelectionEvent();
     	}
-    	logger.end(className, function);
+    	logger.end(function);
     }
     
     protected void sendSelectionEvent() {
@@ -109,7 +108,7 @@ public class ScsMatrixPresenterClient extends GenericMatrixPresenterClient {
 		if (getView() != null && getView().getRenderer() != null && getView().getRenderer() instanceof ScsMatrixRenderer) {
 			scsMxRenderer = (ScsMatrixRenderer)getView().getRenderer();
 		} else {
-			logger.warn(className, function, "Warning: renderer is null or renderer type not instanceof ScsMatrixRenderer");
+			logger.warn(function, "Warning: renderer is null or renderer type not instanceof ScsMatrixRenderer");
 			return;
 		}
 
@@ -117,7 +116,7 @@ public class ScsMatrixPresenterClient extends GenericMatrixPresenterClient {
     	if (getSelectionManager() != null && getSelectionManager() instanceof ScsMatrixMultipleSelectionManager) {
     		selectionManager = (ScsMatrixMultipleSelectionManager) getSelectionManager();
     	} else {
-			logger.warn(className, function, "Warning: selectionManager is null or renderer type not instanceof ScsMatrixMultipleSelectionManager");
+			logger.warn(function, "Warning: selectionManager is null or renderer type not instanceof ScsMatrixMultipleSelectionManager");
 			return;
 		}
     	
@@ -125,14 +124,14 @@ public class ScsMatrixPresenterClient extends GenericMatrixPresenterClient {
     	Set<Map<String, String>> selectionSet = new HashSet<Map<String, String>>();
     	Set<LocationKey> currentSelectedLocationKeySet = selectionManager.getCurrentSelectedLocationKeySet();
     	if (currentSelectedLocationKeySet == null) {
-    		logger.debug(className, function, "currentSelectionLocationKeySet is null");
+    		logger.debug(function, "currentSelectionLocationKeySet is null");
     		return;
     	}
     	
-    	logger.debug(className, function, "currentSelectedLocationKeySet size=[{}]", currentSelectedLocationKeySet.size());
+    	logger.debug(function, "currentSelectedLocationKeySet size=[{}]", currentSelectedLocationKeySet.size());
 		for (LocationKey key: currentSelectedLocationKeySet) {
 			MxIntersectionState state = scsMxRenderer.getMxIntersectionState(key);
-			logger.debug(className, function, "getMxIntersectionState with location [{}]", key);
+			logger.debug(function, "getMxIntersectionState with location [{}]", key);
 			if (state != null) {
 				Map<String, EntityClient> map = state.getListEntities();
 	    		if (map != null) {
@@ -140,23 +139,23 @@ public class ScsMatrixPresenterClient extends GenericMatrixPresenterClient {
 		            	Map<String, String> details = new HashMap<String, String>();
 		            	for ( String attributeName : ec.attributeNames() ) {
 		             		details.put(attributeName, ec.getAttribute(attributeName).getValue().toString());
-		             		logger.debug(className, function, "details add attribute[{}] value[{}]", attributeName, ec.getAttribute(attributeName).getValue().toString());
+		             		logger.debug(function, "details add attribute[{}] value[{}]", attributeName, ec.getAttribute(attributeName).getValue().toString());
 		            	}        	
 		            	selectionSet.add(details);
-		            	logger.debug(className, function, "selectionSet size=[{}]", selectionSet.size());
+		            	logger.debug(function, "selectionSet size=[{}]", selectionSet.size());
 		    		}
 		    	}  else {
-	    			logger.debug(className, function, "Warning: getListEntities() return map is null");
+	    			logger.debug(function, "Warning: getListEntities() return map is null");
 	    		}
 			}
 		}
 		
 		if (selectionEvent != null) {
 			if (selectionSet.size() > 0) {
-				logger.debug(className, function, "send selectionEvent.onSelection(selectionSet) size=[{}]", selectionSet.size());
+				logger.debug(function, "send selectionEvent.onSelection(selectionSet) size=[{}]", selectionSet.size());
 				selectionEvent.onSelection(selectionSet);
 			} else {
-				logger.debug(className, function, "send selectionEvent.onSelection(null)");
+				logger.debug(function, "send selectionEvent.onSelection(null)");
 				selectionEvent.onSelection(null);
 			}
 		}

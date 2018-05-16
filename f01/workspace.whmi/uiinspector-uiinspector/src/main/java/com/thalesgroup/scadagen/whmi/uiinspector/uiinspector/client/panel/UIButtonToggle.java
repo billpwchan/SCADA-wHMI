@@ -2,15 +2,12 @@ package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel;
 
 import com.google.gwt.user.client.ui.Button;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.Control;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class UIButtonToggle extends Button {
 	
-	private final String cls = this.getClass().getName();
-	private final String className = UIWidgetUtil.getClassSimpleName(cls);
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private Control control = null;
 	public Control getControl() { return control; }
@@ -35,12 +32,12 @@ public class UIButtonToggle extends Button {
 	 */
 	public void setHightLight ( boolean hightLight ) {
 		final String function = "setHightLight";
-		logger.begin(className, function);
-		logger.debug(className, function, "setHightLight Begin hightLight[{}]", hightLight);
+		logger.begin(function);
+		logger.debug(function, "setHightLight Begin hightLight[{}]", hightLight);
 
 		this.hightLight = hightLight;
 		
-		logger.debug(className, function, "setHightLight strStyleName[{}] hightLight[{}]", strStyleName, hightLight);
+		logger.debug(function, "setHightLight strStyleName[{}] hightLight[{}]", strStyleName, hightLight);
 
 		if ( hightLight ) {
 			this.addStyleName(strStyleName);
@@ -48,7 +45,7 @@ public class UIButtonToggle extends Button {
 			this.removeStyleName(strStyleName);
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 }

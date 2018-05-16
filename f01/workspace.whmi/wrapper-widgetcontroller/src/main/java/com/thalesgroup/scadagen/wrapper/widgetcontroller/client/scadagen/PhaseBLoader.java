@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitProcess_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitDatabase;
@@ -20,9 +20,8 @@ import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.opm.InitUse
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class PhaseBLoader implements Loader_i{
-	
-	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private static PhaseBLoader instance = null; 
 	public static PhaseBLoader getInstance() {
@@ -89,14 +88,14 @@ public class PhaseBLoader implements Loader_i{
 	
 	private PhaseBLoader() {
 		final String function = "PhaseBLoader";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		initProcess = new InitProcess_i() {
 			
 			@Override
 			public void process(final Map<String, Object> params, final InitReady_i initReady) {
 				final String function = "process";
-				logger.begin(className, function);
+				logger.begin(function);
 
 				initOpmSub();
 				
@@ -108,7 +107,7 @@ public class PhaseBLoader implements Loader_i{
 			        InitOpm.getInstance().initOpm(parameters.get(strUIOpmSCADAgenKey));
 				} catch (Exception ex) {
 					opmInitInValid = true;
-					logger.warn(className, function, "uiOpm_i init Exception:"+ex.toString());
+					logger.warn(function, "uiOpm_i init Exception:"+ex.toString());
 				}
 				
 		        // Init for the translation
@@ -122,7 +121,7 @@ public class PhaseBLoader implements Loader_i{
 					try {
 						intDatabaseSubscribePeriodMillis = Integer.parseInt(strDatabaseSubscribePeriodMillisValue);
 					} catch ( NumberFormatException ex) {
-						logger.warn(className, function, "opmInitInValid[{}] bypass RPC init", opmInitInValid);
+						logger.warn(function, "opmInitInValid[{}] bypass RPC init", opmInitInValid);
 					}
 					
 					// Init for the Database Singleton Usage
@@ -131,7 +130,7 @@ public class PhaseBLoader implements Loader_i{
 			        InitDatabase.getInstance().initDatabaseWritingSingleton(parameters.get(strDatabaseWritingSingletonKey));
 			        InitDatabase.getInstance().initDatabaseGetFullPathSingleton(parameters.get(strDatabaseGetFullPathSingletonKey));
 										        
-			        logger.debug(className, function, " strTranslatePatten["+InitTranslation.strTranslatePatten+"]");
+			        logger.debug(function, " strTranslatePatten["+InitTranslation.strTranslatePatten+"]");
 			        
 			        
 			        // Load the Translation Pattern and Flag from the Locate setting
@@ -139,24 +138,24 @@ public class PhaseBLoader implements Loader_i{
 			        
 			        if ( null != translationMgr ) {
 			        	
-			        	logger.debug(className, function, " InitTranslation.strTranslatePatten["+InitTranslation.strTranslatePatten+"]");
+			        	logger.debug(function, " InitTranslation.strTranslatePatten["+InitTranslation.strTranslatePatten+"]");
 				        String translatePatten = Translation.getWording(InitTranslation.strTranslatePatten);
-				        logger.debug(className, function, " InitTranslation.strTranslatePatten["+InitTranslation.strTranslatePatten+"] translatePatten["+translatePatten+"]");
+				        logger.debug(function, " InitTranslation.strTranslatePatten["+InitTranslation.strTranslatePatten+"] translatePatten["+translatePatten+"]");
 				        if ( null != translatePatten && translatePatten.equals(InitTranslation.strTranslatePatten) ) translatePatten = null;
 				        
-				        logger.debug(className, function, " InitTranslation.strTranslateFlag["+InitTranslation.strTranslateFlag+"]");
+				        logger.debug(function, " InitTranslation.strTranslateFlag["+InitTranslation.strTranslateFlag+"]");
 				        String translateFlag = Translation.getWording(InitTranslation.strTranslateFlag);
-				        logger.debug(className, function, " InitTranslation.strTranslateFlag["+InitTranslation.strTranslateFlag+"] translateFlag["+translateFlag+"]");
+				        logger.debug(function, " InitTranslation.strTranslateFlag["+InitTranslation.strTranslateFlag+"] translateFlag["+translateFlag+"]");
 				        if ( null != translateFlag && translateFlag.equals(InitTranslation.strTranslateFlag) ) translateFlag = null;
 				        
-				        logger.debug(className, function, " translatePatten["+translatePatten+"]");
+				        logger.debug(function, " translatePatten["+translatePatten+"]");
 				        initTranslation.setTranslationPattern(translatePatten);
 				        
-				        logger.debug(className, function, " translateFlag["+translateFlag+"]");
+				        logger.debug(function, " translateFlag["+translateFlag+"]");
 				        initTranslation.setTranslationFlag(translateFlag);
 				        
 			        } else {
-			        	logger.warn(className, function, "translationMgr IS NULL", translationMgr);
+			        	logger.warn(function, "translationMgr IS NULL", translationMgr);
 			        }
 			        
 					// Loading SCADAgen Control Priority Factory
@@ -165,7 +164,7 @@ public class PhaseBLoader implements Loader_i{
 				        // Init the SCADAgen Control Priority API
 				        InitControlPriority.getInstance().initControlPriority(parameters.get(strUIControlPrioritySCADAgenKey));
 					} catch (Exception ex) {
-						logger.warn(className, function, "InitControlPriority init Exception:"+ex.toString());
+						logger.warn(function, "InitControlPriority init Exception:"+ex.toString());
 					}
 					
 					// Loading SCADAgen Handover Management Factory
@@ -174,59 +173,59 @@ public class PhaseBLoader implements Loader_i{
 				        // Init the SCADAgen Control Priority API
 				        InitHom.getInstance().initHom(parameters.get(strUIControlPrioritySCADAgenKey));
 					} catch (Exception ex) {
-						logger.warn(className, function, "InitHom init Exception:"+ex.toString());
+						logger.warn(function, "InitHom init Exception:"+ex.toString());
 					}
 
 				} else {
-					logger.warn(className, function, "opmInitInValid[{}] bypass RPC init", opmInitInValid);
+					logger.warn(function, "opmInitInValid[{}] bypass RPC init", opmInitInValid);
 				}
 
 				if ( null != initReady ) {
 					initReady.ready(params);
 				} else {
-					logger.warn(className, function, "initReady IS NULL");
+					logger.warn(function, "initReady IS NULL");
 				}
 
-			    logger.end(className, function);
+			    logger.end(function);
 			}
 		};
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void initOpmSub() {
 		final String function = "initOpms";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		InitNetwork.getInstance().initFactory();
 		try {
 	        // Init the SCADAgen Control Priority API
 	        InitNetwork.getInstance().initNetwork(parameters.get(strUINetworkSCADAgenKey));
 		} catch (Exception ex) {
-			logger.warn(className, function, "InitNetwork init Exception:"+ex.toString());
+			logger.warn(function, "InitNetwork init Exception:"+ex.toString());
 		}
 		
 		InitAccess.getInstance().initFactory();
 		try {
 			InitAccess.getInstance().initAccess(parameters.get(strUIAccessSCADAgenKey));
 		} catch (Exception ex) {
-			logger.warn(className, function, "InitAccess init Exception:"+ex.toString());
+			logger.warn(function, "InitAccess init Exception:"+ex.toString());
 		}
 		
 		InitPage.getInstance().initFactory();
 		try {
 			InitPage.getInstance().initPage(parameters.get(strUIPageSCADAgenKey));
 		} catch (Exception ex) {
-			logger.warn(className, function, "InitPage init Exception:"+ex.toString());
+			logger.warn(function, "InitPage init Exception:"+ex.toString());
 		}
 		
 		InitUser.getInstance().initFactory();
 		try {
 			InitUser.getInstance().initUser(parameters.get(strUIUserSCADAgenKey));
 		} catch (Exception ex) {
-			logger.warn(className, function, "InitUser init Exception:"+ex.toString());
+			logger.warn(function, "InitUser init Exception:"+ex.toString());
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 }

@@ -5,9 +5,8 @@ import java.util.Map;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UILayoutRealize;
@@ -20,13 +19,12 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIWidgetCSSSwitch extends UILayoutRealize {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetCSSSwitch.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private void modifyCss(String element, String style, boolean set ) {
 		final String function = "modifyCss";
 		
-		logger.info(className, function, "element[{}] style[{}] set[{}]", new Object[]{element, style, set});
+		logger.info(function, "element[{}] style[{}] set[{}]", new Object[]{element, style, set});
 		
 		UIWidget_i uiWidget = ((UILayoutGeneric)uiGeneric).getUIWidget(element);
 		if ( null != uiWidget ) {
@@ -39,23 +37,23 @@ public class UIWidgetCSSSwitch extends UILayoutRealize {
 						panel.removeStyleName(style);
 					}
 				} else {
-					logger.warn(className, function, "element[{}] style IS NULL OR length IS ZERO", element);
+					logger.warn(function, "element[{}] style IS NULL OR length IS ZERO", element);
 				}
 			} else {
-				logger.warn(className, function, "element[{}] panel IS NULL", element);
+				logger.warn(function, "element[{}] panel IS NULL", element);
 			}			
 		} else {
-			logger.warn(className, function, "element[{}] uiWidget IS NULL", element);
+			logger.warn(function, "element[{}] uiWidget IS NULL", element);
 		}
 	}
 	
 	private void execute(UIEventAction uiEventAction) {
 		final String function = "execute";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 		
-		logger.info(className, function, "os1["+os1+"]");
+		logger.info(function, "os1["+os1+"]");
 
 		Map<String, Map<String, Object>> override = null;
 		
@@ -68,10 +66,10 @@ public class UIWidgetCSSSwitch extends UILayoutRealize {
 				String os3	= (String) uiEventAction.getParameter(ViewAttribute.OperationString3.toString());
 				String os4	= (String) uiEventAction.getParameter(ViewAttribute.OperationString4.toString());
 
-				logger.info(className, function, "os1["+os1+"]");
-				logger.info(className, function, "os2["+os2+"]");
-				logger.info(className, function, "os3["+os3+"]");
-				logger.info(className, function, "os4["+os4+"]");						
+				logger.info(function, "os1["+os1+"]");
+				logger.info(function, "os2["+os2+"]");
+				logger.info(function, "os3["+os3+"]");
+				logger.info(function, "os4["+os4+"]");						
 				
 				if ( os1.equals("ModifyCSS") ) {
 					
@@ -81,13 +79,13 @@ public class UIWidgetCSSSwitch extends UILayoutRealize {
 						boolean applyRemove = os4.equals("true");
 						modifyCss(cssElementName, cssValueName, applyRemove);
 					} else {
-						logger.warn(className, function, "os2 IS NULL or os3 IS NULL or os4 IS NULL ");
+						logger.warn(function, "os2 IS NULL or os3 IS NULL or os4 IS NULL ");
 					}
 				}
 				return true;
 			}
 		});
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
@@ -95,7 +93,7 @@ public class UIWidgetCSSSwitch extends UILayoutRealize {
 		super.init();
 		
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 			
@@ -114,13 +112,13 @@ public class UIWidgetCSSSwitch extends UILayoutRealize {
 			@Override
 			public void onActionReceived(UIEventAction uiEventAction) {
 				final String function = "onActionReceived";
-				logger.begin(className, function);
+				logger.begin(function);
 				
 				if ( null != uiEventAction ) {
 					
 					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 					
-					logger.info(className, function, "oe["+oe+"]");
+					logger.info(function, "oe["+oe+"]");
 					
 					if ( null != oe ) {
 						if ( oe.equals(element) ) {
@@ -130,7 +128,7 @@ public class UIWidgetCSSSwitch extends UILayoutRealize {
 					}
 				}
 
-				logger.end(className, function);
+				logger.end(function);
 			}
 		};
 		
@@ -139,31 +137,31 @@ public class UIWidgetCSSSwitch extends UILayoutRealize {
 			@Override
 			public void init() {
 				final String function = "init";
-				logger.beginEnd(className, function);
+				logger.beginEnd(function);
 			}
 		
 			@Override
 			public void envUp(String env) {
 				final String function = "envUp";
-				logger.beginEnd(className, function);
+				logger.beginEnd(function);
 			}
 			
 			@Override
 			public void envDown(String env) {
 				final String function = "envDown";
-				logger.beginEnd(className, function);
+				logger.beginEnd(function);
 			}
 			
 			@Override
 			public void terminate() {
 				final String function = "terminate";
-				logger.begin(className, function);
+				logger.begin(function);
 				envDown(null);
-				logger.begin(className, function);
+				logger.begin(function);
 			};
 		};
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override

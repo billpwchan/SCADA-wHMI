@@ -3,16 +3,15 @@ package com.thalesgroup.scadagen.wrapper.widgetcontroller.client.scadagen;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.UIWidgetEntryPoint;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitProcess_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
 
 public class SingleLoader implements Loader_i {
 	
-	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private static SingleLoader instance = null; 
 	public static SingleLoader getInstance() {
@@ -37,14 +36,14 @@ public class SingleLoader implements Loader_i {
 	
 	private SingleLoader() {
 		final String function = "Init";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		initProcess = new InitProcess_i() {
 			
 			@Override
 			public void process(final Map<String, Object> params, final InitReady_i initReady) {
 				final String function = "process";
-				logger.begin(className, function);
+				logger.begin(function);
 		
 				UIWidgetEntryPoint.init(params, LoaderFactory.getInitProcess("PhaseALoader"), new InitReady_i() {
 					
@@ -59,18 +58,18 @@ public class SingleLoader implements Loader_i {
 								if ( null != initReady ) {
 									initReady.ready(params);
 								} else {
-									logger.warn(className, function, "initReady IS NULL");
+									logger.warn(function, "initReady IS NULL");
 								}
 							}
 						});
 					}
 				});
 
-			    logger.end(className, function);
+			    logger.end(function);
 			}
 		};
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 }

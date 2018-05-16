@@ -14,15 +14,13 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutAction;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutMode;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIPanelView {
-	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelView.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 		
 	private int viewId;
 	private boolean activate;
@@ -40,7 +38,7 @@ public class UIPanelView {
 	public UIPanelView(UIPanelViewEvent uiPanelViewEvent, UINameCard uiNameCard, int viewId) {
 		final String function = "UIPanelView";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.uiPanelViewEvent = uiPanelViewEvent;
 		
@@ -56,9 +54,9 @@ public class UIPanelView {
 //			public void onMouseDown(MouseDownEvent event) {
 //				final String function = "addMouseDownHandler onClick";
 //				
-//				logger.begin(className, function);
+//				logger.begin(function);
 //				onMouseClick();
-//				logger.end(className, function);
+//				logger.end(function);
 //			}
 //		});
 //		this.rootPanel.addClickHandler(new ClickHandler() {
@@ -67,9 +65,9 @@ public class UIPanelView {
 //			public void onClick(ClickEvent event) {
 //				final String function = "addClickHandler onClick";
 //				
-//				logger.begin(className, function);
+//				logger.begin(function);
 //				onMouseClick();
-//				logger.end(className, function);
+//				logger.end(function);
 //			}
 //		});
 		
@@ -80,57 +78,57 @@ public class UIPanelView {
             public void onClick(ClickEvent event) {
             	final String function = "addClickHandler onClick";
         		
-        		logger.begin(className, function);
+        		logger.begin(function);
             	onMouseClick();
-            	logger.end(className, function);
+            	logger.end(function);
             }
     	}, ClickEvent.getType());
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	private void onMouseClick(){
 		final String function = "onMouseClick";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		uiPanelViewEvent.setViewIdActivate(this.viewId);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	public DockLayoutPanel getMainPanel() {
 		final String function = "getMainPanel";
 		
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 		
 		return this.basePanel;
 	}
 	public int getViewId() {
 		final String function = "getViewId";
 		
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 		
 		return viewId;
 	}
 	public void setViewId(int viewId) {
 		final String function = "setViewId";
 		
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 		
 		this.viewId = viewId;
 	}
 	public boolean isActivate() {
 		final String function = "isActivate";
 		
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 		
 		return activate;
 	}
 	private void setActivateBorder(boolean activate) {
 		final String function = "setActivateBorder";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.info(className, function, "activate[{}]", activate);
+		logger.info(function, "activate[{}]", activate);
 		
 		String stylePrimaryName = null;
 		
@@ -150,39 +148,39 @@ public class UIPanelView {
 
 		if ( null != stylePrimaryName ) {
 			
-			logger.info(className, function, "stylePrimaryName[{}]", stylePrimaryName);
+			logger.info(function, "stylePrimaryName[{}]", stylePrimaryName);
 			
 			this.basePanel.setStylePrimaryName(stylePrimaryName);
 		} else {
-			logger.info(className, function, "stylePrimaryName IS NULL");
+			logger.info(function, "stylePrimaryName IS NULL");
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 		
 	}
 	public void setActivate(boolean activate) {
 		final String function = "setActivate";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.activate = activate;
 				
 		if (this.borderVisible) {
 			setActivateBorder (this.activate );
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	public boolean isBorderVisible() {
 		final String function = "isBorderVisible";
 		
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 		
 		return borderVisible;
 	}
 	public void setBorderVisible(boolean borderVisible) {
 		final String function = "setBorderVisible";
 		
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 		
 		this.borderVisible = borderVisible;
 		
@@ -191,14 +189,14 @@ public class UIPanelView {
 	public ViewLayoutAction getViewAction() {
 		final String function = "getViewAction";
 		
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 		
 		return viewLayoutAction;
 	}
 	public void setViewAction(ViewLayoutAction viewAction) {
 		final String function = "setViewAction";
 		
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 		
 		this.viewLayoutAction = viewAction;
 		
@@ -206,23 +204,23 @@ public class UIPanelView {
 	public ViewLayoutMode getViewMode() {
 		final String function = "ViewLayoutMode";
 		
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 		
 		return viewLayoutType;
 	}
 	public void setViewType(ViewLayoutMode viewMode) {
 		final String function = "setViewType";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.viewLayoutType = viewMode;
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	public UITaskLaunch getTaskLaunch() {
 		final String function = "getTaskLaunch";
 		
-		logger.beginEnd(className, function);
+		logger.beginEnd(function);
 		
 		return taskLaunch;
 	}
@@ -230,7 +228,7 @@ public class UIPanelView {
 	public void setTaskLaunch(UITaskLaunch taskLaunch) {
 		final String function = "setTaskLaunch";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if ( null != taskLaunch ) {
 			
@@ -273,24 +271,24 @@ public class UIPanelView {
 					basePanel.addStyleName("project-gwt-panel-panelview-container");
 					basePanel.add(panel);
 				} else {
-					logger.warn(className, function,  "panel IS NULL");
+					logger.warn(function,  "panel IS NULL");
 				}
 				
 				((UIPanelViewProvide_i)uiWidget_i).setTaskProvide(taskLaunch);
 			} else {
-				logger.warn(className, function, "this.taskLaunch.getTaskLaunchType()[{}] uiWidget_i IS NULL", this.taskLaunch.getTaskLaunchType());
+				logger.warn(function, "this.taskLaunch.getTaskLaunchType()[{}] uiWidget_i IS NULL", this.taskLaunch.getTaskLaunchType());
 			}
 
 			setTitle(this.taskLaunch.getTitle());
 
 		} else {
 			
-			logger.warn(className, function, "this.taskLaunch is null");
+			logger.warn(function, "this.taskLaunch is null");
 			
 			this.taskLaunch = null;
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	
@@ -300,9 +298,9 @@ public class UIPanelView {
 
 	public void terminate() {
 		final String function = "terminate";
-		logger.begin(className, function);
+		logger.begin(function);
 		if ( null != uiWidget_i ) uiWidget_i.terminate();
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

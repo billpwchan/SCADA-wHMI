@@ -17,15 +17,12 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class UIInspectorConnectionBox extends DialogBox {
-	
-	private final String cls = this.getClass().getName();
-	private final String className = UIWidgetUtil.getClassSimpleName(cls);
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(UIWidgetUtil.getClassName(cls));
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private final String UIPathUIScreenMMI 	= ":UIGws:UIPanelScreen:UIScreenMMI";
 	
@@ -103,7 +100,7 @@ public class UIInspectorConnectionBox extends DialogBox {
 	public Panel getMainPanel(UINameCard uiNameCard) {
 		final String function = "getMainPanel";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
@@ -197,7 +194,7 @@ public class UIInspectorConnectionBox extends DialogBox {
     
 		exchange(true);
 		
-		logger.end(className, function);
+		logger.end(function);
 		
 		return basePanel;
 		

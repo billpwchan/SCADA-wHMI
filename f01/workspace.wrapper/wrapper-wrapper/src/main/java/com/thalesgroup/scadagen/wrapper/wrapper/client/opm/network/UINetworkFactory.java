@@ -3,13 +3,12 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.opm.network;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class UINetworkFactory implements UINetworkFactory_i {
-	
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private Map<String, UINetworkFactory_i> factorys = new HashMap<String, UINetworkFactory_i>();
 	public void addFactory(String className, UINetworkFactory_i uiNetworkFactory_i) { this.factorys.put(className, uiNetworkFactory_i); }
@@ -28,7 +27,7 @@ public class UINetworkFactory implements UINetworkFactory_i {
 	 */
 	public UINetwork_i get(String key) {
 		String function = "get";
-		logger.begin(className, function);
+		logger.begin(function);
 		UINetwork_i iUINetwork = null;
 		for ( String className : factorys.keySet() ) {
 			UINetworkFactory_i uiFactory = factorys.get(className);
@@ -37,7 +36,7 @@ public class UINetworkFactory implements UINetworkFactory_i {
 				if ( null != iUINetwork ) break;
 			}
 		}
-		logger.end(className, function);
+		logger.end(function);
 		return iUINetwork;
 	}
 }

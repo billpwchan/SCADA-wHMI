@@ -1,7 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.init;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGenericMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIGenericMgr;
@@ -11,12 +11,11 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGen
 public class InitUIGenericMgrFactorys {
 
 	private final static String name = InitUIGenericMgrFactorys.class.getName();
-	private final static String className = InitUIGenericMgrFactorys.class.getSimpleName();
-	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(name);
+	private final static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(InitUIGenericMgrFactorys.class.getName());
 
 	public static void init() {
 		String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		UIGenericMgr uiGenericMgr = UIGenericMgr.getInstance();
 		uiGenericMgr.removeUIGenericMgrFactory(name);
@@ -25,7 +24,7 @@ public class InitUIGenericMgrFactorys {
 			@Override
 			public UIGeneric getUIGeneric(String key) {
 				final String function = "getUIGeneric";
-				logger.debug(className, function, "key[{}]", key);
+				logger.debug(function, "key[{}]", key);
 
 				UIGeneric uiGeneric = null;
 
@@ -40,12 +39,12 @@ public class InitUIGenericMgrFactorys {
 					uiGeneric = new UIWidgetGeneric();
 				}
 
-				if ( null == uiGeneric ) logger.warn(className, function, "key[{}] uiGeneric IS NULL", key);
+				if ( null == uiGeneric ) logger.warn(function, "key[{}] uiGeneric IS NULL", key);
 
 				return uiGeneric;
 			}
 		});
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

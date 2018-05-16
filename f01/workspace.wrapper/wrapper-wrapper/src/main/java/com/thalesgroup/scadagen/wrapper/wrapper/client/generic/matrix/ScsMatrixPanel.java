@@ -19,8 +19,8 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.matrix.view.Gen
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.matrix.view.MatrixCss;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.matrix.ScsMatrixPanel_i.ParameterName;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.matrix.renderer.ScsMatrixRenderer;
@@ -30,7 +30,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsMatr
 public class ScsMatrixPanel extends UIWidget_i {
 
 	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
     /**
      * Client presenter of this matrix widget
@@ -85,7 +85,7 @@ public class ScsMatrixPanel extends UIWidget_i {
 	public void init() {
 		final String function = "init";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -117,8 +117,8 @@ public class ScsMatrixPanel extends UIWidget_i {
 			String mwtEventBusName	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MwtEventBusName.toString(), strHeader);
 			String mwtEventBusScope	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MwtEventBusScope.toString(), strHeader);
 			
-			logger.debug(className, function, "init mwtEventBusName["+mwtEventBusName+"]");
-			logger.debug(className, function, "init mwtEventBusScope["+mwtEventBusScope+"]");
+			logger.debug(function, "init mwtEventBusName["+mwtEventBusName+"]");
+			logger.debug(function, "init mwtEventBusScope["+mwtEventBusScope+"]");
 			
 			if ( null == mwtEventBusName || mwtEventBusName.trim().length() == 0) {
 				mwtEventBusName = this.viewXMLFile;
@@ -140,7 +140,7 @@ public class ScsMatrixPanel extends UIWidget_i {
 //        initHandler();
         initMainPanel();
         
-        logger.end(className, function);
+        logger.end(function);
 	}
 
     /**
@@ -150,7 +150,7 @@ public class ScsMatrixPanel extends UIWidget_i {
     private void initPresenter() {
     	final String function = "initPresenter";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
         if (matrixConfigId_ != null && eventBus_ != null) {
             // A context
@@ -173,10 +173,10 @@ public class ScsMatrixPanel extends UIWidget_i {
 
             matrixPresenter_.setSelectionManager(selectionManager_);
         } else {
-        	logger.error(className, function,
+        	logger.error(function,
                     " matrixConfigId_,gridView_,eventBus_,contextMenu_ should not be null");
         }
-        logger.end(className, function);
+        logger.end(function);
     }
 
 //    private void initHandler() {
@@ -195,7 +195,7 @@ public class ScsMatrixPanel extends UIWidget_i {
     private Widget initMainPanel() {
     	final String function = "initMainPanel";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 
         if (withCaption_) {
             rootPanel = new CaptionPanel();
@@ -213,17 +213,17 @@ public class ScsMatrixPanel extends UIWidget_i {
         if (matrixView_ != null) {
             containerPanel.add(matrixView_);
         } else {
-        	logger.error(className, function, " initMainPanel : matrix view does not exists");
+        	logger.error(function, " initMainPanel : matrix view does not exists");
         }
         rootPanel.add(containerPanel);
         
         rootPanel.addStyleName("project-gwt-panel-scsmatrixpanel");
         
         String cssWithElement = "project-"+className+"-"+element;
-        logger.debug(className, function, "getStyleNames className["+className+"] element["+element+"] cssWithElement["+cssWithElement+"]");
+        logger.debug(function, "getStyleNames className["+className+"] element["+element+"] cssWithElement["+cssWithElement+"]");
         rootPanel.addStyleName(cssWithElement);
         
-        logger.end(className, function);
+        logger.end(function);
 
         return rootPanel;
     }
@@ -239,7 +239,7 @@ public class ScsMatrixPanel extends UIWidget_i {
     public void terminate() {
     	final String function = "terminate";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
         isTerminated_ = true;
 //        for (final HandlerRegistration registration : m_handlerRegistrations) {
@@ -255,10 +255,10 @@ public class ScsMatrixPanel extends UIWidget_i {
             matrixView_ = null;
             
         } catch (final IllegalStatePresenterException e) {
-        	logger.error(className, function, "Error while trying to terminate the Alarm Matrix Panel.", e);
+        	logger.error(function, "Error while trying to terminate the Alarm Matrix Panel.", e);
         }
         
-        logger.end(className, function);
+        logger.end(function);
     }
 
     public boolean isTerminated() {

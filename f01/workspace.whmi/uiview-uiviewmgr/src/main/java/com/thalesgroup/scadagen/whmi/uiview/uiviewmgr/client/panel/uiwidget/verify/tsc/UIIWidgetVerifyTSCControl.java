@@ -4,9 +4,8 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
@@ -19,15 +18,15 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.tsc.TscMgr_i.Request;
 
 public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIIWidgetVerifyTSCControl.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = this.getClass().getSimpleName();
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private String strTscMgr = "TscMgr";
 	
 	private Subject getSubject() {
 		final String function = "getSubject";
 		
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		Subject subject = new Subject();
 		Observer observer = new Observer() {
@@ -40,7 +39,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 
 			@Override
 			public void update() {
-				logger.debug(className, function, "update");
+				logger.debug(function, "update");
 				JSONObject obj = this.subject.getState();
 				uiGeneric.setWidgetValue("resultvalue", obj.toString());
 			}
@@ -48,14 +47,14 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		};
 		observer.setSubject(subject);
 
-		logger.end(className, function);
+		logger.end(function);
 		
 		return subject;
 	}
 
 	private void setStartTime() {
 		final String function = "setStartTime";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -72,12 +71,12 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.setStartTimeRequest(strClientKey, strScsEnvId, strTaskName, startTime, strClientName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void setInterval() {
 		final String function = "setInterval";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -94,13 +93,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.setIntervalRequest(strClientKey, strScsEnvId, strTaskName, interval, strClientName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void setFilter() {
 		final String function = "setFilter";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -115,13 +114,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.setFilterRequest(strClientKey, strScsEnvId, strTaskName, strFilter, strClientName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void setEndTime() {
 		final String function = "setEndTime";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -138,13 +137,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.setEndTimeRequest(strClientKey, strScsEnvId, strTaskName, endTime, strClientName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void setDescription() {
 		final String function = "setDescription";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -159,12 +158,12 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.setDescriptionRequest(strClientKey, strScsEnvId, strTaskName, strDescription, strClientName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void setDates() {
 		final String function = "setCommand";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -188,12 +187,12 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.setDatesRequest(strClientKey, strScsEnvId, dgid, dates, strClientName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private void setCommand() {
 		final String function = "setCommand";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -208,12 +207,12 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.setCommandRequest(strClientKey, strScsEnvId, strTaskName, strCommand, strClientName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void setTaskArguments() {
 		final String function = "setTaskArguments";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -230,12 +229,12 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.setTaskArgumentsRequest(strClientKey, strScsEnvId, strTaskName, arguments, strClientName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void setArguments() {
 		final String function = "setArguments";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -250,12 +249,12 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.setArgumentsRequest(strClientKey, strScsEnvId, strTaskName, strArguments, strClientName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void getTaskType() {
 		final String function = "getTaskType";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -268,12 +267,12 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.getTaskTypeRequest(strClientKey, strScsEnvId, strTaskName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private void getTaskNames() {
 		final String function = "getTaskNames";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -285,13 +284,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.getTaskNamesRequest(strClientKey, strScsEnvId);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void getStartTime() {
 		final String function = "getStartTime";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -304,13 +303,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.getStartTimeRequest(strClientKey, strScsEnvId, strTaskName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void getRemoveAtEnd() {
 		final String function = "getRemoveAtEnd";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -323,13 +322,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.getRemoveAtEndRequest(strClientKey, strScsEnvId, strTaskName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void getLog() {
 		final String function = "getLog";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -342,13 +341,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.getLogRequest(strClientKey, strScsEnvId, strTaskName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void getInterval() {
 		final String function = "getInterval";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -361,13 +360,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.getIntervalRequest(strClientKey, strScsEnvId, strTaskName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void getFilter() {
 		final String function = "getFilter";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -380,13 +379,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.getFilterRequest(strClientKey, strScsEnvId, strTaskName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void getEndTime() {
 		final String function = "getEndTime";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -399,13 +398,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.getEndTimeRequest(strClientKey, strScsEnvId, strTaskName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void getDescription() {
 		final String function = "getDescription";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -418,13 +417,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.getDescriptionRequest(strClientKey, strScsEnvId, strTaskName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	
 	private void getDayGroupNamesAndIds() {
 		final String function = "getDayGroupNamesAndIds";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -436,12 +435,12 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.getDayGroupNamesAndIdsRequest(strClientKey, strScsEnvId);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void getDates() {
 		final String function = "getDates";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -456,13 +455,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.getDatesRequest(strClientKey, strScsEnvId, id);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void getCommand() {
 		final String function = "getCommand";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -475,13 +474,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.getCommandRequest(strClientKey, strScsEnvId, strTaskName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void getArguments() {
 		final String function = "getArguments";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -494,13 +493,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.getArgumentsRequest(strClientKey, strScsEnvId, strTaskName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void removeTask() {
 		final String function = "removeTask";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -514,13 +513,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.removeTaskRequest(strClientKey, strScsEnvId, strTaskName, strClientName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void isEnabled() {
 		final String function = "isEnabled";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -533,13 +532,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.isEnabledRequest(strClientKey, strScsEnvId, strTaskName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void enableTask() {
 		final String function = "enableTask";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -553,13 +552,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.enableTaskRequest(strClientKey, strScsEnvId, strTaskName, strClientName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void disableTask() {
 		final String function = "disableTask";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -573,13 +572,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.disableTaskRequest(strClientKey, strScsEnvId, strTaskName, strClientName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	
 	private void addCompleteTask() {
 		final String function = "addCompleteTask";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -614,13 +613,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 				, strStartTime, strEndTime
 				, interval, strFilter, inhibited, log, removeAtEnd, strClientName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 
 	private void addTask() {
 		final String function = "addTask";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
@@ -634,7 +633,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		tscMgr.addTaskRequest(strClientKey, strScsEnvId, strTaskName, strClientName);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private void launch(String element) {
@@ -730,7 +729,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		super.init();
 		
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 			
@@ -743,18 +742,18 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 			@Override
 			public void onClick(ClickEvent event) {
 				final String function = "onClick";
-				logger.begin(className, function);
+				logger.begin(function);
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
 						String element = uiGeneric.getWidgetElement(widget);
-						logger.debug(className, function, "element[{}]", element);
+						logger.debug(function, "element[{}]", element);
 						if ( null != element ) {
 							launch(element);
 						}
 					}
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			@Override
@@ -784,13 +783,13 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 			@Override
 			public void terminate() {
 				final String function = "terminate";
-				logger.begin(className, function);
+				logger.begin(function);
 				envDown(null);
-				logger.end(className, function);
+				logger.end(function);
 			};
 		};
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

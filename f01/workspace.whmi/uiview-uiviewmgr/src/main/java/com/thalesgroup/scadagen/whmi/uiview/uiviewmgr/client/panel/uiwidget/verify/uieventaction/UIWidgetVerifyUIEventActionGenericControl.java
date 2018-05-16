@@ -7,9 +7,8 @@ import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
@@ -18,15 +17,14 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttri
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UIWidgetRealize;
 
 public class UIWidgetVerifyUIEventActionGenericControl extends UIWidgetRealize {
-	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyUIEventActionGenericControl.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private void executeAction(String element) {
 		final String function = "executeAction";
-		logger.begin(className, function);
+		logger.begin(function);
 		
-		logger.debug(className, function, "element[{}]", element);
+		logger.debug(function, "element[{}]", element);
 		
 		if ( null != element ) {
 			
@@ -35,7 +33,7 @@ public class UIWidgetVerifyUIEventActionGenericControl extends UIWidgetRealize {
 			if ( 0 == execute.compareTo(element) ) {
 
 				String jsdata		= uiGeneric.getWidgetValue("jsondata");
-				logger.debug(className, function, "jsdata[{}]", jsdata);
+				logger.debug(function, "jsdata[{}]", jsdata);
 
 				UIEventAction uiEventAction = new UIEventAction();
 				Map<String, Map<String, Object>> override = null;
@@ -44,7 +42,7 @@ public class UIWidgetVerifyUIEventActionGenericControl extends UIWidgetRealize {
 				
 				for ( String strActionEventAttribute : UIActionEventAttribute.toStrings() ) {
 					String actionEventAttribute = ReadJson.readString(json, strActionEventAttribute, null);
-					logger.debug(className, function, "strActionEventAttribute[{}] actionEventAttribute[{}]", strActionEventAttribute, actionEventAttribute);
+					logger.debug(function, "strActionEventAttribute[{}] actionEventAttribute[{}]", strActionEventAttribute, actionEventAttribute);
 					
 					if ( null != actionEventAttribute ) {
 						uiEventAction.setParameter(strActionEventAttribute, actionEventAttribute);
@@ -53,7 +51,7 @@ public class UIWidgetVerifyUIEventActionGenericControl extends UIWidgetRealize {
 				
 				for ( String strActionAttribute : ActionAttribute.toStrings() ) {
 					String actionAttribute = ReadJson.readString(json, strActionAttribute, null);
-					logger.debug(className, function, "strActionAttribute[{}] actionAttribute[{}]", strActionAttribute, actionAttribute);
+					logger.debug(function, "strActionAttribute[{}] actionAttribute[{}]", strActionAttribute, actionAttribute);
 					
 					if ( null != actionAttribute ) {
 						uiEventAction.setParameter(strActionAttribute, actionAttribute);
@@ -64,14 +62,14 @@ public class UIWidgetVerifyUIEventActionGenericControl extends UIWidgetRealize {
 					uiEventActionProcessor_i.executeAction(uiEventAction, override);
 					
 				} else {
-					logger.warn(className, function, "uiEventActionExecute IS NULL");
+					logger.warn(function, "uiEventActionExecute IS NULL");
 				}
 
 			} else {
-				logger.warn(className, function, "element[{}] for operation IS INVALID ");
+				logger.warn(function, "element[{}] for operation IS INVALID ");
 			}
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
@@ -79,7 +77,7 @@ public class UIWidgetVerifyUIEventActionGenericControl extends UIWidgetRealize {
 		super.init();
 		
 		final String function = "init";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 			
@@ -100,18 +98,18 @@ public class UIWidgetVerifyUIEventActionGenericControl extends UIWidgetRealize {
 			@Override
 			public void onClick(ClickEvent event) {
 				final String function = "onClick";
-				logger.begin(className, function);
+				logger.begin(function);
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
 						String element = uiGeneric.getWidgetElement(widget);
 						
-						logger.debug(className, function, "element[{}]", element);
+						logger.debug(function, "element[{}]", element);
 
 						executeAction(element);
 					}
 				}
-				logger.end(className, function);
+				logger.end(function);
 			}
 			
 			/*
@@ -121,7 +119,7 @@ public class UIWidgetVerifyUIEventActionGenericControl extends UIWidgetRealize {
 			@Override
 			public void onActionReceived(UIEventAction uiEventAction) {
 				final String function = "onActionReceived";
-				logger.beginEnd(className, function);
+				logger.beginEnd(function);
 			}
 		};
 		
@@ -134,7 +132,7 @@ public class UIWidgetVerifyUIEventActionGenericControl extends UIWidgetRealize {
 			@Override
 			public void init() {
 				final String function = "init";
-				logger.beginEnd(className, function);
+				logger.beginEnd(function);
 			}
 		
 			/*
@@ -144,7 +142,7 @@ public class UIWidgetVerifyUIEventActionGenericControl extends UIWidgetRealize {
 			@Override
 			public void envUp(String env) {
 				final String function = "envUp";
-				logger.beginEnd(className, function);
+				logger.beginEnd(function);
 			}
 			
 			/*
@@ -154,7 +152,7 @@ public class UIWidgetVerifyUIEventActionGenericControl extends UIWidgetRealize {
 			@Override
 			public void envDown(String env) {
 				final String function = "envDown";
-				logger.beginEnd(className, function);
+				logger.beginEnd(function);
 			}
 			
 			/*
@@ -164,12 +162,12 @@ public class UIWidgetVerifyUIEventActionGenericControl extends UIWidgetRealize {
 			@Override
 			public void terminate() {
 				final String function = "terminate";
-				logger.begin(className, function);
+				logger.begin(function);
 				envDown(null);
-				logger.end(className, function);
+				logger.end(function);
 			};
 		};
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 }

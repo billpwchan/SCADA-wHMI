@@ -9,14 +9,12 @@ import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task_i.TaskAttribut
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITaskDictionary;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch_i.TaskLaunchType;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch_i.UITaskLaunchAttribute;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 
 public class UITaskLaunch extends UITaskDictionary {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UITaskLaunch.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	public static char getSplite() { return UITaskLaunch_i.STR_SPLITER; }
 	public static String getSplite(char spliter) { return String.valueOf(getSplite()); }
@@ -63,23 +61,23 @@ public class UITaskLaunch extends UITaskDictionary {
 	
 	public boolean isEquals(Object obj) {
 		final String function = "isEqual";
-		logger.begin(className, function);
+		logger.begin(function);
 		boolean ret = false;
 		
 		if ( null != obj ) {
 			if ( obj instanceof UITaskLaunch ) {
 				UITaskLaunch t = (UITaskLaunch)obj;
 				if ( t.getAttributeKeys().size() != this.getAttributeKeys().size() ) {
-					logger.warn(className, function, "t.getAttributeKeys().size()[{}] != this.getAttributeKeys().size()[{}]", t.getAttributeKeys().size(), this.getAttributeKeys().size());
+					logger.warn(function, "t.getAttributeKeys().size()[{}] != this.getAttributeKeys().size()[{}]", t.getAttributeKeys().size(), this.getAttributeKeys().size());
 				}
 				else if (t.getValueKeys().size() != this.getValueKeys().size() ) {
-					logger.warn(className, function, "t.getValueKeys().size()[{}] != this.getValueKeys().size()[{}]", t.getValueKeys().size(), this.getValueKeys().size());
+					logger.warn(function, "t.getValueKeys().size()[{}] != this.getValueKeys().size()[{}]", t.getValueKeys().size(), this.getValueKeys().size());
 				}
 				else {
 					boolean inValid = false;
 					for ( String key : t.getAttributeKeys() ) {
 						if ( t.getAttribute(key) != this.getAttribute(key) ) {
-							logger.warn(className, function, "t.getAttribute({})[{}] != this.getAttribute({})[{}]", new Object[]{key, t.getAttribute(key), key, this.getAttribute(key)});
+							logger.warn(function, "t.getAttribute({})[{}] != this.getAttribute({})[{}]", new Object[]{key, t.getAttribute(key), key, this.getAttribute(key)});
 							inValid = true;
 							break;
 						}
@@ -87,7 +85,7 @@ public class UITaskLaunch extends UITaskDictionary {
 					if ( ! inValid ) {
 						for ( String key : t.getValueKeys() ) {
 							if ( t.getValue(key) != this.getValue(key) ) {
-								logger.warn(className, function, "t.getValue({})[{}] != this.getValue({})[{}]", new Object[]{key, t.getValue(key), key, this.getValue(key)});
+								logger.warn(function, "t.getValue({})[{}] != this.getValue({})[{}]", new Object[]{key, t.getValue(key), key, this.getValue(key)});
 								inValid = true;
 								break;
 							}
@@ -99,8 +97,8 @@ public class UITaskLaunch extends UITaskDictionary {
 			}
 		}
 		
-		logger.debug(className, function, "ret[{}]", ret);
-		logger.end(className, function);
+		logger.debug(function, "ret[{}]", ret);
+		logger.end(function);
 		return ret;
 	}
 	

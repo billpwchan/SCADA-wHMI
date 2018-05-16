@@ -5,14 +5,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 
 public class UIEventActionMgr {
 
 	private final String className = this.getClass().getSimpleName();
-	private final UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	private String logPrefix = "";
 
 	private String dictionariesCacheName = null;
@@ -20,17 +20,17 @@ public class UIEventActionMgr {
 	private String tag = null;
 	public UIEventActionMgr(final String logPrefix, final String dictionariesCacheName, final String fileName, final String tag) {
 		final String function = "UIEventActionMgr";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		this.logPrefix = logPrefix;
 		this.dictionariesCacheName = dictionariesCacheName;
 		this.fileName = fileName;
 		this.tag = tag;
 		
-		logger.debug(className, function, this.logPrefix+"this.dictionariesCacheName[{}] this.fileName[{}] this.tag[{}]"
+		logger.debug(function, this.logPrefix+"this.dictionariesCacheName[{}] this.fileName[{}] this.tag[{}]"
 				, new Object[]{this.dictionariesCacheName, this.fileName, this.tag});
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private String [] uiEventActionKeys = null;
@@ -42,7 +42,7 @@ public class UIEventActionMgr {
 	
 	public void init() {
 		final String function = "UIEventActionMgr";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		final UIOptionCaches optionCaches = new UIOptionCaches(className, dictionariesCacheName, fileName, tag);
 		
@@ -61,31 +61,31 @@ public class UIEventActionMgr {
 						for ( Entry<String, String> parameters : option.entrySet() ) {
 							String parameterKey = parameters.getKey();
 							String parameterValue = parameters.getValue();
-//							logger.debug(className, function, this.logPrefix+" ADDED parameterKey[{}] parameterValue[{}]", parameterKey, parameterValue);
+//							logger.debug(function, this.logPrefix+" ADDED parameterKey[{}] parameterValue[{}]", parameterKey, parameterValue);
 							uiEventAction.setParameter(parameterKey, parameterValue);
 						}
 					} else {
-						logger.warn(className, function, this.logPrefix+"option IS NULL");
+						logger.warn(function, this.logPrefix+"option IS NULL");
 					}
 					uiEventActions.put(optionKey, uiEventAction);
 				} else {
-					logger.warn(className, function, this.logPrefix+"options IS NULL");
+					logger.warn(function, this.logPrefix+"options IS NULL");
 				}
 			}
 		} else {
-			logger.warn(className, function, this.logPrefix+"optionsSet IS NULL");
+			logger.warn(function, this.logPrefix+"optionsSet IS NULL");
 		}
 	
 		int size = uiEventActions.size();
 		if ( size > 0 ) {
-			logger.debug(className, function, this.logPrefix+"this.dictionariesCacheName[{}] this.fileName[{}] tag[{}] size[{}]", new Object[]{this.dictionariesCacheName, this.fileName, this.tag, size});
+			logger.debug(function, this.logPrefix+"this.dictionariesCacheName[{}] this.fileName[{}] tag[{}] size[{}]", new Object[]{this.dictionariesCacheName, this.fileName, this.tag, size});
 			uiEventActionKeys = uiEventActions.keySet().toArray(new String[0]);
 		} else {
 			uiEventActionKeys = new String[]{};
-			logger.debug(className, function, this.logPrefix+"this.dictionariesCacheName[{}] this.fileName[{}] tag[{}] IS EMPTY", new Object[]{this.dictionariesCacheName, this.fileName, this.tag});
+			logger.debug(function, this.logPrefix+"this.dictionariesCacheName[{}] this.fileName[{}] tag[{}] IS EMPTY", new Object[]{this.dictionariesCacheName, this.fileName, this.tag});
 		}
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 }

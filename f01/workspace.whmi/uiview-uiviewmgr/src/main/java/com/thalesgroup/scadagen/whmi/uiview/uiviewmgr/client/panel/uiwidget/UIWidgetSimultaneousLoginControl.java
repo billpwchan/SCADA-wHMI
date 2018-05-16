@@ -8,8 +8,8 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.Timer;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UICookies;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.control.SimultaneousLogin;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.control.SimultaneousLogin_i;
@@ -25,8 +25,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 
 public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 	
-	private final String className = this.getClass().getSimpleName();
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(this.getClass().getName());
+	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private String columnNameGwsIdentity	= "gdg_column_gws_identity";
 
@@ -50,128 +49,128 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 	
 	private void loginRequest() {
 		final String function = "loginRequest";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		uiEventActionProcessor_i.executeActionSet(UIWidgetSimultaneousLoginControl_i.strSimultaneousLoginRequest);
 		
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 //	private void logoutRequest() {
 //		final String function = "logoutRequest";
-//		logger.begin(className, function);
+//		logger.begin(function);
 //		
 //		exit(UIWidgetSimultaneousLoginControl_i.strSimultaneousLogoutRequest);
 //		
-//		logger.end(className, function);
+//		logger.end(function);
 //	}
 	
 	private boolean isByPassUsrIdentity() {
 		final String function = "isByPassUsrIdentity";
-		logger.begin(className, function);
+		logger.begin(function);
 		boolean ret = false;
 		
 		int bitPos = SimultaneousLogin.getInstance().validateCondition();
 		String bitPosString = SimultaneousLogin.getInstance().getBitPosString(bitPos);
-		logger.debug(className, function, "bitPos[{}] bitPosString[{}]", bitPos, bitPosString);
+		logger.debug(function, "bitPos[{}] bitPosString[{}]", bitPos, bitPosString);
 		if ( 0 != (bitPos & SimultaneousLogin_i.Bit_Pos_IsByPassUsrIdentity) ) {
 			
 			// Login Valid, forward to Main
 			
 			ret = true;
 			
-			logger.debug(className, function, "Login Valid By Pass, forword to Main");
+			logger.debug(function, "Login Valid By Pass, forword to Main");
 			
 			exit(UIWidgetSimultaneousLoginControl_i.loginValidByPassProcedure);
 		}
-		logger.debug(className, function, "ret[{}]", ret);
-		logger.end(className, function);
+		logger.debug(function, "ret[{}]", ret);
+		logger.end(function);
 		return ret;
 	}
 	
 	private boolean isReservedByOther() {
 		final String function = "isReservedByOther";
-		logger.begin(className, function);
+		logger.begin(function);
 		boolean ret = false;
 		
 		int bitPos = SimultaneousLogin.getInstance().validateCondition();
 		String bitPosString = SimultaneousLogin.getInstance().getBitPosString(bitPos);
-		logger.debug(className, function, "bitPos[{}] bitPosString[{}]", bitPos, bitPosString);
+		logger.debug(function, "bitPos[{}] bitPosString[{}]", bitPos, bitPosString);
 		if ( 0 != (bitPos & SimultaneousLogin_i.Bit_Pos_ReservedByOther) ) {
 			
 			// Login Invalid, forward to Logout
 			
 			ret = true;
 			
-			logger.debug(className, function, "Login Invalid, forword to Logout");
+			logger.debug(function, "Login Invalid, forword to Logout");
 
 			exit(UIWidgetSimultaneousLoginControl_i.loginInvalidReservedByOtherProcedure);
 		}
-		logger.debug(className, function, "ret[{}]", ret);
-		logger.end(className, function);
+		logger.debug(function, "ret[{}]", ret);
+		logger.end(function);
 		return ret;
 	}
 	
 	private boolean isReservedBySelf() {
 		final String function = "isReservedBySelf";
-		logger.begin(className, function);
+		logger.begin(function);
 		boolean ret = false;
 		
 		int bitPos = SimultaneousLogin.getInstance().validateCondition();
 		String bitPosString = SimultaneousLogin.getInstance().getBitPosString(bitPos);
-		logger.debug(className, function, "bitPos[{}] bitPosString[{}]", bitPos, bitPosString);
+		logger.debug(function, "bitPos[{}] bitPosString[{}]", bitPos, bitPosString);
 		if ( 0 != (bitPos & SimultaneousLogin_i.Bit_Pos_ReservedSelfGws) ) {
 			
 			// Login Invalid, forward to Logout
 			
 			ret = true;
 			
-			logger.debug(className, function, "Login Invalid, forword to Logout");
+			logger.debug(function, "Login Invalid, forword to Logout");
 
 			exit(UIWidgetSimultaneousLoginControl_i.loginValidProcedure);
 		}
-		logger.debug(className, function, "ret[{}]", ret);
-		logger.end(className, function);
+		logger.debug(function, "ret[{}]", ret);
+		logger.end(function);
 		return ret;
 	}	
 	
 	private boolean isReservedInOtherArea() {
 		final String function = "isReservedInOtherArea";
-		logger.begin(className, function);
+		logger.begin(function);
 		boolean ret = false;
 		
 		int bitPos = SimultaneousLogin.getInstance().validateCondition();
 		String bitPosString = SimultaneousLogin.getInstance().getBitPosString(bitPos);
-		logger.debug(className, function, "bitPos[{}] bitPosString[{}]", bitPos, bitPosString);
+		logger.debug(function, "bitPos[{}] bitPosString[{}]", bitPos, bitPosString);
 		if ( 0 != (bitPos & SimultaneousLogin_i.Bit_Pos_ReservedInOtherArea) ) {
 			
 			// Login Invalid, forward to Logout
 			
 			ret = true;
 			
-			logger.debug(className, function, "Login Invalid, forword to Logout");
+			logger.debug(function, "Login Invalid, forword to Logout");
 
 			exit(UIWidgetSimultaneousLoginControl_i.loginInvalidThresHoldReachProcedure);
 		}
-		logger.debug(className, function, "ret[{}]", ret);
-		logger.end(className, function);
+		logger.debug(function, "ret[{}]", ret);
+		logger.end(function);
 		return ret;
 	}
 	
 	private void validateCondition() {
 		final String function = "validateCondition";
-		logger.begin(className, function);
+		logger.begin(function);
 
 		int bitPos = SimultaneousLogin.getInstance().validateCondition();
 		String bitPosString = SimultaneousLogin.getInstance().getBitPosString(bitPos);
 		
-		logger.debug(className, function, "bitPos[{}] bitPosString[{}]", bitPos, bitPosString);
+		logger.debug(function, "bitPos[{}] bitPosString[{}]", bitPos, bitPosString);
 		
 		if ( 0 != (bitPos & SimultaneousLogin_i.Bit_Pos_IsByPassUsrIdentity) ) {
 			
 			// Login Valid By Pass, forward to Main
 			
-			logger.debug(className, function, "Login Valid By Pass, forword to Main");
+			logger.debug(function, "Login Valid By Pass, forword to Main");
 			
 			exit(UIWidgetSimultaneousLoginControl_i.loginValidByPassProcedure);
 		}
@@ -184,7 +183,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			
 			// Login Invalid, forward to Logout
 			
-			logger.debug(className, function, "Login Invalid, forword to Logout");
+			logger.debug(function, "Login Invalid, forword to Logout");
 			
 			exit(UIWidgetSimultaneousLoginControl_i.loginInvalidSelfIdentityProcedure);
 		}
@@ -192,7 +191,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			
 			// Login Invalid, forward to Logout
 			
-			logger.debug(className, function, "Login Invalid, forword to Logout");
+			logger.debug(function, "Login Invalid, forword to Logout");
 
 			exit(UIWidgetSimultaneousLoginControl_i.loginInvalidThresHoldReachProcedure);
 		}
@@ -200,32 +199,32 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 
 			// Login Valid, forward to Main
 			
-			logger.debug(className, function, "Login Valid");
+			logger.debug(function, "Login Valid");
 			
-			logger.debug(className, function, "set current ws");
+			logger.debug(function, "set current ws");
 			
 			SimultaneousLogin.getInstance().setCurrentWS();
 			
-			logger.debug(className, function, "forword to Main");
+			logger.debug(function, "forword to Main");
 			
 			exit(UIWidgetSimultaneousLoginControl_i.loginValidProcedure);
 
 		}
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	@Override
 	public void terminate() {
 		super.terminate();
 		final String f = "terminate";
-		logger.begin(className, f);
-		logger.end(className, f);
+		logger.begin(f);
+		logger.end(f);
 	}
 	
 	private void exit(String actionsetkey) {
 		final String function = "exit";
-		logger.begin(className, function);
-		logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
+		logger.begin(function);
+		logger.debug(function, "actionsetkey[{}]", actionsetkey);
 		cancelTimers();
 		
 		if(0==actionsetkey.compareTo(UIWidgetSimultaneousLoginControl_i.loginValidProcedure)) {
@@ -233,42 +232,42 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			final String STR_CHANGEPASSWORD = "changepassword";
 			
 			final String strChangepassword = UICookies.getCookies(STR_CHANGEPASSWORD);
-			logger.debug(className, function, "STR_CHANGEPASSWORD[{}] strChangepassword[{}]", STR_CHANGEPASSWORD, strChangepassword);
+			logger.debug(function, "STR_CHANGEPASSWORD[{}] strChangepassword[{}]", STR_CHANGEPASSWORD, strChangepassword);
 			
 			if ( null != strChangepassword ) {
 				if(0==strChangepassword.compareTo("1")) {
 					// Reset Cookies
 					UICookies.setCookies(STR_CHANGEPASSWORD, "");
 					
-					logger.debug(className, function, "changePasswordOpm[{}]", changePasswordOpm);
+					logger.debug(function, "changePasswordOpm[{}]", changePasswordOpm);
 					final UIOpm_i opm = OpmMgr.getInstance().getOpm(this.changePasswordOpm);
 					if(null!=opm){
-						logger.debug(className, function, "changePasswordOpm[{}] changePasswordFunction[{}] changePasswordLocation[{}] changePasswordAction[{}] changePasswordMode[{}]"
+						logger.debug(function, "changePasswordOpm[{}] changePasswordFunction[{}] changePasswordLocation[{}] changePasswordAction[{}] changePasswordMode[{}]"
 								, new Object[]{changePasswordOpm, changePasswordFunction, changePasswordLocation, changePasswordAction, changePasswordMode});
 						final boolean valid = opm.checkAccess(changePasswordFunction, changePasswordLocation, changePasswordAction, changePasswordMode);
 						if(valid) {
 							
 							// Load Change password
 							actionsetkey = UIWidgetSimultaneousLoginControl_i.loginValidChangePasswordProcedure;
-							logger.debug(className, function, "valid[{}] set to load change password", valid);
+							logger.debug(function, "valid[{}] set to load change password", valid);
 						} else {
 
 							// Insufficient permission
 							actionsetkey = UIWidgetSimultaneousLoginControl_i.loginInvalidChangePasswordProcedure;
-							logger.debug(className, function, "valid[{}] logout and popup a ", valid);
+							logger.debug(function, "valid[{}] logout and popup a ", valid);
 						}
 					} else {
-						logger.warn(className, function, "this.changePasswordOpm[{}] opm IS NULL", this.changePasswordOpm);
+						logger.warn(function, "this.changePasswordOpm[{}] opm IS NULL", this.changePasswordOpm);
 					}
 				}
 			} else {
-				logger.warn(className, function, "strChangepassword IS NULL");
+				logger.warn(function, "strChangepassword IS NULL");
 			}
 		}
 		
-		logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
+		logger.debug(function, "actionsetkey[{}]", actionsetkey);
 		uiEventActionProcessor_i.executeActionSet(actionsetkey);
-		logger.end(className, function);
+		logger.end(function);
 	}
 	
 	private Timer to1 = null;
@@ -276,43 +275,43 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 
 	private void cancelTimers() {
 		final String function = "cancelTimer";
-		logger.begin(className, function);
+		logger.begin(function);
 		
 		if(null!=to1) {
-			logger.debug(className, function, "cancel and release to1");
+			logger.debug(function, "cancel and release to1");
 			to1.cancel();
 			to1 = null;
 		}
 		
 		if(null!=to2) {
-			logger.debug(className, function, "cancel and release to2");
+			logger.debug(function, "cancel and release to2");
 			to2.cancel();
 			to2 = null;
 		}
 
-		logger.end(className, function);
+		logger.end(function);
 	}
 
 	private int phase1Counter = 0;
 	private boolean isDuplicatePassed = false;
 	private void login() {
 		final String f = "login";
-		logger.begin(className, f);
+		logger.begin(f);
 		
 		// Receive the parameter from configuration file
 		SimultaneousLogin.getInstance().loadConfig();
 		
 		to1 = new Timer() {
 			public void run() {
-				logger.debug(className, f, "Phase 1 running...");
+				logger.debug(f, "Phase 1 running...");
 				
 				final boolean selfIdentityReach	= SimultaneousLogin.getInstance().isSelfIdentityReady() && SimultaneousLogin.getInstance().isUsrIdentityReady(); 
 				final boolean selfWsInfoReach	= SimultaneousLogin.getInstance().getWkstInfo();
 				
-				logger.debug(className, f, "Phase 1 selfIdentityReach[{}] && selfWsInfoReach[{}]", new Object[]{selfIdentityReach, selfWsInfoReach});
+				logger.debug(f, "Phase 1 selfIdentityReach[{}] && selfWsInfoReach[{}]", new Object[]{selfIdentityReach, selfWsInfoReach});
 				
 				final boolean phase1timeoutReach = phase1Counter > phase1TimeoutCount;
-				logger.debug(className, f, "Phase 1 phase1timeoutReach[{}] = phase1Counter[{}] > phase1TimeoutCount[{}]", new Object[]{phase1timeoutReach, phase1Counter, phase1TimeoutCount});
+				logger.debug(f, "Phase 1 phase1timeoutReach[{}] = phase1Counter[{}] > phase1TimeoutCount[{}]", new Object[]{phase1timeoutReach, phase1Counter, phase1TimeoutCount});
 				
 				if (phase1timeoutReach) {
 					if (! selfIdentityReach) {
@@ -326,7 +325,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 					if ( ! isByPassUsrIdentity() ) {
 						if ( selfWsInfoReach ) {
 							
-							logger.debug(className, f, "Phase 1 checking...");
+							logger.debug(f, "Phase 1 checking...");
 							
 							final Map<String, Map<String, String>> entity = SimultaneousLogin.getInstance().getStorage();
 							
@@ -334,29 +333,29 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 							if(null != entity) phase1RecordCounter = entity.size();
 							final boolean phase1RecordsReach = (-1 != phase1RecordCounter) && (phase1RecordCounter >= phase1RecordThreshold);
 							
-							logger.debug(className, f, "Phase 1 phase1RecordCounter[{}] > phase1RecordThreshold[{}] = phase1RecordsReach[{}]"
+							logger.debug(f, "Phase 1 phase1RecordCounter[{}] > phase1RecordThreshold[{}] = phase1RecordsReach[{}]"
 									, new Object[]{phase1RecordCounter, phase1RecordThreshold, phase1RecordsReach});
 							
 							final boolean phase1Reach = phase1RecordsReach || phase1timeoutReach;
-							logger.debug(className, f, "Phase 1 phase1Reach[{}]", phase1Reach);
+							logger.debug(f, "Phase 1 phase1Reach[{}]", phase1Reach);
 
 							if( phase1Reach ) {
-								logger.debug(className, f, "Phase 1 stop...");
+								logger.debug(f, "Phase 1 stop...");
 								to1.cancel();
 								
 								if ( ! isReservedByOther() ) {
 									if ( ! isReservedInOtherArea() ) {
 										if ( ! isReservedBySelf() ) {
 											isDuplicatePassed = true;
-											logger.debug(className, f, "Phase 2 isDuplicatePassed[{}]", isDuplicatePassed);
+											logger.debug(f, "Phase 2 isDuplicatePassed[{}]", isDuplicatePassed);
 											
 											loginRequest();
 											
 											// Reserve Timeout
-											logger.debug(className, f, "Phase 2 phase2Timeout[{}] start...", phase2Timeout);
+											logger.debug(f, "Phase 2 phase2Timeout[{}] start...", phase2Timeout);
 											to2 = new Timer() {
 												public void run() {
-													logger.debug(className, f, "Phase 2 running...");
+													logger.debug(f, "Phase 2 running...");
 													
 													// Exit
 													exit(UIWidgetSimultaneousLoginControl_i.loginInvalidReserveTimeoutProcedure);
@@ -375,14 +374,14 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		};
 		to1.scheduleRepeating(phase1TimeoutInterval);
 
-		logger.end(className, f);
+		logger.end(f);
 	}
 	
 	private void storeData(Set<Map<String, String>> rowUpdated) {
 		final String f = "storeData";
-		logger.begin(className, f);
+		logger.begin(f);
 		
-		logger.debug(className, f, "rowUpdated.size()[{}]", rowUpdated.size());
+		logger.debug(f, "rowUpdated.size()[{}]", rowUpdated.size());
 		
 		for ( Map<String, String> entities : rowUpdated ) {
 			if ( null != entities ) {
@@ -402,7 +401,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 				String gwsIdentity = entities.get(columnNameGwsIdentity);
 				SimultaneousLogin.getInstance().setStorage(gwsIdentity, entity);
 				
-				logger.debug(className, f, "gwsIdentity[{}] Area[{}] ScsEnvId[{}] Alias[{}] ResrReservedID[{}]"
+				logger.debug(f, "gwsIdentity[{}] Area[{}] ScsEnvId[{}] Alias[{}] ResrReservedID[{}]"
 						, new Object[]{
 								gwsIdentity
 								, entity.get(StorageAttribute.Area.toString())
@@ -411,38 +410,38 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 								, entity.get(StorageAttribute.ResrReservedID.toString())
 				});
 			} else {
-				logger.warn(className, f, "entities IS NULL");
+				logger.warn(f, "entities IS NULL");
 			}
 		}
 
-		logger.debug(className, f, "isDuplicatePassed[{}]", isDuplicatePassed);
+		logger.debug(f, "isDuplicatePassed[{}]", isDuplicatePassed);
 		if ( isDuplicatePassed ) validateCondition();
 		
-		logger.end(className, f);
+		logger.end(f);
 	}
 	
 	private int convertIntValue(String key, int defaultValue) {
 		final String f = "convertIntValue";
-		logger.begin(className, f);
+		logger.begin(f);
 		int ret = 0;
 		if ( null != key && ! key.isEmpty() ) {
 			try {
 				ret = Integer.parseInt(key);
 				if ( ret < 0 ) ret = defaultValue;
 			} catch (NumberFormatException ex) {
-				logger.warn(className, f, "key[{}] NumberFormatException:"+ex.toString(), key);
+				logger.warn(f, "key[{}] NumberFormatException:"+ex.toString(), key);
 			}
 		} else {
-			logger.warn(className, f, "key[{}] IS INVALID", key);
+			logger.warn(f, "key[{}] IS INVALID", key);
 		}
-		logger.debug(className, f, "key[{}] ret[{}]", key, ret);
-		logger.end(className, f);
+		logger.debug(f, "key[{}] ret[{}]", key, ret);
+		logger.end(f);
 		return ret;
 	}
 	
 	private void loadParameter() {		
 		final String f = "init";
-		logger.begin(className, f);
+		logger.begin(f);
 	
 		String strPhase1TimeoutInterval = null;
 		String strPhase1Timeout 		= null;
@@ -474,37 +473,37 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			changePasswordAction		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.ChangePasswordAction.toString(), strHeader);
 			changePasswordMode			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.ChangePasswordMode.toString(), strHeader);
 			
-			logger.debug(className, f, "columnNameArea[{}]", columnNameArea);
-			logger.debug(className, f, "columnNameServiceOwnerID[{}]", columnNameServiceOwnerID);
-			logger.debug(className, f, "columnNameAlias[{}]", columnNameAlias);
-			logger.debug(className, f, "columnNameGwsIdentity[{}]", columnNameGwsIdentity);
-			logger.debug(className, f, "columnNameResrReservedID[{}]", columnNameResrReservedID);
+			logger.debug(f, "columnNameArea[{}]", columnNameArea);
+			logger.debug(f, "columnNameServiceOwnerID[{}]", columnNameServiceOwnerID);
+			logger.debug(f, "columnNameAlias[{}]", columnNameAlias);
+			logger.debug(f, "columnNameGwsIdentity[{}]", columnNameGwsIdentity);
+			logger.debug(f, "columnNameResrReservedID[{}]", columnNameResrReservedID);
 			
-			logger.debug(className, f, "strPhase1TimeoutInterval[{}] strPhase1Timeout[{}] strPhase1RecordThreshold[{}]", new Object[]{strPhase1TimeoutInterval, strPhase1Timeout, strPhase1RecordThreshold});
+			logger.debug(f, "strPhase1TimeoutInterval[{}] strPhase1Timeout[{}] strPhase1RecordThreshold[{}]", new Object[]{strPhase1TimeoutInterval, strPhase1Timeout, strPhase1RecordThreshold});
 
-			logger.debug(className, f, "strPhase2Timeout[{}]", new Object[]{strPhase2Timeout});
+			logger.debug(f, "strPhase2Timeout[{}]", new Object[]{strPhase2Timeout});
 		}
 		
 		phase1TimeoutInterval	= convertIntValue(strPhase1TimeoutInterval, phase1TimeoutInterval);
 		phase1TimeoutCount		= convertIntValue(strPhase1Timeout, phase1TimeoutCount);
 		phase1RecordThreshold	= convertIntValue(strPhase1RecordThreshold, phase1RecordThreshold);
 		
-		logger.debug(className, f, "phase1TimeoutInterval[{}] phase1Timeout[{}] phase1RecordThreshold[{}]" , new Object[]{phase1TimeoutInterval, phase1TimeoutCount, phase1RecordThreshold});
+		logger.debug(f, "phase1TimeoutInterval[{}] phase1Timeout[{}] phase1RecordThreshold[{}]" , new Object[]{phase1TimeoutInterval, phase1TimeoutCount, phase1RecordThreshold});
 		
 		phase2Timeout			= convertIntValue(strPhase2Timeout, phase2Timeout);
 		
-		logger.debug(className, f, "phase2TimeoutInterval[{}]" , new Object[]{phase2Timeout});
+		logger.debug(f, "phase2TimeoutInterval[{}]" , new Object[]{phase2Timeout});
 		
-		logger.end(className, f);
+		logger.end(f);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public void actionReceived(UIEventAction uiEventAction) {
 		final String f = "actionReceived";
-		logger.begin(className, f);
+		logger.begin(f);
 		String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 		
-		logger.debug(className, f, "os1["+os1+"]");
+		logger.debug(f, "os1["+os1+"]");
 		
 		if ( null != os1 ) {
 			// Filter Action
@@ -513,14 +512,14 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 				
 				Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 				
-				logger.debug(className, f, "Store Selected Row");
+				logger.debug(f, "Store Selected Row");
 				
 				if ( null != obj1 ) {
 					
 					storeData((Set<Map<String, String>>) obj1);
 
 				} else {
-					logger.warn(className, f, "obj1 IS NULL");
+					logger.warn(f, "obj1 IS NULL");
 				}
 
 			}
@@ -528,8 +527,8 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 				// General Case
 				String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 				
-				logger.debug(className, f, "oe ["+oe+"]");
-				logger.debug(className, f, "os1["+os1+"]");
+				logger.debug(f, "oe ["+oe+"]");
+				logger.debug(f, "os1["+os1+"]");
 				
 				if ( null != oe ) {
 					if ( oe.equals(element) ) {
@@ -538,7 +537,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 				}
 			}
 		}
-		logger.end(className, f);
+		logger.end(f);
 	}
 	
 	@Override
@@ -546,7 +545,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		super.init();
 		
 		final String f = "init";
-		logger.begin(className, f);
+		logger.begin(f);
 
 		loadParameter();
 		
@@ -561,17 +560,17 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			@Override
 			public void onClick(ClickEvent event) {
 				final String f = "onClick";
-				logger.beginEnd(className, f);
+				logger.beginEnd(f);
 			}
 			
 			@Override
 			public void onActionReceived(UIEventAction uiEventAction) {
 				final String f = "onActionReceived";
-				logger.begin(className, f);
+				logger.begin(f);
 				
 				actionReceived(uiEventAction);
 				
-				logger.end(className, f);
+				logger.end(f);
 			}
 		};
 		
@@ -580,33 +579,33 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			@Override
 			public void init() {
 				final String function = "init";
-				logger.beginEnd(className, function);
+				logger.beginEnd(function);
 			}
 		
 			@Override
 			public void envUp(String env) {
 				final String function = "envUp";
-				logger.beginEnd(className, function);
+				logger.beginEnd(function);
 			}
 			
 			@Override
 			public void envDown(String env) {
 				final String function = "envDown";
-				logger.beginEnd(className, function);
+				logger.beginEnd(function);
 			}
 			
 			@Override
 			public void terminate() {
 				final String function = "terminate";
-				logger.begin(className, function);
+				logger.begin(function);
 				envDown(null);
-				logger.end(className, function);
+				logger.end(function);
 			};
 		};
 		
 		// Preform the Login
 		login();
 
-		logger.end(className, f);
+		logger.end(f);
 	}
 }

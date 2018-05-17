@@ -19,41 +19,45 @@ public class UIWidgetVerifyLogControl extends UIWidgetRealize {
 	
 	private final String className = this.getClass().getSimpleName();
 	
-	private final String STR_TRACE		= "trace";
+	private final String STR_FATAL		= "fatal";
+	private final String STR_ERROR		= "error";
+	private final String STR_WARN		= "warn";
 	private final String STR_DEBUG		= "debug";
 	private final String STR_INFO		= "info";
-	private final String STR_WARN		= "warn";
-	private final String STR_ERROR		= "error";
-	private final String STR_FATAL		= "fatal";
+	private final String STR_TRACE		= "trace";
 	private final String STR_BEGIN		= "begin";
 	private final String STR_END		= "end";
 	private final String STR_BEGINEND	= "beginend";
 	
 	private final String [] STR_LEVELS	= {
-			STR_TRACE
-			, STR_DEBUG
-			, STR_INFO
-			, STR_WARN
-			, STR_ERROR
-			, STR_FATAL
-			, STR_BEGIN
-			, STR_END
-			, STR_BEGINEND
+			STR_FATAL, STR_ERROR, STR_WARN, STR_DEBUG, STR_INFO, STR_TRACE, STR_BEGIN, STR_END, STR_BEGINEND
 			};
 	
-	private final int INT_ZERO			= 0;
-	private final int INT_ONE			= 1;
-	private final int INT_TWO			= 2;
-	private final int INT_THREE			= 3;
-	private final int INT_FOUE			= 4;
+	private final int int_LOG_LEVEL_9 = Arrays.asList(STR_LEVELS).indexOf(STR_FATAL);
+	private final int int_LOG_LEVEL_8 = Arrays.asList(STR_LEVELS).indexOf(STR_ERROR);
+	private final int int_LOG_LEVEL_7 = Arrays.asList(STR_LEVELS).indexOf(STR_WARN);
+	private final int int_LOG_LEVEL_6 = Arrays.asList(STR_LEVELS).indexOf(STR_DEBUG);
+	private final int int_LOG_LEVEL_5 = Arrays.asList(STR_LEVELS).indexOf(STR_INFO);
+	private final int int_LOG_LEVEL_4 = Arrays.asList(STR_LEVELS).indexOf(STR_TRACE);
+	private final int int_LOG_LEVEL_3 = Arrays.asList(STR_LEVELS).indexOf(STR_BEGIN);
+	private final int int_LOG_LEVEL_2 = Arrays.asList(STR_LEVELS).indexOf(STR_END);
+	private final int int_LOG_LEVEL_1 = Arrays.asList(STR_LEVELS).indexOf(STR_BEGINEND);
+
+	private final String STR_LOG_API_5 = "f, m, new Object[]{p1, p2}";
+	private final String STR_LOG_API_4 = "f, m, p1, p2";
+	private final String STR_LOG_API_3 = "f, m, p1";
+	private final String STR_LOG_API_2 = "f, m";
+	private final String STR_LOG_API_1 = "m";
 	
-	private final String [] STR_APIS	= {
-			Integer.toString(INT_ZERO)
-			, Integer.toString(INT_ONE)
-			, Integer.toString(INT_TWO)
-			, Integer.toString(INT_THREE)
-			, Integer.toString(INT_FOUE)
-			};
+	private final int int_LOG_API_5 = 0;
+	private final int int_LOG_API_4 = 1;
+	private final int int_LOG_API_3 = 2;
+	private final int int_LOG_API_2 = 3;
+	private final int int_LOG_API_1 = 4;
+
+	private final String [] STR_APIS = {
+			STR_LOG_API_5, STR_LOG_API_4, STR_LOG_API_3, STR_LOG_API_2, STR_LOG_API_1
+		};
 	
 	private final String STR_LEVEL		= "level";
 	private final String STR_API		= "api";
@@ -72,17 +76,13 @@ public class UIWidgetVerifyLogControl extends UIWidgetRealize {
 		ListBox level = (ListBox) uiGeneric.getWidget(STR_LEVEL);
 		if ( null != level ) {
 			level.clear();
-			for ( String s: STR_LEVELS) {
-				level.addItem(s);
-			}
+			for ( String s: STR_LEVELS) { level.addItem(s); }
 		}
 		
 		ListBox api = (ListBox) uiGeneric.getWidget(STR_API);
 		if ( null != api ) {
 			api.clear();
-			for ( String s: STR_APIS) {
-				api.addItem(s);
-			}
+			for ( String s: STR_APIS) { api.addItem(s); }
 		}
 		
 		Log.info("["+className+"] "+function+" End");
@@ -92,7 +92,7 @@ public class UIWidgetVerifyLogControl extends UIWidgetRealize {
 		final String function = "launch";
 		Log.info("["+className+"] "+function+" Begin");
 		
-		String name = uiGeneric.getWidgetValue("namevalue");
+		final String name = uiGeneric.getWidgetValue("namevalue");
 		Log.info("["+className+"] "+function+" name["+name+"]");
 		
 		if ( 0 == element.compareToIgnoreCase(STR_ADDLOGLEVEL) ) {
@@ -130,135 +130,95 @@ public class UIWidgetVerifyLogControl extends UIWidgetRealize {
 			}
 		} else {
 			
-			String l_classname		= uiGeneric.getWidgetValue("classnamevalue");
-			Log.info("["+className+"] "+function+" l_classname["+l_classname+"]");
+			Log.info("["+className+"] "+function+" name["+name+"]");
 			
-			UILogger_i logger = UILoggerFactory.getInstance().getUILogger(name, l_classname);
-			Log.info("["+className+"] "+function+" logger["+logger+"]");
+			final String c	= uiGeneric.getWidgetValue("classnamevalue");
+			Log.info("["+className+"] "+function+" name["+name+"] c["+c+"]");
 			
-			String l_function		= uiGeneric.getWidgetValue("functionvalue");
-			String l_message		= uiGeneric.getWidgetValue("messagevalue");
-			String l_parameter1		= uiGeneric.getWidgetValue("parameter1value");
-			String l_parameter2		= uiGeneric.getWidgetValue("parameter2value");
+			final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(name, c);
+			Log.info("["+className+"] "+function+" name["+name+"] c["+c+"] logger["+logger+"]");
 			
-			String strLevel = ((ListBox) uiGeneric.getWidget(STR_LEVEL)).getSelectedItemText();
+			final String f	= uiGeneric.getWidgetValue("functionvalue");
+			final String m	= uiGeneric.getWidgetValue("messagevalue");
+			final String p1	= uiGeneric.getWidgetValue("parameter1value");
+			final String p2	= uiGeneric.getWidgetValue("parameter2value");
+			
+			final String strLevel = ((ListBox) uiGeneric.getWidget(STR_LEVEL)).getSelectedItemText();
 			Log.info("["+className+"] "+function+" strLevel["+strLevel+"]");
-			int level = Arrays.asList(STR_LEVELS).indexOf(strLevel);
-			Log.info("["+className+"] "+function+" level["+level+"]");
+			final int level = Arrays.asList(STR_LEVELS).indexOf(strLevel);
+			Log.info("["+className+"] "+function+" strLevel["+strLevel+"] level["+level+"]");
 			
-			String strApi = ((ListBox) uiGeneric.getWidget(STR_API)).getSelectedItemText();
+			final String strApi = ((ListBox) uiGeneric.getWidget(STR_API)).getSelectedItemText();
 			Log.info("["+className+"] "+function+" strApi["+strApi+"]");
-			int api = Arrays.asList(STR_APIS).indexOf(strApi);
-			Log.info("["+className+"] "+function+" api["+api+"]");
-			
-			Log.info("["+className+"] "+function+" level["+level+"] api["+api+"]");
-			
-			Log.info("["+className+"] "+function+" l_classname["+l_classname+"]");
-			Log.info("["+className+"] "+function+" l_function["+l_function+"]");
-			Log.info("["+className+"] "+function+" l_message["+l_message+"]");
-			Log.info("["+className+"] "+function+" l_parameter1["+l_parameter1+"]");
-			Log.info("["+className+"] "+function+" l_parameter2["+l_parameter2+"]");		
+			final int api = Arrays.asList(STR_APIS).indexOf(strApi);
+			Log.info("["+className+"] "+function+" strApi["+strApi+"] api["+api+"]");
+
+			Log.info("["+className+"] "+function+"name["+name+"] level["+level+"] api["+api+"] c["+c+"] f["+f+"] m["+m+"] p1["+p1+"] p2["+p2+"]");
 		
-			switch(level){
-			case 0:
-			{
-				switch(api){
-				case 0: logger.trace(l_message); break;
-				case 1: logger.trace(l_function, l_message); break;
-				case 2: logger.trace(l_function, l_message, l_parameter1); break;
-				case 3: logger.trace(l_function, l_message, l_parameter1, l_parameter2); break;
-				case 4: logger.trace(l_function, l_message, new Object[]{l_parameter1, l_parameter2}); break;
-				}
-			}
-			break;
-				
-			case 1:
-			{
-				switch(api){
-				case 0: logger.debug(l_message); break;
-				case 1: logger.debug(l_function, l_message); break;
-				case 2: logger.debug(l_function, l_message, l_parameter1); break;
-				case 3: logger.debug(l_function, l_message, l_parameter1, l_parameter2); break;
-				case 4: logger.debug(l_function, l_message, new Object[]{l_parameter1, l_parameter2}); break;
-				}
-			}
-			break;
-				
-			case 2:
-			{
-				switch(api){
-				case 0: logger.info(l_message); break;
-				case 1: logger.info(l_function, l_message); break;
-				case 2: logger.info(l_function, l_message, l_parameter1); break;
-				case 3: logger.info(l_function, l_message, l_parameter1, l_parameter2); break;
-				case 4: logger.info(l_function, l_message, new Object[]{l_parameter1, l_parameter2}); break;
-				}
-			}
-			break;
-			
-			case 3:
-			{
-				switch(api){
-				case 0: logger.warn(l_message); break;
-				case 1: logger.warn(l_function, l_message); break;
-				case 2: logger.warn(l_function, l_message, l_parameter1); break;
-				case 3: logger.warn(l_function, l_message, l_parameter1, l_parameter2); break;
-				case 4: logger.warn(l_function, l_message, new Object[]{l_parameter1, l_parameter2}); break;
-				}
-			}
-			break;
-			
-			case 4:
-			{
-				switch(api){
-				case 0: logger.error(l_message); break;
-				case 1: logger.error(l_function, l_message); break;
-				case 2: logger.error(l_function, l_message, l_parameter1); break;
-				case 3: logger.error(l_function, l_message, l_parameter1, l_parameter2); break;
-				case 4: logger.error(l_function, l_message, new Object[]{l_parameter1, l_parameter2}); break;
-				}
-			}
-			break;
-			
-			case 5:
-			{
-				switch(api){
-				case 0: logger.fatal(l_message); break;
-				case 1: logger.fatal(l_function, l_message); break;
-				case 2: logger.fatal(l_function, l_message, l_parameter1); break;
-				case 3: logger.fatal(l_function, l_message, l_parameter1, l_parameter2); break;
-				case 4: logger.fatal(l_function, l_message, new Object[]{l_parameter1, l_parameter2}); break;
-				}
-			}
-			break;
-			
-			case 6:
-			{
-				switch(api){
-				case 0: logger.begin(l_function); break;
-				}
-			}
-			break;
-			
-			case 7:
-			{
-				switch(api){
-				case 0: logger.end(l_function); break;
-				}
-			}
-			break;
-			
-			case 8:
-			{
-				switch(api){
-				case 0: logger.beginEnd(l_function, l_message); break;
-				case 1: logger.beginEnd(l_function, l_message, l_parameter1); break;
-				case 2: logger.beginEnd(l_function, l_message, l_parameter1, l_parameter2); break;
-				case 3: logger.beginEnd(l_function, l_message, new Object[]{l_parameter1, l_parameter2}); break;
-				}
-			}
-			break;
-				
+			if(int_LOG_LEVEL_4==level) {
+					switch(api){
+						case int_LOG_API_1: logger.trace(m); break;
+						case int_LOG_API_2: logger.trace(f, m); break;
+						case int_LOG_API_3: logger.trace(f, m, p1); break;
+						case int_LOG_API_4: logger.trace(f, m, p1, p2); break;
+						case int_LOG_API_5: logger.trace(f, m, new Object[]{p1, p2}); break;
+					}
+			} else if(int_LOG_LEVEL_6==level) {
+					switch(api){
+						case int_LOG_API_1: logger.debug(m); break;
+						case int_LOG_API_2: logger.debug(f, m); break;
+						case int_LOG_API_3: logger.debug(f, m, p1); break;
+						case int_LOG_API_4: logger.debug(f, m, p1, p2); break;
+						case int_LOG_API_5: logger.debug(f, m, new Object[]{p1, p2}); break;
+					}
+			} else if(int_LOG_LEVEL_5==level) {
+					switch(api){
+						case int_LOG_API_1: logger.info(m); break;
+						case int_LOG_API_2: logger.info(f, m); break;
+						case int_LOG_API_3: logger.info(f, m, p1); break;
+						case int_LOG_API_4: logger.info(f, m, p1, p2); break;
+						case int_LOG_API_5: logger.info(f, m, new Object[]{p1, p2}); break;
+					}
+			} else if(int_LOG_LEVEL_7==level) {
+					switch(api){
+						case int_LOG_API_1: logger.warn(m); break;
+						case int_LOG_API_2: logger.warn(f, m); break;
+						case int_LOG_API_3: logger.warn(f, m, p1); break;
+						case int_LOG_API_4: logger.warn(f, m, p1, p2); break;
+						case int_LOG_API_5: logger.warn(f, m, new Object[]{p1, p2}); break;
+					}
+			} else if(int_LOG_LEVEL_8==level) {
+					switch(api){
+						case int_LOG_API_1: logger.error(m); break;
+						case int_LOG_API_2: logger.error(f, m); break;
+						case int_LOG_API_3: logger.error(f, m, p1); break;
+						case int_LOG_API_4: logger.error(f, m, p1, p2); break;
+						case int_LOG_API_5: logger.error(f, m, new Object[]{p1, p2}); break;
+					}
+			} else if(int_LOG_LEVEL_9==level) {
+					switch(api){
+						case int_LOG_API_1: logger.fatal(m); break;
+						case int_LOG_API_2: logger.fatal(f, m); break;
+						case int_LOG_API_3: logger.fatal(f, m, p1); break;
+						case int_LOG_API_4: logger.fatal(f, m, p1, p2); break;
+						case int_LOG_API_5: logger.fatal(f, m, new Object[]{p1, p2}); break;
+					}
+			} else if(int_LOG_LEVEL_3==level) {
+					switch(api){
+						case int_LOG_API_1: logger.begin(f); break;
+					}
+			} else if(int_LOG_LEVEL_2==level) {
+					switch(api){
+						case int_LOG_API_1: logger.end(f); break;
+					}
+			} else if(int_LOG_LEVEL_1==level) {
+					switch(api){
+						case int_LOG_API_1: logger.beginEnd(m); break;
+						case int_LOG_API_2: logger.beginEnd(f, m); break;
+						case int_LOG_API_3: logger.beginEnd(f, m, p1); break;
+						case int_LOG_API_4: logger.beginEnd(f, m, p1, p2); break;
+						case int_LOG_API_5: logger.beginEnd(f, m, new Object[]{p1, p2}); break;
+					}
 			}
 		}
 

@@ -7,6 +7,7 @@ public interface UILoggerExConfig_i {
 		, MSG("MSG")
 		, BEGIN("BEGIN")
 		, END("END")
+		, BEGINEND("BEGINEND")
 		, NULL("NULL")
 		;
 		

@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import com.allen_sauer.gwt.log.client.Log;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerEx.Formatter;
 
 public class UILoggerExConfig {
 
@@ -25,30 +26,54 @@ public class UILoggerExConfig {
 	public void setCurrentLogLevel(int level) { this.currentLogLevel = level; }
 	public int getCurrentLogLevel() { return this.currentLogLevel; }
 	
-	public int LOG_LEVEL_TRACE	 = Log.LOG_LEVEL_TRACE;
-	public int LOG_LEVEL_DEBUG	 = Log.LOG_LEVEL_DEBUG;
-	public int LOG_LEVEL_INFO	 = Log.LOG_LEVEL_INFO;
-	public int LOG_LEVEL_WARN	 = Log.LOG_LEVEL_WARN;
-	public int LOG_LEVEL_ERROR	 = Log.LOG_LEVEL_ERROR;
-	public int LOG_LEVEL_FATAL	 = Log.LOG_LEVEL_FATAL;
-	public int LOG_LEVEL_OFF	 = Log.LOG_LEVEL_OFF;
+	public int LOG_LEVEL_TRACE	   = Log.LOG_LEVEL_TRACE;
+	public int LOG_LEVEL_DEBUG	   = Log.LOG_LEVEL_DEBUG;
+	public int LOG_LEVEL_INFO	   = Log.LOG_LEVEL_INFO;
+	public int LOG_LEVEL_WARN	   = Log.LOG_LEVEL_WARN;
+	public int LOG_LEVEL_ERROR	   = Log.LOG_LEVEL_ERROR;
+	public int LOG_LEVEL_FATAL	   = Log.LOG_LEVEL_FATAL;
+	public int LOG_LEVEL_OFF	   = Log.LOG_LEVEL_OFF;
 	
-	public String LOG_STR_PREFIX = "[{}] {}";
-	public String LOG_STR_MSG    = "{} {} ";
+	public String LOG_STR_PREFIX   = null;//"[{}] {}";
+	public String LOG_STR_MSG      = null;//"{} {} ";
 	
-	public String LOG_STR_OCB    = "{}";
+	public String LOG_STR_OCB      = "{}";
 	
-	public String LOG_STR_BEGIN  = "Begin";
-	public String LOG_STR_END    = "End";
+	public String LOG_STR_BEGIN    = "Begin";
+	public String LOG_STR_END      = "End";
+	public String LOG_STR_BEGINEND = "BeginEnd";
 	
-	public String LOG_STR_NULL   = "NULL";
+	public String LOG_STR_NULL     = "null";
+	
+	public Formatter FORMATTER = new Formatter() {
+		
+		@Override
+		public String formatt(String m, Object[] args) {
+			String msg = m;
+			if ( null != args ) {
+				String [] splits = msg.split(LOG_STR_OCB);
+				final StringBuffer buffer = new StringBuffer();
+				for ( int i = 0 ; i < splits.length ; ++i) {
+					buffer.append(splits[i]);
+					if ( i < splits.length - 1 ) {
+						buffer.append( null != args[i] ? args[i] : LOG_STR_NULL );
+					}
+				}
+				msg = buffer.toString();
+			}
+			return msg;
+		}
+	};
+	public void setFormatter(Formatter formatter) { this.FORMATTER = formatter; }
+	public Formatter getFormatter() { return this.FORMATTER; }
 
 	public void setMsg(String msgname, String msg) {
-		if(0==UILoggerExConfig_i.AttributeMsg.PREFIX.toString().compareTo(msgname))		{	LOG_STR_PREFIX	= msg; }
-		else if(0==UILoggerExConfig_i.AttributeMsg.MSG.toString().compareTo(msgname))	{	LOG_STR_MSG		= msg; }
-		else if(0==UILoggerExConfig_i.AttributeMsg.BEGIN.toString().compareTo(msgname))	{	LOG_STR_BEGIN	= msg; }
-		else if(0==UILoggerExConfig_i.AttributeMsg.END.toString().compareTo(msgname))	{	LOG_STR_END		= msg; }
-		else if(0==UILoggerExConfig_i.AttributeMsg.NULL.toString().compareTo(msgname))	{	LOG_STR_NULL	= msg; }
+		if(0==UILoggerExConfig_i.AttributeMsg.PREFIX.toString().compareTo(msgname))		    {	LOG_STR_PREFIX	  = msg; }
+		else if(0==UILoggerExConfig_i.AttributeMsg.MSG.toString().compareTo(msgname))	    {	LOG_STR_MSG		  = msg; }
+		else if(0==UILoggerExConfig_i.AttributeMsg.BEGIN.toString().compareTo(msgname))	    {	LOG_STR_BEGIN	  = msg; }
+		else if(0==UILoggerExConfig_i.AttributeMsg.END.toString().compareTo(msgname))	    {	LOG_STR_END		  = msg; }
+		else if(0==UILoggerExConfig_i.AttributeMsg.BEGINEND.toString().compareTo(msgname))	{	LOG_STR_BEGINEND  = msg; }
+		else if(0==UILoggerExConfig_i.AttributeMsg.NULL.toString().compareTo(msgname))	    {	LOG_STR_NULL	  = msg; }
 	}
 	
 	public void setLevel(String levelname, int level) {

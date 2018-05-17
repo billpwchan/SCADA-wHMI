@@ -16,10 +16,14 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.util.UILoggerUtil;
 /**
  * SCADAgen default logger
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class UILoggerEx implements UILogger_i {
+	
+	private static String STR_OB         = "[";
+	private static String STR_CB         = "] ";
+	private static String STR_EMPTY      = " ";
 	
 	private static String STR_PREFIX    = UILoggerExConfig.getInstance().LOG_STR_PREFIX;
 	
@@ -29,9 +33,12 @@ public class UILoggerEx implements UILogger_i {
 	
 	private static String STR_BEGIN     = UILoggerExConfig.getInstance().LOG_STR_BEGIN;
 	private static String STR_END       = UILoggerExConfig.getInstance().LOG_STR_END;
+	private static String STR_BEGINEND  = UILoggerExConfig.getInstance().LOG_STR_BEGINEND;
 	
 	private static String STR_NULL      = UILoggerExConfig.getInstance().LOG_STR_NULL;
-
+	
+	private static Formatter formatter  = UILoggerExConfig.getInstance().FORMATTER;
+	
 	public static int LOG_LEVEL_TRACE   = UILoggerExConfig.getInstance().LOG_LEVEL_TRACE;
 	public static int LOG_LEVEL_DEBUG   = UILoggerExConfig.getInstance().LOG_LEVEL_DEBUG;
 	public static int LOG_LEVEL_INFO    = UILoggerExConfig.getInstance().LOG_LEVEL_INFO;
@@ -52,88 +59,68 @@ public class UILoggerEx implements UILogger_i {
 		this.simpleName = UILoggerUtil.getClassSimpleName(name);
 	}
 
-	public void setFilter(UILoggerExConfig config) { this.config = config; }
+	public void setFilter(final UILoggerExConfig cfg) { this.config = cfg; }
 	public UILoggerExConfig getConfig() { return this.config; }
 	
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#getName()
 	 */
-	@Override
-	public String getName() { return name; }
+	@Override public String getName() { return name; }
 	
-	@Override
-	public void clear() { logger.clear(); }
+	@Override public void clear() { logger.clear(); }
 
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#setCurrentLogLevel(int)
 	 */
-	@Override
-	public void setCurrentLogLevel(int level) { 
-		if(null!=getConfig()) getConfig().setCurrentLogLevel(level);
-		logger.setCurrentLogLevel(level); 
+	@Override public 
+	void setCurrentLogLevel(final int l) { 
+		if(null!=getConfig()) getConfig().setCurrentLogLevel(l);
+		logger.setCurrentLogLevel(l); 
 	}
 	
-	@Override
-	public int getCurrentLogLevel() { 
-		int level = -1;
-		if(null!=getConfig()) level = getConfig().getCurrentLogLevel();
-		return level;
+	@Override public 
+	int getCurrentLogLevel() { 
+		int l = -1;
+		if(null!=getConfig()) l = getConfig().getCurrentLogLevel();
+		return l;
 	}
 	
-	private String getClassName(String className) { return !getConfig().isFullClassName() ? className : name; }
+	private String getClassName(final String c) { return !getConfig().isFullClassName() ? c : this.name; }
 	
-	private String format(final String log, final Object[] arguments) {
-		String message = log;
-		if ( null != arguments ) {
-			String [] splits = message.split(STR_OCB);
+	public interface Formatter {
+		String formatt(String m, Object [] args);
+	}
+	
+	private String format(final String m, final Object[] args) {
+		if(null!=formatter) return formatter.formatt(m, args);
+		String msg = m;
+		if ( null != args ) {
+			String [] splits = msg.split(STR_OCB);
 			final StringBuffer buffer = new StringBuffer();
 			for ( int i = 0 ; i < splits.length ; ++i) {
 				buffer.append(splits[i]);
 				if ( i < splits.length - 1 ) {
-					buffer.append( null != arguments[i] ? arguments[i] : STR_NULL );
+					buffer.append( null != args[i] ? args[i] : STR_NULL );
 				}
 			}
-			message = buffer.toString();
+			msg = buffer.toString();
 		}
-		return message;
+		return msg;
 	}
 	
-	private String msgPrefix(final String className, final String function)	{ return format(STR_PREFIX, new Object[]{getClassName(className), function}); }
-	private String msgContent(final String log, final Object[] arguments)	{ return format(log, arguments); }
+	private String msgPrefix(final String c, final String f) { 
+		return (null==STR_PREFIX)
+				? STR_OB+getClassName(c)+STR_CB+STR_EMPTY+f+STR_EMPTY
+				: format(STR_PREFIX, new Object[]{getClassName(c), f});
+	}
+	private String msgContent(final String log, final Object[] args) { return format(log, args); }
 
-	private String msg(final String className, final String function, final String log, final Object[] arguments) {
-		return msgPrefix(className, function) + format(log, arguments);
-//		return format(STR_MSG, new Object[]{msgPrefix(className, function), msgContent(log, arguments)});
+	private String msg(final String c, final String f, final String log, final Object[] args) {
+		return (null==STR_MSG)
+				? msgPrefix(c, f) + format(log, args)
+				: format(STR_MSG, new Object[]{msgPrefix(c, f), msgContent(log, args)});
 	}
 	
-	public void begin(final String className, final String function)	{ addLog(LOG_LEVEL_TRACE, msgPrefix(className, function)+STR_BEGIN); }
-	public void end(final String className, final String function)		{ addLog(LOG_LEVEL_TRACE, msgPrefix(className, function)+STR_END); }
-
-	@Override
-	public void beginEnd(final String className, final String function) {
-		begin(className, function);
-		end(className, function);
-	}
-	private void beginEnd(final String className, final String function, String log) {
-		begin(className, function);
-		trace(className, function, log);
-		end(className, function);
-	}
-	private void beginEnd(final String className, final String function, String log, Object argument1) {
-		begin(className, function);
-		trace(className, function, log, argument1);
-		end(className, function);
-	}
-	private void beginEnd(final String className, final String function, String log, Object argument1, Object argument2) {
-		begin(className, function);
-		trace(className, function, log, argument1, argument2);
-		end(className, function);
-	}
-	private void beginEnd(final String className, final String function, String log, Object [] arguments) {
-		begin(className, function);
-		trace(className, function, log, arguments);
-		end(className, function);
-	}
 
 	public boolean isTraceEnabled()	{ return isEnabled(LOG_LEVEL_TRACE);	}
 	public boolean isDebugEnabled()	{ return isEnabled(LOG_LEVEL_DEBUG);	}
@@ -142,228 +129,225 @@ public class UILoggerEx implements UILogger_i {
 	public boolean isErrorEnabled()	{ return isEnabled(LOG_LEVEL_ERROR);	}
 	public boolean isFatalEnabled()	{ return isEnabled(LOG_LEVEL_FATAL);	}
 	
-	private boolean isEnabled(int level) { return getCurrentLogLevel() >= level; }
+	private boolean isEnabled(int l) { return this.getConfig().isEnabled(l, this.name); }
+
+	public void begin(final String c, final String f)	{ addLog(LOG_LEVEL_TRACE, msgPrefix(c, f)+STR_BEGIN); }
+	public void end(final String c, final String f)		{ addLog(LOG_LEVEL_TRACE, msgPrefix(c, f)+STR_END); }
+
+	@Override public
+	void beginEnd(final String c, final String f) {addLog(LOG_LEVEL_TRACE, msgPrefix(c, f) + STR_BEGINEND);}
+	private void beginEnd(final String c, final String f, final String m) {addLog(LOG_LEVEL_TRACE, msgPrefix(c, f) + STR_BEGINEND + STR_EMPTY + m);}
+	private void beginEnd(final String c, final String f, final String m, final Object arg1) {addLog(LOG_LEVEL_TRACE, msgPrefix(c, f) + STR_BEGINEND + STR_EMPTY + msgContent(m , new Object[]{arg1}));}
+	private void beginEnd(final String c, final String f, final String m, final Object arg1, final Object arg2) {addLog(LOG_LEVEL_TRACE, msgPrefix(c, f) + STR_BEGINEND + STR_EMPTY + msgContent(m , new Object[]{arg1, arg2}));}
+	private void beginEnd(final String c, final String f, final String m, final Object [] args) {addLog(LOG_LEVEL_TRACE, msgPrefix(c, f) + STR_BEGINEND + STR_EMPTY + msgContent(m , args));}
 	
-	private void trace(final String className, final String function, String log) {
-		trace(className, function, log, null);
-	}
-	private void trace(final String className, final String function, String log, Object argument) {
-		addLog(LOG_LEVEL_TRACE, className, function, log, argument);
-	}
-	private void trace(final String className, final String function, String log, Object argument1, Object argument2) {
-		addLog(LOG_LEVEL_TRACE, className, function, log, argument1, argument2);
-	}
-	private void trace(final String className, final String function, String log, Object [] arguments) {
-		addLog(LOG_LEVEL_TRACE, className, function, log, arguments);
-	}
+	private void trace(final String c, final String f, final String m) { addLog(LOG_LEVEL_TRACE, c, f, m); }
+	private void trace(final String c, final String f, final String m, final Object arg) { addLog(LOG_LEVEL_TRACE, c, f, m, arg); }
+	private void trace(final String c, final String f, final String m, final Object arg1, final Object arg2) { addLog(LOG_LEVEL_TRACE, c, f, m, arg1, arg2); }
+	private void trace(final String c, final String f, final String m, final Object [] args) { addLog(LOG_LEVEL_TRACE, c, f, m, args); }
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#trace(java.lang.String)
 	 */
-	@Override
-	public void trace(final String message) { addLog(LOG_LEVEL_TRACE, message); }
+	@Override public void trace(final String m) { addLog(LOG_LEVEL_TRACE, m); }
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#trace(java.lang.String, java.lang.Throwable)
 	 */
-	@Override
-    public void trace(final String message, final Throwable throwable) { addLog(LOG_LEVEL_TRACE, message, throwable); }
+	@Override public void trace(final String m, final Throwable r) { addLog(LOG_LEVEL_TRACE, m, r); }
 	
-	private void debug(final String className, final String function, String log) {
-		debug(className, function, log, null);
-	}
-	private void debug(final String className, final String function, String log, Object argument) {
-		addLog(LOG_LEVEL_DEBUG, className, function, log, argument);
-	}
-	private void debug(final String className, final String function, String log, Object argument1, Object argument2) {
-		addLog(LOG_LEVEL_DEBUG, className, function, log, argument1, argument2);
-	}
-	private void debug(final String className, final String function, String log, Object [] arguments) {
-		addLog(LOG_LEVEL_DEBUG, className, function, log, arguments);
-	}
+	private void debug(final String c, final String f, final String m) { addLog(LOG_LEVEL_DEBUG, c, f, m); }
+	private void debug(final String c, final String f, final String m, final Object arg) { addLog(LOG_LEVEL_DEBUG, c, f, m, arg); }
+	private void debug(final String c, final String f, final String m, final Object arg1, final Object arg2) { addLog(LOG_LEVEL_DEBUG, c, f, m, arg1, arg2); }
+	private void debug(final String c, final String f, final String m, final Object [] args) { addLog(LOG_LEVEL_DEBUG, c, f, m, args); }
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#debug(java.lang.String)
 	 */
-	@Override
-	public void debug(final String message) { addLog(LOG_LEVEL_DEBUG, message); }
+	@Override public void debug(final String m) { addLog(LOG_LEVEL_DEBUG, m); }
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#debug(java.lang.String, java.lang.Throwable)
 	 */
-	@Override
-	public void debug(final String message, final Throwable throwable) { addLog(LOG_LEVEL_DEBUG, message, throwable); }
+	@Override public void debug(final String m, final Throwable t) { addLog(LOG_LEVEL_DEBUG, m, t); }
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#debug(java.lang.Object)
 	 */
-	@Override
-    public void debug(final Object message) { addLog(LOG_LEVEL_DEBUG, String.valueOf(message)); }
+	@Override public void debug(final Object o) { addLog(LOG_LEVEL_DEBUG, String.valueOf(o)); }
 
-	private void info(final String className, final String function, String log) {
-		info(className, function, log, null);
-	}
-	private void info(final String className, final String function, String log, Object argument) {
-		addLog(LOG_LEVEL_INFO, className, function, log, argument);
-	}
-	private void info(final String className, final String function, String log, Object argument1, Object argument2) {
-		addLog(LOG_LEVEL_INFO, className, function, log, argument1, argument2);
-	}
-	private void info(final String className, final String function, String log, Object [] arguments) {
-		addLog(LOG_LEVEL_INFO, className, function, log, arguments);
-	}
+	private void info(final String c, final String f, final String m) { addLog(LOG_LEVEL_INFO, c, f, m); }
+	private void info(final String c, final String f, final String m, final Object arg) { addLog(LOG_LEVEL_INFO, c, f, m, arg); }
+	private void info(final String c, final String f, final String m, final Object arg1, final Object arg2) { addLog(LOG_LEVEL_INFO, c, f, m, arg1, arg2); }
+	private void info(final String c, final String f, final String m, final Object [] args) { addLog(LOG_LEVEL_INFO, c, f, m, args); }
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#info(java.lang.String)
 	 */
-	@Override
-	public void info(final String log) { addLog(LOG_LEVEL_INFO, log); }
+	@Override public void info(final String m) { addLog(LOG_LEVEL_INFO, m); }
 	
-	private void warn(final String className, final String function, String log) {
-		warn(className, function, log, null);
-	}
-	private void warn(final String className, final String function, String log, Object argument) {
-		addLog(LOG_LEVEL_WARN, className, function, log, argument);
-	}
-	private void warn(final String className, final String function, String log, Object argument1, Object argument2) {
-		addLog(LOG_LEVEL_WARN, className, function, log, argument1, argument2);
-	}
-	private void warn(final String className, final String function, String log, Object [] arguments) {
-		addLog(LOG_LEVEL_WARN, className, function, log, arguments);
-	}
+	private void warn(final String c, final String f, final String m) { addLog(LOG_LEVEL_WARN, c, f, m);  }
+	private void warn(final String c, final String f, final String m, final Object arg) { addLog(LOG_LEVEL_WARN, c, f, m, arg); }
+	private void warn(final String c, final String f, final String m, final Object arg1, final Object arg2) { addLog(LOG_LEVEL_WARN, c, f, m, arg1, arg2); }
+	private void warn(final String c, final String f, final String m, final Object [] args) { addLog(LOG_LEVEL_WARN, c, f, m, args); }
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#warn(java.lang.String)
 	 */
-	@Override
-	public void warn(final String log) { addLog(LOG_LEVEL_WARN, log); }
+	@Override public void warn(final String log) { addLog(LOG_LEVEL_WARN, log); }
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#warn(java.lang.String, java.lang.Throwable)
 	 */
-	@Override
-    public void warn(final String message, final Throwable throwable) { addLog(LOG_LEVEL_WARN, message, throwable); }
+	@Override public void warn(final String m, final Throwable t) { addLog(LOG_LEVEL_WARN, m, t); }
 	
-	private void error(final String className, final String function, final String log) {
-		error(className, function, log, null);
-	}
-	private void error(final String className, final String function, String log, Object argument) {
-		addLog(LOG_LEVEL_ERROR, className, function, log, argument);
-	}
-	private void error(final String className, final String function, String log, Object argument1, Object argument2) {
-		addLog(LOG_LEVEL_ERROR, className, function, log, argument1, argument2);
-	}
-	private void error(final String className, final String function, String log, Object[] arguments) {
-		addLog(LOG_LEVEL_ERROR, className, function, log, arguments);
-	}
+	private void error(final String c, final String f, final String m) { addLog(LOG_LEVEL_ERROR, c, f, m); }
+	private void error(final String c, final String f, final String m, final Object arg) { addLog(LOG_LEVEL_ERROR, c, f, m, arg); }
+	private void error(final String c, final String f, final String m, final Object arg1, Object arg2) { addLog(LOG_LEVEL_ERROR, c, f, m, arg1, arg2); }
+	private void error(final String c, final String f, final String m, final Object[] args) { addLog(LOG_LEVEL_ERROR, c, f, m, args); }
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#error(java.lang.String)
 	 */
-	@Override
-	public void error(final String log) { addLog(LOG_LEVEL_ERROR, log); }
+	@Override public void error(final String log) { addLog(LOG_LEVEL_ERROR, log); }
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#error(java.lang.String, java.lang.Throwable)
 	 */
-	@Override
-    public void error(final String message, final Throwable throwable) { addLog(LOG_LEVEL_ERROR, message, throwable); }
+	@Override public void error(final String m, final Throwable throwable) { addLog(LOG_LEVEL_ERROR, m, throwable); }
 	
-	@Override
-	public void fatal(final String log) {
-		addLog(LOG_LEVEL_FATAL, log);
-	}
-	private void fatal(final String className, final String function, final String log) {
-		fatal(className, function, log, null);
-	}
-	private void fatal(final String className, final String function, String log, Object argument) {
-		addLog(LOG_LEVEL_FATAL, className, function, log, argument);
-	}
-	private void fatal(final String className, final String function, String log, Object argument1, Object argument2) {
-		addLog(LOG_LEVEL_FATAL, className, function, log, argument1, argument2);
-	}
-	private void fatal(final String className, final String function, String log, Object[] arguments) {
-		addLog(LOG_LEVEL_FATAL, className, function, log, arguments);
-	}
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#fatal(java.lang.String)
+	 */
+	@Override public void fatal(final String m) { addLog(LOG_LEVEL_FATAL, m); }
+	private void fatal(final String c, final String f, final String m) { addLog(LOG_LEVEL_FATAL, c, f, m);  }
+	private void fatal(final String c, final String f, final String m, final Object arg) { addLog(LOG_LEVEL_FATAL, c, f, m, arg); }
+	private void fatal(final String c, final String f, final String m, final Object arg1, final Object arg2) { addLog(LOG_LEVEL_FATAL, c, f, m, arg1, arg2); }
+	private void fatal(final String c, final String f, final String m, final Object[] args) { addLog(LOG_LEVEL_FATAL, c, f, m, args); }
 	
-	private void addLog(int level, final String className, final String function, String log) {
-		addLog(level, className, function, log, null);
-	}
-	private void addLog(int level, final String className, final String function, String log, Object argument) {
-		addLog(level, className, function, log, ( null != argument ) ? new Object[]{argument} : null);
-	}
-	private void addLog(int level, final String className, final String function, String log, Object argument1, Object argument2) {
-		addLog(level, className, function, log, ( null != argument1 || null != argument2 ) ? new Object[]{argument1, argument2} : null);
-	}
-	private void addLog(int level, final String className, final String function, String log, Object[] arguments) {
-		addLog(level, msg(className, function, log, arguments));
-	}
-	private void addLog(int level, String message) {
-		addLog(level, message, (Throwable) null);
-	}
-	private void addLog(int level, String message, Throwable e) {
-		if( null==this.getConfig() ) {
-			logger.log(new LogRecord(this.getConfig().getCategory(), level, message, e));
-		} else if (this.getConfig().isEnabled(level, this.name) ) {
-			logger.log(new LogRecord(this.getConfig().getCategory(), level, message, e));
-		}
-	}
-	public void logJSObject(final JavaScriptObject o) {
-	    nativeLogJSObject(o);
-	}
+	private void addLog(final int l, final String c, final String f, String m) { addLog(l, c, f, m, null); }
+	private void addLog(final int l, final String c, final String f, String m, final Object arg) { addLog(l, c, f, m, ( null != arg ) ? new Object[]{arg} : null); }
+	private void addLog(final int l, final String c, final String f, String m, final Object arg1, Object arg2) { addLog(l, c, f, m, ( null != arg1 || null != arg2 ) ? new Object[]{arg1, arg2} : null); }
+	private void addLog(final int l, final String c, final String f, String m, final Object[] args) { addLog(l, msg(c, f, m, args)); }
+	private void addLog(final int l, final String m) { addLog(l, m, (Throwable) null); }
+	private void addLog(final int l, final String m, final Throwable e) {
+	private void addLog(final int l, final String m, final Throwable e) { if(isEnabled(l)) addLog(new LogRecord(this.getConfig().getCategory(), l, m, e)); }
+	private void addLog(final LogRecord logRecord) { logger.log(logRecord); }
+
+	public void logJSObject(final JavaScriptObject o) { nativeLogJSObject(o); }
 	private static native void nativeLogJSObject(JavaScriptObject o)
 	/*-{
 	    console.log(o);
 	}-*/;
 
-	@Override
-	public void begin    (String function) { begin(simpleName, function); }
-	@Override
-	public void end      (String function) { end(simpleName, function); }
-	@Override
-	public void beginEnd (String function) { beginEnd(simpleName, function); }
-	@Override
-	public void beginEnd (String function, String message, Object arg1) { beginEnd(simpleName, function, message, arg1); }
-	@Override
-	public void beginEnd (String function, String message, Object arg1, Object arg2) { beginEnd(simpleName, function, message, arg1, arg2); }
-	@Override
-	public void beginEnd (String function, String message, Object[] args) { beginEnd(simpleName, function, message, args); }
-	@Override
-	public void trace    (String function, String message) { trace(simpleName, function, message); }
-	@Override
-	public void trace    (String function, String message, Object arg1) { trace(simpleName, function, message, arg1); }
-	@Override
-	public void trace    (String function, String message, Object arg1, Object arg2) { trace(simpleName, function, message, arg1, arg2); }
-	@Override
-	public void trace    (String function, String message, Object[] args) { trace(simpleName, function, message, args); }
-	@Override
-	public void info     (String function, String message) { info(simpleName, function, message); }
-	@Override
-	public void info     (String function, String message, Object arg1) { info(simpleName, function, message, arg1); }
-	@Override
-	public void info     (String function, String message, Object arg1, Object arg2) { info(simpleName, function, message, arg1, arg2); }
-	@Override
-	public void info     (String function, String message, Object[] args) { info(simpleName, function, message, args); }
-	@Override
-	public void debug    (String function, String message) { debug(simpleName, function, message); }
-	@Override
-	public void debug    (String function, String message, Object arg1) { debug(simpleName, function, message, arg1); }
-	@Override
-	public void debug    (String function, String message, Object arg1, Object arg2) { debug(simpleName, function, message, arg1, arg2); }
-	@Override
-	public void debug    (String function, String message, Object[] args) { debug(simpleName, function, message, args); }
-	@Override
-	public void warn     (String function, String message) { warn(simpleName, function, message); }
-	@Override
-	public void warn     (String function, String message, Object arg1) { warn(simpleName, function, message, arg1); }
-	@Override
-	public void warn     (String function, String message, Object arg1, Object arg2) { warn(simpleName, function, message, arg1, arg2); }
-	@Override
-	public void warn     (String function, String message, Object[] args) { warn(simpleName, function, message, args); }
-	@Override
-	public void error    (String function, String message) { error(simpleName, function, message); }
-	@Override
-	public void error    (String function, String message, Object arg1) { error(simpleName, function, message, arg1); }
-	@Override
-	public void error    (String function, String message, Object arg1, Object arg2) { error(simpleName, function, message, arg2); }
-	@Override
-	public void error    (String function, String message, Object[] args) { error(simpleName, function, message, args); }
-	@Override
-	public void fatal    (String function, String message) { fatal(simpleName, function, message); }
-	@Override
-	public void fatal    (String function, String message, Object arg1) { fatal(simpleName, function, message, arg1); }
-	@Override
-	public void fatal    (String function, String message, Object arg1, Object arg2) { fatal(simpleName, function, message, arg1, arg2); }
-	@Override
-	public void fatal    (String function, String message, Object[] args) { fatal(simpleName, function, message, args); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#begin(java.lang.String)
+	 */
+	@Override public void begin    (final String f) { begin(this.simpleName, f); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#end(java.lang.String)
+	 */
+	@Override public void end      (final String f) { end(this.simpleName, f); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#beginEnd(java.lang.String)
+	 */
+	@Override public void beginEnd (final String f) { beginEnd(this.simpleName, f); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#beginEnd(java.lang.String, java.lang.String, java.lang.Object)
+	 */
+	@Override public void beginEnd (final String f, final String m, final Object arg1) { beginEnd(this.simpleName, f, m, arg1); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#beginEnd(java.lang.String, java.lang.String, java.lang.Object, java.lang.Object)
+	 */
+	@Override public void beginEnd (final String f, final String m, final Object arg1, final Object arg2) { beginEnd(this.simpleName, f, m, arg1, arg2); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#beginEnd(java.lang.String, java.lang.String, java.lang.Object[])
+	 */
+	@Override public void beginEnd (final String f, final String m, final Object[] args) { beginEnd(this.simpleName, f, m, args); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#trace(java.lang.String, java.lang.String)
+	 */
+	@Override public void trace    (final String f, final String m) { trace(this.simpleName, f, m); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#trace(java.lang.String, java.lang.String, java.lang.Object)
+	 */
+	@Override public void trace    (final String f, final String m, final Object arg1) { trace(this.simpleName, f, m, arg1); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#trace(java.lang.String, java.lang.String, java.lang.Object, java.lang.Object)
+	 */
+	@Override public void trace    (final String f, final String m, final Object arg1, final Object arg2) { trace(this.simpleName, f, m, arg1, arg2); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#trace(java.lang.String, java.lang.String, java.lang.Object[])
+	 */
+	@Override public void trace    (final String f, final String m, final Object[] args) { trace(this.simpleName, f, m, args); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#info(java.lang.String, java.lang.String)
+	 */
+	@Override public void info     (final String f, final String m) { info(this.simpleName, f, m); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#info(java.lang.String, java.lang.String, java.lang.Object)
+	 */
+	@Override public void info     (final String f, final String m, final Object arg1) { info(this.simpleName, f, m, arg1); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#info(java.lang.String, java.lang.String, java.lang.Object, java.lang.Object)
+	 */
+	@Override public void info     (final String f, final String m, final Object arg1, final Object arg2) { info(this.simpleName, f, m, arg1, arg2); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#info(java.lang.String, java.lang.String, java.lang.Object[])
+	 */
+	@Override public void info     (final String f, final String m, final Object[] args) { info(this.simpleName, f, m, args); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#debug(java.lang.String, java.lang.String)
+	 */
+	@Override public void debug    (final String f, final String m) { debug(this.simpleName, f, m); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#debug(java.lang.String, java.lang.String, java.lang.Object)
+	 */
+	@Override public void debug    (final String f, final String m, final Object arg1) { debug(this.simpleName, f, m, arg1); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#debug(java.lang.String, java.lang.String, java.lang.Object)
+	 */
+	@Override public void debug    (final String f, final String m, final Object arg1, final Object arg2) { debug(this.simpleName, f, m, arg1, arg2); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#debug(java.lang.String, java.lang.String, java.lang.Object[])
+	 */
+	@Override public void debug    (final String f, final String m, final Object[] args) { debug(this.simpleName, f, m, args); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#warn(java.lang.String, java.lang.String)
+	 */
+	@Override public void warn     (final String f, final String m) { warn(this.simpleName, f, m); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#warn(java.lang.String, java.lang.String, java.lang.Object)
+	 */
+	@Override public void warn     (final String f, final String m, final Object arg1) { warn(this.simpleName, f, m, arg1); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#warn(java.lang.String, java.lang.String, java.lang.Object, java.lang.Object)
+	 */
+	@Override public void warn     (final String f, final String m, final Object arg1, final Object arg2) { warn(this.simpleName, f, m, arg1, arg2); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#warn(java.lang.String, java.lang.String, java.lang.Object[])
+	 */
+	@Override public void warn     (final String f, final String m, final Object[] args) { warn(this.simpleName, f, m, args); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#error(java.lang.String, java.lang.String)
+	 */
+	@Override public void error    (final String f, final String m) { error(this.simpleName, f, m); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#error(java.lang.String, java.lang.String, java.lang.Object)
+	 */
+	@Override public void error    (final String f, final String m, final Object arg1) { error(this.simpleName, f, m, arg1); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#error(java.lang.String, java.lang.String, java.lang.Object, java.lang.Object)
+	 */
+	@Override public void error    (final String f, final String m, final Object arg1, final Object arg2) { error(this.simpleName, f, m, arg2); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#error(java.lang.String, java.lang.String, java.lang.Object[])
+	 */
+	@Override public void error    (final String f, final String m, final Object[] args) { error(this.simpleName, f, m, args); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#fatal(java.lang.String, java.lang.String)
+	 */
+	@Override public void fatal    (final String f, final String m) { fatal(this.simpleName, f, m); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#fatal(java.lang.String, java.lang.String, java.lang.Object)
+	 */
+	@Override public void fatal    (final String f, final String m, final Object arg1) { fatal(this.simpleName, f, m, arg1); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#fatal(java.lang.String, java.lang.String, java.lang.Object, java.lang.Object)
+	 */
+	@Override public void fatal    (final String f, final String m, final Object arg1, final Object arg2) { fatal(this.simpleName, f, m, arg1, arg2); }
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i#fatal(java.lang.String, java.lang.String, java.lang.Object[])
+	 */
+	@Override public void fatal    (final String f, final String m, final Object[] args) { fatal(this.simpleName, f, m, args); }
 }

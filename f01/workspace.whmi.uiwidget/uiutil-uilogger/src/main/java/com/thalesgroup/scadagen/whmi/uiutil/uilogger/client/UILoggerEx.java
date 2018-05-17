@@ -122,12 +122,12 @@ public class UILoggerEx implements UILogger_i {
 	}
 	
 
-	public boolean isTraceEnabled()	{ return isEnabled(LOG_LEVEL_TRACE);	}
-	public boolean isDebugEnabled()	{ return isEnabled(LOG_LEVEL_DEBUG);	}
-	public boolean isInfoEnabled()	{ return isEnabled(LOG_LEVEL_INFO);		}
-	public boolean isWarnEnabled()	{ return isEnabled(LOG_LEVEL_WARN);		}
-	public boolean isErrorEnabled()	{ return isEnabled(LOG_LEVEL_ERROR);	}
-	public boolean isFatalEnabled()	{ return isEnabled(LOG_LEVEL_FATAL);	}
+	public boolean isTraceEnabled()	{ return isEnabled(LOG_LEVEL_TRACE); }
+	public boolean isDebugEnabled()	{ return isEnabled(LOG_LEVEL_DEBUG); }
+	public boolean isInfoEnabled()	{ return isEnabled(LOG_LEVEL_INFO);  }
+	public boolean isWarnEnabled()	{ return isEnabled(LOG_LEVEL_WARN);  }
+	public boolean isErrorEnabled()	{ return isEnabled(LOG_LEVEL_ERROR); }
+	public boolean isFatalEnabled()	{ return isEnabled(LOG_LEVEL_FATAL); }
 	
 	private boolean isEnabled(int l) { return this.getConfig().isEnabled(l, this.name); }
 
@@ -135,11 +135,11 @@ public class UILoggerEx implements UILogger_i {
 	public void end(final String c, final String f)		{ addLog(LOG_LEVEL_TRACE, msgPrefix(c, f)+STR_END); }
 
 	@Override public
-	void beginEnd(final String c, final String f) {addLog(LOG_LEVEL_TRACE, msgPrefix(c, f) + STR_BEGINEND);}
-	private void beginEnd(final String c, final String f, final String m) {addLog(LOG_LEVEL_TRACE, msgPrefix(c, f) + STR_BEGINEND + STR_EMPTY + m);}
-	private void beginEnd(final String c, final String f, final String m, final Object arg1) {addLog(LOG_LEVEL_TRACE, msgPrefix(c, f) + STR_BEGINEND + STR_EMPTY + msgContent(m , new Object[]{arg1}));}
-	private void beginEnd(final String c, final String f, final String m, final Object arg1, final Object arg2) {addLog(LOG_LEVEL_TRACE, msgPrefix(c, f) + STR_BEGINEND + STR_EMPTY + msgContent(m , new Object[]{arg1, arg2}));}
-	private void beginEnd(final String c, final String f, final String m, final Object [] args) {addLog(LOG_LEVEL_TRACE, msgPrefix(c, f) + STR_BEGINEND + STR_EMPTY + msgContent(m , args));}
+	void beginEnd(final String c, final String f) { addLog(LOG_LEVEL_TRACE, msgPrefix(c, f) + STR_BEGINEND); }
+	private void beginEnd(final String c, final String f, final String m) { addLog(LOG_LEVEL_TRACE, msgPrefix(c, f) + STR_BEGINEND + STR_EMPTY + m); }
+	private void beginEnd(final String c, final String f, final String m, final Object arg1) { addLog(LOG_LEVEL_TRACE, msgPrefix(c, f) + STR_BEGINEND + STR_EMPTY + msgContent(m , new Object[]{arg1})); }
+	private void beginEnd(final String c, final String f, final String m, final Object arg1, final Object arg2) { addLog(LOG_LEVEL_TRACE, msgPrefix(c, f) + STR_BEGINEND + STR_EMPTY + msgContent(m , new Object[]{arg1, arg2})); }
+	private void beginEnd(final String c, final String f, final String m, final Object [] args) { addLog(LOG_LEVEL_TRACE, msgPrefix(c, f) + STR_BEGINEND + STR_EMPTY + msgContent(m , args)); }
 	
 	private void trace(final String c, final String f, final String m) { addLog(LOG_LEVEL_TRACE, c, f, m); }
 	private void trace(final String c, final String f, final String m, final Object arg) { addLog(LOG_LEVEL_TRACE, c, f, m, arg); }
@@ -220,7 +220,6 @@ public class UILoggerEx implements UILogger_i {
 	private void addLog(final int l, final String c, final String f, String m, final Object arg1, Object arg2) { addLog(l, c, f, m, ( null != arg1 || null != arg2 ) ? new Object[]{arg1, arg2} : null); }
 	private void addLog(final int l, final String c, final String f, String m, final Object[] args) { addLog(l, msg(c, f, m, args)); }
 	private void addLog(final int l, final String m) { addLog(l, m, (Throwable) null); }
-	private void addLog(final int l, final String m, final Throwable e) {
 	private void addLog(final int l, final String m, final Throwable e) { if(isEnabled(l)) addLog(new LogRecord(this.getConfig().getCategory(), l, m, e)); }
 	private void addLog(final LogRecord logRecord) { logger.log(logRecord); }
 

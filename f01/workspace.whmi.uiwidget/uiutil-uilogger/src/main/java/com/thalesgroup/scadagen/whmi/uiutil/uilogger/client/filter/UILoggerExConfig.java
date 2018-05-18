@@ -1,5 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.filter;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -7,12 +8,34 @@ import java.util.Map.Entry;
 import com.allen_sauer.gwt.log.client.Log;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerEx.Formatter;
 
+/**
+ * @author t0096643
+ *
+ */
 public class UILoggerExConfig {
 
-	private UILoggerExConfig() {}
+	private Map<String, String>  mapMsgList   = new HashMap<String, String>();
+	private Map<String, Integer> mapLevelList = new HashMap<String, Integer>();
+	private UILoggerExConfig() {
+		mapMsgList.put(UILoggerExConfig_i.AttributeMsg.PREFIX.toString(),   null);
+		mapMsgList.put(UILoggerExConfig_i.AttributeMsg.MSG.toString(),      null);
+		mapMsgList.put(UILoggerExConfig_i.AttributeMsg.OCB.toString(),      "{}");
+		mapMsgList.put(UILoggerExConfig_i.AttributeMsg.NULL.toString(),     "null");
+		mapMsgList.put(UILoggerExConfig_i.AttributeMsg.BEGIN.toString(),    "Begin");
+		mapMsgList.put(UILoggerExConfig_i.AttributeMsg.END.toString(),      "End");
+		mapMsgList.put(UILoggerExConfig_i.AttributeMsg.BEGINEND.toString(), "BeginEnd");
+		
+		mapLevelList.put(UILoggerExConfig_i.AttributeLevel.TRACE.toString(), Log.LOG_LEVEL_TRACE);
+		mapLevelList.put(UILoggerExConfig_i.AttributeLevel.DEBUG.toString(), Log.LOG_LEVEL_DEBUG);
+		mapLevelList.put(UILoggerExConfig_i.AttributeLevel.INFO.toString(),  Log.LOG_LEVEL_INFO);
+		mapLevelList.put(UILoggerExConfig_i.AttributeLevel.WARN.toString(),  Log.LOG_LEVEL_WARN);
+		mapLevelList.put(UILoggerExConfig_i.AttributeLevel.ERROR.toString(), Log.LOG_LEVEL_ERROR);
+		mapLevelList.put(UILoggerExConfig_i.AttributeLevel.FATAL.toString(), Log.LOG_LEVEL_FATAL);
+		mapLevelList.put(UILoggerExConfig_i.AttributeLevel.OFF.toString(),   Log.LOG_LEVEL_OFF);
+	}
 	private static UILoggerExConfig instance = null;
 	public static UILoggerExConfig getInstance() { 
-		 if (null==instance) instance = new UILoggerExConfig();
+		 if (null==instance) { instance = new UILoggerExConfig(); }
 		 return instance;
 	}
 
@@ -25,27 +48,11 @@ public class UILoggerExConfig {
 	private int currentLogLevel = Log.getCurrentLogLevel();
 	public void setCurrentLogLevel(int level) { this.currentLogLevel = level; }
 	public int getCurrentLogLevel() { return this.currentLogLevel; }
+
+	private String LOG_STR_OCB      = "{}";
+	private String LOG_STR_NULL     = "null";
 	
-	public int LOG_LEVEL_TRACE	   = Log.LOG_LEVEL_TRACE;
-	public int LOG_LEVEL_DEBUG	   = Log.LOG_LEVEL_DEBUG;
-	public int LOG_LEVEL_INFO	   = Log.LOG_LEVEL_INFO;
-	public int LOG_LEVEL_WARN	   = Log.LOG_LEVEL_WARN;
-	public int LOG_LEVEL_ERROR	   = Log.LOG_LEVEL_ERROR;
-	public int LOG_LEVEL_FATAL	   = Log.LOG_LEVEL_FATAL;
-	public int LOG_LEVEL_OFF	   = Log.LOG_LEVEL_OFF;
-	
-	public String LOG_STR_PREFIX   = null;//"[{}] {}";
-	public String LOG_STR_MSG      = null;//"{} {} ";
-	
-	public String LOG_STR_OCB      = "{}";
-	
-	public String LOG_STR_BEGIN    = "Begin";
-	public String LOG_STR_END      = "End";
-	public String LOG_STR_BEGINEND = "BeginEnd";
-	
-	public String LOG_STR_NULL     = "null";
-	
-	public Formatter FORMATTER = new Formatter() {
+	private Formatter formatter = new Formatter() {
 		
 		@Override
 		public String formatt(String m, Object[] args) {
@@ -64,39 +71,22 @@ public class UILoggerExConfig {
 			return msg;
 		}
 	};
-	public void setFormatter(Formatter formatter) { this.FORMATTER = formatter; }
-	public Formatter getFormatter() { return this.FORMATTER; }
+	public void setFormatter(Formatter formatter) { this.formatter = formatter; }
+	public Formatter getFormatter() { return this.formatter; }
 
-	public void setMsg(String msgname, String msg) {
-		if(0==UILoggerExConfig_i.AttributeMsg.PREFIX.toString().compareTo(msgname))		    {	LOG_STR_PREFIX	  = msg; }
-		else if(0==UILoggerExConfig_i.AttributeMsg.MSG.toString().compareTo(msgname))	    {	LOG_STR_MSG		  = msg; }
-		else if(0==UILoggerExConfig_i.AttributeMsg.BEGIN.toString().compareTo(msgname))	    {	LOG_STR_BEGIN	  = msg; }
-		else if(0==UILoggerExConfig_i.AttributeMsg.END.toString().compareTo(msgname))	    {	LOG_STR_END		  = msg; }
-		else if(0==UILoggerExConfig_i.AttributeMsg.BEGINEND.toString().compareTo(msgname))	{	LOG_STR_BEGINEND  = msg; }
-		else if(0==UILoggerExConfig_i.AttributeMsg.NULL.toString().compareTo(msgname))	    {	LOG_STR_NULL	  = msg; }
+	public void setMsg(String msgname, String msg) { 
+		mapMsgList.put(msgname, msg);
+		
+		if(0==UILoggerExConfig_i.AttributeMsg.OCB.toString().compareTo(msgname)){
+			LOG_STR_OCB = msg;
+		} else if(0==UILoggerExConfig_i.AttributeMsg.NULL.toString().compareTo(msgname)){
+			LOG_STR_NULL = msg;
+		}
 	}
+	public String getMsg(String msgname) { return mapMsgList.get(msgname); }
 	
-	public void setLevel(String levelname, int level) {
-		if(0==UILoggerExConfig_i.AttributeLevel.TRACE.toString().compareTo(levelname))		{	LOG_LEVEL_TRACE	= level; }
-		else if(0==UILoggerExConfig_i.AttributeLevel.DEBUG.toString().compareTo(levelname))	{	LOG_LEVEL_DEBUG	= level; }
-		else if(0==UILoggerExConfig_i.AttributeLevel.INFO.toString().compareTo(levelname))	{	LOG_LEVEL_INFO	= level; }
-		else if(0==UILoggerExConfig_i.AttributeLevel.WARN.toString().compareTo(levelname))	{	LOG_LEVEL_WARN	= level; }
-		else if(0==UILoggerExConfig_i.AttributeLevel.ERROR.toString().compareTo(levelname))	{	LOG_LEVEL_ERROR	= level; }
-		else if(0==UILoggerExConfig_i.AttributeLevel.FATAL.toString().compareTo(levelname))	{	LOG_LEVEL_FATAL	= level; }
-		else if(0==UILoggerExConfig_i.AttributeLevel.OFF.toString().compareTo(levelname))	{	LOG_LEVEL_OFF	= level; }
-	}
-	
-	public int getLevel(String levelname) {
-		int ret = 0;
-		if(0==UILoggerExConfig_i.AttributeLevel.TRACE.toString().compareTo(levelname)) 		{	ret = LOG_LEVEL_TRACE;	}
-		else if(0==UILoggerExConfig_i.AttributeLevel.DEBUG.toString().compareTo(levelname))	{	ret = LOG_LEVEL_DEBUG;	}
-		else if(0==UILoggerExConfig_i.AttributeLevel.INFO.toString().compareTo(levelname))	{	ret = LOG_LEVEL_INFO; 	}
-		else if(0==UILoggerExConfig_i.AttributeLevel.WARN.toString().compareTo(levelname))	{	ret = LOG_LEVEL_WARN; 	}
-		else if(0==UILoggerExConfig_i.AttributeLevel.ERROR.toString().compareTo(levelname))	{	ret = LOG_LEVEL_ERROR;	}
-		else if(0==UILoggerExConfig_i.AttributeLevel.FATAL.toString().compareTo(levelname))	{	ret = LOG_LEVEL_FATAL;	}
-		else if(0==UILoggerExConfig_i.AttributeLevel.OFF.toString().compareTo(levelname))	{	ret = LOG_LEVEL_OFF;	}
-		return ret;
-	}
+	public void setLevel(String levelname, int level) { mapLevelList.put(levelname, level); }
+	public int getLevel(String levelname) { return mapLevelList.get(levelname); }
 	
 	private boolean isFullClassName = false;
 	public void setIsFullClassName(boolean isFullClassName) { this.isFullClassName = isFullClassName; }

@@ -17,19 +17,19 @@ public class LoggerConfig {
 		final String f = "getMapEntrySetStrStr";
 		logger.begin(f);
 		Map<String, String> map = null;
-		logger.info(f, "strLoggerNameFilterString[{}]", strLoggerNameFilterString);
+		logger.debug(f, "strLoggerNameFilterString[{}]", strLoggerNameFilterString);
 		if(null!=strLoggerNameFilterString) {
 			map = new LinkedHashMap<String, String>();
 			String strLoggerNameFilters[] = strLoggerNameFilterString.split(LoggerConfigLoader_i.STR_COMMA);
 			if(null!=strLoggerNameFilters&&strLoggerNameFilters.length>0) {
 				for(String strLoggerNameFilter: strLoggerNameFilters) {
-					logger.info(f, "strLoggerNameFilter[{}]", strLoggerNameFilter);
+					logger.debug(f, "strLoggerNameFilter[{}]", strLoggerNameFilter);
 					if(null!=strLoggerNameFilter) {
 						String strLoggerNameFilterElements[] = strLoggerNameFilter.split(LoggerConfigLoader_i.STR_SPLITER);
 						if(null!=strLoggerNameFilterElements&&strLoggerNameFilterElements.length>1) {
 							String strLoggerNameSpace = strLoggerNameFilterElements[0];
 							String strLoggerNameSpaceLevel = strLoggerNameFilterElements[1];
-							logger.info(f, "strLoggerNameSpaceLevel[{}] strLoggerNameSpace[{}]", strLoggerNameSpaceLevel, strLoggerNameSpace);
+							logger.debug(f, "strLoggerNameSpaceLevel[{}] strLoggerNameSpace[{}]", strLoggerNameSpaceLevel, strLoggerNameSpace);
 							map.put(strLoggerNameSpace, strLoggerNameSpace);
 						}
 					}
@@ -45,19 +45,19 @@ public class LoggerConfig {
 		final String f = "getMapEntrySetStrInt";
 		logger.begin(f);
 		Map<String, Integer> map = null;
-		logger.info(f, "strLoggerNameFilterString[{}]", strLoggerNameFilterString);
+		logger.debug(f, "strLoggerNameFilterString[{}]", strLoggerNameFilterString);
 		if(null!=strLoggerNameFilterString) {
 			map = new LinkedHashMap<String, Integer>();
 			String strLoggerNameFilters[] = strLoggerNameFilterString.split(LoggerConfigLoader_i.STR_COMMA);
 			if(null!=strLoggerNameFilters&&strLoggerNameFilters.length>0) {
 				for(String strLoggerNameFilter: strLoggerNameFilters) {
-					logger.info(f, "strLoggerNameFilter[{}]", strLoggerNameFilter);
+					logger.debug(f, "strLoggerNameFilter[{}]", strLoggerNameFilter);
 					if(null!=strLoggerNameFilter) {
 						String strLoggerNameFilterElements[] = strLoggerNameFilter.split(LoggerConfigLoader_i.STR_SPLITER);
 						if(null!=strLoggerNameFilterElements&&strLoggerNameFilterElements.length>1) {
 							String strLoggerNameSpace = strLoggerNameFilterElements[0];
 							String strLoggerNameSpaceLevel = strLoggerNameFilterElements[1];
-							logger.info(f, "strLoggerNameSpaceLevel[{}] strLoggerNameSpace[{}]", strLoggerNameSpaceLevel, strLoggerNameSpace);
+							logger.debug(f, "strLoggerNameSpaceLevel[{}] strLoggerNameSpace[{}]", strLoggerNameSpaceLevel, strLoggerNameSpace);
 							try{
 								map.put(strLoggerNameSpace, Integer.parseInt(strLoggerNameSpaceLevel));
 							} catch (NumberFormatException ex) {
@@ -82,7 +82,7 @@ public class LoggerConfig {
 			for(Entry<String, Integer> entry: map.entrySet()) {
 				String filterName = entry.getKey();
 				int filterLevel = entry.getValue();
-				logger.info(f, "filterName[{}] filterLevel[{}]", filterName, filterLevel);
+				logger.debug(f, "filterName[{}] filterLevel[{}]", filterName, filterLevel);
 				UILoggerExConfig.getInstance().addFilter(filterLevel, filterName);
 			}
 		}
@@ -98,7 +98,7 @@ public class LoggerConfig {
 			for(Entry<String, String> entry: map.entrySet()) {
 				String logmsgname = entry.getKey();
 				String logmsg = entry.getValue();
-				logger.info(f, "logmsgname[{}] logmsg[{}]", logmsgname, logmsg);
+				logger.debug(f, "logmsgname[{}] logmsg[{}]", logmsgname, logmsg);
 				UILoggerExConfig.getInstance().setMsg(logmsgname, logmsg);
 			}
 		}
@@ -114,7 +114,7 @@ public class LoggerConfig {
 			for(Entry<String, Integer> entry: map.entrySet()) {
 				String loglevelname = entry.getKey();
 				int loglevel = entry.getValue();
-				logger.info(f, "loglevelname[{}] loglevel[{}]", loglevelname, loglevel);
+				logger.debug(f, "loglevelname[{}] loglevel[{}]", loglevelname, loglevel);
 				UILoggerExConfig.getInstance().setLevel(loglevelname, loglevel);
 			}
 		}
@@ -126,18 +126,18 @@ public class LoggerConfig {
 		final String f = "setLoggerCore";
 		logger.begin(f);
 		
-		String strLoggerCoreName = UILoggerCoreFactory.getInstance().getDefaultLoggerName();
-		logger.info(f, "strLoggerCoreName[{}]", strLoggerCoreName);
+		String strLoggerCoreName = UILoggerCoreFactory.getInstance().getCoreLoggerName();
+		logger.debug(f, "strLoggerCoreName[{}]", strLoggerCoreName);
 		
-		logger.info(f, "strNewLoggerCoreName[{}]", strNewLoggerCoreName);
+		logger.debug(f, "strNewLoggerCoreName[{}]", strNewLoggerCoreName);
 		if(null!=strNewLoggerCoreName) {
-			UILoggerCoreFactory.getInstance().setDefaultLogger(strNewLoggerCoreName);
+			UILoggerCoreFactory.getInstance().setCoreLogger(strNewLoggerCoreName);
 			
 			// Reload Logger
 			logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 		}
-		strLoggerCoreName = UILoggerCoreFactory.getInstance().getDefaultLoggerName();
-		logger.info(f, "strLoggerCoreName[{}]", strLoggerCoreName);
+		strLoggerCoreName = UILoggerCoreFactory.getInstance().getCoreLoggerName();
+		logger.debug(f, "strLoggerCoreName[{}]", strLoggerCoreName);
 		
 		logger.end(f);
 	}
@@ -147,15 +147,15 @@ public class LoggerConfig {
 		logger.begin(f);
 		
 		String strLoggerName = UILoggerFactory.getInstance().getDefaultLoggerName();
-		logger.info(f, "strLoggerName[{}]", strLoggerName);
+		logger.debug(f, "strLoggerName[{}]", strLoggerName);
 		
-		logger.info(f, "strLoggerLevel[{}]", strNewLoggerName);
+		logger.debug(f, "strLoggerLevel[{}]", strNewLoggerName);
 		if(null!=strNewLoggerName) {
 			UILoggerFactory.getInstance().setDefaultLogger(strNewLoggerName);
 			logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 		}
 		strLoggerName = UILoggerFactory.getInstance().getDefaultLoggerName();
-		logger.info(f, "strLoggerName[{}]", strLoggerName);
+		logger.debug(f, "strLoggerName[{}]", strLoggerName);
 		
 		logger.end(f);
 	}
@@ -163,7 +163,7 @@ public class LoggerConfig {
 	public void setLoggerCategory(String category) {
 		final String f = "setLoggerCategory";
 		logger.begin(f);
-		logger.info(f, "category[{}]", category);
+		logger.debug(f, "category[{}]", category);
 		UILoggerExConfig.getInstance().setCategory(category);
 		logger.end(f);
 	}
@@ -172,7 +172,7 @@ public class LoggerConfig {
 		final String f = "setLoggerIsFullClassName";
 		logger.begin(f);
 
-		logger.info(f, "isFullClassName[{}]", isFullClassName);
+		logger.debug(f, "isFullClassName[{}]", isFullClassName);
 		UILoggerExConfig.getInstance().setIsFullClassName(isFullClassName);
 		
 		logger.end(f);
@@ -182,7 +182,7 @@ public class LoggerConfig {
 		final String f = "setLoggerCurrentLevel";
 		logger.begin(f);
 
-		logger.info(f, "intLoggerCurrentLevel[{}]", intLoggerCurrentLevel);
+		logger.debug(f, "intLoggerCurrentLevel[{}]", intLoggerCurrentLevel);
 		if(intLoggerCurrentLevel>0) logger.setCurrentLogLevel(intLoggerCurrentLevel);
 		
 		logger.end(f);

@@ -3,7 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiutil.uilogger.client;
 /**
  * NULL logger
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class UILoggerNull implements UILogger_i {
@@ -40,6 +40,10 @@ public class UILoggerNull implements UILogger_i {
 
 	@Override public void warn(String message, Throwable throwable) {}
 
+	@Override public boolean isLevelEnabled(int level) { return false; }
+	
+	@Override public boolean isFatalEnabled() { return false; }
+	
 	@Override public boolean isErrorEnabled() { return false; }
 
 	@Override public boolean isWarnEnabled() { return false; }
@@ -49,68 +53,6 @@ public class UILoggerNull implements UILogger_i {
 	@Override public boolean isTraceEnabled() { return false; }
 
 	@Override public boolean isDebugEnabled() { return false; }
-
-//	@Override public void begin(String className, String f) {}
-//
-//	@Override public void end(String className, String f) {}
-//
-//	@Override public void beginEnd(String className, String f) {}
-//	
-//	@Override public void beginEnd(String className, String f, String message) {}
-//	
-//	@Override public void beginEnd(String className, String f, String message, Object arg1) {}
-//	
-//	@Override public void beginEnd(String className, String f, String message, Object arg1, Object arg2) {}
-//	
-//	@Override public void beginEnd(String className, String f, String message, Object[] args) {}
-//
-//	@Override public void trace(String className, String function, String message) {}
-//
-//	@Override public void trace(String className, String function, String message, Object arg1) {}
-//
-//	@Override public void trace(String className, String function, String message, Object arg1, Object arg2) {}
-//
-//	@Override public void trace(String className, String function, String message, Object[] args) {}
-//
-//	@Override public void info(String className, String function, String message) {}
-//
-//	@Override public void info(String className, String function, String message, Object arg1) {}
-//
-//	@Override public void info(String className, String function, String message, Object arg1, Object arg2) {}
-//
-//	@Override public void info(String className, String function, String message, Object[] args) {}
-//
-//	@Override public void debug(String className, String function, String message) {}
-//
-//	@Override public void debug(String className, String function, String message, Object arg1) {}
-//
-//	@Override public void debug(String className, String function, String message, Object arg1, Object arg2) {}
-//
-//	@Override public void debug(String className, String function, String message, Object[] args) {}
-//
-//	@Override public void warn(String className, String function, String message) {}
-//
-//	@Override public void warn(String className, String function, String message, Object arg1) {}
-//
-//	@Override public void warn(String className, String function, String message, Object arg1, Object arg2) {}
-//
-//	@Override public void warn(String className, String function, String message, Object[] args) {}
-//
-//	@Override public void error(String className, String function, String message) {}
-//
-//	@Override public void error(String className, String function, String message, Object arg1) {}
-//
-//	@Override public void error(String className, String function, String message, Object arg1, Object arg2) {}
-//
-//	@Override public void error(String className, String function, String message, Object[] args) {}
-//	
-//	@Override public void fatal(String className, String function, String message) {}
-//
-//	@Override public void fatal(String className, String function, String message, Object arg1) {}
-//
-//	@Override public void fatal(String className, String function, String message, Object arg1, Object arg2) {}
-//
-//	@Override public void fatal(String className, String function, String message, Object[] args) {}
 
 	@Override public void begin(String function) {}
 

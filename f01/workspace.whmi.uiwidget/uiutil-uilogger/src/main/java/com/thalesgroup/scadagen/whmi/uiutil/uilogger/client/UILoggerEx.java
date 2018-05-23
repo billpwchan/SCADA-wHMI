@@ -5,6 +5,7 @@ import com.allen_sauer.gwt.log.shared.LogRecord;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.core.factory.UILoggerCoreFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.filter.UILoggerExConfig;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.filter.UILoggerExConfig_i;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.util.UILoggerUtil;
 
 // Trace:	Begin/End
@@ -25,27 +26,27 @@ public class UILoggerEx implements UILogger_i {
 	private static String STR_CB         = "] ";
 	private static String STR_EMPTY      = " ";
 	
-	private static String STR_PREFIX    = UILoggerExConfig.getInstance().LOG_STR_PREFIX;
+	private static String STR_PREFIX    = UILoggerExConfig.getInstance().getMsg(UILoggerExConfig_i.AttributeMsg.PREFIX.toString());
 	
-	private static String STR_MSG       = UILoggerExConfig.getInstance().LOG_STR_MSG;
+	private static String STR_MSG       = UILoggerExConfig.getInstance().getMsg(UILoggerExConfig_i.AttributeMsg.MSG.toString());
 	
-	private static String STR_OCB       = UILoggerExConfig.getInstance().LOG_STR_OCB;
+	private static String STR_OCB       = UILoggerExConfig.getInstance().getMsg(UILoggerExConfig_i.AttributeMsg.OCB.toString());
 	
-	private static String STR_BEGIN     = UILoggerExConfig.getInstance().LOG_STR_BEGIN;
-	private static String STR_END       = UILoggerExConfig.getInstance().LOG_STR_END;
-	private static String STR_BEGINEND  = UILoggerExConfig.getInstance().LOG_STR_BEGINEND;
+	private static String STR_BEGIN     = UILoggerExConfig.getInstance().getMsg(UILoggerExConfig_i.AttributeMsg.BEGIN.toString());
+	private static String STR_END       = UILoggerExConfig.getInstance().getMsg(UILoggerExConfig_i.AttributeMsg.END.toString());
+	private static String STR_BEGINEND  = UILoggerExConfig.getInstance().getMsg(UILoggerExConfig_i.AttributeMsg.BEGINEND.toString());
 	
-	private static String STR_NULL      = UILoggerExConfig.getInstance().LOG_STR_NULL;
+	private static String STR_NULL      = UILoggerExConfig.getInstance().getMsg(UILoggerExConfig_i.AttributeMsg.NULL.toString());
 	
-	private static Formatter formatter  = UILoggerExConfig.getInstance().FORMATTER;
+	private static Formatter formatter  = UILoggerExConfig.getInstance().getFormatter();
 	
-	public static int LOG_LEVEL_TRACE   = UILoggerExConfig.getInstance().LOG_LEVEL_TRACE;
-	public static int LOG_LEVEL_DEBUG   = UILoggerExConfig.getInstance().LOG_LEVEL_DEBUG;
-	public static int LOG_LEVEL_INFO    = UILoggerExConfig.getInstance().LOG_LEVEL_INFO;
-	public static int LOG_LEVEL_WARN    = UILoggerExConfig.getInstance().LOG_LEVEL_WARN;
-	public static int LOG_LEVEL_ERROR   = UILoggerExConfig.getInstance().LOG_LEVEL_ERROR;
-	public static int LOG_LEVEL_FATAL   = UILoggerExConfig.getInstance().LOG_LEVEL_FATAL;
-	public static int LOG_LEVEL_OFF     = UILoggerExConfig.getInstance().LOG_LEVEL_OFF;
+	private static int LOG_LEVEL_TRACE   = UILoggerExConfig.getInstance().getLevel(UILoggerExConfig_i.AttributeLevel.TRACE.toString());
+	private static int LOG_LEVEL_DEBUG   = UILoggerExConfig.getInstance().getLevel(UILoggerExConfig_i.AttributeLevel.DEBUG.toString());
+	private static int LOG_LEVEL_INFO    = UILoggerExConfig.getInstance().getLevel(UILoggerExConfig_i.AttributeLevel.INFO.toString());
+	private static int LOG_LEVEL_WARN    = UILoggerExConfig.getInstance().getLevel(UILoggerExConfig_i.AttributeLevel.WARN.toString());
+	private static int LOG_LEVEL_ERROR   = UILoggerExConfig.getInstance().getLevel(UILoggerExConfig_i.AttributeLevel.ERROR.toString());
+	private static int LOG_LEVEL_FATAL   = UILoggerExConfig.getInstance().getLevel(UILoggerExConfig_i.AttributeLevel.FATAL.toString());
+	private static int LOG_LEVEL_OFF     = UILoggerExConfig.getInstance().getLevel(UILoggerExConfig_i.AttributeLevel.OFF.toString());
 
 	private Logger logger               = UILoggerCoreFactory.getInstance().getLogger();
 
@@ -121,13 +122,13 @@ public class UILoggerEx implements UILogger_i {
 				: format(STR_MSG, new Object[]{msgPrefix(c, f), msgContent(log, args)});
 	}
 	
-
-	public boolean isTraceEnabled()	{ return isEnabled(LOG_LEVEL_TRACE); }
-	public boolean isDebugEnabled()	{ return isEnabled(LOG_LEVEL_DEBUG); }
-	public boolean isInfoEnabled()	{ return isEnabled(LOG_LEVEL_INFO);  }
-	public boolean isWarnEnabled()	{ return isEnabled(LOG_LEVEL_WARN);  }
-	public boolean isErrorEnabled()	{ return isEnabled(LOG_LEVEL_ERROR); }
-	public boolean isFatalEnabled()	{ return isEnabled(LOG_LEVEL_FATAL); }
+	@Override public boolean isLevelEnabled(int level)	{ return isEnabled(level); }
+	@Override public boolean isTraceEnabled()	{ return isEnabled(LOG_LEVEL_TRACE); }
+	@Override public boolean isDebugEnabled()	{ return isEnabled(LOG_LEVEL_DEBUG); }
+	@Override public boolean isInfoEnabled()	{ return isEnabled(LOG_LEVEL_INFO);  }
+	@Override public boolean isWarnEnabled()	{ return isEnabled(LOG_LEVEL_WARN);  }
+	@Override public boolean isErrorEnabled()	{ return isEnabled(LOG_LEVEL_ERROR); }
+	@Override public boolean isFatalEnabled()	{ return isEnabled(LOG_LEVEL_FATAL); }
 	
 	private boolean isEnabled(int l) { return this.getConfig().isEnabled(l, this.name); }
 

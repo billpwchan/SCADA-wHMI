@@ -1,10 +1,15 @@
 package com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.filter;
 
+/**
+ * @author t0096643
+ *
+ */
 public interface UILoggerExConfig_i {
 	
 	public enum AttributeMsg {
 		PREFIX("PREFIX")
 		, MSG("MSG")
+		, OCB("OCB")
 		, BEGIN("BEGIN")
 		, END("END")
 		, BEGINEND("BEGINEND")

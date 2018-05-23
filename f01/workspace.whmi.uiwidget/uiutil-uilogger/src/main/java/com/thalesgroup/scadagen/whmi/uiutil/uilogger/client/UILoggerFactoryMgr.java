@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Logger Factory to support the runtime load/remove logger
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class UILoggerFactoryMgr {

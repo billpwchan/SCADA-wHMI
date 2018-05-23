@@ -2,7 +2,7 @@ package com.thalesgroup.scadagen.whmi.uiutil.uilogger.client;
 
 /**
  * SCADAgen logger factory for creation
- * @author syau
+ * @author t0096643
  *
  */
 public class UILoggerFactory implements UILoggerFactory_i {

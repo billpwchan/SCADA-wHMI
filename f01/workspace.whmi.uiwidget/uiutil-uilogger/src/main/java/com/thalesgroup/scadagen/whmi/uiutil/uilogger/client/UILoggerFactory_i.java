@@ -1,7 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiutil.uilogger.client;
 
 /**
- * @author syau
+ * @author t0096643
  *
  */
 public interface UILoggerFactory_i {

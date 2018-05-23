@@ -4,6 +4,10 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.allen_sauer.gwt.log.client.Logger;
 import com.allen_sauer.gwt.log.shared.LogRecord;
 
+/**
+ * @author t0096643
+ *
+ */
 public class LogWrapper implements Logger {
 	
 	/* (non-Javadoc)

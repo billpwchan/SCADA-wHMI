@@ -20,7 +20,7 @@ public class LoggerConfigFolderLoader {
 				LoggerConfigLoader_i.CACHE_NAME_DICTIONARYIES
 				, LoggerConfigLoader_i.FILE_NAME_ATTRIBUTE
 				, LoggerConfigLoader_i.Attribute.loggerfilter.toString());
-		logger.info(f, "jsonArray[{}]", jsonArray);
+		logger.debug(f, "jsonArray[{}]", jsonArray);
 		
 		if(null!=jsonArray) {
 			map = ReadJson.readObjectEntrySetStrInt(jsonArray);
@@ -41,7 +41,7 @@ public class LoggerConfigFolderLoader {
 				LoggerConfigLoader_i.CACHE_NAME_DICTIONARYIES
 				, LoggerConfigLoader_i.FILE_NAME_ATTRIBUTE
 				, LoggerConfigLoader_i.Attribute.loggermsg.toString());
-		logger.info(f, "jsonArray[{}]", jsonArray);
+		logger.debug(f, "jsonArray[{}]", jsonArray);
 		
 		if(null!=jsonArray) {
 			map = ReadJson.readObjectEntrySetStrStr(jsonArray);
@@ -62,7 +62,7 @@ public class LoggerConfigFolderLoader {
 				LoggerConfigLoader_i.CACHE_NAME_DICTIONARYIES
 				, LoggerConfigLoader_i.FILE_NAME_ATTRIBUTE
 				, LoggerConfigLoader_i.Attribute.loggerlevel.toString());
-		logger.info(f, "jsonArray[{}]", jsonArray);
+		logger.debug(f, "jsonArray[{}]", jsonArray);
 		
 		if(null!=jsonArray) {
 			map = ReadJson.readObjectEntrySetStrInt(jsonArray);
@@ -84,7 +84,7 @@ public class LoggerConfigFolderLoader {
 					, LoggerConfigLoader_i.Attribute.loggercorename.toString()
 					, null);
 
-		logger.info(f, "ret[{}]", ret);
+		logger.debug(f, "ret[{}]", ret);
 		logger.end(f);
 		return ret;
 	}
@@ -99,7 +99,7 @@ public class LoggerConfigFolderLoader {
 					, LoggerConfigLoader_i.Attribute.loggername.toString()
 					, null);
 
-		logger.info(f, "ret[{}]", ret);
+		logger.debug(f, "ret[{}]", ret);
 		logger.end(f);
 		return ret;
 	}
@@ -114,7 +114,7 @@ public class LoggerConfigFolderLoader {
 					, LoggerConfigLoader_i.Attribute.loggercategory.toString()
 					, null);
 
-		logger.info(f, "ret[{}]", ret);
+		logger.debug(f, "ret[{}]", ret);
 		logger.end(f);
 		return ret;
 	}
@@ -129,7 +129,7 @@ public class LoggerConfigFolderLoader {
 					, LoggerConfigLoader_i.Attribute.loggerisfullclassname.toString()
 					, false);
 
-		logger.info(f, "ret[{}]", ret);
+		logger.debug(f, "ret[{}]", ret);
 		logger.end(f);
 		return ret;
 	}
@@ -144,7 +144,7 @@ public class LoggerConfigFolderLoader {
 					, LoggerConfigLoader_i.Attribute.loggercurrentlevel.toString()
 					, -1);
 
-		logger.info(f, "ret[{}]", ret);
+		logger.debug(f, "ret[{}]", ret);
 		logger.end(f);
 		return ret;
 	}

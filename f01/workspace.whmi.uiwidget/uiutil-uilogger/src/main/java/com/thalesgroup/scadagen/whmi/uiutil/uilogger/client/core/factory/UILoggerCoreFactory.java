@@ -15,7 +15,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.core.LogWrapper;
 
 /**
  * SCADAgen logger factory for creation
- * @author syau
+ * @author t0096643
  *
  */
 public class UILoggerCoreFactory implements UILoggerCoreFactory_i {
@@ -23,33 +23,48 @@ public class UILoggerCoreFactory implements UILoggerCoreFactory_i {
 	private static UILoggerCoreFactory instance = null;
 	private UILoggerCoreFactory () {}
 	public static UILoggerCoreFactory getInstance() {
-		if ( null == instance ) instance = new UILoggerCoreFactory();
+		if ( null == instance ) { instance = new UILoggerCoreFactory(); }
 		return instance;
 	}
 	
-	private String defaultLoggerName = "LogWrapper";
-	public void setDefaultLogger(String defaultLoggerName) { this.defaultLoggerName = defaultLoggerName; }
-	public String getDefaultLoggerName() { return this.defaultLoggerName; }
+	private String coreLoggerName = "LogWrapper";
+	public void setCoreLogger(String coreLoggerName) { this.coreLoggerName = coreLoggerName; }
+	public String getCoreLoggerName() { return this.coreLoggerName; }
 	
 	public Map<String, Logger> loggers = new HashMap<String, Logger>();
 	public void addLogger(String name, Logger logger) { this.loggers.put(name, logger); }
 	public void remoteLogger(String name) { this.loggers.remove(name); }
 
-	public Logger getLogger() { return getLogger(getDefaultLoggerName()); }
+	public Logger getLogger() { return getLogger(getCoreLoggerName()); }
+	
 	public Logger getLogger(String name) {
-		Logger logger = loggers.get(name);
-		if(null==logger && null!=name) {
-			switch(name) {
-			case "ConsoleLogger":	logger = new ConsoleLogger();	break;
-			case "DivLogger":		logger = new DivLogger();		break;
-			case "GWTLogger":		logger = new GWTLogger();		break;
-			case "LogWrapper":		logger = new LogWrapper();		break;
-			case "NullLogger":		logger = new NullLogger();		break;
-			case "RemoteLogger":	logger = new RemoteLogger();	break;
-			case "SystemLogger":	logger = new SystemLogger();	break;
-			case "WindowLogger":	logger = new WindowLogger();	break;
+		Logger logger = null;
+		if(null!=loggers) { logger = loggers.get(name); }
+		if(null==logger) { logger = getDefaultSupportedLogger(name); }
+		return ((null!=logger)?logger:new LogWrapper());
+	}
+	
+	private Logger getDefaultSupportedLogger(String name) {
+		Logger logger = null;
+		if(null!=name) {
+			if( 0 == DefaultSupportedLoggerName.ConsoleLogger.toString().compareTo(name)) {
+				logger = new ConsoleLogger();
+			} else if( 0 == DefaultSupportedLoggerName.DivLogger.toString().compareTo(name)) {
+				logger = new DivLogger();
+			} else if( 0 == DefaultSupportedLoggerName.GWTLogger.toString().compareTo(name)) {
+				logger = new GWTLogger();
+			} else if( 0 == DefaultSupportedLoggerName.LogWrapper.toString().compareTo(name)) {
+				logger = new LogWrapper();
+			} else if( 0 == DefaultSupportedLoggerName.NullLogger.toString().compareTo(name)) {
+				logger = new NullLogger();
+			} else if( 0 == DefaultSupportedLoggerName.RemoteLogger.toString().compareTo(name)) {
+				logger = new RemoteLogger();
+			} else if( 0 == DefaultSupportedLoggerName.SystemLogger.toString().compareTo(name)) {
+				logger = new SystemLogger();
+			} else if( 0 == DefaultSupportedLoggerName.WindowLogger.toString().compareTo(name)) {
+				logger = new WindowLogger();
 			}
 		}
-		return ((null!=logger)?logger:new LogWrapper());
+		return logger;
 	}
 }

@@ -27,7 +27,7 @@ public class LoggerConfigLoader {
 		logger.begin(f);
 
 		String strNewLoggerCoreName = settings.get(STR_LOGGER_CORE_NAME);
-		logger.info(f, "strNewLoggerCoreName[{}]", strNewLoggerCoreName);
+		logger.debug(f, "strNewLoggerCoreName[{}]", strNewLoggerCoreName);
 		if(null!=strNewLoggerCoreName) {
 			logCfg.setLoggerCore(strNewLoggerCoreName);
 		} else {
@@ -35,7 +35,7 @@ public class LoggerConfigLoader {
 		}
 		
 		String strLoggerMsgString = settings.get(STR_LOGGER_MSG);
-		logger.info(f, "strLoggerMsgString[{}]", strLoggerMsgString);
+		logger.debug(f, "strLoggerMsgString[{}]", strLoggerMsgString);
 		if(null!=strLoggerMsgString) {
 			logCfg.setLoggerMsg(logCfg.getMapEntrySetStrStr(strLoggerMsgString));
 		} else {
@@ -43,7 +43,7 @@ public class LoggerConfigLoader {
 		}
 		
 		String strLoggerLevelString = settings.get(STR_LOGGER_LEVEL);
-		logger.info(f, "strLoggerLevelString[{}]", strLoggerLevelString);
+		logger.debug(f, "strLoggerLevelString[{}]", strLoggerLevelString);
 		if(null!=strLoggerLevelString) {
 			logCfg.setLoggerLevel(logCfg.getMapEntrySetStrInt(strLoggerLevelString));
 		} else {
@@ -51,7 +51,7 @@ public class LoggerConfigLoader {
 		}
 
 		String strNewLoggerName = settings.get(STR_LOGGER_NAME);
-		logger.info(f, "strNewLoggerName[{}]", strNewLoggerName);
+		logger.debug(f, "strNewLoggerName[{}]", strNewLoggerName);
 		if(null!=strNewLoggerName) {
 			logCfg.setLogger(strNewLoggerName);
 		} else {
@@ -59,7 +59,7 @@ public class LoggerConfigLoader {
 		}
 		
 		String strLoggerIsFullClassName = settings.get(STR_LOGGER_IS_FULLCLASSNAME);
-		logger.info(f, "strLoggerIsFullClassName[{}]", strLoggerIsFullClassName);
+		logger.debug(f, "strLoggerIsFullClassName[{}]", strLoggerIsFullClassName);
 		if(null!=strLoggerIsFullClassName) {
 			boolean isFullClassName = Boolean.parseBoolean(strLoggerIsFullClassName);
 			logCfg.setLoggerIsFullClassName(isFullClassName);
@@ -68,7 +68,7 @@ public class LoggerConfigLoader {
 		}
 		
 		String strLoggerCategory = settings.get(STR_LOGGER_CATEGORY);
-		logger.info(f, "strLoggerCategory[{}]", strLoggerCategory);
+		logger.debug(f, "strLoggerCategory[{}]", strLoggerCategory);
 		if(null!=strLoggerCategory) {
 			logCfg.setLoggerCategory(strLoggerCategory);
 		} else {
@@ -76,11 +76,11 @@ public class LoggerConfigLoader {
 		}
 
 		String strLoggerCurrentLevel = settings.get(STR_LOGGER_CURRENT_LEVEL);
-		logger.info(f, "strLoggerCurrentLevel[{}]", strLoggerCurrentLevel);
+		logger.debug(f, "strLoggerCurrentLevel[{}]", strLoggerCurrentLevel);
 		if(null!=strLoggerCurrentLevel) {
 			try{
 				int intLoggerCurrentLevel = Integer.parseInt(strLoggerCurrentLevel);
-				logger.info(f, "strLoggerCurrentLevel[{}]", intLoggerCurrentLevel);
+				logger.debug(f, "strLoggerCurrentLevel[{}]", intLoggerCurrentLevel);
 				logCfg.setLoggerCurrentLevel(intLoggerCurrentLevel);
 			} catch (NumberFormatException ex) {
 				logger.warn(f, "NumberFormatException strLoggerCurrentLevel[{}]", strLoggerCurrentLevel);
@@ -91,7 +91,7 @@ public class LoggerConfigLoader {
 		}
 
 		String strLoggerNameFilterString = settings.get(STR_LOGGER_FILTER);
-		logger.info(f, "strLoggerNameFilterString[{}]", strLoggerNameFilterString);
+		logger.debug(f, "strLoggerNameFilterString[{}]", strLoggerNameFilterString);
 		if(null!=strLoggerNameFilterString) {
 			logCfg.setLoggerFilterLevel(logCfg.getMapEntrySetStrInt(strLoggerNameFilterString));
 		} else {

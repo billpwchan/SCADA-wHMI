@@ -13,7 +13,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.util.UILoggerUtil;
 /**
  * SCADAgen default logger
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class UILogger implements UILogger_i {
@@ -94,12 +94,16 @@ public class UILogger implements UILogger_i {
 		end(className, function);
 	}
 	
-	public boolean isTraceEnabled()	{ return Log.isTraceEnabled();	}
-	public boolean isDebugEnabled()	{ return Log.isDebugEnabled();	}
-	public boolean isInfoEnabled()	{ return Log.isInfoEnabled();	}
-	public boolean isWarnEnabled()	{ return Log.isWarnEnabled();	}
-	public boolean isErrorEnabled()	{ return Log.isErrorEnabled();	}
-	public boolean isFatalEnabled()	{ return Log.isFatalEnabled();	}
+	@Override
+	public boolean isLevelEnabled(int level) { 
+		throw new UnsupportedOperationException("This method not available at " + this.getClass().getSimpleName());
+	}
+	@Override public boolean isTraceEnabled()	{ return Log.isTraceEnabled();	}
+	@Override public boolean isDebugEnabled()	{ return Log.isDebugEnabled();	}
+	@Override public boolean isInfoEnabled()	{ return Log.isInfoEnabled();	}
+	@Override public boolean isWarnEnabled()	{ return Log.isWarnEnabled();	}
+	@Override public boolean isErrorEnabled()	{ return Log.isErrorEnabled();	}
+	@Override public boolean isFatalEnabled()	{ return Log.isFatalEnabled();	}
 	
 	public void trace(final String className, final String function, String log) {
 		if ( Log.isTraceEnabled() ) trace(className, function, log, null);

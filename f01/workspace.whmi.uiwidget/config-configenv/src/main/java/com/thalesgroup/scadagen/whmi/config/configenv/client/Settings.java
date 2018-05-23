@@ -37,13 +37,13 @@ public class Settings {
 		final String function = "dumpSetting";
 		logger.begin(function);
 		// Debug
-		if ( logger.isDebugEnabled() ) {
+		if ( logger.isTraceEnabled() ) {
 			if ( null != map ) {
 				for ( Map.Entry<String, String> entry : map.entrySet() ) {
-					logger.debug(function, "Debug key[{}] value[{}]", entry.getKey(), entry.getValue());
+					logger.trace(function, "Debug key[{}] value[{}]", entry.getKey(), entry.getValue());
 				}
 			} else {
-				logger.debug(function, "map IS NULL");
+				logger.trace(function, "map IS NULL");
 			}
 		}
 		// End of Debug

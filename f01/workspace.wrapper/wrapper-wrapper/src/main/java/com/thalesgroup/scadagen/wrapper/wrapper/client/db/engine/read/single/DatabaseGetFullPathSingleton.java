@@ -7,7 +7,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSinglet
 /**
  * Implementation the Database Get Children Operation in Singleton
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseGetFullPathSingleton extends DatabaseGetFullPath implements DatabaseSingleton_i {

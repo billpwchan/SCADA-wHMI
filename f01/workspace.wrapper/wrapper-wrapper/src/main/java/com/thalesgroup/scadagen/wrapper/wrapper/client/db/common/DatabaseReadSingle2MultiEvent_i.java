@@ -3,7 +3,7 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.common;
 /**
  * Interface for the Database Callback for the Read operation value set
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public interface DatabaseReadSingle2MultiEvent_i {

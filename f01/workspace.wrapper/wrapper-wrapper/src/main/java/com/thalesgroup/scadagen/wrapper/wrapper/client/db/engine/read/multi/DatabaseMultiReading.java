@@ -13,7 +13,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEve
 /**
  * Implementation the Database Multi Reading Operation
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseMultiReading implements DatabaseMultiRead_i {
@@ -52,6 +52,9 @@ public class DatabaseMultiReading implements DatabaseMultiRead_i {
 		final String function = "connect";
 		logger.begin(function);
 		
+		if(null!=database.getScsRTDBComponentAccessResult()) {
+			logger.debug(function, "database.getScsRTDBComponentAccessResult() ALREADY EXISTS, Orverride");
+		}
 		database.setScsRTDBComponentAccessResult(new ScsRTDBComponentAccessResult() {
 			
 			@Override
@@ -94,11 +97,11 @@ public class DatabaseMultiReading implements DatabaseMultiRead_i {
 		final String function = "addMultiReadValueRequest";
 		logger.begin(function);
 		logger.debug(function, "clientKey[{}] scsEnvId[{}]", new Object[]{clientKey, scsEnvId});
-		if ( logger.isDebugEnabled() ) {
-			for ( int i = 0 ; i < dbaddress.length ; ++i ) {
-				logger.debug(function, "dbaddresses({})[{}]", i, dbaddress[i]);
-			}
+
+		for ( int i = 0 ; i < dbaddress.length ; ++i ) {
+			logger.debug(function, "dbaddresses({})[{}]", i, dbaddress[i]);
 		}
+
 		if ( null != databaseEvent ) {
 			
 			ReadingRequest readingRequest = new ReadingRequest(clientKey, scsEnvId, dbaddress, databaseEvent);

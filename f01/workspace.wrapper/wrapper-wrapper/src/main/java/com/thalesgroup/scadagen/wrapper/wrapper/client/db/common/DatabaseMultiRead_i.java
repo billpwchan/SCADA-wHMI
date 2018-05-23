@@ -5,7 +5,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i;
 /**
  * Interface for the Database Multi Reading
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public interface DatabaseMultiRead_i extends Connectable_i {

@@ -7,7 +7,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSinglet
 /**
  * Implementation the Database Group Polling Operation with difference result in singleton
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseGroupPollingDiffSingleton extends DatabaseGroupPollingDiff implements DatabaseSingleton_i {

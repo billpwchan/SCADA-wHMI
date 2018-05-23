@@ -5,7 +5,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i;
 /**
  * Implementation the Database Single Reading Operation
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public interface DatabaseSingle2SingleRead_i extends Connectable_i {

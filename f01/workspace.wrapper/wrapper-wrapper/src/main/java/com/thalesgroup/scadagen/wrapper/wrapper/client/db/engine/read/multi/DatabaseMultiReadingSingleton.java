@@ -7,7 +7,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSinglet
 /**
  * Implementation the Database Multi Reading Operation with Singleton
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseMultiReadingSingleton extends DatabaseMultiReading implements DatabaseSingleton_i {

@@ -7,7 +7,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSinglet
 /**
  * Implementation the Database Subscription Operation in singleton
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseSubscriptionSingleton extends DatabaseSubscription implements DatabaseSingleton_i {

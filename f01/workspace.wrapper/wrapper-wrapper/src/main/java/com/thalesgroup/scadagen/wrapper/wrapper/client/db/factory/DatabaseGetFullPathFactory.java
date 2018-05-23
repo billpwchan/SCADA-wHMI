@@ -11,7 +11,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.cac
 /**
  * Database Get Children Class Factory
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseGetFullPathFactory {

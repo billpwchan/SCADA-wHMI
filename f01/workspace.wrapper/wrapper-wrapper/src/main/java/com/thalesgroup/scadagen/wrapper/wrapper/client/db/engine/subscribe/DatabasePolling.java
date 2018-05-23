@@ -15,16 +15,16 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.Data
 /**
  * Implementation the Database Polling Operation in singleton
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsible_i {
 
 	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
-	private Map<String, PollingRequest> requests		= new HashMap<String, PollingRequest>();
+	private Map<String, PollingRequest> requests  = new HashMap<String, PollingRequest>();
 
-	private DatabaseMultiRead_i databaseReading = new DatabaseMultiReading();
+	private DatabaseMultiRead_i databaseReading   = new DatabaseMultiReading();
 
 	public class PollingRequest {
 		String key = null;
@@ -44,12 +44,15 @@ public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsi
 	 */
 	private Timer timer = null;
 	
-	private int periodMillis = 250;
+	private int periodMillis = 1000;
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i#setPeriodMillis(int)
 	 */
 	@Override
 	public void setPeriodMillis(int periodMillis) { this.periodMillis = periodMillis; }
+	
+	private boolean connected = false;
+	public boolean isConnected() { return connected; }
 	
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#connect()
@@ -58,8 +61,13 @@ public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsi
 	public void connect() {
 		final String function = "connect";
 		logger.begin(function);
-		databaseReading.connect();
-		scheduleTimer();
+		if(!connected) {
+			databaseReading.connect();
+			scheduleTimer();
+			connected = true;
+		} else {
+			logger.warn(function, "connected, SKIP");
+		}
 		logger.end(function);
 	}
 
@@ -73,6 +81,7 @@ public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsi
 		cancelTimer();
 		requests.clear();
 		databaseReading.disconnect();
+		connected = false;
 		logger.end(function);
 	}
 
@@ -84,10 +93,9 @@ public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsi
 		final String function = "addSubscribeRequest";
 		logger.begin(function);
 		logger.debug(function, "clientKey[{}] scsEnvId[{}]", clientKey, scsEnvId);
-		if ( logger.isDebugEnabled() ) {
-			for ( String address : dbaddresses ) {
-				logger.debug(function, "address[{}]", address);
-			}
+
+		for ( String address : dbaddresses ) {
+			logger.debug(function, "address[{}]", address);
 		}
 		
 		if ( null != databaseEvent) {
@@ -125,31 +133,41 @@ public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsi
 			timer = new Timer() {
 				@Override
 				public void run() {
+					String function2 = function + " run";
 					if ( requests.size() > 0 ) {
 
 						for ( String clientKey : requests.keySet() ) {
 							
 							PollingRequest rq = requests.get(clientKey);
-							String scsEnvId = rq.scsEnvId;
-							String [] dbaddresses = rq.dbaddress;
-							
-							databaseReading.addMultiReadValueRequest(clientKey, scsEnvId, dbaddresses, new DatabasePairEvent_i() {
+							if(null!=rq) {
+								String scsEnvId = rq.scsEnvId;
+								String [] dbaddresses = rq.dbaddress;
 								
-								@Override
-								public void update(String key, String [] dbaddress, String[] values) {
+								databaseReading.addMultiReadValueRequest(clientKey, scsEnvId, dbaddresses, new DatabasePairEvent_i() {
 									
-									PollingRequest rq = requests.get(key);
-									String [] dbaddresses = rq.dbaddress;
-									buildRespond(key, dbaddresses, values);
+									@Override
+									public void update(String key, String [] dbaddress, String[] values) {
+										String function3 = function + " run";
+										
+										PollingRequest rq = requests.get(key);
+										if(null!=rq) {
+																				String [] dbaddresses = rq.dbaddress;
+										buildRespond(key, dbaddresses, values);
+										} else {
+											logger.warn(function3, "rq with key[{}] IS NULL", key);
+										}
+									}
+								});
+							} else {
+								logger.warn(function2, "rq with clientKey[{}] IS NULL", clientKey);
+							}
 
-								}
-							});
 						}
 
 					}
 				}
 			};
-			
+			logger.debug(function, "periodMillis[{}]", periodMillis);
 			timer.scheduleRepeating(periodMillis);
 		}
 		logger.end(function);
@@ -162,8 +180,13 @@ public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsi
 		final String function = "cancelTimer";
 		logger.begin(function);
 		if ( null != timer ) {
+			if(timer.isRunning()) {
+				logger.warn(function, "timer NOT RUNNING");
+			}
 			timer.cancel();
 			timer = null;
+		} else {
+			logger.warn(function, "timer NOT CREATED, SKIP");
 		}
 		logger.end(function);
 	}
@@ -175,10 +198,14 @@ public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsi
 	public void buildRespond(String key, String[] dbaddresses, String[] values) {
 		final String function = "buildReponse";
 		logger.begin(function);
-		logger.info(function, "key[{}]", key);
+		logger.debug(function, "key[{}]", key);
 		
 		PollingRequest rq = requests.get(key);
-		rq.databaseEvent.update(key, dbaddresses, values);
+		if(null!=rq){
+			rq.databaseEvent.update(key, dbaddresses, values);
+		} else {
+			logger.warn(function, "rq with key[{}] NOT FOUND", key);
+		}
 
 		logger.end(function);
 	}

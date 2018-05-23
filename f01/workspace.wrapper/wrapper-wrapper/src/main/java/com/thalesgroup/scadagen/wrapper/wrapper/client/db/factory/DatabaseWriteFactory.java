@@ -9,7 +9,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.write.DatabaseW
 /**
  * Database Writing Class Factory
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseWriteFactory {

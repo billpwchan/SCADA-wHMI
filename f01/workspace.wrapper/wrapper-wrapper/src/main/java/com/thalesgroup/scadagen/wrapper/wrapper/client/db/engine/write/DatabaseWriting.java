@@ -8,7 +8,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Databas
 /**
  * Implementation the Database Writing Operation
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseWriting implements DatabaseWrite_i {

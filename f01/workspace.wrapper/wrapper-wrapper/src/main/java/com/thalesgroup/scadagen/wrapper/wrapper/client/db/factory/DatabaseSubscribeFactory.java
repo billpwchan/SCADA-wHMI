@@ -15,7 +15,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group
 /**
  * Database Subscribe Class Factory
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseSubscribeFactory {

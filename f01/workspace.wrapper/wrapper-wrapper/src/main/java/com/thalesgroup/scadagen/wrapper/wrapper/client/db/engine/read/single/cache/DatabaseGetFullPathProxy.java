@@ -13,7 +13,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.Dat
 /**
  * Implementation the Database Get Children Operation with Proxy (Caches)
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseGetFullPathProxy implements DatabaseSingle2SingleRead_i, Single2SingleResponsible_i {
@@ -117,7 +117,7 @@ public class DatabaseGetFullPathProxy implements DatabaseSingle2SingleRead_i, Si
 	public void buildRespond(String clientKey, String dbAddress, String values) {
 		final String function = "buildReponse";
 		logger.begin(function);
-		logger.info(function, "clientKey[{}]", clientKey);
+		logger.debug(function, "clientKey[{}]", clientKey);
 		ReadingRequest rq = requests.get(clientKey);
 		rq.databaseEvent.update(clientKey, values);
 		requests.remove(clientKey);

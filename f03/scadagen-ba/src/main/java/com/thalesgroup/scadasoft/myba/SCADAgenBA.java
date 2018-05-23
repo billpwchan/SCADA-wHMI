@@ -16,12 +16,13 @@ import com.thalesgroup.scadasoft.myba.configuration.SCADAgenConfManager;
 import com.thalesgroup.scadasoft.myba.plugin.PluginNBTransientGenericManager;
 import com.thalesgroup.scadasoft.myba.subscription.MyDBMSubscription;
 import com.thalesgroup.scadasoft.myba.subscription.OLSAlmConverter;
+import com.thalesgroup.scadasoft.myba.subscription.OLSDpcEqpConverter;
 import com.thalesgroup.scadasoft.myba.subscription.OLSHistEventConverter;
 import com.thalesgroup.scadasoft.services.proxy.ScsPollerServicesProxy;
 
 public class SCADAgenBA extends SCADAsoftBA {
 	
-	Properties appConfig = null;
+	private Properties appConfig = null;
 
     public SCADAgenBA() {
     }
@@ -65,7 +66,10 @@ public class SCADAgenBA extends SCADAsoftBA {
             if ("EventList".equals(cnf.m_listName)) {
             	sub = new OLSSubscription(SCSConfManager.instance().getRemoteEnv(), cnf.m_serverName,
 	                    cnf.m_listName, cnf.m_filter, new OLSAlmConverter(cnf.m_hvclass, m_HVGenericConnector));
-            } else {
+            } else if ("DpcInhibList".equals(cnf.m_listName)) {
+            	sub = new OLSSubscription(SCSConfManager.instance().getRemoteEnv(), cnf.m_serverName,
+	                    cnf.m_listName, cnf.m_filter, new OLSDpcEqpConverter(cnf.m_hvclass, m_HVGenericConnector));
+            } else { 
 	            sub = new OLSSubscription(SCSConfManager.instance().getRemoteEnv(), cnf.m_serverName,
 	                    cnf.m_listName, cnf.m_filter, new OLSConverter(cnf.m_hvclass, m_HVGenericConnector));
             }

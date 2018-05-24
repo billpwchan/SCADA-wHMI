@@ -33,6 +33,7 @@ CALL %TOOLS_PATH%\Build.f10.all.bat %v_strdt%
 CALL %TOOLS_PATH%\Export.f10.binary.log.bat %v_strdt%
 
 CALL %TOOLS_PATH%\Build.f11.opmmgt.bat %v_strdt%
+CALL %TOOLS_PATH%\Export.f11.binary.log.bat %v_strdt%
 
 CALL %TOOLS_PATH%\Export.repo.bat %v_strdt%
 

@@ -12,7 +12,7 @@
 	<groupId>com.thalesgroup.scadagen.whmi.opm</groupId>
 	<artifactId>opmloader</artifactId>
 	<packaging>jar</packaging>
-	<version>1.7.2-SNAPSHOT</version>
+	<version>1.7.2</version>
     
 	<build>	
 		<plugins>

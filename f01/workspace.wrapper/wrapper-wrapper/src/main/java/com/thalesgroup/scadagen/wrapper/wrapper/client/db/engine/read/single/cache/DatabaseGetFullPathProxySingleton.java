@@ -3,7 +3,7 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.ca
 /**
  * Implementation the Database Get Children Operation with Proxy (Caches) and Singleton
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseGetFullPathProxySingleton extends DatabaseGetFullPathProxy {

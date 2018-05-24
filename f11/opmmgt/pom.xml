@@ -4,9 +4,9 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.thalesgroup.scadasoft.opmmgt</groupId>
+	<groupId>com.thalesgroup.scadasoft.scadagen.opmmgt</groupId>
 	<artifactId>opmmgt</artifactId>
-	<version>1.1.0-SNAPSHOT</version>
+	<version>1.7.2</version>
 	<packaging>jar</packaging>
 	
 	<name>opmmgt</name>
@@ -25,7 +25,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 	
-	<distributionManagement>
+	<!--<distributionManagement>
 		<snapshotRepository>
 			<id>scadasoft-repo-snapshots</id>
 			<name>SCADAsoft maven repository - SNAPSHOTS</name>
@@ -36,7 +36,7 @@
 			<name>SCADAsoft maven repository - RELEASES</name>
 			<url>http://thsnexapp01p.thales-security.com:9001/nexus/content/repositories/scadasoft_releases/</url>
 		</repository>
-	</distributionManagement>
+	</distributionManagement>-->
 
 	<dependencies>
 		<dependency>

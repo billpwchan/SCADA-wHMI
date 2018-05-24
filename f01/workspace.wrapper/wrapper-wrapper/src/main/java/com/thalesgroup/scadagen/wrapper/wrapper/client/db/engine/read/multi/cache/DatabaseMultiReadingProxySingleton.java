@@ -7,7 +7,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSinglet
 /**
  * Implementation the Database Multi Reading Operation with Proxy (Caches) and Singleton
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseMultiReadingProxySingleton extends DatabaseMultiReadingProxy implements DatabaseSingleton_i {

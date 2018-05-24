@@ -3,7 +3,7 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db;
 /**
  * Interface for the Database Event
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public interface DatabaseEvent {

@@ -2,6 +2,9 @@
 
 call LoadPath.bat
 
+REM OPMMGT requires Java 8
+SET JAVA_HOME=%SOFTS_BASE%/%SOFTS_DIR%/jdk1.8.0_102_x64
+
 IF [%1] == [] SET v_strdt=%strdt%
 IF [%v_strdt%] == [] SET v_strdt=%1
 

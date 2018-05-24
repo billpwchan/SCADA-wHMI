@@ -5,20 +5,24 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSinglet
 /**
  * Implementation the Database Polling Operation in singleton
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabasePollingSingleton extends DatabasePolling implements DatabaseSingleton_i {
 
 	private static DatabasePollingSingleton instance = null;
-	private DatabasePollingSingleton() {}
+	private String name = null;
+	private DatabasePollingSingleton (String name) { 
+		super(name);
+		this.name = name; 
+	}
 	/**
 	 * Get the Singleton instance
 	 * 
 	 * @return Singleton instance
 	 */
-	public static DatabasePollingSingleton getInstance() { 
-		if ( null == instance ) instance = new DatabasePollingSingleton();
+	public static DatabasePollingSingleton getInstance(String name) { 
+		if ( null == instance ) instance = new DatabasePollingSingleton(name);
 		return instance;
 	}
 	

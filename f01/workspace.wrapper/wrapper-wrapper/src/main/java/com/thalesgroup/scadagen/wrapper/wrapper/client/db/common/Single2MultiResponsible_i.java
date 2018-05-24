@@ -3,7 +3,7 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.common;
 /**
  * Interface for the Database Building the Single Pair value set
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public interface Single2MultiResponsible_i {

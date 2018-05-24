@@ -3,7 +3,7 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.common;
 /**
  * Interface for the async call reading operation result in Pair value set
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public interface DatabasePairEvent_i {

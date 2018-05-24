@@ -15,7 +15,7 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBCompo
 /**
  * Wrapper in SCADAgen WHMI Level for the SCADAsoft ScsRTDBComponent
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class Database {
@@ -25,7 +25,7 @@ public class Database {
 	/**
 	 * Interface for the async call reading operation result
 	 * 
-	 * @author syau
+	 * @author t0096643
 	 *
 	 */
 	public interface ScsRTDBComponentAccessResult {
@@ -51,11 +51,19 @@ public class Database {
 	public void setScsRTDBComponentAccessResult(ScsRTDBComponentAccessResult scsRTDBComponentAccessResult) {
 		this.scsRTDBComponentAccessResult = scsRTDBComponentAccessResult;
 	}
+	/**
+	 * Getter for the asynchronous callback for the Get Children result
+	 * 
+	 * @return scsRTDBComponentAccessResult
+	 */
+	public ScsRTDBComponentAccessResult getScsRTDBComponentAccessResult() {
+		return this.scsRTDBComponentAccessResult;
+	} 
 	
 	/**
 	 * Interface for the Asynchronous callback of Get Children result
 	 * 
-	 * @author syau
+	 * @author t0096643
 	 *
 	 */
 	public interface ScsRTDBComponentAccessGetChildrenResult {
@@ -83,7 +91,7 @@ public class Database {
 	/**
 	 * Interface for the Asynchronous callback of Get Children result
 	 * 
-	 * @author syau
+	 * @author t0096643
 	 *
 	 */
 	public interface ScsRTDBComponentAccessGetFullPathResult {
@@ -111,7 +119,7 @@ public class Database {
 	/**
 	 * Interface for the Asynchronous callback of Poller result
 	 * 
-	 * @author syau
+	 * @author t0096643
 	 *
 	 */
 	public interface ScsPollerComponentAccessResult {

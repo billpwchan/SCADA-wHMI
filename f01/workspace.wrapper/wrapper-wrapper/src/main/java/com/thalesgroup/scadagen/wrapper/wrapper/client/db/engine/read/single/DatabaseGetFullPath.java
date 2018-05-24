@@ -13,7 +13,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Databas
 /**
  * Implementation the Database Get Children Operation
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseGetFullPath implements DatabaseSingle2SingleRead_i {

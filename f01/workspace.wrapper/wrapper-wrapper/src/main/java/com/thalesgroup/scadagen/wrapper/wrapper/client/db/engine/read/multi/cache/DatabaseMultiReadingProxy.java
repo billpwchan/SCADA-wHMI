@@ -14,7 +14,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEve
 /**
  * Implementation the Database Multi Reading Operation with Proxy (Caches)
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, Multi2MultiResponsible_i {
@@ -141,7 +141,7 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, Multi2Mul
 	public void buildRespond(String clientKey, String[] dbAddresses, String[] values) {
 		final String function = "buildReponse";
 		logger.begin(function);
-		logger.info(function, "clientKey[{}]", clientKey);
+		logger.debug(function, "clientKey[{}]", clientKey);
 		ReadingRequest rq = requests.get(clientKey);
 		rq.databaseEvent.update(clientKey, dbAddresses, values);
 		requests.remove(clientKey);

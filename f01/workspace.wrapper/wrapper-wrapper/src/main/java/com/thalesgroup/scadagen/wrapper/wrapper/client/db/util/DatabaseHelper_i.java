@@ -37,7 +37,7 @@ public interface DatabaseHelper_i {
 	}
 	
 	/**
-	 * @author syau
+	 * @author t0096643
 	 * 
 	 * Ref point name
 	 */

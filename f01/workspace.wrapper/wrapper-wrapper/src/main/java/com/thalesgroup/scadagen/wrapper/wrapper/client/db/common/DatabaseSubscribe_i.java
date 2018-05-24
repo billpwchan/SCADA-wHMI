@@ -5,7 +5,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i;
 /**
  * Implementation the Database Subscribe Operation
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public interface DatabaseSubscribe_i extends Connectable_i {

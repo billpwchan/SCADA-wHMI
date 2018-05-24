@@ -13,7 +13,7 @@
 
   <groupId>com.thalesgroup.hv.myproject</groupId>
   <artifactId>myproject-webapp-reactor</artifactId>
-  <version>1.7.2-SNAPSHOT</version>
+  <version>1.7.2</version>
   <packaging>pom</packaging>
 	  
   <modules>

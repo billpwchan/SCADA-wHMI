@@ -7,7 +7,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSinglet
 /**
  * Implementation the Database Group Polling Operation in singleton
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseGroupPollingSingleton extends DatabaseGroupPolling implements DatabaseSingleton_i {
@@ -15,14 +15,18 @@ public class DatabaseGroupPollingSingleton extends DatabaseGroupPolling implemen
 	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private static DatabaseGroupPollingSingleton instance = null;
-	private DatabaseGroupPollingSingleton() {}
+	private String name = null;
+	private DatabaseGroupPollingSingleton(String name) {
+		super(name);
+		this.name=name;
+	}
 	/**
 	 * Get the Singleton instance
 	 * 
 	 * @return Singleton instance
 	 */
-	public static DatabaseGroupPollingSingleton getInstance() { 
-		if ( null == instance ) instance = new DatabaseGroupPollingSingleton();
+	public static DatabaseGroupPollingSingleton getInstance(String name) { 
+		if ( null == instance ) instance = new DatabaseGroupPollingSingleton(name);
 		return instance;
 	}
 	

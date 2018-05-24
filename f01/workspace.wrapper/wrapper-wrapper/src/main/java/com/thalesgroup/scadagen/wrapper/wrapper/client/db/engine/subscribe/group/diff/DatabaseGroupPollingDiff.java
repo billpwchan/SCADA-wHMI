@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.grou
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -11,12 +12,18 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group
 /**
  * Implementation the Database Group Polling Operation with difference result
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseGroupPollingDiff extends DatabaseGroupPolling {
 
 	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
+	
+	private String name = null;
+	public DatabaseGroupPollingDiff (String name) { 
+		super(name);
+		this.name = name; 
+	}
 	
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group.DatabaseGroupPolling#buildRespond(java.lang.String, java.lang.String[], java.lang.String[])
@@ -39,8 +46,8 @@ public class DatabaseGroupPollingDiff extends DatabaseGroupPolling {
 		for ( String key2 : rqs.keySet() ) {
 			PollingRequest rq = rqs.get(key2);
 			
-			LinkedList<String> al = null;
-			LinkedList<String> vl = null;
+			List<String> al = null;
+			List<String> vl = null;
 			if ( null != rq.values ) {
 				for ( int i = 0 ; i < rq.dbaddresses.length ; ++i ) {
 					String ca = rq.dbaddresses[i];

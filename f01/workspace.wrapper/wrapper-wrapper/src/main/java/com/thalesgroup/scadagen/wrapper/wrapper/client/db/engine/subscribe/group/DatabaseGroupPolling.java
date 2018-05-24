@@ -17,7 +17,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.Datab
 /**
  * Implementation the Database Group Polling Operation
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiResponsible_i {
@@ -28,10 +28,16 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 	protected Map<String, Map<String, PollingRequest>> requests = new HashMap<String, Map<String, PollingRequest>>();
 	protected Map<String, String> requestKeyScsEnvIds = new HashMap<String, String>();
 	
+	private String name = null;
+	public DatabaseGroupPolling (String name) {
+		this.name = name; 
+		databasePolling = new DatabasePolling(name);
+	}
+	
 	/**
 	 * Instance for the database
 	 */
-	protected DatabasePolling databasePolling = new DatabasePolling();
+	protected DatabasePolling databasePolling = null;
 	
 	public class PollingRequest {
 		public String key = null;
@@ -45,7 +51,7 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 		}
 	}
 	
-	private int periodMillis = 250;
+	private int periodMillis = 1000;
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i#setPeriodMillis(int)
 	 */
@@ -59,6 +65,7 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 	public void connect() {
 		final String function = "connect";
 		logger.begin(function);
+		logger.debug(function, "periodMillis[{}]", periodMillis);
 		databasePolling.setPeriodMillis(periodMillis);
 		databasePolling.connect();
 		logger.end(function);
@@ -69,7 +76,7 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 	 */
 	@Override
 	public void disconnect() {
-		final String function = "connect";
+		final String function = "disconnect";
 		logger.begin(function);
 		for ( String clientKey : requestKeyScsEnvIds.keySet() ) {
 			databasePolling.addUnSubscribeRequest(clientKey);
@@ -89,7 +96,7 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 	public void addSubscribeRequest(String clientKey, String scsEnvId, String[] dbaddresses, DatabasePairEvent_i databaseEvent) {
 		final String function = "addSubscribeRequest";
 		logger.begin(function);
-		logger.info(function, "clientKey[{}] scsEnvId[{}]", clientKey, scsEnvId);
+		logger.debug(function, "clientKey[{}] scsEnvId[{}]", clientKey, scsEnvId);
 		if ( logger.isDebugEnabled() ) {
 			for ( String address : dbaddresses ) {
 				logger.debug(function, "address[{}]", address);
@@ -125,7 +132,7 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 	public void addUnSubscribeRequest(String clientKey) {
 		final String function = "addUnSubscribeRequest";
 		logger.begin(function);
-		logger.info(function, "clientKey[{}]", clientKey);
+		logger.debug(function, "clientKey[{}]", clientKey);
 		
 		lastUpdate = new Date();
 		
@@ -187,7 +194,7 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 					public void update(String key, String[] dbaddresses, String[] values) {
 						final String function = "update";
 						logger.begin(function);
-						logger.info(function, "key[{}]", key);
+						logger.debug(function, "key[{}]", key);
 						buildRespond(key, dbaddresses, values);
 						logger.end(function);
 					}
@@ -204,7 +211,7 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 	public void buildRespond(String key, String[] dbaddresses, String[] values) {
 		final String function = "buildReponse";
 		logger.begin(function);
-		logger.info(function, "key[{}]", key);
+		logger.debug(function, "key[{}]", key);
 		
 		String scsEnvId = requestKeyScsEnvIds.get(key);
 		

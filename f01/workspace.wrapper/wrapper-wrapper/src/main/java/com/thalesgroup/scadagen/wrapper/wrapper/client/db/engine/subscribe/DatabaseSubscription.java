@@ -15,12 +15,17 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Databas
 /**
  * Implementation the Database Subscription Operation
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseSubscription implements DatabaseSubscribe_i {
 
 	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
+	
+	private String name = null;
+	public DatabaseSubscription (String name) { 
+		this.name = name; 
+	}
 	
 	/**
 	 * Instance for the database
@@ -28,7 +33,7 @@ public class DatabaseSubscription implements DatabaseSubscribe_i {
 	private Database database = new Database();
 	
 	/**
-	 * @author syau
+	 * @author t0096643
 	 *
 	 */
 	public class SubscriptionRequest {
@@ -47,7 +52,7 @@ public class DatabaseSubscription implements DatabaseSubscribe_i {
 		}
 	}
 	
-	private int periodMillis = 250;
+	private int periodMillis = 1000;
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i#setPeriodMillis(int)
 	 */

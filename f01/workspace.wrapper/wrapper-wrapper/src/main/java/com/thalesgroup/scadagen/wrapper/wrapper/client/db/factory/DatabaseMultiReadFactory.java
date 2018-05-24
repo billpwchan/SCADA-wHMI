@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.DatabaseMultiReading;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.DatabaseMultiReadingSingleton;
@@ -11,7 +12,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.cach
 /**
  * Database Get Multi Read Class Factory
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseMultiReadFactory {
@@ -32,16 +33,16 @@ public class DatabaseMultiReadFactory {
 		
 		if ( null != key ) {
 
-			if ( 0 == DatabaseMultiReading.class.getSimpleName().compareTo(key) ) {
+			if ( UIWidgetUtil.isEqual(key, DatabaseMultiReading.class.getSimpleName()) ) {
 				databaseRead_i = new DatabaseMultiReading();
 			}
-			else if ( 0 == DatabaseMultiReadingSingleton.class.getSimpleName().compareTo(key) ) {
+			else if ( UIWidgetUtil.isEqual(key, DatabaseMultiReadingSingleton.class.getSimpleName()) ) {
 				databaseRead_i = DatabaseMultiReadingSingleton.getInstance();
 			}
-			else if ( 0 == DatabaseMultiReadingProxy.class.getSimpleName().compareTo(key) ) {
+			else if ( UIWidgetUtil.isEqual(key, DatabaseMultiReadingProxy.class.getSimpleName()) ) {
 				databaseRead_i = new DatabaseMultiReadingProxy();
 			}
-			else if ( 0 == DatabaseMultiReadingProxySingleton.class.getSimpleName().compareTo(key) ) {
+			else if ( UIWidgetUtil.isEqual(key, DatabaseMultiReadingProxySingleton.class.getSimpleName()) ) {
 				databaseRead_i = DatabaseMultiReadingProxySingleton.getInstance();
 			}
 		}

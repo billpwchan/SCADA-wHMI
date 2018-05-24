@@ -7,7 +7,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSinglet
 /**
  * Implementation the Database Group Polling Operation with difference result in singleton
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseGroupPollingDiffSingleton extends DatabaseGroupPollingDiff implements DatabaseSingleton_i {
@@ -15,14 +15,18 @@ public class DatabaseGroupPollingDiffSingleton extends DatabaseGroupPollingDiff 
 	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
 	private static DatabaseGroupPollingDiffSingleton instance = null;
-	private DatabaseGroupPollingDiffSingleton() {}
+	private String name = null;
+	private DatabaseGroupPollingDiffSingleton(String name) {
+		super(name);
+		this.name=name;
+	}
 	/**
 	 * Get the Singleton instance
 	 * 
 	 * @return Singleton instance
 	 */
-	public static DatabaseGroupPollingDiffSingleton getInstance() { 
-		if ( null == instance ) instance = new DatabaseGroupPollingDiffSingleton();
+	public static DatabaseGroupPollingDiffSingleton getInstance(String name) { 
+		if ( null == instance ) instance = new DatabaseGroupPollingDiffSingleton(name);
 		return instance;
 	}
 	

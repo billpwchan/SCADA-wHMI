@@ -8,7 +8,7 @@
   <parent>
     <artifactId>whmi</artifactId>
     <groupId>com.thalesgroup.scadagen.whmi</groupId>
-  <version>1.7.2-SNAPSHOT</version>
+  <version>1.7.2</version>
   </parent>
   <groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric</groupId>
   <artifactId>uiwidget-uiwidgetgeneric</artifactId>

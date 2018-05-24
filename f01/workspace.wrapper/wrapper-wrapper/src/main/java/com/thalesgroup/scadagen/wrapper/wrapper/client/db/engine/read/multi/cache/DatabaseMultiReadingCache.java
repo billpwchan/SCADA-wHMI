@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Caches for the Multi Reading
  * 
- * @author syau
+ * @author t0096643
  *
  */
 public class DatabaseMultiReadingCache {

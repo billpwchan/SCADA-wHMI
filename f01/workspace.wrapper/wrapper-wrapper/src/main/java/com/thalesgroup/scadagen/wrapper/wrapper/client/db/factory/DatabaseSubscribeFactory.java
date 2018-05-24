@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.DatabasePolling;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.DatabasePollingSingleton;
@@ -36,29 +37,29 @@ public class DatabaseSubscribeFactory {
 		
 		if ( null != key ) {
 
-			if ( 0 == DatabaseSubscription.class.getSimpleName().compareTo(key) ) {
-				databaseSubscribe_i = new DatabaseSubscription();
+			if ( UIWidgetUtil.isEqual(key, DatabaseSubscription.class.getSimpleName()) ) {
+				databaseSubscribe_i = new DatabaseSubscription(key);
 			}
-			else if ( 0 == DatabaseSubscriptionSingleton.class.getSimpleName().compareTo(key) ) {
-				databaseSubscribe_i = DatabaseSubscriptionSingleton.getInstance();
+			else if ( UIWidgetUtil.isEqual(key, DatabaseSubscriptionSingleton.class.getSimpleName()) ) {
+				databaseSubscribe_i = DatabaseSubscriptionSingleton.getInstance(key);
 			}
-			else if ( 0 == DatabasePolling.class.getSimpleName().compareTo(key) ) {
-				databaseSubscribe_i = new DatabasePolling();
+			else if ( UIWidgetUtil.isEqual(key, DatabasePolling.class.getSimpleName()) ) {
+				databaseSubscribe_i = new DatabasePolling(key);
 			}
-			else if ( 0 == DatabasePollingSingleton.class.getSimpleName().compareTo(key) ) {
-				databaseSubscribe_i = DatabasePollingSingleton.getInstance();
+			else if ( UIWidgetUtil.isEqual(key, DatabasePollingSingleton.class.getSimpleName()) ) {
+				databaseSubscribe_i = DatabasePollingSingleton.getInstance(key);
 			} 
-			else if ( 0 == DatabaseGroupPolling.class.getSimpleName().compareTo(key) ) {
-				databaseSubscribe_i = new DatabaseGroupPolling();
+			else if ( UIWidgetUtil.isEqual(key, DatabaseGroupPolling.class.getSimpleName()) ) {
+				databaseSubscribe_i = new DatabaseGroupPolling(key);
 			}
-			else if ( 0 == DatabaseGroupPollingSingleton.class.getSimpleName().compareTo(key) ) {
-				databaseSubscribe_i = DatabaseGroupPollingSingleton.getInstance();
+			else if ( UIWidgetUtil.isEqual(key, DatabaseGroupPollingSingleton.class.getSimpleName()) ) {
+				databaseSubscribe_i = DatabaseGroupPollingSingleton.getInstance(key);
 			}
-			else if ( 0 == DatabaseGroupPollingDiff.class.getSimpleName().compareTo(key) ) {
-				databaseSubscribe_i = new DatabaseGroupPollingDiff();
+			else if ( UIWidgetUtil.isEqual(key, DatabaseGroupPollingDiff.class.getSimpleName()) ) {
+				databaseSubscribe_i = new DatabaseGroupPollingDiff(key);
 			}
-			else if ( 0 == DatabaseGroupPollingDiffSingleton.class.getSimpleName().compareTo(key) ) {
-				databaseSubscribe_i = DatabaseGroupPollingDiffSingleton.getInstance();
+			else if ( UIWidgetUtil.isEqual(key, DatabaseGroupPollingDiffSingleton.class.getSimpleName()) ) {
+				databaseSubscribe_i = DatabaseGroupPollingDiffSingleton.getInstance(key);
 			}
 		}
 		logger.end(function);

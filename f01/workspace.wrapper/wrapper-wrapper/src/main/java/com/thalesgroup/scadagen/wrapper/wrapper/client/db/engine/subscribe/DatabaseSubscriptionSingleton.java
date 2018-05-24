@@ -15,15 +15,19 @@ public class DatabaseSubscriptionSingleton extends DatabaseSubscription implemen
 	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private static DatabaseSubscriptionSingleton instance = null;
-	private DatabaseSubscriptionSingleton() {}
+	private String name = null;
+	private DatabaseSubscriptionSingleton(String name) {
+		super(name);
+		this.name = name;
+	}
 	
 	/**
 	 * Get the Singleton instance
 	 * 
 	 * @return Singleton instance
 	 */
-	public static DatabaseSubscriptionSingleton getInstance() { 
-		if ( null == instance ) instance = new DatabaseSubscriptionSingleton();
+	public static DatabaseSubscriptionSingleton getInstance(String name) { 
+		if ( null == instance ) instance = new DatabaseSubscriptionSingleton(name);
 		return instance;
 	}
 	

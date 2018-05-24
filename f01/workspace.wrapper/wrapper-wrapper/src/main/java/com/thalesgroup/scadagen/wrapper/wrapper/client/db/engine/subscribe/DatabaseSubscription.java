@@ -22,6 +22,11 @@ public class DatabaseSubscription implements DatabaseSubscribe_i {
 
 	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
+	private String name = null;
+	public DatabaseSubscription (String name) { 
+		this.name = name; 
+	}
+	
 	/**
 	 * Instance for the database
 	 */

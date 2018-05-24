@@ -7,7 +7,29 @@ import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
 
 public class UIWidgetUtil {
-
+	final static char STR_DOT = '.'; 
+	public static String getClassSimpleName(String className) { return getClassSimpleName(className, true); }
+	public static String getClassSimpleName(String className, boolean withExt) {
+		int firstChar, lastChar;
+		firstChar = className.lastIndexOf (STR_DOT) + 1;
+		if ( firstChar > 0 ) {
+			className = className.substring ( firstChar );
+		}
+		if ( ! withExt ) {
+			lastChar = className.lastIndexOf(STR_DOT) - 1;
+			if ( lastChar > 0 ) {
+				className = className.substring ( 0, lastChar );
+			}
+		}
+		return className;
+	}
+	public static boolean isEqual(String name1, String name2) {
+		boolean ret = false;
+		if(0==name1.compareTo(name2)) {
+			ret = true;
+		}
+		return ret;
+	}
 	public static String replaceKeyword(String input, String regex, String replace) {
 //		String function = "replaceKeyword";
 //		logger.trace(function, "regex[{}] input[{}]", new Object[]{regex, input});

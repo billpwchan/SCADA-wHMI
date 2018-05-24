@@ -15,14 +15,18 @@ public class DatabaseGroupPollingSingleton extends DatabaseGroupPolling implemen
 	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 
 	private static DatabaseGroupPollingSingleton instance = null;
-	private DatabaseGroupPollingSingleton() {}
+	private String name = null;
+	private DatabaseGroupPollingSingleton(String name) {
+		super(name);
+		this.name=name;
+	}
 	/**
 	 * Get the Singleton instance
 	 * 
 	 * @return Singleton instance
 	 */
-	public static DatabaseGroupPollingSingleton getInstance() { 
-		if ( null == instance ) instance = new DatabaseGroupPollingSingleton();
+	public static DatabaseGroupPollingSingleton getInstance(String name) { 
+		if ( null == instance ) instance = new DatabaseGroupPollingSingleton(name);
 		return instance;
 	}
 	

@@ -19,6 +19,12 @@ public class DatabaseGroupPollingDiff extends DatabaseGroupPolling {
 
 	private final UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
 	
+	private String name = null;
+	public DatabaseGroupPollingDiff (String name) { 
+		super(name);
+		this.name = name; 
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group.DatabaseGroupPolling#buildRespond(java.lang.String, java.lang.String[], java.lang.String[])
 	 */

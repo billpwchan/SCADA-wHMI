@@ -28,10 +28,16 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 	protected Map<String, Map<String, PollingRequest>> requests = new HashMap<String, Map<String, PollingRequest>>();
 	protected Map<String, String> requestKeyScsEnvIds = new HashMap<String, String>();
 	
+	private String name = null;
+	public DatabaseGroupPolling (String name) {
+		this.name = name; 
+		databasePolling = new DatabasePolling(name);
+	}
+	
 	/**
 	 * Instance for the database
 	 */
-	protected DatabasePolling databasePolling = new DatabasePolling();
+	protected DatabasePolling databasePolling = null;
 	
 	public class PollingRequest {
 		public String key = null;
@@ -70,7 +76,7 @@ public class DatabaseGroupPolling implements DatabaseSubscribe_i, Multi2MultiRes
 	 */
 	@Override
 	public void disconnect() {
-		final String function = "connect";
+		final String function = "disconnect";
 		logger.begin(function);
 		for ( String clientKey : requestKeyScsEnvIds.keySet() ) {
 			databasePolling.addUnSubscribeRequest(clientKey);

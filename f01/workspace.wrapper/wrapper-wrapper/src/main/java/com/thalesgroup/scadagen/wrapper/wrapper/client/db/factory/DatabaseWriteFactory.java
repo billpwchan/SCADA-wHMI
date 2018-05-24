@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseWrite_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.write.DatabaseWriting;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.write.DatabaseWritingSingleton;
@@ -30,9 +31,9 @@ public class DatabaseWriteFactory {
 		
 		if ( null != key ) {
 
-			if ( 0 == DatabaseWriting.class.getSimpleName().compareTo(key) ) {
+			if ( UIWidgetUtil.isEqual(key, DatabaseWriting.class.getSimpleName()) ) {
 				databaseWrite_i = new DatabaseWriting();
-			} else if ( 0 == DatabaseWritingSingleton.class.getSimpleName().compareTo(key) ) {
+			} else if ( UIWidgetUtil.isEqual(key, DatabaseWritingSingleton.class.getSimpleName()) ) {
 				databaseWrite_i = DatabaseWritingSingleton.getInstance();
 			}
 		}

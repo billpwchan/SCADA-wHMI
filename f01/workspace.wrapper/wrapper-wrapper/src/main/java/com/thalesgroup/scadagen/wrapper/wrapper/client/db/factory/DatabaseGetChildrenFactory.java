@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingle2MultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.DatabaseGetChildren;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.DatabaseGetChildrenSingleton;
@@ -33,13 +34,13 @@ public class DatabaseGetChildrenFactory {
 		
 		if ( null != key ) {
 
-			if ( 0 == DatabaseGetChildren.class.getSimpleName().compareTo(key) ) {
+			if ( UIWidgetUtil.isEqual(key, DatabaseGetChildren.class.getSimpleName()) ) {
 				databaseGetChildren_i = new DatabaseGetChildren();
-			} else if ( 0 == DatabaseGetChildrenSingleton.class.getSimpleName().compareTo(key) ) {
+			} else if ( UIWidgetUtil.isEqual(key, DatabaseGetChildrenSingleton.class.getSimpleName()) ) {
 				databaseGetChildren_i = DatabaseGetChildrenSingleton.getInstance();
-			} else if ( 0 == DatabaseGetChildrenProxy.class.getSimpleName().compareTo(key) ) {
+			} else if ( UIWidgetUtil.isEqual(key, DatabaseGetChildrenProxy.class.getSimpleName()) ) {
 				databaseGetChildren_i = new DatabaseGetChildrenProxy();
-			} else if ( 0 == DatabaseGetChildrenProxySingleton.class.getSimpleName().compareTo(key) ) {
+			} else if ( UIWidgetUtil.isEqual(key, DatabaseGetChildrenProxySingleton.class.getSimpleName()) ) {
 				databaseGetChildren_i = DatabaseGetChildrenProxySingleton.getInstance();
 			}
 		}

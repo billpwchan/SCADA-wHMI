@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingle2SingleRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.DatabaseGetFullPath;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.DatabaseGetFullPathSingleton;
@@ -33,16 +34,16 @@ public class DatabaseGetFullPathFactory {
 		
 		if ( null != key ) {
 
-			if ( 0 == DatabaseGetFullPath.class.getSimpleName().compareTo(key) ) {
+			if ( UIWidgetUtil.isEqual(key, DatabaseGetFullPath.class.getSimpleName()) ) {
 				databaseGetFullPath_i = new DatabaseGetFullPath();
 			}
-			else if ( 0 == DatabaseGetFullPathSingleton.class.getSimpleName().compareTo(key) ) {
+			else if ( UIWidgetUtil.isEqual(key, DatabaseGetFullPathSingleton.class.getSimpleName()) ) {
 				databaseGetFullPath_i = DatabaseGetFullPathSingleton.getInstance();
 			}
-			else if ( 0 == DatabaseGetFullPathProxy.class.getSimpleName().compareTo(key) ) {
+			else if ( UIWidgetUtil.isEqual(key, DatabaseGetFullPathProxy.class.getSimpleName()) ) {
 				databaseGetFullPath_i = new DatabaseGetFullPathProxy();
 			}
-			else if ( 0 == DatabaseGetFullPathProxySingleton.class.getSimpleName().compareTo(key) ) {
+			else if ( UIWidgetUtil.isEqual(key, DatabaseGetFullPathProxySingleton.class.getSimpleName()) ) {
 				databaseGetFullPath_i = DatabaseGetFullPathProxySingleton.getInstance();
 			}
 			

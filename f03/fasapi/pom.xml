@@ -17,6 +17,10 @@
     <name>FAS java API</name>
     <description>FAS java API based on C++ fasclient library (JNA)</description>
 
+    <properties>
+		<scadasoft.scsapi.version>6.3.1_P07_QF03</scadasoft.scsapi.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -37,7 +41,7 @@
         <dependency>
             <groupId>com.thalesgroup.scadasoft</groupId>
             <artifactId>scsapi</artifactId>
-            <version>${scadasoft.version}</version>
+            <version>${scadasoft.scsapi.version}</version>
         </dependency>
     </dependencies>
     

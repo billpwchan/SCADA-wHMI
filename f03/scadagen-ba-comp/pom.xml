@@ -19,7 +19,8 @@
 	
     <properties>
         <scadasoft.version>6.3.1_P07</scadasoft.version>
-        <scadasoft.hv.version>6.3.1_P07-HV960</scadasoft.hv.version>
+        <scadasoft.hv.version>6.3.1_P07-HV960_QF02</scadasoft.hv.version>
+        <scadasoft.scsapi.version>6.3.1_P07_QF03</scadasoft.scsapi.version>
     </properties>
 
     <dependencies>
@@ -47,12 +48,12 @@
         <dependency>
             <groupId>com.thalesgroup.scadasoft</groupId>
             <artifactId>scsapi</artifactId>
-            <version>${scadasoft.version}</version>
+            <version>${scadasoft.scsapi.version}</version>
         </dependency>
 		<dependency>
             <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
             <artifactId>fasapi</artifactId>
-            <version>1.7.2</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
     

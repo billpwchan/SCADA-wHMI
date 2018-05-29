@@ -15,8 +15,9 @@
         <hv.common.integ.version>1.11.0</hv.common.integ.version>
         
         <scadasoft.model.version>6.3.1_P04-HV960</scadasoft.model.version>
-        <scadasoft.hv.version>6.3.1_P07-HV960</scadasoft.hv.version>
+        <scadasoft.hv.version>6.3.1_P07-HV960_QF02</scadasoft.hv.version>
         <scadasoft.version>6.3.1_P07</scadasoft.version>
+        <scadasoft.scsapi.version>6.3.1_P07_QF03</scadasoft.scsapi.version>
         
         <jcloverslf4j.version>1.7.21</jcloverslf4j.version>
         <jersey.version>2.23.2</jersey.version>
@@ -56,7 +57,7 @@
         <dependency>
             <groupId>com.thalesgroup.scadasoft</groupId>
             <artifactId>scsapi</artifactId>
-            <version>${scadasoft.version}</version>
+            <version>${scadasoft.scsapi.version}</version>
         </dependency>
 
         <dependency>

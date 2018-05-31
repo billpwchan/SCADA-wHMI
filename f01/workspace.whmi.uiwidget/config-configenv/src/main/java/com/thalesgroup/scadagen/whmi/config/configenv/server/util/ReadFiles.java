@@ -18,20 +18,20 @@ public class ReadFiles {
 	private List<File> files = new ArrayList<>();
 
 	public List<File> getFiles() {
-		logger.debug("Begin");
-		logger.debug("this.files.size()[{}]", this.files.size());
-		logger.debug("End");
+		logger.debug("getFiles Begin");
+		logger.debug("getFiles this.files.size()[{}]", this.files.size());
+		logger.debug("getFiles End");
 		return this.files;
 	}
 	
 	public void setFilePathExtension( final String configPath, final String folderName, final String extension) {
-		logger.debug("Begin");
-		logger.debug("configPath[{}] folderName[{}] extension[{}] extension[{}]", new Object[]{configPath, folderName, extension});
+		logger.debug("setFilePathExtension Begin");
+		logger.debug("setFilePathExtension configPath[{}] folderName[{}] extension[{}] extension[{}]", new Object[]{configPath, folderName, extension});
 		String path = configPath + File.separator + folderName;
-		logger.debug("folder[{}]", folderName);
+		logger.debug("setFilePathExtension folder[{}]", folderName);
 		File base = new File(path);
 		getFiles(base, extension);
-		logger.debug("End");
+		logger.debug("setFilePathExtension End");
 	}
 	
 	private void getFiles (final File directory, final String fileFilter) {
@@ -40,7 +40,7 @@ public class ReadFiles {
 				, DirectoryFileFilter.DIRECTORY);
 		for ( File file : files ) {
 			String path = file.getPath();
-			logger.debug("file path[{}] MATCH extension[{}]", path, fileFilter);
+			logger.debug("getFiles file path[{}] MATCH extension[{}]", path, fileFilter);
 			this.files.add(file);
 		}
 	}

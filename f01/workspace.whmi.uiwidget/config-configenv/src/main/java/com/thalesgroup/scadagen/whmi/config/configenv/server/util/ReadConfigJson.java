@@ -46,8 +46,7 @@ public class ReadConfigJson implements ReadConfigInterface {
 		try {
 			data = readFile(path, Charset.defaultCharset());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn("getDictionary IOException[{}]", e.toString());
 		}
 logger.debug("getDictionary Reading from the path[{}] elm[{}] data[{}]", new Object[]{path, elm, data});
 		

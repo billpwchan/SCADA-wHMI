@@ -2,7 +2,7 @@ package com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.main;
 
 public interface IEntryPoint {
 	
-	public final static String STR_XML_FOLDER = "UIEntryPoint" + "\\" + AppEntryPoint.class.getSimpleName();
+	public final static String STR_XML_FOLDER = "UIEntryPoint" + "/" + AppEntryPoint.class.getSimpleName();
 	
 	public enum PropertiesName {
 		  uiProj("uiProj")

@@ -53,7 +53,7 @@ public class ReadConfigINI implements ReadConfigInterface {
 				try {
 					input.close();
 				} catch ( IOException e ) {
-					e.printStackTrace();
+					logger.warn("getDictionary IOException[{}]", e.toString());
 				}
 			}
 		}

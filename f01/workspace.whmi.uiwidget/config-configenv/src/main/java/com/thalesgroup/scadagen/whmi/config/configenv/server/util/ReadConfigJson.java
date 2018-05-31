@@ -34,7 +34,7 @@ public class ReadConfigJson implements ReadConfigInterface {
 //			scanner = new Scanner(new File(path));
 //			data = scanner.useDelimiter("\\Z").next();
 //		} catch ( FileNotFoundException e) {
-//			e.printStackTrace();
+//			logger.error("Reading from the path[{}] elm[{}] IOException[{}]", new Object[]{path, elm, e.toString()});
 //		} finally {
 //			if ( scanner != null ) {
 //				scanner.close();

@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
@@ -18,20 +17,16 @@ public class ReadFiles {
 	private List<File> files = new ArrayList<>();
 
 	public List<File> getFiles() {
-		logger.debug("getFiles Begin");
 		logger.debug("getFiles this.files.size()[{}]", this.files.size());
-		logger.debug("getFiles End");
 		return this.files;
 	}
 	
 	public void setFilePathExtension( final String configPath, final String folderName, final String extension) {
-		logger.debug("setFilePathExtension Begin");
 		logger.debug("setFilePathExtension configPath[{}] folderName[{}] extension[{}] extension[{}]", new Object[]{configPath, folderName, extension});
 		String path = configPath + File.separator + folderName;
 		logger.debug("setFilePathExtension folder[{}]", folderName);
 		File base = new File(path);
 		getFiles(base, extension);
-		logger.debug("setFilePathExtension End");
 	}
 	
 	private void getFiles (final File directory, final String fileFilter) {

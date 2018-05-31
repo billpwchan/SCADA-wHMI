@@ -315,8 +315,7 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 		try {
 			scsRTDBComponentAccess.terminate();
 		} catch (IllegalStatePresenterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn("IOException[{}]", e.toString());
 		}
 		
 		logger.end(function);

@@ -112,11 +112,9 @@ public abstract class GDGColumnSimpleDateFormat extends OlsDecoder {
 				date = getDateValue(sdfparse, inValue);
 
 			} catch (JsonProcessingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.warn("JsonProcessingException[{}]", e.toString());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.warn("IOException[{}]", e.toString());
 			}
         }
         

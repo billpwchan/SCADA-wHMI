@@ -683,8 +683,7 @@ public class Database implements Connectable_i {
 		try {
 			rtdb.terminate();
 		} catch (IllegalStatePresenterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn("IllegalStatePresenterException[{}]", e.toString());
 		}
 		rtdb=null;
 		logger.end(function);

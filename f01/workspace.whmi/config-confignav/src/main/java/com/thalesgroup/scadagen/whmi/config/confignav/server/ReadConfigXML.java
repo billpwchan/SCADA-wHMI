@@ -89,13 +89,10 @@ public class ReadConfigXML implements ReadConfigInterface {
 
 		} catch (ParserConfigurationException e) {
 			logger.warn("\nParserConfigurationException: {}", e.toString());
-			e.printStackTrace();
 		} catch (SAXException | IOException e) {
 			logger.warn("\nSAXException | IOException: {}", e.toString());
-			e.printStackTrace();
 		} catch (NullPointerException e) {
 			logger.warn("\nNullPointerException: {}", e.toString());
-			e.printStackTrace();
 		}
 		
 		return dictionarys;

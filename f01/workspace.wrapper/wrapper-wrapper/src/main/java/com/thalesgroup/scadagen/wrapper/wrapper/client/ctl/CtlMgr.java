@@ -158,8 +158,7 @@ public class CtlMgr {
 		try {
 			scsCTLComponentAccess.terminate();
 		} catch (IllegalStatePresenterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn("IllegalStatePresenterException[{}]", e.toString());
 		}
 		scsCTLComponentAccess=null;
 		logger.end(function);

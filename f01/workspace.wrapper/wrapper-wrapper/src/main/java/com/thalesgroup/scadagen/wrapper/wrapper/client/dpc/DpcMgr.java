@@ -116,8 +116,7 @@ public class DpcMgr {
 		try {
 			dpcAccess.terminate();
 		} catch (IllegalStatePresenterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn("IllegalStatePresenterException[{}]", e.toString());
 		}
 		dpcAccess=null;
 		logger.end(function);

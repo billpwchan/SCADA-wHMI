@@ -45,7 +45,7 @@ public class ReadConfigINI implements ReadConfigInterface {
 			}
 			
 		} catch ( IOException e) {
-			e.printStackTrace();
+			logger.warn("Reading from the path[{}] elm[{}] IOException[{}]", new Object[]{path, elm, e.toString()});
 		} finally {
 			if ( input != null ) {
 				try {

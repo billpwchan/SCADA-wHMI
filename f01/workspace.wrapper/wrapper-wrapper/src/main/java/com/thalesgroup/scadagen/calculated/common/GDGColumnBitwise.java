@@ -106,11 +106,9 @@ public abstract class GDGColumnBitwise extends OlsDecoder {
 				outValue = getBitWiseValue(inValue, bitwiseop, bitwisevalue);
 
 			} catch (JsonProcessingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.warn("JsonProcessingException[{}]", e.toString());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.warn("IOException[{}]", e.toString());
 			}
 			
         }

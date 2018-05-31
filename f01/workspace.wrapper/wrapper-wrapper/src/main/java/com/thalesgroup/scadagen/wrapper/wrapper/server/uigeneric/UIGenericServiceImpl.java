@@ -96,11 +96,9 @@ public class UIGenericServiceImpl extends RemoteServiceServlet implements UIGene
 					logger.warn("request IS NULL");
 				}
 			} catch (JsonProcessingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.warn("JsonProcessingException[{}]", e.toString());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.warn("IOException[{}]", e.toString());
 			}
         } else {
         	logger.warn("uiGenericDto IS NULL");

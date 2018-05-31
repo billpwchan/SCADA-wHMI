@@ -21,6 +21,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UIWidgetRealize;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DCP_i.TaggingStatus;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DpcMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriorityFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i;
 
 public class UIWidgetDpcTagControl extends UIWidgetRealize {
 	
@@ -32,9 +34,14 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 	private String columnAlias			= "";
 	private String columnStatus			= "";
 	private String columnServiceOwner	= "";
+	private String columnOpSource		= "";
+	
+//	private String valueOpSourceEmpty		= "";
 	
 	private String valueSet				= "";
 	private String valueUnSet			= "";
+	
+	private String uiCpApi				= "";
 	
 	private final String strEMPTY				= "";
 	
@@ -62,15 +69,22 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 			columnAlias			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcTagControl_i.ParameterName.ColumnAlias.toString(), strHeader);
 			columnStatus		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcTagControl_i.ParameterName.ColumnStatus.toString(), strHeader);
 			columnServiceOwner	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcTagControl_i.ParameterName.ColumnServiceOwner.toString(), strHeader);
+			columnOpSource		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcTagControl_i.ParameterName.ColumnOpSource.toString(), strHeader);
+			
 			valueSet			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcTagControl_i.ParameterName.ValueSet.toString(), strHeader);
 			valueUnSet			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcTagControl_i.ParameterName.ValueUnSet.toString(), strHeader);
+//			valueOpSourceEmpty	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcTagControl_i.ParameterName.ValueOpSourceEmpty.toString(), strHeader);
+			
+			uiCpApi				= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcTagControl_i.ParameterName.UICpApi.toString(), strHeader);
 		}
 		
-		logger.info(function, "columnAlias[{}]", columnAlias);
-		logger.info(function, "columnStatus[{}]", columnStatus);
-		logger.info(function, "columnServiceOwner[{}]", columnServiceOwner);
-		logger.info(function, "valueSet[{}]", valueSet);
-		logger.info(function, "valueUnSet[{}]", valueUnSet);
+		logger.debug(function, "columnAlias[{}] columnStatus[{}] columnServiceOwner[{}] columnOpSource[{}]", new Object[]{columnAlias, columnStatus, columnServiceOwner, columnOpSource});
+		logger.debug(function, "valueSet[{}] valueUnSet[{}]", new Object[]{valueSet, valueUnSet});
+		
+//		logger.debug(function, "valueOpSourceEmpty[{}]", new Object[]{valueOpSourceEmpty});
+		
+		
+		logger.debug(function, "uiCpApi[{}]", new Object[]{uiCpApi});
 		
 		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 			
@@ -90,7 +104,7 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
 						String element = uiGeneric.getWidgetElement(widget);
-						logger.info(function, "element[{}]", element);
+						logger.debug(function, "element[{}]", element);
 						if ( null != element ) {
 							String actionsetkey = element;
 							
@@ -103,7 +117,7 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 									String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
 									String os2 = (String) uiEventAction.getParameter(ActionAttribute.OperationString2.toString());
 									
-									logger.info(function, "os1[{}]", os1);
+									logger.debug(function, "os1[{}]", os1);
 									
 									if ( null != os1 ) {
 										if ( os1.equals("SendDpcTagControl") ) {
@@ -112,16 +126,16 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 												String selectedAlias = hashMap.get(columnAlias);
 												String selectedServiceOwner = hashMap.get(columnServiceOwner);
 												
-												logger.info(function, "selectedAlias[{}] selectedServiceOwner[{}]", selectedAlias, selectedServiceOwner);
+												logger.debug(function, "selectedAlias[{}] selectedServiceOwner[{}]", selectedAlias, selectedServiceOwner);
 												
 												String scsEnvId = selectedServiceOwner;
 												String alias = selectedAlias;
 												
-												logger.info(function, "alias BF [{}]", alias);
+												logger.debug(function, "alias BF [{}]", alias);
 												
 												if ( ! selectedAlias.startsWith("<alias>") ) alias = "<alias>" + selectedAlias;
 												
-												logger.info(function, "alias AF [{}]", alias);
+												logger.debug(function, "alias AF [{}]", alias);
 												
 												WidgetStatus curStatusSet = uiGeneric.getWidgetStatus(strSet);
 												
@@ -152,7 +166,7 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 												
 												taggingLabel1 = uiGeneric.getWidgetValue(strTextValue);
 												
-												logger.info(function, "key[{}]", key);
+												logger.debug(function, "key[{}]", key);
 												
 												dpcMgr.sendChangeEqpTag(key, scsEnvId, alias, taggingStatus, taggingLabel1, taggingLabel2);
 											}
@@ -177,19 +191,19 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 				
 				String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 				
-				logger.info(function, "os1["+os1+"]");
+				logger.debug(function, "os1[{}]", os1);
 				
 				if ( null != os1 ) {
 					// Filter Action
 					if ( os1.equals(ViewerViewEvent.FilterAdded.toString()) ) {
 						
-						logger.info(function, "FilterAdded");
+						logger.debug(function, "FilterAdded");
 						
 						uiEventActionProcessor_i.executeActionSet(os1);
 						
 					} else if ( os1.equals(ViewerViewEvent.FilterRemoved.toString()) ) {
 						
-						logger.info(function, "FilterRemoved");
+						logger.debug(function, "FilterRemoved");
 						
 						uiEventActionProcessor_i.executeActionSet(os1);
 					
@@ -198,7 +212,7 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 						
 						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 						
-						logger.info(function, "Store Selected Row");
+						logger.debug(function, "Store Selected Row");
 						
 						selectedSet	= (Set<Map<String, String>>) obj1;
 						
@@ -206,24 +220,86 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 						for ( Map<String, String> hashMap : selectedSet ) {
 							selectedStatus1 = hashMap.get(columnStatus);
 						}
+						logger.debug(function, "selectedStatus1[{}]", selectedStatus1);
 						
-						if ( null != selectedStatus1 ) {
-							if ( valueSet.equals(selectedStatus1) ) {
-								String actionsetkey = os1+"_valueUnset";
-								uiEventActionProcessor_i.executeActionSet(actionsetkey);
+						if(null!=columnOpSource) {
+							
+							UIControlPriority_i cp = UIControlPriorityFactory.getInstance().get(uiCpApi);
+							
+							if(null!=cp) {
+								String selectedOpSource = null;
+								for ( Map<String, String> hashMap : selectedSet ) {
+									selectedOpSource = hashMap.get(columnOpSource);
+								}
+								logger.debug(function, "selectedOpSource[{}]", selectedOpSource);
+								
+								boolean ret = false;
+//								if(null!=valueOpSourceEmpty&&0==valueOpSourceEmpty.compareTo(selectedOpSource)) {
+//									// Column is empty
+//									ret = true;
+//								} else {
+									// Column contain value, try to check reservation availability
+									if(null!=selectedOpSource) {
+										switch(cp.checkReservationAvailability(selectedOpSource)) {
+											case UIControlPriority_i.AVAILABILITY_DENIED:
+											case UIControlPriority_i.AVAILABILITY_EQUAL:
+												ret = false;
+												break;
+											case UIControlPriority_i.AVAILABILITY_RESERVED_BYSELF:
+											case UIControlPriority_i.AVAILABILITY_EMPTY:
+											case UIControlPriority_i.AVAILABILITY_ALLOW_WITH_OVERRIDE:
+												ret = true;
+												break;
+											default:
+												ret = false;
+												break;
+										}
+									}
+//								}
+								logger.debug(function, "ret[{}]", ret);
+																
+								if(!ret) {
+									// Control Priority Failed
+									if ( null != selectedStatus1 ) {
+										String actionsetkey = os1+"_disable";
+										uiEventActionProcessor_i.executeActionSet(actionsetkey);
+									}
+								} else {
+									// Control Priority Passed
+									if ( null != selectedStatus1 ) {
+										if ( valueSet.equals(selectedStatus1) ) {
+											String actionsetkey = os1+"_valueUnset";
+											uiEventActionProcessor_i.executeActionSet(actionsetkey);
+										}
+										if ( valueUnSet.equals(selectedStatus1) ) {
+											String actionsetkey = os1+"_valueSet";
+											uiEventActionProcessor_i.executeActionSet(actionsetkey);
+										}
+									}
+								}
+							} else {
+								logger.warn(function, "uiCpApi[{}] IS NULL", uiCpApi);
 							}
-							if ( valueUnSet.equals(selectedStatus1) ) {
-								String actionsetkey = os1+"_valueSet";
-								uiEventActionProcessor_i.executeActionSet(actionsetkey);
+						} else {
+							// No Control Priority Checking
+							if ( null != selectedStatus1 ) {
+								if ( valueSet.equals(selectedStatus1) ) {
+									String actionsetkey = os1+"_valueUnset";
+									uiEventActionProcessor_i.executeActionSet(actionsetkey);
+								}
+								if ( valueUnSet.equals(selectedStatus1) ) {
+									String actionsetkey = os1+"_valueSet";
+									uiEventActionProcessor_i.executeActionSet(actionsetkey);
+								}
 							}
 						}
-
+						
 					} else {
 						// General Case
 						String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 						
-						logger.info(function, "oe ["+oe+"]");
-						logger.info(function, "os1["+os1+"]");
+						logger.debug(function, "oe [{}]", oe);
+						logger.debug(function, "os1[{}]", os1);
 						
 						if ( null != oe ) {
 							if ( oe.equals(element) ) {

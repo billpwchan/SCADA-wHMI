@@ -7,13 +7,12 @@ import com.thalesgroup.scadagen.whmi.config.confignav.server.opm.SCADAgenTaskOpm
 import com.thalesgroup.scadagen.whmi.config.confignav.server.opm.UIOpmTask_i;
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task;
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Tasks;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.UIOpm_i;
 
 import java.util.ArrayList;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The server-side implementation of the RPC service.
@@ -21,7 +20,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("serial")
 public class TaskServiceImpl extends RemoteServiceServlet implements TaskService {
 	
-	private Logger logger					= LoggerFactory.getLogger(TaskServiceImpl.class.getName());
+	private UILogger_i logger					= UILoggerFactory.getInstance().get(this.getClass().getName());
 
 	public Tasks taskServer(String module, String strMapping, String strSetting, String profile, String location, int targetLevel, String targetHeader) {
 		

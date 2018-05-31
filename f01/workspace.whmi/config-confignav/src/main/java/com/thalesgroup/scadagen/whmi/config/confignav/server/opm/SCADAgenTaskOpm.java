@@ -1,20 +1,19 @@
 package com.thalesgroup.scadagen.whmi.config.confignav.server.opm;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task;
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task_i.TaskAttribute;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.UIOpm_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.shared.opm.SCADAgenTaskOpm_i;
 
 /**
- * @author syau
+ * @author t0096643
  *
  */
 public class SCADAgenTaskOpm implements UIOpmTask_i {
 	
-	private Logger logger					= LoggerFactory.getLogger(SCADAgenTaskOpm.class.getName());
+	private UILogger_i logger					= UILoggerFactory.getInstance().get(this.getClass().getName());
 	
 	private UIOpm_i uiOpm_i = null;
 	public void setUIOpm_i(UIOpm_i uiOpm_i) {

@@ -1,10 +1,9 @@
 package com.thalesgroup.scadagen.whmi.config.configenv.server;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.WebConfigService;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 
 /**
  * The server-side implementation of the RPC service.
@@ -12,7 +11,7 @@ import com.thalesgroup.scadagen.whmi.config.configenv.client.WebConfigService;
 @SuppressWarnings("serial")
 public class WebConfigServiceImpl extends RemoteServiceServlet implements WebConfigService {
 	
-	private Logger logger					= LoggerFactory.getLogger(WebConfigServiceImpl.class.getName());
+	private UILogger_i logger = UILoggerFactory.getInstance().get(this.getClass().getName());
 	
 	@Override
 	public String webConfigServer(String key) throws IllegalArgumentException {

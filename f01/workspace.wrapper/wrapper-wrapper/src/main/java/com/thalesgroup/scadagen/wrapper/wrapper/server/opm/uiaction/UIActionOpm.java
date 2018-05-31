@@ -4,14 +4,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.RoleDto;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.UIOpmRoleSelect;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.UIGenericServiceImpl_i;
@@ -21,7 +21,7 @@ public class UIActionOpm implements UIAction_i {
 	
 	/** Logger */
 	private final String className = UIActionOpm.class.getSimpleName();
-    private final Logger logger = LoggerFactory.getLogger(UIActionOpm.class);
+	private UILogger_i logger = UILoggerFactory.getInstance().get(this.getClass().getName());
 	
 	public static JsonNodeFactory s_json_factory = new JsonNodeFactory(false);
 	

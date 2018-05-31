@@ -3,9 +3,6 @@ package com.thalesgroup.scadagen.calculated.common;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -14,11 +11,13 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implement
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.translation.Translation;
 
 public class GDGColumnHyphen extends OlsDecoder{
 	
-	protected Logger logger					= null;
+	protected UILogger_i logger					= null;
 	
 	protected String logPrefix				= null;
 	
@@ -39,7 +38,7 @@ public class GDGColumnHyphen extends OlsDecoder{
 
 	protected void loadCnf() {
 
-		logger = LoggerFactory.getLogger(GDGColumn.class.getName());
+		logger = UILoggerFactory.getInstance().get(this.getClass().getName());
 		
 		classname = this.getClass().getSimpleName();
 		

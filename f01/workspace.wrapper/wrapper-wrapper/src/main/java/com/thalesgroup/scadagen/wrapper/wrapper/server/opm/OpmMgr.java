@@ -3,18 +3,18 @@ package com.thalesgroup.scadagen.wrapper.wrapper.server.opm;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 
 public class OpmMgr {
 
-	private final static Logger logger = LoggerFactory.getLogger(OpmMgr.class.getName());
+	private static UILogger_i logger = UILoggerFactory.getInstance().get(OpmMgr.class.getName());
 
 	private static Map<String, UIOpm_i> instances = new HashMap<String, UIOpm_i>();
 
 	public static UIOpm_i getInstance(String key) {
 
-		logger.info("key[{}]", key);
+		logger.info("getInstance key[{}]", key);
 
 		UIOpm_i uiOpm_i = instances.get(key);
 
@@ -28,7 +28,7 @@ public class OpmMgr {
 			if ( null != uiOpm_i ) instances.put(key, uiOpm_i);
 		}
 
-		if ( null == uiOpm_i ) logger.warn("uiOpm_i IS NULL");
+		if ( null == uiOpm_i ) logger.warn("getInstance uiOpm_i IS NULL");
 
 		return uiOpm_i;
 	}

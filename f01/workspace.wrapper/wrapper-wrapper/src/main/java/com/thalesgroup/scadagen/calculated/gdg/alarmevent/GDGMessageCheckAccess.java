@@ -3,19 +3,19 @@ package com.thalesgroup.scadagen.calculated.gdg.alarmevent;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.scadagen.calculated.common.SCSStatusComputer;
 import com.thalesgroup.scadagen.calculated.util.Util;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.UIOpm_i;
 
 public class GDGMessageCheckAccess extends SCSStatusComputer {
 	
-	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+	private UILogger_i logger					= UILoggerFactory.getInstance().get(this.getClass().getName());
 	
 	protected final String modename1			= ".modename1";
 	protected final String opmapiname1			= ".opmapiname1";

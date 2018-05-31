@@ -1,17 +1,16 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.factory;
 
 import java.util.HashMap;
+import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.uiaction.UIActionOpm;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 
 public class UIActionMgr {
 	
-    private final Logger logger = LoggerFactory.getLogger(UIActionOpm.class);
+	private final UILogger_i logger = UILoggerFactory.getInstance().get(this.getClass().getName());
 	
-	private HashMap<String, UIActionFactory_i> uiActionFactorys = new HashMap<String, UIActionFactory_i>();
+	private Map<String, UIActionFactory_i> uiActionFactorys = new HashMap<String, UIActionFactory_i>();
 	public void addUIActionFactory(String className, UIActionFactory_i uiActionFactory) { this.uiActionFactorys.put(className, uiActionFactory); }
 	public void cleanUIActionFactory() { this.uiActionFactorys.clear(); };
 	

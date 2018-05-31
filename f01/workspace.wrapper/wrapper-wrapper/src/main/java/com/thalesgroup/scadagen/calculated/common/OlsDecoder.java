@@ -3,17 +3,16 @@ package com.thalesgroup.scadagen.calculated.common;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 
 public abstract class OlsDecoder extends SCSStatusComputer {
 	
-	protected Logger logger					= null;
+	protected UILogger_i logger					= null;
 	
 	protected String logPrefix				= null;
 	
@@ -33,7 +32,7 @@ public abstract class OlsDecoder extends SCSStatusComputer {
 	
     public OlsDecoder() {
     	
-    	logger = LoggerFactory.getLogger(OlsDecoder.class.getName());
+    	logger = UILoggerFactory.getInstance().get(this.getClass().getName());
     	
     	logPrefix = this.getClass().getSimpleName();
     	

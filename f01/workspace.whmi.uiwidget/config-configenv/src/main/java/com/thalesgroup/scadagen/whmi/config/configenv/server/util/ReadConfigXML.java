@@ -9,8 +9,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -20,10 +18,12 @@ import org.xml.sax.SAXException;
 
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 
 public class ReadConfigXML implements ReadConfigInterface {
 	
-	private Logger logger					= LoggerFactory.getLogger(ReadConfigXML.class.getName());
+	private UILogger_i logger = UILoggerFactory.getInstance().get(this.getClass().getName());
 	
 	@Override
 	public List<Dictionary_i> getDictionary(String path) {

@@ -36,7 +36,7 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 	private String columnServiceOwner	= "";
 	private String columnOpSource		= "";
 	
-//	private String valueOpSourceEmpty		= "";
+	private String valueOpSourceEmpty		= "";
 	
 	private String valueSet				= "";
 	private String valueUnSet			= "";
@@ -51,14 +51,61 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 	
 	private final String strTextValue			= "txtvalue";
 
-	private Set<Map<String, String>> selectedSet = null;
+	private Set<Map<String, String>> selectedRowList = null;
+	
+	private int isTagged(String selectedStatus) {
+		final String f = "isTagged";
+		int ret = UIWidgetDpcTagControl_i.TAG_UNKNOW;
+		logger.debug(f, "selectedStatus[{}] valueSet[{}] valueUnSet[{}]", new Object[]{selectedStatus, valueSet, valueUnSet});
+		if ( valueUnSet.equals(selectedStatus) ) {
+			ret = UIWidgetDpcTagControl_i.TAG_DEACTIVATED;
+		} else if ( valueSet.equals(selectedStatus) ) {
+			ret = UIWidgetDpcTagControl_i.TAG_ACTIVATED;
+		}
+		logger.debug(f, "ret[{}]", ret);
+		return ret;
+	}
+	
+	private boolean controlPriorityIsValid(UIControlPriority_i cp, String selectedOpSource) {
+		final String f = "controlPriorityIsValid";
+		boolean ret = false;
+
+		logger.debug(f, "selectedOpSource[{}]", selectedOpSource);
+		if(null!=selectedOpSource) {
+			if(null!=valueOpSourceEmpty&&0==valueOpSourceEmpty.compareTo(selectedOpSource)) {
+				// Column is empty
+				ret = true;
+				logger.debug(f, "selectedOpSource[{}] set as IS Empty[{}], Mark as Empty", selectedOpSource, valueOpSourceEmpty);
+			} else {
+				// Column contain value, try to check reservation availability
+				switch(cp.checkReservationAvailability(selectedOpSource)) {
+					case UIControlPriority_i.AVAILABILITY_DENIED:
+					case UIControlPriority_i.AVAILABILITY_EQUAL:
+						ret = false;
+						break;
+					case UIControlPriority_i.AVAILABILITY_RESERVED_BYSELF:
+					case UIControlPriority_i.AVAILABILITY_EMPTY:
+					case UIControlPriority_i.AVAILABILITY_ALLOW_WITH_OVERRIDE:
+						ret = true;
+						break;
+					default:
+						ret = false;
+						break;
+				}
+			}
+		} else {
+			logger.warn(f, "selectedOpSource[{}] IS NULL", selectedOpSource);
+		}
+		logger.debug(f, "ret[{}]", ret);
+		return ret;
+	}
 		
 	@Override
 	public void init() {
 		super.init();
 		
-		final String function = "init";
-		logger.begin(function);
+		final String f = "init";
+		logger.begin(f);
 		
 		dpcMgr = DpcMgr.getInstance(className);
 
@@ -73,18 +120,18 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 			
 			valueSet			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcTagControl_i.ParameterName.ValueSet.toString(), strHeader);
 			valueUnSet			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcTagControl_i.ParameterName.ValueUnSet.toString(), strHeader);
-//			valueOpSourceEmpty	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcTagControl_i.ParameterName.ValueOpSourceEmpty.toString(), strHeader);
+			valueOpSourceEmpty	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcTagControl_i.ParameterName.ValueOpSourceEmpty.toString(), strHeader);
 			
 			uiCpApi				= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcTagControl_i.ParameterName.UICpApi.toString(), strHeader);
 		}
 		
-		logger.debug(function, "columnAlias[{}] columnStatus[{}] columnServiceOwner[{}] columnOpSource[{}]", new Object[]{columnAlias, columnStatus, columnServiceOwner, columnOpSource});
-		logger.debug(function, "valueSet[{}] valueUnSet[{}]", new Object[]{valueSet, valueUnSet});
+		logger.debug(f, "columnAlias[{}] columnStatus[{}] columnServiceOwner[{}] columnOpSource[{}]", new Object[]{columnAlias, columnStatus, columnServiceOwner, columnOpSource});
+		logger.debug(f, "valueSet[{}] valueUnSet[{}]", new Object[]{valueSet, valueUnSet});
 		
-//		logger.debug(function, "valueOpSourceEmpty[{}]", new Object[]{valueOpSourceEmpty});
+		logger.debug(f, "valueOpSourceEmpty[{}]", new Object[]{valueOpSourceEmpty});
 		
 		
-		logger.debug(function, "uiCpApi[{}]", new Object[]{uiCpApi});
+		logger.debug(f, "uiCpApi[{}]", new Object[]{uiCpApi});
 		
 		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 			
@@ -96,15 +143,15 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				final String function = "onClick";
+				final String f = "onClick";
 				
-				logger.begin(function);
+				logger.begin(f);
 				
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
 						String element = uiGeneric.getWidgetElement(widget);
-						logger.debug(function, "element[{}]", element);
+						logger.debug(f, "element[{}]", element);
 						if ( null != element ) {
 							String actionsetkey = element;
 							
@@ -117,60 +164,89 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 									String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
 									String os2 = (String) uiEventAction.getParameter(ActionAttribute.OperationString2.toString());
 									
-									logger.debug(function, "os1[{}]", os1);
+									logger.debug(f, "os1[{}]", os1);
 									
 									if ( null != os1 ) {
 										if ( os1.equals("SendDpcTagControl") ) {
-									
-											for ( Map<String, String> hashMap : selectedSet ) {
-												String selectedAlias = hashMap.get(columnAlias);
-												String selectedServiceOwner = hashMap.get(columnServiceOwner);
-												
-												logger.debug(function, "selectedAlias[{}] selectedServiceOwner[{}]", selectedAlias, selectedServiceOwner);
-												
-												String scsEnvId = selectedServiceOwner;
-												String alias = selectedAlias;
-												
-												logger.debug(function, "alias BF [{}]", alias);
-												
-												if ( ! selectedAlias.startsWith("<alias>") ) alias = "<alias>" + selectedAlias;
-												
-												logger.debug(function, "alias AF [{}]", alias);
-												
-												WidgetStatus curStatusSet = uiGeneric.getWidgetStatus(strSet);
-												
-												TaggingStatus taggingStatus = TaggingStatus.NO_TAGGING;
-												if ( WidgetStatus.Down == curStatusSet ) {
-													taggingStatus = TaggingStatus.TAGGING_1;
-													if ( null != os2 && os2.length() > 0 ) {
-														if ( os2.equalsIgnoreCase(
-																Integer.toString(TaggingStatus.ALL_TAGGING.getValue()) ) ) {
-															taggingStatus = TaggingStatus.ALL_TAGGING;
-														} else if ( os2.equalsIgnoreCase(
-																Integer.toString(TaggingStatus.TAGGING_1.getValue()) ) ) {
-															taggingStatus = TaggingStatus.TAGGING_1;
-														} else if ( os2.equalsIgnoreCase(
-																Integer.toString(TaggingStatus.TAGGING_2.getValue()) ) ) {
-															taggingStatus = TaggingStatus.TAGGING_2;
+											
+											if(null!=selectedRowList) {
+												for ( Map<String, String> columnList : selectedRowList ) {
+													String selectedAlias		= columnList.get(columnAlias);
+													String selectedServiceOwner	= columnList.get(columnServiceOwner);
+													String selectedOpSource		= columnList.get(columnOpSource);
+													String selectedStatus 		= columnList.get(columnStatus);
+													logger.debug(f, "selectedAlias[{}] selectedServiceOwner[{}] selectedStatus[{}]", new Object[]{selectedAlias, selectedServiceOwner, selectedStatus});
+													
+													WidgetStatus curStatusSet = uiGeneric.getWidgetStatus(strSet);
+													
+													TaggingStatus taggingStatus = TaggingStatus.NO_TAGGING;
+													if ( WidgetStatus.Down == curStatusSet ) {
+														taggingStatus = TaggingStatus.TAGGING_1;
+														if ( null != os2 && os2.length() > 0 ) {
+															if ( os2.equalsIgnoreCase(
+																	Integer.toString(TaggingStatus.ALL_TAGGING.getValue()) ) ) {
+																taggingStatus = TaggingStatus.ALL_TAGGING;
+															} else if ( os2.equalsIgnoreCase(
+																	Integer.toString(TaggingStatus.TAGGING_1.getValue()) ) ) {
+																taggingStatus = TaggingStatus.TAGGING_1;
+															} else if ( os2.equalsIgnoreCase(
+																	Integer.toString(TaggingStatus.TAGGING_2.getValue()) ) ) {
+																taggingStatus = TaggingStatus.TAGGING_2;
+															}
 														}
 													}
-												}
-					
-												String key = "changeEqpStatus" + "_" + className + "_"+ "alarminhibit" + "_" + taggingStatus.toString() + "_" + alias;
 													
-												String taggingLabel1 = strEMPTY;
-												String taggingLabel2 = strEMPTY;
-												
-//												if ( null != os2 && os2.length() > 0 ) taggingLabel1 = os2;
-//												if ( null != os3 && os3.length() > 0 ) taggingLabel2 = os3;
-												
-												taggingLabel1 = uiGeneric.getWidgetValue(strTextValue);
-												
-												logger.debug(function, "key[{}]", key);
-												
-												dpcMgr.sendChangeEqpTag(key, scsEnvId, alias, taggingStatus, taggingLabel1, taggingLabel2);
+													int tagged = isTagged(selectedStatus);
+													logger.debug(f, "tagged[{}]", tagged);
+													
+													boolean valid = false;
+													if(UIWidgetDpcTagControl_i.TAG_DEACTIVATED==tagged) {
+														valid = true;
+														logger.debug(f, "tagged[{}], skip CP checking valid[{}]", tagged, valid);
+													} else if(null==columnOpSource) {
+														valid = true;
+														logger.debug(f, "columnOpSource[{}] IS NULL, Mask VALID[{}] as true", columnOpSource, valid);
+													} else {
+														UIControlPriority_i cp = UIControlPriorityFactory.getInstance().get(uiCpApi);
+														if(null==cp) {
+															logger.warn(f, "uiCpApi[{}] IS NULL", uiCpApi);
+														} else {
+															valid = controlPriorityIsValid(cp, selectedOpSource);
+															logger.warn(f, "after controlPriorityIsValid valid[{}]", valid);
+														}
+													}
+														
+													if(!valid) {
+														logger.warn(f, "invalid control priority checking for selectedAlias[{}] selectedServiceOwner[{}]", selectedAlias, selectedServiceOwner);
+													} else {
+														
+														String scsEnvId = selectedServiceOwner;
+														String alias = selectedAlias;
+														
+														logger.debug(f, "alias BF [{}]", alias);
+														if ( ! selectedAlias.startsWith("<alias>") ) alias = "<alias>" + selectedAlias;
+														logger.debug(f, "alias AF [{}]", alias);
+														
+
+														String key = "changeEqpStatus" + "_" + className + "_"+ "alarminhibit" + "_" + taggingStatus.toString() + "_" + alias;
+															
+														String taggingLabel1 = strEMPTY;
+														String taggingLabel2 = strEMPTY;
+														
+//														if ( null != os2 && os2.length() > 0 ) taggingLabel1 = os2;
+//														if ( null != os3 && os3.length() > 0 ) taggingLabel2 = os3;
+														
+														taggingLabel1 = uiGeneric.getWidgetValue(strTextValue);
+														
+														logger.debug(f, "key[{}]", key);
+														
+														dpcMgr.sendChangeEqpTag(key, scsEnvId, alias, taggingStatus, taggingLabel1, taggingLabel2);
+													}
+												}
+												uiGeneric.setWidgetValue(strTextValue, strEMPTY);
+											} else {
+												logger.warn(f, "selectedRowList IS NULL");
 											}
-											uiGeneric.setWidgetValue(strTextValue, strEMPTY);
 										}
 									}
 									return true;
@@ -179,31 +255,31 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 						}
 					}
 				}
-				logger.begin(function);
+				logger.end(f);
 			}
 			
 			@Override
 			@SuppressWarnings("unchecked")
 			public void onActionReceived(UIEventAction uiEventAction) {
-				final String function = "onActionReceived";
+				final String f = "onActionReceived";
 				
-				logger.begin(function);
+				logger.begin(f);
 				
 				String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 				
-				logger.debug(function, "os1[{}]", os1);
+				logger.debug(f, "os1[{}]", os1);
 				
 				if ( null != os1 ) {
 					// Filter Action
 					if ( os1.equals(ViewerViewEvent.FilterAdded.toString()) ) {
 						
-						logger.debug(function, "FilterAdded");
+						logger.debug(f, "FilterAdded");
 						
 						uiEventActionProcessor_i.executeActionSet(os1);
 						
 					} else if ( os1.equals(ViewerViewEvent.FilterRemoved.toString()) ) {
 						
-						logger.debug(function, "FilterRemoved");
+						logger.debug(f, "FilterRemoved");
 						
 						uiEventActionProcessor_i.executeActionSet(os1);
 					
@@ -212,94 +288,85 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 						
 						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 						
-						logger.debug(function, "Store Selected Row");
+						logger.debug(f, "Store Selected Row");
 						
-						selectedSet	= (Set<Map<String, String>>) obj1;
+						String actionsetkey = os1+"_disable";
 						
-						String selectedStatus1 = null;
-						for ( Map<String, String> hashMap : selectedSet ) {
-							selectedStatus1 = hashMap.get(columnStatus);
-						}
-						logger.debug(function, "selectedStatus1[{}]", selectedStatus1);
-						
-						if(null!=columnOpSource) {
+						if(null==obj1) {
+							logger.warn(f, "obj1 IS NULL");
 							
-							UIControlPriority_i cp = UIControlPriorityFactory.getInstance().get(uiCpApi);
-							
-							if(null!=cp) {
-								String selectedOpSource = null;
-								for ( Map<String, String> hashMap : selectedSet ) {
-									selectedOpSource = hashMap.get(columnOpSource);
-								}
-								logger.debug(function, "selectedOpSource[{}]", selectedOpSource);
-								
-								boolean ret = false;
-//								if(null!=valueOpSourceEmpty&&0==valueOpSourceEmpty.compareTo(selectedOpSource)) {
-//									// Column is empty
-//									ret = true;
-//								} else {
-									// Column contain value, try to check reservation availability
-									if(null!=selectedOpSource) {
-										switch(cp.checkReservationAvailability(selectedOpSource)) {
-											case UIControlPriority_i.AVAILABILITY_DENIED:
-											case UIControlPriority_i.AVAILABILITY_EQUAL:
-												ret = false;
-												break;
-											case UIControlPriority_i.AVAILABILITY_RESERVED_BYSELF:
-											case UIControlPriority_i.AVAILABILITY_EMPTY:
-											case UIControlPriority_i.AVAILABILITY_ALLOW_WITH_OVERRIDE:
-												ret = true;
-												break;
-											default:
-												ret = false;
-												break;
-										}
-									}
-//								}
-								logger.debug(function, "ret[{}]", ret);
-																
-								if(!ret) {
-									// Control Priority Failed
-									if ( null != selectedStatus1 ) {
-										String actionsetkey = os1+"_disable";
-										uiEventActionProcessor_i.executeActionSet(actionsetkey);
-									}
-								} else {
-									// Control Priority Passed
-									if ( null != selectedStatus1 ) {
-										if ( valueSet.equals(selectedStatus1) ) {
-											String actionsetkey = os1+"_valueUnset";
-											uiEventActionProcessor_i.executeActionSet(actionsetkey);
-										}
-										if ( valueUnSet.equals(selectedStatus1) ) {
-											String actionsetkey = os1+"_valueSet";
-											uiEventActionProcessor_i.executeActionSet(actionsetkey);
-										}
-									}
-								}
-							} else {
-								logger.warn(function, "uiCpApi[{}] IS NULL", uiCpApi);
-							}
 						} else {
-							// No Control Priority Checking
-							if ( null != selectedStatus1 ) {
-								if ( valueSet.equals(selectedStatus1) ) {
-									String actionsetkey = os1+"_valueUnset";
-									uiEventActionProcessor_i.executeActionSet(actionsetkey);
+							selectedRowList	= (Set<Map<String, String>>) obj1;
+							
+							String selectedStatus = null;
+							for ( Map<String, String> columnList : selectedRowList ) {
+								selectedStatus = columnList.get(columnStatus);
+							}
+							logger.debug(f, "selectedStatus[{}]", selectedStatus);
+							
+							int tagged = isTagged(selectedStatus);
+							logger.debug(f, "tagged[{}]", tagged);
+
+							boolean valid = false;
+							
+							int selectedRowListSize = selectedRowList.size();
+							logger.debug(f, "selectedRowListSize[{}]", selectedRowListSize);
+							
+							// Control Priority Checking
+							if(selectedRowListSize==1) {
+								if(UIWidgetDpcTagControl_i.TAG_DEACTIVATED==tagged) {
+									valid = true;
+									logger.warn(f, "tagged[{}], Skip CP Check valid[{}]", tagged, valid);
+								} else {
+									for ( Map<String, String> columnList : selectedRowList ) {
+										
+										String selectedOpSource = columnList.get(columnOpSource);
+										logger.debug(f, "selectedOpSource[{}]", selectedOpSource);
+										
+										if(null==columnOpSource) {
+											valid = true;
+											logger.debug(f, "columnOpSource[{}] IS NULL, Mask VALID[{}] as true", columnOpSource, valid);
+										} else {
+											UIControlPriority_i cp = UIControlPriorityFactory.getInstance().get(uiCpApi);
+											if(null==cp) {
+												logger.warn(f, "uiCpApi[{}] IS NULL", uiCpApi);
+											} else {
+												valid = controlPriorityIsValid(cp, selectedOpSource);
+											}
+										}
+										if(!valid) {
+											logger.warn(f, "valid[{}] IS FALSE, break", valid);
+											break;
+										}
+									}
 								}
-								if ( valueUnSet.equals(selectedStatus1) ) {
-									String actionsetkey = os1+"_valueSet";
-									uiEventActionProcessor_i.executeActionSet(actionsetkey);
+							} else if(selectedRowListSize==0){
+								// Size is zero
+								valid = false;
+							} else {
+								// Size of list more than 1
+								valid = true;;
+							}
+							
+							if(valid) {
+								// Control Priority Passed
+								if ( UIWidgetDpcTagControl_i.TAG_ACTIVATED==tagged ) {
+									actionsetkey = os1+"_valueUnset";
+								} else if ( UIWidgetDpcTagControl_i.TAG_DEACTIVATED==tagged ) {
+									actionsetkey = os1+"_valueSet";
 								}
 							}
 						}
-						
+
+						logger.debug(f, "actionsetkey[{}]", actionsetkey);
+						uiEventActionProcessor_i.executeActionSet(actionsetkey);
+			
 					} else {
 						// General Case
 						String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 						
-						logger.debug(function, "oe [{}]", oe);
-						logger.debug(function, "os1[{}]", os1);
+						logger.debug(f, "oe [{}]", oe);
+						logger.debug(f, "os1[{}]", os1);
 						
 						if ( null != oe ) {
 							if ( oe.equals(element) ) {
@@ -311,7 +378,7 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 						}
 					}
 				}
-				logger.end(function);
+				logger.end(f);
 			}
 		};
 		
@@ -344,7 +411,7 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 			};
 		};
 
-		logger.end(function);
+		logger.end(f);
 	}
 
 }

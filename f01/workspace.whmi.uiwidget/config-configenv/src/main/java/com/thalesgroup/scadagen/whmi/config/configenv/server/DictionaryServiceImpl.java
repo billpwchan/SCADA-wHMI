@@ -8,14 +8,13 @@ import com.thalesgroup.scadagen.whmi.config.configenv.server.util.ReadConfigINI;
 import com.thalesgroup.scadagen.whmi.config.configenv.server.util.ReadConfigXML;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ConfigurationType;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The server-side implementation of the RPC service.
@@ -23,8 +22,8 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("serial")
 public class DictionaryServiceImpl extends RemoteServiceServlet implements DictionaryService {
 	
-	private Logger logger					= LoggerFactory.getLogger(DictionaryServiceImpl.class.getName());
-
+	private UILogger_i logger = UILoggerFactory.getInstance().get(this.getClass().getName());
+	
 	public Dictionary_i dictionaryServer(String mode, String module, String folder, String xmlFile, String tag) {
 		
 		logger.debug("Begin");

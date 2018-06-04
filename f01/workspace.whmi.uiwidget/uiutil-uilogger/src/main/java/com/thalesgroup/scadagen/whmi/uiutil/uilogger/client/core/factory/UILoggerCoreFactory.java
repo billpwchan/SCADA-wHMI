@@ -31,7 +31,7 @@ public class UILoggerCoreFactory implements UILoggerCoreFactory_i {
 	public void setCoreLogger(String coreLoggerName) { this.coreLoggerName = coreLoggerName; }
 	public String getCoreLoggerName() { return this.coreLoggerName; }
 	
-	public Map<String, Logger> loggers = new HashMap<String, Logger>();
+	private Map<String, Logger> loggers = new HashMap<String, Logger>();
 	public void addLogger(String name, Logger logger) { this.loggers.put(name, logger); }
 	public void remoteLogger(String name) { this.loggers.remove(name); }
 

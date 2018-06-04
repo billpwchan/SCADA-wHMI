@@ -9,9 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary_i;
@@ -23,6 +20,8 @@ import com.thalesgroup.scadagen.whmi.config.configenv.server.util.ReadFiles;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ConfigurationType;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ContainerType;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 
 /**
  * The server-side implementation of the RPC service.
@@ -30,7 +29,7 @@ import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInte
 @SuppressWarnings("serial")
 public class DictionariesServiceImpl extends RemoteServiceServlet implements DictionariesService {
 	
-	private Logger logger					= LoggerFactory.getLogger(DictionariesServiceImpl.class.getName());
+	private UILogger_i logger = UILoggerFactory.getInstance().get(this.getClass().getName());
 	
 	public Dictionary_i dictionariesServer(String configType, String configPath, String folderName, String extension, String tag) {
 		

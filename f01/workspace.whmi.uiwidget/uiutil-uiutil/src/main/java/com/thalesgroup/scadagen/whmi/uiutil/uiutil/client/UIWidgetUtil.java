@@ -25,8 +25,8 @@ public class UIWidgetUtil {
 	}
 	public static boolean isEqual(String name1, String name2) {
 		boolean ret = false;
-		if(0==name1.compareTo(name2)) {
-			ret = true;
+		if(null!=name1&&null!=name2) { 
+			ret = (0==name1.compareTo(name2)); 
 		}
 		return ret;
 	}

@@ -2,20 +2,19 @@ package com.thalesgroup.scadagen.calculated.symbol;
 
 import java.util.Date;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.scadagen.calculated.common.SCSStatusComputer;
 import com.thalesgroup.scadagen.calculated.common.SGSymbol_i;
 import com.thalesgroup.scadagen.calculated.util.Util;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.UIOpmSCADAgen;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.UIOpm_i;
 
 public class NeedAck extends SCSStatusComputer implements SGSymbol_i {
 	
-	private final Logger logger = LoggerFactory.getLogger(NeedAck.class.getName());
+	private UILogger_i logger					= UILoggerFactory.getInstance().get(this.getClass().getName());
 	
 	protected final String fieldname1		= ".fieldname1";
 	protected final String fieldname2		= ".fieldname2";

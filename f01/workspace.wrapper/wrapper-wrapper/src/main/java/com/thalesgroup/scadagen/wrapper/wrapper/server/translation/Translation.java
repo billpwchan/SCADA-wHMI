@@ -5,14 +5,13 @@ import com.thalesgroup.hypervisor.mwt.core.util.common.session.SessionContainer;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implementation.ServicesImplFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.i18n.Dictionary;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.i18n.DictionaryManager;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 
 import java.util.MissingResourceException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Class to handle the i18n translation in server side
@@ -23,7 +22,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Translation {
 	
-	private final static Logger logger			= LoggerFactory.getLogger(Translation.class.getName());
+	private final static UILogger_i logger = UILoggerFactory.getInstance().get(Translation.class.getName());
 	
 	private final static String strTranslatePattern	= "Translation_TranslatePatten_Server";
 	private final static String strTranslateFlag	= "Translation_TranslateFlag_Server";

@@ -3,9 +3,6 @@ package com.thalesgroup.scadagen.wrapper.wrapper.server.opm;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.thalesgroup.hypervisor.mwt.core.util.common.session.ISessionListContainer;
 import com.thalesgroup.hypervisor.mwt.core.util.common.session.SessionContainer;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.server.rpc.session.SessionManager;
@@ -18,10 +15,12 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.server.builder.OpmDto
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.server.exception.OpmValidationException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.server.loader.OpmConfigJaxb;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.server.tools.SessionContainerCst;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 
 public class UIOpmRoleSelect {
-	
-	final private Logger logger = LoggerFactory.getLogger( this.getClass().getName() );
+
+	private UILogger_i logger = UILoggerFactory.getInstance().get(this.getClass().getName());
 	
 	public OperatorOpmInfo update( String role ) {
 		logger.debug( "IN RoleMngtPresenterServer - private OperatorOpmInfo update( String role )" );

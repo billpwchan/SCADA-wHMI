@@ -6,18 +6,18 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 
 /**
  * Network Class for the UIOpmSCADAgen
  * 
- * @author syau
+ * @author t0096643
  *
- */
+ */ 
 public class Network {
 	
-	private final static Logger logger = LoggerFactory.getLogger(Network.class.getName());
+	private static UILogger_i logger = UILoggerFactory.getInstance().get(Network.class.getName());
 	
 	private static final String STR_UNKNOWN = "unknown";
 	

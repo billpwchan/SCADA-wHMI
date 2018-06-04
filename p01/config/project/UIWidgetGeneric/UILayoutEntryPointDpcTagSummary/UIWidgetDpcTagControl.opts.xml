@@ -5,8 +5,14 @@
 		<ColumnAlias>gdg_column_alias</ColumnAlias>
 		<ColumnStatus>gdg_column_tagstatus</ColumnStatus>
 		<ColumnServiceOwner>serviceOwnerID</ColumnServiceOwner>
+		<ColumnOpSource>gdg_column_opsource</ColumnOpSource>
+		
 		<ValueSet>256</ValueSet>
 		<ValueUnSet>0</ValueUnSet>
+		
+		<ValueOpSourceEmpty></ValueOpSourceEmpty>
+		
+		<UICpApi>UIControlPrioritySCADAgen</UICpApi>
 	</header>
 	
 	<!-- Begin of life -->
@@ -40,6 +46,13 @@
 		<OperationString2>set_unset_disable</OperationString2>
 		<OperationString3>set_apply_disable</OperationString3>
 		<OperationString4>set_txtvalue_empty</OperationString4>
+	</actionset>
+	
+	<actionset key="RowSelected_disable">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_set_disable</OperationString1>
+		<OperationString2>set_unset_disable</OperationString2>
+		<OperationString3>set_apply_disable</OperationString3>
 	</actionset>
 	
 	<actionset key="RowSelected_valueUnset">

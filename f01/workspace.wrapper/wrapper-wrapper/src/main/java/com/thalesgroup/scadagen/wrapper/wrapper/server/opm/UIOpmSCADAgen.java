@@ -2,18 +2,17 @@ package com.thalesgroup.scadagen.wrapper.wrapper.server.opm;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.server.rpc.session.OpmSessionManager;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.server.rpc.session.SessionManager;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OpmRequestDto;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.net.Network;
 
 public class UIOpmSCADAgen implements UIOpm_i {
 
-	private final static Logger logger = LoggerFactory.getLogger(UIOpmSCADAgen.class.getName());
+	private static UILogger_i logger = UILoggerFactory.getInstance().get(UIOpmSCADAgen.class.getName());
 	
 	private static UIOpm_i instance = null;
 	public static UIOpm_i getInstance() { 

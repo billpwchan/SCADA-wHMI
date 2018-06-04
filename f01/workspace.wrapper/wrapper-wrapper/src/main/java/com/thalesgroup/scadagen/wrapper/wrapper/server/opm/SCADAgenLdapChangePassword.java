@@ -2,8 +2,6 @@ package com.thalesgroup.scadagen.wrapper.wrapper.server.opm;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.ldap.CommunicationException;
 import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.ldap.core.LdapTemplate;
@@ -13,6 +11,8 @@ import org.springframework.security.authentication.encoding.LdapShaPasswordEncod
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.action.ChangePasswordAction;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.security.server.ChangePasswordException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.security.server.IPasswordChange;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.shared.opm.SCADAgenChangePasswordAction;
 
 
@@ -23,7 +23,7 @@ public class SCADAgenLdapChangePassword implements IPasswordChange {
     
     /** logger */
 	private static final String CLASSNAME_ = SCADAgenLdapChangePassword.class.getSimpleName();
-    private static final Logger LOGGER_ = LoggerFactory.getLogger(SCADAgenLdapChangePassword.class.getName());
+    private static UILogger_i LOGGER_ = UILoggerFactory.getInstance().get(SCADAgenLdapChangePassword.class.getName());
     private static final String LOG_PREFIX_ = "["+CLASSNAME_+"] ";
 
     private static final String SEARCH_FILTER_DEFAULT = "(uid={0})";

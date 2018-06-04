@@ -1,14 +1,13 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 
 public class JsonUtil {
 	
-	private static Logger logger = LoggerFactory.getLogger(JsonUtil.class.getName());
+	private static UILogger_i logger = UILoggerFactory.getInstance().get(JsonUtil.class.getName());
 	
 	public static String getString(ObjectNode on, String f) {
 		String s = null;

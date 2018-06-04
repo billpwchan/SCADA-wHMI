@@ -400,14 +400,12 @@ public class Database {
 		try {
 			scsRTDBComponentAccess.terminate();
 		} catch (IllegalStatePresenterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn("IllegalStatePresenterException[{}]", e.toString());
 		}
 		try {
 			scsPollerComponentAccess.terminate();
 		} catch (IllegalStatePresenterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn("IllegalStatePresenterException[{}]", e.toString());
 		}
 		logger.end(function);
 	}

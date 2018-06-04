@@ -258,6 +258,10 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 						}
 					} else {
 						logger.warn(function, "this.changePasswordOpm[{}] opm IS NULL", this.changePasswordOpm);
+						
+						// Bypass OPM Checking, Load Change password
+						actionsetkey = UIWidgetSimultaneousLoginControl_i.loginValidChangePasswordProcedure;
+						logger.debug(function, "set to load change password");
 					}
 				}
 			} else {

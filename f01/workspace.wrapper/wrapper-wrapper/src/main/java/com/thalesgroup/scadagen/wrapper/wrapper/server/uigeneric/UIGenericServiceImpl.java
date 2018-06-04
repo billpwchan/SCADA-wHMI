@@ -3,15 +3,14 @@ package com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric;
 import java.io.IOException;
 import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.UILogger_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.server.factory.UILoggerFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.uigeneric.UIGenericService;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.factory.UIActionMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.factory.UIAction_i;
@@ -25,7 +24,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.shared.UIGenericDto_i;
 @SuppressWarnings("serial")
 public class UIGenericServiceImpl extends RemoteServiceServlet implements UIGenericService {
 
-	private Logger logger					= LoggerFactory.getLogger(UIGenericServiceImpl.class.getName());
+	private UILogger_i logger					= UILoggerFactory.getInstance().get(this.getClass().getName());
 	
 	public static JsonNodeFactory s_json_factory = new JsonNodeFactory(false);
 	
@@ -97,11 +96,9 @@ public class UIGenericServiceImpl extends RemoteServiceServlet implements UIGene
 					logger.warn("request IS NULL");
 				}
 			} catch (JsonProcessingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.warn("JsonProcessingException[{}]", e.toString());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.warn("IOException[{}]", e.toString());
 			}
         } else {
         	logger.warn("uiGenericDto IS NULL");

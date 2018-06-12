@@ -132,7 +132,7 @@ public abstract class GDGMessage extends SCSStatusComputer {
 		if ( isInteger(keyindex1) ) {
 			keyindex = Integer.parseInt(keyindex1);
 		} else {
-			logger.error("{} keyindex[{}]", logPrefix, keyindex);
+			logger.warn("{} keyindex1[{}] keyindex[{}], configuration loading will be skipped", new Object[] {logPrefix, keyindex1, keyindex});
 		}
 		
 		logger.debug("{} keyindex[{}]", logPrefix, keyindex);
@@ -296,7 +296,7 @@ public abstract class GDGMessage extends SCSStatusComputer {
 	    		logger.error("{} compute obj1 IS NULL", logPrefix);
 	    	}
 	    } else {
-			logger.error("{} compute keyindex IS INVALID", logPrefix);
+			logger.warn("{} compute keyindex IS negative, skip loading...", logPrefix);
 		}
 		
 		// Print original value if invalid

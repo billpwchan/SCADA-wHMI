@@ -37,7 +37,7 @@ public class Util {
 	public void setPrefix(String prefix) { this.prefix = prefix; }
 
 	public Map<String, String> loadMapping(String m_name) {
-		final String function = "loadStringValue";
+		final String function = "loadMapping";
 		logger.debug("{} {} Begin", function, m_name);
 		Map<String, String> mappings	= new HashMap<String, String>();
     	IConfigLoader configLoader		= ServicesImplFactory.getInstance().getService(IConfigLoader.class);
@@ -241,7 +241,7 @@ public class Util {
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
-			logger.warn("{} {} csvFile[{}] FileNotFoundException", new Object[]{function, prefix, csvFile});
+			logger.debug("{} {} csvFile[{}] File does not exist", new Object[]{function, prefix, csvFile});
 			ret = null;
 		} catch (IOException e) {
 			logger.warn("{} {} csvFile[{}] IOException", new Object[]{function, prefix, csvFile});

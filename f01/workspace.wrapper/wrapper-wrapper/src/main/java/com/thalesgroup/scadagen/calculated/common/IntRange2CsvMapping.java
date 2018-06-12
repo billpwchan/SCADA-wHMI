@@ -215,8 +215,12 @@ public class IntRange2CsvMapping extends SCSStatusComputer implements SGSymbol_i
 				defaultX = 0.0;
 				logger.warn("[{}] loading attribute propNameDefaultX[{}] from properties file, using default defaultX[{}]"
 						, new Object[]{function, propNameDefaultX, defaultX});
-				logger.error("[{}] e[{}]", function, e.toString());
 			}
+		}
+		else {
+			defaultX = 0.0;
+			logger.debug("[{}] loading attribute propNameDefaultX[{}] from properties file, using default defaultX[{}]"
+				, new Object[]{function, propNameDefaultX, defaultX});
 		}
 		
 		// default y coordinate
@@ -228,8 +232,12 @@ public class IntRange2CsvMapping extends SCSStatusComputer implements SGSymbol_i
 				defaultY = 0.0;
 				logger.warn("[{}] loading attribute propNameDefaultY[{}] from properties file, using default defaultY[{}]"
 						, new Object[]{function, propNameDefaultY, defaultY});
-				logger.error("[{}] e[{}]", function, e.toString());
 			}
+		}
+		else {
+			defaultY = 0.0;
+			logger.debug("[{}] loading attribute propNameDefaultY[{}] from properties file, using default defaultY[{}]"
+				, new Object[]{function, propNameDefaultY, defaultY});
 		}
 		
 		// trackID attribute name
@@ -238,7 +246,7 @@ public class IntRange2CsvMapping extends SCSStatusComputer implements SGSymbol_i
 			attNameTrackId = tmpstr;
 		}
 		else {
-			logger.warn("[{}] loading attribute propNameTrack[{}] from properties file, using default attNameTrackId[{}]"
+			logger.debug("[{}] loading attribute propNameTrack[{}] from properties file, using default attNameTrackId[{}]"
 					, new Object[]{function, propNameTrack, attNameTrackId});
 		}
 		
@@ -248,7 +256,7 @@ public class IntRange2CsvMapping extends SCSStatusComputer implements SGSymbol_i
 			attNameTrackPoint = tmpstr;
 		}
 		else {
-			logger.warn("[{}] loading attribute propNameTrackPoint[{}] from properties file, using default attNameTrackPoint[{}]"
+			logger.debug("[{}] loading attribute propNameTrackPoint[{}] from properties file, using default attNameTrackPoint[{}]"
 					, new Object[]{function, propNameTrackPoint, attNameTrackPoint});
 		}
 		
@@ -258,7 +266,7 @@ public class IntRange2CsvMapping extends SCSStatusComputer implements SGSymbol_i
 			attNameDirection = tmpstr;
 		}
 		else {
-			logger.warn("[{}] loading attribute propNameDirection[{}] from properties file, using default attNameDirection[{}]"
+			logger.debug("[{}] loading attribute propNameDirection[{}] from properties file, using default attNameDirection[{}]"
 					, new Object[]{function, propNameDirection, attNameDirection});
 		}
 		
@@ -268,7 +276,7 @@ public class IntRange2CsvMapping extends SCSStatusComputer implements SGSymbol_i
 			csvFile = tmpstr;
 		}
 		else {
-			logger.warn("[{}] loading attribute propNameCsvFile[{}] from properties file, using default csvFile[{}]"
+			logger.debug("[{}] loading attribute propNameCsvFile[{}] from properties file, using default csvFile[{}]"
 					, new Object[]{function, propNameCsvFile, csvFile});
 		}
 		
@@ -278,36 +286,10 @@ public class IntRange2CsvMapping extends SCSStatusComputer implements SGSymbol_i
 			delimiter = tmpstr;
 		}
 		else {
-			logger.warn("[{}] loading attribute propNameDelimiter[{}] from properties file, using default delimiter[{}]"
+			logger.debug("[{}] loading attribute propNameDelimiter[{}] from properties file, using default delimiter[{}]"
 					, new Object[]{function, propNameDelimiter, delimiter});
 		}
-		
-		// default x coordinate
-		tmpstr = mappings.get(propNameDefaultX);
-		if (tmpstr != null && tmpstr.length() > 0 ) {
-			try {
-				defaultX = Double.parseDouble(tmpstr);
-			} catch (Exception e) {
-				defaultX = 0.0;
-				logger.warn("[{}] loading attribute propNameDefaultX[{}] from properties file, using default defaultX[{}]"
-						, new Object[]{function, propNameDefaultX, defaultX});
-				logger.error("[{}] e[{}]", function, e.toString());
-			}
-		}
-		
-		// default y coordinate
-		tmpstr = mappings.get(propNameDefaultY);
-		if (tmpstr != null && tmpstr.length() > 0 ) {
-			try {
-				defaultY = Double.parseDouble(tmpstr);
-			} catch (Exception e) {
-				defaultY = 0.0;
-				logger.warn("[{}] loading attribute propNameDefaultY[{}] from properties file[{}], using default defaultY[{}]"
-						, new Object[]{function, propNameDefaultY, csvFile, defaultY});
-				logger.error("[{}] e[{}]", function, e.toString());
-			}
-		}
-		
+
 		// default angle
 		tmpstr = mappings.get(propNameDefaultAngle);
 		if (tmpstr != null && tmpstr.length() > 0 ) {
@@ -317,8 +299,12 @@ public class IntRange2CsvMapping extends SCSStatusComputer implements SGSymbol_i
 				defaultAngle = 0.0;
 				logger.warn("[{}] loading attribute propNameDefaultAngle[{}] from properties file[{}], using default defaultAngle[{}]"
 						, new Object[]{function, propNameDefaultAngle, csvFile, defaultAngle});
-				logger.error("[{}] e[{}]", function, e.toString());
 			}
+		}
+		else {
+			defaultAngle = 0.0;
+			logger.debug("[{}] loading attribute propNameDefaultAngle[{}] from properties file[{}], using default defaultAngle[{}]"
+				, new Object[]{function, propNameDefaultAngle, csvFile, defaultAngle});
 		}
 		
 		// indexTrackId value
@@ -330,8 +316,12 @@ public class IntRange2CsvMapping extends SCSStatusComputer implements SGSymbol_i
 				indexTrackId = 0;
 				logger.warn("[{}] loading attribute propNameIndexTrackId[{}] from properties file[{}], using default indexTrackId[{}]"
 						, new Object[]{function, propNameIndexTrackId, csvFile, indexTrackId});
-				logger.error("[{}] e[{}]", function, e.toString());
 			}
+		}
+		else {
+			indexTrackId = 0;
+			logger.debug("[{}] loading attribute propNameIndexTrackId[{}] from properties file[{}], using default indexTrackId[{}]"
+				, new Object[]{function, propNameIndexTrackId, csvFile, indexTrackId});
 		}
 		
 		// indexDir value
@@ -343,8 +333,12 @@ public class IntRange2CsvMapping extends SCSStatusComputer implements SGSymbol_i
 				indexDir = 0;
 				logger.warn("[{}] loading attribute propNameIndexDir[{}] from properties file[{}], using default indexDir[{}]"
 						, new Object[]{function, propNameIndexDir, csvFile, indexDir});
-				logger.error("[{}] e[{}]", function, e.toString());
 			}
+		}
+		else {
+			indexDir = 0;
+			logger.debug("[{}] loading attribute propNameIndexDir[{}] from properties file[{}], using default indexDir[{}]"
+				, new Object[]{function, propNameIndexDir, csvFile, indexDir});
 		}
 		
 		// indexBegin value
@@ -356,8 +350,12 @@ public class IntRange2CsvMapping extends SCSStatusComputer implements SGSymbol_i
 				indexBegin = 0;
 				logger.warn("[{}] loading attribute propNameIndexBegin[{}] from properties file[{}], using default indexBegin[{}]"
 						, new Object[]{function, propNameIndexBegin, csvFile, indexBegin});
-				logger.error("[{}] e[{}]", function, e.toString());
 			}
+		}
+		else {
+			indexBegin = 0;
+			logger.debug("[{}] loading attribute propNameIndexBegin[{}] from properties file[{}], using default indexBegin[{}]"
+				, new Object[]{function, propNameIndexBegin, csvFile, indexBegin});
 		}
 		
 		// indexEnd value
@@ -369,8 +367,12 @@ public class IntRange2CsvMapping extends SCSStatusComputer implements SGSymbol_i
 				indexEnd = 0;
 				logger.warn("[{}] loading attribute propNameIndexEnd[{}] from properties file[{}], using default indexEnd[{}]"
 						, new Object[]{function, propNameIndexEnd, csvFile, indexEnd});
-				logger.error("[{}] e[{}]", function, e.toString());
 			}
+		}
+		else {
+			indexEnd = 0;
+			logger.debug("[{}] loading attribute propNameIndexEnd[{}] from properties file[{}], using default indexEnd[{}]"
+				, new Object[]{function, propNameIndexEnd, csvFile, indexEnd});
 		}
 		
 		// indexX value
@@ -382,8 +384,12 @@ public class IntRange2CsvMapping extends SCSStatusComputer implements SGSymbol_i
 				indexX = 0;
 				logger.warn("[{}] loading attribute propNameIndexX[{}] from properties file[{}], using default indexX[{}]"
 						, new Object[]{function, propNameIndexX, csvFile, indexX});
-				logger.error("[{}] e[{}]", function, e.toString());
 			}
+		}
+		else {
+			indexX = 0;
+			logger.debug("[{}] loading attribute propNameIndexX[{}] from properties file[{}], using default indexX[{}]"
+				, new Object[]{function, propNameIndexX, csvFile, indexX});
 		}
 		
 		// indexY value
@@ -395,8 +401,12 @@ public class IntRange2CsvMapping extends SCSStatusComputer implements SGSymbol_i
 				indexY = 0;
 				logger.warn("[{}] loading attribute propNameIndexY[{}] from properties file[{}], using default indexY[{}]"
 						, new Object[]{function, propNameIndexY, csvFile, indexY});
-				logger.error("[{}] e[{}]", function, e.toString());
 			}
+		}
+		else {
+			indexY = 0;
+			logger.debug("[{}] loading attribute propNameIndexY[{}] from properties file[{}], using default indexY[{}]"
+				, new Object[]{function, propNameIndexY, csvFile, indexY});
 		}
 		
 		// indexAngle value
@@ -408,8 +418,12 @@ public class IntRange2CsvMapping extends SCSStatusComputer implements SGSymbol_i
 				indexAngle = 0;
 				logger.warn("[{}] loading attribute propNameIndexAngle[{}] from properties file[{}], using indexAngle[{}]"
 						, new Object[]{function, propNameIndexAngle, csvFile, indexAngle});
-				logger.error("[{}] e[{}]", function, e.toString());
 			}
+		}
+		else {
+			indexAngle = 0;
+			logger.debug("[{}] loading attribute propNameIndexAngle[{}] from properties file[{}], using indexAngle[{}]"
+				, new Object[]{function, propNameIndexAngle, csvFile, indexAngle});
 		}
 		
 		logger.debug("[{}] attNameTrackId[{}] attNameTrackPoint[{}] attNameDirection[{}]",
@@ -561,7 +575,7 @@ public class IntRange2CsvMapping extends SCSStatusComputer implements SGSymbol_i
 			}
 		}
 		else {
-			logger.warn("[{}] check the input file, lines IS NULL, ByPass configuration loading", function);
+			logger.debug("[{}] ByPass configuration loading", function);
 		}
 
 	}

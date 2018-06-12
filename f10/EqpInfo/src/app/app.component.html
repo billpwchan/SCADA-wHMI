@@ -1,0 +1,43 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <span class='eqp-label-start'>Equipment </span>
+  <app-ng-active-text 
+    (notifyParent)="getNotification('EquipmentLabel', $event)" 
+    [setCfg]="eqpLblCfg" 
+    [setText]="eqpLblText">
+  </app-ng-active-text>
+  <span class='eqp-label-end'></span>
+  <div *ngFor="let eqpPoint of eqpPoints; let i = index;">
+    <div class="flex-container">
+      <span class='eqp-point-label-start'>Point </span>
+      <div>
+        <app-ng-active-text 
+          (notifyParent)="getNotification('Label', $event)" 
+          [setCfg]="eqpPoint.cfg.labelCfg" 
+          [setText]="eqpPoint.gui.labelText">
+        </app-ng-active-text>
+      </div>
+      <span class='eqp-point-label-end'></span>
+      <span class='eqp-point-value-start'> Value </span>
+      <div>
+        <app-ng-active-text 
+          (notifyParent)="getNotification('Value', $event)" 
+          [setCfg]="eqpPoint.cfg.valueCfg" 
+          [setText]="eqpPoint.gui.valueText">
+        </app-ng-active-text>
+      </div>
+      <span class='eqp-point-value-end'></span>
+      <span class='eqp-point-status-start'> Status </span>
+      <div>
+        <app-ng-active-backdrop 
+          (notifyParent)="getNotification('Status', $event)" 
+          [setCfg]="eqpPoint.cfg.statusCfg" 
+          [setText]="eqpPoint.gui.statusText"
+          [setBackdrop]="eqpPoint.gui.statusBackdrop">
+        </app-ng-active-backdrop>
+      </div>
+      <span class='eqp-point-status-end'></span>
+    </div>
+  </div>
+
+</div>

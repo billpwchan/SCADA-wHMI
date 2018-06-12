@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 // tslint:disable-next-line:max-line-length
-import { NgActiveTextCfg, NgActiveTextSettings, NgActiveTextClassCfg, NgActiveTextDbmCfg, NgActiveTextUpdate } from './ng-active-text-settings';
+import { NgActiveButtonCfg, NgActiveButtonSettings, NgActiveButtonClassCfg, NgActiveButtonDbmCfg, NgActiveButtonUpdate } from './ng-active-button-settings';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { SettingsService } from '../../service/settings.service';
 import { DbmMultiReadAttrService } from '../../service/scadagen/dbm/dbm-multi-read-attr.service';
@@ -13,30 +13,30 @@ import { UtilsHttpModule } from '../../service/scadagen/common/utils-http.module
 import { EnvironmentMappingService } from '../../service/scadagen/envs/environment-mapping.service';
 
 @Component({
-  selector: 'app-ng-active-text',
-  templateUrl: './ng-active-text.component.html',
-  styleUrls: ['./ng-active-text.component.css']
+  selector: 'app-ng-active-button',
+  templateUrl: './ng-active-button.component.html',
+  styleUrls: ['./ng-active-button.component.css']
 })
-export class NgActiveTextComponent implements OnInit, OnDestroy {
+export class NgActiveButtonComponent implements OnInit, OnDestroy {
 
-  readonly c = 'NgActiveTextComponent';
+  readonly c = 'NgActiveButtonComponent';
 
-  spanText: string;
-  spanClass: string;
+  buttonText: string;
+  buttonClass: string;
 
-  private cfg: NgActiveTextCfg;
+  private cfg: NgActiveButtonCfg;
 
   private dbmPolling: DbmPolling;
 
   @Input()
-  set setCfg(cfg: NgActiveTextCfg) {
+  set setCfg(cfg: NgActiveButtonCfg) {
     const f = 'setCfg';
     console.log(this.c, f);
 
     this.cfg = cfg;
 
     if (null != this.cfg) {
-      if (null != this.cfg.class) { this.spanClass = this.cfg.class.span; }
+      if (null != this.cfg.class) { this.buttonClass = this.cfg.class.button; }
       if (null != this.cfg.dbm) {
         const dbAddr: string[] = new Array();
         this.cfg.dbm.attributes.forEach(point => {
@@ -59,7 +59,7 @@ export class NgActiveTextComponent implements OnInit, OnDestroy {
     const f = 'setText';
     console.log(this.c, f);
     console.log(this.c, f, 'str', str);
-    if (null != str) { this.spanText = str; }
+    if (null != str) { this.buttonText = str; }
   }
 
   @Output() notifyParent: EventEmitter<any> = new EventEmitter();
@@ -133,6 +133,11 @@ export class NgActiveTextComponent implements OnInit, OnDestroy {
       result['point'] = this.cfg.dbm.attributes;
       this.notifyParent.emit([result]);
     }
+  }
+
+  onClick() {
+    const f = 'onClick';
+    console.log(this.c, f);
   }
 
 }

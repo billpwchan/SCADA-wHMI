@@ -1,5 +1,9 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
+  <div>
+      <input #envbox (keyup.enter)="onEnter('envbox', envbox.value)" [(ngModel)]="envValue" placeholder="Env">
+      <input #aliasbox (keyup.enter)="onEnter('aliasbox', aliasbox.value)" [(ngModel)]="aliasValue" placeholder="Address">
+  </div>
   <span class='eqp-label-start'>Equipment </span>
   <app-ng-active-text 
     (notifyParent)="getNotification('EquipmentLabel', $event)" 
@@ -9,7 +13,7 @@
   <span class='eqp-label-end'></span>
   <div *ngFor="let eqpPoint of eqpPoints; let i = index;">
     <div class="flex-container">
-      <span class='eqp-point-label-start'>Point </span>
+      <span class='eqp-point-label-start'>Point label:</span>
       <div>
         <app-ng-active-text 
           (notifyParent)="getNotification('Label', $event)" 
@@ -18,7 +22,7 @@
         </app-ng-active-text>
       </div>
       <span class='eqp-point-label-end'></span>
-      <span class='eqp-point-value-start'> Value </span>
+      <span class='eqp-point-value-start'> Value label:</span>
       <div>
         <app-ng-active-text 
           (notifyParent)="getNotification('Value', $event)" 
@@ -27,7 +31,7 @@
         </app-ng-active-text>
       </div>
       <span class='eqp-point-value-end'></span>
-      <span class='eqp-point-status-start'> Status </span>
+      <span class='eqp-point-status-start'> Status: </span>
       <div>
         <app-ng-active-backdrop 
           (notifyParent)="getNotification('Status', $event)" 
@@ -39,5 +43,11 @@
       <span class='eqp-point-status-end'></span>
     </div>
   </div>
-
+  <div>
+    <app-ng-active-button
+      (notifyParent)="getNotification('Control', $event)" 
+      [setCfg]="btnDbmCfg" 
+      [setText]="btnDbmText">
+    </app-ng-active-button>
+  </div>
 </div>

@@ -8,11 +8,11 @@ import 'rxjs/add/observable/interval';
 import { SettingsService } from '../../../settings.service';
 import { DbmSettings } from '../dbm-settings';
 import { UtilsHttpModule } from '../../common/utils-http.module';
+import { EnvironmentMappingService } from '../../envs/environment-mapping.service';
 
 export class DbmPolling {
 
   private interval: number;
-  private envs: any;
 
   private subscriptions: Map<string, Subscription> = new Map<string, Subscription>();
 
@@ -27,6 +27,7 @@ export class DbmPolling {
   constructor(
     private httpClient: HttpClient
     , private utilsHttp: UtilsHttpModule
+    , private environmentMappingService: EnvironmentMappingService
   ) {
   }
 
@@ -35,10 +36,8 @@ export class DbmPolling {
     console.log(this.c, f);
 
     this.interval = cfg.interval;
-    this.envs = cfg.envs;
 
     console.log(this.c, f, 'this.interval', this.interval);
-    console.log(this.c, f, 'this.envs', this.envs);
   }
 
   // Service command
@@ -95,7 +94,8 @@ export class DbmPolling {
       urls.push(univname);
     });
 
-    const connAddr = this.envs[env];
+    const connAddr = this.environmentMappingService.getEnvs(env);
+    console.log(this.c, f, 'connAddr', connAddr, 'env', env);
     const url = connAddr + DbmSettings.STR_URL_MULTIREAD + JSON.stringify(urls);
 
     console.log(this.c, f, 'url', url);

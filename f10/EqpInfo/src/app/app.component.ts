@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { NgActiveTextSettings, NgActiveEqpPoint } from './component/ng-active-text/ng-active-text-settings';
 import { NgActiveTextCfg, NgActiveEqpPointCfg, NgActiveEqpPointGui } from './component/ng-active-text/ng-active-text-settings';
 import { NgActiveTextDbmCfg, NgActiveTextClassCfg } from './component/ng-active-text/ng-active-text-settings';
@@ -9,6 +10,10 @@ import { I18nSettings } from './service/i18n-settings';
 // tslint:disable-next-line:max-line-length
 import { NgActiveBackdropCfg, NgActiveBackdropDbmCfg, NgActiveBackdropClassCfg, NgActiveBackdropSettings } from './component/ng-active-backdrop/ng-active-backdrop-settings';
 import { DbmUtils } from './service/scadagen/dbm/common/util';
+import { NgActiveButtonDbmCfg } from './component/ng-active-button/ng-active-button-settings';
+import { DbmGetChildrenAliasesService } from './service/scadagen/dbm/get-children/dbm-get-children-aliases.service';
+import { Subscription } from 'rxjs/Subscription';
+import { DbmSettings } from './service/scadagen/dbm/dbm-settings';
 
 @Component({
   selector: 'app-root',
@@ -21,11 +26,8 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
 
   title = 'app';
 
-  dbmInfo: Map<string, string>;
   readonly DBM_ENV = 'ENV';
   readonly DBM_ALIAS = 'M100';
-
-  points: string[];
 
   eqpMap = new Map<string, NgActiveEqpPoint>();
 
@@ -34,9 +36,17 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
   eqpLblCfg: NgActiveTextCfg;
   eqpLblText: string;
 
+  btnDbmCfg: NgActiveButtonDbmCfg;
+  btnDbmText: string;
+
+  private dbmGetChildrenAliasesServiceSubscription: Subscription;
+
+  envValue = '-';
+  aliasValue = '-';
   constructor(
     private translate: TranslateService
     , private settingsService: SettingsService
+    , private dbmGetChildrenAliasesService: DbmGetChildrenAliasesService
   ) {
     const f = 'constructor';
     console.log(this.c, f);
@@ -70,29 +80,43 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'ngOnInit';
     console.log(this.c, f);
 
-    this.dbmInfo  = this.getDbmInfo();
-    this.points   = this.getDbmPoints();
-
-    this.eqpLblCfg = this.createEqpLabel(this.dbmInfo.get(this.DBM_ENV), this.dbmInfo.get(this.DBM_ALIAS));
-    // this.eqpLblText = this.alias;
-
-    const dbmUtil: DbmUtils = new DbmUtils();
-    for (let i = 0 ; i < this.points.length; ++i ) {
-      const eqpPoint: NgActiveEqpPoint = new NgActiveEqpPoint();
-      eqpPoint.cfg = this.createPoint(i, this.dbmInfo.get(this.DBM_ENV), this.dbmInfo.get(this.DBM_ALIAS), this.points[i]);
-      eqpPoint.gui = new NgActiveEqpPointGui();
-
-      const alias = dbmUtil.joinDbmAlias(
-                                        this.dbmInfo.get(this.DBM_ALIAS)
-                                        , this.points[i]);
-      console.log(this.c, f, 'alias', alias);
-      this.eqpMap.set(alias, eqpPoint);
+    {
+      const dbmInfo  = this.getDbmInfo();
+      const env = dbmInfo.get(this.DBM_ENV);
+      this.envValue = env;
+      const alias = dbmInfo.get(this.DBM_ALIAS);
+      this.aliasValue = alias;
     }
 
-    this.eqpPoints = new Array();
-    this.eqpMap.forEach((value: NgActiveEqpPoint, key: string) => {
-      this.eqpPoints.push(value);
+    this.dbmGetChildrenAliasesServiceSubscription = this.dbmGetChildrenAliasesService.dbmItem
+    .subscribe( res => {
+      const f2 = 'dbmGetChildrenAliasesServiceSubscription';
+      console.log(this.c, f2);
+      console.log(this.c, res);
+
+      if (null != res) {
+        const env = res.env;
+        const alias = res.dbAddress;
+        const data = res.data;
+        if (null != data) {
+          const points: string[] = [];
+          data.forEach(element => {
+            if (element.startsWith(alias)) {
+              const strlen = alias.length;
+              const point = element.substr(strlen);
+              console.log(this.c, 'point', point);
+              points.push(point);
+            }
+          });
+
+          const dbmInfo = new Map<string, string>();
+          dbmInfo.set(this.DBM_ENV, this.envValue);
+          dbmInfo.set(this.DBM_ALIAS, this.aliasValue);
+          this.loadEqpInfo(dbmInfo, points);
+        }
+      }
     });
+    // this.dbmGetChildrenAliasesService.readData(env, alias);
   }
 
   ngOnDestroy(): void {
@@ -157,22 +181,54 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     // this.title = this.settingsService.getSetting(this.c, f, this.c, AppSettings.STR_TITLE);
   }
 
-  private getDbmInfo(): Map<string, string> {
-    const env = 'M100';
-    const alias = ':TUN:M000001:ECT:TTVF0001';
+  private getDbmInfo(env = 'M100', alias = 'STO:ENE:CBR_1'): Map<string, string> {
     const dbmInfo = new Map<string, string>();
     dbmInfo.set(this.DBM_ENV, env);
     dbmInfo.set(this.DBM_ALIAS, alias);
     return dbmInfo;
   }
 
-  private getDbmPoints(): string[] {
-    const points: string[] = [];
-    points.push(
-      'dciECT-LRSTA', 'dciECT-NISERV', 'dciECT-PTW', 'dciECT-STATUS'
-    , 'dciECT-STATUS01', 'dciECT-STATUS02', 'dciECT-STATUS03', 'dciECT-STATUS04', 'dciECT-STATUS05'
-    , 'dciECT-STATUS06', 'dciECT-STATUS07', 'dciECT-STATUS08', 'dciECT-STATUS09', 'dciECT-STATUS10');
-    return points;
+  onEnter(name: string, value: string) {
+    const f = 'onEnter';
+    console.log(this.c, f);
+    console.log(this.c, f, 'name', name, 'value', value);
+    if ('envbox' === name) {
+    } else if ('aliasbox' === name) {
+
+      const dbmInfo = this.getDbmInfo(this.envValue, this.aliasValue);
+      const env = dbmInfo.get(this.DBM_ENV);
+      const alias = dbmInfo.get(this.DBM_ALIAS);
+      this.dbmGetChildrenAliasesService.readData(env, alias);
+    }
+  }
+
+  private loadEqpInfo(dbmInfo: Map<string, string>, points: string[]) {
+    const f = 'loadEqpInfo';
+    console.log(this.c, f);
+
+    this.eqpLblCfg = this.createEqpLabel(dbmInfo.get(this.DBM_ENV), dbmInfo.get(this.DBM_ALIAS));
+    // this.eqpLblText = this.alias;
+
+    const dbmUtil: DbmUtils = new DbmUtils();
+    for (let i = 0 ; i < points.length; ++i ) {
+      const eqpPoint: NgActiveEqpPoint = new NgActiveEqpPoint();
+      eqpPoint.cfg = this.createPoint(i, dbmInfo.get(this.DBM_ENV), dbmInfo.get(this.DBM_ALIAS), points[i]);
+      eqpPoint.gui = new NgActiveEqpPointGui();
+
+      const alias = dbmUtil.joinDbmAlias(
+                                        dbmInfo.get(this.DBM_ALIAS)
+                                        , points[i]);
+      console.log(this.c, f, 'alias', alias);
+      this.eqpMap.set(alias, eqpPoint);
+    }
+
+    this.eqpPoints = new Array();
+    this.eqpMap.forEach((value: NgActiveEqpPoint, key: string) => {
+      this.eqpPoints.push(value);
+    });
+
+    this.btnDbmCfg = this.createEqpCtrlBtn();
+    this.btnDbmText = '-';
   }
 
   private createEqpLabel(env: string, alias: string): NgActiveTextCfg {
@@ -274,6 +330,16 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     return cfg;
    }
 
+  private createEqpCtrlBtn(): NgActiveButtonDbmCfg {
+
+    const btnDbmCfg: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
+
+    const dbmInfo: Map<string, string> = this.getDbmInfo();
+    btnDbmCfg.env = dbmInfo.get(this.DBM_ENV);
+    btnDbmCfg.alias = dbmInfo.get(this.DBM_ALIAS);
+    btnDbmCfg.attributes = [':dioECT-NISERV', ':dioECT-NISERV.label', ':dioECT-NISERV.value'];
+    return btnDbmCfg;
+  }
 
   updateStatus(env: string, alias: string, result: any) {
     const f = 'updateStatus';

@@ -10,6 +10,7 @@ import { DbmPolling } from '../../service/scadagen/dbm/polling/dbm-polling';
 import { HttpClient } from '@angular/common/http';
 import { DbmPollingSettings, DbmPollingCfg } from '../../service/scadagen/dbm/polling/dbm-polling-settings';
 import { UtilsHttpModule } from '../../service/scadagen/common/utils-http.module';
+import { EnvironmentMappingService } from '../../service/scadagen/envs/environment-mapping.service';
 
 @Component({
   selector: 'app-ng-active-number',
@@ -71,6 +72,7 @@ export class NgActiveNumberComponent implements OnInit, OnDestroy {
     , private settingsService: SettingsService
     , private httpClient: HttpClient
     , private utilsHttp: UtilsHttpModule
+    , private environmentMappingService: EnvironmentMappingService
     // , private dbmMultiReadAttrService: DbmMultiReadAttrService
     // , private dbmPollingService: DbmPollingService
   ) {
@@ -81,10 +83,9 @@ export class NgActiveNumberComponent implements OnInit, OnDestroy {
       this.loadTranslations();
     });
 
-    this.dbmPolling = new DbmPolling(httpClient, utilsHttp);
+    this.dbmPolling = new DbmPolling(httpClient, utilsHttp, environmentMappingService);
     const dbmPollingCfg = new DbmPollingCfg();
     dbmPollingCfg.interval = 4000;
-    dbmPollingCfg.envs = {'M100': 'http://127.0.0.1:8990'};
     this.dbmPolling.setSettings(dbmPollingCfg);
   }
 

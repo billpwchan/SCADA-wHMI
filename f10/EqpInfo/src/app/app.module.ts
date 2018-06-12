@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -15,6 +16,10 @@ import { DbmPollingService } from './service/scadagen/dbm/polling/dbm-polling.se
 import { DbmService } from './service/scadagen/dbm/dbm.service';
 import { NgActiveNumberComponent } from './component/ng-active-number/ng-active-number.component';
 import { UtilsHttpModule } from './service/scadagen/common/utils-http.module';
+import { NgActiveButtonComponent } from './component/ng-active-button/ng-active-button.component';
+import { EnvironmentMappingService } from './service/scadagen/envs/environment-mapping.service';
+import { DbmGetChildrenAliasesService } from './service/scadagen/dbm/get-children/dbm-get-children-aliases.service';
+import { DbmGetInstancesByClassNameService } from './service/scadagen/dbm/get-instance/dbm-get-instance-by-class-name.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -25,10 +30,12 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     NgActiveTextComponent,
     NgActiveBackdropComponent,
-    NgActiveNumberComponent
+    NgActiveNumberComponent,
+    NgActiveButtonComponent
   ],
   imports: [
     BrowserModule
+    , FormsModule
     , HttpModule
     , HttpClientModule
     , TranslateModule.forRoot({
@@ -49,9 +56,12 @@ export function createTranslateLoader(http: HttpClient) {
       multi: true
     }
     , HttpMultiAccessService
+    , EnvironmentMappingService
     , DbmService
     , DbmMultiReadAttrService
     , DbmPollingService
+    , DbmGetChildrenAliasesService
+    , DbmGetInstancesByClassNameService
   ],
   bootstrap: [AppComponent]
 })

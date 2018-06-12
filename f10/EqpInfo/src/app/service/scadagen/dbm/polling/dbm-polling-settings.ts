@@ -28,5 +28,4 @@ export enum DbmPollingServiceType {
 
 export class DbmPollingCfg {
   public interval: number;
-  public envs: any;
 }

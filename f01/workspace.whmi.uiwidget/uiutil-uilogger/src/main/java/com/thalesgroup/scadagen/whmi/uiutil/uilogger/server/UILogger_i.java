@@ -64,7 +64,8 @@ public interface UILogger_i {
      
      public void warn(String format, Object arg);
      public void warn(String format, Object arg1, Object arg2);
-    
+     public void warn(String format, Object[] argArray);
+     
     /**
      * warn with throwable
      * 
@@ -82,6 +83,7 @@ public interface UILogger_i {
     
     public void error(String format, Object arg);
     public void error(String format, Object arg1, Object arg2);
+    public void error(String format, Object[] argArray);
     
     /**
      * error with throwable

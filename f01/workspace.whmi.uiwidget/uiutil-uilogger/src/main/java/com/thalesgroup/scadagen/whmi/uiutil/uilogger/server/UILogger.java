@@ -75,6 +75,9 @@ public class UILogger implements UILogger_i {
 	
 	@Override public
 	void warn(String message, Object arg1, Object arg2) { logger.warn(message, arg1, arg2); }
+	
+	@Override public
+	void warn(String message, Object[] args) { logger.warn(message, args); }
 
 	@Override public
 	void warn(String message, Throwable throwable) { logger.warn(message, throwable); }
@@ -84,6 +87,9 @@ public class UILogger implements UILogger_i {
 	
 	@Override public
 	void error(String message, Object arg) { logger.error(message, arg); }
+	
+	@Override public
+	void error(String message, Object[] args) { logger.error(message, args); }
 	
 	@Override public
 	void error(String message, Object arg1, Object arg2) { logger.error(message, arg1, arg2); }

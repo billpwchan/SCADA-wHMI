@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { AppSettings } from '../../../../app-settings';
-import { UtilsHttpModule } from '../../common/utils-http.module';
-import { DbmSettings } from '../../../scadagen/dbm/dbm-settings';
+import { AppSettings } from '../../../../../app-settings';
+import { UtilsHttpModule } from '../../../common/utils-http.module';
+import { DbmSettings } from '../../../../scadagen/dbm/dbm-settings';
 import { DbmGetChildrenAliasesResult } from './dbm-get-children-aliases-settings';
-import { EnvironmentMappingService } from '../../envs/environment-mapping.service';
+import { EnvironmentMappingService } from '../../../envs/environment-mapping.service';
 
 @Injectable()
 export class DbmGetChildrenAliases {
@@ -41,7 +41,7 @@ export class DbmGetChildrenAliases {
     const f = 'readData';
     console.log(this.c, f);
 
-    const env = this.environmentMappingService.getEnvs(alias);
+    const env = this.environmentMappingService.getEnv(alias);
     console.log(this.c, f, 'alias', alias, 'env', env);
     let url = null;
 
@@ -73,7 +73,7 @@ export class DbmGetChildrenAliases {
           this.dbmChanged(result);
         }
         , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
-        , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
+        , () => { this.utilsHttp.httpClientHandlerComplete(f); }
     );
   }
 }

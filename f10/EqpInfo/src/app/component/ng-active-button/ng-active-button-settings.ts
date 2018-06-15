@@ -8,7 +8,7 @@ export class NgActiveButtonSettings {
 export class NgActiveButtonDbmCfg {
   public env: string;
   public alias: string;
-  public attributes: string[];
+  public attributes: {};
 }
 export class NgActiveButtonClassCfg {
   public button: string;
@@ -17,7 +17,7 @@ export class NgActiveButtonCfg {
   public class: NgActiveButtonClassCfg;
   public dbm: NgActiveButtonDbmCfg;
 }
-export class NgActiveEqpPointCfg {
+export class NgActiveEqpCmdPointCfg {
   public labelCfg: NgActiveButtonCfg;
   public valueCfg: NgActiveButtonCfg;
   public statusCfg: NgActiveBackdropCfg;
@@ -29,11 +29,11 @@ export class NgActiveEqpPointGui {
   public statusBackdrop: string;
 }
 export class NgActiveEqpPoint {
-  public cfg: NgActiveEqpPointCfg;
+  public cfg: NgActiveEqpCmdPointCfg;
   public gui: NgActiveEqpPointGui;
 }
 export class NgActiveButtonUpdate {
-  public cfg: NgActiveEqpPointCfg;
+  public cfg: NgActiveEqpCmdPointCfg;
   public gui: NgActiveEqpPointGui;
 }
 

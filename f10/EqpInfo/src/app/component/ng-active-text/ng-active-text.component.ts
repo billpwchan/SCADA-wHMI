@@ -3,12 +3,11 @@ import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, OnChanges, S
 import { NgActiveTextCfg, NgActiveTextSettings, NgActiveTextClassCfg, NgActiveTextDbmCfg, NgActiveTextUpdate } from './ng-active-text-settings';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { SettingsService } from '../../service/settings.service';
-import { DbmMultiReadAttrService } from '../../service/scadagen/dbm/dbm-multi-read-attr.service';
-import { DbmPollingService } from '../../service/scadagen/dbm/polling/dbm-polling.service';
+import { DbmPollingService } from '../../service/scadagen/dbm/simple/polling/dbm-polling.service';
 import { Subscription } from 'rxjs/Subscription';
-import { DbmPolling } from '../../service/scadagen/dbm/polling/dbm-polling';
+import { DbmPolling } from '../../service/scadagen/dbm/simple/polling/dbm-polling';
 import { HttpClient } from '@angular/common/http';
-import { DbmPollingSettings, DbmPollingCfg } from '../../service/scadagen/dbm/polling/dbm-polling-settings';
+import { DbmPollingSettings, DbmPollingCfg } from '../../service/scadagen/dbm/simple/polling/dbm-polling-settings';
 import { UtilsHttpModule } from '../../service/scadagen/common/utils-http.module';
 import { EnvironmentMappingService } from '../../service/scadagen/envs/environment-mapping.service';
 
@@ -119,14 +118,22 @@ export class NgActiveTextComponent implements OnInit, OnDestroy {
   }
 
   onDbmPollingUpdate(result: any): void {
-    const f = 'onUpdate';
+    const f = 'onDbmPollingUpdate';
     console.log(this.c, f);
     if ( null != result ) {
 
       const alias = this.cfg.dbm.alias + this.cfg.dbm.attributes;
       const value = result[alias];
       console.log(this.c, f, alias, value);
-      this.setText = this.translate.instant(value);
+      if (null != value) {
+        if (value.length > 0) {
+          this.setText = this.translate.instant(value);
+        } else {
+          this.setText = '-';
+        }
+      } else {
+        this.setText = 'N/A';
+      }
 
       result['env'] = this.cfg.dbm.env;
       result['alias'] = this.cfg.dbm.alias;

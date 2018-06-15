@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { AppSettings } from '../../../../app-settings';
-import { UtilsHttpModule } from '../../common/utils-http.module';
-import { DbmSettings } from '../../../scadagen/dbm/dbm-settings';
+import { AppSettings } from '../../../../../app-settings';
+import { UtilsHttpModule } from '../../../common/utils-http.module';
+import { DbmSettings } from '../../../../scadagen/dbm/dbm-settings';
 import { DbmGetChildrenAliasesResult } from './dbm-get-children-aliases-settings';
 import { DbmGetChildrenAliases } from './dbm-get-children-aliases';
 import { Subscription } from 'rxjs/Subscription';
-import { EnvironmentMappingService } from '../../envs/environment-mapping.service';
+import { EnvironmentMappingService } from '../../../envs/environment-mapping.service';
 
 @Injectable()
 export class DbmGetChildrenAliasesService {

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { UtilsHttpModule } from '../../common/utils-http.module';
-import { AppSettings } from '../../../../app-settings';
-import { DbmSettings } from '../../../scadagen/dbm/dbm-settings';
-import { EnvironmentMappingService } from '../../envs/environment-mapping.service';
+import { UtilsHttpModule } from '../../../common/utils-http.module';
+import { AppSettings } from '../../../../../app-settings';
+import { DbmSettings } from '../../../../scadagen/dbm/dbm-settings';
+import { EnvironmentMappingService } from '../../../envs/environment-mapping.service';
 
 @Injectable()
 export class GetInstancesByClassName {
@@ -42,7 +42,7 @@ export class GetInstancesByClassName {
 
     let url = null;
 
-    const env = this.environmentMappingService.getEnvs(alias);
+    const env = this.environmentMappingService.getEnv(alias);
     console.log(this.c, f, 'alias', alias, 'env', env);
 
     url = env
@@ -68,7 +68,7 @@ export class GetInstancesByClassName {
           this.dbmChanged(env);
         }
         , (err: HttpErrorResponse) => { this.utilsHttp.httpClientHandlerError(f, err); }
-        , () => { this.utilsHttp.httpClientHandlerComplete(f, 'The GET observable is now completed.'); }
+        , () => { this.utilsHttp.httpClientHandlerComplete(f); }
     );
   }
 

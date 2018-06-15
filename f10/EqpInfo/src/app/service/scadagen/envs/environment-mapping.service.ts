@@ -5,13 +5,18 @@ export class EnvironmentMappingService {
 
   readonly c = 'EnvironmentMappingService';
 
-  envs: any;
-  constructor() {
-    this.envs = {'M100': 'http://127.0.0.1:8991'};
+  private envs: {} = {};
+  constructor() { }
+
+  setEnv(alias: string, address: string): void {
+    const f = 'setEnv';
+    console.log(this.c, f);
+    console.log(this.c, f, 'alias', alias, 'address', address);
+    this.envs[alias] = address;
   }
 
-  getEnvs(alias: string): string {
-    const f = '';
+  getEnv(alias: string): string {
+    const f = 'getEnv';
     console.log(this.c, f);
     console.log(this.c, f, 'alias', alias);
     const env = this.envs[alias];

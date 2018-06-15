@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { NgModule } from '@angular/core';
-import { NgActiveTextSettings, NgActiveEqpPoint } from './component/ng-active-text/ng-active-text-settings';
-import { NgActiveTextCfg, NgActiveEqpPointCfg, NgActiveEqpPointGui } from './component/ng-active-text/ng-active-text-settings';
+import { NgActiveTextSettings, NgActiveEqpInfoPoint } from './component/ng-active-text/ng-active-text-settings';
+import { NgActiveTextCfg, NgActiveEqpInfoPointCfg, NgActiveEqpInfoPointGui } from './component/ng-active-text/ng-active-text-settings';
 import { NgActiveTextDbmCfg, NgActiveTextClassCfg } from './component/ng-active-text/ng-active-text-settings';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsService } from './service/settings.service';
@@ -10,10 +10,11 @@ import { I18nSettings } from './service/i18n-settings';
 // tslint:disable-next-line:max-line-length
 import { NgActiveBackdropCfg, NgActiveBackdropDbmCfg, NgActiveBackdropClassCfg, NgActiveBackdropSettings } from './component/ng-active-backdrop/ng-active-backdrop-settings';
 import { DbmUtils } from './service/scadagen/dbm/common/util';
-import { NgActiveButtonDbmCfg } from './component/ng-active-button/ng-active-button-settings';
-import { DbmGetChildrenAliasesService } from './service/scadagen/dbm/get-children/dbm-get-children-aliases.service';
+import { NgActiveButtonDbmCfg, NgActiveButtonCfg } from './component/ng-active-button/ng-active-button-settings';
+import { DbmGetChildrenAliasesService } from './service/scadagen/dbm/simple/get-children/dbm-get-children-aliases.service';
 import { Subscription } from 'rxjs/Subscription';
 import { DbmSettings } from './service/scadagen/dbm/dbm-settings';
+import { EnvironmentMappingService } from './service/scadagen/envs/environment-mapping.service';
 
 @Component({
   selector: 'app-root',
@@ -26,27 +27,31 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
 
   title = 'app';
 
-  readonly DBM_ENV = 'ENV';
-  readonly DBM_ALIAS = 'M100';
+  readonly DBM_ENV = 'DBM_ENV';
+  readonly DBM_ALIAS = 'DBM_ALIAS';
 
-  eqpMap = new Map<string, NgActiveEqpPoint>();
+  eqpInfoMap = new Map<string, NgActiveEqpInfoPoint>();
+  eqpInfoPoints: NgActiveEqpInfoPoint[];
 
-  eqpPoints: NgActiveEqpPoint[];
+  eqpCmdMap = new Map<string, NgActiveEqpInfoPoint>();
+  eqpCmdPoints: NgActiveButtonDbmCfg[];
 
   eqpLblCfg: NgActiveTextCfg;
   eqpLblText: string;
 
-  btnDbmCfg: NgActiveButtonDbmCfg;
-  btnDbmText: string;
+  eqpBtnCfg: NgActiveButtonCfg;
+  eqpBtnText: string;
 
   private dbmGetChildrenAliasesServiceSubscription: Subscription;
 
+  envsValue = '-';
   envValue = '-';
   aliasValue = '-';
   constructor(
     private translate: TranslateService
     , private settingsService: SettingsService
     , private dbmGetChildrenAliasesService: DbmGetChildrenAliasesService
+    , private environmentMappingService: EnvironmentMappingService
   ) {
     const f = 'constructor';
     console.log(this.c, f);
@@ -79,6 +84,16 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
     const f = 'ngOnInit';
     console.log(this.c, f);
+
+    {
+      const envsInfo = this.getEnvsInfo();
+      let lines = '';
+      envsInfo.forEach((value, key) => {
+        if (lines.length > 0) { lines += '\n'; }
+        lines += key + '|' + value;
+      });
+      this.envsValue = lines;
+    }
 
     {
       const dbmInfo  = this.getDbmInfo();
@@ -181,7 +196,14 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     // this.title = this.settingsService.getSetting(this.c, f, this.c, AppSettings.STR_TITLE);
   }
 
-  private getDbmInfo(env = 'M100', alias = 'STO:ENE:CBR_1'): Map<string, string> {
+  private getEnvsInfo(): Map<string, string> {
+    const envInfo = new Map<string, string>();
+    envInfo.set('M100', 'http://127.0.0.1:8990');
+    envInfo.set('SRV', 'http://127.0.0.1:8991');
+    return envInfo;
+  }
+
+  private getDbmInfo(env = 'SRV', alias = 'STO:ENE:CBR_1'): Map<string, string> {
     const dbmInfo = new Map<string, string>();
     dbmInfo.set(this.DBM_ENV, env);
     dbmInfo.set(this.DBM_ALIAS, alias);
@@ -195,10 +217,23 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     if ('envbox' === name) {
     } else if ('aliasbox' === name) {
 
-      const dbmInfo = this.getDbmInfo(this.envValue, this.aliasValue);
-      const env = dbmInfo.get(this.DBM_ENV);
-      const alias = dbmInfo.get(this.DBM_ALIAS);
-      this.dbmGetChildrenAliasesService.readData(env, alias);
+      {
+        const lines = this.envsValue.split('\n');
+        lines.forEach(element => {
+          const envs = element.split('|');
+          const env = envs[0];
+          const alias = envs[1];
+          this.environmentMappingService.setEnv(env, alias);
+        });
+      }
+
+      {
+        const dbmInfo = this.getDbmInfo(this.envValue, this.aliasValue);
+        const env = dbmInfo.get(this.DBM_ENV);
+        const alias = dbmInfo.get(this.DBM_ALIAS);
+        this.dbmGetChildrenAliasesService.readData(env, alias);
+      }
+
     }
   }
 
@@ -206,29 +241,39 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     const f = 'loadEqpInfo';
     console.log(this.c, f);
 
-    this.eqpLblCfg = this.createEqpLabel(dbmInfo.get(this.DBM_ENV), dbmInfo.get(this.DBM_ALIAS));
+    const env = dbmInfo.get(this.DBM_ENV);
+    const alias = dbmInfo.get(this.DBM_ALIAS);
+
+    // Reset
+    this.eqpInfoMap = new Map<string, NgActiveEqpInfoPoint>();
+    this.eqpInfoPoints = new Array();
+
+    this.eqpCmdMap = new Map<string, NgActiveEqpInfoPoint>();
+    this.eqpCmdPoints = new Array();
+
+    this.eqpLblCfg = this.createEqpLabel(env, alias);
     // this.eqpLblText = this.alias;
 
     const dbmUtil: DbmUtils = new DbmUtils();
-    for (let i = 0 ; i < points.length; ++i ) {
-      const eqpPoint: NgActiveEqpPoint = new NgActiveEqpPoint();
-      eqpPoint.cfg = this.createPoint(i, dbmInfo.get(this.DBM_ENV), dbmInfo.get(this.DBM_ALIAS), points[i]);
-      eqpPoint.gui = new NgActiveEqpPointGui();
-
-      const alias = dbmUtil.joinDbmAlias(
-                                        dbmInfo.get(this.DBM_ALIAS)
-                                        , points[i]);
-      console.log(this.c, f, 'alias', alias);
-      this.eqpMap.set(alias, eqpPoint);
+    for (let i = 0 ; i < points.length; ++i) {
+      console.log(this.c, f, 'i', i, 'points[i]', points[i]);
+      const point = points[i];
+      console.log(this.c, f, 'point', point);
+      const eqpAlias = dbmUtil.joinDbmAlias(alias, points[i]);
+      console.log(this.c, f, 'alias', eqpAlias);
+      if (point.startsWith(':dci')) {
+        const eqpPoint: NgActiveEqpInfoPoint = new NgActiveEqpInfoPoint();
+        eqpPoint.cfg = this.createInfoPoint(i, env, alias, points[i]);
+        eqpPoint.gui = new NgActiveEqpInfoPointGui();
+        this.eqpInfoMap.set(eqpAlias, eqpPoint);
+        this.eqpInfoPoints.push(eqpPoint);
+      } else if (point.startsWith(':dio')) {
+        const eqpPoint: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
+        this.eqpBtnCfg = this.createEqpCtrlBtn(env, alias, point);
+        this.eqpBtnText = 'Confirm';
+        this.eqpCmdPoints.push(eqpPoint);
+      }
     }
-
-    this.eqpPoints = new Array();
-    this.eqpMap.forEach((value: NgActiveEqpPoint, key: string) => {
-      this.eqpPoints.push(value);
-    });
-
-    this.btnDbmCfg = this.createEqpCtrlBtn();
-    this.btnDbmText = '-';
   }
 
   private createEqpLabel(env: string, alias: string): NgActiveTextCfg {
@@ -250,21 +295,21 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     return cfg;
   }
 
-  private createPoint(index: number, env: string, alias: string, point: string): NgActiveEqpPointCfg {
-    const f = 'createPoint';
+  private createInfoPoint(index: number, env: string, alias: string, point: string): NgActiveEqpInfoPointCfg {
+    const f = 'createLabelPoint';
     console.log(this.c, f);
 
     const aliasPoint = alias + ':' + point;
 
-    const cfg: NgActiveEqpPointCfg = new NgActiveEqpPointCfg();
-    cfg.labelCfg  = this.createEqpPointLabel(index, env, alias, point);
-    cfg.valueCfg  = this.createEqpPointValue(index, env, alias, point);
-    cfg.statusCfg = this.createEqpPointStatus(index, env, alias, point);
+    const cfg: NgActiveEqpInfoPointCfg = new NgActiveEqpInfoPointCfg();
+    cfg.labelCfg  = this.createEqpInfoPointLabel(index, env, alias, point);
+    cfg.valueCfg  = this.createEqpInfoPointValue(index, env, alias, point);
+    cfg.statusCfg = this.createEqpInfoPointStatus(index, env, alias, point);
 
     return cfg;
   }
 
-  private createEqpPointLabel(index: number, env: string, alias: string, point: string): NgActiveTextCfg {
+  private createEqpInfoPointLabel(index: number, env: string, alias: string, point: string): NgActiveTextCfg {
     const f = 'createEqpPointLabel';
     console.log(this.c, f);
 
@@ -286,7 +331,7 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     return cfg;
   }
 
-  private createEqpPointValue(index: number, env: string, alias: string, point: string): NgActiveTextCfg {
+  private createEqpInfoPointValue(index: number, env: string, alias: string, point: string): NgActiveTextCfg {
     const f = 'createEqpPointValue';
     console.log(this.c, f);
 
@@ -309,7 +354,7 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     return cfg;
   }
 
-  private createEqpPointStatus(index: number, env: string, alias: string, point: string): NgActiveBackdropCfg {
+  private createEqpInfoPointStatus(index: number, env: string, alias: string, point: string): NgActiveBackdropCfg {
     const f = 'createEqpPointStatus';
     console.log(this.c, f);
 
@@ -330,15 +375,33 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     return cfg;
    }
 
-  private createEqpCtrlBtn(): NgActiveButtonDbmCfg {
+  private createEqpCtrlBtn(env: string, alias: string, point: string): NgActiveButtonCfg {
+    const f = 'createEqpCtrlBtn';
+    console.log(this.c, f);
+    const eqpBtnDbmCfg: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
+    eqpBtnDbmCfg.env = env;
+    eqpBtnDbmCfg.alias = alias;
+    eqpBtnDbmCfg.attributes = {
+      'point': point
 
-    const btnDbmCfg: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
+      , '.label': '.label'
+      , '.hmiOrder': '.hmiOrder'
+      , '.computedMessage': '.computedMessage'
 
-    const dbmInfo: Map<string, string> = this.getDbmInfo();
-    btnDbmCfg.env = dbmInfo.get(this.DBM_ENV);
-    btnDbmCfg.alias = dbmInfo.get(this.DBM_ALIAS);
-    btnDbmCfg.attributes = [':dioECT-NISERV', ':dioECT-NISERV.label', ':dioECT-NISERV.value'];
-    return btnDbmCfg;
+      , '.valueTable(0:$,dovname)': '.valueTable(0:$,dovname)'
+      , '.valueTable(0:$,label)': '.valueTable(0:$,label)'
+      , '.valueTable(0:$,value)': '.valueTable(0:$,value)'
+
+      , '.execStatus': '.execStatus'
+
+      , '.initCondGL': '.initCondGL'
+      , '.returnCondTO': '.returnCondTO'
+    };
+
+    const eqpBtnCfg: NgActiveButtonCfg = new NgActiveButtonCfg();
+    eqpBtnCfg.dbm = eqpBtnDbmCfg;
+
+    return eqpBtnCfg;
   }
 
   updateStatus(env: string, alias: string, result: any) {
@@ -389,8 +452,8 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
       }
       console.log(this.c, f, 'alias', alias, 'label', label);
 
-      const eqp: NgActiveEqpPoint = this.eqpMap.get(alias);
-      const gui: NgActiveEqpPointGui = eqp.gui;
+      const eqp: NgActiveEqpInfoPoint = this.eqpInfoMap.get(alias);
+      const gui: NgActiveEqpInfoPointGui = eqp.gui;
       gui.statusText = label;
       // gui.statusBackdrop = css + label;
       gui.statusBackdrop = css0 + ' ' + css1 + label;

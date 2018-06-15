@@ -9,17 +9,15 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { NgActiveTextComponent } from './component/ng-active-text/ng-active-text.component';
 import { SettingsService } from './service/settings.service';
 import { HttpMultiAccessService } from './service/scadagen/access/http/multi/http-multi-access.service';
-import { DbmMultiReadAttrService } from './service/scadagen/dbm/dbm-multi-read-attr.service';
 import { HttpModule } from '@angular/http';
 import { NgActiveBackdropComponent } from './component/ng-active-backdrop/ng-active-backdrop.component';
-import { DbmPollingService } from './service/scadagen/dbm/polling/dbm-polling.service';
-import { DbmService } from './service/scadagen/dbm/dbm.service';
+import { DbmPollingService } from './service/scadagen/dbm/simple/polling/dbm-polling.service';
 import { NgActiveNumberComponent } from './component/ng-active-number/ng-active-number.component';
 import { UtilsHttpModule } from './service/scadagen/common/utils-http.module';
 import { NgActiveButtonComponent } from './component/ng-active-button/ng-active-button.component';
 import { EnvironmentMappingService } from './service/scadagen/envs/environment-mapping.service';
-import { DbmGetChildrenAliasesService } from './service/scadagen/dbm/get-children/dbm-get-children-aliases.service';
-import { DbmGetInstancesByClassNameService } from './service/scadagen/dbm/get-instance/dbm-get-instance-by-class-name.service';
+import { DbmGetChildrenAliasesService } from './service/scadagen/dbm/simple/get-children/dbm-get-children-aliases.service';
+import { DbmGetInstancesByClassNameService } from './service/scadagen/dbm/simple/get-instance/dbm-get-instance-by-class-name.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -57,8 +55,6 @@ export function createTranslateLoader(http: HttpClient) {
     }
     , HttpMultiAccessService
     , EnvironmentMappingService
-    , DbmService
-    , DbmMultiReadAttrService
     , DbmPollingService
     , DbmGetChildrenAliasesService
     , DbmGetInstancesByClassNameService

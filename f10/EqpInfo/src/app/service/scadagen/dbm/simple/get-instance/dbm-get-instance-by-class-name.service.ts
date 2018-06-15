@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { UtilsHttpModule } from '../../common/utils-http.module';
-import { AppSettings } from '../../../../app-settings';
-import { DbmSettings } from '../../../scadagen/dbm/dbm-settings';
+import { UtilsHttpModule } from '../../../common/utils-http.module';
+import { AppSettings } from '../../../../../app-settings';
+import { DbmSettings } from '../../../../scadagen/dbm/dbm-settings';
 import { GetInstancesByClassName } from './dbm-get-instance-by-class-name';
 import { Subscription } from 'rxjs/Subscription';
-import { EnvironmentMappingService } from '../../envs/environment-mapping.service';
+import { EnvironmentMappingService } from '../../../envs/environment-mapping.service';
 
 @Injectable()
 export class DbmGetInstancesByClassNameService {

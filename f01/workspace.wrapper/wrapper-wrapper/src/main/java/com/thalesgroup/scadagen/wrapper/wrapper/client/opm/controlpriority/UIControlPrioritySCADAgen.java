@@ -978,14 +978,14 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	}
 	
 	public String getIdentityFromJson(String identity, String key){
-		JSONObject tempJSON = (JSONObject) JSON.parse(identity);
+		JSONObject tempJSON = ReadJson.readJson(identity);
 		String extractedIdentity = tempJSON.get(key).toString();
 		return extractedIdentity;
 	}
 	
 	public boolean isJSONFormat (String test){
 		try {
-			JSON.parse(test);
+			ReadJson.readJson(test);
 		} catch (Exception ex){
 			return false;
 		}

@@ -983,8 +983,8 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	public String getDisplayIdentity(String valueFromDB) {
 		if (isJSONFormat(valueFromDB)){
 			JSONObject tempJSON = ReadJson.readJson(valueFromDB);
-			String extractedOperator = tempJSON.get("o").toString();
-			String extractedProfile = tempJSON.get("p").toString();
+			String extractedOperator = tempJSON.get("o").toString().replace("\"", "");
+			String extractedProfile = tempJSON.get("p").toString().replace("\"", "");
 			String identity = extractedOperator + "," + extractedProfile;
 			return identity;
 		} else {

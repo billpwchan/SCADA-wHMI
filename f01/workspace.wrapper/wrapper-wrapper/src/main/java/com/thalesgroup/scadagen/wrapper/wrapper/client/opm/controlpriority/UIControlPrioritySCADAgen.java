@@ -3,8 +3,6 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.jetty.util.ajax.JSON;
-
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
@@ -35,7 +33,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	}
 	private UIControlPrioritySCADAgen () {}
 	
-	private String identifierKey_ = "p";
+	private String identifierKey_ = "o";
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#requestReservation(java.lang.String, java.lang.String)
 	 */
@@ -323,12 +321,19 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		String function = "checkReservationLevel";
 		logger.begin(function);
 		logger.debug(function, "identity[{}]", identity);
-		String extractedIdentity;
+		String extractedIdentity = identity;
 		
-		if (isJSONFormat(identity)){
-			extractedIdentity = getIdentityFromJson(identity, identifierKey_);
-		} else{
-			extractedIdentity = identity;
+		if (identity != null && identity != ""){
+			identity.replace("\\", "");
+			logger.warn("identity after replacing:", identity);
+			if (isJSONFormat(identity)){
+				logger.warn("It's JSON format!!!");
+				extractedIdentity = getIdentityFromJson(identity, identifierKey_).replace("\"", "");
+			} else{
+				logger.warn("It's NOT JSON format!!!");
+			}
+		} else {
+			logger.warn(function, "identity is null or Empty!!");
 		}
 		
 		int ret = UIControlPriority_i.LEVEL_ERROR;
@@ -968,6 +973,9 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	public String getReservationKey() {
 		// Temporarily hard-coded
 		String identity = "{\"o\":\"" + uiOpm_i.getCurrentOperator() + "\"" + ",\"p\":\"" + uiOpm_i.getCurrentProfile() + "\"}";
+		JSONObject tempJSON = ReadJson.readJson(identity);
+		logger.warn("[getReservationKey] tempJSON is" + tempJSON.toString());
+		identity = tempJSON.toString();
 		return identity;
 	}
 	
@@ -991,6 +999,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	}
 	
 	public boolean isJSONFormat (String test){
+		
 		if (ReadJson.readJson(test) != null){
 			return true;
 		} else {

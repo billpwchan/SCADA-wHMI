@@ -967,7 +967,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	@Override
 	public String getReservationKey() {
 		// Temporarily hard-coded
-		String identity = "{o=\"" + uiOpm_i.getCurrentOperator() + "\"" + ",p=\"" + uiOpm_i.getCurrentProfile() + "\"}";
+		String identity = "{\"o\":\"" + uiOpm_i.getCurrentOperator() + "\"" + ",\"p\":\"" + uiOpm_i.getCurrentProfile() + "\"}";
 		return identity;
 	}
 	

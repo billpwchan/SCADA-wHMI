@@ -324,7 +324,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		String extractedIdentity = identity;
 		
 		if (identity != null && identity != ""){
-			identity.replace("\\", "");
+			identity = identity.replace("\\", "");
 			logger.warn("identity after replacing:", identity);
 			if (isJSONFormat(identity)){
 				logger.warn("It's JSON format!!!");

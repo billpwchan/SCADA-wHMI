@@ -972,9 +972,16 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	}
 	
 	@Override
-	public String getDisplayIdentity() {
-		String identity = uiOpm_i.getCurrentOperator() + "," + uiOpm_i.getCurrentProfile();
-		return identity;
+	public String getDisplayIdentity(String valueFromDB) {
+		if (isJSONFormat(valueFromDB)){
+			JSONObject tempJSON = ReadJson.readJson(valueFromDB);
+			String extractedOperator = tempJSON.get("o").toString();
+			String extractedProfile = tempJSON.get("p").toString();
+			String identity = extractedOperator + "," + extractedProfile;
+			return identity;
+		} else {
+			return valueFromDB;
+		}
 	}
 	
 	public String getIdentityFromJson(String identity, String key){
@@ -984,11 +991,11 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	}
 	
 	public boolean isJSONFormat (String test){
-		try {
-			ReadJson.readJson(test);
-		} catch (Exception ex){
+		if (ReadJson.readJson(test) != null){
+			return true;
+		} else {
 			return false;
 		}
-		return true;
+		
 	}
 }

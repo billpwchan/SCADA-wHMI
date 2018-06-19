@@ -269,7 +269,7 @@ public interface UIControlPriority_i {
 	 * 
 	 * @return Identity used for displaying.
 	 */
-	String getDisplayIdentity();
+	String getDisplayIdentity(String valueFromDB);
 	
 	
 	/**

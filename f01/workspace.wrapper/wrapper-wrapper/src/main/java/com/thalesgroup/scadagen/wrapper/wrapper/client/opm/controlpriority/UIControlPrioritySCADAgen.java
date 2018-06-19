@@ -3,6 +3,8 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.jetty.util.ajax.JSON;
+
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
@@ -33,6 +35,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	}
 	private UIControlPrioritySCADAgen () {}
 	
+	private String identifierKey_ = "p";
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#requestReservation(java.lang.String, java.lang.String)
 	 */
@@ -41,7 +44,10 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		String function = "requestReservation";
 		logger.begin(function);
 		
-		requestReservation(scsEnvId, dbAddress, getUsrIdentity(), callBack);
+		String reservationKey = getReservationKey();
+		// Using hard-coded value first, originally using "getUsrIdentity()"
+		
+		requestReservation(scsEnvId, dbAddress, reservationKey, callBack);
 
 		logger.end(function);
 	}
@@ -55,7 +61,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @param usrIdentity	Identity to request the reservation
 	 * @param callback		Return JSON String, JSONString Attribute "value" contain the requester (Who to request reservation)
 	 */
-	public void requestReservation(final String scsEnvId, final String dbAddress, final String usrIdentity, final UIControlPriorityCallback callBack) {
+	private void requestReservation(final String scsEnvId, final String dbAddress, final String usrIdentity, final UIControlPriorityCallback callBack) {
 		String function1 = "requestReservation";
 		logger.begin(function1);
 		
@@ -204,8 +210,11 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	public void withdrawReservation(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack) {
 		String function = "withdrawReservation";
 		logger.begin(function);
-	
-		withdrawReservation(scsEnvId, dbAddress, getUsrIdentity(), callBack);
+		
+		String reservationKey = getReservationKey();
+		// Using hard-coded value first, originally using "getUsrIdentity()"
+		
+		withdrawReservation(scsEnvId, dbAddress, reservationKey, callBack);
 		
 		logger.end(function);
 	}
@@ -310,21 +319,29 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#checkReservationLevel(java.lang.String)
 	 */
 	@Override
-	public int checkReservationLevel(final String identity) {
+	public int checkReservationLevel(String identity) {
 		String function = "checkReservationLevel";
 		logger.begin(function);
 		logger.debug(function, "identity[{}]", identity);
+		String extractedIdentity;
+		
+		if (isJSONFormat(identity)){
+			extractedIdentity = getIdentityFromJson(identity, identifierKey_);
+		} else{
+			extractedIdentity = identity;
+		}
+		
 		int ret = UIControlPriority_i.LEVEL_ERROR;
-		if ( null != identity ) {
-			if ( identity.isEmpty() ) {
+		if ( null != extractedIdentity ) {
+			if ( extractedIdentity.isEmpty() ) {
 				ret = UIControlPriority_i.LEVEL_EMPTY;
 			} else {
 				String usrIdentity = getUsrIdentity();
-				logger.debug(function, "usrIdentity[{}] identity[{}]", usrIdentity, identity);
-				if ( identity.equals(usrIdentity) ) {
+				logger.debug(function, "usrIdentity[{}] extractedIdentity[{}]", usrIdentity, extractedIdentity);
+				if ( extractedIdentity.equals(usrIdentity) ) {
 					ret = UIControlPriority_i.LEVEL_IS_ITSELF;
 				} else {
-					int levelDiff = compareLevel(usrIdentity, identity);
+					int levelDiff = compareLevel(usrIdentity, extractedIdentity);
 					logger.debug(function, "levelDiff[{}]", levelDiff);
 					switch ( levelDiff ) {
 					case -1:
@@ -948,14 +965,30 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	}
 	
 	@Override
-	public String getReservationKey(String identity) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getReservationKey() {
+		// Temporarily hard-coded
+		String identity = "{o=\"" + uiOpm_i.getCurrentOperator() + "\"" + ",p=\"" + uiOpm_i.getCurrentProfile() + "\"}";
+		return identity;
 	}
+	
 	@Override
-	public String getDisplayIdentity(String identity) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getDisplayIdentity() {
+		String identity = uiOpm_i.getCurrentOperator() + "," + uiOpm_i.getCurrentProfile();
+		return identity;
 	}
-
+	
+	public String getIdentityFromJson(String identity, String key){
+		JSONObject tempJSON = (JSONObject) JSON.parse(identity);
+		String extractedIdentity = tempJSON.get(key).toString();
+		return extractedIdentity;
+	}
+	
+	public boolean isJSONFormat (String test){
+		try {
+			JSON.parse(test);
+		} catch (Exception ex){
+			return false;
+		}
+		return true;
+	}
 }

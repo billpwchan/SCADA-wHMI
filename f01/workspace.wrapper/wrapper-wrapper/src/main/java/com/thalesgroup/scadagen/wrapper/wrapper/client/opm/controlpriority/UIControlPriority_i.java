@@ -262,14 +262,14 @@ public interface UIControlPriority_i {
 	 * 
 	 * @return Processed reservation key.
 	 */
-	String getReservationKey(String identity);
+	String getReservationKey();
 	
 	/**
 	 * Get the identity used for displaying
 	 * 
 	 * @return Identity used for displaying.
 	 */
-	String getDisplayIdentity(String identity);
+	String getDisplayIdentity();
 	
 	
 	/**

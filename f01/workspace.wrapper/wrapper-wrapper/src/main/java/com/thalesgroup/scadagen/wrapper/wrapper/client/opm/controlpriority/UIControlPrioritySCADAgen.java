@@ -946,5 +946,16 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 
 		logger.end(function);
 	}
+	
+	@Override
+	public String getReservationKey(String identity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String getDisplayIdentity(String identity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

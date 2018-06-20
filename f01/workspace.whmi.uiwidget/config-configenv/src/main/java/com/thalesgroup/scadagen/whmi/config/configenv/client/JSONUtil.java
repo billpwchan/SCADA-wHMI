@@ -24,11 +24,11 @@ public class JSONUtil {
 				Object v = keyValue.getValue();
 				if(null==k||null==v) {} 
 				else if (0 == k.length()) {}
-//				else if (v instanceof Number)  { jsonObject.put(k, new JSONNumber(((Number)v).doubleValue())); }
-				else if (v instanceof Short)   { jsonObject.put(k, new JSONNumber((Short)v)); }
-				else if (v instanceof Integer) { jsonObject.put(k, new JSONNumber((Integer)v)); }
-				else if (v instanceof Double)  { jsonObject.put(k, new JSONNumber((Double)v)); }
-				else if (v instanceof Long)    { jsonObject.put(k, new JSONNumber((Long)v)); }
+				else if (v instanceof Number)  { jsonObject.put(k, new JSONNumber(((Number)v).doubleValue())); }
+//				else if (v instanceof Short)   { jsonObject.put(k, new JSONNumber((Short)v).); }
+//				else if (v instanceof Integer) { jsonObject.put(k, new JSONNumber((Integer)v)); }
+//				else if (v instanceof Double)  { jsonObject.put(k, new JSONNumber((Double)v)); }
+//				else if (v instanceof Long)    { jsonObject.put(k, new JSONNumber((Long)v)); }
 				else if (v instanceof String)  { jsonObject.put(k, new JSONString((String)v)); }
 			}
 		}

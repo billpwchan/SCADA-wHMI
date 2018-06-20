@@ -19,21 +19,32 @@ public class ReadJson {
 
 	private static UILogger_i logger = UILoggerFactory.getInstance().getUILogger(ReadJson.class.getName());
 
-	public static JSONObject readJson(String json) {
+	public static JSONObject readJson(String jsonString) {
 		final String function = "readJson";
 		logger.begin(function);
 		JSONObject jsonObject = null;
 
-		logger.trace(function, "json[{}]", json);
+		logger.trace(function, "jsonString[{}]", jsonString);
 
-		if (json != null) {
-			if (JsonUtils.safeToEval(json)) {
-				jsonObject = JSONParser.parseStrict(json).isObject();
+		if (null != jsonString) {
+			if(jsonString.length()>0) {
+				boolean safeToEval = JsonUtils.safeToEval(jsonString);
+				if (safeToEval) {
+					try {			
+						jsonObject = JSONParser.parseStrict(jsonString).isObject();
+					} catch (NullPointerException ex) {
+						logger.warn(function, "jsonString IS NullPointerException[{}]", ex.toString());
+					} catch (IllegalArgumentException ex) {
+						logger.warn(function, "jsonString IS IllegalArgumentException[{}]", ex.toString());
+					}
+				} else {
+					logger.warn(function, "jsonString IS NOT SAFE TO EVAL");
+				}
 			} else {
-				logger.warn(function, "json IS NOT SAFE TO EVAL");
+				logger.warn(function, "jsonString IS empty");
 			}
 		} else {
-			logger.warn(function, "json IS NULL");
+			logger.warn(function, "jsonString IS NULL");
 		}
 
 		logger.end(function);

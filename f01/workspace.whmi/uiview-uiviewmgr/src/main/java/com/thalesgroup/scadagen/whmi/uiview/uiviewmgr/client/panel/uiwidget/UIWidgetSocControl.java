@@ -19,12 +19,6 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionBus;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.DataGridEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocAutoManuControl_i.AutoManuEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocControl_i.CtlBrcStatus;
@@ -33,11 +27,17 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocGrcPoint_i.GrcExecStatus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocGrcPoint_i.GrcPointEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.Equipment_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionBus;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.MultiReadResult;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsRTDBAccess;
@@ -45,7 +45,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.GrcMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.GrcMgr_i.GrcExecMode;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Observer;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpmSCADAgen;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriorityFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i;
 
 public class UIWidgetSocControl extends UIWidget_i {
 	
@@ -151,6 +152,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 					final String function = "ReserveVerifier setReadResult";
 					logger.begin(function);
 					logger.debug(function, "current Operator is:[{}]", currentOperator);
+					logger.debug(function, "values:[{}]", values);
 					logger.debug(function, "clientKey [{}] check reserve are set", key);
 					boolean hasFailed = false;
 					
@@ -161,11 +163,15 @@ public class UIWidgetSocControl extends UIWidget_i {
 							if (values[j].equals("null")) {
 								unquotedStr = "";
 							} else {
-								unquotedStr = values[j].replaceAll("\"", "");
+								unquotedStr = values[j].replaceAll("\\\\", "");
+								unquotedStr = unquotedStr.replaceAll("\"", "");
 							}
 						}
+						
 						// Check whether reservation was set by current operator
-						if (unquotedStr == currentOperator) {
+						String unquotedOperator = currentOperator.replaceAll("\"", "");
+						logger.debug(function, "compare operator[{}] with reservedID[{}]", unquotedStr, unquotedOperator);
+						if (unquotedStr.equals(unquotedOperator)) {
 							// Current equipment's reservation is set by current operator, check next equipment.
 							continue;
 						} else {
@@ -545,11 +551,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 		
 		logger.info(function, "messageDatetimefmt[{}]", messageDatetimefmt);
 		
-		if (reserveIdentifier == "OperatorName"){
-			currentOperator = UIOpmSCADAgen.getInstance().getCurrentOperator();
-		} else {
-			currentOperator = UIOpmSCADAgen.getInstance().getCurrentProfile();
-		}
+		UIControlPriority_i uiControlPriority_i = UIControlPriorityFactory.getInstance().get("UIControlPrioritySCADAgen");
+		currentOperator = uiControlPriority_i.getReservationKey();
 		logger.info(function, "currentOperator[{}]", currentOperator);
 		
 		uiWidgetGeneric = new UIWidgetGeneric();

@@ -280,22 +280,29 @@ public class SocCardDetail implements IDataGridDataSource {
 
 		for (int i = 0; i < values.length && i < addresses.length; i++) {
 			logger.debug(function, "address=[{}]  value=[{}]", addresses[i], values[i]);
+			String unquotedStr = "";
+			if (values[i] != null) {
+				unquotedStr = values[i].replaceAll("\"", "");
+				unquotedStr = unquotedStr.replaceAll("\\\\", "");
+			}
+			logger.debug(function, "update value using unquotedStr[{}]", unquotedStr);
 
 			Set<Cell> s = addressToCellMap.get(addresses[i]);
 			if (s != null && !s.isEmpty()) {
-				for (Cell c : s) {
-					String unquotedStr = "";
-					if (values[i] != null) {
-						unquotedStr = values[i].replaceAll("\"", "");
-					}
-					logger.debug(function, "update value using unquotedStr[{}]", unquotedStr);
-
+				for (Cell c : s) {					
 					Equipment_i contact = list.get(c.row);
 					String label = strDataGridColumnsLabels[c.column];
 					String type = strDataGridColumnsTypes[c.column];
 
 					if (type.equalsIgnoreCase("String")) {
-						contact.setStringValue(label, unquotedStr);
+						if (intDataGridColumnsTranslations != null && intDataGridColumnsTranslations.length > c.column
+								&& intDataGridColumnsTranslations[c.column] == 1) {
+							String translationKey = "&" + className + strDataGridColumnsLabels[c.column].replace(' ', '_')
+								+ "_" + unquotedStr;
+							contact.setStringValue(label, Translation.getWording(translationKey));
+						} else {
+							contact.setStringValue(label, unquotedStr);
+						}
 					} else if (type.equalsIgnoreCase("Number")) {
 						if (unquotedStr.isEmpty()) {
 							contact.setNumberValue(label, 0);

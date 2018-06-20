@@ -33,6 +33,9 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	}
 	private UIControlPrioritySCADAgen () {}
 	
+	// TODO: currently hard-coded. Support "o" for operator name (username), or "p" for profile.
+	private String identifierKey_ = "o";
+	
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#requestReservation(java.lang.String, java.lang.String)
 	 */
@@ -40,8 +43,11 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	public void requestReservation(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack) {
 		String function = "requestReservation";
 		logger.begin(function);
+
+		// Using hard-coded value first, originally using "getUsrIdentity()"
+		String reservationKey = getReservationKey();
 		
-		requestReservation(scsEnvId, dbAddress, getUsrIdentity(), callBack);
+		requestReservation(scsEnvId, dbAddress, reservationKey, callBack);
 
 		logger.end(function);
 	}
@@ -55,7 +61,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @param usrIdentity	Identity to request the reservation
 	 * @param callback		Return JSON String, JSONString Attribute "value" contain the requester (Who to request reservation)
 	 */
-	public void requestReservation(final String scsEnvId, final String dbAddress, final String usrIdentity, final UIControlPriorityCallback callBack) {
+	private void requestReservation(final String scsEnvId, final String dbAddress, final String usrIdentity, final UIControlPriorityCallback callBack) {
 		String function1 = "requestReservation";
 		logger.begin(function1);
 		
@@ -204,8 +210,11 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	public void withdrawReservation(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack) {
 		String function = "withdrawReservation";
 		logger.begin(function);
-	
-		withdrawReservation(scsEnvId, dbAddress, getUsrIdentity(), callBack);
+
+		// Using hard-coded value first, originally using "getUsrIdentity()"
+		String reservationKey = getReservationKey();
+		
+		withdrawReservation(scsEnvId, dbAddress, reservationKey, callBack);
 		
 		logger.end(function);
 	}
@@ -285,6 +294,9 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 							value = value.substring(1, value.length()-1);
 						}
 					}
+					
+					// Remove escape chars in returning JSON (returning value might contain backslash).
+					value = value.replace("\\", "");
 					logger.debug(function2, "AF value[{}]", value);
 					
 					if ( null != callBack ) {
@@ -310,21 +322,36 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#checkReservationLevel(java.lang.String)
 	 */
 	@Override
-	public int checkReservationLevel(final String identity) {
+	public int checkReservationLevel(String identity) {
 		String function = "checkReservationLevel";
 		logger.begin(function);
 		logger.debug(function, "identity[{}]", identity);
+		String extractedIdentity = identity;
+		
+		if (identity != null && identity != ""){
+			identity = identity.replace("\\", "");
+			logger.debug(function, "identity after replacing: ", identity);
+			if (isJSONFormat(identity)){
+				logger.debug(function, "It's JSON format!!!");
+				extractedIdentity = getIdentityFromJson(identity, identifierKey_).replace("\"", "");
+			} else{
+				logger.debug(function, "It's NOT JSON format!!!");
+			}
+		} else {
+			logger.debug(function, "identity is null or Empty!!");
+		}
+		
 		int ret = UIControlPriority_i.LEVEL_ERROR;
-		if ( null != identity ) {
-			if ( identity.isEmpty() ) {
+		if ( null != extractedIdentity ) {
+			if ( extractedIdentity.isEmpty() ) {
 				ret = UIControlPriority_i.LEVEL_EMPTY;
 			} else {
 				String usrIdentity = getUsrIdentity();
-				logger.debug(function, "usrIdentity[{}] identity[{}]", usrIdentity, identity);
-				if ( identity.equals(usrIdentity) ) {
+				logger.debug(function, "usrIdentity[{}] extractedIdentity[{}]", usrIdentity, extractedIdentity);
+				if ( extractedIdentity.equals(usrIdentity) ) {
 					ret = UIControlPriority_i.LEVEL_IS_ITSELF;
 				} else {
-					int levelDiff = compareLevel(usrIdentity, identity);
+					int levelDiff = compareLevel(usrIdentity, extractedIdentity);
 					logger.debug(function, "levelDiff[{}]", levelDiff);
 					switch ( levelDiff ) {
 					case -1:
@@ -946,5 +973,44 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 
 		logger.end(function);
 	}
-
+	
+	@Override
+	public String getReservationKey() {
+		// TODO: Temporarily hard-coded, need to generalize.
+		String identity = "{\"o\":\"" + uiOpm_i.getCurrentOperator() + "\"" + ",\"p\":\"" + uiOpm_i.getCurrentProfile() + "\"}";
+		JSONObject tempJSON = ReadJson.readJson(identity);
+		logger.debug("getReservationKey tempJSON is [" + tempJSON.toString() + "]");
+		identity = tempJSON.toString();
+		return identity;
+	}
+	
+	@Override
+	public String getDisplayIdentity(String valueFromModel) {
+		if (isJSONFormat(valueFromModel)){
+			JSONObject tempJSON = ReadJson.readJson(valueFromModel);
+			// TODO: currently hard-coded, need to replace with const.
+			String extractedOperator = tempJSON.get("o").toString().replace("\"", "");
+			String extractedProfile = tempJSON.get("p").toString().replace("\"", "");
+			String identity = extractedOperator + "," + extractedProfile;
+			return identity;
+		} else {
+			return valueFromModel;
+		}
+	}
+	
+	public String getIdentityFromJson(String identity, String key){
+		JSONObject tempJSON = ReadJson.readJson(identity);
+		String extractedIdentity = tempJSON.get(key).toString();
+		return extractedIdentity;
+	}
+	
+	public boolean isJSONFormat (String test){
+		
+		if (ReadJson.readJson(test) != null){
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
 }

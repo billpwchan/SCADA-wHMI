@@ -231,7 +231,7 @@ public interface UIControlPriority_i {
 	 * @param identity	Target identity to compare
 	 * @Return 			Return the current reserved status, ref to AVAILABILITY_* code.
 	 */
-	int checkReservationLevel(final String identity);
+	int checkReservationLevel(String identity);
 	
 	/**
 	 * Get the Current Reservation Availability
@@ -256,6 +256,21 @@ public interface UIControlPriority_i {
 	 * @return Current User Identity
 	 */
 	String getUsrIdentity();
+	
+	/**
+	 * Get processed reservation key to send to DB.
+	 * 
+	 * @return Processed reservation key.
+	 */
+	String getReservationKey();
+	
+	/**
+	 * Get the identity used for displaying
+	 * 
+	 * @return Identity used for displaying.
+	 */
+	String getDisplayIdentity(String valueFromDB);
+	
 	
 	/**
 	 * Init the UIControlPriority instance

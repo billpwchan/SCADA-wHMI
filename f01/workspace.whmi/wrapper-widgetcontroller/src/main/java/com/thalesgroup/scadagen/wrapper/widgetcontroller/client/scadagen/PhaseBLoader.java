@@ -37,8 +37,17 @@ public class PhaseBLoader implements Loader_i{
 	public final static String strUINetworkSCADAgenKey						= "UINetworkSCADAgenKey";
 	public final static String strUINetworkSCADAgen							= "UINetworkSCADAgen";
 	
-	public final static String strUIControlPrioritySCADAgenKey				= "UIControlPrioritySCADAgenKey";
-	public final static String strUIControlPrioritySCADAgen					= "UIControlPrioritySCADAgen";
+//	public final static String strUIControlPrioritySCADAgenKey				= "UIControlPrioritySCADAgenKey";
+//	public final static String strUIControlPrioritySCADAgen					= "UIControlPrioritySCADAgen";
+//	
+//	public final static String strUIControlPriorityReservationKey			= "UIControlPriorityReservationKey";
+//	public final static String strUIControlPriorityReservation				= "UIControlPriorityReservation";
+//	
+//	public final static String strUIControlPriorityPTWKey				    = "UIControlPriorityPTWKey";
+//	public final static String strUIControlPriorityPTW					    = "UIControlPriorityPTW";
+//	
+//	public final static String strUIHomSCADAgenKey			                = "UIHomSCADAgenKey";
+//	public final static String strUIHomSCADAgen             				= "UIHomSCADAgen";
 	
 	public final static String strUIAccessSCADAgenKey						= "UIAccessSCADAgenKey";
 	public final static String strUIAccessSCADAgen							= "UIAccessSCADAgen";
@@ -64,7 +73,11 @@ public class PhaseBLoader implements Loader_i{
 	@Override
 	public void iniDefaultParameterName() {
 		parameters.put(strUIOpmSCADAgenKey, strUIOpmSCADAgen);
-		parameters.put(strUIControlPrioritySCADAgenKey, strUIControlPrioritySCADAgen);
+		
+//		parameters.put(strUIControlPrioritySCADAgenKey, strUIControlPrioritySCADAgen);
+//		parameters.put(strUIControlPriorityReservationKey, strUIControlPriorityReservation);
+//		parameters.put(strUIControlPriorityPTWKey, strUIControlPriorityPTW);
+		
 		parameters.put(strUIAccessSCADAgenKey, strUIAccessSCADAgen);
 		parameters.put(strUIPageSCADAgenKey, strUIPageSCADAgen);
 		parameters.put(strUINetworkSCADAgenKey, strUINetworkSCADAgen);
@@ -162,16 +175,26 @@ public class PhaseBLoader implements Loader_i{
 					InitControlPriority.getInstance().initFactory();
 					try {
 				        // Init the SCADAgen Control Priority API
-				        InitControlPriority.getInstance().initControlPriority(parameters.get(strUIControlPrioritySCADAgenKey));
+						String [] keys = InitControlPriority.getInstance().getKeys();
+						for(String key: keys) {
+							logger.debug(function, "InitControlPriority key[{}]", key);
+							InitControlPriority.getInstance().initControlPriority(key);
+						}
+//				        InitControlPriority.getInstance().initControlPriority(parameters.get(strUIControlPrioritySCADAgenKey));
 					} catch (Exception ex) {
 						logger.warn(function, "InitControlPriority init Exception:"+ex.toString());
 					}
 					
-					// Loading SCADAgen Handover Management Factory
+					// Loading SCADAgen Hand Over Management Factory
 					InitHom.getInstance().initFactory();
 					try {
-				        // Init the SCADAgen Control Priority API
-				        InitHom.getInstance().initHom(parameters.get(strUIControlPrioritySCADAgenKey));
+				        // Init the SCADAgen HOM API
+						String [] keys = InitHom.getInstance().getKeys();
+						for(String key: keys) {
+							logger.debug(function, "InitHom key[{}]", key);
+							InitHom.getInstance().initHom(key);
+						}
+//				        InitHom.getInstance().initHom(strUIHomSCADAgenKey);
 					} catch (Exception ex) {
 						logger.warn(function, "InitHom init Exception:"+ex.toString());
 					}

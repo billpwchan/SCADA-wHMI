@@ -330,7 +330,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		
 		if (identity != null && identity != ""){
 			identity = identity.replace("\\", "");
-			logger.debug(function, "identity after replacing: ", identity);
+			logger.debug(function, "identity after replacing: [{}]", identity);
 			if (isJSONFormat(identity)){
 				logger.debug(function, "It's JSON format!!!");
 				extractedIdentity = getIdentityFromJson(identity, identifierKey_).replace("\"", "");
@@ -375,7 +375,6 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		return ret;
 	}
 	
-
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#checkReservationAvailability(java.lang.String)
 	 */
@@ -696,9 +695,11 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		} 
 		else if ( 0 == UIControlPrioritySCADAgen_i.UsrIdentity.Profile.toString().compareTo(usrIdentityType) ) {
 			usrIdentity = uiOpm_i.getCurrentProfile();
+			identifierKey_ = "p";
 		} 
 		else if ( 0 == UIControlPrioritySCADAgen_i.UsrIdentity.Operator.toString().compareTo(usrIdentityType) ) {
 			usrIdentity = uiOpm_i.getCurrentOperator();
+			identifierKey_ = "o";
 		}
 		else {
 			logger.warn(function, "usrIdentityType[{}] IS UNKNOW", usrIdentityType);

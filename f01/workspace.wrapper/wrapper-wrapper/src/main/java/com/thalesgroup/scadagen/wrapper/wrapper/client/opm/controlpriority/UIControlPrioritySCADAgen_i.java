@@ -22,15 +22,18 @@ public interface UIControlPrioritySCADAgen_i {
 	public final String UIOPM_NAME		= "UIOpmSCADAgen";
 	public final String DB_WRITE_NAME	= "DatabaseWritingSingleton";
 	public final String DB_READ_NAME  	= "DatabaseMultiReading";
-	
+
 	/*
 	 * Configuration Folder Name File Name
 	 */
 	public final static String CACHE_NAME_DICTIONARYIES   = "UIJson";
+
 	public final static String FILE_NAME_PREFIX_ATTRIBUTE = "controlpriority";
 	public final static String FILE_NAME_APPEND_ATTRIBUTE = "";
+
 	public final static String FILE_NAME_PREFIX_LEVEL     = "controlpriority";
 	public final static String FILE_NAME_APPEND_LEVEL     = "level";
+
 	public final static String FILE_NAME_EXTENSION        = ".json";
 	
 	/**

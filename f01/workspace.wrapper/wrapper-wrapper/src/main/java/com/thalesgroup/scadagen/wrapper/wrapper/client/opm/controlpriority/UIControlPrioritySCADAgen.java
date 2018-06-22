@@ -33,8 +33,8 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		return instanceList.get(key);
 	}
 	
-	private String cfgAttributeName = "controlpriority.json";
-	private String cfgLevelName = "controlprioritylevel.json";
+	private String cfgAttributeName = null;
+	private String cfgLevelName = null;
 	private UIControlPrioritySCADAgen (String key) {
 		final String f = "UIControlPrioritySCADAgen";
 		logger.debug(f+logPrefix, "key[{}]", key);

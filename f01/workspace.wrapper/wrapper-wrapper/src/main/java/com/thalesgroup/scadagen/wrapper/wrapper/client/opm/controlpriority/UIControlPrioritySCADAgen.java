@@ -1,12 +1,15 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
+import com.google.gwt.json.client.JSONValue;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.JSONUtil;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJsonFile;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -57,6 +60,9 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	
 	// TODO: currently hard-coded. Support "o" for operator name (username), or "p" for profile.
 	private String identifierKey_ = "o";
+	
+	private final String IDENTIFY_OPERATOR_KEY = "o";
+	private final String IDENTIFY_PROFILE_KEY = "p";
 	
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#requestReservation(java.lang.String, java.lang.String)
@@ -353,7 +359,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		if (identity != null && identity != ""){
 			identity = identity.replace("\\", "");
 			logger.debug(f+logPrefix, "identity after replacing: [{}]", identity);
-			if (isJSONFormat(identity)){
+			if (null!=isJSONFormat(identity)){
 				logger.debug(f+logPrefix, "It's JSON format!!!");
 				extractedIdentity = getIdentityFromJson(identity, identifierKey_).replace("\"", "");
 			} else{
@@ -979,8 +985,8 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#init()
 	 */
 	public void init() {
-		String function = "getResrvReserveID";
-		logger.begin(function);
+		String f = "getResrvReserveID";
+		logger.begin(f+logPrefix);
 		
 		getDatabaseWrite(getDatabaseWriteName());
 		
@@ -992,48 +998,73 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		// Loading the UsrIdentity
 //		setUsrIdentity(getUsrIdentity(getUIOpm(getUIOpmName()), getUsrIdentityType()));
 		
-		logger.debug(function, "usrIdentity[{}]", getUsrIdentity()); 
+		logger.debug(f+logPrefix, "usrIdentity[{}]", getUsrIdentity()); 
 
-		logger.end(function);
+		logger.end(f+logPrefix);
 	}
 	
 	@Override
 	public String getReservationKey() {
-		// TODO: Temporarily hard-coded, need to generalize.
-		String identity = "{\"o\":\"" + uiOpm_i.getCurrentOperator() + "\"" + ",\"p\":\"" + uiOpm_i.getCurrentProfile() + "\"}";
-		JSONObject tempJSON = ReadJson.readJson(identity);
-		logger.debug("getReservationKey tempJSON is [" + tempJSON.toString() + "]");
-		identity = tempJSON.toString();
-		return identity;
+		String f = "getReservationKey";
+		logger.begin(f+logPrefix);
+		String ret = null;
+		Map<String, Object> map = new LinkedHashMap<String, Object>();
+		map.put(IDENTIFY_OPERATOR_KEY, uiOpm_i.getCurrentOperator());
+		map.put(IDENTIFY_PROFILE_KEY, uiOpm_i.getCurrentProfile());
+		ret = JSONUtil.convertMapToJSONObject(map).toString();
+		logger.debug(f+logPrefix, "ret[{}]", ret); 
+		logger.end(f+logPrefix);
+		return ret;
 	}
 	
 	@Override
 	public String getDisplayIdentity(String valueFromModel) {
-		if (isJSONFormat(valueFromModel)){
-			JSONObject tempJSON = ReadJson.readJson(valueFromModel);
-			// TODO: currently hard-coded, need to replace with const.
-			String extractedOperator = tempJSON.get("o").toString().replace("\"", "");
-			String extractedProfile = tempJSON.get("p").toString().replace("\"", "");
-			String identity = extractedOperator + "," + extractedProfile;
-			return identity;
-		} else {
-			return valueFromModel;
+		String f = "getDisplayIdentity";
+		logger.begin(f+logPrefix);
+		logger.debug(f+logPrefix, "valueFromModel[{}]", valueFromModel);
+		String ret = valueFromModel;
+		JSONObject jsonObject = isJSONFormat(valueFromModel);
+		if (null!=jsonObject){
+			String extractedOperator = ReadJson.readString(jsonObject, IDENTIFY_OPERATOR_KEY, "");
+			extractedOperator = extractedOperator.replace("\"", "");
+			String extractedProfile = ReadJson.readString(jsonObject, IDENTIFY_PROFILE_KEY, "");
+			extractedProfile = extractedProfile.replace("\"", "");
+			ret = extractedOperator + "," + extractedProfile;
 		}
+		logger.debug(f+logPrefix, "ret[{}]", ret); 
+		logger.end(f+logPrefix);
+		return ret;
 	}
 	
 	public String getIdentityFromJson(String identity, String key){
-		JSONObject tempJSON = ReadJson.readJson(identity);
-		String extractedIdentity = tempJSON.get(key).toString();
-		return extractedIdentity;
+		String f = "getIdentityFromJson";
+		logger.begin(f+logPrefix);
+		logger.debug(f+logPrefix, "identity[{}] key[{}]", identity, key);
+		String ret = identity;
+		JSONObject jsonObject = ReadJson.readJson(identity);
+		if(null!=jsonObject) {
+			JSONValue jsonValue = jsonObject.get(key);
+			if(null!=jsonValue) {
+				ret = jsonValue.toString();
+			}
+		}
+		logger.debug(f+logPrefix, "ret[{}]", ret); 
+		logger.end(f+logPrefix);
+		return ret;
 	}
 	
-	public boolean isJSONFormat (String test){
-		
-		if (ReadJson.readJson(test) != null){
-			return true;
-		} else {
-			return false;
+	public JSONObject isJSONFormat(String test){
+		String f = "isJSONFormat";
+		logger.begin(f+logPrefix);
+		logger.debug(f+logPrefix, "test[{}]", test);
+		JSONObject ret = null;
+		JSONObject tmpStr = ReadJson.readJson(test);
+		if (tmpStr != null){
+			ret = tmpStr;
 		}
+		logger.debug(f+logPrefix, "ret[{}]", ret); 
+		logger.end(f+logPrefix);
+		return ret;
 		
 	}
 }

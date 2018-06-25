@@ -39,12 +39,12 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
   eqpLblText: string;
 
   eqpCmdDioPoints: NgActiveButtonDbmCfg[];
-  eqpBtnCfgDio: NgActiveButtonCfg;
-  eqpBtnTextDio: string;
+  eqpBtnCfgDio: NgActiveButtonCfg[];
+  eqpBtnTextDio: string[];
 
   eqpCmdAioPoints: NgActiveButtonDbmCfg[];
-  eqpBtnCfgAio: NgActiveButtonCfg;
-  eqpBtnTextAio: string;
+  eqpBtnCfgAio: NgActiveButtonCfg[];
+  eqpBtnTextAio: string[];
 
   private dbmGetChildrenAliasesServiceSubscription: Subscription;
 
@@ -214,7 +214,7 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     return dbmInfo;
   }
 
-  onEnter(name: string, value: string) {
+  onEnter(event, name: string, value: string) {
     const f = 'onEnter';
     console.log(this.c, f);
     console.log(this.c, f, 'name', name, 'value', value);
@@ -254,7 +254,12 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
 
     this.eqpCmdMap = new Map<string, NgActiveEqpInfoPoint>();
     this.eqpCmdDioPoints = new Array();
+    this.eqpBtnCfgDio = new Array();
+    this.eqpBtnTextDio = new Array();
+
     this.eqpCmdAioPoints = new Array();
+    this.eqpBtnCfgAio = new Array();
+    this.eqpBtnTextAio = new Array();
 
     this.eqpLblCfg = this.createEqpLabel(env, alias);
     // this.eqpLblText = this.alias;
@@ -274,13 +279,13 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
         this.eqpInfoPoints.push(eqpPoint);
       } else if (point.startsWith(':dio')) {
         const eqpPointDio: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
-        this.eqpBtnCfgDio = this.createEqpCtrlBtnDio(env, alias, point);
-        this.eqpBtnTextDio = 'Confirm';
+        this.eqpBtnCfgDio.push(this.createEqpCtrlBtnDio(env, alias, point));
+        this.eqpBtnTextDio.push('Confirm');
         this.eqpCmdDioPoints.push(eqpPointDio);
       } else if (point.startsWith(':aio')) {
         const eqpPointAio: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
-        this.eqpBtnCfgAio = this.createEqpCtrlBtnAio(env, alias, point);
-        this.eqpBtnTextAio = 'Confirm';
+        this.eqpBtnCfgAio.push(this.createEqpCtrlBtnAio(env, alias, point));
+        this.eqpBtnTextAio.push('Confirm');
         this.eqpCmdAioPoints.push(eqpPointAio);
       }
     }

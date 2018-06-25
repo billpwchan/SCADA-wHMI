@@ -1,6 +1,6 @@
 <div [ngClass]="groupClass">
     <div [ngClass]="labelClass">{{labelText}}</div>
-    <input [(ngModel)]="inputValue" placeholder="inputValue">
+    <input #valuebox [(ngModel)]="inputValue" (keyup)="onKey($event, 'valuebox', valuebox.value)" placeholder="inputValue">
     <button type="button" 
       [ngClass]="buttonClass"
       (click)="onButton($event)"

@@ -5,7 +5,7 @@
   </div>
   <div>
     <input [(ngModel)]="envValue" placeholder="Env">
-    <input #aliasbox (keyup.enter)="onEnter('aliasbox', aliasbox.value)" [(ngModel)]="aliasValue" placeholder="Address">
+    <input #aliasbox [(ngModel)]="aliasValue" (keyup.enter)="onEnter($event, 'aliasbox', aliasbox.value)" placeholder="Address">
   </div>
   <span class='eqp-label-start'>Equipment </span>
   <app-ng-active-text 
@@ -49,15 +49,15 @@
   <div *ngFor="let eqpPoint of eqpCmdDioPoints; let i = index;">
     <app-ng-active-button-dio
       (notifyParent)="getNotification('ButtonDio', $event)" 
-      [setCfg]="eqpBtnCfgDio" 
-      [setText]="eqpBtnTextDio">
+      [setCfg]="eqpBtnCfgDio[i]" 
+      [setText]="eqpBtnTextDio[i]">
     </app-ng-active-button-dio>
   </div>
   <div *ngFor="let eqpPoint of eqpCmdAioPoints; let i = index;">
       <app-ng-active-button-aio
         (notifyParent)="getNotification('ButtonAio', $event)" 
-        [setCfg]="eqpBtnCfgAio" 
-        [setText]="eqpBtnTextAio">
+        [setCfg]="eqpBtnCfgAio[i]" 
+        [setText]="eqpBtnTextAio[i]">
       </app-ng-active-button-aio>
     </div>
 

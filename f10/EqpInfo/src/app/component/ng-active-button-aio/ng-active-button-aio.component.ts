@@ -166,6 +166,17 @@ console.log(this.c, f, 'result', result);
     }
   }
 
+  onKey(event, name: string, value: string) {
+    const f = 'onKey';
+    console.log(this.c, f);
+    // console.log(this.c, f, 'this.inputValue', this.inputValue);
+    console.log(this.c, f, 'name', name, 'value', value, 'this.inputValue', this.inputValue);
+    if ('inputbox' === name) {
+      // console.log(this.c, f, 'event.target.value', event.target.value);
+      this.updateButton();
+    }
+  }
+
   updateLabel(attributes) {
     const f = 'updateLabel';
     console.log(this.c, f);
@@ -265,18 +276,36 @@ console.log(this.c, f, 'this.inputValue', this.inputValue);
   updateButton() {
     const f = 'updateButton';
     console.log(this.c, f);
-      const dynamicData = this.source.getDynamicData();
-console.log(this.c, f, 'dynamicData', dynamicData);
 
-    let value = 0;
-    if (null != dynamicData) {
-      const pointLvAttributeName = this.source.getPointLvAddress();
-      console.log(this.c, f, 'pointLvAttributeName', pointLvAttributeName);
-      const alias = pointLvAttributeName['.execStatus'];
-      console.log(this.c, f, 'alias', alias);
-      value = dynamicData[alias];
+    let unlocked = false;
+
+    let isValidFloat = false;
+    if (null != this.inputValue) {
+      if (this.inputValue.length > 0) {
+        const float: number = Number.parseFloat(this.inputValue);
+        console.log(this.c, f, 'float', float);
+        console.log(this.c, f, 'isNaN( float )', isNaN( float ));
+        if (!isNaN( float )) {
+          isValidFloat = true;
+        }
+      }
     }
-    this.buttonDisabled = (value < 3 ? true : false);
+    console.log(this.c, f, 'isValidFloat', isValidFloat);
+    if (isValidFloat) {
+      const dynamicData = this.source.getDynamicData();
+      console.log(this.c, f, 'dynamicData', dynamicData);
+      let value = 0;
+      if (null != dynamicData) {
+        const pointLvAttributeName = this.source.getPointLvAddress();
+        console.log(this.c, f, 'pointLvAttributeName', pointLvAttributeName);
+        const alias = pointLvAttributeName['.execStatus'];
+        console.log(this.c, f, 'alias', alias);
+        value = dynamicData[alias];
+      }
+      unlocked = (value >= 3);
+    }
+
+    this.buttonDisabled = !unlocked;
   }
 
 }

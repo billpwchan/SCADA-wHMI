@@ -16,7 +16,6 @@
   <span class='eqp-label-end'></span>
   <div *ngFor="let eqpPoint of eqpInfoPoints; let i = index;">
     <div class="flex-container">
-      <!--
       <span class='eqp-point-label-start'>Point label:</span>
       <div>
         <app-ng-active-text 
@@ -45,15 +44,21 @@
         </app-ng-active-backdrop>
       </div>
       <span class='eqp-point-status-end'></span>
-      -->
     </div>
   </div>
-  <div *ngFor="let eqpPoint of eqpCmdPoints; let i = index;">
-    <app-ng-active-button 
-      (notifyParent)="getNotification('Button', $event)" 
-      [setCfg]="eqpBtnCfg" 
-      [setText]="eqpBtnText">
-    </app-ng-active-button>
+  <div *ngFor="let eqpPoint of eqpCmdDioPoints; let i = index;">
+    <app-ng-active-button-dio
+      (notifyParent)="getNotification('ButtonDio', $event)" 
+      [setCfg]="eqpBtnCfgDio" 
+      [setText]="eqpBtnTextDio">
+    </app-ng-active-button-dio>
   </div>
+  <div *ngFor="let eqpPoint of eqpCmdAioPoints; let i = index;">
+      <app-ng-active-button-aio
+        (notifyParent)="getNotification('ButtonAio', $event)" 
+        [setCfg]="eqpBtnCfgAio" 
+        [setText]="eqpBtnTextAio">
+      </app-ng-active-button-aio>
+    </div>
 
 </div>

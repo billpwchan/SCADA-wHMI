@@ -34,13 +34,17 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
   eqpInfoPoints: NgActiveEqpInfoPoint[];
 
   eqpCmdMap = new Map<string, NgActiveEqpInfoPoint>();
-  eqpCmdPoints: NgActiveButtonDbmCfg[];
 
   eqpLblCfg: NgActiveTextCfg;
   eqpLblText: string;
 
-  eqpBtnCfg: NgActiveButtonCfg;
-  eqpBtnText: string;
+  eqpCmdDioPoints: NgActiveButtonDbmCfg[];
+  eqpBtnCfgDio: NgActiveButtonCfg;
+  eqpBtnTextDio: string;
+
+  eqpCmdAioPoints: NgActiveButtonDbmCfg[];
+  eqpBtnCfgAio: NgActiveButtonCfg;
+  eqpBtnTextAio: string;
 
   private dbmGetChildrenAliasesServiceSubscription: Subscription;
 
@@ -203,7 +207,7 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     return envInfo;
   }
 
-  private getDbmInfo(env = 'SRV', alias = 'STO:ENE:CBR_1'): Map<string, string> {
+  private getDbmInfo(env = 'SRV', alias = ':STO:TVF:TVF_1'): Map<string, string> {
     const dbmInfo = new Map<string, string>();
     dbmInfo.set(this.DBM_ENV, env);
     dbmInfo.set(this.DBM_ALIAS, alias);
@@ -249,7 +253,8 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     this.eqpInfoPoints = new Array();
 
     this.eqpCmdMap = new Map<string, NgActiveEqpInfoPoint>();
-    this.eqpCmdPoints = new Array();
+    this.eqpCmdDioPoints = new Array();
+    this.eqpCmdAioPoints = new Array();
 
     this.eqpLblCfg = this.createEqpLabel(env, alias);
     // this.eqpLblText = this.alias;
@@ -268,10 +273,15 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
         this.eqpInfoMap.set(eqpAlias, eqpPoint);
         this.eqpInfoPoints.push(eqpPoint);
       } else if (point.startsWith(':dio')) {
-        const eqpPoint: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
-        this.eqpBtnCfg = this.createEqpCtrlBtn(env, alias, point);
-        this.eqpBtnText = 'Confirm';
-        this.eqpCmdPoints.push(eqpPoint);
+        const eqpPointDio: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
+        this.eqpBtnCfgDio = this.createEqpCtrlBtnDio(env, alias, point);
+        this.eqpBtnTextDio = 'Confirm';
+        this.eqpCmdDioPoints.push(eqpPointDio);
+      } else if (point.startsWith(':aio')) {
+        const eqpPointAio: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
+        this.eqpBtnCfgAio = this.createEqpCtrlBtnAio(env, alias, point);
+        this.eqpBtnTextAio = 'Confirm';
+        this.eqpCmdAioPoints.push(eqpPointAio);
       }
     }
   }
@@ -375,8 +385,8 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     return cfg;
    }
 
-  private createEqpCtrlBtn(env: string, alias: string, point: string): NgActiveButtonCfg {
-    const f = 'createEqpCtrlBtn';
+  private createEqpCtrlBtnDio(env: string, alias: string, point: string): NgActiveButtonCfg {
+    const f = 'createEqpCtrlBtnDio';
     console.log(this.c, f);
     const eqpBtnDbmCfg: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
     eqpBtnDbmCfg.env = env;
@@ -391,6 +401,31 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
       , '.valueTable(0:$,dovname)': '.valueTable(0:$,dovname)'
       , '.valueTable(0:$,label)': '.valueTable(0:$,label)'
       , '.valueTable(0:$,value)': '.valueTable(0:$,value)'
+
+      , '.execStatus': '.execStatus'
+
+      , '.initCondGL': '.initCondGL'
+      , '.returnCondTO': '.returnCondTO'
+    };
+
+    const eqpBtnCfg: NgActiveButtonCfg = new NgActiveButtonCfg();
+    eqpBtnCfg.dbm = eqpBtnDbmCfg;
+
+    return eqpBtnCfg;
+  }
+
+  private createEqpCtrlBtnAio(env: string, alias: string, point: string): NgActiveButtonCfg {
+    const f = 'createEqpCtrlBtnAio';
+    console.log(this.c, f);
+    const eqpBtnDbmCfg: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
+    eqpBtnDbmCfg.env = env;
+    eqpBtnDbmCfg.alias = alias;
+    eqpBtnDbmCfg.attributes = {
+      'point': point
+
+      , '.label': '.label'
+      , '.hmiOrder': '.hmiOrder'
+      , '.computedMessage': '.computedMessage'
 
       , '.execStatus': '.execStatus'
 

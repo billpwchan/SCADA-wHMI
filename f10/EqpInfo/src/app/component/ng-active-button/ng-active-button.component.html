@@ -1,19 +1,8 @@
-<div [ngClass]="groupClass">
-  <div [ngClass]="labelClass">{{labelText}}</div>
-  <select [ngClass]="selectClass" 
-    [ngModel]="selectedValue" 
-    (ngModelChange)="onSelectValue($event)">
-    <option *ngFor="let s of selectValues" [ngValue]="s">{{s.translation}}</option>
-  </select>
-  <button type="button" 
-    [ngClass]="buttonClass"
-    (click)="onButton($event)"
-    [disabled]="buttonDisabled"
-    >{{buttonText}}</button>
-  <span [ngClass]="messageClass">{{messageText}}</span>
-  <div>
-    <div [ngClass]="alertClass">
-      <strong>{{alertTitle}}</strong> {{alertText}}
-    </div>
-  </div>
+<div>
+  <app-ng-active-button-dio>
+  </app-ng-active-button-dio>
+</div>
+<div>
+  <app-ng-active-button-aio>
+  </app-ng-active-button-aio>
 </div>

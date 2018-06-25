@@ -18,6 +18,8 @@ import { NgActiveButtonComponent } from './component/ng-active-button/ng-active-
 import { EnvironmentMappingService } from './service/scadagen/envs/environment-mapping.service';
 import { DbmGetChildrenAliasesService } from './service/scadagen/dbm/simple/get-children/dbm-get-children-aliases.service';
 import { DbmGetInstancesByClassNameService } from './service/scadagen/dbm/simple/get-instance/dbm-get-instance-by-class-name.service';
+import { NgActiveButtonDioComponent } from './component/ng-active-button-dio/ng-active-button-dio.component';
+import { NgActiveButtonAioComponent } from './component/ng-active-button-aio/ng-active-button-aio.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -29,7 +31,9 @@ export function createTranslateLoader(http: HttpClient) {
     NgActiveTextComponent,
     NgActiveBackdropComponent,
     NgActiveNumberComponent,
-    NgActiveButtonComponent
+    NgActiveButtonComponent,
+    NgActiveButtonDioComponent,
+    NgActiveButtonAioComponent
   ],
   imports: [
     BrowserModule

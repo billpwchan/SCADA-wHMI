@@ -10,8 +10,8 @@ export class DioGui {
   setCfg(cfg) {
     this.cfg = cfg;
   }
-  getDioValueTableWithTranslate(valueTable: any): any {
-    const f = 'getDioValueTableWithTranslate';
+  getValueTableWithTranslate(valueTable: any): any {
+    const f = 'getValueTableWithTranslate';
     const selectValues = [];
     const labels = valueTable['label'];
     console.log(this.c, f, 'labels.length', labels.length);

@@ -4,9 +4,13 @@ export class CtlSettings {
 
   public static readonly STR_FIRST_MESSAGE = 'firstMessage';
 
-  public static readonly STR_URL_SEND_INT_COMMAND = '/scs/service/CtlComponent/SendIntCommand?names=';
-  public static readonly STR_URL_SEND_FLOAT_COMMAND = '/scs/service/DbmComponent/SendFloatCommand?';
-  public static readonly STR_URL_SEND_STRING_COMMAND = '/scs/service/DbmComponent/SendStringCommand?';
+  public static readonly STR_URL_CTL_COMPONENT = '/scs/service/CtlComponent';
+
+  public static readonly STR_ATTR_NAMES = '?names=';
+
+  public static readonly STR_URL_SEND_INT_CMD = CtlSettings.STR_URL_CTL_COMPONENT + '/SendIntCommand' + CtlSettings.STR_ATTR_NAMES;
+  public static readonly STR_URL_SEND_FLOAT_CMD = CtlSettings.STR_URL_CTL_COMPONENT + '/SendFloatCommand' + CtlSettings.STR_ATTR_NAMES;
+  public static readonly STR_URL_SEND_STRING_CMD = CtlSettings.STR_URL_CTL_COMPONENT + '/SendStringCommand' + CtlSettings.STR_ATTR_NAMES;
 
   public static readonly STR_ATTR_VALUE = '&value=';
 

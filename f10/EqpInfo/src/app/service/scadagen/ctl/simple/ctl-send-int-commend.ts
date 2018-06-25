@@ -9,10 +9,10 @@ export class CtlSendIntCommand {
   readonly c = 'CtlSendIntCommand';
 
   // Observable source
-  private ctlSendIntCommandSource = new BehaviorSubject<string>(null);
+  private source = new BehaviorSubject<string>(null);
 
   // Observable dbmPollingItem stream
-  ctlSendIntCommandItem = this.ctlSendIntCommandSource.asObservable();
+  item = this.source.asObservable();
 
   private cfg;
 
@@ -27,15 +27,15 @@ export class CtlSendIntCommand {
     const f = 'dbmChanged';
     console.log(this.c, f);
     console.log(this.c, f, obj);
-    this.ctlSendIntCommandSource.next(obj);
+    this.source.next(obj);
   }
 
   setCfg(cfg) {
     this.cfg = cfg;
   }
 
-  sendIntCommand(key: string, env: string, names: string[], value: number): void {
-    const f = 'sendIntCommand';
+  sendCommand(key: string, env: string, names: string[], value: number): void {
+    const f = 'sendCommand';
     console.log(this.c, f);
 
     console.log(this.c, f, 'key', key);
@@ -51,7 +51,7 @@ export class CtlSendIntCommand {
     const connAddr = this.environmentMappingService.getEnv(env);
     console.log(this.c, f, 'connAddr', connAddr, 'env', env);
 
-    const urlSendCmd = connAddr + CtlSettings.STR_URL_SEND_INT_COMMAND + JSON.stringify(urls) + CtlSettings.STR_ATTR_VALUE + value;
+    const urlSendCmd = connAddr + CtlSettings.STR_URL_SEND_INT_CMD + JSON.stringify(urls) + CtlSettings.STR_ATTR_VALUE + value;
     console.log(this.c, f, 'urlSendCmd', urlSendCmd);
 
     let url = urlSendCmd;

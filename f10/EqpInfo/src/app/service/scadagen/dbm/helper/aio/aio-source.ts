@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { TranslateService } from '@ngx-translate/core';
-import { DioSourceUtil } from './dio-source-util';
+import { AioSourceUtil } from './aio-source-util';
 import { DbmRead } from '../../simple/read/dbm-read';
 import { DbmPolling } from '../../simple/polling/dbm-polling';
 import { NgActiveButtonDbmCfg } from '../../../../../component/ng-active-button/ng-active-button-settings';
@@ -10,9 +10,9 @@ import { UtilsHttpModule } from '../../../common/utils-http.module';
 import { EnvironmentMappingService } from '../../../envs/environment-mapping.service';
 import { DbmPollingCfg } from '../../simple/polling/dbm-polling-settings';
 
-export class DioSource {
+export class AioSource {
 
-  readonly c = 'DioSource';
+  readonly c = 'AioSource';
 
   // Observable source
   private source = new BehaviorSubject<any>(null);
@@ -32,7 +32,7 @@ export class DioSource {
   private staticData;
   private dynamicData;
 
-  private sourceUtil: DioSourceUtil;
+  private sourceUtil: AioSourceUtil;
 
   // Service command
   sourceChanged(result: any) {
@@ -49,7 +49,7 @@ export class DioSource {
   ) {
     const f = 'constructor';
 
-    this.sourceUtil = new DioSourceUtil();
+    this.sourceUtil = new AioSourceUtil();
 
     this.dbmRead = new DbmRead(httpClient, utilsHttp, environmentMappingService);
 
@@ -78,15 +78,13 @@ export class DioSource {
 console.log(this.c, f, 'result', result);
       const attributes = this.convertPointLvAttribute(result, this.dbmCfg);
 console.log(this.c, f, 'attributes', attributes);
-      const valueTable = this.convertPointLvValueTable(result, this.dbmCfg);
-console.log(this.c, f, 'valueTable', valueTable);
-      const addr = this.convertPointLvAddress(valueTable);
+      const addr = this.convertPointLvAddress();
       this.connectInternalLv(addr);
 
       const data = [];
       data['source'] = 'DbmRead';
       data['result'] = result;
-      data['valueTable'] = valueTable;
+//      data['valueTable'] = valueTable;
       data['attributes'] = attributes;
       this.setStaticData(result);
       this.sourceChanged(data);
@@ -134,9 +132,6 @@ console.log(this.c, f, 'valueTable', valueTable);
     const attributes2 = [
         '.label'
       , '.computedMessage'
-      , '.valueTable(0:$,dovname)'
-      , '.valueTable(0:$,label)'
-      , '.valueTable(0:$,value)'
     ];
     const point = dbmCfg.attributes['point'];
     attributes2.forEach(element => {
@@ -165,36 +160,12 @@ console.log(this.c, f, 'alias', alias);
     return ret;
   }
 
-  convertPointLvValueTable(result: any, dbm: NgActiveButtonDbmCfg): any {
-    const f = 'convertPointLvValueTable';
-
-    const valueTable = [];
-    valueTable['name']  = this.getPointLvValueTableColumn(result, dbm, '.valueTable(0:$,dovname)');
-    valueTable['label'] = this.getPointLvValueTableColumn(result, dbm, '.valueTable(0:$,label)');
-    valueTable['value'] = this.getPointLvValueTableColumn(result, dbm, '.valueTable(0:$,value)');
-
-    return valueTable;
-  }
-
-  getPointLvValueTableColumn(result, dbm, attribute): any {
-    const f = 'getPointLvValueTableColumn';
-    console.log(this.c, f);
-    const ret: string[] = [];
-    const values = this.sourceUtil.getPointLvAttributeValue(result, dbm, attribute);
-    console.log(this.c, f, 'values', values);
-    values.forEach(element => {
-        ret.push(element);
-    });
-    return ret;
-  }
-
-  getPointLvAddress(selectValues): any {
+  getPointLvAddress(): any {
     const f = 'getPointLvAddress';
     console.log(this.c, f);
     const ret = {};
     const point = this.dbmCfg.attributes['point'];
 
-console.log(this.c, f, 'selectValues', selectValues);
     const attributes1 = ['.execStatus'];
     attributes1.forEach(element => {
       const alias = this.dbmCfg.alias + point + element;
@@ -234,29 +205,15 @@ console.log(this.c, f, 'ret', ret);
     return ret;
   }
 
-  convertPointLvAddress(selectValues): string[] {
+  convertPointLvAddress(): string[] {
     const f = 'convertPointLvAddress';
     console.log(this.c, f);
     const addr = [];
-    const pointLvAddress = this.getPointLvAddress(selectValues);
+    const pointLvAddress = this.getPointLvAddress();
     {
       const keys = Object.keys(pointLvAddress);
       keys.forEach(element => {
         const value = pointLvAddress[element];
-        if (Array.isArray(value)) {
-          value.forEach(element2 => {
-            addr.push(element2);
-          });
-        } else {
-          addr.push(value);
-        }
-      });
-    }
-    {
-      const internalLvAddress = this.getInternalLvAddress(selectValues);
-      const keys = Object.keys(internalLvAddress);
-      keys.forEach(element => {
-        const value = internalLvAddress[element];
         if (Array.isArray(value)) {
           value.forEach(element2 => {
             addr.push(element2);
@@ -277,26 +234,6 @@ console.log(this.c, f, 'dbAddr', dbAddr);
     const key = dbAddr.join().trim();
     // Dbm Read
     this.dbmPolling.subscribe(key, this.dbmCfg.env, dbAddr);
-  }
-
-  getPointLvValue() {
-    const f = 'getPointLvValue';
-    console.log(this.c, f);
-    const result = this.getStaticData();
-    const valueTable = this.convertPointLvValueTable(result, this.dbmCfg);
-    console.log(this.c, f, 'valueTable', valueTable);
-    const addr = this.getPointLvAddress(valueTable);
-    return addr;
-  }
-
-  getInternalLvValue() {
-    const f = 'getInternalLvValue';
-    console.log(this.c, f);
-    const result = this.getStaticData();
-    const valueTable = this.convertPointLvValueTable(result, this.dbmCfg);
-    console.log(this.c, f, 'valueTable', valueTable);
-    const addr = this.getInternalLvAddress(valueTable);
-    return addr;
   }
 
   setStaticData(staticData): void { this.staticData = staticData; }

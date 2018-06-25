@@ -36,17 +36,60 @@ export class NgActiveButtonComponent implements OnInit, OnDestroy {
   }
 
   btnCfg;
+
+  isDio = false;
+  eqpBtnCfgDio;
+  eqpBtnTextDio;
+  eqpCmdDioPoints;
+
+  isAio = false;
+  eqpBtnCfgAio;
+  eqpBtnTextAio;
+  eqpCmdAioPoints;
+
+  button;
+
   @Input()
   set setButton(cfg: any) {
     this.btnCfg = cfg;
-  }
-  @Output()
-  get getButton(): any {
+
     const env = this.btnCfg.env;
     const alias = this.btnCfg.alias;
     const point = this.btnCfg.point;
-    return this.createEqpCtrlBtn(env, alias, point);
+
+    this.button = {};
+    this.button['env'] = env;
+    this.button['alias'] = alias;
+    this. button['point'] = point;
+
+    if (point.startsWith(':dio')) {
+
+      this.isDio = true;
+
+      const eqpPointDio: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
+      this.eqpBtnCfgDio = this.createEqpCtrlBtnDio(env, alias, point);
+      this.eqpBtnTextDio = 'Confirm';
+      this.eqpCmdDioPoints = eqpPointDio;
+
+      this.button['btnCfg'] = this.eqpBtnCfgDio;
+
+      this.getButton.emit(this.button);
+    } else if (point.startsWith(':aio')) {
+
+      this.isAio = true;
+
+      const eqpPointAio: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
+      this.eqpBtnCfgAio = this.createEqpCtrlBtnAio(env, alias, point);
+      this.eqpBtnTextAio = 'Confirm';
+      this.eqpCmdAioPoints = eqpPointAio;
+
+      this.button['btnCfg'] = this.eqpBtnCfgAio;
+
+      this.getButton.emit(this.button);
+    }
+
   }
+  @Output() getButton: EventEmitter<any> = new EventEmitter();
 
   @Output() notifyParent: EventEmitter<any> = new EventEmitter();
 
@@ -82,8 +125,20 @@ export class NgActiveButtonComponent implements OnInit, OnDestroy {
     console.log(this.c, f);
   }
 
-  private createEqpCtrlBtn(env: string, alias: string, point: string): NgActiveButtonCfg {
-    const f = 'createEqpCtrlBtn';
+  getNotification(name: string, event: any): void {
+    const f = 'getNotification';
+    // Do something with the notification (evt) sent by the child!
+    console.log(this.c, f, 'name', name, 'event', event);
+    // const result = event[0];
+    // console.log(this.c, f, 'name', name, 'result', result);
+
+    const result = event;
+    // result = event;
+    this.notifyParent.emit(result);
+  }
+
+  private createEqpCtrlBtnDio(env: string, alias: string, point: string): NgActiveButtonCfg {
+    const f = 'createEqpCtrlBtnDio';
     console.log(this.c, f);
     const eqpBtnDbmCfg: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
     eqpBtnDbmCfg.env = env;
@@ -98,6 +153,31 @@ export class NgActiveButtonComponent implements OnInit, OnDestroy {
       , '.valueTable(0:$,dovname)': '.valueTable(0:$,dovname)'
       , '.valueTable(0:$,label)': '.valueTable(0:$,label)'
       , '.valueTable(0:$,value)': '.valueTable(0:$,value)'
+
+      , '.execStatus': '.execStatus'
+
+      , '.initCondGL': '.initCondGL'
+      , '.returnCondTO': '.returnCondTO'
+    };
+
+    const eqpBtnCfg: NgActiveButtonCfg = new NgActiveButtonCfg();
+    eqpBtnCfg.dbm = eqpBtnDbmCfg;
+
+    return eqpBtnCfg;
+  }
+
+  private createEqpCtrlBtnAio(env: string, alias: string, point: string): NgActiveButtonCfg {
+    const f = 'createEqpCtrlBtnAio';
+    console.log(this.c, f);
+    const eqpBtnDbmCfg: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
+    eqpBtnDbmCfg.env = env;
+    eqpBtnDbmCfg.alias = alias;
+    eqpBtnDbmCfg.attributes = {
+      'point': point
+
+      , '.label': '.label'
+      , '.hmiOrder': '.hmiOrder'
+      , '.computedMessage': '.computedMessage'
 
       , '.execStatus': '.execStatus'
 

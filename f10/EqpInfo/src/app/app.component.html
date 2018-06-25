@@ -46,6 +46,17 @@
       <span class='eqp-point-status-end'></span>
     </div>
   </div>
+
+  <div *ngFor="let eqpPoint of eqpCmdPoints; let i = index;">
+    <app-ng-active-button
+      (notifyParent)="getNotification('Button', $event)" 
+      [setButton]="eqpPoint"
+      (getButton)="getButton('Button', $event)"
+      >
+    </app-ng-active-button>
+  </div>
+
+  <!--
   <div *ngFor="let eqpPoint of eqpCmdDioPoints; let i = index;">
     <app-ng-active-button-dio
       (notifyParent)="getNotification('ButtonDio', $event)" 
@@ -54,11 +65,12 @@
     </app-ng-active-button-dio>
   </div>
   <div *ngFor="let eqpPoint of eqpCmdAioPoints; let i = index;">
-      <app-ng-active-button-aio
-        (notifyParent)="getNotification('ButtonAio', $event)" 
-        [setCfg]="eqpBtnCfgAio[i]" 
-        [setText]="eqpBtnTextAio[i]">
-      </app-ng-active-button-aio>
-    </div>
+    <app-ng-active-button-aio
+      (notifyParent)="getNotification('ButtonAio', $event)" 
+      [setCfg]="eqpBtnCfgAio[i]" 
+      [setText]="eqpBtnTextAio[i]">
+    </app-ng-active-button-aio>
+  </div>
+  -->
 
 </div>

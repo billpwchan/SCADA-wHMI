@@ -1,14 +1,16 @@
 <div [ngClass]="groupClass">
-    <div [ngClass]="labelClass">{{labelText}}</div>
-    <input #valuebox [(ngModel)]="inputValue" (keyup)="onKey($event, 'valuebox', valuebox.value)" placeholder="inputValue">
-    <button type="button" 
-      [ngClass]="buttonClass"
-      (click)="onButton($event)"
-      [disabled]="buttonDisabled"
-      >{{buttonText}}</button>
-    <span [ngClass]="messageClass">{{messageText}}</span>
-    <div [ngClass]="alertClass">
-      <strong>{{alertTitle}}</strong> {{alertText}}
-    </div>
+  <div [ngClass]="labelClass">{{labelText}}</div>
+  <input #valuebox [(ngModel)]="inputValue" (keyup)="onKey($event, 'valuebox', valuebox.value)" placeholder="inputValue">
+  <button type="button" 
+    [ngClass]="buttonClass"
+    (click)="onButton($event)"
+    [disabled]="buttonDisabled"
+    >{{buttonText}}</button>
+  <span [ngClass]="messageClass">{{messageText}}</span>
+  <!--
+  <div [ngClass]="alertClass">
+    <strong>{{alertTitle}}</strong> {{alertText}}
   </div>
+  -->
+</div>
   

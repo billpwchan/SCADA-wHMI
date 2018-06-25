@@ -1,8 +1,14 @@
-<div>
-  <app-ng-active-button-dio>
+<div *ngIf="isDio">
+  <app-ng-active-button-dio
+    (notifyParent)="getNotification('ButtonDio', $event)" 
+    [setCfg]="eqpBtnCfgDio" 
+    [setText]="eqpBtnTextDio">
   </app-ng-active-button-dio>
 </div>
-<div>
-  <app-ng-active-button-aio>
+<div *ngIf="isAio">
+  <app-ng-active-button-aio
+    (notifyParent)="getNotification('ButtonAio', $event)" 
+    [setCfg]="eqpBtnCfgAio" 
+    [setText]="eqpBtnTextAio">
   </app-ng-active-button-aio>
 </div>

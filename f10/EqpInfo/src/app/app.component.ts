@@ -38,13 +38,15 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
   eqpLblCfg: NgActiveTextCfg;
   eqpLblText: string;
 
-  eqpCmdDioPoints: NgActiveButtonDbmCfg[];
-  eqpBtnCfgDio: NgActiveButtonCfg[];
-  eqpBtnTextDio: string[];
+  // eqpCmdDioPoints: NgActiveButtonDbmCfg[];
+  // eqpBtnCfgDio: NgActiveButtonCfg[];
+  // eqpBtnTextDio: string[];
 
-  eqpCmdAioPoints: NgActiveButtonDbmCfg[];
-  eqpBtnCfgAio: NgActiveButtonCfg[];
-  eqpBtnTextAio: string[];
+  // eqpCmdAioPoints: NgActiveButtonDbmCfg[];
+  // eqpBtnCfgAio: NgActiveButtonCfg[];
+  // eqpBtnTextAio: string[];
+
+  eqpCmdPoints;
 
   private dbmGetChildrenAliasesServiceSubscription: Subscription;
 
@@ -172,6 +174,18 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
+  getButton(name: string, event: any): void {
+    const f = 'getButton';
+    // Do something with the notification (evt) sent by the child!
+    console.log(this.c, f, 'name', name, 'event', event);
+    const result = event[0];
+    console.log(this.c, f, 'name', name, 'result', result);
+
+    if (name === 'Button') {
+      // this.updateStatus(result.env, result.alias, result);
+    }
+  }
+
   private getPreferedLanguage(): string {
     const f = 'getPreferedLanguage';
     const setting = this.settingsService.getSettings();
@@ -252,14 +266,16 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     this.eqpInfoMap = new Map<string, NgActiveEqpInfoPoint>();
     this.eqpInfoPoints = new Array();
 
-    this.eqpCmdMap = new Map<string, NgActiveEqpInfoPoint>();
-    this.eqpCmdDioPoints = new Array();
-    this.eqpBtnCfgDio = new Array();
-    this.eqpBtnTextDio = new Array();
+    this.eqpCmdPoints = [];
 
-    this.eqpCmdAioPoints = new Array();
-    this.eqpBtnCfgAio = new Array();
-    this.eqpBtnTextAio = new Array();
+    this.eqpCmdMap = new Map<string, NgActiveEqpInfoPoint>();
+    // this.eqpCmdDioPoints = new Array();
+    // this.eqpBtnCfgDio = new Array();
+    // this.eqpBtnTextDio = new Array();
+
+    // this.eqpCmdAioPoints = new Array();
+    // this.eqpBtnCfgAio = new Array();
+    // this.eqpBtnTextAio = new Array();
 
     this.eqpLblCfg = this.createEqpLabel(env, alias);
     // this.eqpLblText = this.alias;
@@ -278,15 +294,29 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
         this.eqpInfoMap.set(eqpAlias, eqpPoint);
         this.eqpInfoPoints.push(eqpPoint);
       } else if (point.startsWith(':dio')) {
-        const eqpPointDio: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
-        this.eqpBtnCfgDio.push(this.createEqpCtrlBtnDio(env, alias, point));
-        this.eqpBtnTextDio.push('Confirm');
-        this.eqpCmdDioPoints.push(eqpPointDio);
+
+        const dio = {};
+        dio['env'] = env;
+        dio['alias'] = alias;
+        dio['point'] = point;
+        this.eqpCmdPoints.push(dio);
+
+        // const eqpPointDio: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
+        // this.eqpBtnCfgDio.push(this.createEqpCtrlBtnDio(env, alias, point));
+        // this.eqpBtnTextDio.push('Confirm');
+        // this.eqpCmdDioPoints.push(eqpPointDio);
       } else if (point.startsWith(':aio')) {
-        const eqpPointAio: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
-        this.eqpBtnCfgAio.push(this.createEqpCtrlBtnAio(env, alias, point));
-        this.eqpBtnTextAio.push('Confirm');
-        this.eqpCmdAioPoints.push(eqpPointAio);
+
+        const aio = {};
+        aio['env'] = env;
+        aio['alias'] = alias;
+        aio['point'] = point;
+        this.eqpCmdPoints.push(aio);
+
+        // const eqpPointAio: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
+        // this.eqpBtnCfgAio.push(this.createEqpCtrlBtnAio(env, alias, point));
+        // this.eqpBtnTextAio.push('Confirm');
+        // this.eqpCmdAioPoints.push(eqpPointAio);
       }
     }
   }
@@ -390,59 +420,59 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
     return cfg;
    }
 
-  private createEqpCtrlBtnDio(env: string, alias: string, point: string): NgActiveButtonCfg {
-    const f = 'createEqpCtrlBtnDio';
-    console.log(this.c, f);
-    const eqpBtnDbmCfg: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
-    eqpBtnDbmCfg.env = env;
-    eqpBtnDbmCfg.alias = alias;
-    eqpBtnDbmCfg.attributes = {
-      'point': point
+  // private createEqpCtrlBtnDio(env: string, alias: string, point: string): NgActiveButtonCfg {
+  //   const f = 'createEqpCtrlBtnDio';
+  //   console.log(this.c, f);
+  //   const eqpBtnDbmCfg: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
+  //   eqpBtnDbmCfg.env = env;
+  //   eqpBtnDbmCfg.alias = alias;
+  //   eqpBtnDbmCfg.attributes = {
+  //     'point': point
 
-      , '.label': '.label'
-      , '.hmiOrder': '.hmiOrder'
-      , '.computedMessage': '.computedMessage'
+  //     , '.label': '.label'
+  //     , '.hmiOrder': '.hmiOrder'
+  //     , '.computedMessage': '.computedMessage'
 
-      , '.valueTable(0:$,dovname)': '.valueTable(0:$,dovname)'
-      , '.valueTable(0:$,label)': '.valueTable(0:$,label)'
-      , '.valueTable(0:$,value)': '.valueTable(0:$,value)'
+  //     , '.valueTable(0:$,dovname)': '.valueTable(0:$,dovname)'
+  //     , '.valueTable(0:$,label)': '.valueTable(0:$,label)'
+  //     , '.valueTable(0:$,value)': '.valueTable(0:$,value)'
 
-      , '.execStatus': '.execStatus'
+  //     , '.execStatus': '.execStatus'
 
-      , '.initCondGL': '.initCondGL'
-      , '.returnCondTO': '.returnCondTO'
-    };
+  //     , '.initCondGL': '.initCondGL'
+  //     , '.returnCondTO': '.returnCondTO'
+  //   };
 
-    const eqpBtnCfg: NgActiveButtonCfg = new NgActiveButtonCfg();
-    eqpBtnCfg.dbm = eqpBtnDbmCfg;
+  //   const eqpBtnCfg: NgActiveButtonCfg = new NgActiveButtonCfg();
+  //   eqpBtnCfg.dbm = eqpBtnDbmCfg;
 
-    return eqpBtnCfg;
-  }
+  //   return eqpBtnCfg;
+  // }
 
-  private createEqpCtrlBtnAio(env: string, alias: string, point: string): NgActiveButtonCfg {
-    const f = 'createEqpCtrlBtnAio';
-    console.log(this.c, f);
-    const eqpBtnDbmCfg: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
-    eqpBtnDbmCfg.env = env;
-    eqpBtnDbmCfg.alias = alias;
-    eqpBtnDbmCfg.attributes = {
-      'point': point
+  // private createEqpCtrlBtnAio(env: string, alias: string, point: string): NgActiveButtonCfg {
+  //   const f = 'createEqpCtrlBtnAio';
+  //   console.log(this.c, f);
+  //   const eqpBtnDbmCfg: NgActiveButtonDbmCfg = new NgActiveButtonDbmCfg();
+  //   eqpBtnDbmCfg.env = env;
+  //   eqpBtnDbmCfg.alias = alias;
+  //   eqpBtnDbmCfg.attributes = {
+  //     'point': point
 
-      , '.label': '.label'
-      , '.hmiOrder': '.hmiOrder'
-      , '.computedMessage': '.computedMessage'
+  //     , '.label': '.label'
+  //     , '.hmiOrder': '.hmiOrder'
+  //     , '.computedMessage': '.computedMessage'
 
-      , '.execStatus': '.execStatus'
+  //     , '.execStatus': '.execStatus'
 
-      , '.initCondGL': '.initCondGL'
-      , '.returnCondTO': '.returnCondTO'
-    };
+  //     , '.initCondGL': '.initCondGL'
+  //     , '.returnCondTO': '.returnCondTO'
+  //   };
 
-    const eqpBtnCfg: NgActiveButtonCfg = new NgActiveButtonCfg();
-    eqpBtnCfg.dbm = eqpBtnDbmCfg;
+  //   const eqpBtnCfg: NgActiveButtonCfg = new NgActiveButtonCfg();
+  //   eqpBtnCfg.dbm = eqpBtnDbmCfg;
 
-    return eqpBtnCfg;
-  }
+  //   return eqpBtnCfg;
+  // }
 
   updateStatus(env: string, alias: string, result: any) {
     const f = 'updateStatus';

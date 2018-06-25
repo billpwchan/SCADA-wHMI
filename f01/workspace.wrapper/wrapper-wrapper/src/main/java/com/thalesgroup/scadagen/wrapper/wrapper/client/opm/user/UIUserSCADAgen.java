@@ -70,9 +70,9 @@ public class UIUserSCADAgen implements UIUser_i {
 		String function = "getCurrentProfile";
 		logger.begin(function);
 		String profile = null;
-		if ( null == profileNames ) {
+//		if ( null == profileNames ) {
 			getCurrentProfiles();
-		}
+//		}
 		if ( null != profileNames && profileNames.length > 0 ) {
 			profile = profileNames[0];
 		}
@@ -112,7 +112,7 @@ public class UIUserSCADAgen implements UIUser_i {
 		String function = "getCurrentProfiles";
 		logger.begin(function);
 		
-		if ( null == profileNames ) {
+//		if ( null == profileNames ) {
 			List<String> roleIds = null;
 			Map<String, RoleDto> roles = ConfigProvider.getInstance().getOperatorOpmInfo().getOperator().getRoleId();
 			if ( null != roles ) {
@@ -131,7 +131,7 @@ public class UIUserSCADAgen implements UIUser_i {
 			} else {
 				logger.warn(function, "roleId IS NULL");
 			}
-		}
+//		}
 		
 		logger.debug(function, "profileNames[{}]", profileNames);
 		logger.end(function);

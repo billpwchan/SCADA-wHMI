@@ -30,6 +30,7 @@ public interface UIWidgetSocControl_i {
 		, MaxReserveRetry("MaxReserveRetry")
 		
 		, MessageDatetimeFormat("MessageDatetimeFormat")
+		, UIControlPriorityResAPI("UIControlPriorityResAPI")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

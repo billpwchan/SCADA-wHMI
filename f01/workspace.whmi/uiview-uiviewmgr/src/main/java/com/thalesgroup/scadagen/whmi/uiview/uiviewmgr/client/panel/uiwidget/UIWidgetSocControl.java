@@ -513,6 +513,10 @@ public class UIWidgetSocControl extends UIWidget_i {
 			unreservedValueStr		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.UnreservedValueStr.toString(), strHeader);
 			
 			uiControlPriorityResAPI = dictionariesCache.getStringValue(optsXMLFile, ParameterName.UIControlPriorityResAPI.toString(), strHeader);
+			if (uiControlPriorityResAPI == null || uiControlPriorityResAPI.isEmpty()) {
+				logger.warn(function, "config uiControlPriorityResAPI is null or emtpry. Use default UIControlPriorityReservation");
+				uiControlPriorityResAPI = "UIControlPriorityReservation";
+			}
 			try
 			{
 				maxReserveRetry		= Integer.parseInt(dictionariesCache.getStringValue(optsXMLFile, ParameterName.MaxReserveRetry.toString(), strHeader));
@@ -556,14 +560,6 @@ public class UIWidgetSocControl extends UIWidget_i {
 		logger.info(function, "maxReserveRetry[{}]", maxReserveRetry);
 		
 		logger.info(function, "messageDatetimefmt[{}]", messageDatetimefmt);
-		
-		if (uiControlPriorityResAPI == null || uiControlPriorityResAPI.isEmpty()) {
-			logger.warn(function, "config uiControlPriorityResAPI is null or emtpry. Use default UIControlPriorityReservation");
-			uiControlPriority = UIControlPriorityFactory.getInstance().get("UIControlPriorityReservation");
-		} else {
-			uiControlPriority = UIControlPriorityFactory.getInstance().get(uiControlPriorityResAPI);
-		}
-		logger.debug(function, "uiControlPriorityResAPI [{}]", uiControlPriorityResAPI);
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
@@ -1625,10 +1621,6 @@ public class UIWidgetSocControl extends UIWidget_i {
 		String resKey = "";
 
 		uiControlPriority = UIControlPriorityFactory.getInstance().get(uiControlPriorityResAPI);
-
-		if (uiControlPriority == null) {
-			uiControlPriority = UIControlPriorityFactory.getInstance().get("UIControlPriorityReservation");
-		}
 		if (uiControlPriority != null) {
 			resKey = uiControlPriority.getReservationKey();
 		}

@@ -3,13 +3,13 @@ import { NgActiveBackdropSettings } from './ng-active-backdrop-settings';
 import { NgActiveBackdropCfg, NgActiveBackdropClassCfg, NgActiveBackdropDbmCfg } from './ng-active-backdrop-settings';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { SettingsService } from '../../service/settings.service';
-import { DbmMultiReadAttrService } from '../../service/scadagen/dbm/dbm-multi-read-attr.service';
-import { DbmPollingService } from '../../service/scadagen/dbm/polling/dbm-polling.service';
+import { DbmPollingService } from '../../service/scadagen/dbm/simple/polling/dbm-polling.service';
 import { Subscription } from 'rxjs/Subscription';
 import { HttpClient } from '@angular/common/http';
-import { DbmPollingCfg } from '../../service/scadagen/dbm/polling/dbm-polling-settings';
-import { DbmPolling } from '../../service/scadagen/dbm/polling/dbm-polling';
+import { DbmPollingCfg } from '../../service/scadagen/dbm/simple/polling/dbm-polling-settings';
+import { DbmPolling } from '../../service/scadagen/dbm/simple/polling/dbm-polling';
 import { UtilsHttpModule } from '../../service/scadagen/common/utils-http.module';
+import { EnvironmentMappingService } from '../../service/scadagen/envs/environment-mapping.service';
 
 @Component({
   selector: 'app-ng-active-backdrop',
@@ -78,6 +78,7 @@ export class NgActiveBackdropComponent implements OnInit, OnDestroy {
     , private settingsService: SettingsService
     , private httpClient: HttpClient
     , private utilsHttp: UtilsHttpModule
+    , private environmentMappingService: EnvironmentMappingService
     // , private dbmMultiReadAttrService: DbmMultiReadAttrService
     // , private dbmPollingService: DbmPollingService
   ) {
@@ -88,10 +89,9 @@ export class NgActiveBackdropComponent implements OnInit, OnDestroy {
       this.loadTranslations();
     });
 
-    this.dbmPolling = new DbmPolling(httpClient, utilsHttp);
+    this.dbmPolling = new DbmPolling(httpClient, utilsHttp, environmentMappingService);
     const dbmPollingCfg = new DbmPollingCfg();
     dbmPollingCfg.interval = 4000;
-    dbmPollingCfg.envs = {'M100': 'http://127.0.0.1:8990'};
     this.dbmPolling.setSettings(dbmPollingCfg);
   }
 

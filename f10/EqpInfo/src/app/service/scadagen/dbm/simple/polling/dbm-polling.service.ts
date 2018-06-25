@@ -5,10 +5,11 @@ import { DbmPollingServiceType, DbmNotify, DbmPollingSettings, DbmPollingCfg } f
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
-import { SettingsService } from '../../../settings.service';
-import { DbmSettings } from '../dbm-settings';
+import { SettingsService } from '../../../../settings.service';
+import { DbmSettings } from '../../dbm-settings';
 import { DbmPolling } from './dbm-polling';
-import { UtilsHttpModule } from '../../common/utils-http.module';
+import { UtilsHttpModule } from '../../../common/utils-http.module';
+import { EnvironmentMappingService } from '../../../envs/environment-mapping.service';
 
 @Injectable()
 export class DbmPollingService {
@@ -24,16 +25,26 @@ export class DbmPollingService {
   dbmPollingItem = this.dbmPollingSource.asObservable();
 
   private dbmPolling: DbmPolling;
+  private dbmPollingSubscription: Subscription;
 
   constructor(
     private settingsService: SettingsService
     , private httpClient: HttpClient
     , private utilsHttp: UtilsHttpModule
+    , private environmentMappingService: EnvironmentMappingService
   ) {
     const f = 'constructor';
     console.log(this.c, f);
 
-    this.dbmPolling = new DbmPolling(httpClient, utilsHttp);
+    this.dbmPolling = new DbmPolling(httpClient, utilsHttp, environmentMappingService);
+    this.dbmPollingSubscription = this.dbmPolling.dbmPollingItem
+    .subscribe( res => {
+      const f2 = 'dbmPollingSubscription';
+      console.log(this.c, f2);
+      if ( null != res ) {
+        this.dbmPollingChanged(res);
+      }
+    });
 
     this.loadSettings();
   }

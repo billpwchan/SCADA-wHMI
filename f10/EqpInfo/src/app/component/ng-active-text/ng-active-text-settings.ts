@@ -17,23 +17,23 @@ export class NgActiveTextCfg {
   public class: NgActiveTextClassCfg;
   public dbm: NgActiveTextDbmCfg;
 }
-export class NgActiveEqpPointCfg {
+export class NgActiveEqpInfoPointCfg {
   public labelCfg: NgActiveTextCfg;
   public valueCfg: NgActiveTextCfg;
   public statusCfg: NgActiveBackdropCfg;
 }
-export class NgActiveEqpPointGui {
+export class NgActiveEqpInfoPointGui {
   public labelText: string;
   public valueText: string;
   public statusText: string;
   public statusBackdrop: string;
 }
-export class NgActiveEqpPoint {
-  public cfg: NgActiveEqpPointCfg;
-  public gui: NgActiveEqpPointGui;
+export class NgActiveEqpInfoPoint {
+  public cfg: NgActiveEqpInfoPointCfg;
+  public gui: NgActiveEqpInfoPointGui;
 }
 export class NgActiveTextUpdate {
-  public cfg: NgActiveEqpPointCfg;
-  public gui: NgActiveEqpPointGui;
+  public cfg: NgActiveEqpInfoPointCfg;
+  public gui: NgActiveEqpInfoPointGui;
 }
 

@@ -378,6 +378,15 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 				logger.debug(f+logPrefix, "usrIdentity[{}] extractedIdentity[{}]", usrIdentity, extractedIdentity);
 				if ( extractedIdentity.equals(usrIdentity) ) {
 					ret = UIControlPriority_i.LEVEL_IS_ITSELF;
+					
+					// Check the Key is Equal (Res by same Profile with Operator)
+					final String k = getReservationKey();
+					logger.debug(f+logPrefix, "identity[{}] k[{}]", identity, k);
+					if ( 0 != identity.compareTo(k) ) {
+						ret = UIControlPriority_i.LEVEL_IS_ITSELF_WITH_OTHER_ID;
+					}
+					logger.debug(f+logPrefix, "identity[{}] k[{}] ret[{}]", new Object[] {identity, k, ret});
+					
 				} else {
 					int levelDiff = compareLevel(usrIdentity, extractedIdentity);
 					logger.debug(f+logPrefix, "levelDiff[{}]", levelDiff);

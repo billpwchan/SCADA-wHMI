@@ -93,6 +93,9 @@ public class UILogger implements UILogger_i {
 	
 	@Override public
 	void error(String message, Object arg1, Object arg2) { logger.error(message, arg1, arg2); }
+	
+	@Override public
+	void error(String message, Object[] args) { logger.error(message, args); }
 
 	@Override public
 	void error(String message, Throwable throwable) { logger.error(message, throwable); }

@@ -72,6 +72,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 	private String targetDataGridColumnB2	= "";
 	private String targetDataGridColumnB3	= "";
 	
+	private String uiControlPriorityResAPI  = "";
+	
 	private String datagridSelected = null;
 	private Equipment_i equipmentSelected = null;
 	
@@ -117,7 +119,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 	
 	private String messageDatetimefmt = null;
 	
-	private String currentOperator =  null;
+	private UIControlPriority_i uiControlPriority = null;
 	
 	private int notExecutedSteps = 0;
 	private int completedSteps = 0;
@@ -151,7 +153,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 					
 					final String function = "ReserveVerifier setReadResult";
 					logger.begin(function);
-					logger.debug(function, "current Operator is:[{}]", currentOperator);
+					String reserveKey = getReserveKey();
+					logger.debug(function, "current Operator is:[{}]", reserveKey);
 					logger.debug(function, "values:[{}]", values);
 					logger.debug(function, "clientKey [{}] check reserve are set", key);
 					boolean hasFailed = false;
@@ -169,9 +172,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 						}
 						
 						// Check whether reservation was set by current operator
-						String unquotedOperator = currentOperator.replaceAll("\"", "");
-						logger.debug(function, "compare operator[{}] with reservedID[{}]", unquotedStr, unquotedOperator);
-						if (unquotedStr.equals(unquotedOperator)) {
+						String unquotedReserveKey = reserveKey.replaceAll("\"", "");
+						logger.debug(function, "compare operator[{}] with reservedID[{}]", unquotedStr, unquotedReserveKey);
+						if (unquotedStr.equals(unquotedReserveKey)) {
 							// Current equipment's reservation is set by current operator, check next equipment.
 							continue;
 						} else {
@@ -508,6 +511,12 @@ public class UIWidgetSocControl extends UIWidget_i {
 			reserveAttributeType	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReserveAttributeType.toString(), strHeader);
 			reservedValueStr		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReservedValueStr.toString(), strHeader);
 			unreservedValueStr		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.UnreservedValueStr.toString(), strHeader);
+			
+			uiControlPriorityResAPI = dictionariesCache.getStringValue(optsXMLFile, ParameterName.UIControlPriorityResAPI.toString(), strHeader);
+			if (uiControlPriorityResAPI == null || uiControlPriorityResAPI.isEmpty()) {
+				logger.warn(function, "config uiControlPriorityResAPI is null or emtpry. Use default UIControlPriorityReservation");
+				uiControlPriorityResAPI = "UIControlPriorityReservation";
+			}
 			try
 			{
 				maxReserveRetry		= Integer.parseInt(dictionariesCache.getStringValue(optsXMLFile, ParameterName.MaxReserveRetry.toString(), strHeader));
@@ -546,14 +555,11 @@ public class UIWidgetSocControl extends UIWidget_i {
 		logger.info(function, "reserveAttributeType[{}]", reserveAttributeType);
 		logger.info(function, "reservedValueStr[{}]", reservedValueStr);
 		logger.info(function, "unreservedValueStr[{}]", unreservedValueStr);
+		logger.info(function, "uiControlPriorityResAPI[{}]", uiControlPriorityResAPI);
 		
 		logger.info(function, "maxReserveRetry[{}]", maxReserveRetry);
 		
 		logger.info(function, "messageDatetimefmt[{}]", messageDatetimefmt);
-		
-		UIControlPriority_i uiControlPriority_i = UIControlPriorityFactory.getInstance().get("UIControlPrioritySCADAgen");
-		currentOperator = uiControlPriority_i.getReservationKey();
-		logger.info(function, "currentOperator[{}]", currentOperator);
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
@@ -1054,13 +1060,13 @@ public class UIWidgetSocControl extends UIWidget_i {
 			}
 		}
 		
-		if (logger.isDebugEnabled()) {
+//		if (logger.isDebugEnabled()) {
 			String skipStepsStr = "";
 			for (int i=0; i<skips.length; i++) {
 				skipStepsStr += skips[i] + " ";
 			}
 			logger.debug(function, "skip steps=[{}]", skipStepsStr);
-		}
+//		}
 		logger.end(function);
 		return skips;
 	}
@@ -1535,7 +1541,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 	public void setReserve(String [] reserveReqAliases) {
 		final String function = "setReserve";
 		logger.begin(function);
-		logger.debug(function, "current Operator is:[{}]", currentOperator);
+		
+		String reserveKey = getReserveKey();
+		logger.debug(function, "current Operator is:[{}]", reserveKey);
 		
 		for (String reqAlias: reserveReqAliases) {
 			logger.debug(function, "check reqAlias[{}]", reqAlias);
@@ -1544,7 +1552,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 				String clientKey = function + "_" + scsenvid + "_" + reqAlias;
 				
 				logger.debug(function, "setReserve for reqAlias[{}]", reqAlias);
-				rtdb.writeStringValue(clientKey, scsenvid, reqAlias, currentOperator);
+				rtdb.writeStringValue(clientKey, scsenvid, reqAlias, reserveKey);
 			}
 		}
 		
@@ -1554,7 +1562,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 	public void unsetReserve(String [] resrvUnreserveReqID) {
 		final String function = "unsetReserve";
 		logger.begin(function);
-		logger.debug(function, "current Operator is:[{}]", currentOperator);
+		
+		String reserveKey = getReserveKey();
+		logger.debug(function, "current Operator is:[{}]", reserveKey);
 		
 		for (String unReqAlias: resrvUnreserveReqID) {
 			logger.debug(function, "check unReqAlias[{}]", unReqAlias);
@@ -1563,7 +1573,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 				String clientKey = function + "_" + scsenvid + "_" + unReqAlias;
 				
 				logger.debug(function, "unsetReserve for unReqAlias[{}]", unReqAlias);
-				rtdb.writeStringValue(clientKey, scsenvid, unReqAlias, currentOperator);
+				rtdb.writeStringValue(clientKey, scsenvid, unReqAlias, reserveKey);
 			}
 		}
 		
@@ -1605,5 +1615,16 @@ public class UIWidgetSocControl extends UIWidget_i {
 		grcMgr.launchGrc(strKeyLaunchGrc, scsenvid, dbalias, (short)autoManu, firstStep, iSkips);
 		
 		logger.end(function);
+	}
+	
+	protected String getReserveKey() {
+		String resKey = "";
+
+		uiControlPriority = UIControlPriorityFactory.getInstance().get(uiControlPriorityResAPI);
+		if (uiControlPriority != null) {
+			resKey = uiControlPriority.getReservationKey();
+		}
+		
+		return resKey;
 	}
 }

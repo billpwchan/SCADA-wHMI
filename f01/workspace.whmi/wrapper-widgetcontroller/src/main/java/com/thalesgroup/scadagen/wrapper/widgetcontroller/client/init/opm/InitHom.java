@@ -45,6 +45,7 @@ public class InitHom implements Init_i {
 						uiHom_i = UIHomSCADAgen.getInstance();
 					}
 				}
+				if(null==uiHom_i) logger.warn(function, "key[{}], uiHom_i IS NULL", key);
 				return uiHom_i;
 			}
 		});
@@ -63,6 +64,12 @@ public class InitHom implements Init_i {
 			logger.warn(function, "uiHom_i IS NULL");
 		}
 		logger.end(function);
+	}
+	
+	public String[] getKeys() {
+		return new String[]{
+				UIHomSCADAgen.class.getSimpleName()
+		};
 	}
 	
 }

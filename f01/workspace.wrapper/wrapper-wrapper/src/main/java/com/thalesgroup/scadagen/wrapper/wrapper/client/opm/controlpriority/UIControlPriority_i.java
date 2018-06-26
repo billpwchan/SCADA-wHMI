@@ -39,12 +39,13 @@ public interface UIControlPriority_i {
 	/* 
 	 * Check Reservation LEVEL Return Code
 	 */
-	public final static int LEVEL_ERROR					= 0; // Availability checking return error
-	public final static int LEVEL_HIGHER				= 1; // Compare Level with higher level 
-	public final static int LEVEL_EQUAL					= 2; // Compare Level with same level
-	public final static int LEVEL_IS_ITSELF				= 3; // Compare Level with itself level
-	public final static int LEVEL_EMPTY					= 4; // Compare Level with empty level
-	public final static int LEVEL_LOWER					= 5; // Compare Level with lower level
+	public final static int LEVEL_ERROR                     = 0; // Availability checking return error
+	public final static int LEVEL_HIGHER                    = 1; // Compare Level with higher level 
+	public final static int LEVEL_EQUAL                     = 2; // Compare Level with same level
+	public final static int LEVEL_IS_ITSELF                 = 3; // Compare Level with itself level
+	public final static int LEVEL_EMPTY                     = 4; // Compare Level with empty level
+	public final static int LEVEL_LOWER                     = 5; // Compare Level with lower level
+	public final static int LEVEL_IS_ITSELF_WITH_OTHER_ID   = 6; // Compare Level with lower level
 
 	/* 
 	 * Check Reservation Availability Return Code
@@ -269,7 +270,7 @@ public interface UIControlPriority_i {
 	 * 
 	 * @return Identity used for displaying.
 	 */
-	String getDisplayIdentity(String valueFromDB);
+	String getDisplayIdentity(String valueFromModel);
 	
 	
 	/**

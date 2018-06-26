@@ -1,12 +1,15 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
+import com.google.gwt.json.client.JSONValue;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.JSONUtil;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJsonFile;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -25,31 +28,56 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 
 	private final String className = this.getClass().getSimpleName();
 	private UILogger_i logger = UILoggerFactory.getInstance().getUILogger(this.getClass().getName());
+	private String logPrefix = null;
 	
-	private static UIControlPriority_i instance = null;
-	public static UIControlPriority_i getInstance() { 
-		if ( null == instance ) instance = new UIControlPrioritySCADAgen();
-		return instance;
+	private static Map<String, UIControlPriority_i> instanceList = new HashMap<String, UIControlPriority_i>();
+	public static UIControlPriority_i getInstance(String key) { 
+		if ( null == instanceList.get(key) ) instanceList.put(key, new UIControlPrioritySCADAgen(key));
+		return instanceList.get(key);
 	}
-	private UIControlPrioritySCADAgen () {}
+	
+	private String cfgAttributeName = null;
+	private String cfgLevelName = null;
+	private UIControlPrioritySCADAgen (String key) {
+		final String f = "UIControlPrioritySCADAgen";
+		logger.debug(f+logPrefix, "key[{}]", key);
+		
+		logPrefix = " (" + key + ") ";
+		
+		cfgAttributeName = 
+				UIControlPrioritySCADAgen_i.FILE_NAME_PREFIX_ATTRIBUTE 
+				+ key 
+				+ UIControlPrioritySCADAgen_i.FILE_NAME_APPEND_ATTRIBUTE
+				+ UIControlPrioritySCADAgen_i.FILE_NAME_EXTENSION;
+		cfgLevelName = 
+				UIControlPrioritySCADAgen_i.FILE_NAME_PREFIX_LEVEL
+				+ key 
+				+ UIControlPrioritySCADAgen_i.FILE_NAME_APPEND_LEVEL
+				+ UIControlPrioritySCADAgen_i.FILE_NAME_EXTENSION;
+		
+		logger.debug(f+logPrefix, "key[{}] cfgAttributeName[{}] cfgLevelName[{}]", new Object[]{key, cfgAttributeName, cfgLevelName});
+	}
 	
 	// TODO: currently hard-coded. Support "o" for operator name (username), or "p" for profile.
 	private String identifierKey_ = "o";
+	
+	private final String IDENTIFY_OPERATOR_KEY = "o";
+	private final String IDENTIFY_PROFILE_KEY = "p";
 	
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#requestReservation(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public void requestReservation(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack) {
-		String function = "requestReservation";
-		logger.begin(function);
+		String f = "requestReservation";
+		logger.begin(f+logPrefix);
 
 		// Using hard-coded value first, originally using "getUsrIdentity()"
 		String reservationKey = getReservationKey();
 		
 		requestReservation(scsEnvId, dbAddress, reservationKey, callBack);
 
-		logger.end(function);
+		logger.end(f+logPrefix);
 	}
 	
 	/**
@@ -62,32 +90,32 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @param callback		Return JSON String, JSONString Attribute "value" contain the requester (Who to request reservation)
 	 */
 	private void requestReservation(final String scsEnvId, final String dbAddress, final String usrIdentity, final UIControlPriorityCallback callBack) {
-		String function1 = "requestReservation";
-		logger.begin(function1);
+		String f1 = "requestReservation";
+		logger.begin(f1+logPrefix);
 		
 		checkReservationAvailability(scsEnvId, dbAddress, new UIControlPriorityCallback() {
 			
 			@Override
 			public void callBack(String strJson) {
-				String function2 = "requestReservation:checkReservationAvailability:callBack";
-				logger.begin(function2);
+				String f2 = "requestReservation:checkReservationAvailability:callBack";
+				logger.begin(f2+logPrefix);
 
 				int ret = ReadJson.readInt(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, UIControlPrioritySCADAgen_i.LEVEL_MIN);
-				logger.debug(function2, "ret[{}]", ret);
+				logger.debug(f2+logPrefix, "ret[{}]", ret);
 				
 				if ( UIControlPriority_i.AVAILABILITY_ERROR == ret ) {
 					
-					logger.warn(function2, "Eeserver equipment, scsEnvId[{}] dbAddress[{}] ERROR", new Object[]{scsEnvId, dbAddress});
+					logger.warn(f2+logPrefix, "Reserve equipment, scsEnvId[{}] dbAddress[{}] ERROR", new Object[]{scsEnvId, dbAddress});
 					
 					if ( null != callBack ) {
 						JSONObject jsObject = new JSONObject();
 						jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONString(usrIdentity));
 						jsObject.put(UIControlPriority_i.FIELD_CODE, new JSONNumber(UIControlPriority_i.REQUEST_ERROR_CHECKING));
 						String strJson2 = jsObject.toString();
-						logger.debug(function2, "strJson2[{}]", strJson2);
+						logger.debug(f2+logPrefix, "strJson2[{}]", strJson2);
 						callBack.callBack(strJson2);
 					} else {
-						logger.debug(function2, "callBack IS NULL");
+						logger.debug(f2+logPrefix, "callBack IS NULL");
 					}
 					
 				} else if ( 
@@ -95,12 +123,12 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 						|| UIControlPriority_i.AVAILABILITY_RESERVED_BYSELF == ret 
 						) {
 					
-					logger.debug(function2, "AVAILABILITY_RESERVED_BYSELF getCodeString({})[{}]", new Object[]{ret, getCheckReservationAvailabilityCodeString(ret)});
+					logger.debug(f2+logPrefix, "AVAILABILITY_RESERVED_BYSELF getCodeString({})[{}]", new Object[]{ret, getCheckReservationAvailabilityCodeString(ret)});
 					
 					String alias = dbAddress + getResrvReserveReqID();
-					String key = databaseKey.getKey(className, function2, scsEnvId, alias, usrIdentity);
+					String key = databaseKey.getKey(className, f2, scsEnvId, alias, usrIdentity);
 					
-					logger.debug(function2, "scsEnvId[{}] alias[{}] usrIdentity[{}] key[{}]", new Object[]{scsEnvId, alias, usrIdentity, key});
+					logger.debug(f2+logPrefix, "scsEnvId[{}] alias[{}] usrIdentity[{}] key[{}]", new Object[]{scsEnvId, alias, usrIdentity, key});
 					databaseWrite_i.addWriteStringValueRequest(key, scsEnvId, alias, usrIdentity);
 					
 					if ( null != callBack ) {
@@ -108,27 +136,27 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 						jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONString(usrIdentity));
 						jsObject.put(UIControlPriority_i.FIELD_CODE, new JSONNumber(UIControlPriority_i.REQUEST_REQUESTED));
 						String strJson2 = jsObject.toString();
-						logger.debug(function2, "strJson2[{}]", strJson2);
+						logger.debug(f2+logPrefix, "strJson2[{}]", strJson2);
 						callBack.callBack(strJson2);
 					} else {
-						logger.debug(function2, "callBack IS NULL");
+						logger.debug(f2+logPrefix, "callBack IS NULL");
 					}
 				}
 				else if ( UIControlPriority_i.AVAILABILITY_ALLOW_WITH_OVERRIDE == ret ) {
 					
-					logger.debug(function2, "AVAILABILITY_ALLOW_WITH_OVERRIDE getCodeString({})[{}]", new Object[]{ret, getCheckReservationAvailabilityCodeString(ret)});
+					logger.debug(f2+logPrefix, "AVAILABILITY_ALLOW_WITH_OVERRIDE getCodeString({})[{}]", new Object[]{ret, getCheckReservationAvailabilityCodeString(ret)});
 					
 					forceWithdrawReservation(scsEnvId, dbAddress, new UIControlPriorityCallback() {
 
 						@Override
 						public void callBack(String json) {
-							String function3 = "requestReservation:checkReservationAvailability:callBack:forceWithdrawReservation:callBack";
-							logger.begin(function3);
+							String f3 = "requestReservation:checkReservationAvailability:callBack:forceWithdrawReservation:callBack";
+							logger.begin(f3+logPrefix);
 							
 							String alias = dbAddress + getResrvReserveReqID();
-							String key = databaseKey.getKey(function3, scsEnvId, alias, usrIdentity);
+							String key = databaseKey.getKey(f3+logPrefix, scsEnvId, alias, usrIdentity);
 							
-							logger.debug(function3, "scsEnvId[{}] alias[{}] usrIdentity[{}] key[{}]", new Object[]{scsEnvId, alias, usrIdentity, key});
+							logger.debug(f3+logPrefix, "scsEnvId[{}] alias[{}] usrIdentity[{}] key[{}]", new Object[]{scsEnvId, alias, usrIdentity, key});
 							databaseWrite_i.addWriteStringValueRequest(key, scsEnvId, alias, usrIdentity);
 							
 							if ( null != callBack ) {
@@ -136,13 +164,13 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 								jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONString(usrIdentity));
 								jsObject.put(UIControlPriority_i.FIELD_CODE, new JSONNumber(UIControlPriority_i.REQUEST_OVERRIDE_WITH_FORCE_WITHDRAW));
 								String strJson3 = jsObject.toString();
-								logger.debug(function3, "strJson3[{}]", strJson3);
+								logger.debug(f3+logPrefix, "strJson3[{}]", strJson3);
 								callBack.callBack(strJson3);
 							} else {
-								logger.debug(function3, "callBack IS NULL");
+								logger.debug(f3+logPrefix, "callBack IS NULL");
 							}
 							
-							logger.end(function3);
+							logger.end(f3+logPrefix);
 						}
 						
 					});
@@ -151,56 +179,56 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 				
 				else if ( UIControlPriority_i.AVAILABILITY_DENIED == ret ) {
 					
-					logger.debug(function2, "Not enough right to reserver equipment, scsEnvId[{}] dbAddress[{}]", new Object[]{scsEnvId, dbAddress});
+					logger.debug(f2+logPrefix, "Not enough right to reserver equipment, scsEnvId[{}] dbAddress[{}]", new Object[]{scsEnvId, dbAddress});
 					
 					if ( null != callBack ) {
 						JSONObject jsObject = new JSONObject();
 						jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONString(usrIdentity));
 						jsObject.put(UIControlPriority_i.FIELD_CODE, new JSONNumber(UIControlPriority_i.REQUEST_REJECTED_AT_LOWER_LEVEL));
 						String strJson2 = jsObject.toString();
-						logger.debug(function2, "strJson2[{}]", strJson2);
+						logger.debug(f2+logPrefix, "strJson2[{}]", strJson2);
 						callBack.callBack(strJson2);
 					} else {
-						logger.debug(function2, "callBack IS NULL");
+						logger.debug(f2+logPrefix, "callBack IS NULL");
 					}
 				}
 				else if ( UIControlPriority_i.AVAILABILITY_EQUAL == ret ) {
 					
-					logger.debug(function2, "Not enough right to reserver equipment, scsEnvId[{}] dbAddress[{}]", new Object[]{scsEnvId, dbAddress});
+					logger.debug(f2+logPrefix, "Not enough right to reserver equipment, scsEnvId[{}] dbAddress[{}]", new Object[]{scsEnvId, dbAddress});
 					
 					if ( null != callBack ) {
 						JSONObject jsObject = new JSONObject();
 						jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONString(usrIdentity));
 						jsObject.put(UIControlPriority_i.FIELD_CODE, new JSONNumber(UIControlPriority_i.REQUEST_REJECTED_AT_SAME_LEVEL));
 						String strJson2 = jsObject.toString();
-						logger.debug(function2, "strJson2[{}]", strJson2);
+						logger.debug(f2+logPrefix, "strJson2[{}]", strJson2);
 						callBack.callBack(strJson2);
 					} else {
-						logger.debug(function2, "callBack IS NULL");
+						logger.debug(f2+logPrefix, "callBack IS NULL");
 					}
 				}
 				else {
 	
-					logger.warn(function2, "Reserver equipment, scsEnvId[{}] dbAddress[{}] UNKNOW ERROR", new Object[]{scsEnvId, dbAddress});
+					logger.warn(f2+logPrefix, "Reserver equipment, scsEnvId[{}] dbAddress[{}] UNKNOW ERROR", new Object[]{scsEnvId, dbAddress});
 					
 					if ( null != callBack ) {
 						JSONObject jsObject = new JSONObject();
 						jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONString(usrIdentity));
 						jsObject.put(UIControlPriority_i.FIELD_CODE, new JSONNumber(UIControlPriority_i.REQUEST_ERROR_UNKNOW));
 						String strJson2 = jsObject.toString();
-						logger.debug(function2, "strJson2[{}]", strJson2);
+						logger.debug(f2+logPrefix, "strJson2[{}]", strJson2);
 						callBack.callBack(strJson2);
 					} else {
-						logger.debug(function2, "callBack IS NULL");
+						logger.debug(f2+logPrefix, "callBack IS NULL");
 					}
 	
 				}
 
-				logger.end(function2);
+				logger.end(f2+logPrefix);
 			}
 		});
 		
-		logger.end(function1);
+		logger.end(f1+logPrefix);
 	}
 
 	/* (non-Javadoc)
@@ -208,15 +236,15 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 */
 	@Override
 	public void withdrawReservation(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack) {
-		String function = "withdrawReservation";
-		logger.begin(function);
+		String f = "withdrawReservation";
+		logger.begin(f+logPrefix);
 
 		// Using hard-coded value first, originally using "getUsrIdentity()"
 		String reservationKey = getReservationKey();
 		
 		withdrawReservation(scsEnvId, dbAddress, reservationKey, callBack);
 		
-		logger.end(function);
+		logger.end(f+logPrefix);
 	}
 	
 	/**
@@ -226,13 +254,13 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @param callback		Return JSON String, JSONString Attribute "value" contain the withdrawer (Value to Withdraw the Reservation)
 	 */
 	private void withdrawReservation(final String scsEnvId, final String dbAddress, final String usrIdentity, final UIControlPriorityCallback callBack) {
-		String function = "withdrawReservation";
-		logger.begin(function);
+		String f = "withdrawReservation";
+		logger.begin(f+logPrefix);
 		
 		String alias = dbAddress + getResrvUnreserveReqID();
-		String key = databaseKey.getKey(function, scsEnvId, alias, usrIdentity);
+		String key = databaseKey.getKey(f+logPrefix, scsEnvId, alias, usrIdentity);
 		
-		logger.debug(function, "scsEnvId[{}] alias[{}] value[{}] key[{}]", new Object[]{scsEnvId, alias, usrIdentity, key});
+		logger.debug(f+logPrefix, "scsEnvId[{}] alias[{}] value[{}] key[{}]", new Object[]{scsEnvId, alias, usrIdentity, key});
 		databaseWrite_i.addWriteStringValueRequest(key, scsEnvId, alias, usrIdentity);
 		
 		if ( null != callBack ) {
@@ -240,13 +268,13 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 			jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONString(usrIdentity));
 			jsObject.put(UIControlPriority_i.FIELD_CODE, new JSONNumber(UIControlPriority_i.WITHDRAW_REQUESTED));
 			String strJson = jsObject.toString();
-			logger.debug(function, "strJson[{}]", strJson);
+			logger.debug(f+logPrefix, "strJson[{}]", strJson);
 			callBack.callBack(strJson);
 		} else {
-			logger.debug(function, "callBack IS NULL");
+			logger.debug(f+logPrefix, "callBack IS NULL");
 		}
 
-		logger.end(function);
+		logger.end(f+logPrefix);
 	}
 
 	/* (non-Javadoc)
@@ -254,18 +282,18 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 */
 	@Override
 	public void getCurrentReservationBy(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack) {
-		String function1 = "getCurrentReservationBy";
-		logger.begin(function1);
+		String f1 = "getCurrentReservationBy";
+		logger.begin(f1+logPrefix);
 		String alias = dbAddress + getResrvReserveID();
 		String dbAddresses [] = new String[]{alias};
-		String key = databaseKey.getKey(className, function1, scsEnvId, dbAddress);
-		logger.debug(function1, "scsEnvId[{}] alias[{}] key[{}]", new Object[]{scsEnvId, alias, key});
+		String key = databaseKey.getKey(className, f1, scsEnvId, dbAddress);
+		logger.debug(f1+logPrefix, "scsEnvId[{}] alias[{}] key[{}]", new Object[]{scsEnvId, alias, key});
 		databaseMultiRead_i.addMultiReadValueRequest(key, scsEnvId, dbAddresses, new DatabasePairEvent_i() {
 			
 			@Override
 			public void update(final String key, final String[] dbAddresses, final String[] values) {
-				String function2 = "getCurrentReservationBy:update";
-				logger.begin(function2);
+				String f2 = "getCurrentReservationBy:update";
+				logger.begin(f2+logPrefix);
 				
 				if ( 
 						( null == values) 
@@ -278,17 +306,17 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 				    	jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONString(UIControlPrioritySCADAgen_i.STR_EMPTY));
 				    	jsObject.put(UIControlPriority_i.FIELD_CODE, new JSONNumber(UIControlPriority_i.GETCURRENT_READ_INVALID));
 				    	String strJson = jsObject.toString();
-				    	logger.debug(function2, "strJson[{}]", strJson);
+				    	logger.debug(f2+logPrefix, "strJson[{}]", strJson);
 						callBack.callBack(strJson);
 					} else {
-						logger.debug(function2, "callBack IS NULL");
+						logger.debug(f2+logPrefix, "callBack IS NULL");
 					}
 				} else {
 					
 					String value = values[0];
 					
 					// Remove the String double quote
-					logger.debug(function2, "BF value[{}]", value);
+					logger.debug(f2+logPrefix, "BF value[{}]", value);
 					if ( value.length() >= 2 ) {
 						if ( value.charAt(0) == '\"' && value.charAt(value.length()-1) == '\"' ) {
 							value = value.substring(1, value.length()-1);
@@ -297,24 +325,24 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 					
 					// Remove escape chars in returning JSON (returning value might contain backslash).
 					value = value.replace("\\", "");
-					logger.debug(function2, "AF value[{}]", value);
+					logger.debug(f2+logPrefix, "AF value[{}]", value);
 					
 					if ( null != callBack ) {
 				    	JSONObject jsObject = new JSONObject();
 				    	jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONString(value));
 				    	jsObject.put(UIControlPriority_i.FIELD_CODE, new JSONNumber(UIControlPriority_i.GETCURRENT_VALID));
 				    	String strJson = jsObject.toString();
-				    	logger.debug(function2, "strJson[{}]", strJson);
+				    	logger.debug(f2+logPrefix, "strJson[{}]", strJson);
 						callBack.callBack(strJson);
 					} else {
-						logger.debug(function2, "callBack IS NULL");
+						logger.debug(f2+logPrefix, "callBack IS NULL");
 					}
 				}
 				
-				logger.end(function2);
+				logger.end(f2+logPrefix);
 			}
 		});
-		logger.end(function1);
+		logger.end(f1+logPrefix);
 	}
 	
 
@@ -323,22 +351,22 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 */
 	@Override
 	public int checkReservationLevel(String identity) {
-		String function = "checkReservationLevel";
-		logger.begin(function);
-		logger.debug(function, "identity[{}]", identity);
+		String f = "checkReservationLevel";
+		logger.begin(f+logPrefix);
+		logger.debug(f+logPrefix, "identity[{}]", identity);
 		String extractedIdentity = identity;
 		
 		if (identity != null && identity != ""){
 			identity = identity.replace("\\", "");
-			logger.debug(function, "identity after replacing: ", identity);
-			if (isJSONFormat(identity)){
-				logger.debug(function, "It's JSON format!!!");
+			logger.debug(f+logPrefix, "identity after replacing: [{}]", identity);
+			if (null!=isJSONFormat(identity)){
+				logger.debug(f+logPrefix, "It's JSON format!!!");
 				extractedIdentity = getIdentityFromJson(identity, identifierKey_).replace("\"", "");
 			} else{
-				logger.debug(function, "It's NOT JSON format!!!");
+				logger.debug(f+logPrefix, "It's NOT JSON format!!!");
 			}
 		} else {
-			logger.debug(function, "identity is null or Empty!!");
+			logger.debug(f+logPrefix, "identity is null or Empty!!");
 		}
 		
 		int ret = UIControlPriority_i.LEVEL_ERROR;
@@ -347,12 +375,21 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 				ret = UIControlPriority_i.LEVEL_EMPTY;
 			} else {
 				String usrIdentity = getUsrIdentity();
-				logger.debug(function, "usrIdentity[{}] extractedIdentity[{}]", usrIdentity, extractedIdentity);
+				logger.debug(f+logPrefix, "usrIdentity[{}] extractedIdentity[{}]", usrIdentity, extractedIdentity);
 				if ( extractedIdentity.equals(usrIdentity) ) {
 					ret = UIControlPriority_i.LEVEL_IS_ITSELF;
+					
+					// Check the Key is Equal (Res by same Profile with Operator)
+					final String k = getReservationKey();
+					logger.debug(f+logPrefix, "identity[{}] k[{}]", identity, k);
+					if ( 0 != identity.compareTo(k) ) {
+						ret = UIControlPriority_i.LEVEL_IS_ITSELF_WITH_OTHER_ID;
+					}
+					logger.debug(f+logPrefix, "identity[{}] k[{}] ret[{}]", new Object[] {identity, k, ret});
+					
 				} else {
 					int levelDiff = compareLevel(usrIdentity, extractedIdentity);
-					logger.debug(function, "levelDiff[{}]", levelDiff);
+					logger.debug(f+logPrefix, "levelDiff[{}]", levelDiff);
 					switch ( levelDiff ) {
 					case -1:
 						ret = UIControlPriority_i.LEVEL_HIGHER;
@@ -369,20 +406,19 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 					}
 				}
 			}
-			logger.debug(function, "ret[{}]", ret);
+			logger.debug(f+logPrefix, "ret[{}]", ret);
 		}
-		logger.end(function);
+		logger.end(f+logPrefix);
 		return ret;
 	}
 	
-
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#checkReservationAvailability(java.lang.String)
 	 */
 	@Override
 	public int checkReservationAvailability(String identity) {
-		String function = "checkReservationAvailability";
-		logger.begin(function);
+		String f = "checkReservationAvailability";
+		logger.begin(f+logPrefix);
 		int level = checkReservationLevel(identity);
 		int ret = UIControlPriority_i.AVAILABILITY_ERROR;
 		switch ( level ) {
@@ -405,8 +441,8 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 				ret = UIControlPriority_i.LEVEL_ERROR;
 				break;
 		}
-		logger.debug(function, "ret[{}]", ret);
-		logger.end(function);
+		logger.debug(f+logPrefix, "ret[{}]", ret);
+		logger.end(f+logPrefix);
 		return ret;
 	}
 	
@@ -415,29 +451,29 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 */
 	@Override
 	public void checkReservationAvailability(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack) {
-		String function1 = "checkReservationAvailability";
-		logger.begin(function1);
+		String f1 = "checkReservationAvailability";
+		logger.begin(f1+logPrefix);
 		
 		getCurrentReservationBy(scsEnvId, dbAddress, new UIControlPriorityCallback() {
 			
 			@Override
 			public void callBack(String strJson) {
-				String function2 = "checkReservationAvailability:callBack";
-				logger.begin(function2);
-				logger.debug(function2, "strJson[{}]", strJson);
+				String f2 = "checkReservationAvailability:callBack";
+				logger.begin(f2+logPrefix);
+				logger.debug(f2+logPrefix, "strJson[{}]", strJson);
 				String value = ReadJson.readString(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, null);
 				int valid = ReadJson.readInt(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_CODE, -1);
-				logger.debug(function2, "value[{}] valid[{}]", value, valid);
+				logger.debug(f2+logPrefix, "value[{}] valid[{}]", value, valid);
 				
 				if ( UIControlPriority_i.GETCURRENT_READ_INVALID == valid ) {
 					if ( null != callBack ) {
 					   	JSONObject jsObject = new JSONObject();
 					   	jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONNumber(UIControlPriority_i.AVAILABILITY_ERROR));
 					   	String jsonString = jsObject.toString();
-					   	logger.debug(function2, "jsonString[{}]", jsonString);
+					   	logger.debug(f2+logPrefix, "jsonString[{}]", jsonString);
 				    	callBack.callBack(jsonString);	
 					} else {
-						logger.debug(function2, "callBack IS NULL");
+						logger.debug(f2+logPrefix, "callBack IS NULL");
 					}
 				}
 				
@@ -448,16 +484,16 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 				   	JSONObject jsObject = new JSONObject();
 				   	jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONNumber(ret));
 				   	String jsonString = jsObject.toString();
-				   	logger.debug(function2, "jsonString[{}]", jsonString);
+				   	logger.debug(f2+logPrefix, "jsonString[{}]", jsonString);
 			    	callBack.callBack(jsonString);	
 				} else {
-					logger.debug(function2, "callBack IS NULL");
+					logger.debug(f2+logPrefix, "callBack IS NULL");
 				}
 
-				logger.end(function2);
+				logger.end(f2+logPrefix);
 			}
 		});
-		logger.end(function1);
+		logger.end(f1+logPrefix);
 	}
 
 	/**
@@ -466,19 +502,19 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @param callBack	Return JSON String, JSONString Attribute "value" contain the withdrawer (Value to Withdraw the Reservation)
 	 */
 	public void forceWithdrawReservation(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack) {
-		String function1 = "forceWithdrawReservation";
-		logger.begin(function1);
+		String f1 = "forceWithdrawReservation";
+		logger.begin(f1+logPrefix);
 		
 		getCurrentReservationBy(scsEnvId, dbAddress, new UIControlPriorityCallback() {
 			
 			@Override
 			public void callBack(String strJson1) {
-				final String function2 = "forceWithdrawReservation:getCurrentReservationBy:callBack";
-				logger.begin(function2);
+				final String f2 = "forceWithdrawReservation:getCurrentReservationBy:callBack";
+				logger.begin(f2+logPrefix);
 				
 				String value = ReadJson.readString(ReadJson.readJson(strJson1), UIControlPriority_i.FIELD_VALUE, null);
 				
-				logger.debug(function2, "value[{}]", value);
+				logger.debug(f2+logPrefix, "value[{}]", value);
 				
 				if ( null != value && ! value.isEmpty() ) {
 
@@ -486,24 +522,24 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 						
 						@Override
 						public void callBack(String strJson2) {
-							final String function3 = "forceWithdrawReservation:getCurrentReservationBy:callBack:withdrawReservation:callBack";
-							logger.begin(function3);
+							final String f3 = "forceWithdrawReservation:getCurrentReservationBy:callBack:withdrawReservation:callBack";
+							logger.begin(f3+logPrefix);
 							
 							String value = ReadJson.readString(ReadJson.readJson(strJson2), UIControlPriority_i.FIELD_VALUE, null);
 							
-							logger.debug(function3, "value[{}]", value);
+							logger.debug(f3+logPrefix, "value[{}]", value);
 							
 							if ( null != callBack) {
 								JSONObject jsObject = new JSONObject();
 								jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONString(value));
 								String strJson3 = jsObject.toString();
-								logger.debug(function3, "strJson3[{}]", strJson3);
+								logger.debug(f3+logPrefix, "strJson3[{}]", strJson3);
 								callBack.callBack(strJson3);
 							} else {
-								logger.debug(function2, "callBack IS NULL");
+								logger.debug(f2+logPrefix, "callBack IS NULL");
 							}
 							
-							logger.end(function3);
+							logger.end(f3+logPrefix);
 						}
 					});
 				} else {
@@ -512,20 +548,20 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 						jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONString(UIControlPrioritySCADAgen_i.STR_EMPTY));
 						jsObject.put(UIControlPriority_i.FIELD_CODE, new JSONNumber(UIControlPriority_i.FORCE_WITHDRAW_INVALID));
 						String strJson3 = jsObject.toString();
-						logger.debug(function2, "strJson3[{}]", strJson3);
+						logger.debug(f2+logPrefix, "strJson3[{}]", strJson3);
 						callBack.callBack(strJson3);
 					} else {
-						logger.debug(function2, "callBack IS NULL");
+						logger.debug(f2+logPrefix, "callBack IS NULL");
 					}
 				}
 				
-				logger.end(function2);
+				logger.end(f2+logPrefix);
 				
 			}
 			
 		});
 		
-		logger.end(function1);
+		logger.end(f1+logPrefix);
 	}
 
 	/**
@@ -535,9 +571,9 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @return mapped string 
 	 */
 	public String getCheckReservationAvailabilityCodeString(final int code) {
-		String function = "getCheckReservationAvailabilityCodeString";
-		logger.begin(function);
-		logger.debug(function, "code[{}]", code);
+		String f = "getCheckReservationAvailabilityCodeString";
+		logger.begin(f+logPrefix);
+		logger.debug(f+logPrefix, "code[{}]", code);
 		String ret = null;
 		if ( code == UIControlPriority_i.AVAILABILITY_ERROR ) {
 			ret = UIControlPriority_i.STR_AVAILABILITY_ERROR;
@@ -557,8 +593,8 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		else if ( code == UIControlPriority_i.AVAILABILITY_ALLOW_WITH_OVERRIDE ) {
 			ret = UIControlPriority_i.STR_AVAILABILITY_ALLOW_WITH_OVERRIDE;
 		}
-		logger.debug(function, "ret[{}]", ret);
-		logger.end(function);
+		logger.debug(f+logPrefix, "ret[{}]", ret);
+		logger.end(f+logPrefix);
 		return ret;
 	}
 	
@@ -569,9 +605,9 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @return mapped string 
 	 */
 	public String getRequestReservationCodeString(final int code) {
-		String function = "getRequestReservationCodeString";
-		logger.begin(function);
-		logger.debug(function, "code[{}]", code);
+		String f = "getRequestReservationCodeString";
+		logger.begin(f+logPrefix);
+		logger.debug(f+logPrefix, "code[{}]", code);
 		String ret = null;
 		if ( code == UIControlPriority_i.REQUEST_ERROR_UNKNOW ) {
 			ret = UIControlPriority_i.STR_REQUEST_ERROR_UNKNOW;
@@ -591,8 +627,8 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		else if ( code == UIControlPriority_i.REQUEST_REJECTED_AT_SAME_LEVEL ) {
 			ret = UIControlPriority_i.STR_REQUEST_REJECTED_AT_SAME_LEVEL;
 		}
-		logger.debug(function, "ret[{}]", ret);
-		logger.end(function);
+		logger.debug(f+logPrefix, "ret[{}]", ret);
+		logger.end(f+logPrefix);
 		return ret;
 	}
 	
@@ -603,15 +639,15 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @return mapped string 
 	 */
 	public String getWithdrawReservationCodeString(final int code) {
-		String function = "getWithdrawReservationCodeString";
-		logger.begin(function);
-		logger.debug(function, "code[{}]", code);
+		String f = "getWithdrawReservationCodeString";
+		logger.begin(f+logPrefix);
+		logger.debug(f+logPrefix, "code[{}]", code);
 		String ret = null;
 		if ( code == UIControlPriority_i.WITHDRAW_REQUESTED ) {
 			ret = UIControlPriority_i.STR_WITHDRAW_REQUESTED;
 		}
-		logger.debug(function, "ret[{}]", ret);
-		logger.end(function);
+		logger.debug(f+logPrefix, "ret[{}]", ret);
+		logger.end(f+logPrefix);
 		return ret;
 	}
 	
@@ -624,20 +660,20 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @return a > b = 1; a < b = -1; otherwise 0
 	 */
 	private int compareLevel(final String a, final String b) {
-		String function = "compareLevel";
-		logger.begin(function);
+		String f = "compareLevel";
+		logger.begin(f+logPrefix);
 		int ret = 0;
-		logger.debug(function, "a[{}] b[{}]", a, b);
+		logger.debug(f+logPrefix, "a[{}] b[{}]", a, b);
 		int al = getPriorityLevel(a);
 		int bl = getPriorityLevel(b);
-		logger.debug(function, "a[{}]=>al[{}] b[{}]=>bl[{}]", new Object[]{a, al, b, bl});
+		logger.debug(f+logPrefix, "a[{}]=>al[{}] b[{}]=>bl[{}]", new Object[]{a, al, b, bl});
 		if ( al > bl ) {
 			ret = 1;
 		} else if ( al < bl ) {
 			ret = -1;
 		}
-		logger.debug(function, "a[{}] b[{}] ret[{}]", new Object[]{a, b, ret});
-		logger.end(function);
+		logger.debug(f+logPrefix, "a[{}] b[{}] ret[{}]", new Object[]{a, b, ret});
+		logger.end(f+logPrefix);
 		return ret;
 	}
 
@@ -649,29 +685,29 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @return DB Attribute in String
 	 */
 	public String getUsrIdentityType() {
-		final String function = "getUsrIdentityType";
-		logger.begin(function);
+		final String f = "getUsrIdentityType";
+		logger.begin(f+logPrefix);
 		if ( null == usrIdentityType ) {
 			usrIdentityType = ReadJsonFile.readString(
 			UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
-			, UIControlPrioritySCADAgen_i.FILE_NAME_ATTRIBUTE
+			, this.cfgAttributeName
 			, UIControlPrioritySCADAgen_i.Attribute.UsrIdentityType.toString()
 			, UIControlPrioritySCADAgen_i.UsrIdentity.Profile.toString());
 		}
-		logger.debug(function, "usrIdentityType[{}]", usrIdentityType);
-		logger.end(function);
+		logger.debug(f+logPrefix, "usrIdentityType[{}]", usrIdentityType);
+		logger.end(f+logPrefix);
 		return usrIdentityType;
 	}
 	
-	private String usrIdentity = null;
-	public void setUsrIdentity(final String usrIdentity) { this.usrIdentity = usrIdentity; }
+//	private String usrIdentity = null;
+//	public void setUsrIdentity(final String usrIdentity) { this.usrIdentity = usrIdentity; }
 	
 	/**
 	 * Get the UsrIdentity
 	 * 
 	 * @return UsrIdentity in String
 	 */
-	public String getUsrIdentity() { return usrIdentity; }
+	public String getUsrIdentity() { return getUsrIdentity(getUIOpm(getUIOpmName()), getUsrIdentityType()); }
 	
 	/**
 	 * Get the UsrIdentity from configuration file type and UIOpm API 
@@ -682,35 +718,37 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @return UsrIdentity in String
 	 */
 	private String getUsrIdentity(final UIOpm_i uiOpm_i, final String usrIdentityType) {
-		final String function = "getUsrIdentity";
-		logger.begin(function);
+		final String f = "getUsrIdentity";
+		logger.begin(f+logPrefix);
 		
-		logger.debug(function, "usrIdentityType[{}]", usrIdentityType);
+		logger.debug(f+logPrefix, "usrIdentityType[{}]", usrIdentityType);
 
 		String usrIdentity = null;
 		if ( null == uiOpm_i ) {
-			logger.warn(function, "uiOpm_i IS NULL");
+			logger.warn(f+logPrefix, "uiOpm_i IS NULL");
 		} 
 		else if ( null == usrIdentityType ) {
-			logger.warn(function, "usrIdentityType IS NULL");
+			logger.warn(f+logPrefix, "usrIdentityType IS NULL");
 		} 
 		else if ( 0 == UIControlPrioritySCADAgen_i.UsrIdentity.Profile.toString().compareTo(usrIdentityType) ) {
 			usrIdentity = uiOpm_i.getCurrentProfile();
+			identifierKey_ = "p";
 		} 
 		else if ( 0 == UIControlPrioritySCADAgen_i.UsrIdentity.Operator.toString().compareTo(usrIdentityType) ) {
 			usrIdentity = uiOpm_i.getCurrentOperator();
+			identifierKey_ = "o";
 		}
 		else {
-			logger.warn(function, "usrIdentityType[{}] IS UNKNOW", usrIdentityType);
+			logger.warn(f+logPrefix, "usrIdentityType[{}] IS UNKNOW", usrIdentityType);
 		}
 		
-		logger.debug(function, "usrIdentity[{}]", usrIdentity);
+		logger.debug(f+logPrefix, "usrIdentity[{}]", usrIdentity);
 		
 		// Default value of the UsrIdentity is Profile
 		if ( null == usrIdentity ) uiOpm_i.getCurrentProfile();
 		
-		logger.debug(function, "usrIdentity[{}]", usrIdentity);
-		logger.end(function);
+		logger.debug(f+logPrefix, "usrIdentity[{}]", usrIdentity);
+		logger.end(f+logPrefix);
 		return usrIdentity;
 	}
 	
@@ -722,19 +760,19 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @return DB Attribute in String
 	 */
 	public String getResrvReserveReqID() {
-		String function = "getResrvReserveReqID";
-		logger.begin(function);
+		String f = "getResrvReserveReqID";
+		logger.begin(f+logPrefix);
 		if ( null == resrvReserveReqID ) {
 			resrvReserveReqID = ReadJsonFile.readString(
 					UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
-					, UIControlPrioritySCADAgen_i.FILE_NAME_ATTRIBUTE
+					, this.cfgAttributeName
 					, UIControlPrioritySCADAgen_i.DbAttribute.ResrvReserveReqID.toString()
 					, UIControlPrioritySCADAgen_i.RESRV_RESERVEREQID_DEFAULT_VALUE);
-			logger.debug(function, "resrvReserveReqID[{}]", resrvReserveReqID);
-			logger.end(function);
+			logger.debug(f+logPrefix, "resrvReserveReqID[{}]", resrvReserveReqID);
+			logger.end(f+logPrefix);
 		}
-		logger.debug(function, "resrvReserveReqID[{}]", resrvReserveReqID);
-		logger.end(function);
+		logger.debug(f+logPrefix, "resrvReserveReqID[{}]", resrvReserveReqID);
+		logger.end(f+logPrefix);
 		return resrvReserveReqID;
 	}
 	
@@ -746,19 +784,19 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @return DB Attribute in String
 	 */
 	public String getResrvUnreserveReqID() {
-		String function = "getResrvUnreserveReqID";
-		logger.begin(function);
+		String f = "getResrvUnreserveReqID";
+		logger.begin(f+logPrefix);
 		if ( null == resrvUnreserveReqID ) {
 			resrvUnreserveReqID = ReadJsonFile.readString(
 					UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
-					, UIControlPrioritySCADAgen_i.FILE_NAME_ATTRIBUTE
+					, this.cfgAttributeName
 					, UIControlPrioritySCADAgen_i.DbAttribute.ResrvUnreserveReqID.toString()
 					, UIControlPrioritySCADAgen_i.RESRV_UNRESERCEREQID_DEFAULT_VALUE);
-			logger.debug(function, "resrvUnreserveReqID[{}]", resrvUnreserveReqID);
-			logger.end(function);
+			logger.debug(f+logPrefix, "resrvUnreserveReqID[{}]", resrvUnreserveReqID);
+			logger.end(f+logPrefix);
 		}
-		logger.debug(function, "resrvUnreserveReqID[{}]", resrvUnreserveReqID);
-		logger.end(function);
+		logger.debug(f+logPrefix, "resrvUnreserveReqID[{}]", resrvUnreserveReqID);
+		logger.end(f+logPrefix);
 		return resrvUnreserveReqID;
 	}
 	
@@ -770,20 +808,20 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @return DB Attribute in String
 	 */
 	public String getResrvReserveID() {
-		String function = "getResrvReserveID";
-		logger.begin(function);
+		String f = "getResrvReserveID";
+		logger.begin(f+logPrefix);
 		if ( null == resrvReserveID) {
 			resrvReserveID = ReadJsonFile.readString(
 					UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
-					, UIControlPrioritySCADAgen_i.FILE_NAME_ATTRIBUTE
-					, UIControlPrioritySCADAgen_i.DbAttribute.ResrvReserveID.toString()
-					, UIControlPrioritySCADAgen_i.RESRV_RESERVEID_DEFAULT_VALUE);
+					, this.cfgAttributeName
+					, UIControlPrioritySCADAgen_i.DbAttribute.ResrvReservedID.toString()
+					, UIControlPrioritySCADAgen_i.RESRV_RESERVEDID_DEFAULT_VALUE);
 
-			logger.debug(function, "resrvReserveID[{}]", resrvReserveID);
-			logger.end(function);
+			logger.debug(f+logPrefix, "resrvReserveID[{}]", resrvReserveID);
+			logger.end(f+logPrefix);
 		}
-		logger.debug(function, "resrvReserveID[{}]", resrvReserveID);
-		logger.end(function);
+		logger.debug(f+logPrefix, "resrvReserveID[{}]", resrvReserveID);
+		logger.end(f+logPrefix);
 		return resrvReserveID;
 	}
 	
@@ -811,17 +849,17 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @return Related priority level in configuration file
 	 */
 	private int getPriorityLevel(final String usrIdentity) {
-		String function = "getPriorityLevel";
-		logger.begin(function);
-		logger.debug(function, "usrIdentity[{}]]", usrIdentity);
+		String f = "getPriorityLevel";
+		logger.begin(f+logPrefix);
+		logger.debug(f+logPrefix, "usrIdentity[{}]]", usrIdentity);
 		int ret = UIControlPrioritySCADAgen_i.LEVEL_NOT_DEFINED;
 		
 		if ( ! priorityLevels.containsKey(usrIdentity) ) {
-			logger.debug(function, "usrIdentity[{}] NOT FOUND, Loading from configuration", usrIdentity);
+			logger.debug(f+logPrefix, "usrIdentity[{}] NOT FOUND, Loading from configuration", usrIdentity);
 			
 			JSONArray jsonArray = ReadJsonFile.readArray(
 					UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
-					, UIControlPrioritySCADAgen_i.FILE_NAME_LEVEL
+					, this.cfgLevelName
 					, UIControlPrioritySCADAgen_i.AttributeLevel.Level.toString());
 			
 			JSONObject jsonObject = ReadJson.readObject(
@@ -834,13 +872,13 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 					, AttributeLevel.Value.toString()
 					, ret);
 			
-			logger.debug(function, "usrIdentity[{}] level[{}]!", usrIdentity, level);
+			logger.debug(f+logPrefix, "usrIdentity[{}] level[{}]!", usrIdentity, level);
 
 			if ( 
 					ret < UIControlPrioritySCADAgen_i.LEVEL_MIN
 				|| 	ret > UIControlPrioritySCADAgen_i.LEVEL_MAX ) {
 				ret = UIControlPrioritySCADAgen_i.LEVEL_NOT_DEFINED;
-				logger.debug(function, "usrIdentity[{}] NOT FOUND!, set to default level[{}]", usrIdentity, level);
+				logger.debug(f+logPrefix, "usrIdentity[{}] NOT FOUND!, set to default level[{}]", usrIdentity, level);
 			}
 				
 			priorityLevels.put(usrIdentity, level);
@@ -849,105 +887,105 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		if ( null != priorityLevels.get(usrIdentity) ) { 
 			ret = priorityLevels.get(usrIdentity);
 		} else {
-			logger.warn(function, "usrIdentity[{}] NOT FOUND", usrIdentity);
+			logger.warn(f+logPrefix, "usrIdentity[{}] NOT FOUND", usrIdentity);
 		}
 
-		logger.debug(function, "usrIdentity[{}] ret[{}]", usrIdentity, ret);
-		logger.end(function);
+		logger.debug(f+logPrefix, "usrIdentity[{}] ret[{}]", usrIdentity, ret);
+		logger.end(f+logPrefix);
 		return ret;
 	}
 	
 	private UIOpm_i uiOpm_i = null;
 	public UIOpm_i getUIOpm(final String uiOpmName) {
-		String function = "getUIOpm";
-		logger.begin(function);
+		String f = "getUIOpm";
+		logger.begin(f+logPrefix);
 		if ( null == uiOpm_i ) {
-			logger.debug(function, "uiOpmName[{}]", getUIOpmName());
+			logger.debug(f+logPrefix, "uiOpmName[{}]", getUIOpmName());
 			uiOpm_i = OpmMgr.getInstance().getOpm(getUIOpmName());
 		}
-		logger.debug(function, "uiOpm_i[{}]", uiOpm_i);
-		logger.end(function);
+		logger.debug(f+logPrefix, "uiOpm_i[{}]", uiOpm_i);
+		logger.end(f+logPrefix);
 		return uiOpm_i;
 	}
 	
 	private String uiOpmName = null;
 	public void setUIOpmName(final String uiOpmName) { this.uiOpmName = uiOpmName; }
 	private String getUIOpmName() {
-		String function = "getUIOpmName";
-		logger.begin(function);
+		String f = "getUIOpmName";
+		logger.begin(f+logPrefix);
 		if ( null == uiOpmName ) {
 			uiOpmName = ReadJsonFile.readString(
 					UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
-					, UIControlPrioritySCADAgen_i.FILE_NAME_ATTRIBUTE
+					, this.cfgAttributeName
 					, UIControlPrioritySCADAgen_i.Attribute.UIOpmName.toString()
 					, UIControlPrioritySCADAgen_i.UIOPM_NAME);
 		}
-		logger.debug(function, "uiOpmName[{}]", uiOpmName);
-		logger.end(function);
+		logger.debug(f+logPrefix, "uiOpmName[{}]", uiOpmName);
+		logger.end(f+logPrefix);
 		return uiOpmName;
 	}
 	
 	private DatabaseWrite_i databaseWrite_i = null;
 	public DatabaseWrite_i getDatabaseWrite(final String databaseWriteName) {
-		String function = "getDatabaseWrite";
-		logger.begin(function);
+		String f = "getDatabaseWrite";
+		logger.begin(f+logPrefix);
 		// Loading the DB Reading API
 		databaseWrite_i = DatabaseWriteFactory.get(databaseWriteName);
 		if ( null != databaseWrite_i ) {
 			databaseWrite_i.connect();
 		} else {
-			logger.warn(function, "databaseWrite_i from name databaseWriteName[{}] NOT FOUND!", databaseWriteName); 
+			logger.warn(f+logPrefix, "databaseWrite_i from name databaseWriteName[{}] NOT FOUND!", databaseWriteName); 
 		}
-		logger.end(function);
+		logger.end(f+logPrefix);
 		return databaseWrite_i;
 	}
 	
 	private String databaseWriteName = null;
 	public void setDatabaseWriteName(final String databaseWriteName) { this.databaseWriteName = databaseWriteName; }
 	private String getDatabaseWriteName() {
-		String function = "getDatabaseWriteName";
-		logger.begin(function);
+		String f = "getDatabaseWriteName";
+		logger.begin(f+logPrefix);
 		if ( null == databaseWriteName ) {
 			databaseWriteName = ReadJsonFile.readString(
 					UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
-					, UIControlPrioritySCADAgen_i.FILE_NAME_ATTRIBUTE
+					, this.cfgAttributeName
 					, UIControlPrioritySCADAgen_i.Attribute.DatabaseWriteKey.toString()
 					, UIControlPrioritySCADAgen_i.DB_WRITE_NAME);
 		}
-		logger.debug(function, "databaseWriteName[{}]", databaseWriteName);
-		logger.end(function);
+		logger.debug(f+logPrefix, "databaseWriteName[{}]", databaseWriteName);
+		logger.end(f+logPrefix);
 		return databaseWriteName;
 	}
 	
 	private DatabaseMultiRead_i databaseMultiRead_i = null;
 	public DatabaseMultiRead_i getDatabaseMultiRead(final String databaseMultiReadName) {
-		String function = "getDatabaseMultiRead";
-		logger.begin(function);
+		String f = "getDatabaseMultiRead";
+		logger.begin(f+logPrefix);
 		// Loading the DB Reading API
 		databaseMultiRead_i = DatabaseMultiReadFactory.get(databaseMultiReadName);
 		if ( null != databaseMultiRead_i ) {
 			databaseMultiRead_i.connect();
 		} else {
-			logger.warn(function, "databaseMultiRead_i from name strDbReadName[{}] NOT FOUND!", databaseMultiReadName); 
+			logger.warn(f+logPrefix, "databaseMultiRead_i from name strDbReadName[{}] NOT FOUND!", databaseMultiReadName); 
 		}
-		logger.end(function);
+		logger.end(f+logPrefix);
 		return databaseMultiRead_i;
 	}
 	
 	private String databaseMultiReadName = null;
 	public void setDatabaseMultiReadName(final String databaseMultiReadName) { this.databaseMultiReadName = databaseMultiReadName; }
 	private String getDatabaseMultiReadName() {
-		String function = "getDatabaseMultiReadName";
-		logger.begin(function);
+		String f = "getDatabaseMultiReadName";
+		logger.begin(f+logPrefix);
 		if ( null == databaseMultiReadName ) {
 			databaseMultiReadName = ReadJsonFile.readString(
 					UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
-					, UIControlPrioritySCADAgen_i.FILE_NAME_ATTRIBUTE
+					, this.cfgAttributeName
 					, UIControlPrioritySCADAgen_i.Attribute.DatabaseMultiReadKey.toString()
 					, UIControlPrioritySCADAgen_i.DB_READ_NAME);
 		}
-		logger.debug(function, "databaseMultiReadName[{}]", databaseMultiReadName);
-		logger.end(function);
+		logger.debug(f+logPrefix, "databaseMultiReadName[{}]", databaseMultiReadName);
+		logger.end(f+logPrefix);
 		return databaseMultiReadName;
 	}
 	
@@ -956,8 +994,8 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#init()
 	 */
 	public void init() {
-		String function = "getResrvReserveID";
-		logger.begin(function);
+		String f = "getResrvReserveID";
+		logger.begin(f+logPrefix);
 		
 		getDatabaseWrite(getDatabaseWriteName());
 		
@@ -967,50 +1005,75 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		getUIOpm(getUIOpmName());		
 		
 		// Loading the UsrIdentity
-		setUsrIdentity(getUsrIdentity(getUIOpm(getUIOpmName()), getUsrIdentityType()));
+//		setUsrIdentity(getUsrIdentity(getUIOpm(getUIOpmName()), getUsrIdentityType()));
 		
-		logger.debug(function, "usrIdentity[{}]", getUsrIdentity()); 
+		logger.debug(f+logPrefix, "usrIdentity[{}]", getUsrIdentity()); 
 
-		logger.end(function);
+		logger.end(f+logPrefix);
 	}
 	
 	@Override
 	public String getReservationKey() {
-		// TODO: Temporarily hard-coded, need to generalize.
-		String identity = "{\"o\":\"" + uiOpm_i.getCurrentOperator() + "\"" + ",\"p\":\"" + uiOpm_i.getCurrentProfile() + "\"}";
-		JSONObject tempJSON = ReadJson.readJson(identity);
-		logger.debug("getReservationKey tempJSON is [" + tempJSON.toString() + "]");
-		identity = tempJSON.toString();
-		return identity;
+		String f = "getReservationKey";
+		logger.begin(f+logPrefix);
+		String ret = null;
+		Map<String, Object> map = new LinkedHashMap<String, Object>();
+		map.put(IDENTIFY_OPERATOR_KEY, uiOpm_i.getCurrentOperator());
+		map.put(IDENTIFY_PROFILE_KEY, uiOpm_i.getCurrentProfile());
+		ret = JSONUtil.convertMapToJSONObject(map).toString();
+		logger.debug(f+logPrefix, "ret[{}]", ret); 
+		logger.end(f+logPrefix);
+		return ret;
 	}
 	
 	@Override
 	public String getDisplayIdentity(String valueFromModel) {
-		if (isJSONFormat(valueFromModel)){
-			JSONObject tempJSON = ReadJson.readJson(valueFromModel);
-			// TODO: currently hard-coded, need to replace with const.
-			String extractedOperator = tempJSON.get("o").toString().replace("\"", "");
-			String extractedProfile = tempJSON.get("p").toString().replace("\"", "");
-			String identity = extractedOperator + "," + extractedProfile;
-			return identity;
-		} else {
-			return valueFromModel;
+		String f = "getDisplayIdentity";
+		logger.begin(f+logPrefix);
+		logger.debug(f+logPrefix, "valueFromModel[{}]", valueFromModel);
+		String ret = valueFromModel;
+		JSONObject jsonObject = isJSONFormat(valueFromModel);
+		if (null!=jsonObject){
+			String extractedOperator = ReadJson.readString(jsonObject, IDENTIFY_OPERATOR_KEY, "");
+			extractedOperator = extractedOperator.replace("\"", "");
+			String extractedProfile = ReadJson.readString(jsonObject, IDENTIFY_PROFILE_KEY, "");
+			extractedProfile = extractedProfile.replace("\"", "");
+			ret = extractedOperator + "," + extractedProfile;
 		}
+		logger.debug(f+logPrefix, "ret[{}]", ret); 
+		logger.end(f+logPrefix);
+		return ret;
 	}
 	
 	public String getIdentityFromJson(String identity, String key){
-		JSONObject tempJSON = ReadJson.readJson(identity);
-		String extractedIdentity = tempJSON.get(key).toString();
-		return extractedIdentity;
+		String f = "getIdentityFromJson";
+		logger.begin(f+logPrefix);
+		logger.debug(f+logPrefix, "identity[{}] key[{}]", identity, key);
+		String ret = identity;
+		JSONObject jsonObject = ReadJson.readJson(identity);
+		if(null!=jsonObject) {
+			JSONValue jsonValue = jsonObject.get(key);
+			if(null!=jsonValue) {
+				ret = jsonValue.toString();
+			}
+		}
+		logger.debug(f+logPrefix, "ret[{}]", ret); 
+		logger.end(f+logPrefix);
+		return ret;
 	}
 	
-	public boolean isJSONFormat (String test){
-		
-		if (ReadJson.readJson(test) != null){
-			return true;
-		} else {
-			return false;
+	public JSONObject isJSONFormat(String test){
+		String f = "isJSONFormat";
+		logger.begin(f+logPrefix);
+		logger.debug(f+logPrefix, "test[{}]", test);
+		JSONObject ret = null;
+		JSONObject tmpStr = ReadJson.readJson(test);
+		if (tmpStr != null){
+			ret = tmpStr;
 		}
+		logger.debug(f+logPrefix, "ret[{}]", ret); 
+		logger.end(f+logPrefix);
+		return ret;
 		
 	}
 }

@@ -10,6 +10,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UICon
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriorityFactory_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPrioritySCADAgen;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.sub.UIControlPriorityPTW;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.sub.UIControlPriorityReservation;
 
 public class InitControlPriority implements Init_i {
 
@@ -38,13 +40,18 @@ public class InitControlPriority implements Init_i {
 			
 			@Override
 			public UIControlPriority_i get(String key) {
+				logger.debug(function, "Try to get key[{}]", key);
 				UIControlPriority_i uiControlPriority_i = null;
 				if ( null != key ) {
-					
 					if ( UIControlPrioritySCADAgen.class.getSimpleName().equalsIgnoreCase(key) ) {
-						uiControlPriority_i = UIControlPrioritySCADAgen.getInstance();
+						uiControlPriority_i = UIControlPrioritySCADAgen.getInstance("");
+					} else if ( UIControlPriorityReservation.class.getSimpleName().equalsIgnoreCase(key) ) {
+						uiControlPriority_i = UIControlPriorityReservation.getInstance();
+					} else if ( UIControlPriorityPTW.class.getSimpleName().equalsIgnoreCase(key) ) {
+						uiControlPriority_i = UIControlPriorityPTW.getInstance();
 					}
 				}
+				if(null==uiControlPriority_i) logger.warn(function, "key[{}], uiControlPriority_i IS NULL", key);
 				return uiControlPriority_i;
 			}
 		});
@@ -63,6 +70,14 @@ public class InitControlPriority implements Init_i {
 			logger.warn(function, "uiControlPriority_i IS NULL");
 		}
 		logger.end(function);
+	}
+	
+	public String[] getKeys() {
+		return new String[]{
+				UIControlPrioritySCADAgen.class.getSimpleName()
+				, UIControlPriorityReservation.class.getSimpleName()
+				, UIControlPriorityPTW.class.getSimpleName()
+				};
 	}
 	
 }

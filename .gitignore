@@ -45,7 +45,7 @@ target
 RemoteSystemsTempFiles
 
 #project base
-webapp\src\main\webapp\WEB-INF\deploy
+webapp/src/main/webapp/WEB-INF/deploy
 *.log
 *.keep
 

@@ -58,6 +58,13 @@ public class UILayoutLogin extends UIWidget_i {
 	
 	private final String STR_RESULT_INVALID_PREFIX	= "set_result_value_invalid_";
 	
+    private final String SCADAGEN_AUTO_LOGIN = "SCADAgenAutoLogin";
+    private final String AUTO_LOGIN_USERNAME = "AutoLoginUsername";
+    private final String AUTO_LOGIN_PASSWORD = "AutoLoginPassword";
+    
+    private final String ENABLED = "enabled";
+    private final String DISABLED = "disabled";
+	
 	private void changepassword() {
 		String f = "changepassword";
 		logger.begin(f);
@@ -101,8 +108,49 @@ public class UILayoutLogin extends UIWidget_i {
 			parameters.put(ActionAttribute.OperationString2.toString(), opmApi);
 			parameters.put(ActionAttribute.OperationString3.toString(), operator);
 			parameters.put(ActionAttribute.OperationString4.toString(), password);
+			
+			UICookies.setCookies(AUTO_LOGIN_USERNAME, operator);
+			UICookies.setCookies(AUTO_LOGIN_PASSWORD, password);
 		} else {
 			logger.warn(f, "opmApi[{}] OR operator[{}] OR password IS INVALID", new Object[]{opmApi, operator});
+		}
+		
+		override.put("OpmLogin", parameters);
+			
+		uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+		
+		logger.end(f);
+	}
+	
+	public void autoLogin(String username, String password) {
+		String f = "autoLogin";
+		logger.begin(f);
+
+		UICookies.setCookies(SCADAGEN_AUTO_LOGIN, DISABLED);
+		
+		final String actionsetkey = STR_LOGIN;
+		
+		final Map<String, Map<String, Object>> override = new HashMap<String, Map<String, Object>>();
+
+		final Map<String, Object> parameters = new HashMap<String, Object>();
+		
+		
+		if ( null != upperCaseName && Boolean.TRUE.toString().equals(upperCaseName) ) {
+			username = username.toUpperCase();
+		}
+		
+		if ( null != lowerCaseName && Boolean.TRUE.toString().equals(lowerCaseName) ) {
+			username = username.toLowerCase();
+		}
+			
+		logger.debug(f, "opmApi[{}] operator[{}]", opmApi, username);
+			
+		if ( null != opmApi && null != username && null != password ) {
+			parameters.put(ActionAttribute.OperationString2.toString(), opmApi);
+			parameters.put(ActionAttribute.OperationString3.toString(), username);
+			parameters.put(ActionAttribute.OperationString4.toString(), password);
+		} else {
+			logger.warn(f, "opmApi[{}] OR operator[{}] OR password IS INVALID", new Object[]{opmApi, username});
 		}
 		
 		override.put("OpmLogin", parameters);
@@ -234,6 +282,13 @@ public class UILayoutLogin extends UIWidget_i {
 //		TextBox name = (TextBox) uiWidgetGenericInfo.getWidget(STR_NAME);
 //		if (null!=name) name.setFocus(true);
 		
+		if(UICookies.getCookies(SCADAGEN_AUTO_LOGIN).equals(ENABLED)){
+			String cookieUsername = UICookies.getCookies(AUTO_LOGIN_USERNAME);
+			String cookiePassword = UICookies.getCookies(AUTO_LOGIN_PASSWORD);
+			if ( (cookieUsername != null) && (cookiePassword != null) ){
+				autoLogin(cookieUsername, cookiePassword);
+			}
+		}
 		logger.end(f);
 	}
 

@@ -8,24 +8,31 @@ import java.util.Map.Entry;
 
 import com.google.gwt.user.client.Window;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogger;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.entry.base.MwtEntryPointApp;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.monitor.RpcMonitorEvent;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.client.rpc.RpcMonitor.RpcMonitorState;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.entry.event.AppContextReadyEvent;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.WebConfigMgrEvent;
 import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.UIGwsWebConfigMgr;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UICookies;
 import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.main.factory.FrameworkFactory;
 import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.main.factory.IFramework;
 import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.main.util.Util;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 
 /**
  * Hypervisor showcase's entry point : everything starts here !
  */
-public class AppEntryPoint extends MwtEntryPointApp {
+public class AppEntryPoint extends EntryPointAutoLogin {
 	
 	/** logger */
 	private final String className_ = this.getClass().getSimpleName();
     private final ClientLogger logger_ = ClientLogger.getClientLogger(this.getClass().getName());
     private final String logPrefix_ = "["+className_+"] ";
 
+    private static final String SCADAGEN_AUTO_LOGIN = "SCADAgenAutoLogin";
+    private static final String ENABLED = "enabled";
+    
 	/**
      * Constructor.
      */
@@ -84,6 +91,17 @@ public class AppEntryPoint extends MwtEntryPointApp {
 				}
 	        });
 		}
+    }
+    
+    @Override
+    public void onRpcMonitorEvent(final RpcMonitorEvent event) {
+        // Auto-login : Go back to Login page if [Disconnected and Server present again]
+        if (RpcMonitorState.DISCONNECTED_SERVER_PRESENT.equals(event.getRpcMonitorState())) {
+        	// Auto logout and redirect to UILayoutLogin page.
+        	UICookies.setCookies(SCADAGEN_AUTO_LOGIN, ENABLED);
+        	UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm("UIOpmSCADAgen");
+        	uiOpm_i.logout();
+        } 
     }
     
     private void realize(final Map<String, Object> params) {

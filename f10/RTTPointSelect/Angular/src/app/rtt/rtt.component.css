@@ -1,0 +1,385 @@
+.page {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  color: black;
+}
+
+legend {
+  height: 1rem;
+  width: auto;
+  border-bottom: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 3rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: black;
+}
+
+.archives {
+  height: 5rem;
+  width: 40%;
+  cursor: default;
+  padding: 1rem;
+}
+
+.archives__field {
+  float: left;
+  width: 60%;
+  height: 100%;
+}
+
+.archives__button {
+  float: right;
+  width: 40%;
+  height: 100%;
+  padding-left: 1rem;
+}
+
+.lists {
+  float: left;
+  height: 100%;
+  width: 70%;
+  padding: 1rem;
+  background-color: white;
+}
+
+.lists__retrieved {
+  height: 37rem;
+  width: 100%;
+  border: 0.1rem solid #999;
+  border-radius: 0.8rem;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.lists__filterAll {
+  margin-bottom: 1rem;
+  height: 4rem;
+  width: 100%;
+}
+
+.lists__filterAll__label {
+  float: left;
+  height: 100%;
+  width: 10%;
+  padding-top: 1.5rem;
+  text-align: left;
+  align-items: inherit;
+  margin-bottom: 0px;
+}
+
+.lists__filterAll__field {
+  float: right;
+  height: 100%;
+  width: 90%;
+}
+
+.lists__retrievedList {
+  height: 75%;
+  line-height: 4;
+}
+
+.lists__selected {
+  height: 34.7rem;
+  width: 100%;
+  border: 0.1rem solid #999;
+  border-radius: 0.8rem;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.lists__selected__label {}
+
+.lists__selectedList {
+  line-height: 4;
+  height: 80%;
+  overflow: scroll;
+}
+
+.configs {
+  float: right;
+  height: 100%;
+  width: 30%;
+  padding: 1rem;
+  background-color: white;
+}
+
+.configs__legendSpan {
+  font-size: inherit;
+  color: darkgrey;
+}
+
+.configs__chartGen {
+  height: 20%;
+  width: 100%;
+  border: 0.1rem solid #999;
+  border-radius: 0.8rem;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.configs__chartType {
+  height: 3rem;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.configs__chartType__label {
+  float: left;
+  height: 100%;
+  width: 50%;
+  padding-top: 1.5rem;
+  text-align: left;
+  align-items: inherit;
+  margin-bottom: 0px;
+}
+
+.configs__chartType__field {
+  float: right;
+  height: 100%;
+  width: 50%;
+}
+
+.configs__tickInterval {
+  height: 7rem;
+  width: 100%;
+}
+
+.configs__tickInterval__underline {
+  height: 10%;
+  margin-bottom: 0.5rem;
+}
+
+.configs__tickInterval__label {
+  float: left;
+  height: 30%;
+  width: 15%;
+  padding-top: 1.3rem;
+  text-align: left;
+  align-items: inherit;
+}
+
+.configs__tickInterval__field {
+  float: right;
+  height: 30%;
+  width: 20%;
+  align-content: left;
+  margin-left: 1rem;
+}
+
+.configs__tickInterval__container {
+  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+
+.configs__chartProp {
+  height: 40%;
+  width: 100%;
+  border: 0.1rem solid #999;
+  border-radius: 0.8rem;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.configs__yAxis2--Enable {
+  float: left;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  width: 40%;
+}
+
+.configs__minMax--Enable {
+  float: right;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  width: 40%;
+  margin-right: 3rem;
+}
+
+.configs__yAxis1,
+.configs__yAxis2 {
+  height: 50%;
+}
+
+.configs__yAxis1__unit,
+.configs__yAxis1__max,
+.configs__yAxis1__min,
+.configs__yAxis2__unit,
+.configs__yAxis2__max,
+.configs__yAxis2__min {
+  height: 33.33%;
+}
+
+.configs__yAxis1__unitLabel,
+.configs__yAxis1__maxLabel,
+.configs__yAxis1__minLabel,
+.configs__yAxis2__unitLabel,
+.configs__yAxis2__maxLabel,
+.configs__yAxis2__minLabel {
+  float: left;
+  height: 100%;
+  width: 30%;
+  margin-top: 2.5rem;
+  text-align: left;
+  align-items: inherit;
+}
+
+.configs__yAxis1__unitField--input,
+.configs__yAxis1__unitField--select,
+.configs__yAxis1__maxField,
+.configs__yAxis1__minField,
+.configs__yAxis2__unitField--input,
+.configs__yAxis2__unitField--select,
+.configs__yAxis2__maxField,
+.configs__yAxis2__minField {
+  float: right;
+  height: 100%;
+  width: 50%;
+  align-content: left;
+}
+
+.configs__modify {
+  height: 40%;
+  width: 100%;
+  border: 0.1rem solid #999;
+  border-radius: 0.8rem;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.configs__modify__container {
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+.configs__modify__color,
+.configs__modify__axis {
+  height: 30%;
+  width: 100%
+}
+
+.configs__modify__colorLabel,
+.configs__modify__axisLabel {
+  float: left;
+  height: 100%;
+  width: 30%;
+  margin-top: 1.5rem;
+  text-align: left;
+  align-items: inherit;
+}
+
+.configs__modify__colorField,
+.configs__modify__axisField {
+  float: right;
+  height: 100%;
+  width: 50%;
+}
+
+.configs__modify__info {
+  float: right;
+  width: 40%;
+  height: 100%;
+}
+
+.configs__modify__infoFIeld {
+  width: 100%;
+  height: 100%;
+}
+
+.buttons {
+  height: 10rem;
+  width: 30%;
+  margin-top: 2rem;
+  float: initial;
+  margin-left: 1rem;
+  background-color: white;
+}
+
+.buttons__back {
+  float: left;
+}
+
+.buttons__reset {
+  float: left;
+}
+
+.buttons__displayChart {
+  float: left;
+  margin-left: 4rem;
+}
+
+.ag-theme-bootstrap {
+  background-color: white;
+}
+
+.ag-theme-bootstrap .ag-header {
+  background-color: white;
+  color: black;
+}
+
+.ag-theme-bootstrap .ag-row {
+  background-color: white;
+  color: black;
+}
+
+.ag-theme-bootstrap .ag-row-hover {
+  background-color: darkgrey;
+}
+
+.ag-theme-material {
+  align-content: center;
+  text-shadow: 0 0 black;
+  line-height: 3;
+}
+
+.ag-theme-material .ag-row-selected {
+  background-color: #99ccff;
+}
+
+.ag-theme-material .ag-cell {
+  outline-color: transparent;
+}
+
+.mat-simple-snackbar {
+  white-space: pre-line;
+}
+
+.mat-form-field-underline {
+  background-color: black;
+}
+
+.mat-input-element:disabled {
+  color: black;
+}
+
+.mat-icon {
+  font-size: 120%;
+}
+
+.ag-body {
+  position: inherit;
+  height: 100% !important;
+}
+
+.ag-cell {
+  border: none;
+}
+
+.ag-body-container {
+  min-height: 82px;
+}
+
+.ag-grid-angular {
+  display: flow-root;
+}

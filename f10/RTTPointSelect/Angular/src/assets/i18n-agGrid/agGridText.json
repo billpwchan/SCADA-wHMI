@@ -1,0 +1,48 @@
+{
+    "page": "Page",
+    "more": "More",
+    "to": "To",
+    "of": "Of",
+    "next": "Nexten",
+    "last": "Lasten",
+    "first": "Firsten",
+    "previous": "Previousen",
+    "loadingOoo": "Loading...",
+
+    "selectAll": "Select Allen",
+    "searchOoo": "Search...",
+    "blanks": "Blanc",
+
+    "filterOoo": "Filter...",
+    "applyFilter": "ApplyFilter...",
+
+    "equals": "Equals",
+    "lessThan": "LessThan",
+    "greaterThan": "GreaterThan",
+
+    "contains": "Contains",
+    "startsWith": "Starts with",
+    "endsWith": "Ends with",
+
+    "group": "Group",
+
+    "columns": "Columns",
+    "rowGroupColumns": "Pivot Cols",
+    "rowGroupColumnsEmptyMessage": " drag cols to group",
+    "valueColumns": "Value Cols",
+    "pivotMode": "Pivot-Mode",
+    "groups": "Groups",
+    "values": "Values",
+    "pivots": "Pivots",
+    "valueColumnsEmptyMessage": " drag cols to aggregate",
+    "pivotColumnsEmptyMessage": " drag here to pivot",
+    "toolPanelButton": " tool panel",
+
+    "noRowsToShow": " no rows",
+
+    "copy": "Copy",
+    "copyWithHeaders": "Copy Wit Headers",
+    "ctrlC": "ctrl n C",
+    "paste": "Paste",
+    "ctrlV": "ctrl n C"
+  }

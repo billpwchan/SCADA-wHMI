@@ -1,0 +1,107 @@
+{
+  "BUTTON": {
+    "APPLY": "Apply",
+    "ASSIGN": "Assign",
+    "CANCEL": "Cancel",
+    "CONFIRM": "Confirm",
+    "CREATE": "Create",
+    "REMOVE": "Remove",
+    "RESET": "Reset",
+    "DISPLAY_CHART": "Display Chart",
+    "BACK": "Back",
+    "GET_DATA": "Start Configuration",
+    "PAUSE": "His Data",
+    "RESUME": "RT Data",
+    "REPLOT": "Replot",
+    "MODIFY": "Modify",
+    "RESELECT": "Reselect",
+    "DISMISS": "Dismiss"
+  },
+  "RETRIEVED_LIST": "Retrieved List",
+  "SELECTED_LIST": "Selected List",
+  "CHART_GEN_CONFIG": {
+    "TITLE": "Chart Config",
+    "CHARTTYPE": "Chart Type",
+    "XAXIS_DURATION": "XAxis Duration",
+    "HOURS": "Hours:",
+    "HOURS_PLACEHOLDER": "Input Hour",
+    "MINUTES": "Minutes:",
+    "MINUTES_PLACEHOLDER": "Input Minute",
+    "SECONDS": "Seconds:",
+    "SECONDS_PLACEHOLDER": "Input Seconds",
+    "DURATION": "Duration"
+  },
+  "CHART_Y_AXIS_CONFIG": {
+    "TITLE": "Chart Y Axis Config:",
+    "Y_AXIS1_UNIT": "Y-Axis 1 Unit:",
+    "Y_AXIS1_UNIT_PLACEHOLDER": "Please input Y-Axis 1 Unit",
+    "Y_AXIS1_MAX": "Y-Axis 1 Max Value:",
+    "Y_AXIS1_MAX_PLACEHOLDER": "Please input Y-Axis 1 Max Value",
+    "Y_AXIS1_MIN": "Y-Axis 1 Min Value:",
+    "Y_AXIS1_MIN_PLACEHOLDER": "Please input Y-Axis 1 Min Value",
+    "ENABLE_Y_AXIS2": "Enable Y-Axis 2",
+    "ENABLE_AUTO_MINMAX": "Enable Auto Min/Max Value",
+    "Y_AXIS2_UNIT": "Y-Axis 2 Unit:",
+    "Y_AXIS2_UNIT_PLACEHOLDER": "Please input Y-Axis 2 Unit",
+    "Y_AXIS2_MAX": "Y-Axis 2 Max Value:",
+    "Y_AXIS2_MAX_PLACEHOLDER": "Please input Y-Axis 2 Max Value",
+    "Y_AXIS2_MIN": "Y-Axis 2 Min Value:",
+    "Y_AXIS2_MIN_PLACEHOLDER": "Please input Y-Axis 2 Min Value"
+  },
+  "MODIFY_SELECTED": {
+    "TITLE": "Modify Selected",
+    "COLOR": "Color:",
+    "ATTACHED_AXIS": "Attached Axis:"
+  },
+  "CHART": {
+    "TITLE": "Real Time Trend Chart",
+    "ZOOM": "Zoom",
+    "NODATA": "No Data.",
+    "SUBTITLE_1": "<b>Archive Name: </b>",
+    "SUBTITLE_2": "<b>List Name: </b>"
+  },
+
+  "RTT": "Real Time Trend",
+  "DESELECT_ON_DBL_CLICK": "Single-click Color to Edit. Double-click Name to Deselect",
+  "RETRIEVEDPOINTS": "Retrieved Pointnames",
+  "KEYWORD_FILTER": "Keyword Filter:",
+  "FILTERALL": "Filter All",
+  "CHARTPROP": "Chart Properties",
+  "COLOR": "Color",
+  "ARCHIVES": "Archives",
+
+  "GENERAL_NULL_FIELD_ERR_MSG": "This field cannot be empty!",
+  "GENERAL_BELOW_MIN_LENGTH_ERR_MSG": "Invalid input. The number is too small",
+  "GENERAL_EXCEED_MAX_LENGTH_ERR_MSG": "Invalid input. The number is too large.",
+  "GENERAL_INVALID_INPUT_ERR_MSG": "Invalid Input. ",
+  "GENERAL_NULL_ATTACHED_AXIS_ERR_MSG": "Attached Axes are not defined in one of the selected data. Please check again.",
+  "GENERAL_INVALID_ATTACHED_AXIS_ERR_MSG": "Attached Axis is invalid in: ",
+  "GENERAL_INVALID_MINMAX_ERR_MSG": "Axes Min & Max Value settings are invalid. ",
+  "GENERAL_SMALL_INTERVAL_ERR_MSG": "The duration is suggested to be at least 5 mins. ",
+  "GENERAL_EXCEED_MAX_DURATION_ERR_MSG": "The duration is too large. Please adjust your value. ",
+  "GENERAL_CONNECTION_ERR_MSG": "Cannot connect to the server. Please re-check config settings. ",
+  "GENERAL_STOMP_CONNECTION_ERR_MSG": "Failed to init STOMP service. Please click 'His Data' button and click 'RT Data' again to refresh.",
+  "GENERAL_RELOADING_CHART_MSG": "Browser cache is almost reaching its limit. Cleaning now...",
+
+  "ARCHIVE_NAMES": {
+    "TECSOperating": "TECSOperating",
+    "TECSPTW": "TECSPTW",
+    "TECSTemperature": "TECSTemperature",
+    "TM_ARCHIVE": "TM_ARCHIVE",
+    "TS_ARCHIVE": "TS_ARCHIVE"
+  },
+  "CHART_TYPES": {
+    "Step": "STEP",
+    "Line": "LINE",
+    "Bar": "BAR"
+  },
+  "COL_LBL5": "Point Unit",
+  "COL_LBL4": "Equip ShortLabel",
+  "COL_LBL3": "Equip Type",
+  "COL_LBL2": "System",
+  "COL_LBL1": "Station",
+
+  "BMOD0001": "First Text",
+  "CMOD0001": "Second Text"
+
+}

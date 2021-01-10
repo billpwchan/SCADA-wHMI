@@ -1,0 +1,137 @@
+<!-- <h2 mat-dialog-title>Delete all</h2>
+<mat-dialog-content>Are you sure?</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>No</button>
+  <button mat-button [mat-dialog-close]="true">Yes</button>
+</mat-dialog-actions> -->
+<h1 mat-dialog-title>Chart Configs</h1>
+<mat-dialog-content>
+  <div class="configs">
+    <fieldset class="configs__chartGen">
+      <legend>{{ 'CHART_GEN_CONFIG.TITLE' | translate }}</legend>
+      <div class="configs__chartType">
+        <p class="configs__chartType__label">{{ 'CHART_GEN_CONFIG.CHARTTYPE' | translate }}: </p>
+        <mat-form-field class="configs__chartType__field" appearance="legacy">
+          <mat-select [(ngModel)]="chType" name="chType" [formControl]="chartTypeFormControl">
+            <mat-option *ngFor="let key of keys()" [value]="chartTypeList[key]">{{chartTypeList[key]}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="chartTypeFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="configs__tickInterval">
+        <u class="configs__tickInterval__underline">{{ 'CHART_GEN_CONFIG.XAXIS_DURATION' | translate }}</u>
+        <div class="configs__tickInterval__container">
+          <p class="configs__tickInterval__label">{{ 'CHART_GEN_CONFIG.HOURS' | translate }}</p>
+          <mat-form-field class="configs__tickInterval__field" appearance="legacy">
+            <input matInput type="text" [(ngModel)]="tickInterval.hours" [formControl]="hoursFormControl" placeholder="{{ 'CHART_GEN_CONFIG.HOURS_PLACEHOLDER' | translate }}">
+            <mat-error *ngIf="hoursFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="hoursFormControl.hasError('pattern')">{{'GENERAL_INVALID_INPUT_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="hoursFormControl.hasError('min')">{{'GENERAL_BELOW_MIN_LENGTH_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="hoursFormControl.hasError('max')">{{'GENERAL_EXCEED_MAX_LENGTH_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="configs__tickInterval__container">
+          <p class="configs__tickInterval__label">{{ 'CHART_GEN_CONFIG.MINUTES' | translate }}</p>
+          <mat-form-field class="configs__tickInterval__field" appearance="legacy">
+            <input matInput type="text" [(ngModel)]="tickInterval.minutes" [formControl]="minutesFormControl" placeholder="{{ 'CHART_GEN_CONFIG.MINUTES_PLACEHOLDER' | translate }}">
+            <mat-error *ngIf="minutesFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="minutesFormControl.hasError('pattern')">{{'GENERAL_INVALID_INPUT_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="minutesFormControl.hasError('min')">{{'GENERAL_BELOW_MIN_LENGTH_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="minutesFormControl.hasError('max')">{{'GENERAL_EXCEED_MAX_LENGTH_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="configs__tickInterval__container">
+          <p class="configs__tickInterval__label">{{ 'CHART_GEN_CONFIG.SECONDS' | translate }}</p>
+          <mat-form-field class="configs__tickInterval__field" appearance="legacy">
+            <input matInput type="text" [(ngModel)]="tickInterval.seconds" [formControl]="secondsFormControl" placeholder="{{ 'CHART_GEN_CONFIG.SECONDS_PLACEHOLDER' | translate }}">
+            <mat-error *ngIf="secondsFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="secondsFormControl.hasError('pattern')">{{'GENERAL_INVALID_INPUT_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="secondsFormControl.hasError('min')">{{'GENERAL_BELOW_MIN_LENGTH_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="secondsFormControl.hasError('max')">{{'GENERAL_EXCEED_MAX_LENGTH_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+
+      </div>
+    </fieldset>
+    <fieldset class="configs__chartProp">
+      <legend>{{ 'CHART_Y_AXIS_CONFIG.TITLE' | translate }}</legend>
+      <div class="configs__yAxis1">
+        <div class="configs__yAxis1__unit">
+          <p class="configs__yAxis1__unitLabel">{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS1_UNIT' | translate }}</p>
+          <mat-form-field class="configs__yAxis1__unitField--input" appearance="legacy" *ngIf="isEmptyList(powerUnitList)">
+            <input matInput type="text" [(ngModel)]="yAxis1.unit" [formControl]="yAxis1UnitFormControl" placeholder="{{'CHART_Y_AXIS_CONFIG.Y_AXIS1_UNIT_PLACEHOLDER' | translate}}">
+          </mat-form-field>
+          <mat-form-field class="configs__yAxis1__unitField--select" appearance="legacy">
+            <mat-select [(ngModel)]="yAxis1.unit" name="yaxis1Unit" [formControl]="yAxis1UnitFormControl">
+              <mat-option *ngFor="let unit of powerUnitDisplayList" [value]="unit">{{unit}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="yAxis1UnitFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="configs__yAxis1__min" *ngIf="!allowAutoMinMax">
+          <p class="configs__yAxis1__minLabel">{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS1_MIN' | translate }}</p>
+          <mat-form-field class="configs__yAxis1__minField" appearance="legacy">
+            <input matInput type="text" [(ngModel)]="yAxis1.min" [formControl]="yAxis1MinFormControl" placeholder="{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS1_MIN_PLACEHOLDER' | translate }}">
+            <mat-error *ngIf="yAxis1MinFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="yAxis1MinFormControl.hasError('pattern')">{{'GENERAL_INVALID_INPUT_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="configs__yAxis1__max" *ngIf="!allowAutoMinMax">
+          <p class="configs__yAxis1__maxLabel">{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS1_MAX' | translate }}</p>
+          <mat-form-field class="configs__yAxis1__maxField" appearance="legacy">
+            <input matInput type="text" [(ngModel)]="yAxis1.max" [formControl]="yAxis1MaxFormControl" placeholder="{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS1_MAX_PLACEHOLDER' | translate }}">
+            <mat-error *ngIf="yAxis1MaxFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="yAxis1MaxFormControl.hasError('pattern')">{{'GENERAL_INVALID_INPUT_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-checkbox [(ngModel)]="allowAutoMinMax" class="configs__minMax--Enable">{{ 'CHART_Y_AXIS_CONFIG.ENABLE_AUTO_MINMAX' | translate }}</mat-checkbox>
+      <div class="configs__yAxis2" *ngIf="allowShowYAxis2">
+        <div class="configs__yAxis2__unit">
+          <p class="configs__yAxis2__unitLabel">{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS2_UNIT' | translate }}</p>
+          <mat-form-field class="configs__yAxis2__unitField--input" appearance="legacy" *ngIf="isEmptyList(powerUnitList)">
+            <input matInput type="text" [(ngModel)]="yAxis2.unit" [formControl]="yAxis2UnitFormControl" placeholder="{{'CHART_Y_AXIS_CONFIG.Y_AXIS2_UNIT_PLACEHOLDER' | translate}}">
+          </mat-form-field>
+          <mat-form-field class="configs__yAxis2__unitField--select" appearance="legacy">
+            <mat-select [(ngModel)]="yAxis2.unit" name="yaxis2Unit" [formControl]="yAxis2UnitFormControl">
+              <mat-option *ngFor="let unit of powerUnitDisplayList" [value]="unit">{{unit}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="yAxis2UnitFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="configs__yAxis2__min" *ngIf="!allowAutoMinMax">
+          <p class="configs__yAxis2__minLabel">{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS2_MIN' | translate }}</p>
+          <mat-form-field class="configs__yAxis2__minField" appearance="legacy">
+            <input matInput type="text" [(ngModel)]="yAxis2.min" [formControl]="yAxis2MinFormControl" placeholder="{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS2_MIN_PLACEHOLDER' | translate }}">
+            <mat-error *ngIf="yAxis2MinFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="yAxis2MinFormControl.hasError('pattern')">{{'GENERAL_INVALID_INPUT_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="configs__yAxis2__max" *ngIf="!allowAutoMinMax">
+          <p class="configs__yAxis2__maxLabel">{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS2_MAX' | translate }}</p>
+          <mat-form-field class="configs__yAxis2__maxField" appearance="legacy">
+            <input matInput type="text" [(ngModel)]="yAxis2.max" [formControl]="yAxis2MaxFormControl" placeholder="{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS2_MAX_PLACEHOLDER' | translate }}">
+            <mat-error *ngIf="yAxis2MaxFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="yAxis2MaxFormControl.hasError('pattern')">{{'GENERAL_INVALID_INPUT_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <div class="buttons">
+    <div class="buttons__cancel">
+      <button mat-raised-button color="primary" class="btn btn-primary" mat-dialog-close>
+        {{'BUTTON.CANCEL' | translate}}
+      </button>
+    </div>
+    <div class="buttons__replot">
+      <button mat-raised-button color="primary" class="btn btn-primary" (click)="onReplot()">
+        {{'BUTTON.REPLOT' | translate}}
+      </button>
+    </div>
+  </div>
+</mat-dialog-actions>

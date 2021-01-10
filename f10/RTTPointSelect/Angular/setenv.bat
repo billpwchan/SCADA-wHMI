@@ -1,0 +1,9 @@
+@ECHO OFF
+
+call ..\..\..\tools\LoadPath.bat
+
+
+SET SOURCE_BASE_F10=%SOURCE_BASE%/f10
+SET NODEJS_HOME=%SOFTS_BASE%/%SOFTS_DIR%/node-v8.6.0-win-x64
+
+SET PATH=%PATH%;%NODEJS_HOME%

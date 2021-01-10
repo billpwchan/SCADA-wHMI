@@ -1,0 +1,154 @@
+.configs {
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  background-color: white;
+}
+
+.configs__chartGen {
+  height: 100%;
+  width: 45%;
+  border: 0.1rem solid #999;
+  border-radius: 0.8rem;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  float: left;
+}
+
+.configs__chartType {
+  height: 3rem;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.configs__chartType__label {
+  float: left;
+  height: 100%;
+  width: 50%;
+  padding-top: 1.5rem;
+  text-align: left;
+  align-items: inherit;
+  margin-bottom: 0px;
+}
+
+.configs__chartType__field {
+  float: right;
+  height: 100%;
+  width: 50%;
+}
+
+.configs__tickInterval {
+  height: 7rem;
+  width: 100%;
+}
+
+.configs__tickInterval__underline {
+  height: 10%;
+  margin-bottom: 0.5rem;
+}
+
+.configs__tickInterval__label {
+  float: left;
+  height: 30%;
+  width: 40%;
+  padding-top: 2.2rem;
+  text-align: left;
+  align-items: inherit;
+}
+
+.configs__tickInterval__field {
+  float: right;
+  height: 30%;
+  width: 50%;
+  align-content: left;
+}
+
+.configs__tickInterval__container {
+  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+
+.configs__chartProp {
+  height: 100%;
+  width: 50%;
+  border: 0.1rem solid #999;
+  border-radius: 0.8rem;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  float: right;
+}
+
+.configs__minMax--Enable {
+  float: initial;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  width: 40%;
+}
+
+.configs__yAxis1,
+.configs__yAxis2 {
+  height: 50%;
+}
+
+.configs__yAxis1__unit,
+.configs__yAxis1__max,
+.configs__yAxis1__min,
+.configs__yAxis2__unit,
+.configs__yAxis2__max,
+.configs__yAxis2__min {
+  height: 33.33%;
+}
+
+.configs__yAxis1__unitLabel,
+.configs__yAxis1__maxLabel,
+.configs__yAxis1__minLabel,
+.configs__yAxis2__unitLabel,
+.configs__yAxis2__maxLabel,
+.configs__yAxis2__minLabel {
+  float: left;
+  height: 100%;
+  width: 40%;
+  margin-top: 1rem;
+  padding-top: inherit;
+  text-align: left;
+  align-items: inherit;
+}
+
+.configs__yAxis1__unitField--input,
+.configs__yAxis1__unitField--select,
+.configs__yAxis1__maxField,
+.configs__yAxis1__minField,
+.configs__yAxis2__unitField--input,
+.configs__yAxis2__unitField--select,
+.configs__yAxis2__maxField,
+.configs__yAxis2__minField {
+  float: right;
+  height: 100%;
+  width: 50%;
+  align-content: left;
+}
+
+.buttons {
+  height: 10rem;
+  width: 100%;
+  margin-top: 2rem;
+  float: initial;
+  margin-left: 1rem;
+  background-color: white;
+}
+
+.buttons__cancel {
+  float: left;
+}
+
+.buttons__replot {
+  margin-left: 1rem;
+  float: left;
+}
+
+.mat-dialog-container {
+  width: 150%
+}
+
+

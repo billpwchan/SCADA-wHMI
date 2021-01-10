@@ -1,0 +1,213 @@
+<div class="page">
+  <div class="archives">
+    <mat-form-field class="archives__field" appearance="legacy">
+      <mat-select [(ngModel)]="listName" name="listName">
+        <mat-option *ngFor="let key of archiveKeys()" [value]="archiveNameList[key]">{{archiveNameList[key]}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="archives__button">
+      <button mat-raised-button color="primary" class="btn btn-primary" (click)="prepareOlsdataObj()">{{ 'BUTTON.GET_DATA' | translate }}</button>
+    </div>
+  </div>
+
+
+  <div class="lists" *ngIf="!isEmptyList(olsList)">
+
+    <fieldset class="lists__retrieved">
+      <div class="lists__filterAll">
+        <p class="lists__filterAll__label">{{ 'KEYWORD_FILTER' | translate }}</p>
+        <mat-form-field class="lists__filterAll__field" appearance="legacy">
+          <input matInput type="text" [(ngModel)]="filter" (input)="onFilterTextBoxChanged()" placeholder="{{'KEYWORD_FILTER' | translate}}">
+        </mat-form-field>
+      </div>
+      <legend>{{ 'RETRIEVED_LIST' | translate }}</legend>
+      <ag-grid-angular class="lists__retrievedList ag-theme-bootstrap" [gridOptions]="gridOptions" [localeText]="localeText" (rowClicked)="selectOls($event)"
+        (rowDoubleClicked)="deselectOls($event)" enableColResize="true" enableSorting="true" enableFilter="true" rowHeight="30"
+        suppressLoadingOverlay="true" suppressNoRowsOverlay="true" suppressCellSelection="true" rowSelection="single" enableCellChangeFlash="true">
+      </ag-grid-angular>
+    </fieldset>
+
+    <fieldset class="lists__selected" *ngIf="!isEmptyList(selectedOlsdatas)">
+      <legend>{{ 'SELECTED_LIST' | translate }}</legend>
+      <p class="lists__selected__label">{{'DESELECT_ON_DBL_CLICK' | translate}}</p>
+      <ag-grid-angular class="lists__selectedList ag-theme-bootstrap" [gridOptions]="gridOptionsSelected" (rowClicked)="onRowClicked($event)"
+        (rowDoubleClicked)="deselectOls($event)" enableColResize="true" enableSorting="true" rowHeight="30" suppressLoadingOverlay="true"
+        suppressNoRowsOverlay="true" suppressCellSelection="true" rowSelection="single" enableCellChangeFlash="true">
+      </ag-grid-angular>
+    </fieldset>
+  </div>
+
+  <div class="configs">
+    <fieldset class="configs__chartGen" *ngIf="!isEmptyList(olsList)">
+      <legend (click)="chartGenHidden = !chartGenHidden">
+        <span [innerText]="chartGenHidden?'[+] ':'[-] '" class="configs__legendSpan"></span>
+        {{ 'CHART_GEN_CONFIG.TITLE' | translate }}
+      </legend>
+      <div class="configs__chartType" [hidden]="chartGenHidden">
+        <p class="configs__chartType__label">{{ 'CHART_GEN_CONFIG.CHARTTYPE' | translate }}: </p>
+        <mat-form-field class="configs__chartType__field" appearance="legacy">
+          <mat-select [(ngModel)]="chType" name="chType" [formControl]="chartTypeFormControl">
+            <mat-option *ngFor="let key of keys()" [value]="chartTypeList[key]">{{chartTypeList[key]}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="chartTypeFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="configs__tickInterval" *ngIf="!legacyMode" [hidden]="chartGenHidden">
+        <u class="configs__tickInterval__underline">{{ 'CHART_GEN_CONFIG.XAXIS_DURATION' | translate }}</u>
+        <div class="configs__tickInterval__container">
+          <mat-form-field class="configs__tickInterval__field" appearance="legacy">
+            <input matInput type="text" [(ngModel)]="tickInterval.seconds" (input)="onChangeTickInterval()" [formControl]="secondsFormControl"
+              placeholder="{{ 'CHART_GEN_CONFIG.SECONDS_PLACEHOLDER' | translate }}">
+            <mat-icon matSuffix *ngIf="warningMessageFlag" matTooltip="{{ 'GENERAL_SMALL_INTERVAL_ERR_MSG' | translate}}">warning</mat-icon>
+            <mat-error *ngIf="secondsFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="secondsFormControl.hasError('pattern')">{{'GENERAL_INVALID_INPUT_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="secondsFormControl.hasError('min')">{{'GENERAL_BELOW_MIN_LENGTH_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="secondsFormControl.hasError('max')">{{'GENERAL_EXCEED_MAX_LENGTH_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="configs__tickInterval__container">
+          <mat-form-field class="configs__tickInterval__field" appearance="legacy">
+            <input matInput type="text" [(ngModel)]="tickInterval.minutes" (input)="onChangeTickInterval()" [formControl]="minutesFormControl"
+              placeholder="{{ 'CHART_GEN_CONFIG.MINUTES_PLACEHOLDER' | translate }}">
+            <mat-icon matSuffix *ngIf="warningMessageFlag" matTooltip="{{ 'GENERAL_SMALL_INTERVAL_ERR_MSG' | translate}}">warning</mat-icon>
+            <mat-error *ngIf="minutesFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="minutesFormControl.hasError('pattern')">{{'GENERAL_INVALID_INPUT_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="minutesFormControl.hasError('min')">{{'GENERAL_BELOW_MIN_LENGTH_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="minutesFormControl.hasError('max')">{{'GENERAL_EXCEED_MAX_LENGTH_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="configs__tickInterval__container">
+          <p class="configs__tickInterval__label">{{ 'CHART_GEN_CONFIG.DURATION' | translate }}</p>
+          <mat-form-field class="configs__tickInterval__field" appearance="legacy">
+            <input matInput type="text" [(ngModel)]="tickInterval.hours" (input)="onChangeTickInterval()" [formControl]="hoursFormControl"
+              placeholder="{{ 'CHART_GEN_CONFIG.HOURS_PLACEHOLDER' | translate }}">
+            <mat-error *ngIf="hoursFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="hoursFormControl.hasError('pattern')">{{'GENERAL_INVALID_INPUT_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="hoursFormControl.hasError('min')">{{'GENERAL_BELOW_MIN_LENGTH_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="hoursFormControl.hasError('max')">{{'GENERAL_EXCEED_MAX_LENGTH_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+
+      </div>
+    </fieldset>
+    <fieldset class="configs__chartProp" *ngIf="!isEmptyList(olsList)">
+      <legend (click)="chartPropHidden=!chartPropHidden">
+        <span [innerText]="chartPropHidden?'[+] ':'[-] '" class="configs__legendSpan"></span>
+        {{ 'CHART_Y_AXIS_CONFIG.TITLE' | translate }}
+      </legend>
+      <mat-checkbox [(ngModel)]="allowShowYAxis2" class="configs__yAxis2--Enable" [hidden]="chartPropHidden">{{ 'CHART_Y_AXIS_CONFIG.ENABLE_Y_AXIS2' | translate }}</mat-checkbox>
+      <mat-checkbox [(ngModel)]="allowAutoMinMax" class="configs__minMax--Enable" [hidden]="chartPropHidden">{{ 'CHART_Y_AXIS_CONFIG.ENABLE_AUTO_MINMAX' | translate }}</mat-checkbox>
+      <div class="configs__yAxis1" [hidden]="chartPropHidden">
+        <div class="configs__yAxis1__unit">
+          <p class="configs__yAxis1__unitLabel">{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS1_UNIT' | translate }}</p>
+          <mat-form-field class="configs__yAxis1__unitField--input" appearance="legacy" *ngIf="isEmptyList(pointUnitList)">
+            <input matInput type="text" [(ngModel)]="yaxis1.unit" [formControl]="yAxis1UnitFormControl" placeholder="{{'CHART_Y_AXIS_CONFIG.Y_AXIS1_UNIT_PLACEHOLDER' | translate}}">
+          </mat-form-field>
+          <mat-form-field class="configs__yAxis1__unitField--select" appearance="legacy" *ngIf="!isEmptyList(pointUnitList)">
+            <mat-select [(ngModel)]="yaxis1.unit" name="yaxis1Unit" [formControl]="yAxis1UnitFormControl">
+              <mat-option *ngFor="let unit of powerUnitDisplayList" [value]="unit">{{unit}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="yAxis1UnitFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="configs__yAxis1__min" *ngIf="!legacyMode && !allowAutoMinMax">
+          <p class="configs__yAxis1__minLabel">{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS1_MIN' | translate }}</p>
+          <mat-form-field class="configs__yAxis1__minField" appearance="legacy">
+            <input matInput type="text" [(ngModel)]="yaxis1.min" [formControl]="yAxis1MinFormControl" placeholder="{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS1_MIN_PLACEHOLDER' | translate }}">
+            <mat-error *ngIf="yAxis1MinFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="yAxis1MinFormControl.hasError('pattern')">{{'GENERAL_INVALID_INPUT_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="configs__yAxis1__max" *ngIf="!legacyMode && !allowAutoMinMax">
+          <p class="configs__yAxis1__maxLabel">{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS1_MAX' | translate }}</p>
+          <mat-form-field class="configs__yAxis1__maxField" appearance="legacy">
+            <input matInput type="text" [(ngModel)]="yaxis1.max" [formControl]="yAxis1MaxFormControl" placeholder="{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS1_MAX_PLACEHOLDER' | translate }}">
+            <mat-error *ngIf="yAxis1MaxFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="yAxis1MaxFormControl.hasError('pattern')">{{'GENERAL_INVALID_INPUT_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="configs__yAxis2" *ngIf="allowShowYAxis2" [hidden]="chartPropHidden">
+        <div class="configs__yAxis2__unit">
+          <p class="configs__yAxis2__unitLabel">{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS2_UNIT' | translate }}</p>
+          <mat-form-field class="configs__yAxis2__unitField--input" appearance="legacy" *ngIf="isEmptyList(pointUnitList)">
+            <input matInput type="text" [(ngModel)]="yaxis2.unit" [formControl]="yAxis2UnitFormControl" placeholder="{{'CHART_Y_AXIS_CONFIG.Y_AXIS2_UNIT_PLACEHOLDER' | translate}}">
+          </mat-form-field>
+          <mat-form-field class="configs__yAxis2__unitField--select" appearance="legacy" *ngIf="!isEmptyList(pointUnitList)">
+            <mat-select [(ngModel)]="yaxis2.unit" name="yaxis2Unit" [formControl]="yAxis2UnitFormControl">
+              <mat-option *ngFor="let unit of powerUnitDisplayList" [value]="unit">{{unit}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="yAxis2UnitFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="configs__yAxis2__min" *ngIf="!legacyMode && !allowAutoMinMax">
+          <p class="configs__yAxis2__minLabel">{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS2_MIN' | translate }}</p>
+          <mat-form-field class="configs__yAxis2__minField" appearance="legacy">
+            <input matInput type="text" [(ngModel)]="yaxis2.min" [formControl]="yAxis2MinFormControl" placeholder="{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS2_MIN_PLACEHOLDER' | translate }}">
+            <mat-error *ngIf="yAxis2MinFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="yAxis2MinFormControl.hasError('pattern')">{{'GENERAL_INVALID_INPUT_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="configs__yAxis2__max" *ngIf="!legacyMode && !allowAutoMinMax">
+          <p class="configs__yAxis2__maxLabel">{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS2_MAX' | translate }}</p>
+          <mat-form-field class="configs__yAxis2__maxField" appearance="legacy">
+            <input matInput type="text" [(ngModel)]="yaxis2.max" [formControl]="yAxis2MaxFormControl" placeholder="{{ 'CHART_Y_AXIS_CONFIG.Y_AXIS2_MAX_PLACEHOLDER' | translate }}">
+            <mat-error *ngIf="yAxis2MaxFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+            <mat-error *ngIf="yAxis2MaxFormControl.hasError('pattern')">{{'GENERAL_INVALID_INPUT_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="configs__modify" *ngIf="!isEmptyList(selectedOlsdatas)">
+      <legend (click)="chartModifyHidden = !chartModifyHidden">
+        <span [innerText]="chartModifyHidden?'[+] ':'[-] '" class="configs__legendSpan"></span>
+        {{ 'MODIFY_SELECTED.TITLE' | translate }}
+      </legend>
+      <div class="configs__modify__container" *ngIf="selectedOlsdata && !isEmptyList(selectedOlsdatas)" [hidden]="chartModifyHidden">
+        <div class="configs__modify__color">
+          <p class="configs__modify__colorLabel">{{ 'MODIFY_SELECTED.COLOR' | translate }}</p>
+          <mat-form-field *ngIf="allowShowColorPicker" class="configs__modify__colorField" appearance="legacy">
+            <input matInput [(colorPicker)]="selectedOlsdata.color" (colorPickerChange)="onColorPickerChange()" [style.background]="selectedOlsdata.color"
+              [cpOutputFormat]="'hex'" [cpPresetColors]="['#ff0000']" [cpPosition]="'bottom'" [cpFallbackColor]="['#ff0000']"
+              [cpAddColorButton]="true" [cpSaveClickOutside]="false" [cpOKButton]="true" />
+          </mat-form-field>
+        </div>
+        <div class="configs__modify__axis" *ngIf="!legacyMode">
+          <p class="configs__modify__axisLabel">{{ 'MODIFY_SELECTED.ATTACHED_AXIS' | translate }}</p>
+          <mat-form-field class="configs__modify__axisField">
+            <mat-select [(ngModel)]="selectedOlsdata.attachedAxis" appearance="legacy" [formControl]="attachedAxisFormControl">
+              <mat-option *ngFor="let axis of axes" [value]="axis">{{axis}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="attachedAxisFormControl.hasError('required')">{{'GENERAL_NULL_FIELD_ERR_MSG' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="configs__modify__info" *ngIf="selectedOlsdata && !isEmptyList(selectedOlsdatas)" [hidden]="chartModifyHidden">
+        <mat-form-field class="configs__modify__infoField" *ngFor="let column of selectedOlsdataColumn">
+          <input matInput type="text" disabled [placeholder]="column.translatedColumnName" [value]="column.translatedColumnValue">
+        </mat-form-field>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="buttons" *ngIf="!isEmptyList(selectedOlsdatas)">
+    <div class="buttons__back">
+      <button mat-raised-button color="primary" class="btn btn-primary config-buttons-back" (click)="clearSelection()">
+        {{'BUTTON.BACK' | translate}}
+      </button>
+    </div>
+    <div class="buttons__reset">
+      <button mat-raised-button color="warn" class="btn btn-primary config-buttons-reset" (click)="onReset()">
+        {{'BUTTON.RESET' | translate}}
+      </button>
+    </div>
+    <div class="buttons__displayChart">
+      <button mat-raised-button [matTooltip]="InvalidDisplayTrendErrMsg" matTooltipPosition="after" color="primary" class="btn btn-primary"
+        *ngIf="!createProfile" (click)="displayTrend()">
+        {{'BUTTON.DISPLAY_CHART' | translate}}
+      </button>
+    </div>
+  </div>
+</div>

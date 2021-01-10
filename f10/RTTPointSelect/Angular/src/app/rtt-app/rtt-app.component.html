@@ -1,0 +1,48 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+<div class="page">
+  <div class="table" [hidden]="!devMode">
+    <div style="text-align:center">
+      <h2>
+        OLS Viewer: nb entries {{entries}}
+      </h2>
+    </div>
+    <div>
+      Server:
+      <input (keyup)="onServerKey($event)" value='HisServer'> ListName:
+      <input (keyup)="onListKey($event)" value='TECSTemperature'>
+      <button (click)="onSubscribeTopic()">Subscribe</button>
+      <button (click)="onUnSubscribeTopic()">UnSubscribe</button>
+      <button (click)="onExport()">Export</button>
+
+    </div>
+    <div>
+      <ag-grid-angular style="width: 95%; height: 200px;" class="ag-theme-fresh" [rowData]="rowData" [gridOptions]="_gridOptions"
+        [columnDefs]="columnDefs" [getRowNodeId]="getRowNodeId" enableColResize="true" enableSorting="true" animateRows="false"
+        enableCellChangeFlash="true" enableFilter="true" rowDeselection="true" rowSelection="single">
+      </ag-grid-angular>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button mat-raised-button color="primary" class="buttons__pause btn btn-primary" (click)="onFreeze()" [disabled]="isFrozen==true">{{'BUTTON.PAUSE' | translate}}</button>
+    <button mat-raised-button color="primary" class="buttons__resume btn btn-primary" (click)="onUnfreeze()" [disabled]="isFrozen==false">{{'BUTTON.RESUME' | translate}}</button>
+    <button mat-raised-button color="primary" class="buttons__modify btn btn-primary" (click)="openDialog()">{{'BUTTON.MODIFY' | translate}}</button>
+    <button mat-raised-button color="primary" class="buttons__reselect btn btn-primary" (click)="onReselect()">{{'BUTTON.RESELECT' | translate}}</button>
+  </div>
+
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal__content">
+      <p class="modal__text">{{'GENERAL_RELOADING_CHART_MSG' | translate}}</p>
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+
+  <div id="chart"></div>
+
+  <div class="highstock">
+    <div #chartTarget></div>
+  </div>
+</div>

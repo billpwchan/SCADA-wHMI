@@ -1,0 +1,24 @@
+/* common */
+@import "./app/app.component.css";
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "./app/rtt/rtt.component.css";
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/* @import '~material-design-icons/iconfont/material-icons.css'; */
+
+@import "~ag-grid/dist/styles/ag-grid.css";
+@import "~ag-grid/dist/styles/ag-theme-balham.css";
+@import "~ag-grid/dist/styles/ag-theme-material.css";
+@import "~ag-grid/dist/styles/ag-theme-blue.css";
+@import "~ag-grid/dist/styles/ag-theme-balham-dark.css";
+@import "~ag-grid/dist/styles/ag-theme-fresh.css";
+@import "~ag-grid/dist/styles/ag-theme-bootstrap.css";
+
+/* To zoom the entire webpage based on a percentage scale.  */
+body {
+    transform: scale(0.5);
+    transform-origin: 0 0;
+  }
+
+
+
